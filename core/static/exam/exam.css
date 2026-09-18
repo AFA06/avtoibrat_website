@@ -28,6 +28,9 @@ body {
   background: var(--exam-bg);
   color: var(--exam-text);
   font-family: "Segoe UI", Arial, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .exam-header {
@@ -117,6 +120,8 @@ body {
 }
 
 .exam-main {
+  width: 100%;
+  box-sizing: border-box;
   display: flex;
   gap: 20px;
   padding: 20px;
@@ -215,8 +220,10 @@ body {
   align-items: center;
   gap: 16px;
   padding: 18px 28px 28px;
+  width: 100%;
   max-width: 1400px;
-  margin: 0 auto;
+  margin: auto auto 0;
+  box-sizing: border-box;
 }
 
 .exam-navarrow {
@@ -225,8 +232,8 @@ body {
   border: 1px solid var(--exam-border);
   color: var(--exam-text);
   border-radius: 8px;
-  width: 44px;
-  height: 44px;
+  width: 52px;
+  height: 52px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -241,18 +248,19 @@ body {
   flex: 1 1 auto;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 8px;
 }
 
 .exam-navcell {
-  width: 44px;
-  height: 44px;
+  width: 52px;
+  height: 52px;
   border-radius: 8px;
   border: 1px solid var(--exam-border);
   background: var(--exam-panel);
   color: var(--exam-text-dim);
   font-weight: 600;
-  font-size: 14px;
+  font-size: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
