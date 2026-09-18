@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from html.tonatheme.com/2021/drivega/ by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 04 Oct 2025 21:37:13 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <title>AvtoIbrat - Haydovchilik va yo‘l harakati bo‘yicha bilimlar maktabi!</title>
+    <!-- Stylesheets -->
+    <link href="{% static 'assets/css/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+    <!-- Responsive File -->
+    <link href="{% static 'assets/css/responsive.css' %}" rel="stylesheet">
+    <!-- Color File -->
+    <link href="{% static 'assets/css/color.css' %}" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+    <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}" type="image/x-icon">
+    <link rel="icon" href="{% static 'assets/images/favicon.png" type="image/x-icon">
+
+    <!-- Responsive -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
+    <!--[if lt IE 9]><script src="{% static 'js/respond.js' %}"></script><![endif]-->
+</head>
+
+<body>
+
+<div class="page-wrapper">
+    <!-- Preloader -->
+    <div class="loader-wrap">
+        <div class="preloader"><div class="preloader-close"></div></div>
+        <div class="layer layer-one"><span class="overlay"></span></div>
+        <div class="layer layer-two"><span class="overlay"></span></div>        
+        <div class="layer layer-three"><span class="overlay"></span></div>        
+    </div>
+
+    <!-- Main Header -->
+    <header class="main-header header-style-one">
+
+        <!-- Header Top -->
+        <div class="header-top">
+            <div class="auto-container">
+                <div class="inner-container">
+                    <div class="left-column">
+                        <ul class="contact-info">
+                            <li><a href="https://yandex.uz/maps/-/CLFZyEiw" target="_blank"><i class="fa fa-location-dot" style="color: #24a88e;"></i>G'alabaning 40 yilligi massivi</a></li>
+                            <li><i class="fa-solid fa-clock" style="color: #24a88e;"></i>DUSH - SHAN : 9:00 dan 7:00 gacha</li>
+                            <li><a href="tel:928886660000"><i class="fa-solid fa-phone-volume" style="color: #24a88e;"></i>Tezkor bog'lanish</a></li>
+                        </ul>
+                    </div>
+                    <div class="right-column">
+                        <ul class="social-icon">
+                            <li><a href="#"><i class="fab fa-telegram-plane"></i></a></li>
+                            <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                            <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Header Upper -->
+        <div class="header-upper">
+            <div class="auto-container">
+                <div class="inner-container">
+                    <!--Logo-->
+                    <div class="logo-box">
+                        <div class="logo"><a href="{% url 'home' %}"><img src="{% static 'assets/images/logo.png' %}" alt=""></a></div>
+                    </div>
+                    <div class="right-column">
+                        <!--Nav Box-->
+                        <div class="nav-outer">
+                            <!--Mobile Navigation Toggler-->
+                            <div class="mobile-nav-toggler"><img src="{% static 'assets/images/icons/icon-bar.png' %}" alt=""></div>
+
+                            <!-- Main Menu -->
+                            <nav class="main-menu navbar-expand-md navbar-light">
+                                <div class="collapse navbar-collapse show clearfix" id="navbarSupportedContent">
+                                    <ul class="navigation">
+                                        <li class="dropdown"><a href="{% url 'home' %}">Asosiy</a></li>
+                                        <li class="dropdown"><a href="{% url 'faq' %}">Savollar</a></li>
+                                        <li class="dropdown"><a href="{% url 'team' %}">Jamoamiz</a></li>
+                                        <li><a href="{% url 'contact' %}">Bog'lanish</a></li>
+                                    </ul>
+                                </div>
+                            </nav>
+                        </div>
+                        <div class="navbar-right">
+                            <div class="navbar-right">
+                                <a href="/login" class="theme-btn login-btn">Akauntga kirish</a>
+                            </div>
+                        </div>
+                    </div>                        
+                </div>
+            </div>
+        </div>
+        <!--End Header Upper-->
+
+        <!-- Sticky Header  -->
+        <div class="sticky-header">
+            <div class="header-upper">
+                <div class="auto-container">
+                    <div class="inner-container">
+                        <!--Logo-->
+                        <div class="logo-box">
+                            <div class="logo"><a href="{% url 'home' %}"><img src="{% static 'assets/images/logo.png' %}" alt=""></a></div>
+                        </div>
+                        <div class="right-column">
+                            <!--Nav Box-->
+                            <div class="nav-outer">
+                                <!--Mobile Navigation Toggler-->
+                                <div class="mobile-nav-toggler"><img src="{% static 'assets/images/icons/icon-bar.png' %}" alt=""></div>
+    
+                                <!-- Main Menu -->
+                                <nav class="main-menu navbar-expand-md navbar-light">
+                                </nav>
+                            </div>
+                            <div class="navbar-right">
+                            <div class="navbar-right">
+                                <a href="/login" class="theme-btn login-btn">Akauntga kirish</a>
+                            </div>
+                        </div>
+                        </div>                       
+                    </div>
+                </div>
+            </div>
+        </div><!-- End Sticky Menu -->
+
+        <!-- Mobile Menu  -->
+        <div class="mobile-menu">
+            <div class="menu-backdrop"></div>
+            <div class="close-btn"><span class="icon flaticon-remove"></span></div>
+            
+            <nav class="menu-box">
+                <div class="nav-logo"><a href="{% url 'home' %}"><img src="{% static 'assets/images/logo-2.png' %}" alt="" title=""></a></div>
+                <div class="menu-outer"><!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header--></div>
+				<!--Social Links-->
+				<div class="social-links">
+					<ul class="clearfix">
+						<li><a href="#"><span class="fab fa-twitter"></span></a></li>
+						<li><a href="#"><span class="fab fa-facebook-square"></span></a></li>
+						<li><a href="#"><span class="fab fa-pinterest-p"></span></a></li>
+						<li><a href="#"><span class="fab fa-instagram"></span></a></li>
+						<li><a href="#"><span class="fab fa-youtube"></span></a></li>
+					</ul>
+                </div>
+            </nav>
+        </div><!-- End Mobile Menu -->
+
+        <div class="nav-overlay">
+            <div class="cursor"></div>
+            <div class="cursor-follower"></div>
+        </div>
+    </header>
+    <!-- End Main Header -->
+
+    <!--Search Popup-->
+    <div id="search-popup" class="search-popup">
+        <div class="close-search theme-btn"><span class="flaticon-remove"></span></div>
+        <div class="popup-inner">
+            <div class="overlay-layer"></div>
+            <div class="search-form">
+                <form method="post" action="https://html.tonatheme.com/2021/drivega/{% url 'home' %}">
+                    <div class="form-group">
+                        <fieldset>
+                            <input type="search" class="form-control" name="search-input" value="" placeholder="Search Here" required >
+                            <input type="submit" value="Search Now!" class="theme-btn">
+                        </fieldset>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page Title -->
+    <section class="page-title" style="background-image: url({% static 'assets/images/background/bg-8.jpg' %});">
+        <div class="auto-container">
+            <div class="content-box">
+                <div class="content-wrapper">
+                    <div class="title">
+                        <h1>Bog'lanish</h1>
+                    </div>
+                    <ul class="bread-crumb">
+                        <li><a href="{% url 'home' %}">Asosiy</a></li>
+                        <li>Bog'lanish uchun</li>
+                    </ul>
+                </div>                    
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="auto-container">
+            <div class="top-content row m-0 justify-content-between align-items-center">
+                <div class="sec-title">
+                    <div class="sub-title">o'qituvchilar sizga muvaffaqiyat qozonishga yordam beradi </div>
+                    <h2>Haydovchilik maktabi <br> - Yangiliklar</h2>
+                </div>
+                <div class="text">Bizning o'quv kurslarimiz barcha<br>yoshdagi insonlarga bilim olishga yordam beradi
+                <br>litsenziyalangan tajriba.</div>
+            </div>
+            <div class="tab-area">
+                <!-- Tab panes -->
+                <div class="tab-content wow fadeInUp" data-wow-delay="200ms" data-wow-duration="1200ms">
+                    <div class="tab-pane fadeInUp animated" id="tab-one" role="tabpanel" aria-labelledby="tab-one">
+                        <div class="row">
+                            <div class="col-lg-4 contact-info-block">
+                                <div class="inner-box">
+                                    <div class="icon"><img src="{% static 'assets/images/icons/icon-22.png' %}" alt=""></div>
+                                    <h4>Joylashuv manzili</h4>
+                                    <div class="text">Toshkent shahar, Yashnobod</div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 contact-info-block">
+                                <div class="inner-box">
+                                    <div class="icon"><img src="{% static 'assets/images/icons/icon-23.png' %}" alt=""></div>
+                                    <h4>Telefon</h4>
+                                    <ul>
+                                        <li>Tel: <a href="tel:+1(246)3330791">+1 (246) 333 0791</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 contact-info-block">
+                                <div class="inner-box">
+                                    <div class="icon"><img src="{% static 'assets/images/icons/icon-24.png' %}" alt=""></div>
+                                    <h4>Send Message</h4>
+                                    <ul>
+                                        <li><a href="mailto:learning@drivega.net">learning@drivega.net</a></li>
+                                        <li><a href="mailto:support@thedomain.com">support@thedomain.com</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fadeInUp animated active" id="tab-two" role="tabpanel" aria-labelledby="tab-two">
+                        <div class="row">
+                            <div class="col-lg-4 contact-info-block">
+                                <div class="inner-box">
+                                    <div class="icon"><img src="{% static 'assets/images/icons/icon-22.png' %}" alt=""></div>
+                                    <h4>Manzilimiz</h4>
+                                    <div class="text">Toshkent shahar, Yashnobod</div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 contact-info-block">
+                                <div class="inner-box">
+                                    <div class="icon"><img src="{% static 'assets/images/icons/icon-23.png' %}" alt=""></div>
+                                    <h4>Bog'lanish</h4>
+                                    <ul>
+                                        <li>Tel: <a href="tel:+998-94-627-41-11">+998(94)627-41-11</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 contact-info-block">
+                                <div class="inner-box">
+                                    <div class="icon"><img src="{% static 'assets/images/icons/icon-24.png' %}" alt=""></div>
+                                    <h4>Habar yuborish</h4>
+                                    <ul>
+                                        <li><a href="tel:+998-94-627-41-11">tel:+998-94-627-41-11</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fadeInUp animated" id="tab-three" role="tabpanel" aria-labelledby="tab-three">
+                        <div class="row">
+                            <div class="col-lg-4 contact-info-block">
+                                <div class="inner-box">
+                                    <div class="icon"><img src="{% static 'assets/images/icons/icon-22.png' %}" alt=""></div>
+                                    <h4>Manzilimiz</h4>
+                                    <div class="text">Toshkent shahar, Yashnobod</div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 contact-info-block">
+                                <div class="inner-box">
+                                    <div class="icon"><img src="{% static 'assets/images/icons/icon-23.png' %}" alt=""></div>
+                                    <h4>Bog'lanish</h4>
+                                    <ul>
+                                        <li>Tel: <a href="tel:+998-94-627-41-11">+998(94)627-41-11</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 contact-info-block">
+                                <div class="inner-box">
+                                    <div class="icon"><img src="{% static 'assets/images/icons/icon-24.png' %}" alt=""></div>
+                                    <h4>Habar yuborish</h4>
+                                    <ul>
+                                        <li><a href="tel:+998-94-627-41-11">tel:+998-94-627-41-11</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Contact form section -->
+    <section class="contact-form-section">
+        <div class="auto-container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="image"><img src="{% static 'assets/images/resource/image-23.jpg' %}" alt=""></div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="sec-title mb-30">
+                        <div class="sub-title">haydashning son-sanoqsiz afzalliklari</div>
+                        <h2>Savollaringiz bormi? To'ldiring!</h2>
+                    </div>
+
+                    <div class="contact-form">
+                        <form method="post" action="{% url 'contact' %}" id="contact-form">
+                            {% csrf_token %}
+                            <div class="row">
+
+                                <div class="form-group col-md-12">
+                                    <input type="text" name="form_name" placeholder="Ismingiz" required>
+                                </div>
+
+                                <div class="form-group col-md-12">
+                                    <input type="text" name="phone" placeholder="Telefon raqam" required>
+                                </div>
+
+                                <div class="form-group col-md-12">
+                                    <input type="text" name="form_subject" placeholder="Mavzu" required>
+                                </div>
+
+                                <div class="form-group col-md-12">
+                                    <textarea name="form_message" placeholder="Qisqa izoh..."></textarea>
+                                </div>
+
+                                <div class="form-group col-md-12">
+                                    <button class="theme-btn btn-style-one" type="submit">
+                                        <span>Habarni yuborish</span>
+                                    </button>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="main-footer" style="background-image: url({% static 'assets/images/background/bg-1.jpg' %});">
+        <div class="auto-container">
+            <!--Widgets Section-->
+            <div class="widgets-section">
+                <div class="row clearfix">
+
+                    <!--Column-->
+                    <div class="column col-lg-3 col-md-6">
+                        <div class="widget about-widget">
+                            <div class="logo"><a href="{% url 'home' %}"><img src="{% static 'assets/images/logo-white.png' %}" alt=""></a></div>
+                            <div class="text">Haydovchilik va yo‘l harakati bo‘yicha bilimlar maktabi!</div>
+                            <ul class="social-links">
+                                <li><a href="#"><i class="fab fa-telegram-plane"></i></a></li>
+                                <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                                <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!--Column-->
+                    <div class="column col-lg-3 col-md-6">
+                        <div class="widget newsletter-widget">
+                            <h3 class="widget-title">Bizni kuzatib boring</h3>
+                            <div class="widget-content">
+                                <div class="text">Eng so‘nggi yangiliklar va takliflardan xabardor bo‘ling.</div>
+                                    <div class="newsletter-form">
+                                        <form class="ajax-sub-form" method="post">
+                                            <div class="form-group">
+                                                <input type="tel" placeholder="Telefon raqamingiz..." id="subscription-phone" pattern="[0-9+ ]{9,15}" required>
+                                                <button type="submit" class="theme-btn">
+                                                    <i class="flaticon-long-right-arrow"></i><span></span>
+                                                </button>
+                                                <label class="subscription-label" for="subscription-phone"></label>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Column-->
+                    <div class="column col-lg-3 col-md-6">
+                        <div class="widget links-widget">
+                            <h3 class="widget-title">Bizning kurslarimiz</h3>
+                            <div class="widget-content">
+                                <ul>
+                                    <li><a href="#.">To'g'ri haydashni o‘rganing</a></li>
+                                    <li><a href="#.">Kattalar uchun kurslar</a></li>
+                                    <li><a href="#.">O‘smirlar uchun darslar</a></li>
+                                    <li><a href="#.">Trassada haydash kursi</a></li>
+                                    <li><a href="#.">Xalqaro haydovchilar uchun</a></li>
+                                    <li><a href="#.">Avtomat uzatmadagi mashina darslari</a></li>
+                                </ul>                                        
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!--Column-->
+                    <div class="column col-lg-3 col-md-6">
+                        <div class="widget contact-widget">
+                            <h3 class="widget-title">Bog'lanish uchun</h3>
+                            <div class="widget-content">
+                                <ul class="contact-info">
+                                    <li>
+                                        <div class="icon"><span class="fas fa-flag"></span></div>
+                                        <div class="text">G'alabaning 40 yilligi massivi</div>
+                                    </li>
+                                    <li>
+                                        <div class="icon"><span class="fas fa-phone-volume"></span></div>
+                                        <div class="text">
+                                            Savollar uchun 24/7 <br>
+                                            <a href="tel:+998-94-627-41-11">+998-94-627-41-11</a>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="icon"><span class="fas fa-clock"></span></div>
+                                        <div class="text">
+                                           DUSH - SHAN : 9:00 dan 7:00 gacha
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+            <div class="auto-container">
+                <div class="wrapper-box">
+                    <div class="copyright">
+                        <div class="text">2025 AVTOIBRAT - Haydovchilik maktabi. Barcha huquqlar himoyalangan.</div>
+                    </div>
+                    <div class="footer-menu">
+                        <ul>
+                            <li><a target="_blank" href="https://t.me/sardoregamberdiyevuz/">Ishlab chiqgan</a></li>
+                            <li><a href="#.">Foydalanish shartlari</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+	
+</div>
+<!--End pagewrapper-->
+
+<!--Scroll to top-->
+<div class="scroll-to-top scroll-to-target" data-target="html"><span class="flaticon-right-arrow-4"></span></div>
+
+<script src="{% static 'assets/js/jquery.js' %}"></script>
+<script src="{% static 'assets/js/popper.min.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap-select.min.js' %}"></script>
+<script src="{% static 'assets/js/jquery.fancybox.js' %}"></script>
+<script src="{% static 'assets/js/isotope.js' %}"></script>
+<script src="{% static 'assets/js/owl.js' %}"></script>
+<script src="{% static 'assets/js/appear.js' %}"></script>
+<script src="{% static 'assets/js/wow.js' %}"></script>
+<script src="{% static 'assets/js/lazyload.js' %}"></script>
+<script src="{% static 'assets/js/scrollbar.js' %}"></script>
+<script src="{% static 'assets/js/TweenMax.min.js' %}"></script>
+<script src="{% static 'assets/js/swiper.min.js' %}"></script>
+<script src="{% static 'assets/js/jquery.polyglot.language.switcher.js' %}"></script>
+<script src="{% static 'assets/js/jquery.ajaxchimp.min.js' %}"></script>
+<script src="{% static 'assets/js/parallax-scroll.js' %}"></script>
+
+<script src="{% static 'assets/js/script.js' %}"></script>
+
+
+</body>
+
+<!-- Mirrored from html.tonatheme.com/2021/drivegaby HTTrack Website Copier/3.x [XR&CO'2014], Sat, 04 Oct 2025 21:37:17 GMT -->
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+

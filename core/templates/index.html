@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from html.tonatheme.com/2021/drivega/by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 04 Oct 2025 21:34:04 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <title>AvtoIbrat - Haydovchilik va yo‘l harakati bo‘yicha bilimlar maktabi!</title>
+    <!-- Stylesheets -->
+    <link href="{% static 'assets/css/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+    <!-- Responsive File -->
+    <link href="{% static 'assets/css/responsive.css' %}" rel="stylesheet">
+    <!-- Color File -->
+    <link href="{% static 'assets/css/color.css' %}" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+
+    <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}" type="image/x-icon">
+    <link rel="icon" href="{% static 'assets/images/favicon.png' %}" type="image/x-icon">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Responsive -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
+    <!--[if lt IE 9]><script src="{% static 'js/respond.js' %}"></script><![endif]-->
+</head>
+<body>
+
+<div class="page-wrapper">
+    <!-- Preloader -->
+    <div class="loader-wrap">
+        <div class="preloader"><div class="preloader-close"></div></div>
+        <div class="layer layer-one"><span class="overlay"></span></div>
+        <div class="layer layer-two"><span class="overlay"></span></div>        
+        <div class="layer layer-three"><span class="overlay"></span></div>        
+    </div>
+
+    <!-- Main Header -->
+    <header class="main-header header-style-one">
+
+        <!-- Header Top -->
+        <div class="header-top">
+            <div class="auto-container">
+                <div class="inner-container">
+                    <div class="left-column">
+                        <ul class="contact-info">
+                            <li><a href="https://yandex.uz/maps/-/CLFZyEiw" target="_blank"><i class="fa fa-location-dot" style="color: #24a88e;"></i>G'alabaning 40 yilligi massivi</a></li>
+                            <li><i class="fa-solid fa-clock" style="color: #24a88e;"></i>DUSH - SHAN : 9:00 dan 7:00 gacha</li>
+                            <li><a href="tel:928886660000"><i class="fa-solid fa-phone-volume" style="color: #24a88e;"></i>Tezkor bog'lanish</a></li>
+                        </ul>
+                    </div>
+                    <div class="right-column">
+                        <ul class="social-icon">
+                            <li><a href="#"><i class="fab fa-telegram-plane"></i></a></li>
+                            <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                            <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Header Upper -->
+        <div class="header-upper">
+            <div class="auto-container">
+                <div class="inner-container">
+                    <!--Logo-->
+                    <div class="logo-box">
+                        <div class="logo"><a href="{% url 'home' %}"><img src="{% static 'assets/images/logo.png' %}" alt=""></a></div>
+                    </div>
+                    <div class="right-column">
+                        <!--Nav Box-->
+                        <div class="nav-outer">
+                            <!--Mobile Navigation Toggler-->
+                            <div class="mobile-nav-toggler"><img src="{% static 'assets/images/icons/icon-bar.png' %}" alt=""></div>
+
+                            <!-- Main Menu -->
+                            <nav class="main-menu navbar-expand-md navbar-light">
+                                <div class="collapse navbar-collapse show clearfix" id="navbarSupportedContent">
+                                    <ul class="navigation">
+                                        <li class="dropdown"><a href="{% url 'home' %}">Asosiy</a></li>
+                                        <li class="dropdown"><a href="{% url 'faq' %}">Savollar</a></li>
+                                        <li class="dropdown"><a href="{% url 'team' %}">Jamoamiz</a></li>
+                                        <li><a href="{% url 'contact' %}">Bog'lanish</a></li>
+                                    </ul>
+                                </div>
+                            </nav>
+                        </div>
+                        <div class="navbar-right">
+                            <div class="navbar-right">
+                                <a href="/login" class="theme-btn login-btn">Akauntga kirish</a>
+                            </div>
+                        </div>
+                    </div>                        
+                </div>
+            </div>
+        </div>
+        <!--End Header Upper-->
+
+        <!-- Sticky Header  -->
+        <div class="sticky-header">
+            <div class="header-upper">
+                <div class="auto-container">
+                    <div class="inner-container">
+                        <!--Logo-->
+                        <div class="logo-box">
+                            <div class="logo"><a href="{% url 'home' %}"><img src="{% static 'assets/images/logo.png' %}" alt=""></a></div>
+                        </div>
+                        <div class="right-column">
+                            <!--Nav Box-->
+                            <div class="nav-outer">
+                                <!--Mobile Navigation Toggler-->
+                                <div class="mobile-nav-toggler"><img src="{% static 'assets/images/icons/icon-bar.png' %}" alt=""></div>
+    
+                                <!-- Main Menu -->
+                                <nav class="main-menu navbar-expand-md navbar-light">
+                                </nav>
+                            </div>
+                            <div class="navbar-right">
+                                <div class="navbar-right">
+                                    <a href="/login" class="theme-btn login-btn">Akauntga kirish</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- End Sticky Menu -->
+
+        <!-- Mobile Menu  -->
+        <div class="mobile-menu">
+            <div class="menu-backdrop"></div>
+            <div class="close-btn"><span class="icon flaticon-remove"></span></div>
+            
+            <nav class="menu-box">
+                <div class="nav-logo"><a href="{% url 'home' %}"><img src="{% static 'assets/images/logo-2.png' %}" alt="" title=""></a></div>
+                <div class="menu-outer"><!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header--></div>
+				<!--Social Links-->
+            </nav>
+        </div><!-- End Mobile Menu -->
+
+        <div class="nav-overlay">
+            <div class="cursor"></div>
+            <div class="cursor-follower"></div>
+        </div>
+    </header>
+    <!-- End Main Header -->
+
+    <!-- Bnner Section -->
+    <section class="banner-section">
+        <div class="swiper-container banner-slider">
+            <div class="swiper-wrapper">
+                <!-- Slide Item -->
+                <div class="swiper-slide" style="background-image: url({% static 'assets/images/main-slider/image-1.jpg' %});">
+                    <div class="content-outer">
+                        <div class="content-box justify-content-center">
+                            <div class="inner text-center">
+                                <h1>Sizni tajribali haydovchiga<br> aylantirishga yordam beramiz</h1>
+                                <div class="text">Biz bilan professional haydovchiga aylaning <br>
+                                    tajriba orttiring va ishonch bilan haydang.
+                                    </div>
+                                <div class="link-box">
+                                    <a href="{% url 'login' %}" class="theme-btn btn-style-one"><span>Akauntga kirish</span></a>
+                                    <a href="{% url 'home' %}" class="theme-btn btn-style-one style-two"><span>Ro'yhatdan o'tish</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Slide Item -->
+                <div class="swiper-slide" style="background-image: url({% static 'assets/images/main-slider/image-2.jpg' %});">
+                    <div class="content-outer">
+                        <div class="content-box">
+                            <div class="inner">
+                                <h1>Ko‘nikmalarga moslashtirilgan <br> individual haydash dasturlari</h1>
+                                <div class="text">Har bir o‘quvchi uchun shaxsiy o‘quv dasturi <br>
+                                    har bir haydovchi uchun individual yondashuv.
+                                    </div>
+                                <div class="link-box">
+                                    <a href="{% url 'home' %}" class="theme-btn btn-style-one"><span>Akauntga kirish</span></a>
+                                    <a href="{% url 'home' %}" class="theme-btn btn-style-one style-two"><span>Ro'yhatdan o'tish</span></a>
+                                </div>
+                            </div>                             
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="banner-slider-nav">
+            <div class="banner-slider-control banner-slider-button-prev"><span><i class="flaticon-left-arrow"></i></span></div>
+            <div class="banner-slider-control banner-slider-button-next"><span><i class="flaticon-left-arrow"></i></span> </div>
+        </div>
+    </section>
+    <!-- End Bnner Section -->
+
+    <!-- Services section -->
+    <section class="services-section">
+        <div class="auto-container">
+            <div class="row no-gutters">
+                <div class="service-block-one col-lg-3 col-md-6">
+                    <div class="inner-box">
+                        <div class="icon">
+                            <img src="{% static 'assets/images/icons/icon-3.png' %}" alt="">
+                            <div class="hover-icon"><img src="{% static 'assets/images/icons/icon-3.png' %}" alt=""></div>
+                        </div>
+                        <div class="lower-content">
+                            <h4>Xavfsiz haydash <br> asoslarini o‘rganing</h4>
+                            <div class="text">Xavfsiz haydashni o‘rganing, ishonch bilan yo‘lga chiqing.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="service-block-one col-lg-3 col-md-6">
+                    <div class="inner-box active">
+                        <div class="icon">
+                            <img src="{% static 'assets/images/icons/icon-4.png' %}" alt="">
+                            <div class="hover-icon"><img src="{% static 'assets/images/icons/icon-4.png' %}" alt=""></div>
+                        </div>
+                        <div class="lower-content">
+                            <h4>Zamonaviy platforma <br> qulay o'quv xonalari</h4>
+                            <div class="text">Zamonaviy texnologiyalar orqali istalgan joydan o‘qing.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="service-block-one col-lg-3 col-md-6">
+                    <div class="inner-box">
+                        <div class="icon">
+                            <img src="{% static 'assets/images/icons/icon-5.png' %}" alt="">
+                            <div class="hover-icon"><img src="{% static 'assets/images/icons/icon-5.png' %}" alt=""></div>
+                        </div>
+                        <div class="lower-content">
+                            <h4>Platformadan <br> foydalanish</h4>
+                            <div class="text">O‘rganish uchun zarur barcha materiallar bepul taqdim etiladi.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="service-block-one col-lg-3 col-md-6">
+                    <div class="inner-box">
+                        <div class="icon">
+                            <img src="{% static 'assets/images/icons/icon-6.png' %}" alt="">
+                            <div class="hover-icon"><img src="{% static 'assets/images/icons/icon-6.png' %}" alt=""></div>
+                        </div>
+                        <div class="lower-content">
+                            <h4>Litsenziyalangan<br> kafolat</h4>
+                            <div class="text">Ishonchli xizmat — barcha hujjatlar rasmiy.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Driving Courses section -->
+    <section class="driving-courses-section">
+        <div class="sec-bg" style="background-image: url({% static 'assets/images/background/bg-2.jpg' %});"></div>
+        <div class="auto-container">
+            <div class="top-content row m-0 justify-content-between align-items-center">
+                <div class="sec-title light">
+                    <div class="sub-title">O‘qituvchilar sizga muvaffaqiyatga erishishda yordam beradi </div>
+                    <h2>Bizning mutahasislarimiz</h2>
+                </div>
+            </div>
+            <!--Project Tabs-->
+            <div class="project-tab">
+                    
+                <div class="outer-box">
+                    <!--Tabs Content-->  
+                    <div class="p-tabs-content">
+                        
+                        <!--Project Tab-->
+                        <div class="p-tab active-tab" id="p-tab-2">
+                            <div class="row row-10">
+                                <div class="theme_carousel owl-theme owl-carousel" data-options='{"loop": true, "margin": 0, "autoheight":true, "lazyload":true, "nav": true, "dots": true, "autoplay": true, "autoplayTimeout": 6000, "smartSpeed": 1000, "responsive":{ "0" :{ "items": "1" }, "600" :{ "items" : "1" }, "768" :{ "items" : "2" } , "992":{ "items" : "3" }, "1200":{ "items" : "3" }}}'>
+
+                                    {% for member in team_members %}
+                                    {% if forloop.counter <= 6 %}
+                                        <div class="col-lg-12 course-block">
+                                            <div class="inner-box">
+                                                <div class="image">
+                                                    <img src="{{ member.image.url }}" alt="{{ member.full_name }}">
+                                                </div>
+
+                                                <div class="lower-content">
+                                                    <h4>{{ member.full_name }}</h4>
+                                                    <div class="text">{{ member.position }}</div>
+
+                                                    <div class="link-btn">
+                                                        {% if member.telegram %}
+                                                        <a href="{{ member.telegram }}" target="_blank" style="font-size:30px;">
+                                                            <i class="fab fa-telegram-plane"></i>
+                                                        </a>
+                                                        {% endif %}
+
+                                                        {% if member.instagram %}
+                                                        <a href="{{ member.instagram }}" target="_blank" style="font-size:30px;">
+                                                            <i class="fab fa-instagram"></i>
+                                                        </a>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                    {% endfor %}
+
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>                    
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <div class="theme_carousel owl-theme owl-carousel"
+         data-options='{
+            "loop": true,
+            "margin": 10,
+            "nav": true,
+            "dots": false,
+            "autoplay": true,
+            "smartSpeed": 800,
+            "responsive":{
+                "0":{"items":2},
+                "600":{"items":3},
+                "992":{"items":4}
+            }
+         }'>
+
+        {% for story in stories %}
+        <div class="story-item" data-video="{{ story.video.url }}">
+            <div class="story-box">
+                <video class="story-video" muted playsinline preload="metadata">
+                    <source src="{{ story.video.url }}" type="video/mp4">
+                </video>
+                <div class="play-btn"><i class="fas fa-play"></i></div>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+
+    <!-- VIDEO MODAL -->
+    <div id="videoModal" class="video-modal">
+        <video id="modalVideo" controls playsinline></video>
+    </div>
+
+    
+    <!-- Driving info section -->
+    <section class="driving-info-section">
+        <div class="traffic-cone" data-parallax='{"y": 30}'><img src="{% static 'assets/images/resource/image-8.jpg' %}" alt=""></div>
+        <div class="auto-container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="image-block">
+                        <div class="image" data-parallax='{"x": 50}'><img src="{% static 'assets/images/resource/image-7.jpg' %}" alt=""></div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="content-block">
+                        <div class="sec-title mb-20">
+                            <div class="sub-title">Haydashning ko'plab afzalliklari</div>
+                            <h2>Xavfsiz haydash kundalik <br> hayotda qulaylik manbai</h2>
+                        </div>
+                        <div class="text mb-30">Haydash sizga erkinlik, qulaylik va ishonch bag‘ishlaydi. Harakatda mustaqil bo‘lishni, xavfsiz va mas’uliyatli haydovchi bo‘lishni o‘rganing.</div>
+                        <div class="icon-box">
+                            <div class="icon"><img src="{% static 'assets/images/icons/icon-7.png' %}" alt=""></div>
+                            <div class="content">
+                                <h4>Tajribali o‘qituvchilardan o‘rganing</h4>
+                                <div class="text">Ustozlarimiz yillik tajribaga ega, ular sizga xavfsiz va ishonchli haydash sirlarini o‘rgatadi.</div>
+                            </div>
+                        </div>
+                        <div class="icon-box">
+                            <div class="icon"><img src="{% static 'assets/images/icons/icon-8.png' %}" alt=""></div>
+                            <div class="content">
+                                <h4>Xavfsiz haydashning barcha jihatlarini qamrab olamiz</h4>
+                                <div class="text">Darslarimizda yo‘l qoidalari, amaliy mashg‘ulotlar va xavfsiz haydash bo‘yicha to‘liq bilimlar beriladi.</div>
+                            </div>
+                        </div>
+                        <div class="link-btn"><a href="{% url 'home' %}" class="theme-btn btn-style-one style-three"><span>Haydovchilik kursimizga qo'shiling</span></a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Funfacts Section -->
+    <section class="funfacts-section">
+        <div class="auto-container">
+
+            <div class="row">
+            {% for item in counters %}
+            <div class="column counter-column col-lg-4 col-md-6">
+                <div class="inner wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1500ms">
+
+                    <div class="icon-outer">
+                        {% if forloop.counter == 1 %}
+                            <div class="icon">
+                                <img src="{% static 'assets/images/icons/icon-9.png' %}" alt="">
+                            </div>
+                            <div class="hover-icon">
+                                <img src="{% static 'assets/images/icons/icon-9.png' %}" alt="">
+                            </div>
+
+                        {% elif forloop.counter == 2 %}
+                            <div class="icon">
+                                <img src="{% static 'assets/images/icons/icon-10.png' %}" alt="">
+                            </div>
+                            <div class="hover-icon">
+                                <img src="{% static 'assets/images/icons/icon-10.png' %}" alt="">
+                            </div>
+
+                        {% elif forloop.counter == 3 %}
+                            <div class="icon">
+                                <img src="{% static 'assets/images/icons/icon-11.png' %}" alt="">
+                            </div>
+                            <div class="hover-icon">
+                                <img src="{% static 'assets/images/icons/icon-11.png' %}" alt="">
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="content">
+                        <div class="count-outer count-box">
+                            <span class="count-text"
+                                  data-speed="3000"
+                                  data-stop="{{ item.value }}">0</span>
+                            <span>{{ item.get_suffix }}</span>
+                        </div>
+
+                        <div class="text">
+                            {{ item.title|linebreaksbr }}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        </div>
+    </section>
+
+    <!-- Info form section -->
+    <section class="info-form-section" style="background-image: url({% static 'assets/images/background/bg-2.jpg' %});">
+        <div class="signal-image-one" data-parallax='{"x": -30}'><img src="{% static 'assets/images/resource/image-1.png' %}" alt=""></div>
+        <div class="signal-image-two" data-parallax='{"x": 30}'><img src="{% static 'assets/images/resource/image-2.png' %}" alt=""></div>
+        <div class="auto-container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="content-block">
+                        <div class="sec-title light mb-30">
+                            <div class="sub-title">Bugunoq darslarimizga yoziling</div>
+                            <h2>Hoziroq darslarga <br> yoziling va ilim oling</h2>
+                        </div>
+                        <div class="text mb-30">Bugun ro‘yxatdan o‘ting va haydashni o‘rganishni boshlang — qulay, tez va samarali tarzda. </div>
+                        <ul class="list">
+                            <li>Darslar va kurslar haftaning 7 kuni davomida</li>
+                            <li>Bandlik uchun maxsus dam olish kunlari dars</li>
+                            <li>Moslashuvchanlik, ishonchlilik va sabr bilan xizmat ko‘rsatish</li>
+                            <li>Yo‘l imtihoniga tayyorgarlik — 98% muvaffaqiyat darajasi bilan</li>
+                            <li>Haydovchilik maktabi tomonidan tasdiqlangan onlayn ro‘yxatdan o‘tish</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+
+                    <div class="consult-form">
+                        <h3>Darsga qatnashish uchun, shunchaki formani to'ldiring</h3>
+                        <div class="text">Bir necha soniyada ro‘yxatdan o‘ting va haydash darslarini oson tarzda bron qiling.</div>
+                        <form method="post" action="{% url 'home' %}">
+                            {% csrf_token %}
+                            <div class="row">
+
+                                <div class="form-group col-md-6">
+                                    <input name="first_name" placeholder="Ism" type="text" required>
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <input name="last_name" placeholder="Familya" type="text" required>
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <input name="phone" placeholder="Telefon raqam" type="text" required>
+                                </div>
+
+                                <div class="form-group col-md-12">
+                                    <textarea name="message" placeholder="Fikringiz haqida qisqa izoh"></textarea>
+                                </div>
+
+                                <div class="form-group col-md-12">
+                                    <button type="submit" class="theme-btn btn-style-one">
+                                        <span>Yuborish</span>
+                                    </button>
+                                </div>
+
+                            </div>
+                        </form>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Working Process section -->
+    <section class="working-process-section">
+        <div class="background-icon"><img src="{% static 'assets/images/icons/icon-12.png' %}" alt=""></div>
+        <div class="auto-container">
+            <div class="top-content">
+                <div class="sec-title text-center mb-30">
+                    <div class="sub-title">Biz bilan haydashni o‘rganish oson</div>
+                    <h2>Drive qanday ishlayd</h2>
+                </div>
+                <div class="text text-center">Drivega sizni sertifikatlangan instruktorlar va bosqichma-bosqich tuzilgan mashg‘ulotlar bilan bog‘laydi, <br> bu esa yo‘lda ishonch bilan haydashni o‘rganishingizga yordam beradi. </div>
+            </div>
+            <div class="wrapper-box">
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 process-block">
+                        <div class="inner-box">
+                            <div class="count">01</div>
+                            <div class="content">
+                                <div>
+                                    <h4>Sizga mos <br> kursni tanlang</h4>
+                                    <div class="text">Sizga qulay bo‘lgan paketni <br> tanlang va orzudagi haydovchilik <br> yo‘lingizni bugunoq boshlang!</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 process-block active">
+                        <div class="inner-box">
+                            <div class="count">02</div>
+                            <div class="content">
+                                <div>
+                                    <h4>O‘qishni tajribali <br> instruktorlarimiz bilan boshlang</h4>
+                                    <div class="text">Amaliy mashg‘ulotlar, qulay <br> dars jadvali va shaxsiy yondashuv <br> barchasi siz uchun!</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 process-block">
+                        <div class="inner-box">
+                            <div class="count">03</div>
+                            <div class="content">
+                                <div>
+                                    <h4>Yo‘l sinovidan o‘ting <br> va guvohnoma oling</h4>
+                                    <div class="text">Drivega sizni nafaqat haydashga, <br> balki imtihondan ishonch bilan <br> o‘tishga ham tayyorlaydi.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA section -->
+    <section class="cta-section" style="background-image: url({% static 'assets/images/background/bg-4.jpg' %});">
+        <div class="auto-container">
+            <h5>Bizning ustunligimiz haqida</h5>
+            <h2>Biz har bir o‘quvchiga eng yaxshi yo‘l-yo‘riq va ko‘rsatmalarni beramiz, shuning uchun <br> ham biz ishonchli va xavfsiz haydovchilarni tayyorlaymiz. </h2>
+            <div class="link-box">
+                <a href="#" class="theme-btn btn-style-one"><span>Ro‘yxatdan o‘ting</span></a>
+                <a href="#" class="theme-btn btn-style-one style-two"><span>Kursga yoziling</span></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials section -->
+    <section class="testimonials-section">
+        <div class="sec-bg" style="background-image: url({% static 'assets/images/background/bg-5.jpg' %});"></div>
+        <div class="auto-container">
+            <div class="top-content">
+                <div class="sec-title text-center mb-30">
+                    <div class="sub-title">Biz haqimizda mijozlar fikri</div>
+                    <h2>Mijozlar tavsiyalari, minnatdorchiliklari</h2>
+                </div>
+                <div class="text">Bizning o‘quvchilarimiz haqiqiy natijalarga erishishmoqda.<br> Har bir darsda tajriba, ishonch va motivatsiya uyg‘onadi — shuning uchun ham ular yo‘lda o‘zini erkin va xavfsiz his qilishadi.</div>
+            </div>
+            <div class="row">
+                <div class="theme_carousel owl-theme owl-carousel" data-options='{"loop": true, "center": false, "margin": 0, "autoheight":true, "lazyload":true, "nav": true, "dots": true, "autoplay": true, "autoplayTimeout": 6000, "smartSpeed": 1000, "responsive":{ "0" :{ "items": "1" }, "600" :{ "items" : "1" }, "768" :{ "items" : "1" } , "992":{ "items" : "1" }, "1200":{ "items" : "2" }}}'>
+
+                    {% for item in testimonials %}
+                        <div class="col-lg-12 testimonial-block">
+                            <div class="inner-box">
+                                <div class="author-info">
+                                    <div class="thumb">
+                                        <img src="{{ item.image.url }}" alt="{{ item.full_name }}">
+                                    </div>
+                                    <h4>{{ item.full_name }}</h4>
+                                    <div class="location">{{ item.location }}</div>
+                                </div>
+
+                                <div class="content">
+                                    <div class="rating-info">
+                                        <h5>{{ item.title }}</h5>
+                                        <div class="rating">
+                                            {% for i in "12345"|slice:":item.rating"|make_list %}
+                                                <span class="fas fa-star"></span>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+
+                                    <div class="text">
+                                        {{ item.text|linebreaksbr }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="main-footer" style="background-image: url({% static 'assets/images/background/bg-1.jpg' %});">
+        <div class="auto-container">
+            <!--Widgets Section-->
+            <div class="widgets-section">
+                <div class="row clearfix">
+                    
+                    <!--Column-->
+                    <div class="column col-lg-3 col-md-6">
+                        <div class="widget about-widget">
+                            <div class="logo"><a href="{% url 'home' %}"><img src="{% static 'assets/images/logo-white.png' %}" alt=""></a></div>
+                            <div class="text">Haydovchilik va yo‘l harakati bo‘yicha bilimlar maktabi!</div>
+                            <ul class="social-links">
+                                <li><a href="#"><i class="fab fa-telegram-plane"></i></a></li>
+                                <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                                <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!--Column-->
+                    <div class="column col-lg-3 col-md-6">
+                        <div class="widget newsletter-widget">
+                            <h3 class="widget-title">Bizni kuzatib boring</h3>
+                            <div class="widget-content">
+                                <div class="text">Eng so‘nggi yangiliklar va takliflardan xabardor bo‘ling.</div>
+                                    <div class="newsletter-form">
+                                        <form class="ajax-sub-form" method="post">
+                                            <div class="form-group">
+                                                <input type="tel" placeholder="Telefon raqamingiz..." id="subscription-phone" pattern="[0-9+ ]{9,15}" required>
+                                                <button type="submit" class="theme-btn">
+                                                    <i class="flaticon-long-right-arrow"></i><span></span>
+                                                </button>
+                                                <label class="subscription-label" for="subscription-phone"></label>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Column-->
+                    <div class="column col-lg-3 col-md-6">
+                        <div class="widget links-widget">
+                            <h3 class="widget-title">Bizning kurslarimiz</h3>
+                            <div class="widget-content">
+                                <ul>
+                                    <li><a href="#.">To'g'ri haydashni o‘rganing</a></li>
+                                    <li><a href="#.">Kattalar uchun kurslar</a></li>
+                                    <li><a href="#.">O‘smirlar uchun darslar</a></li>
+                                    <li><a href="#.">Trassada haydash kursi</a></li>
+                                    <li><a href="#.">Xalqaro haydovchilar uchun</a></li>
+                                    <li><a href="#.">Avtomat uzatmadagi mashina darslari</a></li>
+                                </ul>                                        
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!--Column-->
+                    <div class="column col-lg-3 col-md-6">
+                        <div class="widget contact-widget">
+                            <h3 class="widget-title">Bog'lanish uchun</h3>
+                            <div class="widget-content">
+                                <ul class="contact-info">
+                                    <li>
+                                        <div class="icon"><span class="fas fa-flag"></span></div>
+                                        <div class="text">G'alabaning 40 yilligi massivi</div>
+                                    </li>
+                                    <li>
+                                        <div class="icon"><span class="fas fa-phone-volume"></span></div>
+                                        <div class="text">
+                                            Savollar uchun 24/7 <br>
+                                            <a href="tel:+998-94-627-41-11">+998-94-627-41-11</a>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="icon"><span class="fas fa-clock"></span></div>
+                                        <div class="text">
+                                           DUSH - SHAN : 9:00 dan 7:00 gacha
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+            <div class="auto-container">
+                <div class="wrapper-box">
+                    <div class="copyright">
+                        <div class="text">2025 AVTOIBRAT - Haydovchilik maktabi. Barcha huquqlar himoyalangan.</div>
+                    </div>
+                    <div class="footer-menu">
+                        <ul>
+                            <li><a target="_blank" href="https://t.me/sardoregamberdiyevuz/">Ishlab chiqgan</a></li>
+                            <li><a href="#.">Foydalanish shartlari</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+	
+</div>
+<!--End pagewrapper-->
+
+<!--Scroll to top-->
+<div class="scroll-to-top scroll-to-target" data-target="html"><span class="flaticon-right-arrow-4"></span></div>
+
+<script src="{% static 'assets/js/jquery.js' %}"></script>
+<script src="{% static 'assets/js/popper.min.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap-select.min.js' %}"></script>
+<script src="{% static 'assets/js/jquery.fancybox.js' %}"></script>
+<script src="{% static 'assets/js/isotope.js' %}"></script>
+<script src="{% static 'assets/js/owl.js' %}"></script>
+<script src="{% static 'assets/js/appear.js' %}"></script>
+<script src="{% static 'assets/js/wow.js' %}"></script>
+<script src="{% static 'assets/js/lazyload.js' %}"></script>
+<script src="{% static 'assets/js/scrollbar.js' %}"></script>
+<script src="{% static 'assets/js/TweenMax.min.js' %}"></script>
+<script src="{% static 'assets/js/swiper.min.js' %}"></script>
+<script src="{% static 'assets/js/jquery.polyglot.language.switcher.js' %}"></script>
+<script src="{% static 'assets/js/jquery.ajaxchimp.min.js' %}"></script>
+<script src="{% static 'assets/js/parallax-scroll.js' %}"></script>
+
+<script src="{% static 'assets/js/script.js' %}"></script>
+
+
+</body>
+
+<!-- Mirrored from html.tonatheme.com/2021/drivega/ by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 04 Oct 2025 21:35:27 GMT -->
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+

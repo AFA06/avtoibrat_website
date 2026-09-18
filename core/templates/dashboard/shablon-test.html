@@ -1,0 +1,328 @@
+{% load i18n %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+    
+<!-- Mirrored from themes.getappui.com/collab/unikit/default/by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 18 Oct 2025 20:09:56 GMT -->
+<head>
+        <meta charset="utf-8" />
+        <title>{% trans "AvtoIbrat - O'quv platforma paneli!" %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+        <meta content="" name="author" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="{% static 'assets_dashboard/images/favicon.png' %}">
+
+         <!-- App css -->
+         <link href="{% static 'assets_dashboard/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+         <link href="{% static 'assets_dashboard/css/icons.min.css' %}" rel="stylesheet" type="text/css" />
+         <link href="{% static 'assets_dashboard/css/app.min.css' %}" rel="stylesheet" type="text/css" />
+
+    </head>
+
+    <body id="body" class="dark-sidebar">
+        <div class="left-sidebar">
+            <!-- LOGO -->
+            <div class="brand">
+                <a href="{% url 'home' %}" class="logo">
+                    <span>
+                        <img src="{% static 'assets_dashboard/images/logo-sm.png' %}" alt="logo-large" class="logo-lg logo-light">
+                        <img src="{% static 'assets_dashboard/images/logo-dark.png' %}" alt="logo-large" class="logo-lg logo-dark">
+                    </span>
+                </a>
+            </div>
+            <div class="sidebar-user-pro media border-end">
+                <div class="position-relative mx-auto">
+                    <img src="{% static 'assets_dashboard/images/users/user-4.jpg' %}" alt="user" class="rounded-circle thumb-md">
+                    <span class="online-icon position-absolute end-0"><i class="mdi mdi-record text-success"></i></span>
+                </div>
+                <div class="media-body ms-2 user-detail align-self-center">
+                   <h5 class="font-14 m-0 fw-bold">
+                        {{ user.first_name }} {{ user.last_name }}
+                    </h5>
+                    <p class="opacity-50 mb-0">
+                        {{ user.username }}
+                    </p>
+                </div>
+            </div>
+            <!-- Tab panes -->
+
+            <!--end logo-->
+            <div class="menu-content h-100" data-simplebar>
+                <div class="menu-body navbar-vertical">
+                    <div class="collapse navbar-collapse tab-content" id="sidebarCollapse">
+                        <!-- Navigation -->
+                        <ul class="navbar-nav tab-pane active" id="Main" role="tabpanel">
+                            <li class="menu-label mt-0 text-primary font-12 fw-semibold"><span>{% trans "Asosiy" %}</span><br><span class="font-10 text-secondary fw-normal">{% trans "Asosiy ma'lumotlar" %}</span></li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'dashboard' %}"><i class="ti ti-user menu-icon"></i><span>{% trans "Shahsiy kabinet" %}</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'shablon_test' %}"><i class="ti ti-book menu-icon"></i><span>{% trans "Shablon teste" %}</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'real_imtihon' %}"><i class="ti ti-award menu-icon"></i><span>{% trans "Real imtihon" %}</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'mavzulashtirilgan' %}"><i class="ti ti-inbox menu-icon"></i><span>{% trans "Mavzulashtirilgan testlar" %}</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'ohshash_savollar' %}"><i class="ti ti-refresh menu-icon"></i><span>{% trans "O'hshash savollar" %}</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'saqlangan' %}"><i class="ti ti-bookmark menu-icon"></i><span>{% trans "Saqlangan testler" %}</span></a>
+                            </li>
+
+                            <li class="menu-label mt-0 text-primary font-12 fw-semibold"><span>{% trans "Qo'shimcha" %}</span><br><span class="font-10 text-secondary fw-normal">{% trans "Qo'shimcha ma'lumotlar" %}</span></li>
+
+                            <li class="nav-item"> <a class="nav-link" href="{% url 'manular' %}"> <i class="ti ti-file-text menu-icon"></i> <span>{% trans "Qo'llanma" %}</span></a>
+                            </li>
+
+                            <li class="nav-item"> <a class="nav-link" href="{% url 'road_signs' %}"> <i class="ti ti-alert-circle menu-icon"></i> <span>{% trans "Yo’l belgilari" %}</span></a>
+                            </li>
+
+                            <li class="nav-item"> <a class="nav-link" href="{% url 'contact_list' %}"><i class="ti ti-headphones menu-icon"></i><span>{% trans "Tezkor bog'lanish" %}</span></a>
+                            </li>
+                        </ul>
+                    </div><!--end sidebarCollapse-->
+                </div>
+
+            </div>
+        </div>
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                const sidebar = document.querySelector(".left-sidebar");
+                const toggleBtn = document.getElementById("togglemenu");
+
+                toggleBtn.addEventListener("click", () => {
+                    sidebar.classList.toggle("open");
+                });
+            });
+        </script>
+        <div class="topbar">
+            <!-- Navbar -->
+            <nav class="navbar-custom" id="navbar-custom">
+                <ul class="list-unstyled topbar-nav float-end mb-0">
+
+                    <li class="dropdown">
+                        <form action="{% url 'set_language' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="next" value="{{ request.path }}">
+
+                            {% get_current_language as LANGUAGE_CODE %}
+
+                            <a class="nav-link dropdown-toggle arrow-none nav-icon"
+                               data-bs-toggle="dropdown"
+                               href="#"
+                               role="button">
+
+                                {% if LANGUAGE_CODE == 'uz-kr' %}
+                                    <img src="{% static 'assets_dashboard/images/flags/uz_bayroq.png' %}"
+                                         class="thumb-xxs rounded me-1">
+                                    Ўзбек
+                                {% elif LANGUAGE_CODE == 'ru' %}
+                                    <img src="{% static 'assets_dashboard/images/flags/rus_bayroq.png' %}"
+                                         class="thumb-xxs rounded me-1">
+                                    Рус
+                                {% else %}
+                                    <img src="{% static 'assets_dashboard/images/flags/uz_bayroq.png' %}"
+                                         class="thumb-xxs rounded me-1">
+                                    O‘zbek
+                                {% endif %}
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-end">
+
+                                <button name="language" value="uz" class="dropdown-item d-flex align-items-center">
+                                    <img src="{% static 'assets_dashboard/images/flags/uz_bayroq.png' %}"
+                                         class="thumb-xxs rounded me-2">
+                                    O‘zbek (lotin)
+                                </button>
+
+                                <button name="language" value="uz-kr" class="dropdown-item d-flex align-items-center">
+                                    <img src="{% static 'assets_dashboard/images/flags/uz_bayroq.png' %}"
+                                         class="thumb-xxs rounded me-2">
+                                    Ўзбек (кирил)
+                                </button>
+
+                                <button name="language" value="ru" class="dropdown-item d-flex align-items-center">
+                                    <img src="{% static 'assets_dashboard/images/flags/rus_bayroq.png' %}"
+                                         class="thumb-xxs rounded me-2">
+                                    Русский
+                                </button>
+
+                            </div>
+                        </form>
+                    </li>
+
+                    <li class="dropdown">
+                        <a class="nav-link dropdown-toggle nav-user" data-bs-toggle="dropdown" href="#" role="button"
+                            aria-haspopup="false" aria-expanded="false">
+                            <div class="d-flex align-items-center">
+                                <img src="{% static 'assets_dashboard/images/users/user-4.jpg' %}" alt="profile-user" class="rounded-circle me-2 thumb-sm" />
+                            </div>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <a class="dropdown-item" href="{% url 'forgot_login' %}">
+                                <i class="ti ti-key font-16 me-1"></i>{% trans "Chiqish" %}
+                            </a>
+                        </div>
+                    </li><!--end topbar-profile-->
+                </ul><!--end topbar-nav-->
+
+                <ul class="list-unstyled topbar-nav mb-0">
+                    <li>
+                        <button class="nav-link button-menu-mobile nav-icon" id="togglemenu">
+                            <i class="ti ti-menu-2"></i>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+            <!-- end navbar-->
+        </div>
+
+        <div class="page-wrapper">
+
+            <!-- Page Content-->
+            <div class="page-content-tab">
+
+                <div class="container-fluid">
+                    <!-- Page-Title -->
+                    <!-- end page title end breadcrumb -->
+                    <div class="top-actions">
+                        <button class="clear-btn">
+                            <i class="ti ti-trash"></i>{% trans "Statistikani tozalash" %}
+                        </button>
+                    </div>
+
+                    <script>
+                        document.querySelector(".clear-btn").addEventListener("click", () => {
+                            if (!confirm("Haqiqatan ham barcha statistikani tozalamoqchimisiz?")) {
+                                return;
+                            }
+
+                            fetch("{% url 'clear_statistics' %}", {
+                                method: "POST",
+                                headers: {
+                                    "X-CSRFToken": "{{ csrf_token }}",
+                                },
+                            })
+                            .then(res => res.json())
+                            .then(data => {
+                                if (data.success) {
+                                    // ðŸ”¥ sahifani yangilaymiz
+                                    location.reload();
+                                }
+                            });
+                        });
+                    </script>
+
+               <div class="bilet-container">
+                {% for cat in kategoriyalar %}
+                    <div class="topic-card" data-category="{{ cat.id }}" onclick="openPopup(this)">
+                        <div class="topic-title">{{ cat.nomi }}</div>
+
+                        {% if cat.has_started %}
+                        <div class="status-wrapper">
+                            <div class="bilet-status success">
+                                <i class="ti ti-check"></i> {{ cat.correct }}
+                            </div>
+                            <div class="bilet-status danger">
+                                <i class="ti ti-x"></i> {{ cat.wrong }}
+                            </div>
+                            <div class="bilet-status warning">
+                                <i class="ti ti-alert-circle"></i> {{ cat.empty }}
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+
+
+
+                    <script>
+                        let selectedCategory = null;
+
+                        function openPopup(card) {
+                            selectedCategory = card.dataset.category;
+                            document.getElementById("popup").style.display = "flex";
+                        }
+
+                        function closePopup() {
+                            selectedCategory = null;
+                            document.getElementById("popup").style.display = "none";
+                        }
+
+                        function startTest() {
+                            if (!selectedCategory) return;
+                            // âœ… Toâ€˜gâ€˜ri URL: shablon test uchun
+                            window.location.href = "{% url 'start_shablon_test' 0 %}".replace("0", selectedCategory);
+                            // yoki toâ€˜gâ€˜ridan-toâ€˜gâ€˜ri:
+                            // window.location.href = "/shablon/start/" + selectedCategory + "/";
+                        }
+
+                        // Statistikani tozalash (bu joyda allaqachon toâ€˜gâ€˜ri)
+                        document.querySelector(".clear-btn").addEventListener("click", () => {
+                            if (!confirm("Haqiqatan ham barcha statistikani tozalamoqchimisiz?")) {
+                                return;
+                            }
+
+                            fetch("{% url 'clear_statistics' %}", {
+                                method: "POST",
+                                headers: {
+                                    "X-CSRFToken": "{{ csrf_token }}",
+                                },
+                            })
+                            .then(res => res.json())
+                            .then(data => {
+                                if (data.success) {
+                                    location.reload();  // sahifani yangilash
+                                }
+                            });
+                        });
+                        </script>
+
+
+
+                    <div id="popup" class="popup">
+                        <div class="popup-content">
+                            <h3>{% trans "Testni boshlaysizmi?" %}</h3>
+
+                            <div class="popup-buttons">
+                                <button class="cancel-btn" onclick="closePopup()">{% trans "Orqaga" %}</button>
+                                <button class="start-btn" onclick="startTest()">{% trans "Boshlash" %}</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div><!--end row-->
+        </div><!-- container -->
+                 
+                <!--Start Footer-->
+                <footer class="footer text-center text-sm-start">
+                    &copy; <script>
+                        document.write(new Date().getFullYear())
+                    </script> AvtoIbrat <span class="text-muted d-none d-sm-inline-block float-end">{% trans "Ishlab chiqgan" %}<i
+                            class="mdi mdi-heart text-danger"></i>AvtoIbrart</span>
+                </footer>                
+                <!--end footer-->
+            </div>
+            <!-- end page content -->
+        </div>
+        <!-- end page-wrapper -->
+
+        <!-- Javascript  -->   
+        <!-- App js -->
+        <script src="{% static 'assets_dashboard/js/app.js' %}"></script>
+
+    </body>
+    <!--end body-->
+
+<!-- Mirrored from themes.getappui.com/collab/unikit/default/ by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 18 Oct 2025 20:09:56 GMT -->
+</html>
+
+

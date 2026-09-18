@@ -1,0 +1,83 @@
+{% load i18n %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+    
+<!-- Mirrored from themes.getappui.com/collab/unikit/default/ by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 18 Oct 2025 20:09:56 GMT -->
+<head>
+        <meta charset="utf-8" />
+        <title>{% trans "AvtoIbrat - O'quv platforma paneli!" %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+        <meta content="" name="author" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="{% static 'assets_dashboard/images/favicon.png' %}">
+    
+         <!-- App css -->
+         <link href="{% static 'assets_dashboard/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+         <link href="{% static 'assets_dashboard/css/icons.min.css' %}" rel="stylesheet" type="text/css" />
+         <link href="{% static 'assets_dashboard/css/app.min.css' %}" rel="stylesheet" type="text/css" />
+    </head>
+
+    <body id="body" class="dark-sidebar">
+        <div class="page-wrapper">
+            <!-- Page Content-->
+            <div class="page-content-tab">
+                <div class="container-fluid">
+                  
+                  <div class="row">
+                    <div class="col-lg-6-result">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="row align-items-center">
+                                    <div class="col">
+                                        <h4 class="card-title-result">{% trans "Test natijangiz" %}</h4>
+                                    </div><!--end col-->
+                                </div>  <!--end row-->
+                            </div><!--end card-header-->
+                            <div class="card-body-result">
+                                <div class="alert alert-success border-0" role="alert">
+                                    {% blocktrans %}To'g'ri javoblar: {{ correct }}{% endblocktrans %}
+                                </div>
+                                <div class="alert alert-danger border-0" role="alert">
+                                    {% blocktrans %}Noto'g'ri javoblar: {{ wrong }}{% endblocktrans %}
+                                </div>
+                                <div class="alert alert-warning border-0" role="alert">
+                                    {% blocktrans %}Tanlanmagan javoblar: {{ empty }}{% endblocktrans %}
+                                </div>
+                            </div><!--end card-body-->
+                             <div class="text-center py-3 mb-3">
+                                <a href="{% url 'dashboard' %}" class="btn btn-primary">{% trans "Bosh sahifaga qaytish" %}</a>
+                            </div>
+                        </div><!--end card-->
+                    </div><!--end col-->
+                </div><!--end row-->
+
+            </div><!--end row-->
+        </div><!-- container -->
+                 
+                <!--Start Footer-->
+                <footer class="footer text-center text-sm-start">
+                    &copy; <script>
+                        document.write(new Date().getFullYear())
+                    </script> AvtoIbrat <span class="text-muted d-none d-sm-inline-block float-end">{% trans "Ishlab chiqgan" %}<i
+                            class="mdi mdi-heart text-danger"></i>AvtoIbrart</span>
+                </footer>                
+                <!--end footer-->
+            </div>
+            <!-- end page content -->
+        </div>
+        <!-- end page-wrapper -->
+
+        <!-- Javascript  -->   
+        <!-- App js -->
+        <script src="{% static 'assets_dashboard/js/app.js' %}"></script>
+
+    </body>
+    <!--end body-->
+
+<!-- Mirrored from themes.getappui.com/collab/unikit/default/by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 18 Oct 2025 20:09:56 GMT -->
+</html>
+

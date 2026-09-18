@@ -1,0 +1,595 @@
+{% load i18n %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+
+<!-- Mirrored from themes.getappui.com/collab/unikit/default/index by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 18 Oct 2025 20:09:28 GMT -->
+<head>
+        <meta charset="utf-8" />
+                <title>{% trans "AvtoIbrat - O'quv platforma paneli!" %}</title>
+                <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+                <meta content="" name="author" />
+                <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+                <!-- App favicon -->
+                <link rel="shortcut icon" href="{% static 'assets_dashboard/images/favicon.png' %}">
+
+         <!-- App css -->
+         <link href="{% static 'assets_dashboard/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+         <link href="{% static 'assets_dashboard/css/icons.min.css' %}" rel="stylesheet" type="text/css" />
+         <link href="{% static 'assets_dashboard/css/app.min.css' %}" rel="stylesheet" type="text/css" />
+
+    </head>
+
+    <body id="body" class="dark-sidebar">
+        <div class="left-sidebar">
+            <!-- LOGO -->
+            <div class="brand">
+                <a href="{% url 'home' %}" class="logo">
+
+                    <span>
+                        <img src="{% static 'assets_dashboard/images/logo-sm.png' %}" alt="logo-large" class="logo-lg logo-light">
+                        <img src="{% static 'assets_dashboard/images/logo-dark.png' %}" alt="logo-large" class="logo-lg logo-dark">
+                    </span>
+                </a>
+            </div>
+            <div class="sidebar-user-pro media border-end">
+                <div class="position-relative mx-auto">
+                    <img src="{% static 'assets_dashboard/images/users/user-4.jpg' %}" alt="user" class="rounded-circle thumb-md">
+                    <span class="online-icon position-absolute end-0"><i class="mdi mdi-record text-success"></i></span>
+                </div>
+                <div class="media-body ms-2 user-detail align-self-center">
+                   <h5 class="font-14 m-0 fw-bold">
+                        {{ user.first_name }} {{ user.last_name }}
+                    </h5>
+                    <p class="opacity-50 mb-0">
+                        {{ user.username }}
+                    </p>
+                </div>
+            </div>
+            <!-- Tab panes -->
+
+            <!--end logo-->
+            <div class="menu-content h-100" data-simplebar>
+                <div class="menu-body navbar-vertical">
+                    <div class="collapse navbar-collapse tab-content" id="sidebarCollapse">
+                        <!-- Navigation -->
+                        <ul class="navbar-nav tab-pane active" id="Main" role="tabpanel">
+                            <li class="menu-label mt-0 text-primary font-12 fw-semibold"><span>{% trans "Asosiy" %}</span><br><span class="font-10 text-secondary fw-normal">{% trans "Asosiy ma'lumotlar" %}</span></li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'dashboard' %}"><i class="ti ti-user menu-icon"></i><span>{% trans "Shahsiy kabinet" %}</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'shablon_test' %}"><i class="ti ti-book menu-icon"></i><span>{% trans "Shablon teste" %}</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'real_imtihon' %}"><i class="ti ti-award menu-icon"></i><span>{% trans "Real imtihon" %}</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'mavzulashtirilgan' %}"><i class="ti ti-inbox menu-icon"></i><span>{% trans "Mavzulashtirilgan testlar" %}</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'ohshash_savollar' %}"><i class="ti ti-refresh menu-icon"></i><span>{% trans "O'hshash savollar" %}</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'saqlangan' %}"><i class="ti ti-bookmark menu-icon"></i><span>{% trans "Saqlangan testler" %}</span></a>
+                            </li>
+
+                            <li class="menu-label mt-0 text-primary font-12 fw-semibold"><span>{% trans "Qo'shimcha" %}</span><br><span class="font-10 text-secondary fw-normal">{% trans "Qo'shimcha ma'lumotlar" %}</span></li>
+
+                            <li class="nav-item"> <a class="nav-link" href="{% url 'manular' %}"> <i class="ti ti-file-text menu-icon"></i> <span>{% trans "Qo'llanma" %}</span></a>
+                            </li>
+
+                            <li class="nav-item"> <a class="nav-link" href="{% url 'road_signs' %}"> <i class="ti ti-alert-circle menu-icon"></i> <span>{% trans "Yo’l belgilari" %}</span></a>
+                            </li>
+
+                            <li class="nav-item"> <a class="nav-link" href="{% url 'contact_list' %}"><i class="ti ti-headphones menu-icon"></i><span>{% trans "Tezkor bog'lanish" %}</span></a>
+                            </li>
+                        </ul>
+                    </div><!--end sidebarCollapse-->
+                </div>
+
+            </div>
+        </div>
+            <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const sidebar = document.querySelector(".left-sidebar");
+        const toggleBtn = document.getElementById("togglemenu");
+
+        toggleBtn.addEventListener("click", () => {
+            sidebar.classList.toggle("open");
+        });
+    });
+    </script>
+        <div class="topbar">
+            <!-- Navbar -->
+            <nav class="navbar-custom" id="navbar-custom">
+                <ul class="list-unstyled topbar-nav float-end mb-0">
+
+                    <li class="dropdown">
+                        <form action="{% url 'set_language' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="next" value="{{ request.path }}">
+
+                            {% get_current_language as LANGUAGE_CODE %}
+
+                            <a class="nav-link dropdown-toggle arrow-none nav-icon"
+                               data-bs-toggle="dropdown"
+                               href="#"
+                               role="button">
+
+                                {% if LANGUAGE_CODE == 'uz-kr' %}
+                                    <img src="{% static 'assets_dashboard/images/flags/uz_bayroq.png' %}"
+                                         class="thumb-xxs rounded me-1">
+                                    Ўзбек
+                                {% elif LANGUAGE_CODE == 'ru' %}
+                                    <img src="{% static 'assets_dashboard/images/flags/rus_bayroq.png' %}"
+                                         class="thumb-xxs rounded me-1">
+                                    Рус
+                                {% else %}
+                                    <img src="{% static 'assets_dashboard/images/flags/uz_bayroq.png' %}"
+                                         class="thumb-xxs rounded me-1">
+                                    O‘zbek
+                                {% endif %}
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-end">
+
+                                <button name="language" value="uz" class="dropdown-item d-flex align-items-center">
+                                    <img src="{% static 'assets_dashboard/images/flags/uz_bayroq.png' %}"
+                                         class="thumb-xxs rounded me-2">
+                                    O‘zbek (lotin)
+                                </button>
+
+                                <button name="language" value="uz-kr" class="dropdown-item d-flex align-items-center">
+                                    <img src="{% static 'assets_dashboard/images/flags/uz_bayroq.png' %}"
+                                         class="thumb-xxs rounded me-2">
+                                    Ўзбек (кирил)
+                                </button>
+
+                                <button name="language" value="ru" class="dropdown-item d-flex align-items-center">
+                                    <img src="{% static 'assets_dashboard/images/flags/rus_bayroq.png' %}"
+                                         class="thumb-xxs rounded me-2">
+                                    Русский
+                                </button>
+
+                            </div>
+                        </form>
+                    </li>
+
+                    <li class="dropdown">
+                        <a class="nav-link dropdown-toggle nav-user" data-bs-toggle="dropdown" href="#" role="button"
+                            aria-haspopup="false" aria-expanded="false">
+                            <div class="d-flex align-items-center">
+                                <img src="{% static 'assets_dashboard/images/users/user-4.jpg' %}" alt="profile-user" class="rounded-circle me-2 thumb-sm" />
+                            </div>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <a class="dropdown-item" href="{% url 'forgot_login' %}">
+                                <i class="ti ti-key font-16 me-1"></i> {% trans "Chiqish" %}
+                            </a>
+                        </div>
+                    </li><!--end topbar-profile-->
+                </ul><!--end topbar-nav-->
+
+                <ul class="list-unstyled topbar-nav mb-0">
+                    <li>
+                        <button class="nav-link button-menu-mobile nav-icon" id="togglemenu">
+                            <i class="ti ti-menu-2"></i>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+            <!-- end navbar-->
+        </div>
+
+    <div class="page-wrapper">
+
+        <!-- Page Content-->
+        <div class="page-content-tab">
+
+            <div class="container-fluid">
+                <!-- Page-Title -->
+                <!-- end page title end breadcrumb -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="met-profile">
+                                    <div class="row">
+                                        <div class="col-lg-4 align-self-center mb-3 mb-lg-0">
+                                            <div class="met-profile-main">
+                                                <div class="met-profile-main-pic">
+                                                    <img src="{% static 'assets_dashboard/images/users/user-4.jpg' %}" alt="" height="110" class="rounded-circle">
+                                                    <span class="met-profile_main-pic-change">
+                                                        <i class="fas fa-camera"></i>
+                                                    </span>
+                                                </div>
+                                                <div class="met-profile_user-detail">
+                                                   <h5 class="met-user-name">
+                                                        {{ user.first_name }} {{ user.last_name }}
+                                                    </h5>
+                                                    <p class="mb-0 met-user-name-post">
+                                                        {% trans "AvtoIbrat o‘quvchisi" %}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div><!--end col-->
+
+                                        <div class="col-lg-4 ms-auto align-self-center">
+                                          <ul class="list-unstyled personal-detail mb-0">
+
+                                                <li>
+                                                    <i class="ti ti-infinity font-22"></i>
+                                                    <b>{% trans "Cheksiz aktivlik:" %}</b>
+                                                    {% if user.unlimited %}
+                                                        <span class="badge badge-soft-success">{% trans "Ha" %}</span>
+                                                    {% else %}
+                                                        <span class="badge badge-soft-danger">{% trans "Yo‘q" %}</span>
+                                                    {% endif %}
+                                                </li>
+
+                                                <li>
+                                                    <i class="ti ti-clock font-22"></i>
+                                                    <b>{% trans "Vaqt bo‘yicha aktiv:" %}</b>
+                                                    {% if user.vaqt_boyicha_faolmi %}
+                                                        <span class="badge badge-soft-success px-2 py-1 font-11">{% trans "Faol" %}</span>
+                                                    {% else %}
+                                                        <span class="badge badge-soft-danger px-2 py-1 font-11">{% trans "Faol emas" %}</span>
+                                                    {% endif %}
+                                                </li>
+
+                                                <li>
+                                                    <i class="ti ti-calendar-time font-22"></i>
+                                                    <b>{% trans "Boshlangan:" %}</b>
+                                                    {{ user.account_started_at|date:"d.m.Y | H:i"|default:"—" }}
+                                                </li>
+
+                                                <li>
+                                                    <i class="ti ti-calendar-off font-22"></i>
+                                                    <b>{% trans "Tugaydi:" %}</b>
+                                                    {{ user.account_expires_at|date:"d.m.Y | H:i"|default:"—" }}
+                                                </li>
+
+                                                <li>
+                                                    <i class="ti ti-shield-check font-22"></i>
+                                                    <b>{% trans "Hisob holati:" %}</b>
+
+                                                    {% if user.unlimited %}
+                                                        <span class="badge bg-success">{% trans "Umrbod faol" %}</span>
+                                                    {% elif user.vaqt_boyicha_faolmi %}
+                                                        <span class="badge bg-primary">{% trans "Vaqt bo‘yicha faol" %}</span>
+                                                    {% else %}
+                                                        <span class="badge bg-danger">{% trans "Faol emas" %}</span>
+                                                    {% endif %}
+                                                </li>
+
+                                            </ul>
+                                        </div><!--end col-->
+
+                                    </div><!--end row-->
+                                </div><!--end f_profile-->
+                            </div><!--end card-body-->
+                            <div class="card-body p-0">
+
+                        <div class="row">
+                        <div class="col-md-12 col-lg-3 order-lg-1 order-md-2 order-sm-2">
+                            <div class="card overflow-hidden">
+                                <div class="card-body">
+                                    <div class="pt-3">
+                                        <h3 class="text-dark text-center font-24 fw-bold line-height-lg">
+                                            {% trans "Hoziroq" %},<br>
+                                            {% trans "ilim olishni boshlang!" %}</h3>
+                                        <div class="text-center text-muted font-16 fw-bold pt-3 pb-1">{% trans "Siz bu yerda test yechib imtihonga tayyorlanishingiz mumkin!" %}</div>
+
+                                        <div class="text-center py-3 mb-3">
+                                            <a href="{% url 'shablon_test' %}" class="btn btn-primary">{% trans "Hozroq boshlash" %}</a>
+                                        </div>
+                                        <img src="{% static 'assets_dashboard/images/small/business.png' %}" alt="" class="img-fluid px-3 mb-2">
+                                    </div>
+                                </div><!--end card-body-->
+
+                            </div><!--end card-->
+                        </div> <!--end col-->
+
+                        <div class="col-lg-9 order-lg-2 order-md-1 order-sm-1">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="card overflow-hidden">
+                                        <div class="card-body">
+                                            <div class="row d-flex">
+                                                <div class="col-3">
+                                                    <i class="ti ti-users font-36 align-self-center text-dark"></i>
+                                                </div><!--end col-->
+                                                <div class="col-12 ms-auto align-self-center">
+                                                    <div id="dash_spark_1" class="mb-3"></div>
+                                                </div><!--end col-->
+                                                <div class="col-12 ms-auto align-self-center">
+                                                    <h3 class="text-dark my-0 font-22 fw-bold">{{ users_count }}</h3>
+                                                    <p class="text-muted mb-0 fw-semibold">{% trans "Foydalanuvchilar" %}</p>
+                                                </div><!--end col-->
+                                            </div><!--end row-->
+                                        </div><!--end card-body-->
+                                    </div><!--end card-->
+                                </div> <!--end col-->
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="card overflow-hidden">
+                                        <div class="card-body">
+                                            <div class="row d-flex">
+                                                <div class="col-3">
+                                                    <i class="ti ti-clock font-36 align-self-center text-dark"></i>
+                                                </div><!--end col-->
+                                                <div class="col-auto ms-auto align-self-center">
+                                                    {% if is_active_today %}
+                                                        <span class="badge badge-soft-success px-2 py-1 font-11">{% trans "Faol" %}</span>
+                                                    {% else %}
+                                                        <span class="badge badge-soft-danger px-2 py-1 font-11">{% trans "Sust" %}</span>
+                                                    {% endif %}
+                                                </div>
+
+                                                <div class="col-12 ms-auto align-self-center">
+                                                    <div id="dash_spark_2" class="mb-3"></div>
+                                                </div><!--end col-->
+                                                <div class="col-12 ms-auto align-self-center">
+                                                    <h3 class="text-dark my-0 font-22 fw-bold">{{ today_time }}</h3>
+                                                    <p class="text-muted mb-0 fw-semibold">{% trans "Bugungi sariflangan vaqt" %}</p>
+                                                </div><!--end col-->
+                                            </div><!--end row-->
+                                        </div><!--end card-body-->
+                                    </div><!--end card-->
+                                </div> <!--end col-->
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="card overflow-hidden">
+                                        <div class="card-body">
+                                            <div class="row d-flex">
+                                                <div class="col-3">
+                                                    <i class="ti ti-gauge font-36 align-self-center text-dark"></i>
+                                                </div><!--end col-->
+                                                <div class="col-12 ms-auto align-self-center">
+                                                    <div id="dash_spark_3" class="mb-3"></div>
+                                                </div><!--end col-->
+                                                <div class="col-12 ms-auto align-self-center">
+                                                    <h3 class="text-dark my-0 font-22 fw-bold">{{ total_time }}</h3>
+                                                    <p class="text-muted mb-0 fw-semibold">{% trans "Umumiy sarflangan vaqt" %}</p>
+                                                </div><!--end col-->
+                                            </div><!--end row-->
+                                        </div><!--end card-body-->
+                                    </div><!--end card-->
+                                </div> <!--end col-->
+
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="card overflow-hidden">
+                                        <div class="card-body">
+                                            <div class="row d-flex">
+                                                <div class="col-3">
+                                                    <i class="ti ti-confetti font-36 align-self-center text-dark"></i>
+                                                </div><!--end col-->
+                                                <div class="col-auto ms-auto align-self-center">
+                                                </div><!--end col-->
+                                                <div class="col-12 ms-auto align-self-center">
+                                                    <div id="dash_spark_4" class="mb-3"></div>
+                                                </div><!--end col-->
+                                                <div class="col-12 ms-auto align-self-center">
+                                                    <h3 class="text-dark my-0 font-22 fw-bold">{{ correct_count }}</h3>
+                                                    <p class="text-muted mb-0 fw-semibold">{% trans "Muvofaqiyatli testlar soni" %}</p>
+                                                </div><!--end col-->
+                                            </div><!--end row-->
+                                        </div><!--end card-body-->
+                                    </div><!--end card-->
+                                </div> <!--end col-->
+                            </div><!--end row-->
+
+                           <div class="row">
+                                <div class="col-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <div class="row align-items-center">
+                                                <div class="col">
+                                                    <h4 class="card-title">{% trans "Kunlik va haftalik davr jadvali" %}</h4>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="card-body">
+                                            <div id="ana_dash_1" style="position:relative; width:100%; height:420px;"></div>
+
+                                            <div class="d-flex justify-content-between mt-3 px-3">
+                                                <span>{% trans "DUSH" %}</span>
+                                                <span>{% trans "SESH" %}</span>
+                                                <span>{% trans "CHOR" %}</span>
+                                                <span>{% trans "PAY" %}</span>
+                                                <span>{% trans "JUM" %}</span>
+                                                <span>{% trans "SHAN" %}</span>
+                                                <span>{% trans "YAK" %}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <style>
+                            #ana_dash_1{
+                                position: relative;
+                                width:100%;
+                                height:420px;
+                                background: repeating-linear-gradient(
+                                    to top,
+                                    #e7e9f1 0px,
+                                    #e7e9f1 1px,
+                                    #fff 1px,
+                                    #fff 50px
+                                );
+                                border-left:1px solid #dcdcdc;
+                                border-bottom:1px solid #dcdcdc;
+                                border-radius:6px;
+                            }
+
+                            .bar{
+                                position:absolute;
+                                width:14px;
+                                border-radius:4px;
+                                transition:0.3s;
+                            }
+
+                            .bar.green{ background:#2ecc71; }
+                            .bar.red{ background:#ff4d4d; }
+
+                            .zero-line{
+                                position:absolute;
+                                left:0;
+                                right:0;
+                                top:50%;
+                                height:2px;
+                                background:#999;
+                            }
+
+                            @media(max-width:480px){
+                                .bar{ width:10px; }
+                            }
+
+                            .bar-label{
+                                position:absolute;
+                                font-size:11px;
+                                font-weight:600;
+                                color:#000;
+                                white-space:nowrap;
+                                transform:translateX(-50%);
+                            }
+
+                            .bar-label.green{ color:#1e8e5a; }
+                            .bar-label.red{ color:#c0392b; }
+                            </style>
+
+
+                            <script id="weekCorrectData" type="application/json">
+                                {{ week_correct_json|safe }}
+                            </script>
+
+                            <script id="weekWrongData" type="application/json">
+                                {{ week_wrong_json|safe }}
+                            </script>
+
+                            <script>
+                            document.addEventListener("DOMContentLoaded", () => {
+
+                                const correctData = JSON.parse(
+                                    document.getElementById("weekCorrectData").textContent
+                                );
+                                const wrongData = JSON.parse(
+                                    document.getElementById("weekWrongData").textContent
+                                );
+
+                                const chart = document.getElementById("ana_dash_1");
+                                chart.innerHTML = "";
+
+                                const chartHeight = chart.offsetHeight;
+                                const chartWidth = chart.offsetWidth;
+                                const centerY = chartHeight / 2;
+
+                                const maxValue = Math.max(...correctData, ...wrongData, 1);
+                                const barWidth = 16;
+                                const space = chartWidth / 7;
+
+                                /* 0 chiziq */
+                                const zeroLine = document.createElement("div");
+                                zeroLine.className = "zero-line";
+                                chart.appendChild(zeroLine);
+
+                                for (let i = 0; i < 7; i++) {
+
+                                    const x = i * space + space / 2 - barWidth / 2;
+
+                                    /* ✅ TO‘G‘RI */
+                                    if (correctData[i] > 0) {
+                                        const h = (correctData[i] / maxValue) * (chartHeight / 2);
+
+                                        const bar = document.createElement("div");
+                                        bar.className = "bar green";
+                                        bar.style.height = h + "px";
+                                        bar.style.left = x + "px";
+                                        bar.style.top = (centerY - h) + "px";
+                                        chart.appendChild(bar);
+
+                                        const label = document.createElement("div");
+                                        label.className = "bar-label green";
+                                        label.innerText = correctData[i];
+                                        label.style.left = (x + barWidth/2) + "px";
+                                        label.style.top = (centerY - h - 14) + "px";
+                                        chart.appendChild(label);
+                                    }
+
+                                    /* ❌ NOTO‘G‘RI */
+                                    if (wrongData[i] > 0) {
+                                        const h = (wrongData[i] / maxValue) * (chartHeight / 2);
+
+                                        const bar = document.createElement("div");
+                                        bar.className = "bar red";
+                                        bar.style.height = h + "px";
+                                        bar.style.left = x + "px";
+                                        bar.style.top = centerY + "px";
+                                        chart.appendChild(bar);
+
+                                        const label = document.createElement("div");
+                                        label.className = "bar-label red";
+                                        label.innerText = wrongData[i];
+                                        label.style.left = (x + barWidth/2) + "px";
+                                        label.style.top = (centerY + h + 4) + "px";
+                                        chart.appendChild(label);
+                                    }
+                                }
+                            });
+                            </script>
+
+
+                        </div><!--end col-->
+                    </div><!--end row-->
+                </div> <!--end card-body-->
+            </div><!--end card-->
+        </div><!--end col-->
+    </div><!--end row-->
+
+</div><!-- container -->
+
+            <!--Start Rightbar-->
+                <!--Start Rightbar/offcanvas-->
+                <div class="offcanvas offcanvas-end" tabindex="-1" id="Appearance" aria-labelledby="AppearanceLabel">
+                    <div class="offcanvas-header border-bottom">
+                      <h5 class="m-0 font-14" id="AppearanceLabel">Appearance</h5>
+                      <button type="button" class="btn-close text-reset p-0 m-0 align-self-center" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                </div>
+                <!--end Rightbar/offcanvas-->
+                 <!--end Rightbar-->
+
+                <!--Start Footer-->
+                <!-- Footer Start -->
+                <footer class="footer text-center text-sm-start">
+                    &copy; <script>
+                        document.write(new Date().getFullYear())
+                    </script> AvtoIbrat <span class="text-muted d-none d-sm-inline-block float-end">{% trans "Ishlab chiqgan" %}<i
+                            class="mdi mdi-heart text-danger"></i>AvtoIbrart</span>
+                </footer>
+                <!-- end Footer -->
+                <!--end footer-->
+        </div>
+        <!-- end page content -->
+    </div>
+        <!-- end page-wrapper -->
+
+        <!-- Javascript  -->
+
+        <script src="{% static 'assets_dashboard/plugins/apexcharts/apexcharts.min.js' %}"></script>
+        <script src="{% static 'assets_dashboard/pages/analytics-index.init.js' %}"></script>
+
+        <!-- App js -->
+        <script src="{% static 'assets_dashboard/js/app.js' %}"></script>
+
+    </body>
+    <!--end body-->
+
+<!-- Mirrored from themes.getappui.com/collab/unikit/default/ by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 18 Oct 2025 20:09:35 GMT -->
+</html>
+

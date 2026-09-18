@@ -1,0 +1,285 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-04 04:49+0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: uz_KR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: core/settings.py:121
+msgid "Oʻzbek (lotin)"
+msgstr "Ўзбекча (лотин)"
+
+#: core/settings.py:122
+msgid "Ўзбек (кирил)"
+msgstr "Ўзбекча (кирил)"
+
+#: core/settings.py:123
+msgid "Русский"
+msgstr "Русча"
+
+
+
+
+
+
+
+msgid "AvtoIbrat - O'quv platforma paneli!"
+msgstr "AvtoIbrat — ўқув платформа панели"
+
+msgid "Asosiy"
+msgstr "Асосий"
+
+msgid "Asosiy ma'lumotlar"
+msgstr "Асосий маълумотлар"
+
+msgid "Shahsiy kabinet"
+msgstr "Шахсий кабинет"
+
+msgid "Shablon teste"
+msgstr "Шаблон тестлар"
+
+msgid "Real imtihon"
+msgstr "Реал имтиҳон"
+
+msgid "Mavzulashtirilgan testlar"
+msgstr "Мавзуллаштирилган тестлар"
+
+msgid "O'hshash savollar"
+msgstr "Ўхшаш саволлар"
+
+msgid "Saqlangan testler"
+msgstr "Сақланган тестлар"
+
+msgid "Qo'shimcha"
+msgstr "Қўшимча"
+
+msgid "Qo'shimcha ma'lumotlar"
+msgstr "Қўшимча маълумотлар"
+
+msgid "Qo'llanma"
+msgstr "Қўлланма"
+
+msgid "Yo’l belgilari"
+msgstr "Йўл белгилари"
+
+msgid "Tezkor bog'lanish"
+msgstr "Тезкор боғланиш"
+
+msgid "Chiqish"
+msgstr "Чиқиш"
+
+msgid "AvtoIbrat o‘quvchisi"
+msgstr "AvtoIbrat ўқувчиси"
+
+msgid "Cheksiz aktivlik:"
+msgstr "Чексиз активлик:"
+
+msgid "Ha"
+msgstr "Ҳа"
+
+msgid "Yo‘q"
+msgstr "Йўқ"
+
+msgid "Vaqt bo‘yicha aktiv:"
+msgstr "Вақт бўйича актив:"
+
+msgid "Faol"
+msgstr "Фаол"
+
+msgid "Faol emas"
+msgstr "Фаол эмас"
+
+msgid "Boshlangan:"
+msgstr "Бошланган:"
+
+msgid "Tugaydi:"
+msgstr "Тугайди:"
+
+msgid "Hisob holati:"
+msgstr "Ҳисоб ҳолати:"
+
+msgid "Umrbod faol"
+msgstr "Умрбод фаол"
+
+msgid "Vaqt bo‘yicha faol"
+msgstr "Вақт бўйича фаол"
+
+msgid "Hoziroq"
+msgstr "Ҳозироқ"
+
+msgid "ilim olishni boshlang!"
+msgstr "Илм олишни бошланг!"
+
+msgid "Siz bu yerda test yechib imtihonga tayyorlanishingiz mumkin!"
+msgstr "Сиз бу ерда тест ечиб имтиҳонга тайёрланишингиз мумкин!"
+
+msgid "Hozroq boshlash"
+msgstr "Ҳозироқ бошлаш"
+
+msgid "Foydalanuvchilar"
+msgstr "Фойдаланувчилар"
+
+msgid "Sust"
+msgstr "Суст"
+
+msgid "Bugungi sariflangan vaqt"
+msgstr "Бугунги сарфланган вақт"
+
+msgid "Umumiy sarflangan vaqt"
+msgstr "Умумий сарфланган вақт"
+
+msgid "Muvofaqiyatli testlar soni"
+msgstr "Муваффақиятли тестлар сони"
+
+msgid "Kunlik va haftalik davr jadvali"
+msgstr "Кунлик ва ҳафталик давр жадвали"
+
+msgid "Ishlab chiqgan"
+msgstr "Ишлаб чиққан"
+
+msgid "Statistikani tozalash"
+msgstr "Статистикани тозалаш"
+
+msgid "Muammolar bo'yicha tezkor bog'lanish"
+msgstr "Муаммолар бўйича тезкор боғланиш"
+
+msgid "Telegram orqali bog‘lanish"
+msgstr "Телеграм орқали боғланиш"
+
+msgid "Hisobni qayta tiklash"
+msgstr "Хисобни қайта тиклаш"
+
+msgid "Hisobni qayta tiklash uchun, admin bilan bo'glaning !"
+msgstr "Хисобни қайта тиклаш учун, админ билан боғланинг !"
+
+msgid "Bog'lanish"
+msgstr "Боғланиш"
+
+msgid "Hisobingiz tiklandimi ?"
+msgstr "Хисобингиз тикландими ?"
+
+msgid "Hisobga kirish"
+msgstr "Хисобга кириш"
+
+msgid "Shaxsiy hisobingizga kirish uchun ma’lumotlarni kiriting"
+msgstr "Шахсий хисобингизга кириш учун маълумотларни киритинг"
+
+msgid "Hisobingiz muddati tugagan. Administratorga murojaat qiling."
+msgstr "Хисобингиз муддати тугаган. Администраторга мурожаат қилинг."
+
+msgid "Siz maksimal ruxsat etilgan qurilmalar sonidan oshdingiz."
+msgstr "Сиз максимал рухсат этилган қурилмалар сонидан ошдингиз."
+
+msgid "Login yoki parol noto‘g‘ri !"
+msgstr "Логин ёки парол нотўғри !"
+
+msgid "Hisobingiz faol emas yoki muddati tugagan !"
+msgstr "Хисобингиз фаол эмас ёки муддати тугаган !"
+
+msgid "Foydalanuvchi nomi"
+msgstr "Фойдаланувчи номи"
+
+msgid "Parol"
+msgstr "Парол"
+
+msgid "Parolni unutdingizmi?"
+msgstr "Паролни унутдингизми?"
+
+msgid "Yodlash uchun"
+msgstr "Ёдлаш учун"
+
+msgid "Yod olish uchun eng kerakli man'balar"
+msgstr "Ёд олиш учун энг керакли ман'балар"
+
+msgid "Bu yerda tezkor yod olish uchun eng kerakli ma'nbalarning barchasi mavjud va foydalanishingiz mumkin!"
+msgstr "Бу ерда тезкор ёд олиш учун энг керакли манбаларнинг барчаси мавжуд ва фойдаланишингиз мумкин!"
+
+msgid "Yuklab olish"
+msgstr "Юклаб олиш"
+
+msgid "Testni boshlaysizmi?"
+msgstr "Тестни бошлайсизми?"
+
+msgid "Orqaga"
+msgstr "Орқага"
+
+msgid "Boshlash"
+msgstr "Бошлаш"
+
+msgid "Hozircha testlar mavjud emas"
+msgstr "Ҳозирча тестлар мавжуд эмас"
+
+msgid "Test natijangiz"
+msgstr "Тест натижангиз"
+
+msgid "To'g'ri javoblar:"
+msgstr "Тўғри жавоблар:"
+
+msgid "Noto'g'ri javoblar:"
+msgstr "Нотўғри жавоблар:"
+
+msgid "Tanlanmagan javoblar:"
+msgstr "Танланмаган жавоблар:"
+
+msgid "Bosh sahifaga qaytish"
+msgstr "Бош саҳифага қайтиш"
+
+msgid "Batafsil"
+msgstr "Батафсил"
+
+msgid "Yo'l belgilari bo'yicha to'liq ma'lumot"
+msgstr "Йўл белгилари бўйича тўлиқ маълумот"
+
+msgid "To‘liq ma’lumot:"
+msgstr "Тўлиқ маълумот:"
+
+msgid "Hozircha saqlangan savollar yo‘q."
+msgstr "Ҳозирча сақланган саволлар йўқ."
+
+msgid "Bekor qilish"
+msgstr "Бекор қилиш"
+
+msgid "Tasdiqlash"
+msgstr "Тасдиқлаш"
+
+msgid "Imtihonni yakunlaysizmi?"
+msgstr "Имтиҳонни якунлайсизми?"
+
+msgid "Davom etish"
+msgstr "Давом этиш"
+
+msgid "TOPSHIRUVCHI:"
+msgstr "ТОПШИРУВЧИ:"
+
+msgid "O'quv platforma paneli!"
+msgstr "Ўқув платформа панели!"
+
+msgid "Yakunlash"
+msgstr "Якунлаш"
+
+msgid "Ovoz eshitish"
+msgstr "Овоз эшитиш"
+
+msgid "Videoni ko‘rish"
+msgstr "Видео кўриш"
+
+msgid "Chiqmoqchimisiz?"
+msgstr "Чиқмоқчимисиз?"
+
+msgid "Davom ettirish"
+msgstr "Давом эттириш"
+
+
+
+

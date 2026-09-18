@@ -1,0 +1,4 @@
+Django==6.0
+django-jazzmin==3.0.1
+pillow==12.3.0
+pydub==0.25.1

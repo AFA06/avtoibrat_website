@@ -1,0 +1,328 @@
+{% load i18n %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+
+<!-- Mirrored from themes.getappui.com/collab/unikit/default by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 18 Oct 2025 20:09:28 GMT -->
+<head>
+        <meta charset="utf-8" />
+        <title>{% trans "AvtoIbrat - O'quv platforma paneli!" %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+        <meta content="" name="author" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="{% static 'assets_dashboard/images/favicon.png' %}">
+
+         <!-- App css -->
+         <link href="{% static 'assets_dashboard/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+         <link href="{% static 'assets_dashboard/css/icons.min.css' %}" rel="stylesheet" type="text/css" />
+         <link href="{% static 'assets_dashboard/css/app.min.css' %}" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    </head>
+
+    <body id="body" class="dark-sidebar">
+        <div class="left-sidebar">
+            <!-- LOGO -->
+            <div class="brand">
+                <a href="{% url 'home' %}" class="logo">
+
+                    <span>
+                        <img src="{% static 'assets_dashboard/images/logo-sm.png' %}" alt="logo-large" class="logo-lg logo-light">
+                        <img src="{% static 'assets_dashboard/images/logo-dark.png' %}" alt="logo-large" class="logo-lg logo-dark">
+                    </span>
+                </a>
+            </div>
+            <div class="sidebar-user-pro media border-end">
+                <div class="position-relative mx-auto">
+                    <img src="{% static 'assets_dashboard/images/users/user-4.jpg' %}" alt="user" class="rounded-circle thumb-md">
+                    <span class="online-icon position-absolute end-0"><i class="mdi mdi-record text-success"></i></span>
+                </div>
+                <div class="media-body ms-2 user-detail align-self-center">
+                   <h5 class="font-14 m-0 fw-bold">
+                        {{ user.first_name }} {{ user.last_name }}
+                    </h5>
+                    <p class="opacity-50 mb-0">
+                        {{ user.username }}
+                    </p>
+                </div>
+            </div>
+            <!-- Tab panes -->
+
+            <!--end logo-->
+            <div class="menu-content h-100" data-simplebar>
+                <div class="menu-body navbar-vertical">
+                    <div class="collapse navbar-collapse tab-content" id="sidebarCollapse">
+                        <!-- Navigation -->
+                        <ul class="navbar-nav tab-pane active" id="Main" role="tabpanel">
+                            <li class="menu-label mt-0 text-primary font-12 fw-semibold"><span>{% trans "Asosiy" %}</span><br><span class="font-10 text-secondary fw-normal">{% trans "Asosiy ma'lumotlar" %}</span></li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'dashboard' %}"><i class="ti ti-user menu-icon"></i><span>{% trans "Shahsiy kabinet" %}</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'shablon_test' %}"><i class="ti ti-book menu-icon"></i><span>{% trans "Shablon teste" %}</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'real_imtihon' %}"><i class="ti ti-award menu-icon"></i><span>{% trans "Real imtihon" %}</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'mavzulashtirilgan' %}"><i class="ti ti-inbox menu-icon"></i><span>{% trans "Mavzulashtirilgan testlar" %}</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'ohshash_savollar' %}"><i class="ti ti-refresh menu-icon"></i><span>{% trans "O'hshash savollar" %}</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'saqlangan' %}"><i class="ti ti-bookmark menu-icon"></i><span>{% trans "Saqlangan testler" %}</span></a>
+                            </li>
+
+                            <li class="menu-label mt-0 text-primary font-12 fw-semibold"><span>{% trans "Qo'shimcha" %}</span><br><span class="font-10 text-secondary fw-normal">{% trans "Qo'shimcha ma'lumotlar" %}</span></li>
+
+                            <li class="nav-item"> <a class="nav-link" href="{% url 'manular' %}"> <i class="ti ti-file-text menu-icon"></i> <span>{% trans "Qo'llanma" %}</span></a>
+                            </li>
+
+                            <li class="nav-item"> <a class="nav-link" href="{% url 'road_signs' %}"> <i class="ti ti-alert-circle menu-icon"></i> <span>{% trans "Yo’l belgilari" %}</span></a>
+                            </li>
+
+                            <li class="nav-item"> <a class="nav-link" href="{% url 'contact_list' %}"><i class="ti ti-headphones menu-icon"></i><span>{% trans "Tezkor bog'lanish" %}</span></a>
+                            </li>
+                        </ul>
+                    </div><!--end sidebarCollapse-->
+                </div>
+
+            </div>
+        </div>
+            <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const sidebar = document.querySelector(".left-sidebar");
+        const toggleBtn = document.getElementById("togglemenu");
+
+        toggleBtn.addEventListener("click", () => {
+            sidebar.classList.toggle("open");
+        });
+    });
+    </script>
+        <div class="topbar">
+            <!-- Navbar -->
+            <nav class="navbar-custom" id="navbar-custom">
+                <ul class="list-unstyled topbar-nav float-end mb-0">
+
+                    <li class="dropdown">
+                        <form action="{% url 'set_language' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="next" value="{{ request.path }}">
+
+                            {% get_current_language as LANGUAGE_CODE %}
+
+                            <a class="nav-link dropdown-toggle arrow-none nav-icon"
+                               data-bs-toggle="dropdown"
+                               href="#"
+                               role="button">
+
+                                {% if LANGUAGE_CODE == 'uz-kr' %}
+                                    <img src="{% static 'assets_dashboard/images/flags/uz_bayroq.png' %}"
+                                         class="thumb-xxs rounded me-1">
+                                    Ўзбек
+                                {% elif LANGUAGE_CODE == 'ru' %}
+                                    <img src="{% static 'assets_dashboard/images/flags/rus_bayroq.png' %}"
+                                         class="thumb-xxs rounded me-1">
+                                    Рус
+                                {% else %}
+                                    <img src="{% static 'assets_dashboard/images/flags/uz_bayroq.png' %}"
+                                         class="thumb-xxs rounded me-1">
+                                    O‘zbek
+                                {% endif %}
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-end">
+
+                                <button name="language" value="uz" class="dropdown-item d-flex align-items-center">
+                                    <img src="{% static 'assets_dashboard/images/flags/uz_bayroq.png' %}"
+                                         class="thumb-xxs rounded me-2">
+                                    O‘zbek (lotin)
+                                </button>
+
+                                <button name="language" value="uz-kr" class="dropdown-item d-flex align-items-center">
+                                    <img src="{% static 'assets_dashboard/images/flags/uz_bayroq.png' %}"
+                                         class="thumb-xxs rounded me-2">
+                                    Ўзбек (кирил)
+                                </button>
+
+                                <button name="language" value="ru" class="dropdown-item d-flex align-items-center">
+                                    <img src="{% static 'assets_dashboard/images/flags/rus_bayroq.png' %}"
+                                         class="thumb-xxs rounded me-2">
+                                    Русский
+                                </button>
+
+                            </div>
+                        </form>
+                    </li>
+
+                    <li class="dropdown">
+                        <a class="nav-link dropdown-toggle nav-user" data-bs-toggle="dropdown" href="#" role="button"
+                            aria-haspopup="false" aria-expanded="false">
+                            <div class="d-flex align-items-center">
+                                <img src="{% static 'assets_dashboard/images/users/user-4.jpg' %}" alt="profile-user" class="rounded-circle me-2 thumb-sm" />
+                            </div>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <a class="dropdown-item" href="{% url 'forgot_login' %}">
+                                <i class="ti ti-key font-16 me-1"></i> {% trans "Chiqish" %}
+                            </a>
+                        </div>
+                    </li><!--end topbar-profile-->
+                </ul><!--end topbar-nav-->
+
+                <ul class="list-unstyled topbar-nav mb-0">
+                    <li>
+                        <button class="nav-link button-menu-mobile nav-icon" id="togglemenu">
+                            <i class="ti ti-menu-2"></i>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+            <!-- end navbar-->
+        </div>
+
+
+
+    <div class="page-wrapper">
+
+        <div class="page-content-tab">
+
+           <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">{% trans "Yodlash uchun" %}</h4>
+                </div><!--end card-header-->
+                <div class="card-body">
+                    <div class="card-body border">
+                        <p class="card-subtitle font-14 mb-2">{% trans "Yod olish uchun eng kerakli man'balar" %}</p>
+                        <p class="card-text text-muted">{% trans "Bu yerda tezkor yod olish uchun eng kerakli ma'nbalarning barchasi mavjud va foydalanishingiz mumkin!" %}
+                        </p>
+                    </div>
+                </div><!--end card -body-->
+
+            </div><!--end card-->
+
+            <div class="pdf-container">
+                <div class="row">
+                    {% for pdf in pdfs %}
+                    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 mb-4">
+                        <div class="card pdf-card h-100">
+                            <div class="card-header text-center">
+                                <h4 class="card-title pdf-title">{{ pdf.title }}</h4>
+                            </div>
+
+                            <div class="card-body text-center">
+                              <a
+                                href="{% url 'manular' %}?download={{ pdf.id }}"
+                                class="btn btn-success"
+                            >
+                                {% trans "Yuklab olish" %}
+                            </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+
+           <div class="pdf-modal">
+                <div class="pdf-box">
+                    <span class="pdf-close">X</span>
+                    <iframe id="pdfViewer"></iframe>
+                </div>
+            </div>
+
+           <script>
+                document.addEventListener("DOMContentLoaded", () => {
+                    const modal = document.querySelector(".pdf-modal");
+                    const pdfViewer = document.getElementById("pdfViewer");
+                    const closeBtn = document.querySelector(".pdf-close");
+
+                    // PDF ochish
+                    document.querySelectorAll(".openPdfBtn").forEach(btn => {
+                        btn.addEventListener("click", () => {
+                            const pdfUrl = btn.dataset.pdfUrl;
+
+                            if (!pdfUrl) {
+                                alert("PDF topilmadi");
+                                return;
+                            }
+
+                            pdfViewer.src = pdfUrl + "#zoom=70";
+                            modal.classList.add("active");
+                        });
+                    });
+
+                    // X tugmasi
+                    closeBtn.addEventListener("click", () => {
+                        modal.classList.remove("active");
+                        pdfViewer.src = "";
+                    });
+
+                    // Fon bosilganda yopilsin
+                    modal.addEventListener("click", (e) => {
+                        if (e.target === modal) {
+                            modal.classList.remove("active");
+                            pdfViewer.src = "";
+                        }
+                    });
+
+                    // ESC tugmasi bilan yopish
+                    document.addEventListener("keydown", (e) => {
+                        if (e.key === "Escape" && modal.classList.contains("active")) {
+                            modal.classList.remove("active");
+                            pdfViewer.src = "";
+                        }
+                    });
+                });
+                </script>
+
+
+
+
+            <!--Start Rightbar-->
+                <!--Start Rightbar/offcanvas-->
+                <div class="offcanvas offcanvas-end" tabindex="-1" id="Appearance" aria-labelledby="AppearanceLabel">
+                    <div class="offcanvas-header border-bottom">
+                      <h5 class="m-0 font-14" id="AppearanceLabel">Appearance</h5>
+                      <button type="button" class="btn-close text-reset p-0 m-0 align-self-center" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                </div>
+                <!--end Rightbar/offcanvas-->
+                 <!--end Rightbar-->
+                 
+                <!--Start Footer-->
+                <!-- Footer Start -->
+                <footer class="footer text-center text-sm-start">
+                    &copy; <script>
+                        document.write(new Date().getFullYear())
+                    </script> AvtoIbrat <span class="text-muted d-none d-sm-inline-block float-end">{% trans "Ishlab chiqgan" %}<i
+                            class="mdi mdi-heart text-danger"></i>AvtoIbrart</span>
+                </footer>
+                <!-- end Footer -->                
+                <!--end footer-->
+        </div>
+    </div>
+
+
+
+
+        <!-- Javascript  -->   
+
+        <script src="{% static 'assets_dashboard/plugins/apexcharts/apexcharts.min.js' %}"></script>
+        <script src="{% static 'assets_dashboard/pages/analytics-index.init.js' %}"></script>
+
+        <!-- App js -->
+        <script src="{% static 'assets_dashboard/js/app.js' %}"></script>
+
+    </body>
+    <!--end body-->
+
+<!-- Mirrored from themes.getappui.com/collab/unikit/default/by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 18 Oct 2025 20:09:35 GMT -->
+</html>
+
