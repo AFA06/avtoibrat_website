@@ -20,9 +20,11 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.i18n import i18n_patterns
 
+from avto.views import set_site_language
+
 
 urlpatterns = [
-    path('i18n/', include('django.conf.urls.i18n')),
+    path('i18n/setlang/', set_site_language, name='set_language'),
     path('admin/', admin.site.urls),
 ]
 
@@ -32,4 +34,3 @@ urlpatterns += i18n_patterns(
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-

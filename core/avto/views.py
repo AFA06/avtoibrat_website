@@ -1,13 +1,15 @@
 import json
 import os
+import re
 
+from django.conf import settings
 from django.utils import timezone
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login as auth_login, logout
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse, FileResponse, Http404
+from django.http import JsonResponse, FileResponse, Http404, HttpResponseRedirect
 from django.contrib.auth import get_user_model
-from django.views.decorators.http import require_POST
+from django.views.decorators.http import require_POST, require_http_methods
 from django.db.models import Sum, F, ExpressionWrapper, DurationField
 
 from .models import (
@@ -18,6 +20,38 @@ from .models import (
 )
 
 User = get_user_model()
+
+_LANGUAGE_PREFIX_RE = re.compile(
+    r"^/(%s)(/|$)" % "|".join(re.escape(code) for code, _ in settings.LANGUAGES)
+)
+
+
+@require_http_methods(["POST"])
+def set_site_language(request):
+    """Switch the site's UI language and redirect under the new prefix.
+
+    Django's stock set_language view relies on resolve()/reverse() to
+    translate the redirect target to the new language prefix. In this
+    project that round trip was returning the URL unchanged (confirmed by
+    direct testing), so the language never actually switched. Since every
+    page here uses a single, fixed language-code prefix (no per-view
+    translated path segments), rewriting the prefix directly is simpler
+    and reliable.
+    """
+    language = request.POST.get("language")
+    next_url = request.POST.get("next") or "/"
+
+    if not next_url.startswith("/") or next_url.startswith("//"):
+        next_url = "/"
+
+    if not language or language not in dict(settings.LANGUAGES):
+        return HttpResponseRedirect(next_url)
+
+    path = _LANGUAGE_PREFIX_RE.sub("/", next_url, count=1)
+    response = HttpResponseRedirect(f"/{language}{path}")
+    response.set_cookie(settings.LANGUAGE_COOKIE_NAME, language)
+    return response
+
 
 RESTART_URL_NAMES = {
     ("shablon", "shablon"): "start_shablon_test",
