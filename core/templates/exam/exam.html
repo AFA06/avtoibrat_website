@@ -1,0 +1,102 @@
+{% load i18n %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+<meta charset="UTF-8">
+<title>{% trans "AvtoIbrat - Imtihon" %}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="shortcut icon" href="{% static 'assets_dashboard/images/favicon.png' %}">
+<link rel="stylesheet" href="{% static 'assets_dashboard/css/icons.min.css' %}">
+<link rel="stylesheet" href="{% static 'exam/exam.css' %}">
+</head>
+<body>
+
+<header class="exam-header">
+  <div class="exam-header__brand">
+    <img src="{% static 'assets/images/logo-white.png' %}" alt="AvtoIbrat">
+  </div>
+  <div class="exam-header__actions">
+    <div class="exam-counter" id="examCounter">{% trans "Savol" %} 1 / 1</div>
+    <div class="exam-timer" id="examTimer">
+      <i class="fas fa-clock"></i>
+      <span id="examTimerValue">--:--</span>
+    </div>
+    <button type="button" class="exam-iconbtn" id="fullscreenBtn" title="{% trans 'Toʻliq ekran' %}">
+      <span class="exam-keyhint">L</span>
+      <i class="fas fa-expand"></i>
+    </button>
+    <button type="button" class="exam-iconbtn exam-iconbtn--danger" id="finishBtn" title="{% trans 'Yakunlash' %}">
+      <span class="exam-keyhint">ESC</span>
+      <i class="fas fa-sign-out-alt"></i>
+    </button>
+  </div>
+</header>
+
+<div class="exam-question-bar">
+  <span id="examQuestionText"></span>
+</div>
+
+<main class="exam-main">
+  <div class="exam-main__image" id="examImageBox"></div>
+  <div class="exam-main__options" id="examOptions"></div>
+</main>
+
+<nav class="exam-navigator">
+  <button type="button" class="exam-navarrow" id="prevBtn" aria-label="{% trans 'Oldingi' %}">
+    <i class="fas fa-chevron-left"></i>
+  </button>
+  <div class="exam-navgrid" id="examNavGrid"></div>
+  <button type="button" class="exam-navarrow" id="nextBtn" aria-label="{% trans 'Keyingi' %}">
+    <i class="fas fa-chevron-right"></i>
+  </button>
+</nav>
+
+<div class="exam-modal" id="answerModal">
+  <div class="exam-modal__card">
+    <h3>{% trans "Javobni tasdiqlaysizmi?" %}</h3>
+    <p class="exam-modal__answer" id="answerModalText"></p>
+    <div class="exam-modal__actions">
+      <button type="button" class="exam-btn exam-btn--ghost" id="answerCancelBtn">{% trans "Bekor qilish" %}</button>
+      <button type="button" class="exam-btn exam-btn--primary" id="answerConfirmBtn">{% trans "Tasdiqlash" %}</button>
+    </div>
+  </div>
+</div>
+
+<div class="exam-modal" id="finishModal">
+  <div class="exam-modal__card">
+    <h3>{% trans "Testni yakunlaysizmi?" %}</h3>
+    <p class="exam-modal__hint">{% trans "Yakunlagandan soʻng savollarga qayta javob berib boʻlmaydi." %}</p>
+    <div class="exam-modal__actions">
+      <button type="button" class="exam-btn exam-btn--ghost" id="finishCancelBtn">{% trans "Bekor qilish" %}</button>
+      <button type="button" class="exam-btn exam-btn--primary" id="finishConfirmBtn">{% trans "Yakunlash" %}</button>
+    </div>
+  </div>
+</div>
+
+<form id="finishForm" method="post" action="{% url 'finish_test' session.id %}" style="display:none">
+  {% csrf_token %}
+</form>
+
+{{ questions_data|json_script:"exam-questions-data" }}
+{{ answered_data|json_script:"exam-answered-data" }}
+{{ remaining_seconds|json_script:"exam-remaining-seconds" }}
+
+<script id="exam-strings" type="application/json">
+{
+  "questionCounter": "{% trans 'Savol' %}",
+  "answerText": "{% trans 'Tanlangan javob' %}"
+}
+</script>
+
+<script>
+  window.EXAM_CONFIG = {
+    submitUrl: "{% url 'submit_answer' %}",
+    finishFormId: "finishForm",
+    csrfToken: "{{ csrf_token }}",
+    sessionId: {{ session.id }}
+  };
+</script>
+<script src="{% static 'exam/exam.js' %}"></script>
+</body>
+</html>

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-04 07:22+0500\n"
+"POT-Creation-Date: 2026-09-18 14:48+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,63 +19,41 @@ msgstr ""
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: avto/admin.py:15
+#: avto/admin.py:14
 msgid "Javob"
 msgstr ""
 
-#: avto/admin.py:16
+#: avto/admin.py:15
 msgid "Javoblar"
 msgstr ""
 
-#: avto/admin.py:27
+#: avto/admin.py:26
 #, fuzzy
 #| msgid "Asosiy ma'lumotlar"
 msgid "Asosiy ma’lumotlar"
 msgstr "Основная информация"
 
-#: avto/admin.py:28
+#: avto/admin.py:27
 msgid "Media fayllar"
 msgstr ""
 
-#: avto/admin.py:42
+#: avto/admin.py:41
 msgid "Ko‘rinish"
 msgstr ""
 
-#: avto/admin.py:43
+#: avto/admin.py:42
 msgid "Parametrlar"
 msgstr ""
 
-#: avto/models.py:309
-msgid "Savol matni"
-msgstr ""
-
-#: avto/models.py:316
-msgid "Rasm"
-msgstr ""
-
-#: avto/models.py:325
-msgid "Audio (O‘zbek lotin/krill)"
-msgstr ""
-
-#: avto/models.py:332
-#, fuzzy
-#| msgid "Русский"
-msgid "Audio (Русский)"
-msgstr "Русский"
-
-#: avto/models.py:335
-msgid "Video URL"
-msgstr ""
-
-#: core/settings.py:121
+#: core/settings.py:120
 msgid "Oʻzbek (lotin)"
 msgstr "Узбекский (латиница)"
 
-#: core/settings.py:122
+#: core/settings.py:121
 msgid "Ўзбек (кирил)"
 msgstr "Узбекский (кириллица)"
 
-#: core/settings.py:123
+#: core/settings.py:122
 msgid "Русский"
 msgstr "Русский"
 
@@ -84,7 +62,7 @@ msgstr "Русский"
 #: templates/dashboard/login.html:8 templates/dashboard/manular.html:9
 #: templates/dashboard/mavzulashtirilgan.html:9
 #: templates/dashboard/ohshash-savollar.html:9
-#: templates/dashboard/real-imtihon.html:9 templates/dashboard/result.html:9
+#: templates/dashboard/real-imtihon.html:9
 #: templates/dashboard/road-signs-descriptions.html:9
 #: templates/dashboard/road-signs-two.html:9
 #: templates/dashboard/road-signs.html:9 templates/dashboard/saqlangan.html:9
@@ -258,8 +236,6 @@ msgstr "Быстрая связь"
 #: templates/dashboard/road-signs.html:170
 #: templates/dashboard/saqlangan.html:173
 #: templates/dashboard/shablon-test.html:170
-#: templates/sinov_test_panel/test_panel2.html:71
-#: templates/test_panel/test-panel.html:837
 msgid "Chiqish"
 msgstr "Выйти"
 
@@ -275,11 +251,11 @@ msgstr "Обратная связь через Telegram"
 #: templates/dashboard/dashboard.html:572 templates/dashboard/manular.html:304
 #: templates/dashboard/mavzulashtirilgan.html:290
 #: templates/dashboard/ohshash-savollar.html:265
-#: templates/dashboard/real-imtihon.html:250 templates/dashboard/result.html:65
+#: templates/dashboard/real-imtihon.html:250
 #: templates/dashboard/road-signs-descriptions.html:313
 #: templates/dashboard/road-signs-two.html:271
 #: templates/dashboard/road-signs.html:271
-#: templates/dashboard/saqlangan.html:255
+#: templates/dashboard/saqlangan.html:256
 #: templates/dashboard/shablon-test.html:309
 msgid "Ishlab chiqgan"
 msgstr "Развитый"
@@ -504,25 +480,49 @@ msgstr "Начать"
 msgid "Hozircha testlar mavjud emas"
 msgstr "Пока тестов нет"
 
-#: templates/dashboard/result.html:36
+#: templates/dashboard/result.html:7
+msgid "Test natijasi"
+msgstr "Результат теста"
+
+#: templates/dashboard/result.html:22
+msgid "Siz hali birorta ham testni yakunlamagansiz."
+msgstr "Вы ещё не завершили ни одного теста."
+
+#: templates/dashboard/result.html:23 templates/dashboard/result.html:66
+msgid "Shaxsiy kabinet"
+msgstr "Личный кабинет"
+
+#: templates/dashboard/result.html:25
 msgid "Test natijangiz"
 msgstr "Ваш результат теста"
 
-#: templates/dashboard/result.html:42
-msgid "To'g'ri javoblar:"
-msgstr "Правильные ответы:"
+#: templates/dashboard/result.html:31
+msgid "Jami savollar"
+msgstr "Всего вопросов"
 
-#: templates/dashboard/result.html:45
-msgid "Noto'g'ri javoblar:"
-msgstr "Неправильные ответы:"
+#: templates/dashboard/result.html:35
+msgid "Toʻgʻri"
+msgstr "Верно"
 
-#: templates/dashboard/result.html:48
-msgid "Tanlanmagan javoblar:"
-msgstr "Неотвеченные:"
+#: templates/dashboard/result.html:39
+msgid "Notoʻgʻri"
+msgstr "Неверно"
 
-#: templates/dashboard/result.html:52
-msgid "Bosh sahifaga qaytish"
-msgstr "Вернуться на главную"
+#: templates/dashboard/result.html:43
+msgid "Javob berilmagan"
+msgstr "Без ответа"
+
+#: templates/dashboard/result.html:47
+msgid "Ball"
+msgstr "Балл"
+
+#: templates/dashboard/result.html:51
+msgid "Sarflangan vaqt"
+msgstr "Затраченное время"
+
+#: templates/dashboard/result.html:63
+msgid "Qayta boshlash"
+msgstr "Начать заново"
 
 #: templates/dashboard/road-signs-descriptions.html:199
 msgid "Yo'l belgilari bo'yicha to'liq ma'lumot"
@@ -541,46 +541,85 @@ msgstr "Подробнее"
 msgid "Hozircha saqlangan savollar yo‘q."
 msgstr "Пока сохранённых вопросов нет."
 
-#: templates/sinov_test_panel/test_panel2.html:59
-msgid "Bekor qilish"
-msgstr "Отмена"
+#: templates/exam/exam.html:7
+msgid "AvtoIbrat - Imtihon"
+msgstr "AvtoIbrat - Экзамен"
 
-#: templates/sinov_test_panel/test_panel2.html:60
-msgid "Tasdiqlash"
-msgstr "Подтвердить"
+#: templates/exam/exam.html:20 templates/exam/exam.html:87
+msgid "Savol"
+msgstr "Вопрос"
 
-#: templates/sinov_test_panel/test_panel2.html:68
-msgid "Imtihonni yakunlaysizmi?"
-msgstr "Вы хотите завершить экзамен?"
+#: templates/exam/exam.html:25
+msgid "Toʻliq ekran"
+msgstr "Полный экран"
 
-#: templates/sinov_test_panel/test_panel2.html:70
-msgid "Davom etish"
-msgstr "Продолжить"
-
-#: templates/test_panel/test-panel.html:8
-msgid "O'quv platforma paneli!"
-msgstr "Панель учебной платформы!"
-
-#: templates/test_panel/test-panel.html:706
-msgid "TOPSHIRUVCHI:"
-msgstr "ЗАДАВШИЙ:"
-
-#: templates/test_panel/test-panel.html:773
-msgid "Videoni ko‘rish"
-msgstr "Смотреть видео"
-
-#: templates/test_panel/test-panel.html:790
-msgid "Ovoz eshitish"
-msgstr "Слушать аудио"
-
-#: templates/test_panel/test-panel.html:828
+#: templates/exam/exam.html:29 templates/exam/exam.html:72
 msgid "Yakunlash"
 msgstr "Завершить"
 
-#: templates/test_panel/test-panel.html:834
-msgid "Chiqmoqchimisiz?"
-msgstr "Вы хотите выйти?"
+#: templates/exam/exam.html:46
+msgid "Oldingi"
+msgstr "Предыдущий"
 
-#: templates/test_panel/test-panel.html:836
-msgid "Davom ettirish"
-msgstr "Продолжить"
+#: templates/exam/exam.html:50
+msgid "Keyingi"
+msgstr "Следующий"
+
+#: templates/exam/exam.html:57
+msgid "Javobni tasdiqlaysizmi?"
+msgstr "Вы подтверждаете ответ?"
+
+#: templates/exam/exam.html:60 templates/exam/exam.html:71
+msgid "Bekor qilish"
+msgstr "Отмена"
+
+#: templates/exam/exam.html:61
+msgid "Tasdiqlash"
+msgstr "Подтвердить"
+
+#: templates/exam/exam.html:68
+msgid "Testni yakunlaysizmi?"
+msgstr "Вы хотите завершить тест?"
+
+#: templates/exam/exam.html:69
+msgid "Yakunlagandan soʻng savollarga qayta javob berib boʻlmaydi."
+msgstr "После завершения ответить на вопросы повторно будет невозможно."
+
+#: templates/exam/exam.html:88
+msgid "Tanlangan javob"
+msgstr "Выбранный ответ"
+
+#, fuzzy
+#~| msgid "Русский"
+#~ msgid "Audio (Русский)"
+#~ msgstr "Русский"
+
+#~ msgid "To'g'ri javoblar:"
+#~ msgstr "Правильные ответы:"
+
+#~ msgid "Noto'g'ri javoblar:"
+#~ msgstr "Неправильные ответы:"
+
+#~ msgid "Bosh sahifaga qaytish"
+#~ msgstr "Вернуться на главную"
+
+#~ msgid "Davom etish"
+#~ msgstr "Продолжить"
+
+#~ msgid "O'quv platforma paneli!"
+#~ msgstr "Панель учебной платформы!"
+
+#~ msgid "TOPSHIRUVCHI:"
+#~ msgstr "ЗАДАВШИЙ:"
+
+#~ msgid "Videoni ko‘rish"
+#~ msgstr "Смотреть видео"
+
+#~ msgid "Ovoz eshitish"
+#~ msgstr "Слушать аудио"
+
+#~ msgid "Chiqmoqchimisiz?"
+#~ msgstr "Вы хотите выйти?"
+
+#~ msgid "Davom ettirish"
+#~ msgstr "Продолжить"

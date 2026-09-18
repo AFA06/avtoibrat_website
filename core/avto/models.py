@@ -395,6 +395,7 @@ class TestSession(models.Model):
     )
 
     questions = models.ManyToManyField(Question, blank=True)
+    question_order = models.JSONField(default=list, blank=True)
 
     started_at = models.DateTimeField(null=True, blank=True)
     finished_at = models.DateTimeField(null=True, blank=True)

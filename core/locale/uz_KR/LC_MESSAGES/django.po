@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-04 04:49+0500\n"
+"POT-Creation-Date: 2026-09-18 14:48+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,270 +16,604 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: core/settings.py:121
+#: avto/admin.py:14
+msgid "Javob"
+msgstr ""
+
+#: avto/admin.py:15
+msgid "Javoblar"
+msgstr ""
+
+#: avto/admin.py:26
+#, fuzzy
+#| msgid "Asosiy ma'lumotlar"
+msgid "Asosiy ma’lumotlar"
+msgstr "Асосий маълумотлар"
+
+#: avto/admin.py:27
+msgid "Media fayllar"
+msgstr ""
+
+#: avto/admin.py:41
+msgid "Ko‘rinish"
+msgstr ""
+
+#: avto/admin.py:42
+msgid "Parametrlar"
+msgstr ""
+
+#: core/settings.py:120
 msgid "Oʻzbek (lotin)"
 msgstr "Ўзбекча (лотин)"
 
-#: core/settings.py:122
+#: core/settings.py:121
 msgid "Ўзбек (кирил)"
 msgstr "Ўзбекча (кирил)"
 
-#: core/settings.py:123
+#: core/settings.py:122
 msgid "Русский"
 msgstr "Русча"
 
-
-
-
-
-
-
+#: templates/dashboard/contact-list.html:10
+#: templates/dashboard/dashboard.html:9 templates/dashboard/forgotlogin.html:9
+#: templates/dashboard/login.html:8 templates/dashboard/manular.html:9
+#: templates/dashboard/mavzulashtirilgan.html:9
+#: templates/dashboard/ohshash-savollar.html:9
+#: templates/dashboard/real-imtihon.html:9
+#: templates/dashboard/road-signs-descriptions.html:9
+#: templates/dashboard/road-signs-two.html:9
+#: templates/dashboard/road-signs.html:9 templates/dashboard/saqlangan.html:9
+#: templates/dashboard/shablon-test.html:9
 msgid "AvtoIbrat - O'quv platforma paneli!"
 msgstr "AvtoIbrat — ўқув платформа панели"
 
+#: templates/dashboard/contact-list.html:60
+#: templates/dashboard/dashboard.html:59 templates/dashboard/manular.html:60
+#: templates/dashboard/mavzulashtirilgan.html:59
+#: templates/dashboard/ohshash-savollar.html:59
+#: templates/dashboard/real-imtihon.html:60
+#: templates/dashboard/road-signs-descriptions.html:61
+#: templates/dashboard/road-signs-two.html:58
+#: templates/dashboard/road-signs.html:58 templates/dashboard/saqlangan.html:61
+#: templates/dashboard/shablon-test.html:58
 msgid "Asosiy"
 msgstr "Асосий"
 
+#: templates/dashboard/contact-list.html:60
+#: templates/dashboard/dashboard.html:59 templates/dashboard/manular.html:60
+#: templates/dashboard/mavzulashtirilgan.html:59
+#: templates/dashboard/ohshash-savollar.html:59
+#: templates/dashboard/real-imtihon.html:60
+#: templates/dashboard/road-signs-descriptions.html:61
+#: templates/dashboard/road-signs-two.html:58
+#: templates/dashboard/road-signs.html:58 templates/dashboard/saqlangan.html:61
+#: templates/dashboard/shablon-test.html:58
 msgid "Asosiy ma'lumotlar"
 msgstr "Асосий маълумотлар"
 
+#: templates/dashboard/contact-list.html:63
+#: templates/dashboard/dashboard.html:62 templates/dashboard/manular.html:63
+#: templates/dashboard/mavzulashtirilgan.html:62
+#: templates/dashboard/ohshash-savollar.html:62
+#: templates/dashboard/real-imtihon.html:63
+#: templates/dashboard/road-signs-descriptions.html:64
+#: templates/dashboard/road-signs-two.html:61
+#: templates/dashboard/road-signs.html:61 templates/dashboard/saqlangan.html:64
+#: templates/dashboard/shablon-test.html:61
 msgid "Shahsiy kabinet"
 msgstr "Шахсий кабинет"
 
+#: templates/dashboard/contact-list.html:66
+#: templates/dashboard/dashboard.html:65 templates/dashboard/manular.html:66
+#: templates/dashboard/mavzulashtirilgan.html:65
+#: templates/dashboard/ohshash-savollar.html:65
+#: templates/dashboard/real-imtihon.html:66
+#: templates/dashboard/road-signs-descriptions.html:67
+#: templates/dashboard/road-signs-two.html:64
+#: templates/dashboard/road-signs.html:64 templates/dashboard/saqlangan.html:67
+#: templates/dashboard/shablon-test.html:64
 msgid "Shablon teste"
 msgstr "Шаблон тестлар"
 
+#: templates/dashboard/contact-list.html:69
+#: templates/dashboard/dashboard.html:68 templates/dashboard/manular.html:69
+#: templates/dashboard/mavzulashtirilgan.html:68
+#: templates/dashboard/ohshash-savollar.html:68
+#: templates/dashboard/real-imtihon.html:69
+#: templates/dashboard/road-signs-descriptions.html:70
+#: templates/dashboard/road-signs-two.html:67
+#: templates/dashboard/road-signs.html:67 templates/dashboard/saqlangan.html:70
+#: templates/dashboard/shablon-test.html:67
 msgid "Real imtihon"
 msgstr "Реал имтиҳон"
 
+#: templates/dashboard/contact-list.html:72
+#: templates/dashboard/dashboard.html:71 templates/dashboard/manular.html:72
+#: templates/dashboard/mavzulashtirilgan.html:71
+#: templates/dashboard/ohshash-savollar.html:71
+#: templates/dashboard/real-imtihon.html:72
+#: templates/dashboard/road-signs-descriptions.html:73
+#: templates/dashboard/road-signs-two.html:70
+#: templates/dashboard/road-signs.html:70 templates/dashboard/saqlangan.html:73
+#: templates/dashboard/shablon-test.html:70
 msgid "Mavzulashtirilgan testlar"
 msgstr "Мавзуллаштирилган тестлар"
 
+#: templates/dashboard/contact-list.html:75
+#: templates/dashboard/dashboard.html:74 templates/dashboard/manular.html:75
+#: templates/dashboard/mavzulashtirilgan.html:74
+#: templates/dashboard/ohshash-savollar.html:74
+#: templates/dashboard/real-imtihon.html:75
+#: templates/dashboard/road-signs-descriptions.html:76
+#: templates/dashboard/road-signs-two.html:73
+#: templates/dashboard/road-signs.html:73 templates/dashboard/saqlangan.html:76
+#: templates/dashboard/shablon-test.html:73
 msgid "O'hshash savollar"
 msgstr "Ўхшаш саволлар"
 
+#: templates/dashboard/contact-list.html:78
+#: templates/dashboard/dashboard.html:77 templates/dashboard/manular.html:78
+#: templates/dashboard/mavzulashtirilgan.html:77
+#: templates/dashboard/ohshash-savollar.html:77
+#: templates/dashboard/real-imtihon.html:78
+#: templates/dashboard/road-signs-descriptions.html:79
+#: templates/dashboard/road-signs-two.html:76
+#: templates/dashboard/road-signs.html:76 templates/dashboard/saqlangan.html:79
+#: templates/dashboard/shablon-test.html:76
 msgid "Saqlangan testler"
 msgstr "Сақланган тестлар"
 
+#: templates/dashboard/contact-list.html:81
+#: templates/dashboard/dashboard.html:80 templates/dashboard/manular.html:81
+#: templates/dashboard/mavzulashtirilgan.html:80
+#: templates/dashboard/ohshash-savollar.html:80
+#: templates/dashboard/real-imtihon.html:81
+#: templates/dashboard/road-signs-descriptions.html:82
+#: templates/dashboard/road-signs-two.html:79
+#: templates/dashboard/road-signs.html:79 templates/dashboard/saqlangan.html:82
+#: templates/dashboard/shablon-test.html:79
 msgid "Qo'shimcha"
 msgstr "Қўшимча"
 
+#: templates/dashboard/contact-list.html:81
+#: templates/dashboard/dashboard.html:80 templates/dashboard/manular.html:81
+#: templates/dashboard/mavzulashtirilgan.html:80
+#: templates/dashboard/ohshash-savollar.html:80
+#: templates/dashboard/real-imtihon.html:81
+#: templates/dashboard/road-signs-descriptions.html:82
+#: templates/dashboard/road-signs-two.html:79
+#: templates/dashboard/road-signs.html:79 templates/dashboard/saqlangan.html:82
+#: templates/dashboard/shablon-test.html:79
 msgid "Qo'shimcha ma'lumotlar"
 msgstr "Қўшимча маълумотлар"
 
+#: templates/dashboard/contact-list.html:83
+#: templates/dashboard/dashboard.html:82 templates/dashboard/manular.html:83
+#: templates/dashboard/mavzulashtirilgan.html:82
+#: templates/dashboard/ohshash-savollar.html:82
+#: templates/dashboard/real-imtihon.html:83
+#: templates/dashboard/road-signs-descriptions.html:84
+#: templates/dashboard/road-signs-two.html:81
+#: templates/dashboard/road-signs.html:81 templates/dashboard/saqlangan.html:84
+#: templates/dashboard/shablon-test.html:81
 msgid "Qo'llanma"
 msgstr "Қўлланма"
 
+#: templates/dashboard/contact-list.html:86
+#: templates/dashboard/dashboard.html:85 templates/dashboard/manular.html:86
+#: templates/dashboard/mavzulashtirilgan.html:85
+#: templates/dashboard/ohshash-savollar.html:85
+#: templates/dashboard/real-imtihon.html:86
+#: templates/dashboard/road-signs-descriptions.html:87
+#: templates/dashboard/road-signs-two.html:84
+#: templates/dashboard/road-signs.html:84 templates/dashboard/saqlangan.html:87
+#: templates/dashboard/shablon-test.html:84
 msgid "Yo’l belgilari"
 msgstr "Йўл белгилари"
 
+#: templates/dashboard/contact-list.html:89
+#: templates/dashboard/dashboard.html:88 templates/dashboard/manular.html:89
+#: templates/dashboard/mavzulashtirilgan.html:88
+#: templates/dashboard/ohshash-savollar.html:88
+#: templates/dashboard/real-imtihon.html:89
+#: templates/dashboard/road-signs-descriptions.html:90
+#: templates/dashboard/road-signs-two.html:87
+#: templates/dashboard/road-signs.html:87 templates/dashboard/saqlangan.html:90
+#: templates/dashboard/shablon-test.html:87
 msgid "Tezkor bog'lanish"
 msgstr "Тезкор боғланиш"
 
+#: templates/dashboard/contact-list.html:172
+#: templates/dashboard/dashboard.html:171 templates/dashboard/manular.html:172
+#: templates/dashboard/mavzulashtirilgan.html:171
+#: templates/dashboard/ohshash-savollar.html:171
+#: templates/dashboard/real-imtihon.html:172
+#: templates/dashboard/road-signs-descriptions.html:173
+#: templates/dashboard/road-signs-two.html:170
+#: templates/dashboard/road-signs.html:170
+#: templates/dashboard/saqlangan.html:173
+#: templates/dashboard/shablon-test.html:170
 msgid "Chiqish"
 msgstr "Чиқиш"
 
-msgid "AvtoIbrat o‘quvchisi"
-msgstr "AvtoIbrat ўқувчиси"
-
-msgid "Cheksiz aktivlik:"
-msgstr "Чексиз активлик:"
-
-msgid "Ha"
-msgstr "Ҳа"
-
-msgid "Yo‘q"
-msgstr "Йўқ"
-
-msgid "Vaqt bo‘yicha aktiv:"
-msgstr "Вақт бўйича актив:"
-
-msgid "Faol"
-msgstr "Фаол"
-
-msgid "Faol emas"
-msgstr "Фаол эмас"
-
-msgid "Boshlangan:"
-msgstr "Бошланган:"
-
-msgid "Tugaydi:"
-msgstr "Тугайди:"
-
-msgid "Hisob holati:"
-msgstr "Ҳисоб ҳолати:"
-
-msgid "Umrbod faol"
-msgstr "Умрбод фаол"
-
-msgid "Vaqt bo‘yicha faol"
-msgstr "Вақт бўйича фаол"
-
-msgid "Hoziroq"
-msgstr "Ҳозироқ"
-
-msgid "ilim olishni boshlang!"
-msgstr "Илм олишни бошланг!"
-
-msgid "Siz bu yerda test yechib imtihonga tayyorlanishingiz mumkin!"
-msgstr "Сиз бу ерда тест ечиб имтиҳонга тайёрланишингиз мумкин!"
-
-msgid "Hozroq boshlash"
-msgstr "Ҳозироқ бошлаш"
-
-msgid "Foydalanuvchilar"
-msgstr "Фойдаланувчилар"
-
-msgid "Sust"
-msgstr "Суст"
-
-msgid "Bugungi sariflangan vaqt"
-msgstr "Бугунги сарфланган вақт"
-
-msgid "Umumiy sarflangan vaqt"
-msgstr "Умумий сарфланган вақт"
-
-msgid "Muvofaqiyatli testlar soni"
-msgstr "Муваффақиятли тестлар сони"
-
-msgid "Kunlik va haftalik davr jadvali"
-msgstr "Кунлик ва ҳафталик давр жадвали"
-
-msgid "Ishlab chiqgan"
-msgstr "Ишлаб чиққан"
-
-msgid "Statistikani tozalash"
-msgstr "Статистикани тозалаш"
-
+#: templates/dashboard/contact-list.html:199
 msgid "Muammolar bo'yicha tezkor bog'lanish"
 msgstr "Муаммолар бўйича тезкор боғланиш"
 
+#: templates/dashboard/contact-list.html:234
 msgid "Telegram orqali bog‘lanish"
 msgstr "Телеграм орқали боғланиш"
 
+#: templates/dashboard/contact-list.html:292
+#: templates/dashboard/dashboard.html:572 templates/dashboard/manular.html:304
+#: templates/dashboard/mavzulashtirilgan.html:290
+#: templates/dashboard/ohshash-savollar.html:265
+#: templates/dashboard/real-imtihon.html:250
+#: templates/dashboard/road-signs-descriptions.html:313
+#: templates/dashboard/road-signs-two.html:271
+#: templates/dashboard/road-signs.html:271
+#: templates/dashboard/saqlangan.html:256
+#: templates/dashboard/shablon-test.html:309
+msgid "Ishlab chiqgan"
+msgstr "Ишлаб чиққан"
+
+#: templates/dashboard/dashboard.html:215
+msgid "AvtoIbrat o‘quvchisi"
+msgstr "AvtoIbrat ўқувчиси"
+
+#: templates/dashboard/dashboard.html:226
+msgid "Cheksiz aktivlik:"
+msgstr "Чексиз активлик:"
+
+#: templates/dashboard/dashboard.html:228
+msgid "Ha"
+msgstr "Ҳа"
+
+#: templates/dashboard/dashboard.html:230
+msgid "Yo‘q"
+msgstr "Йўқ"
+
+#: templates/dashboard/dashboard.html:236
+msgid "Vaqt bo‘yicha aktiv:"
+msgstr "Вақт бўйича актив:"
+
+#: templates/dashboard/dashboard.html:238
+#: templates/dashboard/dashboard.html:326
+msgid "Faol"
+msgstr "Фаол"
+
+#: templates/dashboard/dashboard.html:240
+#: templates/dashboard/dashboard.html:265
+msgid "Faol emas"
+msgstr "Фаол эмас"
+
+#: templates/dashboard/dashboard.html:246
+msgid "Boshlangan:"
+msgstr "Бошланган:"
+
+#: templates/dashboard/dashboard.html:252
+msgid "Tugaydi:"
+msgstr "Тугайди:"
+
+#: templates/dashboard/dashboard.html:258
+msgid "Hisob holati:"
+msgstr "Ҳисоб ҳолати:"
+
+#: templates/dashboard/dashboard.html:261
+msgid "Umrbod faol"
+msgstr "Умрбод фаол"
+
+#: templates/dashboard/dashboard.html:263
+msgid "Vaqt bo‘yicha faol"
+msgstr "Вақт бўйича фаол"
+
+#: templates/dashboard/dashboard.html:283
+msgid "Hoziroq"
+msgstr "Ҳозироқ"
+
+#: templates/dashboard/dashboard.html:284
+msgid "ilim olishni boshlang!"
+msgstr "Илм олишни бошланг!"
+
+#: templates/dashboard/dashboard.html:285
+msgid "Siz bu yerda test yechib imtihonga tayyorlanishingiz mumkin!"
+msgstr "Сиз бу ерда тест ечиб имтиҳонга тайёрланишингиз мумкин!"
+
+#: templates/dashboard/dashboard.html:288
+msgid "Hozroq boshlash"
+msgstr "Ҳозироқ бошлаш"
+
+#: templates/dashboard/dashboard.html:311
+msgid "Foydalanuvchilar"
+msgstr "Фойдаланувчилар"
+
+#: templates/dashboard/dashboard.html:328
+msgid "Sust"
+msgstr "Суст"
+
+#: templates/dashboard/dashboard.html:337
+msgid "Bugungi sariflangan vaqt"
+msgstr "Бугунги сарфланган вақт"
+
+#: templates/dashboard/dashboard.html:355
+msgid "Umumiy sarflangan vaqt"
+msgstr "Умумий сарфланган вақт"
+
+#: templates/dashboard/dashboard.html:376
+msgid "Muvofaqiyatli testlar soni"
+msgstr "Муваффақиятли тестлар сони"
+
+#: templates/dashboard/dashboard.html:390
+msgid "Kunlik va haftalik davr jadvali"
+msgstr "Кунлик ва ҳафталик давр жадвали"
+
+#: templates/dashboard/dashboard.html:399
+msgid "DUSH"
+msgstr ""
+
+#: templates/dashboard/dashboard.html:400
+msgid "SESH"
+msgstr ""
+
+#: templates/dashboard/dashboard.html:401
+msgid "CHOR"
+msgstr ""
+
+#: templates/dashboard/dashboard.html:402
+msgid "PAY"
+msgstr ""
+
+#: templates/dashboard/dashboard.html:403
+msgid "JUM"
+msgstr ""
+
+#: templates/dashboard/dashboard.html:404
+msgid "SHAN"
+msgstr ""
+
+#: templates/dashboard/dashboard.html:405
+msgid "YAK"
+msgstr ""
+
+#: templates/dashboard/forgotlogin.html:38
 msgid "Hisobni qayta tiklash"
 msgstr "Хисобни қайта тиклаш"
 
+#: templates/dashboard/forgotlogin.html:39
 msgid "Hisobni qayta tiklash uchun, admin bilan bo'glaning !"
 msgstr "Хисобни қайта тиклаш учун, админ билан боғланинг !"
 
+#: templates/dashboard/forgotlogin.html:47
 msgid "Bog'lanish"
 msgstr "Боғланиш"
 
+#: templates/dashboard/forgotlogin.html:53
 msgid "Hisobingiz tiklandimi ?"
 msgstr "Хисобингиз тикландими ?"
 
+#: templates/dashboard/forgotlogin.html:53 templates/dashboard/login.html:30
+#: templates/dashboard/login.html:86
 msgid "Hisobga kirish"
 msgstr "Хисобга кириш"
 
+#: templates/dashboard/login.html:32
 msgid "Shaxsiy hisobingizga kirish uchun ma’lumotlarni kiriting"
 msgstr "Шахсий хисобингизга кириш учун маълумотларни киритинг"
 
+#: templates/dashboard/login.html:40
 msgid "Hisobingiz muddati tugagan. Administratorga murojaat qiling."
 msgstr "Хисобингиз муддати тугаган. Администраторга мурожаат қилинг."
 
+#: templates/dashboard/login.html:46
 msgid "Siz maksimal ruxsat etilgan qurilmalar sonidan oshdingiz."
 msgstr "Сиз максимал рухсат этилган қурилмалар сонидан ошдингиз."
 
+#: templates/dashboard/login.html:52
 msgid "Login yoki parol noto‘g‘ri !"
 msgstr "Логин ёки парол нотўғри !"
 
+#: templates/dashboard/login.html:58
 msgid "Hisobingiz faol emas yoki muddati tugagan !"
 msgstr "Хисобингиз фаол эмас ёки муддати тугаган !"
 
+#: templates/dashboard/login.html:67
 msgid "Foydalanuvchi nomi"
 msgstr "Фойдаланувчи номи"
 
+#: templates/dashboard/login.html:76
 msgid "Parol"
 msgstr "Парол"
 
+#: templates/dashboard/login.html:93
 msgid "Parolni unutdingizmi?"
 msgstr "Паролни унутдингизми?"
 
+#: templates/dashboard/manular.html:197
 msgid "Yodlash uchun"
 msgstr "Ёдлаш учун"
 
+#: templates/dashboard/manular.html:201
 msgid "Yod olish uchun eng kerakli man'balar"
 msgstr "Ёд олиш учун энг керакли ман'балар"
 
-msgid "Bu yerda tezkor yod olish uchun eng kerakli ma'nbalarning barchasi mavjud va foydalanishingiz mumkin!"
-msgstr "Бу ерда тезкор ёд олиш учун энг керакли манбаларнинг барчаси мавжуд ва фойдаланишингиз мумкин!"
+#: templates/dashboard/manular.html:202
+msgid ""
+"Bu yerda tezkor yod olish uchun eng kerakli ma'nbalarning barchasi mavjud va "
+"foydalanishingiz mumkin!"
+msgstr ""
+"Бу ерда тезкор ёд олиш учун энг керакли манбаларнинг барчаси мавжуд ва "
+"фойдаланишингиз мумкин!"
 
+#: templates/dashboard/manular.html:223
 msgid "Yuklab olish"
 msgstr "Юклаб олиш"
 
+#: templates/dashboard/mavzulashtirilgan.html:198
+#: templates/dashboard/ohshash-savollar.html:198
+#: templates/dashboard/shablon-test.html:197
+msgid "Statistikani tozalash"
+msgstr "Статистикани тозалаш"
+
+#: templates/dashboard/mavzulashtirilgan.html:272
+#: templates/dashboard/ohshash-savollar.html:248
+#: templates/dashboard/real-imtihon.html:233
+#: templates/dashboard/shablon-test.html:292
 msgid "Testni boshlaysizmi?"
 msgstr "Тестни бошлайсизми?"
 
+#: templates/dashboard/mavzulashtirilgan.html:275
+#: templates/dashboard/ohshash-savollar.html:251
+#: templates/dashboard/real-imtihon.html:236
+#: templates/dashboard/shablon-test.html:295
 msgid "Orqaga"
 msgstr "Орқага"
 
+#: templates/dashboard/mavzulashtirilgan.html:276
+#: templates/dashboard/ohshash-savollar.html:252
+#: templates/dashboard/real-imtihon.html:237
+#: templates/dashboard/shablon-test.html:296
 msgid "Boshlash"
 msgstr "Бошлаш"
 
+#: templates/dashboard/real-imtihon.html:206
 msgid "Hozircha testlar mavjud emas"
 msgstr "Ҳозирча тестлар мавжуд эмас"
 
+#: templates/dashboard/result.html:7
+msgid "Test natijasi"
+msgstr "Тест натижаси"
+
+#: templates/dashboard/result.html:22
+msgid "Siz hali birorta ham testni yakunlamagansiz."
+msgstr "Сиз ҳали бирорта ҳам тестни якунламагансиз."
+
+#: templates/dashboard/result.html:23 templates/dashboard/result.html:66
+msgid "Shaxsiy kabinet"
+msgstr "Шахсий кабинет"
+
+#: templates/dashboard/result.html:25
 msgid "Test natijangiz"
 msgstr "Тест натижангиз"
 
-msgid "To'g'ri javoblar:"
-msgstr "Тўғри жавоблар:"
+#: templates/dashboard/result.html:31
+msgid "Jami savollar"
+msgstr "Жами саволлар"
 
-msgid "Noto'g'ri javoblar:"
-msgstr "Нотўғри жавоблар:"
+#: templates/dashboard/result.html:35
+msgid "Toʻgʻri"
+msgstr "Тўғри"
 
-msgid "Tanlanmagan javoblar:"
-msgstr "Танланмаган жавоблар:"
+#: templates/dashboard/result.html:39
+msgid "Notoʻgʻri"
+msgstr "Нотўғри"
 
-msgid "Bosh sahifaga qaytish"
-msgstr "Бош саҳифага қайтиш"
+#: templates/dashboard/result.html:43
+msgid "Javob berilmagan"
+msgstr "Жавоб берилмаган"
 
-msgid "Batafsil"
-msgstr "Батафсил"
+#: templates/dashboard/result.html:47
+msgid "Ball"
+msgstr "Балл"
 
+#: templates/dashboard/result.html:51
+msgid "Sarflangan vaqt"
+msgstr "Сарфланган вақт"
+
+#: templates/dashboard/result.html:63
+msgid "Qayta boshlash"
+msgstr "Қайта бошлаш"
+
+#: templates/dashboard/road-signs-descriptions.html:199
 msgid "Yo'l belgilari bo'yicha to'liq ma'lumot"
 msgstr "Йўл белгилари бўйича тўлиқ маълумот"
 
+#: templates/dashboard/road-signs-descriptions.html:222
 msgid "To‘liq ma’lumot:"
 msgstr "Тўлиқ маълумот:"
 
+#: templates/dashboard/road-signs-two.html:213
+#: templates/dashboard/road-signs.html:213
+msgid "Batafsil"
+msgstr "Батафсил"
+
+#: templates/dashboard/saqlangan.html:227
 msgid "Hozircha saqlangan savollar yo‘q."
 msgstr "Ҳозирча сақланган саволлар йўқ."
 
-msgid "Bekor qilish"
-msgstr "Бекор қилиш"
+#: templates/exam/exam.html:7
+msgid "AvtoIbrat - Imtihon"
+msgstr "AvtoIbrat - Имтиҳон"
 
-msgid "Tasdiqlash"
-msgstr "Тасдиқлаш"
+#: templates/exam/exam.html:20 templates/exam/exam.html:87
+msgid "Savol"
+msgstr "Савол"
 
-msgid "Imtihonni yakunlaysizmi?"
-msgstr "Имтиҳонни якунлайсизми?"
+#: templates/exam/exam.html:25
+msgid "Toʻliq ekran"
+msgstr "Тўлиқ экран"
 
-msgid "Davom etish"
-msgstr "Давом этиш"
-
-msgid "TOPSHIRUVCHI:"
-msgstr "ТОПШИРУВЧИ:"
-
-msgid "O'quv platforma paneli!"
-msgstr "Ўқув платформа панели!"
-
+#: templates/exam/exam.html:29 templates/exam/exam.html:72
 msgid "Yakunlash"
 msgstr "Якунлаш"
 
-msgid "Ovoz eshitish"
-msgstr "Овоз эшитиш"
+#: templates/exam/exam.html:46
+msgid "Oldingi"
+msgstr "Олдинги"
 
-msgid "Videoni ko‘rish"
-msgstr "Видео кўриш"
+#: templates/exam/exam.html:50
+msgid "Keyingi"
+msgstr "Кейинги"
 
-msgid "Chiqmoqchimisiz?"
-msgstr "Чиқмоқчимисиз?"
+#: templates/exam/exam.html:57
+msgid "Javobni tasdiqlaysizmi?"
+msgstr "Жавобни тасдиқлайсизми?"
 
-msgid "Davom ettirish"
-msgstr "Давом эттириш"
+#: templates/exam/exam.html:60 templates/exam/exam.html:71
+msgid "Bekor qilish"
+msgstr "Бекор қилиш"
 
+#: templates/exam/exam.html:61
+msgid "Tasdiqlash"
+msgstr "Тасдиқлаш"
 
+#: templates/exam/exam.html:68
+msgid "Testni yakunlaysizmi?"
+msgstr "Тестни якунлайсизми?"
 
+#: templates/exam/exam.html:69
+msgid "Yakunlagandan soʻng savollarga qayta javob berib boʻlmaydi."
+msgstr "Якунлангандан сўнг саволларга қайта жавоб бериб бўлмайди."
 
+#: templates/exam/exam.html:88
+msgid "Tanlangan javob"
+msgstr "Танланган жавоб"
+
+#~ msgid "To'g'ri javoblar:"
+#~ msgstr "Тўғри жавоблар:"
+
+#~ msgid "Noto'g'ri javoblar:"
+#~ msgstr "Нотўғри жавоблар:"
+
+#~ msgid "Bosh sahifaga qaytish"
+#~ msgstr "Бош саҳифага қайтиш"
+
+#~ msgid "Davom etish"
+#~ msgstr "Давом этиш"
+
+#~ msgid "TOPSHIRUVCHI:"
+#~ msgstr "ТОПШИРУВЧИ:"
+
+#~ msgid "O'quv platforma paneli!"
+#~ msgstr "Ўқув платформа панели!"
+
+#~ msgid "Ovoz eshitish"
+#~ msgstr "Овоз эшитиш"
+
+#~ msgid "Videoni ko‘rish"
+#~ msgstr "Видео кўриш"
+
+#~ msgid "Chiqmoqchimisiz?"
+#~ msgstr "Чиқмоқчимисиз?"
+
+#~ msgid "Davom ettirish"
+#~ msgstr "Давом эттириш"

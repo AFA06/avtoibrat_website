@@ -1,3 +1,6 @@
+import json
+import os
+
 from django.utils import timezone
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login as auth_login, logout
@@ -6,17 +9,22 @@ from django.http import JsonResponse, FileResponse, Http404
 from django.contrib.auth import get_user_model
 from django.views.decorators.http import require_POST
 from django.db.models import Sum, F, ExpressionWrapper, DurationField
-import json
-import os
 
 from .models import (
     TeamMember, Story, ConsultRequest, Testimonial, FAQ,
     ContactMessage, PdfMaterial, RoadSignCategory, RoadSign,
     ContactPerson, TestSession, Question, TestCategory,
-    Answer, UserAnswer, SavedQuestion, get_device_id
+    Answer, UserAnswer, SavedQuestion, UserDevice, get_device_id
 )
 
 User = get_user_model()
+
+RESTART_URL_NAMES = {
+    ("shablon", "shablon"): "start_shablon_test",
+    ("shablon", "mavzu"): "start_mavzu_test",
+    ("shablon", "ohshash"): "start_ohshash_test",
+    ("real", "shablon"): "start_test",
+}
 
 def index(request):
     team_members = TeamMember.objects.all()
@@ -84,6 +92,25 @@ def login_view(request):
             logout(request)
             request.session.flush()
             return redirect("/login/?expired=1")
+
+        device_id = get_device_id(request)
+
+        device, created = UserDevice.objects.get_or_create(
+            user=user,
+            device_id=device_id,
+            defaults={
+                "user_agent": request.META.get("HTTP_USER_AGENT", ""),
+                "ip_address": request.META.get("REMOTE_ADDR"),
+            }
+        )
+
+        if not created:
+            device.last_used = timezone.now()
+            device.save(update_fields=["last_used"])
+        else:
+            devices_count = user.devices.count()
+            if devices_count > user.device_limit:
+                return redirect("/login/?device_limit=1")
 
         auth_login(request, user)
         return redirect("dashboard")
@@ -399,6 +426,30 @@ def clear_statistics(request):
 
 
 
+def _create_test_session(user, category, test_kind, source="shablon"):
+    """Create a session with a fixed, randomly-picked, ordered question set."""
+    session = TestSession.objects.create(
+        user=user,
+        category=category,
+        test_kind=test_kind,
+        source=source,
+        started_at=timezone.now(),
+    )
+
+    question_ids = list(
+        Question.objects
+        .filter(kategoriya=category)
+        .order_by("?")
+        .values_list("id", flat=True)[:category.question_count]
+    )
+
+    session.questions.set(question_ids)
+    session.question_order = question_ids
+    session.save(update_fields=["question_order"])
+
+    return session
+
+
 @login_required
 def start_shablon_test(request, category_id):
     category = get_object_or_404(
@@ -407,80 +458,8 @@ def start_shablon_test(request, category_id):
         aktiv=True,
         show_in_shablon=True
     )
-
-    session = TestSession.objects.create(
-        user=request.user,
-        category=category,
-        test_kind="shablon"
-    )
-
-    questions = (
-        Question.objects
-        .filter(kategoriya=category)
-        .prefetch_related("javoblar")
-        .order_by("?")[:category.question_count]
-    )
-
-    session.questions.set(questions)
-
-    return redirect("shablon_test_panel", session_id=session.id)
-
-
-
-
-@login_required
-def test_panel(request, session_id):
-    session = get_object_or_404(
-        TestSession,
-        id=session_id,
-        user=request.user,
-        test_kind="shablon"
-    )
-
-    if not session.started_at:
-        session.started_at = timezone.now()
-        session.save(update_fields=["started_at"])
-
-    total_seconds = session.category.duration_minutes * 60
-
-    elapsed = int((timezone.now() - session.started_at).total_seconds())
-    remaining = max(0, total_seconds - elapsed)
-
-    questions = (
-        session.questions
-        .all()
-        .prefetch_related("javoblar")
-        .order_by("id")
-    )
-    total_questions = questions.count()
-
-    index = int(request.GET.get("index", 0))
-    if index >= total_questions:
-        return redirect("finish_test", session_id=session.id)
-
-    question = questions[index]
-
-    answers = UserAnswer.objects.filter(session=session)
-    answers_map = {
-        ua.question_id: ("correct" if ua.is_correct else "wrong")
-        for ua in answers
-    }
-
-    question_ids = list(questions.values_list("id", flat=True))
-
-    return render(
-        request,
-        "test_panel/test-panel.html",
-        {
-            "session": session,
-            "question": question,
-            "question_id": question.id,
-            "index": index,
-            "answers_map": answers_map,
-            "question_ids": question_ids,
-            "remaining_time": remaining,
-        }
-    )
+    session = _create_test_session(request.user, category, "shablon", "shablon")
+    return redirect("test_page", session_id=session.id)
 
 
 @login_required
@@ -491,25 +470,8 @@ def start_mavzu_test(request, category_id):
         aktiv=True,
         show_in_mavzu=True
     )
-
-    session = TestSession.objects.create(
-        user=request.user,
-        category=category,
-        test_kind="shablon",
-        source="mavzu"      # ✅ MUHIM
-    )
-
-    questions = (
-        Question.objects
-        .filter(kategoriya=category)
-        .prefetch_related("javoblar")
-        .order_by("?")[:category.question_count]
-    )
-
-
-    session.questions.set(questions)
-
-    return redirect("shablon_test_panel", session_id=session.id)
+    session = _create_test_session(request.user, category, "shablon", "mavzu")
+    return redirect("test_page", session_id=session.id)
 
 
 @login_required
@@ -520,24 +482,9 @@ def start_ohshash_test(request, category_id):
         aktiv=True,
         show_in_ohshash=True
     )
+    session = _create_test_session(request.user, category, "shablon", "ohshash")
+    return redirect("test_page", session_id=session.id)
 
-    session = TestSession.objects.create(
-        user=request.user,
-        category=category,
-        test_kind="shablon",
-        source="ohshash"     # ✅ MUHIM
-    )
-
-    questions = (
-        Question.objects
-        .filter(kategoriya=category)
-        .prefetch_related("javoblar")
-        .order_by("?")[:category.question_count]
-    )
-
-    session.questions.set(questions)
-
-    return redirect("shablon_test_panel", session_id=session.id)
 
 @login_required
 def real_imtihon(request):
@@ -597,68 +544,80 @@ def start_test(request, category_id):
         id=category_id,
         aktiv=True
     )
-
-    session = TestSession.objects.create(
-        user=request.user,
-        category=category,
-        test_kind="real"
-    )
-
+    session = _create_test_session(request.user, category, "real")
     return redirect("test_page", session_id=session.id)
 
 
-@login_required
-def test_panel2(request, session_id):
-    session = get_object_or_404(
-        TestSession,
-        id=session_id,
-        user=request.user
-    )
+def _ordered_session_questions(session):
+    questions_by_id = {
+        q.id: q
+        for q in Question.objects
+        .filter(id__in=session.question_order)
+        .prefetch_related("javoblar")
+    }
+    return [
+        questions_by_id[qid]
+        for qid in session.question_order
+        if qid in questions_by_id
+    ]
 
-    if not session.started_at:
-        session.started_at = timezone.now()
-        session.save(update_fields=["started_at"])
 
+def _remaining_seconds(session):
     total_seconds = session.category.duration_minutes * 60
-
     elapsed = int((timezone.now() - session.started_at).total_seconds())
-    remaining = max(0, total_seconds - elapsed)
+    return max(0, total_seconds - elapsed)
+
+
+@login_required
+def test_page(request, session_id):
+    session = get_object_or_404(TestSession, id=session_id, user=request.user)
+
+    if session.finished_at:
+        return redirect("test_result", session_id=session.id)
+
+    remaining = _remaining_seconds(session)
 
     if remaining <= 0:
-        return redirect("finish_test", session_id=session.id)
+        session.finished_at = timezone.now()
+        session.save(update_fields=["finished_at"])
+        return redirect("test_result", session_id=session.id)
 
-    qs = (
-        Question.objects
-        .filter(kategoriya=session.category)
-        .prefetch_related("javoblar")
-        .order_by("?")[:session.category.question_count]
-    )
+    ordered_questions = _ordered_session_questions(session)
 
-    questions = []
-    for q in qs:
-        questions.append({
+    correct_answer_map = {
+        q.id: next((a.id for a in q.javoblar.all() if a.togri), None)
+        for q in ordered_questions
+    }
+
+    questions_data = [
+        {
             "id": q.id,
             "text": q.get_text(),
             "image": q.rasm.url if q.rasm else None,
             "answers": [
-                {
-                    "id": a.id,
-                    "text": a.get_text(),
-                    "is_correct": a.togri
-                }
+                {"id": a.id, "text": a.get_text()}
                 for a in q.javoblar.all()
-            ]
-        })
-
-    return render(
-        request,
-        "sinov_test_panel/test_panel2.html",
-        {
-            "session": session,
-            "questions": questions,
-            "remaining_time": remaining,  # ✅ MUHIM
+            ],
         }
-    )
+        for q in ordered_questions
+    ]
+
+    user_answers = UserAnswer.objects.filter(session=session)
+    answered_data = {
+        ua.question_id: {
+            "selected": ua.selected_answer_id,
+            "correct": correct_answer_map.get(ua.question_id),
+            "is_correct": ua.is_correct,
+        }
+        for ua in user_answers
+    }
+
+    return render(request, "exam/exam.html", {
+        "session": session,
+        "remaining_seconds": remaining,
+        "questions_data": questions_data,
+        "answered_data": answered_data,
+    })
 
 
 @require_POST
@@ -670,90 +629,127 @@ def submit_answer(request):
         user=request.user
     )
 
-    question = get_object_or_404(
-        Question,
-        id=request.POST.get("question_id")
-    )
+    if session.finished_at:
+        return JsonResponse({"error": "finished"}, status=409)
 
+    total_seconds = session.category.duration_minutes * 60
+    elapsed = (timezone.now() - session.started_at).total_seconds()
+    grace_seconds = 5
+    if elapsed > total_seconds + grace_seconds:
+        return JsonResponse({"error": "time_over"}, status=409)
+
+    try:
+        question_id = int(request.POST.get("question_id"))
+    except (TypeError, ValueError):
+        return JsonResponse({"error": "invalid_question"}, status=400)
+
+    if question_id not in session.question_order:
+        return JsonResponse({"error": "invalid_question"}, status=400)
+
+    question = get_object_or_404(Question, id=question_id)
     answer = get_object_or_404(
         Answer,
         id=request.POST.get("answer_id"),
         question=question
     )
 
-    UserAnswer.objects.update_or_create(
+    if UserAnswer.objects.filter(session=session, question=question).exists():
+        return JsonResponse({"error": "already_answered"}, status=409)
+
+    user_answer = UserAnswer.objects.create(
         session=session,
         question=question,
-        defaults={
-            "selected_answer": answer,
-            "is_correct": answer.togri
-        }
+        selected_answer=answer,
+        is_correct=answer.togri,
     )
 
-    return JsonResponse({"success": True})
+    correct_answer = question.javoblar.filter(togri=True).first()
 
+    return JsonResponse({
+        "is_correct": user_answer.is_correct,
+        "correct_answer_id": correct_answer.id if correct_answer else None,
+    })
 
 
 @login_required
+@require_POST
 def finish_test(request, session_id):
-    session = get_object_or_404(
-        TestSession,
-        id=session_id,
-        user=request.user
-    )
+    session = get_object_or_404(TestSession, id=session_id, user=request.user)
+
+    if not session.finished_at:
+        session.finished_at = timezone.now()
+        session.save(update_fields=["finished_at"])
+
+    return redirect("test_result", session_id=session.id)
+
+
+def _result_context(session):
+    total = len(session.question_order) or session.category.question_count
 
     answers = UserAnswer.objects.filter(session=session)
-
     correct = answers.filter(is_correct=True).count()
     wrong = answers.filter(
         is_correct=False,
         selected_answer__isnull=False
     ).count()
+    answered = correct + wrong
+    empty = max(total - answered, 0)
+    score_percent = round((correct / total) * 100) if total else 0
 
-    answered = answers.filter(selected_answer__isnull=False).count()
-    empty = max(session.category.question_count - answered, 0)
+    duration_seconds = 0
+    if session.started_at and session.finished_at:
+        duration_seconds = int(
+            (session.finished_at - session.started_at).total_seconds()
+        )
+    minutes, seconds = divmod(max(duration_seconds, 0), 60)
 
-    session.finished_at = timezone.now()
-    session.save(update_fields=["finished_at"])
+    status_map = {
+        ua.question_id: ("correct" if ua.is_correct else "wrong")
+        for ua in answers
+    }
+    cells = [
+        {"number": i + 1, "status": status_map.get(qid, "empty")}
+        for i, qid in enumerate(session.question_order)
+    ]
 
-    return render(request, "dashboard/result.html", {
+    restart_url_name = RESTART_URL_NAMES.get(
+        (session.test_kind, session.source), "start_shablon_test"
+    )
+
+    return {
+        "has_session": True,
+        "session": session,
+        "category": session.category,
+        "total": total,
         "correct": correct,
         "wrong": wrong,
         "empty": empty,
-    })
+        "score_percent": score_percent,
+        "duration_display": f"{minutes:02d}:{seconds:02d}",
+        "cells": cells,
+        "restart_url_name": restart_url_name,
+    }
+
+
+@login_required
+def test_result(request, session_id):
+    session = get_object_or_404(TestSession, id=session_id, user=request.user)
+    return render(request, "dashboard/result.html", _result_context(session))
+
 
 @login_required
 def result(request):
-    last_session = (
+    session = (
         TestSession.objects
         .filter(user=request.user, finished_at__isnull=False)
         .order_by("-finished_at")
         .first()
     )
 
-    if not last_session:
-        return render(request, "dashboard/result.html", {
-            "correct": 0,
-            "wrong": 0,
-            "empty": 0,
-        })
+    if not session:
+        return render(request, "dashboard/result.html", {"has_session": False})
 
-    answers = UserAnswer.objects.filter(session=last_session)
-
-    correct = answers.filter(is_correct=True).count()
-    wrong = answers.filter(
-        is_correct=False,
-        selected_answer__isnull=False
-    ).count()
-
-    answered = answers.filter(selected_answer__isnull=False).count()
-    empty = max(last_session.category.question_count - answered, 0)
-
-    return render(request, "dashboard/result.html", {
-        "correct": correct,
-        "wrong": wrong,
-        "empty": empty,
-    })
+    return render(request, "dashboard/result.html", _result_context(session))
 
 
 
@@ -799,53 +795,6 @@ def toggle_save_question(request):
         return JsonResponse({"saved": False})
 
     return JsonResponse({"saved": True})
-
-
-
-from .models import UserDevice
-from django.utils import timezone
-
-def login_view(request):
-    if request.method == "POST":
-        user = authenticate(
-            request,
-            username=request.POST.get("username"),
-            password=request.POST.get("password"),
-        )
-
-        if not user:
-            return redirect("/login/?error=invalid")
-
-        user.sync_active_status()
-        if not user.is_active:
-            logout(request)
-            request.session.flush()
-            return redirect("/login/?expired=1")
-
-        device_id = get_device_id(request)
-
-        device, created = UserDevice.objects.get_or_create(
-            user=user,
-            device_id=device_id,
-            defaults={
-                "user_agent": request.META.get("HTTP_USER_AGENT", ""),
-                "ip_address": request.META.get("REMOTE_ADDR"),
-            }
-        )
-
-        if not created:
-            device.last_used = timezone.now()
-            device.save(update_fields=["last_used"])
-        else:
-            devices_count = user.devices.count()
-            if devices_count > user.device_limit:
-                return redirect("/login/?device_limit=1")
-
-        auth_login(request, user)
-        return redirect("dashboard")
-
-    return render(request, "dashboard/login.html")
-
 
 
 

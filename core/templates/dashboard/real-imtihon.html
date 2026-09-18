@@ -223,7 +223,7 @@
 
                     function startTest() {
                         // Boshqa sahifaga o'tkazamiz
-                        window.location.href = "/test/" + selectedBilet;
+                        window.location.href = "{% url 'start_test' 0 %}".replace("/0/", "/" + selectedBilet + "/");
                     }
                     </script>
 

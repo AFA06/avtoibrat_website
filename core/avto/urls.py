@@ -62,12 +62,6 @@ urlpatterns = [
         start_shablon_test,
         name='start_shablon_test'
     ),
-    path(
-        'shablon-test/session/<int:session_id>/',
-        test_panel,
-        name='shablon_test_panel'
-    ),
-
     # ===== REAL / SINOV TEST =====
     path(
         'real_imtihon/',
@@ -81,13 +75,18 @@ urlpatterns = [
     ),
     path(
         'test-session/<int:session_id>/',
-        test_panel2,         # test oynasi
+        test_page,            # test oynasi
         name="test_page"
     ),
     path(
         'test-finish/<int:session_id>/',
         finish_test,
         name="finish_test"
+    ),
+    path(
+        'test-result/<int:session_id>/',
+        test_result,
+        name="test_result"
     ),
     path(
         'submit-answer/',
