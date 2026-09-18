@@ -200,6 +200,12 @@ def get_device_id(request):
 
 
 class User(AbstractUser):
+    GROUP_LANGUAGE_CHOICES = (
+        ("uz", "Oʻzbek guruhi (lotin)"),
+        ("uz-kr", "Ўзбек гуруҳи (кирилл)"),
+        ("ru", "Русская группа"),
+    )
+
     phone = models.CharField(max_length=20, blank=True)
 
     account_started_at = models.DateTimeField(null=True, blank=True)
@@ -209,6 +215,14 @@ class User(AbstractUser):
     device_limit = models.PositiveSmallIntegerField(
         default=30,
         help_text="Nechta qurilmadan login qilish mumkin (1–30)"
+    )
+
+    group_language = models.CharField(
+        max_length=10,
+        choices=GROUP_LANGUAGE_CHOICES,
+        default="uz",
+        verbose_name="Guruh tili",
+        help_text="Talaba savol va javoblarni shu tilda ko‘radi. Sayt interfeysi tilidan mustaqil."
     )
 
     def vaqt_boyicha_faolmi(self):
@@ -315,8 +329,8 @@ class Question(models.Model):
 
     video_url = models.URLField(blank=True, null=True)
 
-    def get_text(self):
-        lang = get_language()
+    def get_text(self, lang=None):
+        lang = lang or get_language()
 
         if lang in ("uz",):  # uz
             return self.matn_uzb
@@ -357,8 +371,8 @@ class Answer(models.Model):
 
     togri = models.BooleanField(default=False)
 
-    def get_text(self):
-        lang = get_language()
+    def get_text(self, lang=None):
+        lang = lang or get_language()
 
         if lang in ("uz",):
             return self.matn_uzb

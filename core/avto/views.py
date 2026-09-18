@@ -583,6 +583,7 @@ def test_page(request, session_id):
         return redirect("test_result", session_id=session.id)
 
     ordered_questions = _ordered_session_questions(session)
+    exam_lang = request.user.group_language
 
     correct_answer_map = {
         q.id: next((a.id for a in q.javoblar.all() if a.togri), None)
@@ -592,10 +593,10 @@ def test_page(request, session_id):
     questions_data = [
         {
             "id": q.id,
-            "text": q.get_text(),
+            "text": q.get_text(exam_lang),
             "image": q.rasm.url if q.rasm else None,
             "answers": [
-                {"id": a.id, "text": a.get_text()}
+                {"id": a.id, "text": a.get_text(exam_lang)}
                 for a in q.javoblar.all()
             ],
         }

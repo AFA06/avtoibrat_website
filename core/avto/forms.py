@@ -29,5 +29,5 @@ class UserCreateForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ("username", "phone", "device_limit")
+        fields = ("username", "phone", "device_limit", "group_language")
 

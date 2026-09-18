@@ -143,6 +143,7 @@ class UserAdmin(DjangoUserAdmin):
     list_display = (
         "username",
         "phone",
+        "group_language",
         "vaqt_boyicha_faol_status",
         "is_superuser",
         "is_active",
@@ -151,7 +152,7 @@ class UserAdmin(DjangoUserAdmin):
     list_editable = ("is_active",)
 
     search_fields = ("username", "email", "phone")
-    list_filter = ("is_active", "is_superuser", "unlimited")
+    list_filter = ("is_active", "is_superuser", "unlimited", "group_language")
     ordering = ("-date_joined",)
 
 
@@ -160,6 +161,8 @@ class UserAdmin(DjangoUserAdmin):
         (None, {"fields": ("username", "password")}),
         ("Shaxsiy ma’lumotlar", {"fields": ("first_name", "last_name", "email", "phone")
         }),
+
+        ("Guruh", {"fields": ("group_language",)}),
 
         ("Faollik", {
             "fields": (
@@ -184,6 +187,7 @@ class UserAdmin(DjangoUserAdmin):
                 "password1",
                 "password2",
                 "device_limit",
+                "group_language",
                 "is_active",
                 "is_staff",
                 "is_superuser",
