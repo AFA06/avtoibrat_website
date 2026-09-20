@@ -20,7 +20,7 @@
 
     {% if not has_session %}
       <p class="result-empty">{% trans "Siz hali birorta ham testni yakunlamagansiz." %}</p>
-      <a href="{% url 'dashboard' %}" class="result-btn result-btn--primary">{% trans "Shaxsiy kabinet" %}</a>
+      <a href="{% url 'dashboard' %}" class="result-btn result-btn--primary">{% trans "Bosh sahifa" %}</a>
     {% else %}
       <h1 class="result-title">{% trans "Test natijangiz" %}</h1>
       <p class="result-category">{{ category.nomi }}</p>
@@ -63,7 +63,7 @@
           {% trans "Qayta boshlash" %}
         </a>
         <a href="{% url 'dashboard' %}" class="result-btn result-btn--ghost">
-          {% trans "Shaxsiy kabinet" %}
+          {% trans "Bosh sahifa" %}
         </a>
       </div>
     {% endif %}

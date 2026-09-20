@@ -693,6 +693,12 @@ msgstr "Автомактаб администратори"
 msgid "Kirish sahifasiga qaytish"
 msgstr "Кириш саҳифасига қайтиш"
 
+msgid "Bosh sahifa"
+msgstr "Бош саҳифа"
+
+msgid "Menyu"
+msgstr "Меню"
+
 #~ msgid "To'g'ri javoblar:"
 #~ msgstr "Тўғри жавоблар:"
 

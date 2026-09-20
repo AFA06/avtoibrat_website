@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.contrib.staticfiles import finders
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 from django.urls import reverse
@@ -399,3 +400,47 @@ class ForgotLoginTests(TestCase):
 
     def test_login_page_links_here(self):
         self.assertContains(self.client.get(reverse("login")), f'data-base-url="{self.url}"')
+
+
+class SidebarTests(TestCase):
+    PANEL_PAGES = (
+        "dashboard", "shablon_test", "real_imtihon", "mavzulashtirilgan", "ohshash_savollar",
+        "saqlangan", "manular", "road_signs", "contact_list", "profile",
+    )
+
+    def setUp(self):
+        translation.activate("uz")
+        self.addCleanup(translation.deactivate)
+        self.user = User.objects.create_user(username="talaba", password="x", unlimited=True, phone="9999999")
+        self.client.force_login(self.user)
+
+    def test_every_panel_page_uses_the_shared_sidebar_script(self):
+        for name in self.PANEL_PAGES:
+            with self.subTest(page=name):
+                response = self.client.get(reverse(name))
+                self.assertContains(response, "dashboard/sidebar.js")
+                self.assertContains(response, "dashboard/sidebar.css")
+                self.assertNotContains(response, 'document.querySelector(".left-sidebar")')
+                self.assertContains(response, 'id="togglemenu"')
+                self.assertContains(response, 'type="button" class="nav-link button-menu-mobile nav-icon"')
+
+    def test_home_link_is_called_bosh_sahifa(self):
+        for name in self.PANEL_PAGES:
+            with self.subTest(page=name):
+                response = self.client.get(reverse(name))
+                self.assertContains(response, "<span>Bosh sahifa</span>")
+                self.assertNotContains(response, "abinet")
+
+    def test_home_link_follows_site_language(self):
+        self.assertContains(self.client.get("/ru/dashboard/"), "<span>Главная страница</span>")
+        self.assertContains(self.client.get("/uz-kr/dashboard/"), "<span>Бош саҳифа</span>")
+
+    def test_sidebar_assets_exist(self):
+        for path in ("dashboard/sidebar.js", "dashboard/sidebar.css"):
+            with self.subTest(path=path):
+                self.assertIsNotNone(finders.find(path))
+
+    def test_theme_script_no_longer_controls_the_sidebar(self):
+        theme_script = finders.find("assets_dashboard/js/app.js")
+        with open(theme_script, encoding="utf-8") as handle:
+            self.assertNotIn("enlarge-menu", handle.read())

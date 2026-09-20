@@ -694,6 +694,12 @@ msgstr "Администратор автошколы"
 msgid "Kirish sahifasiga qaytish"
 msgstr "Вернуться ко входу"
 
+msgid "Bosh sahifa"
+msgstr "Главная страница"
+
+msgid "Menyu"
+msgstr "Меню"
+
 #, fuzzy
 #~| msgid "Русский"
 #~ msgid "Audio (Русский)"

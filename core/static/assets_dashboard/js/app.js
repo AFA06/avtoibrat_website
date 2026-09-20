@@ -86,35 +86,7 @@
          });
      });
  })
- //  Toggle sidebar onclick
- try {
-     document.getElementById('togglemenu').addEventListener("click", function (event) {
-         event.preventDefault();
-         document.body.classList.toggle('enlarge-menu')
-     });
- } catch (err) {}
- // Left sidebar Tab Menu Responsive Resize 
- if (window.screen.width < 1024) {
-     document.getElementsByTagName('body')[0].classList.add('enlarge-menu', 'enlarge-menu-all');
- } else if (window.screen.width < 1340) {
-     document.getElementsByTagName('body')[0].classList.remove('enlarge-menu-all');
-     document.getElementsByTagName('body')[0].classList.add('enlarge-menu');
- }
- else {
-     document.getElementsByTagName('body')[0].classList.remove('enlarge-menu', 'enlarge-menu-all');
- }
- window.addEventListener('resize', function () {
-     if (window.screen.width < 1024) {
-         document.getElementsByTagName('body')[0].classList.add('enlarge-menu', 'enlarge-menu-all');
-     } else if (window.screen.width < 1340) {
-         document.getElementsByTagName('body')[0].classList.remove('enlarge-menu-all');
-         document.getElementsByTagName('body')[0].classList.add('enlarge-menu');
-     }
-     else {
-         document.getElementsByTagName('body')[0].classList.remove('enlarge-menu', 'enlarge-menu-all');
-     }
- });
-
+ // Sidebar state is handled by static/dashboard/sidebar.js
  var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
  var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
  return new bootstrap.Tooltip(tooltipTriggerEl)

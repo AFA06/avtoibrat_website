@@ -20,6 +20,8 @@
          <link href="{% static 'assets_dashboard/css/icons.min.css' %}" rel="stylesheet" type="text/css" />
          <link href="{% static 'assets_dashboard/css/app.min.css' %}" rel="stylesheet" type="text/css" />
          <link href="{% static 'dashboard/user-menu.css' %}" rel="stylesheet" type="text/css" />
+     <link href="{% static 'dashboard/sidebar.css' %}" rel="stylesheet" type="text/css" />
+     <script src="{% static 'dashboard/sidebar.js' %}"></script>
 
     </head>
 
@@ -60,7 +62,7 @@
                             <li class="menu-label mt-0 text-primary font-12 fw-semibold"><span>{% trans "Asosiy" %}</span><br><span class="font-10 text-secondary fw-normal">{% trans "Asosiy ma'lumotlar" %}</span></li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'dashboard' %}"><i class="ti ti-user menu-icon"></i><span>{% trans "Shahsiy kabinet" %}</span></a>
+                                <a class="nav-link" href="{% url 'dashboard' %}"><i class="ti ti-home menu-icon"></i><span>{% trans "Bosh sahifa" %}</span></a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'shablon_test' %}"><i class="ti ti-book menu-icon"></i><span>{% trans "Shablon teste" %}</span></a>
@@ -94,16 +96,6 @@
 
             </div>
         </div>
-            <script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const sidebar = document.querySelector(".left-sidebar");
-        const toggleBtn = document.getElementById("togglemenu");
-
-        toggleBtn.addEventListener("click", () => {
-            sidebar.classList.toggle("open");
-        });
-    });
-    </script>
         <div class="topbar">
             <!-- Navbar -->
             <nav class="navbar-custom" id="navbar-custom">
@@ -165,7 +157,7 @@
 
                 <ul class="list-unstyled topbar-nav mb-0">                        
                     <li>
-                        <button class="nav-link button-menu-mobile nav-icon" id="togglemenu">
+                        <button type="button" class="nav-link button-menu-mobile nav-icon" id="togglemenu" aria-label="{% trans 'Menyu' %}">
                             <i class="ti ti-menu-2"></i>
                         </button>
                     </li>                  
