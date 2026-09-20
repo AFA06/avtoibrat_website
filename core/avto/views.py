@@ -690,6 +690,7 @@ def test_page(request, session_id):
 
     return render(request, "exam/exam.html", {
         "session": session,
+        "practice": session.test_kind == "shablon",
         "remaining_seconds": remaining,
         "questions_data": questions_data,
         "answered_data": answered_data,

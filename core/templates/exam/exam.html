@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="{% static 'assets_dashboard/css/icons.min.css' %}">
 <link rel="stylesheet" href="{% static 'exam/exam.css' %}">
 </head>
-<body>
+<body{% if practice %} class="exam--practice"{% endif %}>
 
 <header class="exam-header">
   <div class="exam-header__brand">
@@ -38,8 +38,22 @@
 </div>
 
 <main class="exam-main">
+{% if practice %}
+  <section class="exam-main__column">
+    <div class="exam-textsize" role="group" aria-label="{% trans 'Matn oʻlchami' %}">
+      <button type="button" class="exam-textsize__btn" id="textDownBtn"
+              aria-label="{% trans 'Matnni kichraytirish' %}" title="{% trans 'Matnni kichraytirish' %}">A&minus;</button>
+      <span class="exam-textsize__value" id="textScaleValue" aria-live="polite">100%</span>
+      <button type="button" class="exam-textsize__btn" id="textUpBtn"
+              aria-label="{% trans 'Matnni kattalashtirish' %}" title="{% trans 'Matnni kattalashtirish' %}">A+</button>
+    </div>
+    <div class="exam-main__options" id="examOptions"></div>
+  </section>
+  <div class="exam-main__image" id="examImageBox"></div>
+{% else %}
   <div class="exam-main__image" id="examImageBox"></div>
   <div class="exam-main__options" id="examOptions"></div>
+{% endif %}
 </main>
 
 <nav class="exam-navigator">
@@ -52,6 +66,7 @@
   </button>
 </nav>
 
+{% if not practice %}
 <div class="exam-modal" id="answerModal">
   <div class="exam-modal__card">
     <h3>{% trans "Javobni tasdiqlaysizmi?" %}</h3>
@@ -62,6 +77,7 @@
     </div>
   </div>
 </div>
+{% endif %}
 
 <div class="exam-modal" id="finishModal">
   <div class="exam-modal__card">
@@ -94,7 +110,8 @@
     submitUrl: "{% url 'submit_answer' %}",
     finishFormId: "finishForm",
     csrfToken: "{{ csrf_token }}",
-    sessionId: {{ session.id }}
+    sessionId: {{ session.id }},
+    practice: {{ practice|yesno:"true,false" }}
   };
 </script>
 <script src="{% static 'exam/exam.js' %}"></script>

@@ -444,3 +444,67 @@ class SidebarTests(TestCase):
         theme_script = finders.find("assets_dashboard/js/app.js")
         with open(theme_script, encoding="utf-8") as handle:
             self.assertNotIn("enlarge-menu", handle.read())
+
+
+class ExamModeTests(TestCase):
+    def setUp(self):
+        translation.activate("uz")
+        self.addCleanup(translation.deactivate)
+        user = User.objects.create_user(username="talaba", password="x", unlimited=True, phone="9999999")
+        test_type = TestType.objects.create(nomi="Umumiy", vaqt_daqiqa=25, savollar_soni=2)
+        self.category = TestCategory.objects.create(
+            nomi="Bilet", aktiv=True, show_in_shablon=True, show_in_real=True,
+            show_in_mavzu=True, show_in_ohshash=True, question_count=2, duration_minutes=25,
+        )
+        for i in range(2):
+            question = Question.objects.create(
+                test_turi=test_type, kategoriya=self.category,
+                matn_uzb=f"Savol {i}", matn_uz_kr=f"Савол {i}", matn_rus=f"Вопрос {i}",
+            )
+            for j in range(2):
+                Answer.objects.create(
+                    question=question, matn_uzb=f"J{j}", matn_uz_kr=f"Ж{j}", matn_rus=f"О{j}", togri=(j == 0)
+                )
+        self.client.force_login(user)
+
+    def exam_html(self, start_url_name):
+        start = self.client.get(reverse(start_url_name, args=[self.category.id]))
+        return self.client.get(start["Location"]).content.decode()
+
+    def test_practice_tests_use_the_practice_layout(self):
+        for start in ("start_shablon_test", "start_mavzu_test", "start_ohshash_test"):
+            with self.subTest(start=start):
+                html = self.exam_html(start)
+                self.assertIn('class="exam--practice"', html)
+                self.assertIn("practice: true", html)
+                self.assertIn('id="textUpBtn"', html)
+                self.assertIn('id="textDownBtn"', html)
+
+    def test_practice_puts_options_left_and_image_right(self):
+        html = self.exam_html("start_shablon_test")
+        self.assertLess(html.index('id="examOptions"'), html.index('id="examImageBox"'))
+
+    def test_practice_has_no_answer_confirmation(self):
+        html = self.exam_html("start_shablon_test")
+        self.assertNotIn('id="answerModal"', html)
+        self.assertNotIn("Javobni tasdiqlaysizmi", html)
+
+    def test_real_exam_keeps_its_own_layout_and_confirmation(self):
+        html = self.exam_html("start_test")
+        self.assertNotIn("exam--practice", html)
+        self.assertIn("practice: false", html)
+        self.assertIn('id="answerModal"', html)
+        self.assertNotIn('id="textUpBtn"', html)
+        self.assertLess(html.index('id="examImageBox"'), html.index('id="examOptions"'))
+
+    def test_text_size_limits(self):
+        with open(finders.find("exam/exam.js"), encoding="utf-8") as handle:
+            script = handle.read()
+        self.assertIn("maxLevel: 15", script)
+        self.assertIn("minLevel: -9", script)
+
+    def test_text_size_controls_are_translated(self):
+        start = self.client.get(reverse("start_shablon_test", args=[self.category.id]))
+        html = self.client.get(start["Location"].replace("/uz/", "/ru/")).content.decode()
+        self.assertIn("Увеличить текст", html)
+        self.assertIn("Уменьшить текст", html)

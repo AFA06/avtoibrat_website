@@ -700,6 +700,15 @@ msgstr "Главная страница"
 msgid "Menyu"
 msgstr "Меню"
 
+msgid "Matn oʻlchami"
+msgstr "Размер текста"
+
+msgid "Matnni kichraytirish"
+msgstr "Уменьшить текст"
+
+msgid "Matnni kattalashtirish"
+msgstr "Увеличить текст"
+
 #, fuzzy
 #~| msgid "Русский"
 #~ msgid "Audio (Русский)"

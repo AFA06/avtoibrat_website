@@ -699,6 +699,15 @@ msgstr "Бош саҳифа"
 msgid "Menyu"
 msgstr "Меню"
 
+msgid "Matn oʻlchami"
+msgstr "Матн ўлчами"
+
+msgid "Matnni kichraytirish"
+msgstr "Матнни кичрайтириш"
+
+msgid "Matnni kattalashtirish"
+msgstr "Матнни катталаштириш"
+
 #~ msgid "To'g'ri javoblar:"
 #~ msgstr "Тўғри жавоблар:"
 

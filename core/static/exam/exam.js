@@ -27,11 +27,24 @@
     finishCancelBtn: document.getElementById("finishCancelBtn"),
     finishConfirmBtn: document.getElementById("finishConfirmBtn"),
     finishForm: document.getElementById(config.finishFormId),
+    textDownBtn: document.getElementById("textDownBtn"),
+    textUpBtn: document.getElementById("textUpBtn"),
+    textScaleValue: document.getElementById("textScaleValue"),
   };
 
+  const practice = Boolean(config.practice);
+
   const FEEDBACK_DELAY_MS = 1200;
+  const TEXT_SIZE = {
+    minLevel: -9,
+    maxLevel: 15,
+    stepUp: 0.05,
+    stepDown: 0.03,
+    storageKey: "avtoibrat.exam.textLevel",
+  };
   let currentIndex = 0;
   let pendingSelection = null;
+  let submitting = false;
   const optionOrders = {};
 
   function shuffledOptionOrder(question) {
@@ -159,6 +172,10 @@
   }
 
   function selectOption(question, answer) {
+    if (practice) {
+      submitAnswer(question, answer);
+      return;
+    }
     pendingSelection = { question, answer };
     els.answerModalText.textContent = answer.text;
     openModal(els.answerModal);
@@ -173,6 +190,8 @@
   }
 
   function submitAnswer(question, answer) {
+    if (submitting) return;
+    submitting = true;
     fetch(config.submitUrl, {
       method: "POST",
       headers: {
@@ -195,8 +214,10 @@
           correct: data.correct_answer_id,
           is_correct: data.is_correct,
         };
+        submitting = false;
         const answeredIndex = currentIndex;
         renderQuestion();
+        if (practice) return;
         setTimeout(() => {
           if (currentIndex === answeredIndex && !anyModalOpen()) {
             goToIndex(currentIndex + 1);
@@ -216,9 +237,12 @@
     modal.classList.remove("exam-modal--open");
   }
 
+  function isModalOpen(modal) {
+    return Boolean(modal) && modal.classList.contains("exam-modal--open");
+  }
+
   function anyModalOpen() {
-    return els.answerModal.classList.contains("exam-modal--open") ||
-      els.finishModal.classList.contains("exam-modal--open");
+    return isModalOpen(els.answerModal) || isModalOpen(els.finishModal);
   }
 
   function toggleFullscreen() {
@@ -259,23 +283,25 @@
   els.fullscreenBtn.addEventListener("click", toggleFullscreen);
   els.finishBtn.addEventListener("click", () => openModal(els.finishModal));
 
-  els.answerCancelBtn.addEventListener("click", () => {
-    pendingSelection = null;
-    closeModal(els.answerModal);
-  });
-  els.answerConfirmBtn.addEventListener("click", confirmSelection);
+  if (!practice) {
+    els.answerCancelBtn.addEventListener("click", () => {
+      pendingSelection = null;
+      closeModal(els.answerModal);
+    });
+    els.answerConfirmBtn.addEventListener("click", confirmSelection);
+  }
 
   els.finishCancelBtn.addEventListener("click", () => closeModal(els.finishModal));
   els.finishConfirmBtn.addEventListener("click", submitFinish);
 
   document.addEventListener("keydown", (e) => {
-    if (els.answerModal.classList.contains("exam-modal--open")) {
+    if (isModalOpen(els.answerModal)) {
       if (e.key === "Enter") { e.preventDefault(); confirmSelection(); }
       if (e.key === "Escape") { e.preventDefault(); pendingSelection = null; closeModal(els.answerModal); }
       return;
     }
 
-    if (els.finishModal.classList.contains("exam-modal--open")) {
+    if (isModalOpen(els.finishModal)) {
       if (e.key === "Enter") { e.preventDefault(); submitFinish(); }
       if (e.key === "Escape") { e.preventDefault(); closeModal(els.finishModal); }
       return;
@@ -303,5 +329,50 @@
     }
   });
 
+  function textScale(level) {
+    return 1 + level * (level >= 0 ? TEXT_SIZE.stepUp : TEXT_SIZE.stepDown);
+  }
+
+  function readTextLevel() {
+    try {
+      const stored = parseInt(window.localStorage.getItem(TEXT_SIZE.storageKey), 10);
+      return Number.isNaN(stored) ? 0 : Math.min(Math.max(stored, TEXT_SIZE.minLevel), TEXT_SIZE.maxLevel);
+    } catch (error) {
+      return 0;
+    }
+  }
+
+  function saveTextLevel(level) {
+    try {
+      window.localStorage.setItem(TEXT_SIZE.storageKey, String(level));
+    } catch (error) {
+      // Storage can be blocked; the size still applies for this page.
+    }
+  }
+
+  function setupTextSize() {
+    if (!els.textUpBtn || !els.textDownBtn) return;
+    let level = readTextLevel();
+
+    const apply = () => {
+      const scale = textScale(level);
+      document.documentElement.style.setProperty("--exam-text-scale", scale.toFixed(2));
+      els.textScaleValue.textContent = `${Math.round(scale * 100)}%`;
+      els.textUpBtn.disabled = level >= TEXT_SIZE.maxLevel;
+      els.textDownBtn.disabled = level <= TEXT_SIZE.minLevel;
+    };
+
+    const change = (step) => {
+      level = Math.min(Math.max(level + step, TEXT_SIZE.minLevel), TEXT_SIZE.maxLevel);
+      saveTextLevel(level);
+      apply();
+    };
+
+    els.textUpBtn.addEventListener("click", () => change(1));
+    els.textDownBtn.addEventListener("click", () => change(-1));
+    apply();
+  }
+
+  setupTextSize();
   renderQuestion();
 })();
