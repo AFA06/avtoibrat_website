@@ -684,6 +684,15 @@ msgstr "C — юк автомобили"
 msgid "D — avtobus"
 msgstr "D — автобус"
 
+msgid "Parolni faqat avtomaktab administratori tiklab bera oladi. Yangi parol olish uchun quyidagilar bilan bog‘laning."
+msgstr "Паролни фақат автомактаб администратори тиклаб бера олади. Янги парол олиш учун қуйидагилар билан боғланинг."
+
+msgid "Avtomaktab administratori"
+msgstr "Автомактаб администратори"
+
+msgid "Kirish sahifasiga qaytish"
+msgstr "Кириш саҳифасига қайтиш"
+
 #~ msgid "To'g'ri javoblar:"
 #~ msgstr "Тўғри жавоблар:"
 

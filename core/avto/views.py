@@ -182,7 +182,12 @@ def login_view(request):
 
 
 def forgot_login(request):
-    return render(request, "dashboard/forgotlogin.html")
+    role = request.GET.get("role")
+    return render(request, "dashboard/forgotlogin.html", {
+        "contacts": ContactPerson.objects.filter(is_active=True),
+        "school_phone": settings.SCHOOL_CONTACT_PHONE,
+        "back_role": role if role in LOGIN_ROLES else "",
+    })
 
 
 @require_POST

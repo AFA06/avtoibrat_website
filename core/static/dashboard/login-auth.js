@@ -11,6 +11,7 @@
   const roleSubtitle = document.getElementById("role-subtitle");
   const roleInput = document.getElementById("role-input");
   const identifierFields = document.querySelectorAll("[data-role-field]");
+  const forgotLink = document.getElementById("forgot-link");
   const cards = document.querySelectorAll(".login-profile");
 
   let selectedCard = null;
@@ -52,6 +53,7 @@
     updateRoleInUrl(selectedCard.dataset.role);
     stepProfile.hidden = true;
     stepCredentials.hidden = false;
+    forgotLink.href = `${forgotLink.dataset.baseUrl}?role=${encodeURIComponent(selectedCard.dataset.role)}`;
     document.querySelector("[data-role-field]:not([hidden]) input").focus();
   }
 

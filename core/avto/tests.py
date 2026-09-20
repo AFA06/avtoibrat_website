@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.utils import translation
 from django.utils import timezone
 
-from .models import Answer, Branch, Question, StudyGroup, TestCategory, TestSession, TestType, UserAnswer
+from .models import Answer, Branch, ContactPerson, Question, StudyGroup, TestCategory, TestSession, TestType, UserAnswer
 
 User = get_user_model()
 
@@ -354,3 +354,48 @@ class StudentProfileFieldTests(TestCase):
         self.assertEqual(self.build(first_name="Nigora", last_name="Abdiqaxxorova").display_name, "N.ABDIQAXXOROVA")
         self.assertEqual(self.build().display_name, "talaba")
         self.assertEqual(self.build().initial, "T")
+
+
+class ForgotLoginTests(TestCase):
+    def setUp(self):
+        translation.activate("uz")
+        self.addCleanup(translation.deactivate)
+        self.url = reverse("forgot_login")
+
+    def make_contact(self, **extra):
+        data = {"full_name": "Ali Valiyev", "position": "Administrator", "city": "Toshkent", "phone": "+998 90 111 22 33"}
+        return ContactPerson.objects.create(**{**data, **extra})
+
+    def test_page_is_public(self):
+        self.assertEqual(self.client.get(self.url).status_code, 200)
+
+    def test_lists_active_contacts_only(self):
+        self.make_contact()
+        self.make_contact(full_name="Yashirin Shaxs", is_active=False)
+        response = self.client.get(self.url)
+        self.assertContains(response, "Ali Valiyev")
+        self.assertContains(response, 'href="tel:+998901112233"')
+        self.assertNotContains(response, "Yashirin Shaxs")
+
+    def test_shows_telegram_link_when_present(self):
+        self.make_contact(telegram="https://t.me/avtoibrat")
+        self.assertContains(self.client.get(self.url), 'href="https://t.me/avtoibrat"')
+
+    def test_falls_back_to_school_phone_without_contacts(self):
+        response = self.client.get(self.url)
+        self.assertContains(response, "tel:+998946274111")
+
+    def test_back_link_keeps_selected_profile(self):
+        response = self.client.get(self.url, {"role": "staff"})
+        self.assertContains(response, f'href="{reverse("login")}?role=staff"')
+
+    def test_back_link_ignores_unknown_profile(self):
+        response = self.client.get(self.url, {"role": "<script>"})
+        self.assertContains(response, f'href="{reverse("login")}"')
+        self.assertNotContains(response, "<script>alert")
+
+    def test_page_follows_site_language(self):
+        self.assertContains(self.client.get("/ru/forgot-login/"), "Вернуться ко входу")
+
+    def test_login_page_links_here(self):
+        self.assertContains(self.client.get(reverse("login")), f'data-base-url="{self.url}"')

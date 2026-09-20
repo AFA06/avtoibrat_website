@@ -685,6 +685,15 @@ msgstr "C — грузовой автомобиль"
 msgid "D — avtobus"
 msgstr "D — автобус"
 
+msgid "Parolni faqat avtomaktab administratori tiklab bera oladi. Yangi parol olish uchun quyidagilar bilan bog‘laning."
+msgstr "Пароль может восстановить только администратор автошколы. Чтобы получить новый пароль, свяжитесь с ними по контактам ниже."
+
+msgid "Avtomaktab administratori"
+msgstr "Администратор автошколы"
+
+msgid "Kirish sahifasiga qaytish"
+msgstr "Вернуться ко входу"
+
 #, fuzzy
 #~| msgid "Русский"
 #~ msgid "Audio (Русский)"

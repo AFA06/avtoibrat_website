@@ -1,0 +1,71 @@
+{% load i18n %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}{% trans "AvtoIbrat - O'quv platforma paneli!" %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="{% static 'assets_dashboard/images/favicon.png' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="{% static 'assets/css/fontawesome-all.css' %}" rel="stylesheet">
+    <link href="{% static 'dashboard/login-auth.css' %}" rel="stylesheet">
+</head>
+<body class="login-auth">
+<div class="login-shell">
+
+    <section class="login-side">
+        <header class="login-top">
+            <a class="login-brand" href="{% url 'home' %}">
+                <img src="{% static 'assets/images/logo.png' %}" alt="AvtoIbrat">
+            </a>
+        </header>
+
+        <main class="login-main">
+{% block content %}{% endblock %}
+        </main>
+    </section>
+
+    <aside class="login-promo">
+        <a class="login-promo-link" href="{% url 'home' %}">
+            avtoibrat.uz
+            <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+        </a>
+
+        <div class="login-promo-copy">
+            <h2>{% trans "Imtihonga ishonch bilan tayyorlaning" %}</h2>
+            <p>{% trans "Real imtihon formatidagi testlar, mavzulashtirilgan mashqlar va natijalar tahlili — hammasi bir joyda." %}</p>
+        </div>
+
+        <div class="login-mock" aria-hidden="true">
+            <div class="login-mock-bar">
+                <span class="login-mock-dots"><i></i><i></i><i></i></span>
+                <span class="login-mock-count">{% trans "Savol" %} 3 / 20</span>
+                <span class="login-mock-timer"><i class="fas fa-clock"></i> 24:12</span>
+            </div>
+            <div class="login-mock-question">{% trans "Bu belgi haydovchidan nimani talab qiladi?" %}</div>
+            <div class="login-mock-body">
+                <div class="login-mock-image">
+                    <svg viewBox="0 0 100 90">
+                        <polygon points="50,84 6,10 94,10" fill="#fff" stroke="#d92d20" stroke-width="9" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="login-mock-options">
+                    <div class="login-mock-option login-mock-option--correct"><b>F1</b>{% trans "Yo‘l berish" %}</div>
+                    <div class="login-mock-option"><b>F2</b>{% trans "To‘xtash" %}</div>
+                    <div class="login-mock-option"><b>F3</b>{% trans "Tezlikni oshirish" %}</div>
+                </div>
+            </div>
+            <div class="login-mock-nav">
+                <span class="is-correct">1</span><span class="is-wrong">2</span><span class="is-current">3</span>
+                <span>4</span><span>5</span><span>6</span><span>7</span><span>8</span>
+            </div>
+        </div>
+    </aside>
+
+</div>
+{% block scripts %}{% endblock %}
+</body>
+</html>
