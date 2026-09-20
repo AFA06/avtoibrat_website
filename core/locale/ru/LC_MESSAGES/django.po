@@ -589,6 +589,51 @@ msgstr "После завершения ответить на вопросы п�
 msgid "Tanlangan javob"
 msgstr "Выбранный ответ"
 
+msgid "Profilingizni tanlang"
+msgstr "Выберите профиль"
+
+msgid "Talaba"
+msgstr "Студент"
+
+msgid "Uy vazifangizni kompyuterda bajaring"
+msgstr "Выполняйте домашние задания на компьютере"
+
+msgid "Xodim"
+msgstr "Сотрудник"
+
+msgid "Avtomatlashtirilgan jarayonlar zanjiri"
+msgstr "Автоматизированная цепочка процессов"
+
+msgid "Davlat kodi"
+msgstr "Код страны"
+
+msgid "Telefon raqami yoki foydalanuvchi nomi"
+msgstr "Номер телефона или имя пользователя"
+
+msgid "parol"
+msgstr "пароль"
+
+msgid "Faqat quyidagi brauzerlar qo‘llab-quvvatlanadi"
+msgstr "Поддерживаются только эти браузеры"
+
+msgid "Imtihonga ishonch bilan tayyorlaning"
+msgstr "Готовьтесь к экзамену уверенно"
+
+msgid "Real imtihon formatidagi testlar, mavzulashtirilgan mashqlar va natijalar tahlili — hammasi bir joyda."
+msgstr "Тесты в формате реального экзамена, тематические упражнения и разбор результатов — всё в одном месте."
+
+msgid "Bu belgi haydovchidan nimani talab qiladi?"
+msgstr "Что этот знак требует от водителя?"
+
+msgid "Yo‘l berish"
+msgstr "Уступить дорогу"
+
+msgid "To‘xtash"
+msgstr "Остановиться"
+
+msgid "Tezlikni oshirish"
+msgstr "Увеличить скорость"
+
 #, fuzzy
 #~| msgid "Русский"
 #~ msgid "Audio (Русский)"

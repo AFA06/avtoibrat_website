@@ -1,8 +1,10 @@
 import json
 import os
 import re
+from urllib.parse import urlencode
 
 from django.conf import settings
+from django.urls import reverse
 from django.utils import timezone
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login as auth_login, logout
@@ -110,22 +112,57 @@ def team(request):
     })
 
 
+LOGIN_ROLES = ("student", "staff")
+PHONE_SIGNIFICANT_DIGITS = 9
+
+
+def _login_redirect(role, **params):
+    if role in LOGIN_ROLES:
+        params["role"] = role
+    return redirect(f"{reverse('login')}?{urlencode(params)}")
+
+
+def _resolve_login_username(identifier):
+    """Map a phone number typed on the login form to its account's username.
+
+    Anything that already is a username, contains letters, or matches zero
+    or several phone numbers is returned untouched so normal login keeps working.
+    """
+    identifier = (identifier or "").strip()
+    if not identifier or re.search(r"[A-Za-z]", identifier):
+        return identifier
+    if User.objects.filter(username=identifier).exists():
+        return identifier
+
+    digits = re.sub(r"\D", "", identifier)[-PHONE_SIGNIFICANT_DIGITS:]
+    if len(digits) < PHONE_SIGNIFICANT_DIGITS:
+        return identifier
+
+    matches = [
+        username
+        for username, phone in User.objects.exclude(phone="").values_list("username", "phone")
+        if re.sub(r"\D", "", phone).endswith(digits)
+    ]
+    return matches[0] if len(matches) == 1 else identifier
+
+
 def login_view(request):
     if request.method == "POST":
+        role = request.POST.get("role")
         user = authenticate(
             request,
-            username=request.POST.get("username"),
+            username=_resolve_login_username(request.POST.get("username")),
             password=request.POST.get("password"),
         )
 
-        if not user:
-            return redirect("/login/?error=invalid")
+        if not user or (role == "staff" and not user.is_staff):
+            return _login_redirect(role, error="invalid")
 
         user.sync_active_status()
         if not user.is_active:
             logout(request)
             request.session.flush()
-            return redirect("/login/?expired=1")
+            return _login_redirect(role, expired=1)
 
         device_id = get_device_id(request)
 
@@ -144,10 +181,10 @@ def login_view(request):
         else:
             devices_count = user.devices.count()
             if devices_count > user.device_limit:
-                return redirect("/login/?device_limit=1")
+                return _login_redirect(role, device_limit=1)
 
         auth_login(request, user)
-        return redirect("dashboard")
+        return redirect("admin:index" if role == "staff" else "dashboard")
 
     return render(request, "dashboard/login.html")
 

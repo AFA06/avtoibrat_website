@@ -169,3 +169,59 @@ class ExamEngineTests(TestCase):
 
         response = self.client.get(reverse("test_page", args=[session.id]))
         self.assertRedirects(response, reverse("test_result", args=[session.id]))
+
+
+class LoginTests(TestCase):
+    def setUp(self):
+        self.student = User.objects.create_user(
+            username="talaba1", password="pass12345", unlimited=True, phone="+998 90 123 45 67"
+        )
+        self.teacher = User.objects.create_user(
+            username="ustoz", password="pass12345", unlimited=True, is_staff=True
+        )
+        self.url = reverse("login")
+
+    def post(self, username, password="pass12345", role="student"):
+        return self.client.post(self.url, {"username": username, "password": password, "role": role})
+
+    def test_login_page_renders(self):
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'id="step-profile"')
+
+    def test_student_logs_in_with_username(self):
+        response = self.post("talaba1")
+        self.assertRedirects(response, reverse("dashboard"), fetch_redirect_response=False)
+
+    def test_student_logs_in_with_phone_number(self):
+        for typed in ("90 123 45 67", "+998901234567", "998 90 123-45-67"):
+            with self.subTest(typed=typed):
+                self.client.logout()
+                response = self.post(typed)
+                self.assertRedirects(response, reverse("dashboard"), fetch_redirect_response=False)
+
+    def test_shared_phone_number_is_not_resolved(self):
+        User.objects.create_user(username="talaba2", password="pass12345", unlimited=True, phone="90 123 45 67")
+        response = self.post("901234567")
+        self.assertEqual(response.status_code, 302)
+        self.assertIn("error=invalid", response["Location"])
+
+    def test_wrong_password_keeps_selected_role(self):
+        response = self.post("talaba1", password="wrong", role="staff")
+        self.assertIn("error=invalid", response["Location"])
+        self.assertIn("role=staff", response["Location"])
+        self.assertTrue(response["Location"].startswith(self.url))
+
+    def test_staff_role_rejects_non_staff_account(self):
+        response = self.post("talaba1", role="staff")
+        self.assertIn("error=invalid", response["Location"])
+        self.assertNotIn("_auth_user_id", self.client.session)
+
+    def test_staff_role_opens_admin_for_staff_account(self):
+        response = self.post("ustoz", role="staff")
+        self.assertRedirects(response, reverse("admin:index"), fetch_redirect_response=False)
+
+    def test_expired_account_is_sent_back_with_message(self):
+        User.objects.filter(pk=self.student.pk).update(unlimited=False)
+        response = self.post("talaba1")
+        self.assertIn("expired=1", response["Location"])

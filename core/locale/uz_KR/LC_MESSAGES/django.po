@@ -588,6 +588,51 @@ msgstr "Якунлангандан сўнг саволларга қайта жа
 msgid "Tanlangan javob"
 msgstr "Танланган жавоб"
 
+msgid "Profilingizni tanlang"
+msgstr "Профилингизни танланг"
+
+msgid "Talaba"
+msgstr "Талаба"
+
+msgid "Uy vazifangizni kompyuterda bajaring"
+msgstr "Уй вазифангизни компьютерда бажаринг"
+
+msgid "Xodim"
+msgstr "Ходим"
+
+msgid "Avtomatlashtirilgan jarayonlar zanjiri"
+msgstr "Автоматлаштирилган жараёнлар занжири"
+
+msgid "Davlat kodi"
+msgstr "Давлат коди"
+
+msgid "Telefon raqami yoki foydalanuvchi nomi"
+msgstr "Телефон рақами ёки фойдаланувчи номи"
+
+msgid "parol"
+msgstr "парол"
+
+msgid "Faqat quyidagi brauzerlar qo‘llab-quvvatlanadi"
+msgstr "Фақат қуйидаги браузерлар қўллаб-қувватланади"
+
+msgid "Imtihonga ishonch bilan tayyorlaning"
+msgstr "Имтиҳонга ишонч билан тайёрланинг"
+
+msgid "Real imtihon formatidagi testlar, mavzulashtirilgan mashqlar va natijalar tahlili — hammasi bir joyda."
+msgstr "Реал имтиҳон форматидаги тестлар, мавзулаштирилган машқлар ва натижалар таҳлили — ҳаммаси бир жойда."
+
+msgid "Bu belgi haydovchidan nimani talab qiladi?"
+msgstr "Бу белги ҳайдовчидан нимани талаб қилади?"
+
+msgid "Yo‘l berish"
+msgstr "Йўл бериш"
+
+msgid "To‘xtash"
+msgstr "Тўхташ"
+
+msgid "Tezlikni oshirish"
+msgstr "Тезликни ошириш"
+
 #~ msgid "To'g'ri javoblar:"
 #~ msgstr "Тўғри жавоблар:"
 

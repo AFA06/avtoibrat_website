@@ -2,105 +2,188 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}">
-
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8">
     <title>{% trans "AvtoIbrat - O'quv platforma paneli!" %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <link rel="shortcut icon" href="{% static 'assets_dashboard/images/favicon.png' %}">
-    <link href="{% static 'assets_dashboard/css/bootstrap.min.css' %}" rel="stylesheet">
-    <link href="{% static 'assets_dashboard/css/icons.min.css' %}" rel="stylesheet">
-    <link href="{% static 'assets_dashboard/css/app.min.css' %}" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="{% static 'assets/css/fontawesome-all.css' %}" rel="stylesheet">
+    <link href="{% static 'dashboard/login-auth.css' %}" rel="stylesheet">
 </head>
+<body class="login-auth">
+<div class="login-shell">
 
-<body class="auth-page"
-      style="background-image:url('{% static 'assets_dashboard/images/p-1.png' %}');
-             background-size:cover; background-position:center;">
+    <section class="login-side">
+        <header class="login-top">
+            <a class="login-brand" href="{% url 'home' %}">
+                <img src="{% static 'assets/images/logo.png' %}" alt="AvtoIbrat">
+            </a>
+        </header>
 
-<div class="container-md">
-    <div class="row vh-100 justify-content-center align-items-center">
-        <div class="col-lg-4">
+        <main class="login-main">
 
-            <div class="card">
-                <div class="card-body p-0 auth-header-box text-center p-3">
-                    <a href="{% url 'home' %}">
-                        <img src="{% static 'assets_dashboard/images/logo-sm.png' %}" height="70" alt="Logo">
-                    </a>
-                    <h4 class="mt-3 text-white">{% trans "Hisobga kirish" %}</h4>
-                    <p class="text-muted mb-0">
-                        {% trans "Shaxsiy hisobingizga kirish uchun ma’lumotlarni kiriting" %}
-                    </p>
+            <div id="step-profile" class="login-step">
+                <h1 class="login-title">{% trans "Profilingizni tanlang" %}</h1>
+
+                <div class="login-profiles" role="radiogroup" aria-label="{% trans 'Profilingizni tanlang' %}">
+                    <button type="button" class="login-profile" role="radio" aria-checked="false"
+                            data-role="student"
+                            data-title="{% trans 'Talaba' %}"
+                            data-description="{% trans 'Uy vazifangizni kompyuterda bajaring' %}">
+                        <svg class="login-profile-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <circle cx="12" cy="8" r="3.25" stroke="currentColor" stroke-width="1.6"/>
+                            <path d="M5.5 19.2c.9-3.2 3.4-5 6.5-5s5.6 1.8 6.5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                        </svg>
+                        <span class="login-profile-copy">
+                            <strong>{% trans "Talaba" %}</strong>
+                            <span>{% trans "Uy vazifangizni kompyuterda bajaring" %}</span>
+                        </span>
+                        <span class="login-radio" aria-hidden="true"></span>
+                    </button>
+
+                    <button type="button" class="login-profile" role="radio" aria-checked="false"
+                            data-role="staff"
+                            data-title="{% trans 'Xodim' %}"
+                            data-description="{% trans 'Avtomatlashtirilgan jarayonlar zanjiri' %}">
+                        <svg class="login-profile-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <rect x="6" y="4.5" width="12" height="15" rx="2" stroke="currentColor" stroke-width="1.6"/>
+                            <circle cx="12" cy="10" r="2.1" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M9 15.5h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                        <span class="login-profile-copy">
+                            <strong>{% trans "Xodim" %}</strong>
+                            <span>{% trans "Avtomatlashtirilgan jarayonlar zanjiri" %}</span>
+                        </span>
+                        <span class="login-radio" aria-hidden="true"></span>
+                    </button>
                 </div>
 
-                <div class="card-body">
-
-                    {% if request.GET.expired %}
-                        <div class="alert alert-warning text-center">
-                            {% trans "Hisobingiz muddati tugagan. Administratorga murojaat qiling." %}
-                        </div>
-                    {% endif %}
-
-                    {% if request.GET.device_limit %}
-                        <div class="alert alert-danger">
-                          {% trans "Siz maksimal ruxsat etilgan qurilmalar sonidan oshdingiz." %}
-                        </div>
-                    {% endif %}
-
-                    {% if request.GET.error == "invalid" %}
-                    <div class="alert alert-danger text-center">
-                        {% trans "Login yoki parol noto‘g‘ri !" %}
-                    </div>
-                    {% endif %}
-
-                    {% if request.GET.error == "inactive" %}
-                    <div class="alert alert-warning text-center">
-                        {% trans "Hisobingiz faol emas yoki muddati tugagan !" %}
-                    </div>
-                    {% endif %}
-
-                    <!-- ✅ TO‘G‘RI FORM -->
-                    <form method="post" action="{% url 'login' %}" class="my-4">
-                        {% csrf_token %}
-
-                        <div class="form-group mb-2">
-                            <label class="form-label">{% trans "Foydalanuvchi nomi" %}</label>
-                            <input type="text"
-                                   name="username"
-                                   class="form-control"
-                                   placeholder="Username"
-                                   required>
-                        </div>
-
-                        <div class="form-group mb-2">
-                            <label class="form-label">{% trans "Parol" %}</label>
-                            <input type="password"
-                                   name="password"
-                                   class="form-control"
-                                   placeholder="Parol"
-                                   required>
-                        </div>
-
-                        <div class="d-grid mt-3">
-                            <button type="submit" class="btn btn-primary">
-                                {% trans "Hisobga kirish" %} <i class="fas fa-sign-in-alt ms-1"></i>
-                            </button>
-                        </div>
-                    </form>
-
-                    <div class="text-center text-muted mt-3">
-                        <a href="{% url 'forgot_login' %}" class="text-primary">
-                            {% trans "Parolni unutdingizmi?" %}
-                        </a>
-                    </div>
-
-                </div>
+                <button type="button" class="login-btn" id="profile-next" disabled>
+                    {% trans "Keyingi" %}
+                    <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                </button>
             </div>
 
-        </div>
-    </div>
-</div>
+            <div id="step-credentials" class="login-step" hidden>
+                <h1 class="login-title" id="role-title"></h1>
+                <p class="login-subtitle" id="role-subtitle"></p>
 
-<script src="{% static 'assets_dashboard/js/app.js' %}"></script>
+                {% if request.GET.expired %}
+                    <div class="login-alert login-alert--warning" role="alert">
+                        {% trans "Hisobingiz muddati tugagan. Administratorga murojaat qiling." %}
+                    </div>
+                {% endif %}
+                {% if request.GET.device_limit %}
+                    <div class="login-alert login-alert--danger" role="alert">
+                        {% trans "Siz maksimal ruxsat etilgan qurilmalar sonidan oshdingiz." %}
+                    </div>
+                {% endif %}
+                {% if request.GET.error == "invalid" %}
+                    <div class="login-alert login-alert--danger" role="alert">
+                        {% trans "Login yoki parol noto‘g‘ri !" %}
+                    </div>
+                {% endif %}
+                {% if request.GET.error == "inactive" %}
+                    <div class="login-alert login-alert--warning" role="alert">
+                        {% trans "Hisobingiz faol emas yoki muddati tugagan !" %}
+                    </div>
+                {% endif %}
+
+                <form method="post" action="{% url 'login' %}" class="login-form" id="login-form">
+                    {% csrf_token %}
+                    <input type="hidden" name="role" id="role-input" value="">
+
+                    <div class="login-field login-phone">
+                        <select class="login-cc" aria-label="{% trans 'Davlat kodi' %}">
+                            <option value="+998">+998</option>
+                        </select>
+                        <input type="text"
+                               name="username"
+                               id="username"
+                               inputmode="tel"
+                               autocomplete="username"
+                               placeholder="00 123 45 67"
+                               aria-label="{% trans 'Telefon raqami yoki foydalanuvchi nomi' %}"
+                               required>
+                        <i class="fas fa-mobile-alt login-field-icon" aria-hidden="true"></i>
+                    </div>
+
+                    <label class="login-field login-password">
+                        <i class="fas fa-lock login-field-icon" aria-hidden="true"></i>
+                        <input type="password"
+                               name="password"
+                               autocomplete="current-password"
+                               placeholder="{% trans 'parol' %}"
+                               required>
+                    </label>
+
+                    <button type="submit" class="login-btn">
+                        {% trans "Keyingi" %}
+                        <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                    </button>
+                </form>
+
+                <div class="login-links">
+                    <button type="button" class="login-link" id="go-back">{% trans "Orqaga" %}</button>
+                    <a class="login-link" href="{% url 'forgot_login' %}">{% trans "Parolni unutdingizmi?" %}</a>
+                </div>
+
+                <footer class="login-browsers">
+                    <p>{% trans "Faqat quyidagi brauzerlar qo‘llab-quvvatlanadi" %}</p>
+                    <ul>
+                        <li><i class="fab fa-chrome" aria-hidden="true"></i>Chrome</li>
+                        <li><i class="fab fa-safari" aria-hidden="true"></i>Safari</li>
+                        <li><i class="fab fa-edge" aria-hidden="true"></i>Edge</li>
+                        <li><i class="fab fa-firefox" aria-hidden="true"></i>Firefox</li>
+                        <li><i class="fab fa-yandex" aria-hidden="true"></i>Yandex</li>
+                    </ul>
+                </footer>
+            </div>
+
+        </main>
+    </section>
+
+    <aside class="login-promo">
+        <a class="login-promo-link" href="{% url 'home' %}">
+            avtoibrat.uz
+            <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+        </a>
+
+        <div class="login-promo-copy">
+            <h2>{% trans "Imtihonga ishonch bilan tayyorlaning" %}</h2>
+            <p>{% trans "Real imtihon formatidagi testlar, mavzulashtirilgan mashqlar va natijalar tahlili — hammasi bir joyda." %}</p>
+        </div>
+
+        <div class="login-mock" aria-hidden="true">
+            <div class="login-mock-bar">
+                <span class="login-mock-dots"><i></i><i></i><i></i></span>
+                <span class="login-mock-count">{% trans "Savol" %} 3 / 20</span>
+                <span class="login-mock-timer"><i class="fas fa-clock"></i> 24:12</span>
+            </div>
+            <div class="login-mock-question">{% trans "Bu belgi haydovchidan nimani talab qiladi?" %}</div>
+            <div class="login-mock-body">
+                <div class="login-mock-image">
+                    <svg viewBox="0 0 100 90">
+                        <polygon points="50,84 6,10 94,10" fill="#fff" stroke="#d92d20" stroke-width="9" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="login-mock-options">
+                    <div class="login-mock-option login-mock-option--correct"><b>F1</b>{% trans "Yo‘l berish" %}</div>
+                    <div class="login-mock-option"><b>F2</b>{% trans "To‘xtash" %}</div>
+                    <div class="login-mock-option"><b>F3</b>{% trans "Tezlikni oshirish" %}</div>
+                </div>
+            </div>
+            <div class="login-mock-nav">
+                <span class="is-correct">1</span><span class="is-wrong">2</span><span class="is-current">3</span>
+                <span>4</span><span>5</span><span>6</span><span>7</span><span>8</span>
+            </div>
+        </div>
+    </aside>
+
+</div>
+<script src="{% static 'dashboard/login-auth.js' %}"></script>
 </body>
 </html>
