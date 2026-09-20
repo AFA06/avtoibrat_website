@@ -2,9 +2,10 @@ from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 from django.urls import reverse
+from django.utils import translation
 from django.utils import timezone
 
-from .models import Answer, Question, TestCategory, TestSession, TestType, UserAnswer
+from .models import Answer, Branch, Question, StudyGroup, TestCategory, TestSession, TestType, UserAnswer
 
 User = get_user_model()
 
@@ -252,3 +253,104 @@ class UserPhoneValidationTests(TestCase):
         with self.assertRaises(ValidationError) as ctx:
             User(username="b", password="x", phone="901234567").full_clean(exclude=["password"])
         self.assertIn("phone", ctx.exception.message_dict)
+
+
+class ProfileTests(TestCase):
+    def setUp(self):
+        translation.activate("uz")
+        self.addCleanup(translation.deactivate)
+        branch = Branch.objects.create(school_name="Avtovoditel", name="Chilonzor filiali")
+        teacher = User.objects.create_user(
+            username="ustoz", password="x", is_staff=True, first_name="Ibrat", last_name="Karimov"
+        )
+        self.group = StudyGroup.objects.create(name="52", category="B", branch=branch, teacher=teacher)
+        self.student = User.objects.create_user(
+            username="talaba", password="x", unlimited=True, phone="9999999",
+            first_name="Nigora", last_name="Abdiqaxxorova", group=self.group,
+            birth_date="2005-03-18", passport_number="AD 1544442",
+            study_start="2026-07-22", study_end="2026-10-09",
+        )
+        self.url = reverse("profile")
+
+    def test_profile_requires_login(self):
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 302)
+        self.assertIn(reverse("login"), response["Location"])
+
+    def test_profile_shows_student_data(self):
+        self.client.force_login(self.student)
+        response = self.client.get(self.url)
+        for expected in (
+            "Nigora Abdiqaxxorova", "Avtovoditel", "Chilonzor filiali", "B — yengil avtomobil",
+            "52", "Ibrat Karimov", "22.07.2026 — 09.10.2026", "18.03.2005", "AD 1544442",
+        ):
+            with self.subTest(expected=expected):
+                self.assertContains(response, expected)
+
+    def test_profile_shows_placeholder_for_missing_data(self):
+        bare = User.objects.create_user(username="yangi", password="x", unlimited=True, phone="9990001")
+        self.client.force_login(bare)
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Ma'lumot yo'q", count=8)
+
+    def test_profile_follows_site_language(self):
+        self.client.force_login(self.student)
+        response = self.client.get("/ru/profile/")
+        self.assertContains(response, "Паспортные данные")
+        self.assertContains(response, "B — легковой автомобиль")
+
+    def test_profile_offers_no_password_change(self):
+        self.client.force_login(self.student)
+        response = self.client.get(self.url)
+        self.assertNotContains(response, 'type="password"')
+
+    def test_user_menu_links_profile_and_logout(self):
+        self.client.force_login(self.student)
+        response = self.client.get(reverse("dashboard"))
+        self.assertContains(response, f'href="{reverse("profile")}"')
+        self.assertContains(response, f'action="{reverse("logout")}"')
+        self.assertContains(response, "N.ABDIQAXXOROVA")
+
+
+class LogoutTests(TestCase):
+    def setUp(self):
+        translation.activate("uz")
+        self.addCleanup(translation.deactivate)
+        self.user = User.objects.create_user(username="talaba", password="x", unlimited=True, phone="9999999")
+        self.client.force_login(self.user)
+
+    def test_post_logs_out(self):
+        response = self.client.post(reverse("logout"))
+        self.assertRedirects(response, reverse("login"), fetch_redirect_response=False)
+        self.assertNotIn("_auth_user_id", self.client.session)
+
+    def test_get_does_not_log_out(self):
+        response = self.client.get(reverse("logout"))
+        self.assertEqual(response.status_code, 405)
+        self.assertIn("_auth_user_id", self.client.session)
+
+
+class StudentProfileFieldTests(TestCase):
+    def build(self, **extra):
+        return User(username="talaba", password="x", phone="9999999", **extra)
+
+    def test_passport_is_normalised(self):
+        user = self.build(passport_number="ad1544442")
+        user.full_clean(exclude=["password"])
+        self.assertEqual(user.passport_number, "AD 1544442")
+
+    def test_invalid_passport_is_rejected(self):
+        with self.assertRaises(ValidationError) as ctx:
+            self.build(passport_number="1234567AD").full_clean(exclude=["password"])
+        self.assertIn("passport_number", ctx.exception.message_dict)
+
+    def test_study_end_cannot_precede_start(self):
+        with self.assertRaises(ValidationError) as ctx:
+            self.build(study_start="2026-10-09", study_end="2026-07-22").full_clean(exclude=["password"])
+        self.assertIn("study_end", ctx.exception.message_dict)
+
+    def test_display_name(self):
+        self.assertEqual(self.build(first_name="Nigora", last_name="Abdiqaxxorova").display_name, "N.ABDIQAXXOROVA")
+        self.assertEqual(self.build().display_name, "talaba")
+        self.assertEqual(self.build().initial, "T")

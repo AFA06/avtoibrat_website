@@ -185,9 +185,16 @@ def forgot_login(request):
     return render(request, "dashboard/forgotlogin.html")
 
 
+@require_POST
 def user_logout(request):
     logout(request)
     return redirect("login")
+
+
+@login_required
+def profile(request):
+    student = User.objects.select_related("group__branch", "group__teacher").get(pk=request.user.pk)
+    return render(request, "dashboard/profile.html", {"student": student})
 
 @login_required
 def dashboard(request):

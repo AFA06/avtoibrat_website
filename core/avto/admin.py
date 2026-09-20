@@ -5,7 +5,7 @@ from .forms import UserCreateForm
 from .models import (
     TestCategory, TestType, Question, Answer, TestSession, UserAnswer, SavedQuestion,
     TeamMember, Story, ConsultRequest, Testimonial, FAQ, ContactMessage, ContactPerson,
-    RoadSignCategory, RoadSign, PdfMaterial, User, UserDevice
+    RoadSignCategory, RoadSign, PdfMaterial, User, UserDevice, Branch, StudyGroup
 )
 from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
 class AnswerInline(admin.TabularInline):
@@ -135,6 +135,19 @@ class PdfMaterialAdmin(admin.ModelAdmin):
     search_fields = ("title",)
 
 
+@admin.register(Branch)
+class BranchAdmin(admin.ModelAdmin):
+    list_display = ("school_name", "name")
+    search_fields = ("school_name", "name")
+
+
+@admin.register(StudyGroup)
+class StudyGroupAdmin(admin.ModelAdmin):
+    list_display = ("name", "category", "branch", "teacher")
+    list_filter = ("category", "branch")
+    search_fields = ("name", "teacher__username", "teacher__first_name", "teacher__last_name")
+
+
 @admin.register(User)
 class UserAdmin(DjangoUserAdmin):
     model = User
@@ -143,6 +156,7 @@ class UserAdmin(DjangoUserAdmin):
     list_display = (
         "username",
         "phone",
+        "group",
         "group_language",
         "vaqt_boyicha_faol_status",
         "is_superuser",
@@ -152,7 +166,7 @@ class UserAdmin(DjangoUserAdmin):
     list_editable = ("is_active",)
 
     search_fields = ("username", "email", "phone")
-    list_filter = ("is_active", "is_superuser", "unlimited", "group_language")
+    list_filter = ("is_active", "is_superuser", "unlimited", "group_language", "group")
     ordering = ("-date_joined",)
 
 
@@ -163,6 +177,17 @@ class UserAdmin(DjangoUserAdmin):
         }),
 
         ("Guruh", {"fields": ("group_language",)}),
+
+        ("Talaba profili", {
+            "fields": (
+                "group",
+                "photo",
+                "birth_date",
+                "passport_number",
+                "study_start",
+                "study_end",
+            )
+        }),
 
         ("Faollik", {
             "fields": (
@@ -184,7 +209,10 @@ class UserAdmin(DjangoUserAdmin):
             "classes": ("wide",),
             "fields": (
                 "username",
+                "first_name",
+                "last_name",
                 "phone",
+                "group",
                 "password1",
                 "password2",
                 "device_limit",

@@ -637,6 +637,54 @@ msgstr "Остановиться"
 msgid "Tezlikni oshirish"
 msgstr "Увеличить скорость"
 
+msgid "Profil"
+msgstr "Профиль"
+
+msgid "Shaxsiy ma’lumotlar"
+msgstr "Личные данные"
+
+msgid "Avtomaktab"
+msgstr "Автошкола"
+
+msgid "Filial"
+msgstr "Филиал"
+
+msgid "Ta’lim toifasi"
+msgstr "Категория обучения"
+
+msgid "Guruh"
+msgstr "Группа"
+
+msgid "O‘qituvchi"
+msgstr "Преподаватель"
+
+msgid "Ta’lim boshlanish va tugash vaqti"
+msgstr "Начало и окончание обучения"
+
+msgid "Tug‘ilgan sana"
+msgstr "Дата рождения"
+
+msgid "Pasport ma’lumotlari"
+msgstr "Паспортные данные"
+
+msgid "Ma'lumot yo'q"
+msgstr "Нет данных"
+
+msgid "A — mototsikl"
+msgstr "A — мотоцикл"
+
+msgid "B — yengil avtomobil"
+msgstr "B — легковой автомобиль"
+
+msgid "BC — yengil va yuk avtomobili"
+msgstr "BC — легковой и грузовой автомобиль"
+
+msgid "C — yuk avtomobili"
+msgstr "C — грузовой автомобиль"
+
+msgid "D — avtobus"
+msgstr "D — автобус"
+
 #, fuzzy
 #~| msgid "Русский"
 #~ msgid "Audio (Русский)"

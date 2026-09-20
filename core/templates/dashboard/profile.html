@@ -1,0 +1,81 @@
+{% extends "dashboard/base_panel.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Profil" %} - AvtoIbrat{% endblock %}
+
+{% block extra_css %}
+    <link href="{% static 'dashboard/profile.css' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block content %}
+{% trans "Ma'lumot yo'q" as no_data %}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="page-title-box">
+            <h4 class="page-title">{% trans "Profil" %}</h4>
+        </div>
+    </div>
+</div>
+
+<div class="profile-layout">
+    <section class="profile-card profile-summary">
+        <div class="profile-photo">
+            {% if student.photo %}
+                <img src="{{ student.photo.url }}" alt="{{ student.get_full_name|default:student.username }}">
+            {% else %}
+                <i class="ti ti-user" aria-hidden="true"></i>
+            {% endif %}
+        </div>
+        <h2 class="profile-name">{{ student.get_full_name|default:student.username }}</h2>
+        {% if student.group %}
+            <span class="profile-chip">{{ student.group.get_category_display }}</span>
+        {% endif %}
+    </section>
+
+    <section class="profile-card profile-details">
+        <h3 class="profile-heading">{% trans "Shaxsiy ma’lumotlar" %}</h3>
+        <dl class="profile-list">
+            <div class="profile-row">
+                <dt><i class="ti ti-building-bank" aria-hidden="true"></i>{% trans "Avtomaktab" %}</dt>
+                <dd>{{ student.group.branch.school_name|default:no_data }}</dd>
+            </div>
+            <div class="profile-row">
+                <dt><i class="ti ti-map-pin" aria-hidden="true"></i>{% trans "Filial" %}</dt>
+                <dd>{{ student.group.branch.name|default:no_data }}</dd>
+            </div>
+            <div class="profile-row">
+                <dt><i class="ti ti-certificate" aria-hidden="true"></i>{% trans "Ta’lim toifasi" %}</dt>
+                <dd>{% if student.group %}{{ student.group.get_category_display }}{% else %}{{ no_data }}{% endif %}</dd>
+            </div>
+            <div class="profile-row">
+                <dt><i class="ti ti-users" aria-hidden="true"></i>{% trans "Guruh" %}</dt>
+                <dd>{{ student.group.name|default:no_data }}</dd>
+            </div>
+            <div class="profile-row">
+                <dt><i class="ti ti-user-check" aria-hidden="true"></i>{% trans "O‘qituvchi" %}</dt>
+                <dd>{% firstof student.group.teacher.get_full_name student.group.teacher.username no_data %}</dd>
+            </div>
+            <div class="profile-row">
+                <dt><i class="ti ti-calendar" aria-hidden="true"></i>{% trans "Ta’lim boshlanish va tugash vaqti" %}</dt>
+                <dd>
+                    {% if student.study_start and student.study_end %}
+                        {{ student.study_start|date:"d.m.Y" }} — {{ student.study_end|date:"d.m.Y" }}
+                    {% elif student.study_start %}
+                        {{ student.study_start|date:"d.m.Y" }} —
+                    {% else %}
+                        {{ no_data }}
+                    {% endif %}
+                </dd>
+            </div>
+            <div class="profile-row">
+                <dt><i class="ti ti-calendar-event" aria-hidden="true"></i>{% trans "Tug‘ilgan sana" %}</dt>
+                <dd>{% if student.birth_date %}{{ student.birth_date|date:"d.m.Y" }}{% else %}{{ no_data }}{% endif %}</dd>
+            </div>
+            <div class="profile-row">
+                <dt><i class="ti ti-id" aria-hidden="true"></i>{% trans "Pasport ma’lumotlari" %}</dt>
+                <dd>{{ student.passport_number|default:no_data }}</dd>
+            </div>
+        </dl>
+    </section>
+</div>
+{% endblock %}

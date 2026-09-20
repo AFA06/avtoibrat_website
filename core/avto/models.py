@@ -7,6 +7,7 @@ from django.utils import timezone
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.core.exceptions import ValidationError
+from django.core.validators import RegexValidator
 from django.conf import settings
 
 from pydub import AudioSegment
@@ -200,6 +201,58 @@ def get_device_id(request):
     return hashlib.sha256(raw.encode()).hexdigest()
 
 
+passport_validator = RegexValidator(
+    regex=re.compile(r"^[A-Z]{2} ?\d{7}$", re.IGNORECASE),
+    message="Pasport raqami «AD 1234567» ko‘rinishida bo‘lishi kerak.",
+)
+
+
+class Branch(models.Model):
+    school_name = models.CharField("Avtomaktab", max_length=150)
+    name = models.CharField("Filial", max_length=150)
+
+    class Meta:
+        verbose_name = "Filial"
+        verbose_name_plural = "Filiallar"
+        ordering = ["school_name", "name"]
+
+    def __str__(self):
+        return f"{self.school_name} — {self.name}"
+
+
+class StudyGroup(models.Model):
+    CATEGORY_CHOICES = (
+        ("A", _("A — mototsikl")),
+        ("B", _("B — yengil avtomobil")),
+        ("BC", _("BC — yengil va yuk avtomobili")),
+        ("C", _("C — yuk avtomobili")),
+        ("D", _("D — avtobus")),
+    )
+
+    name = models.CharField("Guruh raqami yoki nomi", max_length=50)
+    category = models.CharField("Ta’lim toifasi", max_length=2, choices=CATEGORY_CHOICES)
+    branch = models.ForeignKey(
+        Branch, verbose_name="Filial", on_delete=models.PROTECT, related_name="groups"
+    )
+    teacher = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        verbose_name="O‘qituvchi",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        limit_choices_to={"is_staff": True},
+        related_name="taught_groups",
+    )
+
+    class Meta:
+        verbose_name = "O‘quv guruhi"
+        verbose_name_plural = "O‘quv guruhlari"
+        ordering = ["branch", "name"]
+
+    def __str__(self):
+        return f"{self.name} ({self.category}) — {self.branch}"
+
+
 UZ_COUNTRY_CODE = "998"
 UZ_FULL_NUMBER_LENGTH = len(UZ_COUNTRY_CODE) + 9
 
@@ -238,8 +291,40 @@ class User(AbstractUser):
         help_text="Talaba savol va javoblarni shu tilda ko‘radi. Sayt interfeysi tilidan mustaqil."
     )
 
+    group = models.ForeignKey(
+        StudyGroup,
+        verbose_name="O‘quv guruhi",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="students",
+    )
+    photo = models.ImageField("Rasm", upload_to="students/", blank=True, null=True)
+    birth_date = models.DateField("Tug‘ilgan sana", null=True, blank=True)
+    passport_number = models.CharField(
+        "Pasport raqami",
+        max_length=10,
+        blank=True,
+        validators=[passport_validator],
+        help_text="Masalan: AD 1234567",
+    )
+    study_start = models.DateField("Ta’lim boshlangan sana", null=True, blank=True)
+    study_end = models.DateField("Ta’lim tugaydigan sana", null=True, blank=True)
+
+    @property
+    def display_name(self):
+        if self.first_name and self.last_name:
+            return f"{self.first_name[0]}.{self.last_name}".upper()
+        return self.username
+
+    @property
+    def initial(self):
+        return (self.first_name or self.username)[:1].upper()
+
     def clean(self):
         super().clean()
+        self._clean_study_dates()
+        self._clean_passport()
         if not normalize_phone(self.phone):
             if not (self.is_staff or self.is_superuser):
                 raise ValidationError({"phone": "Talaba uchun telefon raqami majburiy."})
@@ -249,6 +334,14 @@ class User(AbstractUser):
         other_phones = User.objects.exclude(pk=self.pk).exclude(phone="").values_list("phone", flat=True)
         if any(normalize_phone(phone) == target for phone in other_phones):
             raise ValidationError({"phone": "Bu telefon raqami boshqa foydalanuvchida mavjud."})
+
+    def _clean_study_dates(self):
+        if self.study_start and self.study_end and self.study_end < self.study_start:
+            raise ValidationError({"study_end": "Tugash sanasi boshlanish sanasidan oldin bo‘lishi mumkin emas."})
+
+    def _clean_passport(self):
+        compact = re.sub(r"\s+", "", self.passport_number).upper()
+        self.passport_number = f"{compact[:2]} {compact[2:]}" if compact else ""
 
     def vaqt_boyicha_faolmi(self):
         if self.unlimited:

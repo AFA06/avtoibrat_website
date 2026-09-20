@@ -1,0 +1,26 @@
+{% load i18n static %}
+<li class="dropdown user-menu">
+    <a class="nav-link dropdown-toggle arrow-none user-menu-toggle" data-bs-toggle="dropdown" href="#"
+       role="button" aria-haspopup="true" aria-expanded="false">
+        <span class="user-menu-avatar">
+            {% if user.photo %}
+                <img src="{{ user.photo.url }}" alt="">
+            {% else %}
+                {{ user.initial }}
+            {% endif %}
+        </span>
+        <span class="user-menu-name">{{ user.display_name }}</span>
+        <i class="ti ti-chevron-down user-menu-chevron" aria-hidden="true"></i>
+    </a>
+    <div class="dropdown-menu dropdown-menu-end user-menu-dropdown">
+        <a class="dropdown-item" href="{% url 'profile' %}">
+            <i class="ti ti-user" aria-hidden="true"></i>{% trans "Profil" %}
+        </a>
+        <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit" class="dropdown-item user-menu-logout">
+                <i class="ti ti-logout" aria-hidden="true"></i>{% trans "Chiqish" %}
+            </button>
+        </form>
+    </div>
+</li>

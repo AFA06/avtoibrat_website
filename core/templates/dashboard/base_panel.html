@@ -2,41 +2,39 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}">
-    
-<!-- Mirrored from themes.getappui.com/collab/unikit/default/by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 18 Oct 2025 20:10:19 GMT -->
 <head>
-        <meta charset="utf-8" />
-        <title>{% trans "AvtoIbrat - O'quv platforma paneli!" %}</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
-        <meta content="" name="author" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="utf-8" />
+    <title>{% block title %}{% trans "AvtoIbrat - O'quv platforma paneli!" %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-        <!-- App favicon -->
-        <link rel="shortcut icon" href="{% static 'assets_dashboard/images/favicon.png' %}">
-       
-         <!-- App css -->
-         <link href="{% static 'assets_dashboard/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
-         <link href="{% static 'assets_dashboard/css/icons.min.css' %}" rel="stylesheet" type="text/css" />
-         <link href="{% static 'assets_dashboard/css/app.min.css' %}" rel="stylesheet" type="text/css" />
-         <link href="{% static 'dashboard/user-menu.css' %}" rel="stylesheet" type="text/css" />
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="{% static 'assets_dashboard/images/favicon.png' %}">
 
-    </head>
-    <body id="body" class="dark-sidebar">
-    <div class="left-sidebar">
+     <!-- App css -->
+     <link href="{% static 'assets_dashboard/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+     <link href="{% static 'assets_dashboard/css/icons.min.css' %}" rel="stylesheet" type="text/css" />
+     <link href="{% static 'assets_dashboard/css/app.min.css' %}" rel="stylesheet" type="text/css" />
+     <link href="{% static 'dashboard/user-menu.css' %}" rel="stylesheet" type="text/css" />
+
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body id="body" class="dark-sidebar">
+        <div class="left-sidebar">
             <!-- LOGO -->
             <div class="brand">
                 <a href="{% url 'home' %}" class="logo">
-
+                 
                     <span>
                         <img src="{% static 'assets_dashboard/images/logo-sm.png' %}" alt="logo-large" class="logo-lg logo-light">
                         <img src="{% static 'assets_dashboard/images/logo-dark.png' %}" alt="logo-large" class="logo-lg logo-dark">
                     </span>
                 </a>
             </div>
-            <div class="sidebar-user-pro media border-end">
+            <div class="sidebar-user-pro media border-end">                    
                 <div class="position-relative mx-auto">
-                    <img src="{% static 'assets_dashboard/images/users/user-4.jpg' %}" alt="user" class="rounded-circle thumb-md">
+                    <img src="{% if user.photo %}{{ user.photo.url }}{% else %}{% static 'assets_dashboard/images/users/user-4.jpg' %}{% endif %}" alt="user" class="rounded-circle thumb-md">
                     <span class="online-icon position-absolute end-0"><i class="mdi mdi-record text-success"></i></span>
                 </div>
                 <div class="media-body ms-2 user-detail align-self-center">
@@ -162,118 +160,29 @@
                     {% include "dashboard/_user_menu.html" %}
                 </ul><!--end topbar-nav-->
 
-                <ul class="list-unstyled topbar-nav mb-0">                        
+                <ul class="list-unstyled topbar-nav mb-0">
                     <li>
                         <button class="nav-link button-menu-mobile nav-icon" id="togglemenu">
                             <i class="ti ti-menu-2"></i>
                         </button>
-                    </li>                  
+                    </li>
                 </ul>
             </nav>
             <!-- end navbar-->
-        </div>    
-
-        <div class="page-wrapper">
-
-            <!-- Page Content-->
-            <div class="page-content-tab">
-
-                <div class="container-fluid">
-                    <!-- Page-Title -->
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="page-title-box">
-                                <h4 class="page-title">{{ category.title }}</h4>
-                            </div><!--end page-title-box-->
-                        </div><!--end col-->
-                    </div>
-                    <!-- end page title end breadcrumb -->
-                    <div class="row">
-                        {% for sign in signs %}
-                            <div class="col-md-3">
-                                <div class="card">
-                                    <div class="card-body text-center">
-                                        <img src="{{ sign.image.url }}" height="120">
-
-                                        <h6 class="mt-3">{{ sign.title }}</h6>
-
-                                        <a href="{% url 'road_signs_descriptions' category.slug sign.slug %}"
-                                           class="btn btn-soft-primary mt-2">
-                                            {% trans "Batafsil" %}
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        {% endfor %}
-                        </div>
-
-                </div><!-- container -->
-
-                <!--Start Rightbar-->
-                <!--Start Rightbar/offcanvas-->
-                <div class="offcanvas offcanvas-end" tabindex="-1" id="Appearance" aria-labelledby="AppearanceLabel">
-                    <div class="offcanvas-header border-bottom">
-                      <h5 class="m-0 font-14" id="AppearanceLabel">Appearance</h5>
-                      <button type="button" class="btn-close text-reset p-0 m-0 align-self-center" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                    </div>
-                    <div class="offcanvas-body">  
-                        <h6>Account Settings</h6>
-                        <div class="p-2 text-start mt-3">
-                            <div class="form-check form-switch mb-2">
-                                <input class="form-check-input" type="checkbox" id="settings-switch1">
-                                <label class="form-check-label" for="settings-switch1">Auto updates</label>
-                            </div><!--end form-switch-->
-                            <div class="form-check form-switch mb-2">
-                                <input class="form-check-input" type="checkbox" id="settings-switch2" checked>
-                                <label class="form-check-label" for="settings-switch2">Location Permission</label>
-                            </div><!--end form-switch-->
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" id="settings-switch3">
-                                <label class="form-check-label" for="settings-switch3">Show offline Contacts</label>
-                            </div><!--end form-switch-->
-                        </div><!--end /div-->
-                        <h6>General Settings</h6>
-                        <div class="p-2 text-start mt-3">
-                            <div class="form-check form-switch mb-2">
-                                <input class="form-check-input" type="checkbox" id="settings-switch4">
-                                <label class="form-check-label" for="settings-switch4">Show me Online</label>
-                            </div><!--end form-switch-->
-                            <div class="form-check form-switch mb-2">
-                                <input class="form-check-input" type="checkbox" id="settings-switch5" checked>
-                                <label class="form-check-label" for="settings-switch5">Status visible to all</label>
-                            </div><!--end form-switch-->
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" id="settings-switch6">
-                                <label class="form-check-label" for="settings-switch6">Notifications Popup</label>
-                            </div><!--end form-switch-->
-                        </div><!--end /div-->               
-                    </div><!--end offcanvas-body-->
-                </div>
-                <!--end Rightbar/offcanvas-->
-                 <!--end Rightbar-->
-                 
-                <!--Start Footer-->
-                <!-- Footer Start -->
-                 <footer class="footer text-center text-sm-start">
-                    &copy; <script>
-                        document.write(new Date().getFullYear())
-                    </script> AvtoIbrat <span class="text-muted d-none d-sm-inline-block float-end">{% trans "Ishlab chiqgan" %}<i
-                            class="mdi mdi-heart text-danger"></i>AvtoIbrart</span>
-                </footer>
-                <!-- end Footer -->                
-                <!--end footer-->
-            </div>
-            <!-- end page content -->
         </div>
-        <!-- end page-wrapper -->
 
-        <!-- Javascript  -->   
-        <!-- App js -->
-        <script src="{% static 'assets_dashboard/js/app.js' %}"></script>
+    <div class="page-wrapper">
+        <div class="page-content-tab">
+            <div class="container-fluid">
+                {% block content %}{% endblock %}
+            </div>
 
-    </body>
-    <!--end body-->
+            <footer class="footer text-center text-sm-start"> &copy; <script> document.write(new Date().getFullYear()) </script> AvtoIbrat
+                <span class="text-muted d-none d-sm-inline-block float-end">{% trans "Ishlab chiqgan" %} <i class="mdi mdi-heart text-danger"></i>AvtoIbrart</span>
+            </footer>
+        </div>
+    </div>
 
-<!-- Mirrored from themes.getappui.com/collab/unikit/default/ by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 18 Oct 2025 20:10:19 GMT -->
+    <script src="{% static 'assets_dashboard/js/app.js' %}"></script>
+</body>
 </html>
-

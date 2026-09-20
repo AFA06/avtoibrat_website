@@ -132,6 +132,8 @@ USE_TZ = True
 
 AUTH_USER_MODEL = "avto.User"
 
+LOGIN_URL = "login"
+
 SESSION_COOKIE_NAME = "site_sessionid"
 
 ADMIN_SESSION_COOKIE_NAME = "admin_sessionid"

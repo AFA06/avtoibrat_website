@@ -13,6 +13,8 @@ urlpatterns = [
     # ===== AUTH / DASHBOARD =====
     path('login/', login_view, name="login"),
     path('forgot-login/', forgot_login, name="forgot_login"),
+    path('logout/', user_logout, name="logout"),
+    path('profile/', profile, name="profile"),
     path('dashboard/', dashboard, name="dashboard"),
     path('contact_list/', contact_list, name="contact_list"),
     path('manular/', manular, name="manular"),

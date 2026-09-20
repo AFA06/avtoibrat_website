@@ -636,6 +636,54 @@ msgstr "Тўхташ"
 msgid "Tezlikni oshirish"
 msgstr "Тезликни ошириш"
 
+msgid "Profil"
+msgstr "Профил"
+
+msgid "Shaxsiy ma’lumotlar"
+msgstr "Шахсий маълумотлар"
+
+msgid "Avtomaktab"
+msgstr "Автомактаб"
+
+msgid "Filial"
+msgstr "Филиал"
+
+msgid "Ta’lim toifasi"
+msgstr "Таълим тоифаси"
+
+msgid "Guruh"
+msgstr "Гуруҳ"
+
+msgid "O‘qituvchi"
+msgstr "Ўқитувчи"
+
+msgid "Ta’lim boshlanish va tugash vaqti"
+msgstr "Таълим бошланиш ва тугаш вақти"
+
+msgid "Tug‘ilgan sana"
+msgstr "Туғилган сана"
+
+msgid "Pasport ma’lumotlari"
+msgstr "Паспорт маълумотлари"
+
+msgid "Ma'lumot yo'q"
+msgstr "Маълумот йўқ"
+
+msgid "A — mototsikl"
+msgstr "A — мотоцикл"
+
+msgid "B — yengil avtomobil"
+msgstr "B — енгил автомобиль"
+
+msgid "BC — yengil va yuk avtomobili"
+msgstr "BC — енгил ва юк автомобили"
+
+msgid "C — yuk avtomobili"
+msgstr "C — юк автомобили"
+
+msgid "D — avtobus"
+msgstr "D — автобус"
+
 #~ msgid "To'g'ri javoblar:"
 #~ msgstr "Тўғри жавоблар:"
 
