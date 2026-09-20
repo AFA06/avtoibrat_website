@@ -1,4 +1,5 @@
 import hashlib
+import re
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import get_language
 
@@ -199,6 +200,18 @@ def get_device_id(request):
     return hashlib.sha256(raw.encode()).hexdigest()
 
 
+UZ_COUNTRY_CODE = "998"
+UZ_FULL_NUMBER_LENGTH = len(UZ_COUNTRY_CODE) + 9
+
+
+def normalize_phone(value):
+    """Digits only, without the +998 country code, so any typed format compares equal."""
+    digits = re.sub(r"\D", "", value or "")
+    if len(digits) == UZ_FULL_NUMBER_LENGTH and digits.startswith(UZ_COUNTRY_CODE):
+        digits = digits[len(UZ_COUNTRY_CODE):]
+    return digits
+
+
 class User(AbstractUser):
     GROUP_LANGUAGE_CHOICES = (
         ("uz", "Oʻzbek guruhi (lotin)"),
@@ -224,6 +237,18 @@ class User(AbstractUser):
         verbose_name="Guruh tili",
         help_text="Talaba savol va javoblarni shu tilda ko‘radi. Sayt interfeysi tilidan mustaqil."
     )
+
+    def clean(self):
+        super().clean()
+        if not normalize_phone(self.phone):
+            if not (self.is_staff or self.is_superuser):
+                raise ValidationError({"phone": "Talaba uchun telefon raqami majburiy."})
+            return
+
+        target = normalize_phone(self.phone)
+        other_phones = User.objects.exclude(pk=self.pk).exclude(phone="").values_list("phone", flat=True)
+        if any(normalize_phone(phone) == target for phone in other_phones):
+            raise ValidationError({"phone": "Bu telefon raqami boshqa foydalanuvchida mavjud."})
 
     def vaqt_boyicha_faolmi(self):
         if self.unlimited:

@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.core.exceptions import ValidationError
 from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
@@ -181,17 +182,13 @@ class LoginTests(TestCase):
         )
         self.url = reverse("login")
 
-    def post(self, username, password="pass12345", role="student"):
-        return self.client.post(self.url, {"username": username, "password": password, "role": role})
+    def post(self, identifier, password="pass12345", role="student"):
+        return self.client.post(self.url, {"username": identifier, "password": password, "role": role})
 
     def test_login_page_renders(self):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'id="step-profile"')
-
-    def test_student_logs_in_with_username(self):
-        response = self.post("talaba1")
-        self.assertRedirects(response, reverse("dashboard"), fetch_redirect_response=False)
 
     def test_student_logs_in_with_phone_number(self):
         for typed in ("90 123 45 67", "+998901234567", "998 90 123-45-67"):
@@ -200,28 +197,58 @@ class LoginTests(TestCase):
                 response = self.post(typed)
                 self.assertRedirects(response, reverse("dashboard"), fetch_redirect_response=False)
 
+    def test_short_test_phone_number_works(self):
+        User.objects.create_user(username="demo", password="Testing", unlimited=True, phone="9999999")
+        response = self.post("9999999", password="Testing")
+        self.assertRedirects(response, reverse("dashboard"), fetch_redirect_response=False)
+
+    def test_student_cannot_log_in_with_username(self):
+        response = self.post("talaba1")
+        self.assertIn("error=invalid", response["Location"])
+        self.assertNotIn("_auth_user_id", self.client.session)
+
     def test_shared_phone_number_is_not_resolved(self):
         User.objects.create_user(username="talaba2", password="pass12345", unlimited=True, phone="90 123 45 67")
         response = self.post("901234567")
-        self.assertEqual(response.status_code, 302)
         self.assertIn("error=invalid", response["Location"])
 
     def test_wrong_password_keeps_selected_role(self):
-        response = self.post("talaba1", password="wrong", role="staff")
+        response = self.post("ustoz", password="wrong", role="staff")
         self.assertIn("error=invalid", response["Location"])
         self.assertIn("role=staff", response["Location"])
         self.assertTrue(response["Location"].startswith(self.url))
 
-    def test_staff_role_rejects_non_staff_account(self):
+    def test_staff_logs_in_with_username(self):
+        response = self.post("ustoz", role="staff")
+        self.assertRedirects(response, reverse("admin:index"), fetch_redirect_response=False)
+
+    def test_staff_profile_rejects_student_account(self):
         response = self.post("talaba1", role="staff")
         self.assertIn("error=invalid", response["Location"])
         self.assertNotIn("_auth_user_id", self.client.session)
 
-    def test_staff_role_opens_admin_for_staff_account(self):
-        response = self.post("ustoz", role="staff")
-        self.assertRedirects(response, reverse("admin:index"), fetch_redirect_response=False)
+    def test_staff_profile_does_not_accept_phone_number(self):
+        User.objects.filter(pk=self.teacher.pk).update(phone="90 555 44 33")
+        response = self.post("905554433", role="staff")
+        self.assertIn("error=invalid", response["Location"])
 
     def test_expired_account_is_sent_back_with_message(self):
         User.objects.filter(pk=self.student.pk).update(unlimited=False)
-        response = self.post("talaba1")
+        response = self.post("90 123 45 67")
         self.assertIn("expired=1", response["Location"])
+
+
+class UserPhoneValidationTests(TestCase):
+    def test_student_requires_phone(self):
+        with self.assertRaises(ValidationError) as ctx:
+            User(username="talaba", password="x").full_clean(exclude=["password"])
+        self.assertIn("phone", ctx.exception.message_dict)
+
+    def test_staff_does_not_require_phone(self):
+        User(username="ustoz", password="x", is_staff=True).full_clean(exclude=["password"])
+
+    def test_phone_must_be_unique_regardless_of_format(self):
+        User.objects.create_user(username="a", password="x", phone="+998 90 123 45 67")
+        with self.assertRaises(ValidationError) as ctx:
+            User(username="b", password="x", phone="901234567").full_clean(exclude=["password"])
+        self.assertIn("phone", ctx.exception.message_dict)

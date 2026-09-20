@@ -607,8 +607,11 @@ msgstr "Автоматизированная цепочка процессов"
 msgid "Davlat kodi"
 msgstr "Код страны"
 
-msgid "Telefon raqami yoki foydalanuvchi nomi"
-msgstr "Номер телефона или имя пользователя"
+msgid "Telefon raqami"
+msgstr "Номер телефона"
+
+msgid "foydalanuvchi nomi"
+msgstr "имя пользователя"
 
 msgid "parol"
 msgstr "пароль"

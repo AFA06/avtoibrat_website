@@ -18,7 +18,7 @@ from .models import (
     TeamMember, Story, ConsultRequest, Testimonial, FAQ,
     ContactMessage, PdfMaterial, RoadSignCategory, RoadSign,
     ContactPerson, TestSession, Question, TestCategory,
-    Answer, UserAnswer, SavedQuestion, UserDevice, get_device_id
+    Answer, UserAnswer, SavedQuestion, UserDevice, get_device_id, normalize_phone
 )
 
 User = get_user_model()
@@ -113,47 +113,39 @@ def team(request):
 
 
 LOGIN_ROLES = ("student", "staff")
-PHONE_SIGNIFICANT_DIGITS = 9
 
 
 def _login_redirect(role, **params):
-    if role in LOGIN_ROLES:
-        params["role"] = role
+    params["role"] = role
     return redirect(f"{reverse('login')}?{urlencode(params)}")
 
 
-def _resolve_login_username(identifier):
-    """Map a phone number typed on the login form to its account's username.
-
-    Anything that already is a username, contains letters, or matches zero
-    or several phone numbers is returned untouched so normal login keeps working.
-    """
-    identifier = (identifier or "").strip()
-    if not identifier or re.search(r"[A-Za-z]", identifier):
-        return identifier
-    if User.objects.filter(username=identifier).exists():
-        return identifier
-
-    digits = re.sub(r"\D", "", identifier)[-PHONE_SIGNIFICANT_DIGITS:]
-    if len(digits) < PHONE_SIGNIFICANT_DIGITS:
-        return identifier
-
-    matches = [
+def _username_for_phone(phone):
+    """Return the username owning this phone number, or None if there is not exactly one."""
+    target = normalize_phone(phone)
+    if not target:
+        return None
+    usernames = [
         username
-        for username, phone in User.objects.exclude(phone="").values_list("username", "phone")
-        if re.sub(r"\D", "", phone).endswith(digits)
+        for username, stored in User.objects.exclude(phone="").values_list("username", "phone")
+        if normalize_phone(stored) == target
     ]
-    return matches[0] if len(matches) == 1 else identifier
+    return usernames[0] if len(usernames) == 1 else None
 
 
 def login_view(request):
     if request.method == "POST":
         role = request.POST.get("role")
+        if role not in LOGIN_ROLES:
+            role = "student"
+
+        identifier = request.POST.get("username", "").strip()
+        username = _username_for_phone(identifier) if role == "student" else identifier
         user = authenticate(
             request,
-            username=_resolve_login_username(request.POST.get("username")),
+            username=username,
             password=request.POST.get("password"),
-        )
+        ) if username else None
 
         if not user or (role == "staff" and not user.is_staff):
             return _login_redirect(role, error="invalid")

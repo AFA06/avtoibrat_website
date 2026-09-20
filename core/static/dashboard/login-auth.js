@@ -10,7 +10,7 @@
   const roleTitle = document.getElementById("role-title");
   const roleSubtitle = document.getElementById("role-subtitle");
   const roleInput = document.getElementById("role-input");
-  const usernameInput = document.getElementById("username");
+  const identifierFields = document.querySelectorAll("[data-role-field]");
   const cards = document.querySelectorAll(".login-profile");
 
   let selectedCard = null;
@@ -36,6 +36,15 @@
     roleTitle.textContent = card.dataset.title;
     roleSubtitle.textContent = card.dataset.description;
     roleInput.value = card.dataset.role;
+    showIdentifierField(card.dataset.role);
+  }
+
+  function showIdentifierField(role) {
+    identifierFields.forEach((field) => {
+      const active = field.dataset.roleField === role;
+      field.hidden = !active;
+      field.querySelector("input").disabled = !active;
+    });
   }
 
   function showCredentials() {
@@ -43,7 +52,7 @@
     updateRoleInUrl(selectedCard.dataset.role);
     stepProfile.hidden = true;
     stepCredentials.hidden = false;
-    usernameInput.focus();
+    document.querySelector("[data-role-field]:not([hidden]) input").focus();
   }
 
   function showProfile() {

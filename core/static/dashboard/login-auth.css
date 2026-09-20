@@ -274,11 +274,13 @@ body.login-auth {
   margin-right: 16px;
 }
 
-.login-password .login-field-icon {
+.login-password .login-field-icon,
+.login-username .login-field-icon {
   margin-left: 16px;
 }
 
-.login-password input {
+.login-password input,
+.login-username input {
   padding-left: 12px;
 }
 

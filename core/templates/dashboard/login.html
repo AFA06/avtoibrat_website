@@ -96,20 +96,34 @@
                     {% csrf_token %}
                     <input type="hidden" name="role" id="role-input" value="">
 
-                    <div class="login-field login-phone">
+                    <div class="login-field login-phone" data-role-field="student">
                         <select class="login-cc" aria-label="{% trans 'Davlat kodi' %}">
                             <option value="+998">+998</option>
                         </select>
                         <input type="text"
                                name="username"
-                               id="username"
+                               id="phone"
                                inputmode="tel"
-                               autocomplete="username"
+                               autocomplete="tel-national"
                                placeholder="00 123 45 67"
-                               aria-label="{% trans 'Telefon raqami yoki foydalanuvchi nomi' %}"
+                               aria-label="{% trans 'Telefon raqami' %}"
                                required>
                         <i class="fas fa-mobile-alt login-field-icon" aria-hidden="true"></i>
                     </div>
+
+                    <label class="login-field login-username" data-role-field="staff" hidden>
+                        <i class="fas fa-user login-field-icon" aria-hidden="true"></i>
+                        <input type="text"
+                               name="username"
+                               id="staff-username"
+                               autocomplete="username"
+                               autocapitalize="none"
+                               spellcheck="false"
+                               placeholder="{% trans 'foydalanuvchi nomi' %}"
+                               aria-label="{% trans 'Foydalanuvchi nomi' %}"
+                               disabled
+                               required>
+                    </label>
 
                     <label class="login-field login-password">
                         <i class="fas fa-lock login-field-icon" aria-hidden="true"></i>

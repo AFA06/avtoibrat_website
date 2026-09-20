@@ -606,8 +606,11 @@ msgstr "Автоматлаштирилган жараёнлар занжири"
 msgid "Davlat kodi"
 msgstr "Давлат коди"
 
-msgid "Telefon raqami yoki foydalanuvchi nomi"
-msgstr "Телефон рақами ёки фойдаланувчи номи"
+msgid "Telefon raqami"
+msgstr "Телефон рақами"
+
+msgid "foydalanuvchi nomi"
+msgstr "фойдаланувчи номи"
 
 msgid "parol"
 msgstr "парол"

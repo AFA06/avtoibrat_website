@@ -184,6 +184,7 @@ class UserAdmin(DjangoUserAdmin):
             "classes": ("wide",),
             "fields": (
                 "username",
+                "phone",
                 "password1",
                 "password2",
                 "device_limit",
