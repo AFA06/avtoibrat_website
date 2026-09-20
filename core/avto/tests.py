@@ -1,5 +1,8 @@
+import os
+
 from django.contrib.auth import get_user_model
 from django.contrib.staticfiles import finders
+from django.templatetags.static import static
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 from django.urls import reverse
@@ -508,3 +511,16 @@ class ExamModeTests(TestCase):
         html = self.client.get(start["Location"].replace("/uz/", "/ru/")).content.decode()
         self.assertIn("Увеличить текст", html)
         self.assertIn("Уменьшить текст", html)
+
+
+class StaticVersioningTests(TestCase):
+    def test_static_urls_carry_the_file_modification_time(self):
+        path = finders.find("exam/exam.css")
+        self.assertEqual(static("exam/exam.css"), f"/static/exam/exam.css?v={int(os.path.getmtime(path))}")
+
+    def test_missing_files_still_get_a_plain_url(self):
+        self.assertEqual(static("does/not/exist.css"), "/static/does/not/exist.css")
+
+    def test_rendered_pages_use_versioned_urls(self):
+        response = self.client.get(reverse("login"))
+        self.assertRegex(response.content.decode(), r"dashboard/login-auth\.css\?v=\d+")

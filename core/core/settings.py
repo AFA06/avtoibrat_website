@@ -146,6 +146,11 @@ ADMIN_SESSION_COOKIE_NAME = "admin_sessionid"
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
+STORAGES = {
+    "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
+    "staticfiles": {"BACKEND": "avto.storage.VersionedStaticFilesStorage"},
+}
+
 MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
