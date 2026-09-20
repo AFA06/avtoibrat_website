@@ -4,6 +4,7 @@
   const STORAGE_KEY = "avtoibrat.sidebar";
   const COLLAPSED_CLASS = "sidebar-collapsed";
   const DRAWER_QUERY = "(max-width: 991.98px)";
+  const THEME_SIDEBAR_CLASSES = ["enlarge-menu", "enlarge-menu-all"];
 
   const root = document.documentElement;
 
@@ -26,10 +27,25 @@
   // Runs while <head> is parsed so the sidebar never flashes in the wrong state.
   root.classList.toggle(COLLAPSED_CLASS, readCollapsed());
 
+  // A browser can keep serving an older cached copy of the theme script (app.js), which still
+  // adds these body classes. Their CSS expands the sidebar on hover, so they are removed whenever added.
+  function keepThemeSidebarClassesOff() {
+    const body = document.body;
+    const strip = () => {
+      if (THEME_SIDEBAR_CLASSES.some((name) => body.classList.contains(name))) {
+        body.classList.remove(...THEME_SIDEBAR_CLASSES);
+      }
+    };
+    strip();
+    new MutationObserver(strip).observe(body, { attributes: true, attributeFilter: ["class"] });
+  }
+
   document.addEventListener("DOMContentLoaded", () => {
     const sidebar = document.querySelector(".left-sidebar");
     const toggle = document.getElementById("togglemenu");
     if (!sidebar || !toggle) return;
+
+    keepThemeSidebarClassesOff();
 
     const drawerMode = window.matchMedia(DRAWER_QUERY);
     const links = sidebar.querySelectorAll(".menu-body .nav-link");
