@@ -209,18 +209,20 @@
                             <div class="topic-title">{{ cat.nomi }}</div>
 
                             {% if cat.has_started %}
-                            <div class="topic-progress-track"
-                                 role="img"
-                                 aria-label="{% blocktrans with correct=cat.correct wrong=cat.wrong empty=cat.empty %}Toʻgʻri: {{ correct }}, xato: {{ wrong }}, javobsiz: {{ empty }}{% endblocktrans %}">
-                                <span class="topic-progress-seg topic-progress-seg--correct" style="flex-grow:{{ cat.correct }}"></span>
-                                <span class="topic-progress-seg topic-progress-seg--wrong" style="flex-grow:{{ cat.wrong }}"></span>
-                                <span class="topic-progress-seg topic-progress-seg--skipped" style="flex-grow:{{ cat.empty }}"></span>
+                            <div class="topic-progress">
+                                <div class="topic-progress-track"
+                                     role="img"
+                                     aria-label="{% blocktrans with correct=cat.correct wrong=cat.wrong empty=cat.empty %}Toʻgʻri: {{ correct }}, xato: {{ wrong }}, javobsiz: {{ empty }}{% endblocktrans %}">
+                                    <span class="topic-progress-seg topic-progress-seg--correct" style="flex-grow:{{ cat.correct }}"></span>
+                                    <span class="topic-progress-seg topic-progress-seg--wrong" style="flex-grow:{{ cat.wrong }}"></span>
+                                    <span class="topic-progress-seg topic-progress-seg--skipped" style="flex-grow:{{ cat.empty }}"></span>
+                                </div>
+                                <ul class="topic-progress-legend">
+                                    <li class="topic-progress-tag topic-progress-tag--correct"><i class="ti ti-check"></i>{{ cat.correct }}</li>
+                                    <li class="topic-progress-tag topic-progress-tag--wrong"><i class="ti ti-x"></i>{{ cat.wrong }}</li>
+                                    <li class="topic-progress-tag topic-progress-tag--skipped"><i class="ti ti-minus"></i>{{ cat.empty }}</li>
+                                </ul>
                             </div>
-                            <ul class="topic-progress-legend">
-                                <li class="topic-progress-tag topic-progress-tag--correct"><i class="ti ti-check"></i>{{ cat.correct }}</li>
-                                <li class="topic-progress-tag topic-progress-tag--wrong"><i class="ti ti-x"></i>{{ cat.wrong }}</li>
-                                <li class="topic-progress-tag topic-progress-tag--skipped"><i class="ti ti-minus"></i>{{ cat.empty }}</li>
-                            </ul>
                             {% else %}
                             <div class="topic-progress--empty">
                                 <span class="topic-progress-placeholder">{% trans "Hali boshlanmagan" %}</span>

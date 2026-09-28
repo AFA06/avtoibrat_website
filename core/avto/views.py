@@ -62,6 +62,13 @@ RESTART_URL_NAMES = {
     ("real", "shablon"): "start_test",
 }
 
+LIST_URL_NAMES = {
+    ("shablon", "shablon"): "shablon_test",
+    ("shablon", "mavzu"): "mavzulashtirilgan",
+    ("shablon", "ohshash"): "ohshash_savollar",
+    ("real", "shablon"): "real_imtihon",
+}
+
 def index(request):
     team_members = TeamMember.objects.all()
     stories = Story.objects.filter(is_active=True)[:7]
@@ -792,6 +799,9 @@ def _result_context(session):
     restart_url_name = RESTART_URL_NAMES.get(
         (session.test_kind, session.source), "start_shablon_test"
     )
+    list_url_name = LIST_URL_NAMES.get(
+        (session.test_kind, session.source), "shablon_test"
+    )
 
     return {
         "has_session": True,
@@ -805,6 +815,7 @@ def _result_context(session):
         "duration_display": f"{minutes:02d}:{seconds:02d}",
         "cells": cells,
         "restart_url_name": restart_url_name,
+        "list_url_name": list_url_name,
     }
 
 

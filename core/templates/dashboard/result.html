@@ -59,11 +59,11 @@
       </div>
 
       <div class="result-actions">
-        <a href="{% url restart_url_name category.id %}" class="result-btn result-btn--primary">
-          {% trans "Qayta boshlash" %}
-        </a>
-        <a href="{% url 'dashboard' %}" class="result-btn result-btn--ghost">
+        <a href="{% url list_url_name %}" class="result-btn result-btn--primary">
           {% trans "Bosh sahifa" %}
+        </a>
+        <a href="{% url restart_url_name category.id %}" class="result-btn result-btn--ghost">
+          {% trans "Qayta boshlash" %}
         </a>
       </div>
     {% endif %}

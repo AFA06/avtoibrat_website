@@ -625,3 +625,62 @@ class ExamAutoAdvanceTests(TestCase):
             script = handle.read()
         self.assertIn("let autoAdvanceEnabled = false;", script)
         self.assertIn("if (practice && !autoAdvanceEnabled) return;", script)
+
+
+class ResultPageActionsTests(TestCase):
+    def setUp(self):
+        translation.activate("uz")
+        self.addCleanup(translation.deactivate)
+        self.user = User.objects.create_user(username="talaba", password="x", unlimited=True, phone="9999999")
+        self.client.force_login(self.user)
+        test_type = TestType.objects.create(nomi="Umumiy", vaqt_daqiqa=25, savollar_soni=1)
+        self.category = TestCategory.objects.create(
+            nomi="Bilet", aktiv=True, show_in_shablon=True, show_in_real=True,
+            show_in_mavzu=True, show_in_ohshash=True, question_count=1, duration_minutes=25,
+        )
+        question = Question.objects.create(
+            test_turi=test_type, kategoriya=self.category,
+            matn_uzb="Savol", matn_uz_kr="Савол", matn_rus="Вопрос",
+        )
+        Answer.objects.create(question=question, matn_uzb="J1", matn_uz_kr="Ж1", matn_rus="О1", togri=True)
+
+    def make_session(self, test_kind, source="shablon"):
+        session = TestSession.objects.create(
+            user=self.user, category=self.category, test_kind=test_kind, source=source,
+            started_at=timezone.now(), finished_at=timezone.now(),
+        )
+        return session
+
+    def test_bosh_sahifa_is_the_primary_blue_button(self):
+        session = self.make_session("shablon", "shablon")
+        response = self.client.get(reverse("test_result", args=[session.id]))
+        html = response.content.decode()
+        home_start = html.index("Bosh sahifa")
+        restart_start = html.index("Qayta boshlash")
+        home_tag = html[html.rindex("<a", 0, home_start):home_start]
+        restart_tag = html[html.rindex("<a", 0, restart_start):restart_start]
+        self.assertIn("result-btn--primary", home_tag)
+        self.assertIn("result-btn--ghost", restart_tag)
+
+    def test_bosh_sahifa_links_to_shablon_test_list(self):
+        session = self.make_session("shablon", "shablon")
+        response = self.client.get(reverse("test_result", args=[session.id]))
+        self.assertContains(response, f'href="{reverse("shablon_test")}" class="result-btn result-btn--primary"')
+
+    def test_bosh_sahifa_links_match_the_finished_test_kind(self):
+        cases = {
+            ("shablon", "shablon"): "shablon_test",
+            ("shablon", "mavzu"): "mavzulashtirilgan",
+            ("shablon", "ohshash"): "ohshash_savollar",
+            ("real", "shablon"): "real_imtihon",
+        }
+        for (test_kind, source), list_url_name in cases.items():
+            with self.subTest(test_kind=test_kind, source=source):
+                session = self.make_session(test_kind, source)
+                response = self.client.get(reverse("test_result", args=[session.id]))
+                self.assertContains(response, f'href="{reverse(list_url_name)}"')
+
+    def test_qayta_boshlash_still_restarts_the_same_category(self):
+        session = self.make_session("shablon", "shablon")
+        response = self.client.get(reverse("test_result", args=[session.id]))
+        self.assertContains(response, f'href="{reverse("start_shablon_test", args=[self.category.id])}"')
