@@ -1,0 +1,94 @@
+/* Progress bar for practice-test category cards (Shablon testlar). */
+
+.topic-card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  gap: 14px;
+}
+
+.topic-progress-track {
+  display: flex;
+  width: 100%;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  overflow: hidden;
+}
+
+.topic-progress-seg {
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: 0;
+  min-width: 0;
+}
+
+.topic-progress-seg--correct {
+  background: #35c759;
+}
+
+.topic-progress-seg--wrong {
+  background: #ff4b4b;
+}
+
+.topic-progress-seg--skipped {
+  background: #e4a900;
+}
+
+.topic-progress-legend {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.topic-progress-tag {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.topic-progress-tag i {
+  font-size: 13px;
+}
+
+.topic-progress-tag--correct {
+  background: #35c759;
+}
+
+.topic-progress-tag--wrong {
+  background: #ff4b4b;
+}
+
+.topic-progress-tag--skipped {
+  background: #e4a900;
+}
+
+.topic-progress--empty {
+  display: flex;
+  justify-content: center;
+}
+
+.topic-progress-placeholder {
+  padding: 4px 14px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+@media (max-width: 600px) {
+  .topic-progress-tag {
+    padding: 2px 8px;
+    font-size: 11px;
+  }
+}

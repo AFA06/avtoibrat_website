@@ -21,6 +21,7 @@
          <link href="{% static 'assets_dashboard/css/app.min.css' %}" rel="stylesheet" type="text/css" />
          <link href="{% static 'dashboard/user-menu.css' %}" rel="stylesheet" type="text/css" />
      <link href="{% static 'dashboard/sidebar.css' %}" rel="stylesheet" type="text/css" />
+     <link href="{% static 'dashboard/practice-list.css' %}" rel="stylesheet" type="text/css" />
      <script src="{% static 'dashboard/sidebar.js' %}"></script>
 
     </head>
@@ -204,21 +205,28 @@
                <div class="bilet-container">
                 {% for cat in kategoriyalar %}
                     <div class="topic-card" data-category="{{ cat.id }}" onclick="openPopup(this)">
-                        <div class="topic-title">{{ cat.nomi }}</div>
+                        <div class="topic-card-body">
+                            <div class="topic-title">{{ cat.nomi }}</div>
 
-                        {% if cat.has_started %}
-                        <div class="status-wrapper">
-                            <div class="bilet-status success">
-                                <i class="ti ti-check"></i> {{ cat.correct }}
+                            {% if cat.has_started %}
+                            <div class="topic-progress-track"
+                                 role="img"
+                                 aria-label="{% blocktrans with correct=cat.correct wrong=cat.wrong empty=cat.empty %}Toʻgʻri: {{ correct }}, xato: {{ wrong }}, javobsiz: {{ empty }}{% endblocktrans %}">
+                                <span class="topic-progress-seg topic-progress-seg--correct" style="flex-grow:{{ cat.correct }}"></span>
+                                <span class="topic-progress-seg topic-progress-seg--wrong" style="flex-grow:{{ cat.wrong }}"></span>
+                                <span class="topic-progress-seg topic-progress-seg--skipped" style="flex-grow:{{ cat.empty }}"></span>
                             </div>
-                            <div class="bilet-status danger">
-                                <i class="ti ti-x"></i> {{ cat.wrong }}
+                            <ul class="topic-progress-legend">
+                                <li class="topic-progress-tag topic-progress-tag--correct"><i class="ti ti-check"></i>{{ cat.correct }}</li>
+                                <li class="topic-progress-tag topic-progress-tag--wrong"><i class="ti ti-x"></i>{{ cat.wrong }}</li>
+                                <li class="topic-progress-tag topic-progress-tag--skipped"><i class="ti ti-minus"></i>{{ cat.empty }}</li>
+                            </ul>
+                            {% else %}
+                            <div class="topic-progress--empty">
+                                <span class="topic-progress-placeholder">{% trans "Hali boshlanmagan" %}</span>
                             </div>
-                            <div class="bilet-status warning">
-                                <i class="ti ti-alert-circle"></i> {{ cat.empty }}
-                            </div>
+                            {% endif %}
                         </div>
-                        {% endif %}
                     </div>
                     {% endfor %}
 

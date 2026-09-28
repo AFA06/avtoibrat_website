@@ -30,6 +30,7 @@
     textDownBtn: document.getElementById("textDownBtn"),
     textUpBtn: document.getElementById("textUpBtn"),
     textScaleValue: document.getElementById("textScaleValue"),
+    autoAdvanceInput: document.getElementById("autoAdvanceInput"),
   };
 
   const practice = Boolean(config.practice);
@@ -42,9 +43,11 @@
     stepDown: 0.03,
     storageKey: "avtoibrat.exam.textLevel",
   };
+  const AUTO_ADVANCE_STORAGE_KEY = "avtoibrat.exam.autoAdvance";
   let currentIndex = 0;
   let pendingSelection = null;
   let submitting = false;
+  let autoAdvanceEnabled = false;
   const optionOrders = {};
 
   function shuffledOptionOrder(question) {
@@ -217,7 +220,7 @@
         submitting = false;
         const answeredIndex = currentIndex;
         renderQuestion();
-        if (practice) return;
+        if (practice && !autoAdvanceEnabled) return;
         setTimeout(() => {
           if (currentIndex === answeredIndex && !anyModalOpen()) {
             goToIndex(currentIndex + 1);
@@ -373,6 +376,33 @@
     apply();
   }
 
+  function readAutoAdvance() {
+    try {
+      return window.localStorage.getItem(AUTO_ADVANCE_STORAGE_KEY) === "1";
+    } catch (error) {
+      return false;
+    }
+  }
+
+  function saveAutoAdvance(enabled) {
+    try {
+      window.localStorage.setItem(AUTO_ADVANCE_STORAGE_KEY, enabled ? "1" : "0");
+    } catch (error) {
+      // Storage can be blocked; the choice just won't be remembered.
+    }
+  }
+
+  function setupAutoAdvance() {
+    if (!els.autoAdvanceInput) return;
+    autoAdvanceEnabled = readAutoAdvance();
+    els.autoAdvanceInput.checked = autoAdvanceEnabled;
+    els.autoAdvanceInput.addEventListener("change", () => {
+      autoAdvanceEnabled = els.autoAdvanceInput.checked;
+      saveAutoAdvance(autoAdvanceEnabled);
+    });
+  }
+
   setupTextSize();
+  setupAutoAdvance();
   renderQuestion();
 })();

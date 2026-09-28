@@ -524,3 +524,104 @@ class StaticVersioningTests(TestCase):
     def test_rendered_pages_use_versioned_urls(self):
         response = self.client.get(reverse("login"))
         self.assertRegex(response.content.decode(), r"dashboard/login-auth\.css\?v=\d+")
+
+
+class PracticeListProgressBarTests(TestCase):
+    def setUp(self):
+        translation.activate("uz")
+        self.addCleanup(translation.deactivate)
+        self.user = User.objects.create_user(username="talaba", password="x", unlimited=True, phone="9999999")
+        self.client.force_login(self.user)
+        test_type = TestType.objects.create(nomi="Umumiy", vaqt_daqiqa=25, savollar_soni=4)
+        self.category = TestCategory.objects.create(
+            nomi="Bilet", aktiv=True, show_in_shablon=True, question_count=4, duration_minutes=25,
+        )
+        self.questions = []
+        for i in range(4):
+            question = Question.objects.create(
+                test_turi=test_type, kategoriya=self.category,
+                matn_uzb=f"Savol {i}", matn_uz_kr=f"Савол {i}", matn_rus=f"Вопрос {i}",
+            )
+            Answer.objects.create(question=question, matn_uzb="J1", matn_uz_kr="Ж1", matn_rus="О1", togri=True)
+            Answer.objects.create(question=question, matn_uzb="J2", matn_uz_kr="Ж2", matn_rus="О2", togri=False)
+            self.questions.append(question)
+
+    def test_not_started_category_shows_placeholder(self):
+        response = self.client.get(reverse("shablon_test"))
+        self.assertContains(response, "Hali boshlanmagan")
+        self.assertNotContains(response, "topic-progress-track")
+
+    def test_started_category_shows_proportional_bar_segments(self):
+        session = TestSession.objects.create(
+            user=self.user, category=self.category, test_kind="shablon",
+            started_at=timezone.now(), finished_at=timezone.now(),
+        )
+        session.questions.set(self.questions)
+        UserAnswer.objects.create(
+            session=session, question=self.questions[0],
+            selected_answer=self.questions[0].javoblar.get(togri=True), is_correct=True,
+        )
+        UserAnswer.objects.create(
+            session=session, question=self.questions[1],
+            selected_answer=self.questions[1].javoblar.get(togri=False), is_correct=False,
+        )
+
+        response = self.client.get(reverse("shablon_test"))
+        html = response.content.decode()
+        self.assertIn('topic-progress-seg--correct" style="flex-grow:1"', html)
+        self.assertIn('topic-progress-seg--wrong" style="flex-grow:1"', html)
+        self.assertIn('topic-progress-seg--skipped" style="flex-grow:2"', html)
+        self.assertNotContains(response, "Hali boshlanmagan")
+
+    def test_bar_follows_site_language(self):
+        session = TestSession.objects.create(
+            user=self.user, category=self.category, test_kind="shablon",
+            started_at=timezone.now(), finished_at=timezone.now(),
+        )
+        session.questions.set(self.questions)
+        response = self.client.get("/ru/shablon-test/")
+        self.assertContains(response, "Верно:")
+
+
+class ExamAutoAdvanceTests(TestCase):
+    def setUp(self):
+        translation.activate("uz")
+        self.addCleanup(translation.deactivate)
+        user = User.objects.create_user(username="talaba", password="x", unlimited=True, phone="9999999")
+        test_type = TestType.objects.create(nomi="Umumiy", vaqt_daqiqa=25, savollar_soni=2)
+        self.category = TestCategory.objects.create(
+            nomi="Bilet", aktiv=True, show_in_shablon=True, show_in_real=True,
+            question_count=2, duration_minutes=25,
+        )
+        for i in range(2):
+            question = Question.objects.create(
+                test_turi=test_type, kategoriya=self.category,
+                matn_uzb=f"Savol {i}", matn_uz_kr=f"Савол {i}", matn_rus=f"Вопрос {i}",
+            )
+            Answer.objects.create(question=question, matn_uzb="J1", matn_uz_kr="Ж1", matn_rus="О1", togri=True)
+            Answer.objects.create(question=question, matn_uzb="J2", matn_uz_kr="Ж2", matn_rus="О2", togri=False)
+        self.client.force_login(user)
+
+    def exam_html(self, start_url_name):
+        start = self.client.get(reverse(start_url_name, args=[self.category.id]))
+        return self.client.get(start["Location"]).content.decode()
+
+    def test_practice_page_has_auto_advance_toggle(self):
+        html = self.exam_html("start_shablon_test")
+        self.assertIn('id="autoAdvanceToggle"', html)
+        self.assertIn('id="autoAdvanceInput"', html)
+
+    def test_real_exam_has_no_auto_advance_toggle(self):
+        html = self.exam_html("start_test")
+        self.assertNotIn('id="autoAdvanceToggle"', html)
+
+    def test_toggle_is_translated(self):
+        start = self.client.get(reverse("start_shablon_test", args=[self.category.id]))
+        html = self.client.get(start["Location"].replace("/uz/", "/ru/")).content.decode()
+        self.assertIn("Автоматический переход", html)
+
+    def test_auto_advance_defaults_to_off_in_script(self):
+        with open(finders.find("exam/exam.js"), encoding="utf-8") as handle:
+            script = handle.read()
+        self.assertIn("let autoAdvanceEnabled = false;", script)
+        self.assertIn("if (practice && !autoAdvanceEnabled) return;", script)

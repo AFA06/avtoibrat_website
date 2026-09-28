@@ -709,6 +709,18 @@ msgstr "Уменьшить текст"
 msgid "Matnni kattalashtirish"
 msgstr "Увеличить текст"
 
+msgid "Avtomatik oʻtish"
+msgstr "Автоматический переход"
+
+msgid "Yoqilgan boʻlsa, javob tanlangach keyingi savolga avtomatik oʻtiladi."
+msgstr "Если включено, после выбора ответа произойдёт автоматический переход к следующему вопросу."
+
+msgid "Toʻgʻri: %(correct)s, xato: %(wrong)s, javobsiz: %(empty)s"
+msgstr "Верно: %(correct)s, неверно: %(wrong)s, без ответа: %(empty)s"
+
+msgid "Hali boshlanmagan"
+msgstr "Ещё не начато"
+
 #, fuzzy
 #~| msgid "Русский"
 #~ msgid "Audio (Русский)"

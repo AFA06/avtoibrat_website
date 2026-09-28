@@ -708,6 +708,18 @@ msgstr "Матнни кичрайтириш"
 msgid "Matnni kattalashtirish"
 msgstr "Матнни катталаштириш"
 
+msgid "Avtomatik oʻtish"
+msgstr "Автоматик ўтиш"
+
+msgid "Yoqilgan boʻlsa, javob tanlangach keyingi savolga avtomatik oʻtiladi."
+msgstr "Ёқилган бўлса, жавоб танлангач кейинги саволга автоматик ўтилади."
+
+msgid "Toʻgʻri: %(correct)s, xato: %(wrong)s, javobsiz: %(empty)s"
+msgstr "Тўғри: %(correct)s, хато: %(wrong)s, жавобсиз: %(empty)s"
+
+msgid "Hali boshlanmagan"
+msgstr "Ҳали бошланмаган"
+
 #~ msgid "To'g'ri javoblar:"
 #~ msgstr "Тўғри жавоблар:"
 

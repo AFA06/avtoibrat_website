@@ -18,6 +18,16 @@
   </div>
   <div class="exam-header__actions">
     <div class="exam-counter" id="examCounter">{% trans "Savol" %} 1 / 1</div>
+    {% if practice %}
+    <label class="exam-autoadvance" id="autoAdvanceToggle"
+           title="{% trans 'Yoqilgan boʻlsa, javob tanlangach keyingi savolga avtomatik oʻtiladi.' %}">
+      <span class="exam-autoadvance__label">{% trans "Avtomatik oʻtish" %}</span>
+      <span class="exam-autoadvance__switch">
+        <input type="checkbox" id="autoAdvanceInput">
+        <span class="exam-autoadvance__track"><span class="exam-autoadvance__thumb"></span></span>
+      </span>
+    </label>
+    {% endif %}
     <div class="exam-timer" id="examTimer">
       <i class="fas fa-clock"></i>
       <span id="examTimerValue">--:--</span>
