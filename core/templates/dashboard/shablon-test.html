@@ -206,6 +206,7 @@
                 {% for cat in kategoriyalar %}
                     <div class="topic-card" data-category="{{ cat.id }}" onclick="openPopup(this)">
                         <div class="topic-card-body">
+                            {% if cat.has_started %}<span class="topic-percent">{{ cat.percent }}%</span>{% endif %}
                             <div class="topic-title">{{ cat.nomi }}</div>
 
                             {% if cat.has_started %}

@@ -721,6 +721,12 @@ msgstr "Верно: %(correct)s, неверно: %(wrong)s, без ответа:
 msgid "Hali boshlanmagan"
 msgstr "Ещё не начато"
 
+msgid "Shablon testlar"
+msgstr "Шаблонные тесты"
+
+msgid "Oʻxshash savollar"
+msgstr "Похожие вопросы"
+
 #, fuzzy
 #~| msgid "Русский"
 #~ msgid "Audio (Русский)"

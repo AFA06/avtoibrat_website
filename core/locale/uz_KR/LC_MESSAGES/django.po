@@ -720,6 +720,12 @@ msgstr "Тўғри: %(correct)s, хато: %(wrong)s, жавобсиз: %(empty)
 msgid "Hali boshlanmagan"
 msgstr "Ҳали бошланмаган"
 
+msgid "Shablon testlar"
+msgstr "Шаблон тестлар"
+
+msgid "Oʻxshash savollar"
+msgstr "Ўхшаш саволлар"
+
 #~ msgid "To'g'ri javoblar:"
 #~ msgstr "Тўғри жавоблар:"
 

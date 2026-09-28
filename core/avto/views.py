@@ -6,6 +6,7 @@ from urllib.parse import urlencode
 from django.conf import settings
 from django.urls import reverse
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login as auth_login, logout
 from django.contrib.auth.decorators import login_required
@@ -67,6 +68,13 @@ LIST_URL_NAMES = {
     ("shablon", "mavzu"): "mavzulashtirilgan",
     ("shablon", "ohshash"): "ohshash_savollar",
     ("real", "shablon"): "real_imtihon",
+}
+
+LIST_LABELS = {
+    "shablon_test": _("Shablon testlar"),
+    "mavzulashtirilgan": _("Mavzulashtirilgan testlar"),
+    "ohshash_savollar": _("Oʻxshash savollar"),
+    "real_imtihon": _("Real imtihon"),
 }
 
 def index(request):
@@ -482,8 +490,9 @@ def shablon_test(request):
             ).count()
             answered = correct + wrong
             empty = max(cat.question_count - answered, 0)
+            percent = round(correct * 100 / cat.question_count) if cat.question_count else 0
         else:
-            correct = wrong = empty = None
+            correct = wrong = empty = percent = None
 
         kategoriyalar.append({
             "id": cat.id,
@@ -492,6 +501,7 @@ def shablon_test(request):
             "correct": correct,
             "wrong": wrong,
             "empty": empty,
+            "percent": percent,
         })
 
     return render(request, "dashboard/shablon-test.html", {
@@ -802,6 +812,7 @@ def _result_context(session):
     list_url_name = LIST_URL_NAMES.get(
         (session.test_kind, session.source), "shablon_test"
     )
+    list_label = LIST_LABELS.get(list_url_name, LIST_LABELS["shablon_test"])
 
     return {
         "has_session": True,
@@ -816,6 +827,7 @@ def _result_context(session):
         "cells": cells,
         "restart_url_name": restart_url_name,
         "list_url_name": list_url_name,
+        "list_label": list_label,
     }
 
 

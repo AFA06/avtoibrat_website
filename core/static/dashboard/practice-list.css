@@ -6,12 +6,34 @@
   --topic-skipped: #d9a441;
 }
 
+.topic-card {
+  background: #141a26 !important;
+  border: 1px solid #2a3245 !important;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.topic-card:hover {
+  border-color: #3a6ff0 !important;
+  transform: translateY(-2px);
+}
+
 .topic-card-body {
   display: flex;
   flex-direction: column;
   align-items: stretch;
   width: 100%;
   gap: 12px;
+  position: relative;
+}
+
+.topic-percent {
+  position: absolute;
+  top: -14px;
+  right: 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: #96a0b5;
+  font-variant-numeric: tabular-nums;
 }
 
 .topic-progress {

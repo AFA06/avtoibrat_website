@@ -651,16 +651,17 @@ class ResultPageActionsTests(TestCase):
         )
         return session
 
-    def test_bosh_sahifa_is_the_primary_blue_button(self):
+    def test_bosh_sahifa_is_the_primary_blue_button_on_the_right(self):
         session = self.make_session("shablon", "shablon")
         response = self.client.get(reverse("test_result", args=[session.id]))
         html = response.content.decode()
-        home_start = html.index("Bosh sahifa")
+        home_start = html.index("Shablon testlar")
         restart_start = html.index("Qayta boshlash")
         home_tag = html[html.rindex("<a", 0, home_start):home_start]
         restart_tag = html[html.rindex("<a", 0, restart_start):restart_start]
         self.assertIn("result-btn--primary", home_tag)
         self.assertIn("result-btn--ghost", restart_tag)
+        self.assertLess(restart_start, home_start)
 
     def test_bosh_sahifa_links_to_shablon_test_list(self):
         session = self.make_session("shablon", "shablon")
