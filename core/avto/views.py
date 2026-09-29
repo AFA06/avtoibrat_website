@@ -229,79 +229,138 @@ def dashboard(request):
         request.session.flush()
         return redirect("/login/?expired=1")
 
-    today = timezone.now().date()
-
-    sessions = TestSession.objects.filter(
-        user=user,
-        finished_at__isnull=False
-    )
-
-    correct_count = UserAnswer.objects.filter(
-        session__in=sessions,
-        is_correct=True
-    ).count()
-
-    durations = sessions.annotate(
-        duration=ExpressionWrapper(
-            F("finished_at") - F("started_at"),
-            output_field=DurationField()
-        )
-    )
-
-    total_seconds = durations.aggregate(
-        total=Sum("duration")
-    )["total"]
-
-    total_seconds = total_seconds.total_seconds() if total_seconds else 0
-
-    today_seconds = durations.filter(
-        finished_at__date=today
-    ).aggregate(
-        total=Sum("duration")
-    )["total"]
-
-    today_seconds = today_seconds.total_seconds() if today_seconds else 0
-
-    def format_time(seconds):
-        hours = int(seconds // 3600)
-        minutes = int((seconds % 3600) // 60)
-        if hours > 0:
-            return f"{hours} soat {minutes} daqiqa"
-        return f"{minutes} daqiqa"
-
-    week_correct = []
-    week_wrong = []
-
-    for i in range(6, -1, -1):
-        day = today - timezone.timedelta(days=i)
-
-        day_sessions = sessions.filter(finished_at__date=day)
-
-        week_correct.append(
-            UserAnswer.objects.filter(
-                session__in=day_sessions,
-                is_correct=True
-            ).count()
-        )
-
-        week_wrong.append(
-            UserAnswer.objects.filter(
-                session__in=day_sessions,
-                is_correct=False,
-                selected_answer__isnull=False
-            ).count()
-        )
-
     return render(request, "dashboard/dashboard.html", {
         "user": user,
-        "users_count": User.objects.count(),
-        "correct_count": correct_count,
-        "today_time": format_time(today_seconds),
-        "total_time": format_time(total_seconds),
-        "week_correct_json": json.dumps(week_correct),
-        "week_wrong_json": json.dumps(week_wrong),
+        **_student_stats(user),
     })
 
+
+def _format_duration(seconds):
+    hours, rest = divmod(int(seconds), 3600)
+    minutes = rest // 60
+    if hours:
+        return f"{hours} {_('soat')} {minutes} {_('daqiqa')}"
+    return f"{minutes} {_('daqiqa')}"
+
+
+def _student_stats(user):
+    """Everything the student dashboard shows, computed from finished sessions."""
+    today = timezone.localdate()
+    sessions = list(
+        TestSession.objects
+        .filter(user=user, finished_at__isnull=False)
+        .select_related("category")
+        .order_by("-finished_at")
+    )
+    session_ids = [s.id for s in sessions]
+    answers = list(
+        UserAnswer.objects
+        .filter(session_id__in=session_ids)
+        .values("session_id", "is_correct", "selected_answer_id")
+    )
+
+    per_session = {s.id: {"correct": 0, "wrong": 0} for s in sessions}
+    for a in answers:
+        bucket = per_session[a["session_id"]]
+        if a["is_correct"]:
+            bucket["correct"] += 1
+        elif a["selected_answer_id"]:
+            bucket["wrong"] += 1
+
+    total_correct = sum(v["correct"] for v in per_session.values())
+    total_wrong = sum(v["wrong"] for v in per_session.values())
+    total_questions = sum(len(s.question_order) for s in sessions)
+    total_skipped = max(total_questions - total_correct - total_wrong, 0)
+    answered = total_correct + total_wrong
+
+    recent, scores, seconds_total, seconds_today = [], [], 0, 0
+    by_category = {}
+    days_with_tests = set()
+    week = {today - timezone.timedelta(days=i): {"correct": 0, "wrong": 0, "tests": 0} for i in range(6, -1, -1)}
+
+    for s in sessions:
+        counts = per_session[s.id]
+        size = len(s.question_order) or (counts["correct"] + counts["wrong"]) or 1
+        percent = round(counts["correct"] * 100 / size)
+        scores.append(percent)
+        finished = timezone.localtime(s.finished_at)
+        duration = max((s.finished_at - s.started_at).total_seconds(), 0) if s.started_at else 0
+        seconds_total += duration
+        if finished.date() == today:
+            seconds_today += duration
+        days_with_tests.add(finished.date())
+        if finished.date() in week:
+            week[finished.date()]["correct"] += counts["correct"]
+            week[finished.date()]["wrong"] += counts["wrong"]
+            week[finished.date()]["tests"] += 1
+        cat = by_category.setdefault(s.category_id, {"name": s.category.nomi, "correct": 0, "wrong": 0})
+        cat["correct"] += counts["correct"]
+        cat["wrong"] += counts["wrong"]
+        if len(recent) < 5:
+            recent.append({
+                "id": s.id,
+                "name": s.category.nomi,
+                "percent": percent,
+                "correct": counts["correct"],
+                "size": size,
+                "when": finished,
+                "level": "good" if percent >= 90 else "mid" if percent >= 70 else "low",
+            })
+
+    # Consecutive study days ending today (or yesterday, so the streak survives until tonight).
+    streak, day = 0, today
+    if day not in days_with_tests:
+        day -= timezone.timedelta(days=1)
+    while day in days_with_tests:
+        streak += 1
+        day -= timezone.timedelta(days=1)
+
+    weak = sorted(
+        (
+            {**c, "accuracy": round(c["correct"] * 100 / (c["correct"] + c["wrong"]))}
+            for c in by_category.values() if c["wrong"] > 0
+        ),
+        key=lambda c: (c["accuracy"], -c["wrong"]),
+    )[:4]
+
+    max_day = max([d["correct"] + d["wrong"] for d in week.values()] + [1])
+    labels = [_("DUSH"), _("SESH"), _("CHOR"), _("PAY"), _("JUM"), _("SHAN"), _("YAK")]
+    week_days = [
+        {
+            "label": labels[d.weekday()],
+            "date": d,
+            "is_today": d == today,
+            "correct": v["correct"],
+            "wrong": v["wrong"],
+            "tests": v["tests"],
+            "correct_h": round(v["correct"] * 100 / max_day),
+            "wrong_h": round(v["wrong"] * 100 / max_day),
+        }
+        for d, v in week.items()
+    ]
+
+    circumference = 2 * 3.14159 * 52
+    accuracy = round(total_correct * 100 / answered) if answered else 0
+
+    return {
+        "tests_done": len(sessions),
+        "avg_score": round(sum(scores) / len(scores)) if scores else 0,
+        "best_score": max(scores) if scores else 0,
+        "accuracy": accuracy,
+        "total_correct": total_correct,
+        "total_wrong": total_wrong,
+        "total_skipped": total_skipped,
+        "donut_dash": round(circumference * accuracy / 100, 1),
+        "donut_gap": round(circumference, 1),
+        "total_time": _format_duration(seconds_total),
+        "today_time": _format_duration(seconds_today),
+        "streak": streak,
+        "saved_count": SavedQuestion.objects.filter(user=user).count(),
+        "recent": recent,
+        "weak": weak,
+        "week_days": week_days,
+        "week_has_data": any(d["correct"] or d["wrong"] for d in week_days),
+    }
 
 
 def contact_list(request):

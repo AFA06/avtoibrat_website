@@ -27,6 +27,9 @@
     ".saved-intro",
     ".saved-group",
     ".rs-header",
+    ".ds-hero",
+    ".ds-kpi",
+    ".ds-panel",
   ].join(",");
 
   function tag() {

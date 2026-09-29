@@ -25,6 +25,7 @@
      <script src="{% static 'dashboard/sidebar.js' %}"></script>
 
     <link href="{% static 'dashboard/theme.css' %}" rel="stylesheet" type="text/css" />
+    <script>(function(){try{var t=localStorage.getItem('avtoibrat.theme');document.documentElement.setAttribute('data-theme',t==='dark'?'dark':'light')}catch(e){}})()</script>
 </head>
 
 <body id="body" class="dark-sidebar">
@@ -284,6 +285,7 @@
     <!-- App js -->
     <script src="{% static 'assets_dashboard/js/app.js' %}"></script>
 
+    <script src="{% static 'dashboard/theme-toggle.js' %}"></script>
     <script src="{% static 'vendor/motion.js' %}"></script>
     <script src="{% static 'dashboard/theme.js' %}" defer></script>
 </body>
