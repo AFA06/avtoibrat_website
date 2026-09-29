@@ -13,7 +13,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, FileResponse, Http404, HttpResponseRedirect
 from django.contrib.auth import get_user_model
 from django.views.decorators.http import require_POST, require_http_methods
-from django.db.models import Sum, F, ExpressionWrapper, DurationField
+from django.db.models import Count, Sum, F, ExpressionWrapper, DurationField
 
 from .models import (
     TeamMember, Story, ConsultRequest, Testimonial, FAQ,
@@ -916,7 +916,12 @@ ROAD_SIGN_MAIN_COUNT = 7
 
 @login_required
 def road_signs(request):
-    categories = list(RoadSignCategory.objects.all())
+    # Categories with no signs yet stay hidden until they have content.
+    categories = list(
+        RoadSignCategory.objects
+        .annotate(sign_count=Count("signs"))
+        .filter(sign_count__gt=0)
+    )
     return render(request, "dashboard/road-signs.html", {
         "main_categories": categories[:ROAD_SIGN_MAIN_COUNT],
         "extra_categories": categories[ROAD_SIGN_MAIN_COUNT:],
