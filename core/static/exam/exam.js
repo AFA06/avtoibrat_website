@@ -230,6 +230,11 @@
         submitting = false;
         const answeredIndex = currentIndex;
         renderQuestion();
+        if (questions.every((q) => answered[q.id])) {
+          // Everything is answered: offer to finish, same dialog as the Yakunlash button.
+          setTimeout(() => { closeLightbox(); openModal(els.finishModal); }, FEEDBACK_DELAY_MS);
+          return;
+        }
         if (practice && !autoAdvanceEnabled) return;
         setTimeout(() => {
           if (currentIndex === answeredIndex && !anyModalOpen()) {
