@@ -7,3 +7,4 @@ __pycache__/
 .env
 core/db.sqlite3
 core/media/
+core/staticfiles/

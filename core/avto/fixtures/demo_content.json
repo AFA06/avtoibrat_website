@@ -1,0 +1,10081 @@
+[
+{
+"model": "avto.testcategory",
+"pk": 4,
+"fields": {
+"nomi": "dsds",
+"tavsif": "ssd",
+"tartib": 1,
+"aktiv": true,
+"show_in_shablon": true,
+"show_in_real": true,
+"show_in_mavzu": true,
+"show_in_ohshash": true,
+"question_count": 20,
+"duration_minutes": 25
+}
+},
+{
+"model": "avto.testcategory",
+"pk": 5,
+"fields": {
+"nomi": "Bilet 2",
+"tavsif": "",
+"tartib": 2,
+"aktiv": true,
+"show_in_shablon": true,
+"show_in_real": true,
+"show_in_mavzu": false,
+"show_in_ohshash": false,
+"question_count": 20,
+"duration_minutes": 25
+}
+},
+{
+"model": "avto.testcategory",
+"pk": 6,
+"fields": {
+"nomi": "Bilet 3",
+"tavsif": "",
+"tartib": 3,
+"aktiv": true,
+"show_in_shablon": true,
+"show_in_real": true,
+"show_in_mavzu": false,
+"show_in_ohshash": false,
+"question_count": 20,
+"duration_minutes": 25
+}
+},
+{
+"model": "avto.testcategory",
+"pk": 7,
+"fields": {
+"nomi": "Bilet 4",
+"tavsif": "",
+"tartib": 4,
+"aktiv": true,
+"show_in_shablon": true,
+"show_in_real": true,
+"show_in_mavzu": false,
+"show_in_ohshash": false,
+"question_count": 20,
+"duration_minutes": 25
+}
+},
+{
+"model": "avto.testcategory",
+"pk": 8,
+"fields": {
+"nomi": "Bilet 5",
+"tavsif": "",
+"tartib": 5,
+"aktiv": true,
+"show_in_shablon": true,
+"show_in_real": true,
+"show_in_mavzu": false,
+"show_in_ohshash": false,
+"question_count": 20,
+"duration_minutes": 25
+}
+},
+{
+"model": "avto.testcategory",
+"pk": 9,
+"fields": {
+"nomi": "Bilet 6",
+"tavsif": "",
+"tartib": 6,
+"aktiv": true,
+"show_in_shablon": true,
+"show_in_real": true,
+"show_in_mavzu": false,
+"show_in_ohshash": false,
+"question_count": 20,
+"duration_minutes": 25
+}
+},
+{
+"model": "avto.testcategory",
+"pk": 10,
+"fields": {
+"nomi": "Bilet 7",
+"tavsif": "",
+"tartib": 7,
+"aktiv": true,
+"show_in_shablon": true,
+"show_in_real": true,
+"show_in_mavzu": false,
+"show_in_ohshash": false,
+"question_count": 20,
+"duration_minutes": 25
+}
+},
+{
+"model": "avto.testcategory",
+"pk": 11,
+"fields": {
+"nomi": "Bilet 8",
+"tavsif": "",
+"tartib": 8,
+"aktiv": true,
+"show_in_shablon": true,
+"show_in_real": true,
+"show_in_mavzu": false,
+"show_in_ohshash": false,
+"question_count": 20,
+"duration_minutes": 25
+}
+},
+{
+"model": "avto.testcategory",
+"pk": 12,
+"fields": {
+"nomi": "Bilet 9",
+"tavsif": "",
+"tartib": 9,
+"aktiv": true,
+"show_in_shablon": true,
+"show_in_real": true,
+"show_in_mavzu": false,
+"show_in_ohshash": false,
+"question_count": 20,
+"duration_minutes": 25
+}
+},
+{
+"model": "avto.testcategory",
+"pk": 13,
+"fields": {
+"nomi": "Bilet 10",
+"tavsif": "",
+"tartib": 10,
+"aktiv": true,
+"show_in_shablon": true,
+"show_in_real": true,
+"show_in_mavzu": false,
+"show_in_ohshash": false,
+"question_count": 20,
+"duration_minutes": 25
+}
+},
+{
+"model": "avto.testtype",
+"pk": 4,
+"fields": {
+"nomi": "50",
+"vaqt_daqiqa": 10,
+"savollar_soni": 10
+}
+},
+{
+"model": "avto.question",
+"pk": 5,
+"fields": {
+"test_turi": 4,
+"kategoriya": 4,
+"matn_uzb": "Uzb",
+"matn_uz_kr": "Крил",
+"matn_rus": "Рус",
+"matn": "2",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": "https://www.youtube.com/watch?v=noEZvcMgIow"
+}
+},
+{
+"model": "avto.question",
+"pk": 6,
+"fields": {
+"test_turi": 4,
+"kategoriya": 4,
+"matn_uzb": "Demo savol 2 (uz)",
+"matn_uz_kr": "Демо савол 2 (уз-кр)",
+"matn_rus": "Демо вопрос 2 (ru)",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 7,
+"fields": {
+"test_turi": 4,
+"kategoriya": 4,
+"matn_uzb": "Demo savol 3 (uz)",
+"matn_uz_kr": "Демо савол 3 (уз-кр)",
+"matn_rus": "Демо вопрос 3 (ru)",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 8,
+"fields": {
+"test_turi": 4,
+"kategoriya": 4,
+"matn_uzb": "Demo savol 4 (uz)",
+"matn_uz_kr": "Демо савол 4 (уз-кр)",
+"matn_rus": "Демо вопрос 4 (ru)",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 9,
+"fields": {
+"test_turi": 4,
+"kategoriya": 4,
+"matn_uzb": "Demo savol 5 (uz)",
+"matn_uz_kr": "Демо савол 5 (уз-кр)",
+"matn_rus": "Демо вопрос 5 (ru)",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 10,
+"fields": {
+"test_turi": 4,
+"kategoriya": 4,
+"matn_uzb": "Demo savol 6 (uz)",
+"matn_uz_kr": "Демо савол 6 (уз-кр)",
+"matn_rus": "Демо вопрос 6 (ru)",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 11,
+"fields": {
+"test_turi": 4,
+"kategoriya": 4,
+"matn_uzb": "Demo savol 7 (uz)",
+"matn_uz_kr": "Демо савол 7 (уз-кр)",
+"matn_rus": "Демо вопрос 7 (ru)",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 12,
+"fields": {
+"test_turi": 4,
+"kategoriya": 4,
+"matn_uzb": "Demo savol 8 (uz)",
+"matn_uz_kr": "Демо савол 8 (уз-кр)",
+"matn_rus": "Демо вопрос 8 (ru)",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 13,
+"fields": {
+"test_turi": 4,
+"kategoriya": 4,
+"matn_uzb": "Demo savol 9 (uz)",
+"matn_uz_kr": "Демо савол 9 (уз-кр)",
+"matn_rus": "Демо вопрос 9 (ru)",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 14,
+"fields": {
+"test_turi": 4,
+"kategoriya": 4,
+"matn_uzb": "Demo savol 10 (uz)",
+"matn_uz_kr": "Демо савол 10 (уз-кр)",
+"matn_rus": "Демо вопрос 10 (ru)",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 15,
+"fields": {
+"test_turi": 4,
+"kategoriya": 4,
+"matn_uzb": "Demo savol 11 (uz)",
+"matn_uz_kr": "Демо савол 11 (уз-кр)",
+"matn_rus": "Демо вопрос 11 (ru)",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 16,
+"fields": {
+"test_turi": 4,
+"kategoriya": 4,
+"matn_uzb": "Demo savol 12 (uz)",
+"matn_uz_kr": "Демо савол 12 (уз-кр)",
+"matn_rus": "Демо вопрос 12 (ru)",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 17,
+"fields": {
+"test_turi": 4,
+"kategoriya": 4,
+"matn_uzb": "Demo savol 13 (uz)",
+"matn_uz_kr": "Демо савол 13 (уз-кр)",
+"matn_rus": "Демо вопрос 13 (ru)",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 18,
+"fields": {
+"test_turi": 4,
+"kategoriya": 4,
+"matn_uzb": "Demo savol 14 (uz)",
+"matn_uz_kr": "Демо савол 14 (уз-кр)",
+"matn_rus": "Демо вопрос 14 (ru)",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 19,
+"fields": {
+"test_turi": 4,
+"kategoriya": 4,
+"matn_uzb": "Demo savol 15 (uz)",
+"matn_uz_kr": "Демо савол 15 (уз-кр)",
+"matn_rus": "Демо вопрос 15 (ru)",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 20,
+"fields": {
+"test_turi": 4,
+"kategoriya": 4,
+"matn_uzb": "Demo savol 16 (uz)",
+"matn_uz_kr": "Демо савол 16 (уз-кр)",
+"matn_rus": "Демо вопрос 16 (ru)",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 21,
+"fields": {
+"test_turi": 4,
+"kategoriya": 4,
+"matn_uzb": "Demo savol 17 (uz)",
+"matn_uz_kr": "Демо савол 17 (уз-кр)",
+"matn_rus": "Демо вопрос 17 (ru)",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 22,
+"fields": {
+"test_turi": 4,
+"kategoriya": 4,
+"matn_uzb": "Demo savol 18 (uz)",
+"matn_uz_kr": "Демо савол 18 (уз-кр)",
+"matn_rus": "Демо вопрос 18 (ru)",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 23,
+"fields": {
+"test_turi": 4,
+"kategoriya": 4,
+"matn_uzb": "Demo savol 19 (uz)",
+"matn_uz_kr": "Демо савол 19 (уз-кр)",
+"matn_rus": "Демо вопрос 19 (ru)",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 24,
+"fields": {
+"test_turi": 4,
+"kategoriya": 4,
+"matn_uzb": "Demo savol 20 (uz)",
+"matn_uz_kr": "Демо савол 20 (уз-кр)",
+"matn_rus": "Демо вопрос 20 (ru)",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 25,
+"fields": {
+"test_turi": 4,
+"kategoriya": 5,
+"matn_uzb": "Bilet 2 - savol 1",
+"matn_uz_kr": "Билет 2 - савол 1",
+"matn_rus": "Билет 2 - вопрос 1",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 26,
+"fields": {
+"test_turi": 4,
+"kategoriya": 5,
+"matn_uzb": "Bilet 2 - savol 2",
+"matn_uz_kr": "Билет 2 - савол 2",
+"matn_rus": "Билет 2 - вопрос 2",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 27,
+"fields": {
+"test_turi": 4,
+"kategoriya": 5,
+"matn_uzb": "Bilet 2 - savol 3",
+"matn_uz_kr": "Билет 2 - савол 3",
+"matn_rus": "Билет 2 - вопрос 3",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 28,
+"fields": {
+"test_turi": 4,
+"kategoriya": 5,
+"matn_uzb": "Bilet 2 - savol 4",
+"matn_uz_kr": "Билет 2 - савол 4",
+"matn_rus": "Билет 2 - вопрос 4",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 29,
+"fields": {
+"test_turi": 4,
+"kategoriya": 5,
+"matn_uzb": "Bilet 2 - savol 5",
+"matn_uz_kr": "Билет 2 - савол 5",
+"matn_rus": "Билет 2 - вопрос 5",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 30,
+"fields": {
+"test_turi": 4,
+"kategoriya": 5,
+"matn_uzb": "Bilet 2 - savol 6",
+"matn_uz_kr": "Билет 2 - савол 6",
+"matn_rus": "Билет 2 - вопрос 6",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 31,
+"fields": {
+"test_turi": 4,
+"kategoriya": 5,
+"matn_uzb": "Bilet 2 - savol 7",
+"matn_uz_kr": "Билет 2 - савол 7",
+"matn_rus": "Билет 2 - вопрос 7",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 32,
+"fields": {
+"test_turi": 4,
+"kategoriya": 5,
+"matn_uzb": "Bilet 2 - savol 8",
+"matn_uz_kr": "Билет 2 - савол 8",
+"matn_rus": "Билет 2 - вопрос 8",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 33,
+"fields": {
+"test_turi": 4,
+"kategoriya": 5,
+"matn_uzb": "Bilet 2 - savol 9",
+"matn_uz_kr": "Билет 2 - савол 9",
+"matn_rus": "Билет 2 - вопрос 9",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 34,
+"fields": {
+"test_turi": 4,
+"kategoriya": 5,
+"matn_uzb": "Bilet 2 - savol 10",
+"matn_uz_kr": "Билет 2 - савол 10",
+"matn_rus": "Билет 2 - вопрос 10",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 35,
+"fields": {
+"test_turi": 4,
+"kategoriya": 5,
+"matn_uzb": "Bilet 2 - savol 11",
+"matn_uz_kr": "Билет 2 - савол 11",
+"matn_rus": "Билет 2 - вопрос 11",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 36,
+"fields": {
+"test_turi": 4,
+"kategoriya": 5,
+"matn_uzb": "Bilet 2 - savol 12",
+"matn_uz_kr": "Билет 2 - савол 12",
+"matn_rus": "Билет 2 - вопрос 12",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 37,
+"fields": {
+"test_turi": 4,
+"kategoriya": 5,
+"matn_uzb": "Bilet 2 - savol 13",
+"matn_uz_kr": "Билет 2 - савол 13",
+"matn_rus": "Билет 2 - вопрос 13",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 38,
+"fields": {
+"test_turi": 4,
+"kategoriya": 5,
+"matn_uzb": "Bilet 2 - savol 14",
+"matn_uz_kr": "Билет 2 - савол 14",
+"matn_rus": "Билет 2 - вопрос 14",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 39,
+"fields": {
+"test_turi": 4,
+"kategoriya": 5,
+"matn_uzb": "Bilet 2 - savol 15",
+"matn_uz_kr": "Билет 2 - савол 15",
+"matn_rus": "Билет 2 - вопрос 15",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 40,
+"fields": {
+"test_turi": 4,
+"kategoriya": 5,
+"matn_uzb": "Bilet 2 - savol 16",
+"matn_uz_kr": "Билет 2 - савол 16",
+"matn_rus": "Билет 2 - вопрос 16",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 41,
+"fields": {
+"test_turi": 4,
+"kategoriya": 5,
+"matn_uzb": "Bilet 2 - savol 17",
+"matn_uz_kr": "Билет 2 - савол 17",
+"matn_rus": "Билет 2 - вопрос 17",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 42,
+"fields": {
+"test_turi": 4,
+"kategoriya": 5,
+"matn_uzb": "Bilet 2 - savol 18",
+"matn_uz_kr": "Билет 2 - савол 18",
+"matn_rus": "Билет 2 - вопрос 18",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 43,
+"fields": {
+"test_turi": 4,
+"kategoriya": 5,
+"matn_uzb": "Bilet 2 - savol 19",
+"matn_uz_kr": "Билет 2 - савол 19",
+"matn_rus": "Билет 2 - вопрос 19",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 44,
+"fields": {
+"test_turi": 4,
+"kategoriya": 5,
+"matn_uzb": "Bilet 2 - savol 20",
+"matn_uz_kr": "Билет 2 - савол 20",
+"matn_rus": "Билет 2 - вопрос 20",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 45,
+"fields": {
+"test_turi": 4,
+"kategoriya": 6,
+"matn_uzb": "Bilet 3 - savol 1",
+"matn_uz_kr": "Билет 3 - савол 1",
+"matn_rus": "Билет 3 - вопрос 1",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 46,
+"fields": {
+"test_turi": 4,
+"kategoriya": 6,
+"matn_uzb": "Bilet 3 - savol 2",
+"matn_uz_kr": "Билет 3 - савол 2",
+"matn_rus": "Билет 3 - вопрос 2",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 47,
+"fields": {
+"test_turi": 4,
+"kategoriya": 6,
+"matn_uzb": "Bilet 3 - savol 3",
+"matn_uz_kr": "Билет 3 - савол 3",
+"matn_rus": "Билет 3 - вопрос 3",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 48,
+"fields": {
+"test_turi": 4,
+"kategoriya": 6,
+"matn_uzb": "Bilet 3 - savol 4",
+"matn_uz_kr": "Билет 3 - савол 4",
+"matn_rus": "Билет 3 - вопрос 4",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 49,
+"fields": {
+"test_turi": 4,
+"kategoriya": 6,
+"matn_uzb": "Bilet 3 - savol 5",
+"matn_uz_kr": "Билет 3 - савол 5",
+"matn_rus": "Билет 3 - вопрос 5",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 50,
+"fields": {
+"test_turi": 4,
+"kategoriya": 6,
+"matn_uzb": "Bilet 3 - savol 6",
+"matn_uz_kr": "Билет 3 - савол 6",
+"matn_rus": "Билет 3 - вопрос 6",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 51,
+"fields": {
+"test_turi": 4,
+"kategoriya": 6,
+"matn_uzb": "Bilet 3 - savol 7",
+"matn_uz_kr": "Билет 3 - савол 7",
+"matn_rus": "Билет 3 - вопрос 7",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 52,
+"fields": {
+"test_turi": 4,
+"kategoriya": 6,
+"matn_uzb": "Bilet 3 - savol 8",
+"matn_uz_kr": "Билет 3 - савол 8",
+"matn_rus": "Билет 3 - вопрос 8",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 53,
+"fields": {
+"test_turi": 4,
+"kategoriya": 6,
+"matn_uzb": "Bilet 3 - savol 9",
+"matn_uz_kr": "Билет 3 - савол 9",
+"matn_rus": "Билет 3 - вопрос 9",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 54,
+"fields": {
+"test_turi": 4,
+"kategoriya": 6,
+"matn_uzb": "Bilet 3 - savol 10",
+"matn_uz_kr": "Билет 3 - савол 10",
+"matn_rus": "Билет 3 - вопрос 10",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 55,
+"fields": {
+"test_turi": 4,
+"kategoriya": 6,
+"matn_uzb": "Bilet 3 - savol 11",
+"matn_uz_kr": "Билет 3 - савол 11",
+"matn_rus": "Билет 3 - вопрос 11",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 56,
+"fields": {
+"test_turi": 4,
+"kategoriya": 6,
+"matn_uzb": "Bilet 3 - savol 12",
+"matn_uz_kr": "Билет 3 - савол 12",
+"matn_rus": "Билет 3 - вопрос 12",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 57,
+"fields": {
+"test_turi": 4,
+"kategoriya": 6,
+"matn_uzb": "Bilet 3 - savol 13",
+"matn_uz_kr": "Билет 3 - савол 13",
+"matn_rus": "Билет 3 - вопрос 13",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 58,
+"fields": {
+"test_turi": 4,
+"kategoriya": 6,
+"matn_uzb": "Bilet 3 - savol 14",
+"matn_uz_kr": "Билет 3 - савол 14",
+"matn_rus": "Билет 3 - вопрос 14",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 59,
+"fields": {
+"test_turi": 4,
+"kategoriya": 6,
+"matn_uzb": "Bilet 3 - savol 15",
+"matn_uz_kr": "Билет 3 - савол 15",
+"matn_rus": "Билет 3 - вопрос 15",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 60,
+"fields": {
+"test_turi": 4,
+"kategoriya": 6,
+"matn_uzb": "Bilet 3 - savol 16",
+"matn_uz_kr": "Билет 3 - савол 16",
+"matn_rus": "Билет 3 - вопрос 16",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 61,
+"fields": {
+"test_turi": 4,
+"kategoriya": 6,
+"matn_uzb": "Bilet 3 - savol 17",
+"matn_uz_kr": "Билет 3 - савол 17",
+"matn_rus": "Билет 3 - вопрос 17",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 62,
+"fields": {
+"test_turi": 4,
+"kategoriya": 6,
+"matn_uzb": "Bilet 3 - savol 18",
+"matn_uz_kr": "Билет 3 - савол 18",
+"matn_rus": "Билет 3 - вопрос 18",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 63,
+"fields": {
+"test_turi": 4,
+"kategoriya": 6,
+"matn_uzb": "Bilet 3 - savol 19",
+"matn_uz_kr": "Билет 3 - савол 19",
+"matn_rus": "Билет 3 - вопрос 19",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 64,
+"fields": {
+"test_turi": 4,
+"kategoriya": 6,
+"matn_uzb": "Bilet 3 - savol 20",
+"matn_uz_kr": "Билет 3 - савол 20",
+"matn_rus": "Билет 3 - вопрос 20",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 65,
+"fields": {
+"test_turi": 4,
+"kategoriya": 7,
+"matn_uzb": "Bilet 4 - savol 1",
+"matn_uz_kr": "Билет 4 - савол 1",
+"matn_rus": "Билет 4 - вопрос 1",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 66,
+"fields": {
+"test_turi": 4,
+"kategoriya": 7,
+"matn_uzb": "Bilet 4 - savol 2",
+"matn_uz_kr": "Билет 4 - савол 2",
+"matn_rus": "Билет 4 - вопрос 2",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 67,
+"fields": {
+"test_turi": 4,
+"kategoriya": 7,
+"matn_uzb": "Bilet 4 - savol 3",
+"matn_uz_kr": "Билет 4 - савол 3",
+"matn_rus": "Билет 4 - вопрос 3",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 68,
+"fields": {
+"test_turi": 4,
+"kategoriya": 7,
+"matn_uzb": "Bilet 4 - savol 4",
+"matn_uz_kr": "Билет 4 - савол 4",
+"matn_rus": "Билет 4 - вопрос 4",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 69,
+"fields": {
+"test_turi": 4,
+"kategoriya": 7,
+"matn_uzb": "Bilet 4 - savol 5",
+"matn_uz_kr": "Билет 4 - савол 5",
+"matn_rus": "Билет 4 - вопрос 5",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 70,
+"fields": {
+"test_turi": 4,
+"kategoriya": 7,
+"matn_uzb": "Bilet 4 - savol 6",
+"matn_uz_kr": "Билет 4 - савол 6",
+"matn_rus": "Билет 4 - вопрос 6",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 71,
+"fields": {
+"test_turi": 4,
+"kategoriya": 7,
+"matn_uzb": "Bilet 4 - savol 7",
+"matn_uz_kr": "Билет 4 - савол 7",
+"matn_rus": "Билет 4 - вопрос 7",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 72,
+"fields": {
+"test_turi": 4,
+"kategoriya": 7,
+"matn_uzb": "Bilet 4 - savol 8",
+"matn_uz_kr": "Билет 4 - савол 8",
+"matn_rus": "Билет 4 - вопрос 8",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 73,
+"fields": {
+"test_turi": 4,
+"kategoriya": 7,
+"matn_uzb": "Bilet 4 - savol 9",
+"matn_uz_kr": "Билет 4 - савол 9",
+"matn_rus": "Билет 4 - вопрос 9",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 74,
+"fields": {
+"test_turi": 4,
+"kategoriya": 7,
+"matn_uzb": "Bilet 4 - savol 10",
+"matn_uz_kr": "Билет 4 - савол 10",
+"matn_rus": "Билет 4 - вопрос 10",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 75,
+"fields": {
+"test_turi": 4,
+"kategoriya": 7,
+"matn_uzb": "Bilet 4 - savol 11",
+"matn_uz_kr": "Билет 4 - савол 11",
+"matn_rus": "Билет 4 - вопрос 11",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 76,
+"fields": {
+"test_turi": 4,
+"kategoriya": 7,
+"matn_uzb": "Bilet 4 - savol 12",
+"matn_uz_kr": "Билет 4 - савол 12",
+"matn_rus": "Билет 4 - вопрос 12",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 77,
+"fields": {
+"test_turi": 4,
+"kategoriya": 7,
+"matn_uzb": "Bilet 4 - savol 13",
+"matn_uz_kr": "Билет 4 - савол 13",
+"matn_rus": "Билет 4 - вопрос 13",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 78,
+"fields": {
+"test_turi": 4,
+"kategoriya": 7,
+"matn_uzb": "Bilet 4 - savol 14",
+"matn_uz_kr": "Билет 4 - савол 14",
+"matn_rus": "Билет 4 - вопрос 14",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 79,
+"fields": {
+"test_turi": 4,
+"kategoriya": 7,
+"matn_uzb": "Bilet 4 - savol 15",
+"matn_uz_kr": "Билет 4 - савол 15",
+"matn_rus": "Билет 4 - вопрос 15",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 80,
+"fields": {
+"test_turi": 4,
+"kategoriya": 7,
+"matn_uzb": "Bilet 4 - savol 16",
+"matn_uz_kr": "Билет 4 - савол 16",
+"matn_rus": "Билет 4 - вопрос 16",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 81,
+"fields": {
+"test_turi": 4,
+"kategoriya": 7,
+"matn_uzb": "Bilet 4 - savol 17",
+"matn_uz_kr": "Билет 4 - савол 17",
+"matn_rus": "Билет 4 - вопрос 17",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 82,
+"fields": {
+"test_turi": 4,
+"kategoriya": 7,
+"matn_uzb": "Bilet 4 - savol 18",
+"matn_uz_kr": "Билет 4 - савол 18",
+"matn_rus": "Билет 4 - вопрос 18",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 83,
+"fields": {
+"test_turi": 4,
+"kategoriya": 7,
+"matn_uzb": "Bilet 4 - savol 19",
+"matn_uz_kr": "Билет 4 - савол 19",
+"matn_rus": "Билет 4 - вопрос 19",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 84,
+"fields": {
+"test_turi": 4,
+"kategoriya": 7,
+"matn_uzb": "Bilet 4 - savol 20",
+"matn_uz_kr": "Билет 4 - савол 20",
+"matn_rus": "Билет 4 - вопрос 20",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 85,
+"fields": {
+"test_turi": 4,
+"kategoriya": 8,
+"matn_uzb": "Bilet 5 - savol 1",
+"matn_uz_kr": "Билет 5 - савол 1",
+"matn_rus": "Билет 5 - вопрос 1",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 86,
+"fields": {
+"test_turi": 4,
+"kategoriya": 8,
+"matn_uzb": "Bilet 5 - savol 2",
+"matn_uz_kr": "Билет 5 - савол 2",
+"matn_rus": "Билет 5 - вопрос 2",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 87,
+"fields": {
+"test_turi": 4,
+"kategoriya": 8,
+"matn_uzb": "Bilet 5 - savol 3",
+"matn_uz_kr": "Билет 5 - савол 3",
+"matn_rus": "Билет 5 - вопрос 3",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 88,
+"fields": {
+"test_turi": 4,
+"kategoriya": 8,
+"matn_uzb": "Bilet 5 - savol 4",
+"matn_uz_kr": "Билет 5 - савол 4",
+"matn_rus": "Билет 5 - вопрос 4",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 89,
+"fields": {
+"test_turi": 4,
+"kategoriya": 8,
+"matn_uzb": "Bilet 5 - savol 5",
+"matn_uz_kr": "Билет 5 - савол 5",
+"matn_rus": "Билет 5 - вопрос 5",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 90,
+"fields": {
+"test_turi": 4,
+"kategoriya": 8,
+"matn_uzb": "Bilet 5 - savol 6",
+"matn_uz_kr": "Билет 5 - савол 6",
+"matn_rus": "Билет 5 - вопрос 6",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 91,
+"fields": {
+"test_turi": 4,
+"kategoriya": 8,
+"matn_uzb": "Bilet 5 - savol 7",
+"matn_uz_kr": "Билет 5 - савол 7",
+"matn_rus": "Билет 5 - вопрос 7",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 92,
+"fields": {
+"test_turi": 4,
+"kategoriya": 8,
+"matn_uzb": "Bilet 5 - savol 8",
+"matn_uz_kr": "Билет 5 - савол 8",
+"matn_rus": "Билет 5 - вопрос 8",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 93,
+"fields": {
+"test_turi": 4,
+"kategoriya": 8,
+"matn_uzb": "Bilet 5 - savol 9",
+"matn_uz_kr": "Билет 5 - савол 9",
+"matn_rus": "Билет 5 - вопрос 9",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 94,
+"fields": {
+"test_turi": 4,
+"kategoriya": 8,
+"matn_uzb": "Bilet 5 - savol 10",
+"matn_uz_kr": "Билет 5 - савол 10",
+"matn_rus": "Билет 5 - вопрос 10",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 95,
+"fields": {
+"test_turi": 4,
+"kategoriya": 8,
+"matn_uzb": "Bilet 5 - savol 11",
+"matn_uz_kr": "Билет 5 - савол 11",
+"matn_rus": "Билет 5 - вопрос 11",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 96,
+"fields": {
+"test_turi": 4,
+"kategoriya": 8,
+"matn_uzb": "Bilet 5 - savol 12",
+"matn_uz_kr": "Билет 5 - савол 12",
+"matn_rus": "Билет 5 - вопрос 12",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 97,
+"fields": {
+"test_turi": 4,
+"kategoriya": 8,
+"matn_uzb": "Bilet 5 - savol 13",
+"matn_uz_kr": "Билет 5 - савол 13",
+"matn_rus": "Билет 5 - вопрос 13",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 98,
+"fields": {
+"test_turi": 4,
+"kategoriya": 8,
+"matn_uzb": "Bilet 5 - savol 14",
+"matn_uz_kr": "Билет 5 - савол 14",
+"matn_rus": "Билет 5 - вопрос 14",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 99,
+"fields": {
+"test_turi": 4,
+"kategoriya": 8,
+"matn_uzb": "Bilet 5 - savol 15",
+"matn_uz_kr": "Билет 5 - савол 15",
+"matn_rus": "Билет 5 - вопрос 15",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 100,
+"fields": {
+"test_turi": 4,
+"kategoriya": 8,
+"matn_uzb": "Bilet 5 - savol 16",
+"matn_uz_kr": "Билет 5 - савол 16",
+"matn_rus": "Билет 5 - вопрос 16",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 101,
+"fields": {
+"test_turi": 4,
+"kategoriya": 8,
+"matn_uzb": "Bilet 5 - savol 17",
+"matn_uz_kr": "Билет 5 - савол 17",
+"matn_rus": "Билет 5 - вопрос 17",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 102,
+"fields": {
+"test_turi": 4,
+"kategoriya": 8,
+"matn_uzb": "Bilet 5 - savol 18",
+"matn_uz_kr": "Билет 5 - савол 18",
+"matn_rus": "Билет 5 - вопрос 18",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 103,
+"fields": {
+"test_turi": 4,
+"kategoriya": 8,
+"matn_uzb": "Bilet 5 - savol 19",
+"matn_uz_kr": "Билет 5 - савол 19",
+"matn_rus": "Билет 5 - вопрос 19",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 104,
+"fields": {
+"test_turi": 4,
+"kategoriya": 8,
+"matn_uzb": "Bilet 5 - savol 20",
+"matn_uz_kr": "Билет 5 - савол 20",
+"matn_rus": "Билет 5 - вопрос 20",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 105,
+"fields": {
+"test_turi": 4,
+"kategoriya": 9,
+"matn_uzb": "Bilet 6 - savol 1",
+"matn_uz_kr": "Билет 6 - савол 1",
+"matn_rus": "Билет 6 - вопрос 1",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 106,
+"fields": {
+"test_turi": 4,
+"kategoriya": 9,
+"matn_uzb": "Bilet 6 - savol 2",
+"matn_uz_kr": "Билет 6 - савол 2",
+"matn_rus": "Билет 6 - вопрос 2",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 107,
+"fields": {
+"test_turi": 4,
+"kategoriya": 9,
+"matn_uzb": "Bilet 6 - savol 3",
+"matn_uz_kr": "Билет 6 - савол 3",
+"matn_rus": "Билет 6 - вопрос 3",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 108,
+"fields": {
+"test_turi": 4,
+"kategoriya": 9,
+"matn_uzb": "Bilet 6 - savol 4",
+"matn_uz_kr": "Билет 6 - савол 4",
+"matn_rus": "Билет 6 - вопрос 4",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 109,
+"fields": {
+"test_turi": 4,
+"kategoriya": 9,
+"matn_uzb": "Bilet 6 - savol 5",
+"matn_uz_kr": "Билет 6 - савол 5",
+"matn_rus": "Билет 6 - вопрос 5",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 110,
+"fields": {
+"test_turi": 4,
+"kategoriya": 9,
+"matn_uzb": "Bilet 6 - savol 6",
+"matn_uz_kr": "Билет 6 - савол 6",
+"matn_rus": "Билет 6 - вопрос 6",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 111,
+"fields": {
+"test_turi": 4,
+"kategoriya": 9,
+"matn_uzb": "Bilet 6 - savol 7",
+"matn_uz_kr": "Билет 6 - савол 7",
+"matn_rus": "Билет 6 - вопрос 7",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 112,
+"fields": {
+"test_turi": 4,
+"kategoriya": 9,
+"matn_uzb": "Bilet 6 - savol 8",
+"matn_uz_kr": "Билет 6 - савол 8",
+"matn_rus": "Билет 6 - вопрос 8",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 113,
+"fields": {
+"test_turi": 4,
+"kategoriya": 9,
+"matn_uzb": "Bilet 6 - savol 9",
+"matn_uz_kr": "Билет 6 - савол 9",
+"matn_rus": "Билет 6 - вопрос 9",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 114,
+"fields": {
+"test_turi": 4,
+"kategoriya": 9,
+"matn_uzb": "Bilet 6 - savol 10",
+"matn_uz_kr": "Билет 6 - савол 10",
+"matn_rus": "Билет 6 - вопрос 10",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 115,
+"fields": {
+"test_turi": 4,
+"kategoriya": 9,
+"matn_uzb": "Bilet 6 - savol 11",
+"matn_uz_kr": "Билет 6 - савол 11",
+"matn_rus": "Билет 6 - вопрос 11",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 116,
+"fields": {
+"test_turi": 4,
+"kategoriya": 9,
+"matn_uzb": "Bilet 6 - savol 12",
+"matn_uz_kr": "Билет 6 - савол 12",
+"matn_rus": "Билет 6 - вопрос 12",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 117,
+"fields": {
+"test_turi": 4,
+"kategoriya": 9,
+"matn_uzb": "Bilet 6 - savol 13",
+"matn_uz_kr": "Билет 6 - савол 13",
+"matn_rus": "Билет 6 - вопрос 13",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 118,
+"fields": {
+"test_turi": 4,
+"kategoriya": 9,
+"matn_uzb": "Bilet 6 - savol 14",
+"matn_uz_kr": "Билет 6 - савол 14",
+"matn_rus": "Билет 6 - вопрос 14",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 119,
+"fields": {
+"test_turi": 4,
+"kategoriya": 9,
+"matn_uzb": "Bilet 6 - savol 15",
+"matn_uz_kr": "Билет 6 - савол 15",
+"matn_rus": "Билет 6 - вопрос 15",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 120,
+"fields": {
+"test_turi": 4,
+"kategoriya": 9,
+"matn_uzb": "Bilet 6 - savol 16",
+"matn_uz_kr": "Билет 6 - савол 16",
+"matn_rus": "Билет 6 - вопрос 16",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 121,
+"fields": {
+"test_turi": 4,
+"kategoriya": 9,
+"matn_uzb": "Bilet 6 - savol 17",
+"matn_uz_kr": "Билет 6 - савол 17",
+"matn_rus": "Билет 6 - вопрос 17",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 122,
+"fields": {
+"test_turi": 4,
+"kategoriya": 9,
+"matn_uzb": "Bilet 6 - savol 18",
+"matn_uz_kr": "Билет 6 - савол 18",
+"matn_rus": "Билет 6 - вопрос 18",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 123,
+"fields": {
+"test_turi": 4,
+"kategoriya": 9,
+"matn_uzb": "Bilet 6 - savol 19",
+"matn_uz_kr": "Билет 6 - савол 19",
+"matn_rus": "Билет 6 - вопрос 19",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 124,
+"fields": {
+"test_turi": 4,
+"kategoriya": 9,
+"matn_uzb": "Bilet 6 - savol 20",
+"matn_uz_kr": "Билет 6 - савол 20",
+"matn_rus": "Билет 6 - вопрос 20",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 125,
+"fields": {
+"test_turi": 4,
+"kategoriya": 10,
+"matn_uzb": "Bilet 7 - savol 1",
+"matn_uz_kr": "Билет 7 - савол 1",
+"matn_rus": "Билет 7 - вопрос 1",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 126,
+"fields": {
+"test_turi": 4,
+"kategoriya": 10,
+"matn_uzb": "Bilet 7 - savol 2",
+"matn_uz_kr": "Билет 7 - савол 2",
+"matn_rus": "Билет 7 - вопрос 2",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 127,
+"fields": {
+"test_turi": 4,
+"kategoriya": 10,
+"matn_uzb": "Bilet 7 - savol 3",
+"matn_uz_kr": "Билет 7 - савол 3",
+"matn_rus": "Билет 7 - вопрос 3",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 128,
+"fields": {
+"test_turi": 4,
+"kategoriya": 10,
+"matn_uzb": "Bilet 7 - savol 4",
+"matn_uz_kr": "Билет 7 - савол 4",
+"matn_rus": "Билет 7 - вопрос 4",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 129,
+"fields": {
+"test_turi": 4,
+"kategoriya": 10,
+"matn_uzb": "Bilet 7 - savol 5",
+"matn_uz_kr": "Билет 7 - савол 5",
+"matn_rus": "Билет 7 - вопрос 5",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 130,
+"fields": {
+"test_turi": 4,
+"kategoriya": 10,
+"matn_uzb": "Bilet 7 - savol 6",
+"matn_uz_kr": "Билет 7 - савол 6",
+"matn_rus": "Билет 7 - вопрос 6",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 131,
+"fields": {
+"test_turi": 4,
+"kategoriya": 10,
+"matn_uzb": "Bilet 7 - savol 7",
+"matn_uz_kr": "Билет 7 - савол 7",
+"matn_rus": "Билет 7 - вопрос 7",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 132,
+"fields": {
+"test_turi": 4,
+"kategoriya": 10,
+"matn_uzb": "Bilet 7 - savol 8",
+"matn_uz_kr": "Билет 7 - савол 8",
+"matn_rus": "Билет 7 - вопрос 8",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 133,
+"fields": {
+"test_turi": 4,
+"kategoriya": 10,
+"matn_uzb": "Bilet 7 - savol 9",
+"matn_uz_kr": "Билет 7 - савол 9",
+"matn_rus": "Билет 7 - вопрос 9",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 134,
+"fields": {
+"test_turi": 4,
+"kategoriya": 10,
+"matn_uzb": "Bilet 7 - savol 10",
+"matn_uz_kr": "Билет 7 - савол 10",
+"matn_rus": "Билет 7 - вопрос 10",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 135,
+"fields": {
+"test_turi": 4,
+"kategoriya": 10,
+"matn_uzb": "Bilet 7 - savol 11",
+"matn_uz_kr": "Билет 7 - савол 11",
+"matn_rus": "Билет 7 - вопрос 11",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 136,
+"fields": {
+"test_turi": 4,
+"kategoriya": 10,
+"matn_uzb": "Bilet 7 - savol 12",
+"matn_uz_kr": "Билет 7 - савол 12",
+"matn_rus": "Билет 7 - вопрос 12",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 137,
+"fields": {
+"test_turi": 4,
+"kategoriya": 10,
+"matn_uzb": "Bilet 7 - savol 13",
+"matn_uz_kr": "Билет 7 - савол 13",
+"matn_rus": "Билет 7 - вопрос 13",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 138,
+"fields": {
+"test_turi": 4,
+"kategoriya": 10,
+"matn_uzb": "Bilet 7 - savol 14",
+"matn_uz_kr": "Билет 7 - савол 14",
+"matn_rus": "Билет 7 - вопрос 14",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 139,
+"fields": {
+"test_turi": 4,
+"kategoriya": 10,
+"matn_uzb": "Bilet 7 - savol 15",
+"matn_uz_kr": "Билет 7 - савол 15",
+"matn_rus": "Билет 7 - вопрос 15",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 140,
+"fields": {
+"test_turi": 4,
+"kategoriya": 10,
+"matn_uzb": "Bilet 7 - savol 16",
+"matn_uz_kr": "Билет 7 - савол 16",
+"matn_rus": "Билет 7 - вопрос 16",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 141,
+"fields": {
+"test_turi": 4,
+"kategoriya": 10,
+"matn_uzb": "Bilet 7 - savol 17",
+"matn_uz_kr": "Билет 7 - савол 17",
+"matn_rus": "Билет 7 - вопрос 17",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 142,
+"fields": {
+"test_turi": 4,
+"kategoriya": 10,
+"matn_uzb": "Bilet 7 - savol 18",
+"matn_uz_kr": "Билет 7 - савол 18",
+"matn_rus": "Билет 7 - вопрос 18",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 143,
+"fields": {
+"test_turi": 4,
+"kategoriya": 10,
+"matn_uzb": "Bilet 7 - savol 19",
+"matn_uz_kr": "Билет 7 - савол 19",
+"matn_rus": "Билет 7 - вопрос 19",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 144,
+"fields": {
+"test_turi": 4,
+"kategoriya": 10,
+"matn_uzb": "Bilet 7 - savol 20",
+"matn_uz_kr": "Билет 7 - савол 20",
+"matn_rus": "Билет 7 - вопрос 20",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 145,
+"fields": {
+"test_turi": 4,
+"kategoriya": 11,
+"matn_uzb": "Bilet 8 - savol 1",
+"matn_uz_kr": "Билет 8 - савол 1",
+"matn_rus": "Билет 8 - вопрос 1",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 146,
+"fields": {
+"test_turi": 4,
+"kategoriya": 11,
+"matn_uzb": "Bilet 8 - savol 2",
+"matn_uz_kr": "Билет 8 - савол 2",
+"matn_rus": "Билет 8 - вопрос 2",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 147,
+"fields": {
+"test_turi": 4,
+"kategoriya": 11,
+"matn_uzb": "Bilet 8 - savol 3",
+"matn_uz_kr": "Билет 8 - савол 3",
+"matn_rus": "Билет 8 - вопрос 3",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 148,
+"fields": {
+"test_turi": 4,
+"kategoriya": 11,
+"matn_uzb": "Bilet 8 - savol 4",
+"matn_uz_kr": "Билет 8 - савол 4",
+"matn_rus": "Билет 8 - вопрос 4",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 149,
+"fields": {
+"test_turi": 4,
+"kategoriya": 11,
+"matn_uzb": "Bilet 8 - savol 5",
+"matn_uz_kr": "Билет 8 - савол 5",
+"matn_rus": "Билет 8 - вопрос 5",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 150,
+"fields": {
+"test_turi": 4,
+"kategoriya": 11,
+"matn_uzb": "Bilet 8 - savol 6",
+"matn_uz_kr": "Билет 8 - савол 6",
+"matn_rus": "Билет 8 - вопрос 6",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 151,
+"fields": {
+"test_turi": 4,
+"kategoriya": 11,
+"matn_uzb": "Bilet 8 - savol 7",
+"matn_uz_kr": "Билет 8 - савол 7",
+"matn_rus": "Билет 8 - вопрос 7",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 152,
+"fields": {
+"test_turi": 4,
+"kategoriya": 11,
+"matn_uzb": "Bilet 8 - savol 8",
+"matn_uz_kr": "Билет 8 - савол 8",
+"matn_rus": "Билет 8 - вопрос 8",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 153,
+"fields": {
+"test_turi": 4,
+"kategoriya": 11,
+"matn_uzb": "Bilet 8 - savol 9",
+"matn_uz_kr": "Билет 8 - савол 9",
+"matn_rus": "Билет 8 - вопрос 9",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 154,
+"fields": {
+"test_turi": 4,
+"kategoriya": 11,
+"matn_uzb": "Bilet 8 - savol 10",
+"matn_uz_kr": "Билет 8 - савол 10",
+"matn_rus": "Билет 8 - вопрос 10",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 155,
+"fields": {
+"test_turi": 4,
+"kategoriya": 11,
+"matn_uzb": "Bilet 8 - savol 11",
+"matn_uz_kr": "Билет 8 - савол 11",
+"matn_rus": "Билет 8 - вопрос 11",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 156,
+"fields": {
+"test_turi": 4,
+"kategoriya": 11,
+"matn_uzb": "Bilet 8 - savol 12",
+"matn_uz_kr": "Билет 8 - савол 12",
+"matn_rus": "Билет 8 - вопрос 12",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 157,
+"fields": {
+"test_turi": 4,
+"kategoriya": 11,
+"matn_uzb": "Bilet 8 - savol 13",
+"matn_uz_kr": "Билет 8 - савол 13",
+"matn_rus": "Билет 8 - вопрос 13",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 158,
+"fields": {
+"test_turi": 4,
+"kategoriya": 11,
+"matn_uzb": "Bilet 8 - savol 14",
+"matn_uz_kr": "Билет 8 - савол 14",
+"matn_rus": "Билет 8 - вопрос 14",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 159,
+"fields": {
+"test_turi": 4,
+"kategoriya": 11,
+"matn_uzb": "Bilet 8 - savol 15",
+"matn_uz_kr": "Билет 8 - савол 15",
+"matn_rus": "Билет 8 - вопрос 15",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 160,
+"fields": {
+"test_turi": 4,
+"kategoriya": 11,
+"matn_uzb": "Bilet 8 - savol 16",
+"matn_uz_kr": "Билет 8 - савол 16",
+"matn_rus": "Билет 8 - вопрос 16",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 161,
+"fields": {
+"test_turi": 4,
+"kategoriya": 11,
+"matn_uzb": "Bilet 8 - savol 17",
+"matn_uz_kr": "Билет 8 - савол 17",
+"matn_rus": "Билет 8 - вопрос 17",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 162,
+"fields": {
+"test_turi": 4,
+"kategoriya": 11,
+"matn_uzb": "Bilet 8 - savol 18",
+"matn_uz_kr": "Билет 8 - савол 18",
+"matn_rus": "Билет 8 - вопрос 18",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 163,
+"fields": {
+"test_turi": 4,
+"kategoriya": 11,
+"matn_uzb": "Bilet 8 - savol 19",
+"matn_uz_kr": "Билет 8 - савол 19",
+"matn_rus": "Билет 8 - вопрос 19",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 164,
+"fields": {
+"test_turi": 4,
+"kategoriya": 11,
+"matn_uzb": "Bilet 8 - savol 20",
+"matn_uz_kr": "Билет 8 - савол 20",
+"matn_rus": "Билет 8 - вопрос 20",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 165,
+"fields": {
+"test_turi": 4,
+"kategoriya": 12,
+"matn_uzb": "Bilet 9 - savol 1",
+"matn_uz_kr": "Билет 9 - савол 1",
+"matn_rus": "Билет 9 - вопрос 1",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 166,
+"fields": {
+"test_turi": 4,
+"kategoriya": 12,
+"matn_uzb": "Bilet 9 - savol 2",
+"matn_uz_kr": "Билет 9 - савол 2",
+"matn_rus": "Билет 9 - вопрос 2",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 167,
+"fields": {
+"test_turi": 4,
+"kategoriya": 12,
+"matn_uzb": "Bilet 9 - savol 3",
+"matn_uz_kr": "Билет 9 - савол 3",
+"matn_rus": "Билет 9 - вопрос 3",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 168,
+"fields": {
+"test_turi": 4,
+"kategoriya": 12,
+"matn_uzb": "Bilet 9 - savol 4",
+"matn_uz_kr": "Билет 9 - савол 4",
+"matn_rus": "Билет 9 - вопрос 4",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 169,
+"fields": {
+"test_turi": 4,
+"kategoriya": 12,
+"matn_uzb": "Bilet 9 - savol 5",
+"matn_uz_kr": "Билет 9 - савол 5",
+"matn_rus": "Билет 9 - вопрос 5",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 170,
+"fields": {
+"test_turi": 4,
+"kategoriya": 12,
+"matn_uzb": "Bilet 9 - savol 6",
+"matn_uz_kr": "Билет 9 - савол 6",
+"matn_rus": "Билет 9 - вопрос 6",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 171,
+"fields": {
+"test_turi": 4,
+"kategoriya": 12,
+"matn_uzb": "Bilet 9 - savol 7",
+"matn_uz_kr": "Билет 9 - савол 7",
+"matn_rus": "Билет 9 - вопрос 7",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 172,
+"fields": {
+"test_turi": 4,
+"kategoriya": 12,
+"matn_uzb": "Bilet 9 - savol 8",
+"matn_uz_kr": "Билет 9 - савол 8",
+"matn_rus": "Билет 9 - вопрос 8",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 173,
+"fields": {
+"test_turi": 4,
+"kategoriya": 12,
+"matn_uzb": "Bilet 9 - savol 9",
+"matn_uz_kr": "Билет 9 - савол 9",
+"matn_rus": "Билет 9 - вопрос 9",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 174,
+"fields": {
+"test_turi": 4,
+"kategoriya": 12,
+"matn_uzb": "Bilet 9 - savol 10",
+"matn_uz_kr": "Билет 9 - савол 10",
+"matn_rus": "Билет 9 - вопрос 10",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 175,
+"fields": {
+"test_turi": 4,
+"kategoriya": 12,
+"matn_uzb": "Bilet 9 - savol 11",
+"matn_uz_kr": "Билет 9 - савол 11",
+"matn_rus": "Билет 9 - вопрос 11",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 176,
+"fields": {
+"test_turi": 4,
+"kategoriya": 12,
+"matn_uzb": "Bilet 9 - savol 12",
+"matn_uz_kr": "Билет 9 - савол 12",
+"matn_rus": "Билет 9 - вопрос 12",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 177,
+"fields": {
+"test_turi": 4,
+"kategoriya": 12,
+"matn_uzb": "Bilet 9 - savol 13",
+"matn_uz_kr": "Билет 9 - савол 13",
+"matn_rus": "Билет 9 - вопрос 13",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 178,
+"fields": {
+"test_turi": 4,
+"kategoriya": 12,
+"matn_uzb": "Bilet 9 - savol 14",
+"matn_uz_kr": "Билет 9 - савол 14",
+"matn_rus": "Билет 9 - вопрос 14",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 179,
+"fields": {
+"test_turi": 4,
+"kategoriya": 12,
+"matn_uzb": "Bilet 9 - savol 15",
+"matn_uz_kr": "Билет 9 - савол 15",
+"matn_rus": "Билет 9 - вопрос 15",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 180,
+"fields": {
+"test_turi": 4,
+"kategoriya": 12,
+"matn_uzb": "Bilet 9 - savol 16",
+"matn_uz_kr": "Билет 9 - савол 16",
+"matn_rus": "Билет 9 - вопрос 16",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 181,
+"fields": {
+"test_turi": 4,
+"kategoriya": 12,
+"matn_uzb": "Bilet 9 - savol 17",
+"matn_uz_kr": "Билет 9 - савол 17",
+"matn_rus": "Билет 9 - вопрос 17",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 182,
+"fields": {
+"test_turi": 4,
+"kategoriya": 12,
+"matn_uzb": "Bilet 9 - savol 18",
+"matn_uz_kr": "Билет 9 - савол 18",
+"matn_rus": "Билет 9 - вопрос 18",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 183,
+"fields": {
+"test_turi": 4,
+"kategoriya": 12,
+"matn_uzb": "Bilet 9 - savol 19",
+"matn_uz_kr": "Билет 9 - савол 19",
+"matn_rus": "Билет 9 - вопрос 19",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 184,
+"fields": {
+"test_turi": 4,
+"kategoriya": 12,
+"matn_uzb": "Bilet 9 - savol 20",
+"matn_uz_kr": "Билет 9 - савол 20",
+"matn_rus": "Билет 9 - вопрос 20",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 185,
+"fields": {
+"test_turi": 4,
+"kategoriya": 13,
+"matn_uzb": "Bilet 10 - savol 1",
+"matn_uz_kr": "Билет 10 - савол 1",
+"matn_rus": "Билет 10 - вопрос 1",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 186,
+"fields": {
+"test_turi": 4,
+"kategoriya": 13,
+"matn_uzb": "Bilet 10 - savol 2",
+"matn_uz_kr": "Билет 10 - савол 2",
+"matn_rus": "Билет 10 - вопрос 2",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 187,
+"fields": {
+"test_turi": 4,
+"kategoriya": 13,
+"matn_uzb": "Bilet 10 - savol 3",
+"matn_uz_kr": "Билет 10 - савол 3",
+"matn_rus": "Билет 10 - вопрос 3",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 188,
+"fields": {
+"test_turi": 4,
+"kategoriya": 13,
+"matn_uzb": "Bilet 10 - savol 4",
+"matn_uz_kr": "Билет 10 - савол 4",
+"matn_rus": "Билет 10 - вопрос 4",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 189,
+"fields": {
+"test_turi": 4,
+"kategoriya": 13,
+"matn_uzb": "Bilet 10 - savol 5",
+"matn_uz_kr": "Билет 10 - савол 5",
+"matn_rus": "Билет 10 - вопрос 5",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 190,
+"fields": {
+"test_turi": 4,
+"kategoriya": 13,
+"matn_uzb": "Bilet 10 - savol 6",
+"matn_uz_kr": "Билет 10 - савол 6",
+"matn_rus": "Билет 10 - вопрос 6",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 191,
+"fields": {
+"test_turi": 4,
+"kategoriya": 13,
+"matn_uzb": "Bilet 10 - savol 7",
+"matn_uz_kr": "Билет 10 - савол 7",
+"matn_rus": "Билет 10 - вопрос 7",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 192,
+"fields": {
+"test_turi": 4,
+"kategoriya": 13,
+"matn_uzb": "Bilet 10 - savol 8",
+"matn_uz_kr": "Билет 10 - савол 8",
+"matn_rus": "Билет 10 - вопрос 8",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 193,
+"fields": {
+"test_turi": 4,
+"kategoriya": 13,
+"matn_uzb": "Bilet 10 - savol 9",
+"matn_uz_kr": "Билет 10 - савол 9",
+"matn_rus": "Билет 10 - вопрос 9",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 194,
+"fields": {
+"test_turi": 4,
+"kategoriya": 13,
+"matn_uzb": "Bilet 10 - savol 10",
+"matn_uz_kr": "Билет 10 - савол 10",
+"matn_rus": "Билет 10 - вопрос 10",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 195,
+"fields": {
+"test_turi": 4,
+"kategoriya": 13,
+"matn_uzb": "Bilet 10 - savol 11",
+"matn_uz_kr": "Билет 10 - савол 11",
+"matn_rus": "Билет 10 - вопрос 11",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 196,
+"fields": {
+"test_turi": 4,
+"kategoriya": 13,
+"matn_uzb": "Bilet 10 - savol 12",
+"matn_uz_kr": "Билет 10 - савол 12",
+"matn_rus": "Билет 10 - вопрос 12",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 197,
+"fields": {
+"test_turi": 4,
+"kategoriya": 13,
+"matn_uzb": "Bilet 10 - savol 13",
+"matn_uz_kr": "Билет 10 - савол 13",
+"matn_rus": "Билет 10 - вопрос 13",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 198,
+"fields": {
+"test_turi": 4,
+"kategoriya": 13,
+"matn_uzb": "Bilet 10 - savol 14",
+"matn_uz_kr": "Билет 10 - савол 14",
+"matn_rus": "Билет 10 - вопрос 14",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 199,
+"fields": {
+"test_turi": 4,
+"kategoriya": 13,
+"matn_uzb": "Bilet 10 - savol 15",
+"matn_uz_kr": "Билет 10 - савол 15",
+"matn_rus": "Билет 10 - вопрос 15",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 200,
+"fields": {
+"test_turi": 4,
+"kategoriya": 13,
+"matn_uzb": "Bilet 10 - savol 16",
+"matn_uz_kr": "Билет 10 - савол 16",
+"matn_rus": "Билет 10 - вопрос 16",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 201,
+"fields": {
+"test_turi": 4,
+"kategoriya": 13,
+"matn_uzb": "Bilet 10 - savol 17",
+"matn_uz_kr": "Билет 10 - савол 17",
+"matn_rus": "Билет 10 - вопрос 17",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 202,
+"fields": {
+"test_turi": 4,
+"kategoriya": 13,
+"matn_uzb": "Bilet 10 - savol 18",
+"matn_uz_kr": "Билет 10 - савол 18",
+"matn_rus": "Билет 10 - вопрос 18",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 203,
+"fields": {
+"test_turi": 4,
+"kategoriya": 13,
+"matn_uzb": "Bilet 10 - savol 19",
+"matn_uz_kr": "Билет 10 - савол 19",
+"matn_rus": "Билет 10 - вопрос 19",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.question",
+"pk": 204,
+"fields": {
+"test_turi": 4,
+"kategoriya": 13,
+"matn_uzb": "Bilet 10 - savol 20",
+"matn_uz_kr": "Билет 10 - савол 20",
+"matn_rus": "Билет 10 - вопрос 20",
+"matn": "",
+"rasm": "",
+"audio_uzb": "",
+"audio_rus": "",
+"video_url": null
+}
+},
+{
+"model": "avto.answer",
+"pk": 15,
+"fields": {
+"question": 5,
+"matn_uzb": "Uzb yo'q",
+"matn_uz_kr": "Крил",
+"matn_rus": "Рус йўқ",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 16,
+"fields": {
+"question": 5,
+"matn_uzb": "Uzb yo'q",
+"matn_uz_kr": "Крил",
+"matn_rus": "Рус йўқ",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 17,
+"fields": {
+"question": 5,
+"matn_uzb": "Uzb ha",
+"matn_uz_kr": "Крил",
+"matn_rus": "Рус ha",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 18,
+"fields": {
+"question": 5,
+"matn_uzb": "Uzb yo'q",
+"matn_uz_kr": "Крил",
+"matn_rus": "Рус йўқ",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 19,
+"fields": {
+"question": 6,
+"matn_uzb": "Savol 2 - variant 1 (uz)",
+"matn_uz_kr": "Савол 2 - вариант 1 (уз-кр)",
+"matn_rus": "Вопрос 2 - вариант 1 (ru)",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 20,
+"fields": {
+"question": 6,
+"matn_uzb": "Savol 2 - variant 2 (uz)",
+"matn_uz_kr": "Савол 2 - вариант 2 (уз-кр)",
+"matn_rus": "Вопрос 2 - вариант 2 (ru)",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 21,
+"fields": {
+"question": 6,
+"matn_uzb": "Savol 2 - variant 3 (uz)",
+"matn_uz_kr": "Савол 2 - вариант 3 (уз-кр)",
+"matn_rus": "Вопрос 2 - вариант 3 (ru)",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 22,
+"fields": {
+"question": 7,
+"matn_uzb": "Savol 3 - variant 1 (uz)",
+"matn_uz_kr": "Савол 3 - вариант 1 (уз-кр)",
+"matn_rus": "Вопрос 3 - вариант 1 (ru)",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 23,
+"fields": {
+"question": 7,
+"matn_uzb": "Savol 3 - variant 2 (uz)",
+"matn_uz_kr": "Савол 3 - вариант 2 (уз-кр)",
+"matn_rus": "Вопрос 3 - вариант 2 (ru)",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 24,
+"fields": {
+"question": 7,
+"matn_uzb": "Savol 3 - variant 3 (uz)",
+"matn_uz_kr": "Савол 3 - вариант 3 (уз-кр)",
+"matn_rus": "Вопрос 3 - вариант 3 (ru)",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 25,
+"fields": {
+"question": 7,
+"matn_uzb": "Savol 3 - variant 4 (uz)",
+"matn_uz_kr": "Савол 3 - вариант 4 (уз-кр)",
+"matn_rus": "Вопрос 3 - вариант 4 (ru)",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 26,
+"fields": {
+"question": 8,
+"matn_uzb": "Savol 4 - variant 1 (uz)",
+"matn_uz_kr": "Савол 4 - вариант 1 (уз-кр)",
+"matn_rus": "Вопрос 4 - вариант 1 (ru)",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 27,
+"fields": {
+"question": 8,
+"matn_uzb": "Savol 4 - variant 2 (uz)",
+"matn_uz_kr": "Савол 4 - вариант 2 (уз-кр)",
+"matn_rus": "Вопрос 4 - вариант 2 (ru)",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 28,
+"fields": {
+"question": 8,
+"matn_uzb": "Savol 4 - variant 3 (uz)",
+"matn_uz_kr": "Савол 4 - вариант 3 (уз-кр)",
+"matn_rus": "Вопрос 4 - вариант 3 (ru)",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 29,
+"fields": {
+"question": 9,
+"matn_uzb": "Savol 5 - variant 1 (uz)",
+"matn_uz_kr": "Савол 5 - вариант 1 (уз-кр)",
+"matn_rus": "Вопрос 5 - вариант 1 (ru)",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 30,
+"fields": {
+"question": 9,
+"matn_uzb": "Savol 5 - variant 2 (uz)",
+"matn_uz_kr": "Савол 5 - вариант 2 (уз-кр)",
+"matn_rus": "Вопрос 5 - вариант 2 (ru)",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 31,
+"fields": {
+"question": 9,
+"matn_uzb": "Savol 5 - variant 3 (uz)",
+"matn_uz_kr": "Савол 5 - вариант 3 (уз-кр)",
+"matn_rus": "Вопрос 5 - вариант 3 (ru)",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 32,
+"fields": {
+"question": 9,
+"matn_uzb": "Savol 5 - variant 4 (uz)",
+"matn_uz_kr": "Савол 5 - вариант 4 (уз-кр)",
+"matn_rus": "Вопрос 5 - вариант 4 (ru)",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 33,
+"fields": {
+"question": 10,
+"matn_uzb": "Savol 6 - variant 1 (uz)",
+"matn_uz_kr": "Савол 6 - вариант 1 (уз-кр)",
+"matn_rus": "Вопрос 6 - вариант 1 (ru)",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 34,
+"fields": {
+"question": 10,
+"matn_uzb": "Savol 6 - variant 2 (uz)",
+"matn_uz_kr": "Савол 6 - вариант 2 (уз-кр)",
+"matn_rus": "Вопрос 6 - вариант 2 (ru)",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 35,
+"fields": {
+"question": 10,
+"matn_uzb": "Savol 6 - variant 3 (uz)",
+"matn_uz_kr": "Савол 6 - вариант 3 (уз-кр)",
+"matn_rus": "Вопрос 6 - вариант 3 (ru)",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 36,
+"fields": {
+"question": 11,
+"matn_uzb": "Savol 7 - variant 1 (uz)",
+"matn_uz_kr": "Савол 7 - вариант 1 (уз-кр)",
+"matn_rus": "Вопрос 7 - вариант 1 (ru)",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 37,
+"fields": {
+"question": 11,
+"matn_uzb": "Savol 7 - variant 2 (uz)",
+"matn_uz_kr": "Савол 7 - вариант 2 (уз-кр)",
+"matn_rus": "Вопрос 7 - вариант 2 (ru)",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 38,
+"fields": {
+"question": 11,
+"matn_uzb": "Savol 7 - variant 3 (uz)",
+"matn_uz_kr": "Савол 7 - вариант 3 (уз-кр)",
+"matn_rus": "Вопрос 7 - вариант 3 (ru)",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 39,
+"fields": {
+"question": 11,
+"matn_uzb": "Savol 7 - variant 4 (uz)",
+"matn_uz_kr": "Савол 7 - вариант 4 (уз-кр)",
+"matn_rus": "Вопрос 7 - вариант 4 (ru)",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 40,
+"fields": {
+"question": 12,
+"matn_uzb": "Savol 8 - variant 1 (uz)",
+"matn_uz_kr": "Савол 8 - вариант 1 (уз-кр)",
+"matn_rus": "Вопрос 8 - вариант 1 (ru)",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 41,
+"fields": {
+"question": 12,
+"matn_uzb": "Savol 8 - variant 2 (uz)",
+"matn_uz_kr": "Савол 8 - вариант 2 (уз-кр)",
+"matn_rus": "Вопрос 8 - вариант 2 (ru)",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 42,
+"fields": {
+"question": 12,
+"matn_uzb": "Savol 8 - variant 3 (uz)",
+"matn_uz_kr": "Савол 8 - вариант 3 (уз-кр)",
+"matn_rus": "Вопрос 8 - вариант 3 (ru)",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 43,
+"fields": {
+"question": 13,
+"matn_uzb": "Savol 9 - variant 1 (uz)",
+"matn_uz_kr": "Савол 9 - вариант 1 (уз-кр)",
+"matn_rus": "Вопрос 9 - вариант 1 (ru)",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 44,
+"fields": {
+"question": 13,
+"matn_uzb": "Savol 9 - variant 2 (uz)",
+"matn_uz_kr": "Савол 9 - вариант 2 (уз-кр)",
+"matn_rus": "Вопрос 9 - вариант 2 (ru)",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 45,
+"fields": {
+"question": 13,
+"matn_uzb": "Savol 9 - variant 3 (uz)",
+"matn_uz_kr": "Савол 9 - вариант 3 (уз-кр)",
+"matn_rus": "Вопрос 9 - вариант 3 (ru)",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 46,
+"fields": {
+"question": 13,
+"matn_uzb": "Savol 9 - variant 4 (uz)",
+"matn_uz_kr": "Савол 9 - вариант 4 (уз-кр)",
+"matn_rus": "Вопрос 9 - вариант 4 (ru)",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 47,
+"fields": {
+"question": 14,
+"matn_uzb": "Savol 10 - variant 1 (uz)",
+"matn_uz_kr": "Савол 10 - вариант 1 (уз-кр)",
+"matn_rus": "Вопрос 10 - вариант 1 (ru)",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 48,
+"fields": {
+"question": 14,
+"matn_uzb": "Savol 10 - variant 2 (uz)",
+"matn_uz_kr": "Савол 10 - вариант 2 (уз-кр)",
+"matn_rus": "Вопрос 10 - вариант 2 (ru)",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 49,
+"fields": {
+"question": 14,
+"matn_uzb": "Savol 10 - variant 3 (uz)",
+"matn_uz_kr": "Савол 10 - вариант 3 (уз-кр)",
+"matn_rus": "Вопрос 10 - вариант 3 (ru)",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 50,
+"fields": {
+"question": 15,
+"matn_uzb": "Savol 11 - variant 1 (uz)",
+"matn_uz_kr": "Савол 11 - вариант 1 (уз-кр)",
+"matn_rus": "Вопрос 11 - вариант 1 (ru)",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 51,
+"fields": {
+"question": 15,
+"matn_uzb": "Savol 11 - variant 2 (uz)",
+"matn_uz_kr": "Савол 11 - вариант 2 (уз-кр)",
+"matn_rus": "Вопрос 11 - вариант 2 (ru)",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 52,
+"fields": {
+"question": 15,
+"matn_uzb": "Savol 11 - variant 3 (uz)",
+"matn_uz_kr": "Савол 11 - вариант 3 (уз-кр)",
+"matn_rus": "Вопрос 11 - вариант 3 (ru)",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 53,
+"fields": {
+"question": 15,
+"matn_uzb": "Savol 11 - variant 4 (uz)",
+"matn_uz_kr": "Савол 11 - вариант 4 (уз-кр)",
+"matn_rus": "Вопрос 11 - вариант 4 (ru)",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 54,
+"fields": {
+"question": 16,
+"matn_uzb": "Savol 12 - variant 1 (uz)",
+"matn_uz_kr": "Савол 12 - вариант 1 (уз-кр)",
+"matn_rus": "Вопрос 12 - вариант 1 (ru)",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 55,
+"fields": {
+"question": 16,
+"matn_uzb": "Savol 12 - variant 2 (uz)",
+"matn_uz_kr": "Савол 12 - вариант 2 (уз-кр)",
+"matn_rus": "Вопрос 12 - вариант 2 (ru)",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 56,
+"fields": {
+"question": 16,
+"matn_uzb": "Savol 12 - variant 3 (uz)",
+"matn_uz_kr": "Савол 12 - вариант 3 (уз-кр)",
+"matn_rus": "Вопрос 12 - вариант 3 (ru)",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 57,
+"fields": {
+"question": 17,
+"matn_uzb": "Savol 13 - variant 1 (uz)",
+"matn_uz_kr": "Савол 13 - вариант 1 (уз-кр)",
+"matn_rus": "Вопрос 13 - вариант 1 (ru)",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 58,
+"fields": {
+"question": 17,
+"matn_uzb": "Savol 13 - variant 2 (uz)",
+"matn_uz_kr": "Савол 13 - вариант 2 (уз-кр)",
+"matn_rus": "Вопрос 13 - вариант 2 (ru)",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 59,
+"fields": {
+"question": 17,
+"matn_uzb": "Savol 13 - variant 3 (uz)",
+"matn_uz_kr": "Савол 13 - вариант 3 (уз-кр)",
+"matn_rus": "Вопрос 13 - вариант 3 (ru)",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 60,
+"fields": {
+"question": 17,
+"matn_uzb": "Savol 13 - variant 4 (uz)",
+"matn_uz_kr": "Савол 13 - вариант 4 (уз-кр)",
+"matn_rus": "Вопрос 13 - вариант 4 (ru)",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 61,
+"fields": {
+"question": 18,
+"matn_uzb": "Savol 14 - variant 1 (uz)",
+"matn_uz_kr": "Савол 14 - вариант 1 (уз-кр)",
+"matn_rus": "Вопрос 14 - вариант 1 (ru)",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 62,
+"fields": {
+"question": 18,
+"matn_uzb": "Savol 14 - variant 2 (uz)",
+"matn_uz_kr": "Савол 14 - вариант 2 (уз-кр)",
+"matn_rus": "Вопрос 14 - вариант 2 (ru)",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 63,
+"fields": {
+"question": 18,
+"matn_uzb": "Savol 14 - variant 3 (uz)",
+"matn_uz_kr": "Савол 14 - вариант 3 (уз-кр)",
+"matn_rus": "Вопрос 14 - вариант 3 (ru)",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 64,
+"fields": {
+"question": 19,
+"matn_uzb": "Savol 15 - variant 1 (uz)",
+"matn_uz_kr": "Савол 15 - вариант 1 (уз-кр)",
+"matn_rus": "Вопрос 15 - вариант 1 (ru)",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 65,
+"fields": {
+"question": 19,
+"matn_uzb": "Savol 15 - variant 2 (uz)",
+"matn_uz_kr": "Савол 15 - вариант 2 (уз-кр)",
+"matn_rus": "Вопрос 15 - вариант 2 (ru)",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 66,
+"fields": {
+"question": 19,
+"matn_uzb": "Savol 15 - variant 3 (uz)",
+"matn_uz_kr": "Савол 15 - вариант 3 (уз-кр)",
+"matn_rus": "Вопрос 15 - вариант 3 (ru)",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 67,
+"fields": {
+"question": 19,
+"matn_uzb": "Savol 15 - variant 4 (uz)",
+"matn_uz_kr": "Савол 15 - вариант 4 (уз-кр)",
+"matn_rus": "Вопрос 15 - вариант 4 (ru)",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 68,
+"fields": {
+"question": 20,
+"matn_uzb": "Savol 16 - variant 1 (uz)",
+"matn_uz_kr": "Савол 16 - вариант 1 (уз-кр)",
+"matn_rus": "Вопрос 16 - вариант 1 (ru)",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 69,
+"fields": {
+"question": 20,
+"matn_uzb": "Savol 16 - variant 2 (uz)",
+"matn_uz_kr": "Савол 16 - вариант 2 (уз-кр)",
+"matn_rus": "Вопрос 16 - вариант 2 (ru)",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 70,
+"fields": {
+"question": 20,
+"matn_uzb": "Savol 16 - variant 3 (uz)",
+"matn_uz_kr": "Савол 16 - вариант 3 (уз-кр)",
+"matn_rus": "Вопрос 16 - вариант 3 (ru)",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 71,
+"fields": {
+"question": 21,
+"matn_uzb": "Savol 17 - variant 1 (uz)",
+"matn_uz_kr": "Савол 17 - вариант 1 (уз-кр)",
+"matn_rus": "Вопрос 17 - вариант 1 (ru)",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 72,
+"fields": {
+"question": 21,
+"matn_uzb": "Savol 17 - variant 2 (uz)",
+"matn_uz_kr": "Савол 17 - вариант 2 (уз-кр)",
+"matn_rus": "Вопрос 17 - вариант 2 (ru)",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 73,
+"fields": {
+"question": 21,
+"matn_uzb": "Savol 17 - variant 3 (uz)",
+"matn_uz_kr": "Савол 17 - вариант 3 (уз-кр)",
+"matn_rus": "Вопрос 17 - вариант 3 (ru)",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 74,
+"fields": {
+"question": 21,
+"matn_uzb": "Savol 17 - variant 4 (uz)",
+"matn_uz_kr": "Савол 17 - вариант 4 (уз-кр)",
+"matn_rus": "Вопрос 17 - вариант 4 (ru)",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 75,
+"fields": {
+"question": 22,
+"matn_uzb": "Savol 18 - variant 1 (uz)",
+"matn_uz_kr": "Савол 18 - вариант 1 (уз-кр)",
+"matn_rus": "Вопрос 18 - вариант 1 (ru)",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 76,
+"fields": {
+"question": 22,
+"matn_uzb": "Savol 18 - variant 2 (uz)",
+"matn_uz_kr": "Савол 18 - вариант 2 (уз-кр)",
+"matn_rus": "Вопрос 18 - вариант 2 (ru)",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 77,
+"fields": {
+"question": 22,
+"matn_uzb": "Savol 18 - variant 3 (uz)",
+"matn_uz_kr": "Савол 18 - вариант 3 (уз-кр)",
+"matn_rus": "Вопрос 18 - вариант 3 (ru)",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 78,
+"fields": {
+"question": 23,
+"matn_uzb": "Savol 19 - variant 1 (uz)",
+"matn_uz_kr": "Савол 19 - вариант 1 (уз-кр)",
+"matn_rus": "Вопрос 19 - вариант 1 (ru)",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 79,
+"fields": {
+"question": 23,
+"matn_uzb": "Savol 19 - variant 2 (uz)",
+"matn_uz_kr": "Савол 19 - вариант 2 (уз-кр)",
+"matn_rus": "Вопрос 19 - вариант 2 (ru)",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 80,
+"fields": {
+"question": 23,
+"matn_uzb": "Savol 19 - variant 3 (uz)",
+"matn_uz_kr": "Савол 19 - вариант 3 (уз-кр)",
+"matn_rus": "Вопрос 19 - вариант 3 (ru)",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 81,
+"fields": {
+"question": 23,
+"matn_uzb": "Savol 19 - variant 4 (uz)",
+"matn_uz_kr": "Савол 19 - вариант 4 (уз-кр)",
+"matn_rus": "Вопрос 19 - вариант 4 (ru)",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 82,
+"fields": {
+"question": 24,
+"matn_uzb": "Savol 20 - variant 1 (uz)",
+"matn_uz_kr": "Савол 20 - вариант 1 (уз-кр)",
+"matn_rus": "Вопрос 20 - вариант 1 (ru)",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 83,
+"fields": {
+"question": 24,
+"matn_uzb": "Savol 20 - variant 2 (uz)",
+"matn_uz_kr": "Савол 20 - вариант 2 (уз-кр)",
+"matn_rus": "Вопрос 20 - вариант 2 (ru)",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 84,
+"fields": {
+"question": 24,
+"matn_uzb": "Savol 20 - variant 3 (uz)",
+"matn_uz_kr": "Савол 20 - вариант 3 (уз-кр)",
+"matn_rus": "Вопрос 20 - вариант 3 (ru)",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 85,
+"fields": {
+"question": 25,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 86,
+"fields": {
+"question": 25,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 87,
+"fields": {
+"question": 25,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 88,
+"fields": {
+"question": 26,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 89,
+"fields": {
+"question": 26,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 90,
+"fields": {
+"question": 26,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 91,
+"fields": {
+"question": 27,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 92,
+"fields": {
+"question": 27,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 93,
+"fields": {
+"question": 27,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 94,
+"fields": {
+"question": 28,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 95,
+"fields": {
+"question": 28,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 96,
+"fields": {
+"question": 28,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 97,
+"fields": {
+"question": 29,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 98,
+"fields": {
+"question": 29,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 99,
+"fields": {
+"question": 29,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 100,
+"fields": {
+"question": 30,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 101,
+"fields": {
+"question": 30,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 102,
+"fields": {
+"question": 30,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 103,
+"fields": {
+"question": 31,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 104,
+"fields": {
+"question": 31,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 105,
+"fields": {
+"question": 31,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 106,
+"fields": {
+"question": 32,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 107,
+"fields": {
+"question": 32,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 108,
+"fields": {
+"question": 32,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 109,
+"fields": {
+"question": 33,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 110,
+"fields": {
+"question": 33,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 111,
+"fields": {
+"question": 33,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 112,
+"fields": {
+"question": 34,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 113,
+"fields": {
+"question": 34,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 114,
+"fields": {
+"question": 34,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 115,
+"fields": {
+"question": 35,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 116,
+"fields": {
+"question": 35,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 117,
+"fields": {
+"question": 35,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 118,
+"fields": {
+"question": 36,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 119,
+"fields": {
+"question": 36,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 120,
+"fields": {
+"question": 36,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 121,
+"fields": {
+"question": 37,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 122,
+"fields": {
+"question": 37,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 123,
+"fields": {
+"question": 37,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 124,
+"fields": {
+"question": 38,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 125,
+"fields": {
+"question": 38,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 126,
+"fields": {
+"question": 38,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 127,
+"fields": {
+"question": 39,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 128,
+"fields": {
+"question": 39,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 129,
+"fields": {
+"question": 39,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 130,
+"fields": {
+"question": 40,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 131,
+"fields": {
+"question": 40,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 132,
+"fields": {
+"question": 40,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 133,
+"fields": {
+"question": 41,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 134,
+"fields": {
+"question": 41,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 135,
+"fields": {
+"question": 41,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 136,
+"fields": {
+"question": 42,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 137,
+"fields": {
+"question": 42,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 138,
+"fields": {
+"question": 42,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 139,
+"fields": {
+"question": 43,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 140,
+"fields": {
+"question": 43,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 141,
+"fields": {
+"question": 43,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 142,
+"fields": {
+"question": 44,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 143,
+"fields": {
+"question": 44,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 144,
+"fields": {
+"question": 44,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 145,
+"fields": {
+"question": 45,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 146,
+"fields": {
+"question": 45,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 147,
+"fields": {
+"question": 45,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 148,
+"fields": {
+"question": 46,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 149,
+"fields": {
+"question": 46,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 150,
+"fields": {
+"question": 46,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 151,
+"fields": {
+"question": 47,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 152,
+"fields": {
+"question": 47,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 153,
+"fields": {
+"question": 47,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 154,
+"fields": {
+"question": 48,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 155,
+"fields": {
+"question": 48,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 156,
+"fields": {
+"question": 48,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 157,
+"fields": {
+"question": 49,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 158,
+"fields": {
+"question": 49,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 159,
+"fields": {
+"question": 49,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 160,
+"fields": {
+"question": 50,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 161,
+"fields": {
+"question": 50,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 162,
+"fields": {
+"question": 50,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 163,
+"fields": {
+"question": 51,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 164,
+"fields": {
+"question": 51,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 165,
+"fields": {
+"question": 51,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 166,
+"fields": {
+"question": 52,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 167,
+"fields": {
+"question": 52,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 168,
+"fields": {
+"question": 52,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 169,
+"fields": {
+"question": 53,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 170,
+"fields": {
+"question": 53,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 171,
+"fields": {
+"question": 53,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 172,
+"fields": {
+"question": 54,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 173,
+"fields": {
+"question": 54,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 174,
+"fields": {
+"question": 54,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 175,
+"fields": {
+"question": 55,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 176,
+"fields": {
+"question": 55,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 177,
+"fields": {
+"question": 55,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 178,
+"fields": {
+"question": 56,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 179,
+"fields": {
+"question": 56,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 180,
+"fields": {
+"question": 56,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 181,
+"fields": {
+"question": 57,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 182,
+"fields": {
+"question": 57,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 183,
+"fields": {
+"question": 57,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 184,
+"fields": {
+"question": 58,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 185,
+"fields": {
+"question": 58,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 186,
+"fields": {
+"question": 58,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 187,
+"fields": {
+"question": 59,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 188,
+"fields": {
+"question": 59,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 189,
+"fields": {
+"question": 59,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 190,
+"fields": {
+"question": 60,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 191,
+"fields": {
+"question": 60,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 192,
+"fields": {
+"question": 60,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 193,
+"fields": {
+"question": 61,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 194,
+"fields": {
+"question": 61,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 195,
+"fields": {
+"question": 61,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 196,
+"fields": {
+"question": 62,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 197,
+"fields": {
+"question": 62,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 198,
+"fields": {
+"question": 62,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 199,
+"fields": {
+"question": 63,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 200,
+"fields": {
+"question": 63,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 201,
+"fields": {
+"question": 63,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 202,
+"fields": {
+"question": 64,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 203,
+"fields": {
+"question": 64,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 204,
+"fields": {
+"question": 64,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 205,
+"fields": {
+"question": 65,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 206,
+"fields": {
+"question": 65,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 207,
+"fields": {
+"question": 65,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 208,
+"fields": {
+"question": 66,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 209,
+"fields": {
+"question": 66,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 210,
+"fields": {
+"question": 66,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 211,
+"fields": {
+"question": 67,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 212,
+"fields": {
+"question": 67,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 213,
+"fields": {
+"question": 67,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 214,
+"fields": {
+"question": 68,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 215,
+"fields": {
+"question": 68,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 216,
+"fields": {
+"question": 68,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 217,
+"fields": {
+"question": 69,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 218,
+"fields": {
+"question": 69,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 219,
+"fields": {
+"question": 69,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 220,
+"fields": {
+"question": 70,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 221,
+"fields": {
+"question": 70,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 222,
+"fields": {
+"question": 70,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 223,
+"fields": {
+"question": 71,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 224,
+"fields": {
+"question": 71,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 225,
+"fields": {
+"question": 71,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 226,
+"fields": {
+"question": 72,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 227,
+"fields": {
+"question": 72,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 228,
+"fields": {
+"question": 72,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 229,
+"fields": {
+"question": 73,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 230,
+"fields": {
+"question": 73,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 231,
+"fields": {
+"question": 73,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 232,
+"fields": {
+"question": 74,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 233,
+"fields": {
+"question": 74,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 234,
+"fields": {
+"question": 74,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 235,
+"fields": {
+"question": 75,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 236,
+"fields": {
+"question": 75,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 237,
+"fields": {
+"question": 75,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 238,
+"fields": {
+"question": 76,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 239,
+"fields": {
+"question": 76,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 240,
+"fields": {
+"question": 76,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 241,
+"fields": {
+"question": 77,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 242,
+"fields": {
+"question": 77,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 243,
+"fields": {
+"question": 77,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 244,
+"fields": {
+"question": 78,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 245,
+"fields": {
+"question": 78,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 246,
+"fields": {
+"question": 78,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 247,
+"fields": {
+"question": 79,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 248,
+"fields": {
+"question": 79,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 249,
+"fields": {
+"question": 79,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 250,
+"fields": {
+"question": 80,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 251,
+"fields": {
+"question": 80,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 252,
+"fields": {
+"question": 80,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 253,
+"fields": {
+"question": 81,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 254,
+"fields": {
+"question": 81,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 255,
+"fields": {
+"question": 81,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 256,
+"fields": {
+"question": 82,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 257,
+"fields": {
+"question": 82,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 258,
+"fields": {
+"question": 82,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 259,
+"fields": {
+"question": 83,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 260,
+"fields": {
+"question": 83,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 261,
+"fields": {
+"question": 83,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 262,
+"fields": {
+"question": 84,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 263,
+"fields": {
+"question": 84,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 264,
+"fields": {
+"question": 84,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 265,
+"fields": {
+"question": 85,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 266,
+"fields": {
+"question": 85,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 267,
+"fields": {
+"question": 85,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 268,
+"fields": {
+"question": 86,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 269,
+"fields": {
+"question": 86,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 270,
+"fields": {
+"question": 86,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 271,
+"fields": {
+"question": 87,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 272,
+"fields": {
+"question": 87,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 273,
+"fields": {
+"question": 87,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 274,
+"fields": {
+"question": 88,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 275,
+"fields": {
+"question": 88,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 276,
+"fields": {
+"question": 88,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 277,
+"fields": {
+"question": 89,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 278,
+"fields": {
+"question": 89,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 279,
+"fields": {
+"question": 89,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 280,
+"fields": {
+"question": 90,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 281,
+"fields": {
+"question": 90,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 282,
+"fields": {
+"question": 90,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 283,
+"fields": {
+"question": 91,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 284,
+"fields": {
+"question": 91,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 285,
+"fields": {
+"question": 91,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 286,
+"fields": {
+"question": 92,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 287,
+"fields": {
+"question": 92,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 288,
+"fields": {
+"question": 92,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 289,
+"fields": {
+"question": 93,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 290,
+"fields": {
+"question": 93,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 291,
+"fields": {
+"question": 93,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 292,
+"fields": {
+"question": 94,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 293,
+"fields": {
+"question": 94,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 294,
+"fields": {
+"question": 94,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 295,
+"fields": {
+"question": 95,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 296,
+"fields": {
+"question": 95,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 297,
+"fields": {
+"question": 95,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 298,
+"fields": {
+"question": 96,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 299,
+"fields": {
+"question": 96,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 300,
+"fields": {
+"question": 96,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 301,
+"fields": {
+"question": 97,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 302,
+"fields": {
+"question": 97,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 303,
+"fields": {
+"question": 97,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 304,
+"fields": {
+"question": 98,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 305,
+"fields": {
+"question": 98,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 306,
+"fields": {
+"question": 98,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 307,
+"fields": {
+"question": 99,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 308,
+"fields": {
+"question": 99,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 309,
+"fields": {
+"question": 99,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 310,
+"fields": {
+"question": 100,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 311,
+"fields": {
+"question": 100,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 312,
+"fields": {
+"question": 100,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 313,
+"fields": {
+"question": 101,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 314,
+"fields": {
+"question": 101,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 315,
+"fields": {
+"question": 101,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 316,
+"fields": {
+"question": 102,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 317,
+"fields": {
+"question": 102,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 318,
+"fields": {
+"question": 102,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 319,
+"fields": {
+"question": 103,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 320,
+"fields": {
+"question": 103,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 321,
+"fields": {
+"question": 103,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 322,
+"fields": {
+"question": 104,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 323,
+"fields": {
+"question": 104,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 324,
+"fields": {
+"question": 104,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 325,
+"fields": {
+"question": 105,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 326,
+"fields": {
+"question": 105,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 327,
+"fields": {
+"question": 105,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 328,
+"fields": {
+"question": 106,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 329,
+"fields": {
+"question": 106,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 330,
+"fields": {
+"question": 106,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 331,
+"fields": {
+"question": 107,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 332,
+"fields": {
+"question": 107,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 333,
+"fields": {
+"question": 107,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 334,
+"fields": {
+"question": 108,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 335,
+"fields": {
+"question": 108,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 336,
+"fields": {
+"question": 108,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 337,
+"fields": {
+"question": 109,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 338,
+"fields": {
+"question": 109,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 339,
+"fields": {
+"question": 109,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 340,
+"fields": {
+"question": 110,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 341,
+"fields": {
+"question": 110,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 342,
+"fields": {
+"question": 110,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 343,
+"fields": {
+"question": 111,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 344,
+"fields": {
+"question": 111,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 345,
+"fields": {
+"question": 111,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 346,
+"fields": {
+"question": 112,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 347,
+"fields": {
+"question": 112,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 348,
+"fields": {
+"question": 112,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 349,
+"fields": {
+"question": 113,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 350,
+"fields": {
+"question": 113,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 351,
+"fields": {
+"question": 113,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 352,
+"fields": {
+"question": 114,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 353,
+"fields": {
+"question": 114,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 354,
+"fields": {
+"question": 114,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 355,
+"fields": {
+"question": 115,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 356,
+"fields": {
+"question": 115,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 357,
+"fields": {
+"question": 115,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 358,
+"fields": {
+"question": 116,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 359,
+"fields": {
+"question": 116,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 360,
+"fields": {
+"question": 116,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 361,
+"fields": {
+"question": 117,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 362,
+"fields": {
+"question": 117,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 363,
+"fields": {
+"question": 117,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 364,
+"fields": {
+"question": 118,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 365,
+"fields": {
+"question": 118,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 366,
+"fields": {
+"question": 118,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 367,
+"fields": {
+"question": 119,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 368,
+"fields": {
+"question": 119,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 369,
+"fields": {
+"question": 119,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 370,
+"fields": {
+"question": 120,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 371,
+"fields": {
+"question": 120,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 372,
+"fields": {
+"question": 120,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 373,
+"fields": {
+"question": 121,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 374,
+"fields": {
+"question": 121,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 375,
+"fields": {
+"question": 121,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 376,
+"fields": {
+"question": 122,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 377,
+"fields": {
+"question": 122,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 378,
+"fields": {
+"question": 122,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 379,
+"fields": {
+"question": 123,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 380,
+"fields": {
+"question": 123,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 381,
+"fields": {
+"question": 123,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 382,
+"fields": {
+"question": 124,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 383,
+"fields": {
+"question": 124,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 384,
+"fields": {
+"question": 124,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 385,
+"fields": {
+"question": 125,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 386,
+"fields": {
+"question": 125,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 387,
+"fields": {
+"question": 125,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 388,
+"fields": {
+"question": 126,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 389,
+"fields": {
+"question": 126,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 390,
+"fields": {
+"question": 126,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 391,
+"fields": {
+"question": 127,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 392,
+"fields": {
+"question": 127,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 393,
+"fields": {
+"question": 127,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 394,
+"fields": {
+"question": 128,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 395,
+"fields": {
+"question": 128,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 396,
+"fields": {
+"question": 128,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 397,
+"fields": {
+"question": 129,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 398,
+"fields": {
+"question": 129,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 399,
+"fields": {
+"question": 129,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 400,
+"fields": {
+"question": 130,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 401,
+"fields": {
+"question": 130,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 402,
+"fields": {
+"question": 130,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 403,
+"fields": {
+"question": 131,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 404,
+"fields": {
+"question": 131,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 405,
+"fields": {
+"question": 131,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 406,
+"fields": {
+"question": 132,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 407,
+"fields": {
+"question": 132,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 408,
+"fields": {
+"question": 132,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 409,
+"fields": {
+"question": 133,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 410,
+"fields": {
+"question": 133,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 411,
+"fields": {
+"question": 133,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 412,
+"fields": {
+"question": 134,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 413,
+"fields": {
+"question": 134,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 414,
+"fields": {
+"question": 134,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 415,
+"fields": {
+"question": 135,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 416,
+"fields": {
+"question": 135,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 417,
+"fields": {
+"question": 135,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 418,
+"fields": {
+"question": 136,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 419,
+"fields": {
+"question": 136,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 420,
+"fields": {
+"question": 136,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 421,
+"fields": {
+"question": 137,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 422,
+"fields": {
+"question": 137,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 423,
+"fields": {
+"question": 137,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 424,
+"fields": {
+"question": 138,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 425,
+"fields": {
+"question": 138,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 426,
+"fields": {
+"question": 138,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 427,
+"fields": {
+"question": 139,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 428,
+"fields": {
+"question": 139,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 429,
+"fields": {
+"question": 139,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 430,
+"fields": {
+"question": 140,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 431,
+"fields": {
+"question": 140,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 432,
+"fields": {
+"question": 140,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 433,
+"fields": {
+"question": 141,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 434,
+"fields": {
+"question": 141,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 435,
+"fields": {
+"question": 141,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 436,
+"fields": {
+"question": 142,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 437,
+"fields": {
+"question": 142,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 438,
+"fields": {
+"question": 142,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 439,
+"fields": {
+"question": 143,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 440,
+"fields": {
+"question": 143,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 441,
+"fields": {
+"question": 143,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 442,
+"fields": {
+"question": 144,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 443,
+"fields": {
+"question": 144,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 444,
+"fields": {
+"question": 144,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 445,
+"fields": {
+"question": 145,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 446,
+"fields": {
+"question": 145,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 447,
+"fields": {
+"question": 145,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 448,
+"fields": {
+"question": 146,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 449,
+"fields": {
+"question": 146,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 450,
+"fields": {
+"question": 146,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 451,
+"fields": {
+"question": 147,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 452,
+"fields": {
+"question": 147,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 453,
+"fields": {
+"question": 147,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 454,
+"fields": {
+"question": 148,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 455,
+"fields": {
+"question": 148,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 456,
+"fields": {
+"question": 148,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 457,
+"fields": {
+"question": 149,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 458,
+"fields": {
+"question": 149,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 459,
+"fields": {
+"question": 149,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 460,
+"fields": {
+"question": 150,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 461,
+"fields": {
+"question": 150,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 462,
+"fields": {
+"question": 150,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 463,
+"fields": {
+"question": 151,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 464,
+"fields": {
+"question": 151,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 465,
+"fields": {
+"question": 151,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 466,
+"fields": {
+"question": 152,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 467,
+"fields": {
+"question": 152,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 468,
+"fields": {
+"question": 152,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 469,
+"fields": {
+"question": 153,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 470,
+"fields": {
+"question": 153,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 471,
+"fields": {
+"question": 153,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 472,
+"fields": {
+"question": 154,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 473,
+"fields": {
+"question": 154,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 474,
+"fields": {
+"question": 154,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 475,
+"fields": {
+"question": 155,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 476,
+"fields": {
+"question": 155,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 477,
+"fields": {
+"question": 155,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 478,
+"fields": {
+"question": 156,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 479,
+"fields": {
+"question": 156,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 480,
+"fields": {
+"question": 156,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 481,
+"fields": {
+"question": 157,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 482,
+"fields": {
+"question": 157,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 483,
+"fields": {
+"question": 157,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 484,
+"fields": {
+"question": 158,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 485,
+"fields": {
+"question": 158,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 486,
+"fields": {
+"question": 158,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 487,
+"fields": {
+"question": 159,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 488,
+"fields": {
+"question": 159,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 489,
+"fields": {
+"question": 159,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 490,
+"fields": {
+"question": 160,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 491,
+"fields": {
+"question": 160,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 492,
+"fields": {
+"question": 160,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 493,
+"fields": {
+"question": 161,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 494,
+"fields": {
+"question": 161,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 495,
+"fields": {
+"question": 161,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 496,
+"fields": {
+"question": 162,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 497,
+"fields": {
+"question": 162,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 498,
+"fields": {
+"question": 162,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 499,
+"fields": {
+"question": 163,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 500,
+"fields": {
+"question": 163,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 501,
+"fields": {
+"question": 163,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 502,
+"fields": {
+"question": 164,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 503,
+"fields": {
+"question": 164,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 504,
+"fields": {
+"question": 164,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 505,
+"fields": {
+"question": 165,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 506,
+"fields": {
+"question": 165,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 507,
+"fields": {
+"question": 165,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 508,
+"fields": {
+"question": 166,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 509,
+"fields": {
+"question": 166,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 510,
+"fields": {
+"question": 166,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 511,
+"fields": {
+"question": 167,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 512,
+"fields": {
+"question": 167,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 513,
+"fields": {
+"question": 167,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 514,
+"fields": {
+"question": 168,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 515,
+"fields": {
+"question": 168,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 516,
+"fields": {
+"question": 168,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 517,
+"fields": {
+"question": 169,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 518,
+"fields": {
+"question": 169,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 519,
+"fields": {
+"question": 169,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 520,
+"fields": {
+"question": 170,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 521,
+"fields": {
+"question": 170,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 522,
+"fields": {
+"question": 170,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 523,
+"fields": {
+"question": 171,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 524,
+"fields": {
+"question": 171,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 525,
+"fields": {
+"question": 171,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 526,
+"fields": {
+"question": 172,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 527,
+"fields": {
+"question": 172,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 528,
+"fields": {
+"question": 172,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 529,
+"fields": {
+"question": 173,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 530,
+"fields": {
+"question": 173,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 531,
+"fields": {
+"question": 173,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 532,
+"fields": {
+"question": 174,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 533,
+"fields": {
+"question": 174,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 534,
+"fields": {
+"question": 174,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 535,
+"fields": {
+"question": 175,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 536,
+"fields": {
+"question": 175,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 537,
+"fields": {
+"question": 175,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 538,
+"fields": {
+"question": 176,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 539,
+"fields": {
+"question": 176,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 540,
+"fields": {
+"question": 176,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 541,
+"fields": {
+"question": 177,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 542,
+"fields": {
+"question": 177,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 543,
+"fields": {
+"question": 177,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 544,
+"fields": {
+"question": 178,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 545,
+"fields": {
+"question": 178,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 546,
+"fields": {
+"question": 178,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 547,
+"fields": {
+"question": 179,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 548,
+"fields": {
+"question": 179,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 549,
+"fields": {
+"question": 179,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 550,
+"fields": {
+"question": 180,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 551,
+"fields": {
+"question": 180,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 552,
+"fields": {
+"question": 180,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 553,
+"fields": {
+"question": 181,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 554,
+"fields": {
+"question": 181,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 555,
+"fields": {
+"question": 181,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 556,
+"fields": {
+"question": 182,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 557,
+"fields": {
+"question": 182,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 558,
+"fields": {
+"question": 182,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 559,
+"fields": {
+"question": 183,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 560,
+"fields": {
+"question": 183,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 561,
+"fields": {
+"question": 183,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 562,
+"fields": {
+"question": 184,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 563,
+"fields": {
+"question": 184,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 564,
+"fields": {
+"question": 184,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 565,
+"fields": {
+"question": 185,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 566,
+"fields": {
+"question": 185,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 567,
+"fields": {
+"question": 185,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 568,
+"fields": {
+"question": 186,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 569,
+"fields": {
+"question": 186,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 570,
+"fields": {
+"question": 186,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 571,
+"fields": {
+"question": 187,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 572,
+"fields": {
+"question": 187,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 573,
+"fields": {
+"question": 187,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 574,
+"fields": {
+"question": 188,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 575,
+"fields": {
+"question": 188,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 576,
+"fields": {
+"question": 188,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 577,
+"fields": {
+"question": 189,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 578,
+"fields": {
+"question": 189,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 579,
+"fields": {
+"question": 189,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 580,
+"fields": {
+"question": 190,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 581,
+"fields": {
+"question": 190,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 582,
+"fields": {
+"question": 190,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 583,
+"fields": {
+"question": 191,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 584,
+"fields": {
+"question": 191,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 585,
+"fields": {
+"question": 191,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 586,
+"fields": {
+"question": 192,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 587,
+"fields": {
+"question": 192,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 588,
+"fields": {
+"question": 192,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 589,
+"fields": {
+"question": 193,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 590,
+"fields": {
+"question": 193,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 591,
+"fields": {
+"question": 193,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 592,
+"fields": {
+"question": 194,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 593,
+"fields": {
+"question": 194,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 594,
+"fields": {
+"question": 194,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 595,
+"fields": {
+"question": 195,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 596,
+"fields": {
+"question": 195,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 597,
+"fields": {
+"question": 195,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 598,
+"fields": {
+"question": 196,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 599,
+"fields": {
+"question": 196,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 600,
+"fields": {
+"question": 196,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 601,
+"fields": {
+"question": 197,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 602,
+"fields": {
+"question": 197,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 603,
+"fields": {
+"question": 197,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 604,
+"fields": {
+"question": 198,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 605,
+"fields": {
+"question": 198,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 606,
+"fields": {
+"question": 198,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 607,
+"fields": {
+"question": 199,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 608,
+"fields": {
+"question": 199,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 609,
+"fields": {
+"question": 199,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 610,
+"fields": {
+"question": 200,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 611,
+"fields": {
+"question": 200,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 612,
+"fields": {
+"question": 200,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 613,
+"fields": {
+"question": 201,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 614,
+"fields": {
+"question": 201,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 615,
+"fields": {
+"question": 201,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 616,
+"fields": {
+"question": 202,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 617,
+"fields": {
+"question": 202,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 618,
+"fields": {
+"question": 202,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 619,
+"fields": {
+"question": 203,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 620,
+"fields": {
+"question": 203,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 621,
+"fields": {
+"question": 203,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 622,
+"fields": {
+"question": 204,
+"matn_uzb": "Variant 1",
+"matn_uz_kr": "Вариант 1",
+"matn_rus": "Вариант 1",
+"togri": false
+}
+},
+{
+"model": "avto.answer",
+"pk": 623,
+"fields": {
+"question": 204,
+"matn_uzb": "Variant 2",
+"matn_uz_kr": "Вариант 2",
+"matn_rus": "Вариант 2",
+"togri": true
+}
+},
+{
+"model": "avto.answer",
+"pk": 624,
+"fields": {
+"question": 204,
+"matn_uzb": "Variant 3",
+"matn_uz_kr": "Вариант 3",
+"matn_rus": "Вариант 3",
+"togri": false
+}
+}
+]
