@@ -47,7 +47,7 @@
   let currentIndex = 0;
   let pendingSelection = null;
   let submitting = false;
-  let autoAdvanceEnabled = false;
+  let autoAdvanceEnabled = true;
   const optionOrders = {};
 
   function shuffledOptionOrder(question) {
@@ -102,7 +102,17 @@
       const img = document.createElement("img");
       img.src = question.image;
       img.alt = "";
-      els.imageBox.appendChild(img);
+      const frame = document.createElement("div");
+      frame.className = "exam-zoomable";
+      frame.tabIndex = 0;
+      frame.setAttribute("role", "button");
+      frame.appendChild(img);
+      const hint = document.createElement("span");
+      hint.className = "exam-zoomable__key";
+      hint.textContent = "F";
+      frame.appendChild(hint);
+      frame.addEventListener("click", () => openLightbox(question.image));
+      els.imageBox.appendChild(frame);
     }
 
     els.optionsBox.textContent = "";
@@ -310,6 +320,17 @@
       return;
     }
 
+    if (lightboxEl && lightboxEl.classList.contains("is-open")) {
+      if (e.key === "Escape" || e.key.toLowerCase() === "f") { e.preventDefault(); closeLightbox(); }
+      return;
+    }
+
+    if (e.key.toLowerCase() === "f" && !e.ctrlKey && !e.metaKey && !e.altKey) {
+      const img = els.imageBox.querySelector("img");
+      if (img) { e.preventDefault(); openLightbox(img.src); }
+      return;
+    }
+
     if (e.key === "Escape") {
       e.preventDefault();
       openModal(els.finishModal);
@@ -378,9 +399,10 @@
 
   function readAutoAdvance() {
     try {
-      return window.localStorage.getItem(AUTO_ADVANCE_STORAGE_KEY) === "1";
+      // On by default; only an explicit "0" (user switched it off) disables it.
+      return window.localStorage.getItem(AUTO_ADVANCE_STORAGE_KEY) !== "0";
     } catch (error) {
-      return false;
+      return true;
     }
   }
 
@@ -400,6 +422,32 @@
       autoAdvanceEnabled = els.autoAdvanceInput.checked;
       saveAutoAdvance(autoAdvanceEnabled);
     });
+  }
+
+  let lightboxEl = null;
+
+  function ensureLightbox() {
+    if (lightboxEl) return lightboxEl;
+    lightboxEl = document.createElement("div");
+    lightboxEl.className = "exam-lightbox";
+    lightboxEl.innerHTML = '<img class="exam-lightbox__img" alt="">';
+    // Only a click on the dark backdrop closes it; clicks on the picture do nothing.
+    lightboxEl.addEventListener("click", (e) => {
+      if (e.target === lightboxEl) closeLightbox();
+    });
+    document.body.appendChild(lightboxEl);
+    return lightboxEl;
+  }
+
+  function openLightbox(src) {
+    if (anyModalOpen()) return;
+    const box = ensureLightbox();
+    box.querySelector("img").src = src;
+    box.classList.add("is-open");
+  }
+
+  function closeLightbox() {
+    if (lightboxEl) lightboxEl.classList.remove("is-open");
   }
 
   setupTextSize();

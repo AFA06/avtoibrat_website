@@ -675,3 +675,78 @@ body {
     height: 38px;
   }
 }
+
+/* Zoomable question image + lightbox */
+.exam-zoomable {
+  position: relative;
+  display: flex;
+  max-width: 100%;
+  max-height: 100%;
+  min-height: 0;
+  cursor: zoom-in;
+  border-radius: 10px;
+  outline: none;
+}
+
+.exam-zoomable:focus-visible {
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.7);
+}
+
+.exam-zoomable__key {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  min-width: 34px;
+  padding: 4px 12px;
+  border-radius: 8px;
+  border: 1px solid #60a5fa;
+  background: rgba(10, 14, 26, 0.85);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  pointer-events: none;
+}
+
+.exam-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(5, 8, 16, 0.82);
+  backdrop-filter: blur(3px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.18s ease, visibility 0.18s;
+  cursor: zoom-out;
+}
+
+.exam-lightbox.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.exam-lightbox__img {
+  max-width: min(94vw, 1400px);
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 14px;
+  background: #fff;
+  padding: 12px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
+  cursor: default;
+  transform: scale(0.94);
+  transition: transform 0.18s ease;
+}
+
+.exam-lightbox.is-open .exam-lightbox__img {
+  transform: scale(1);
+}
+
+@media (max-width: 640px) {
+  .exam-lightbox { padding: 10px; }
+  .exam-lightbox__img { padding: 6px; border-radius: 10px; }
+}
