@@ -187,6 +187,14 @@
                       transition:transform .15s ease,box-shadow .15s ease}
                     .saved-intro__btn:hover{color:#1a1a1a;transform:translateY(-1px);box-shadow:0 6px 18px rgba(0,0,0,.3)}
                     .saved-intro__btn--off{background:rgba(255,255,255,.18);color:#fff;pointer-events:none}
+                    .saved-group{margin-bottom:16px;border:2px solid rgba(255,255,255,.3);border-radius:18px;background:rgba(22,66,57,.35);overflow:hidden}
+                    .saved-group__head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 22px;
+                      cursor:pointer;list-style:none;color:#fff;background:#164239;font-weight:600;font-size:17px;user-select:none}
+                    .saved-group__head::-webkit-details-marker{display:none}
+                    .saved-group__meta{display:flex;align-items:center;gap:6px;font-weight:500;font-size:14px;opacity:.9;white-space:nowrap}
+                    .saved-group__chev{transition:transform .2s ease;margin-left:6px}
+                    .saved-group[open] .saved-group__chev{transform:rotate(180deg)}
+                    .saved-group__body{padding:20px 20px 0}
                     .saved-intro__note{display:block;font-size:13px;opacity:.75;margin-top:6px;text-align:center}
                   </style>
                   <div class="saved-intro">
@@ -207,7 +215,17 @@
                     </div>
                   </div>
 
-                  {% for item in saved_list %}
+                  {% for group in saved_groups %}
+                  <details class="saved-group">
+                    <summary class="saved-group__head">
+                      <span class="saved-group__title">{{ group.category.nomi }}</span>
+                      <span class="saved-group__meta">
+                        <span class="saved-group__count">{{ group.items|length }}</span> {% trans "ta savol" %}
+                        <i class="ti ti-chevron-down saved-group__chev"></i>
+                      </span>
+                    </summary>
+                    <div class="saved-group__body">
+                      {% for item in group.items %}
                         <div class="saved-test-card">
                           <div class="saved-left">
 
@@ -235,9 +253,12 @@
                             </button>
                           </div>
                         </div>
-                        {% empty %}
-                        <p>{% trans "Hozircha saqlangan savollar yo‘q." %}</p>
-                        {% endfor %}
+                      {% endfor %}
+                    </div>
+                  </details>
+                  {% empty %}
+                  <p>{% trans "Hozircha saqlangan savollar yo‘q." %}</p>
+                  {% endfor %}
 
 
                         <script>
@@ -252,7 +273,13 @@
                               body: new URLSearchParams({
                                 id: btn.dataset.id
                               }),
-                            }).then(() => btn.closest(".saved-test-card").remove());
+                            }).then(() => {
+                              const group = btn.closest(".saved-group");
+                              btn.closest(".saved-test-card").remove();
+                              const left = group.querySelectorAll(".saved-test-card").length;
+                              if (left === 0) group.remove();
+                              else group.querySelector(".saved-group__count").textContent = left;
+                            });
                           };
                         });
                         </script>

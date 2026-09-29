@@ -452,11 +452,22 @@ def saqlangan(request):
     saved = (
         SavedQuestion.objects
         .filter(user=request.user)
-        .select_related("question")
+        .select_related("question", "question__kategoriya")
     )
 
+    # One container per test (category), in the same order as the Shablon list.
+    groups = {}
+    for item in saved:
+        groups.setdefault(item.question.kategoriya, []).append(item)
+    saved_groups = [
+        {"category": cat, "items": items}
+        for cat, items in sorted(
+            groups.items(), key=lambda pair: (pair[0].tartib, pair[0].id)
+        )
+    ]
+
     return render(request, "dashboard/saqlangan.html", {
-        "saved_list": saved,
+        "saved_groups": saved_groups,
         "saved_count": len(saved),
         "test_size": min(len(saved), SAVED_TEST_SIZE),
     })
