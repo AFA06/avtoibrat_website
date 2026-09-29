@@ -104,9 +104,4 @@ urlpatterns = [
         road_signs_two,
         name='road_signs_two'
     ),
-    path(
-        'road_signs/<slug:category_slug>/<slug:sign_slug>/',
-        road_signs_descriptions,
-        name='road_signs_descriptions'
-    ),
 ]

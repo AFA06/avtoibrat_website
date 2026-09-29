@@ -1,0 +1,8 @@
+{% load i18n %}
+<article class="rs-card rs-card--category">
+  <a class="rs-card__media" href="{% url 'road_signs_two' cat.slug %}" tabindex="-1" aria-hidden="true">
+    {% if cat.cover %}<img src="{{ cat.cover.url }}" alt="" loading="lazy">{% endif %}
+  </a>
+  <h3 class="rs-card__title">{{ forloop.counter }}. {{ cat.title }}</h3>
+  <a class="rs-btn" href="{% url 'road_signs_two' cat.slug %}">{% trans "To'liq ko'rish" %}</a>
+</article>

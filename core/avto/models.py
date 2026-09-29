@@ -165,9 +165,22 @@ class RoadSignCategory(models.Model):
     title = models.CharField(max_length=255)
     slug = models.SlugField(unique=True)
     image = models.ImageField(upload_to="road_sign_categories/", blank=True, null=True)
+    order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ["order", "id"]
+        verbose_name_plural = "road sign categories"
 
     def __str__(self):
         return self.title
+
+    @property
+    def cover(self):
+        """Category picture, falling back to its first sign."""
+        if self.image:
+            return self.image
+        first = self.signs.exclude(image="").first()
+        return first.image if first else None
 
 
 class RoadSign(models.Model):
@@ -176,13 +189,22 @@ class RoadSign(models.Model):
         related_name="signs",
         on_delete=models.CASCADE
     )
+    number = models.CharField(max_length=20, blank=True, help_text="e.g. 1.1 or 1.4.2")
     title = models.CharField(max_length=255)
-    description = models.TextField()
+    description = models.TextField(blank=True)
     image = models.ImageField(upload_to="road_signs/")
     slug = models.SlugField(unique=True)
+    order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ["order", "id"]
 
     def __str__(self):
-        return self.title
+        return self.full_title
+
+    @property
+    def full_title(self):
+        return f"{self.number}. {self.title}" if self.number else self.title
 
 
 class PdfMaterial(models.Model):

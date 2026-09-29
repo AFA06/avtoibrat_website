@@ -911,28 +911,33 @@ def result(request):
 
 
 
+ROAD_SIGN_MAIN_COUNT = 7
+
+
+@login_required
 def road_signs(request):
+    categories = list(RoadSignCategory.objects.all())
     return render(request, "dashboard/road-signs.html", {
-        "categories": RoadSignCategory.objects.all()
+        "main_categories": categories[:ROAD_SIGN_MAIN_COUNT],
+        "extra_categories": categories[ROAD_SIGN_MAIN_COUNT:],
     })
 
 
+@login_required
 def road_signs_two(request, category_slug):
     category = get_object_or_404(RoadSignCategory, slug=category_slug)
+    signs = list(category.signs.all())
     return render(request, "dashboard/road-signs-two.html", {
         "category": category,
-        "signs": category.signs.all()
-    })
-
-
-def road_signs_descriptions(request, category_slug, sign_slug):
-    sign = get_object_or_404(
-        RoadSign,
-        category__slug=category_slug,
-        slug=sign_slug
-    )
-    return render(request, "dashboard/road-signs-descriptions.html", {
-        "sign": sign
+        "signs": signs,
+        "signs_data": [
+            {
+                "title": sign.full_title,
+                "image": sign.image.url,
+                "description": sign.description,
+            }
+            for sign in signs
+        ],
     })
 
 

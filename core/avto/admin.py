@@ -117,15 +117,17 @@ class ContactPersonAdmin(admin.ModelAdmin):
 
 @admin.register(RoadSignCategory)
 class RoadSignCategoryAdmin(admin.ModelAdmin):
-    list_display = ("title", "slug")
+    list_display = ("order", "title", "slug")
+    list_display_links = ("title",)
     prepopulated_fields = {"slug": ("title",)}
 
 
 @admin.register(RoadSign)
 class RoadSignAdmin(admin.ModelAdmin):
-    list_display = ("title", "category", "slug")
+    list_display = ("number", "title", "category", "order")
+    list_display_links = ("number", "title")
     list_filter = ("category",)
-    search_fields = ("title", "description")
+    search_fields = ("number", "title", "description")
     prepopulated_fields = {"slug": ("title",)}
 
 
