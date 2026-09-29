@@ -176,6 +176,37 @@
                 <div class="container-fluid">
                     <!-- Page-Title -->
 
+                  <style>
+                    .saved-intro{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;
+                      background:linear-gradient(135deg,#1c5a4c,#164239);border:2px solid rgba(255,255,255,.3);
+                      border-radius:20px;padding:22px 26px;margin-bottom:25px;color:#fff}
+                    .saved-intro h3{font-size:20px;margin:0 0 6px;color:#fff}
+                    .saved-intro p{margin:0;max-width:640px;opacity:.85;line-height:1.5}
+                    .saved-intro__btn{display:inline-flex;align-items:center;gap:8px;background:#f5c542;color:#1a1a1a;
+                      font-weight:700;padding:13px 24px;border-radius:12px;text-decoration:none;white-space:nowrap;
+                      transition:transform .15s ease,box-shadow .15s ease}
+                    .saved-intro__btn:hover{color:#1a1a1a;transform:translateY(-1px);box-shadow:0 6px 18px rgba(0,0,0,.3)}
+                    .saved-intro__btn--off{background:rgba(255,255,255,.18);color:#fff;pointer-events:none}
+                    .saved-intro__note{display:block;font-size:13px;opacity:.75;margin-top:6px;text-align:center}
+                  </style>
+                  <div class="saved-intro">
+                    <div>
+                      <h3><i class="ti ti-bookmark"></i> {% trans "Saqlangan testlar" %}</h3>
+                      <p>{% trans "Oʻzlashtirishingiz qiyin boʻlgan yoki muhim deb bilgan testlaringizni saqlab qoʻyish orqali ushbu boʻlimda qayta tanishib chiqishingiz mumkin. Xatolaringiz ustida ishlang, oʻqituvchidan soʻrang va saqlangan savollardan test topshirib, oʻzingizni qayta sinang." %}</p>
+                    </div>
+                    <div>
+                      {% if saved_count %}
+                      <a href="{% url 'start_saqlangan_test' %}" class="saved-intro__btn">
+                        <i class="ti ti-player-play"></i> {% trans "Saqlanganlardan test boshlash" %}
+                      </a>
+                      <span class="saved-intro__note">{{ test_size }} {% trans "ta savol" %} · {% trans "jami saqlangan" %}: {{ saved_count }}</span>
+                      {% else %}
+                      <span class="saved-intro__btn saved-intro__btn--off">{% trans "Saqlanganlardan test boshlash" %}</span>
+                      <span class="saved-intro__note">{% trans "Avval test paytida savollarni saqlang (S tugmasi)." %}</span>
+                      {% endif %}
+                    </div>
+                  </div>
+
                   {% for item in saved_list %}
                         <div class="saved-test-card">
                           <div class="saved-left">

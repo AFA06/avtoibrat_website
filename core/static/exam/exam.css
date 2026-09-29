@@ -750,3 +750,13 @@ body {
   .exam-lightbox { padding: 10px; }
   .exam-lightbox__img { padding: 6px; border-radius: 10px; }
 }
+
+/* Save-question button */
+.exam-savebtn.is-saved {
+  border-color: #f5c542;
+  background: rgba(245, 197, 66, 0.12);
+}
+
+.exam-savebtn.is-saved i {
+  color: #f5c542;
+}

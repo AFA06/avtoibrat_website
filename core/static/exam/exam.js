@@ -24,6 +24,7 @@
     answerCancelBtn: document.getElementById("answerCancelBtn"),
     answerConfirmBtn: document.getElementById("answerConfirmBtn"),
     finishModal: document.getElementById("finishModal"),
+    saveBtn: document.getElementById("saveBtn"),
     finishCancelBtn: document.getElementById("finishCancelBtn"),
     finishConfirmBtn: document.getElementById("finishConfirmBtn"),
     finishForm: document.getElementById(config.finishFormId),
@@ -92,8 +93,41 @@
     els.counter.textContent = `${strings.questionCounter} ${currentIndex + 1} / ${questions.length}`;
   }
 
+  function renderSaveButton() {
+    if (!els.saveBtn) return;
+    const saved = Boolean(questions[currentIndex].saved);
+    els.saveBtn.classList.toggle("is-saved", saved);
+    els.saveBtn.setAttribute("aria-pressed", saved ? "true" : "false");
+    const icon = els.saveBtn.querySelector("i");
+    icon.className = saved ? "fas fa-bookmark" : "far fa-bookmark";
+  }
+
+  function toggleSave() {
+    const question = questions[currentIndex];
+    fetch(config.toggleSaveUrl, {
+      method: "POST",
+      headers: {
+        "X-CSRFToken": config.csrfToken,
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: new URLSearchParams({ question_id: question.id }),
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error("save_failed");
+        return res.json();
+      })
+      .then((data) => {
+        question.saved = data.saved;
+        renderSaveButton();
+      })
+      .catch(() => {});
+  }
+
+  if (els.saveBtn) els.saveBtn.addEventListener("click", toggleSave);
+
   function renderQuestion() {
     const question = questions[currentIndex];
+    renderSaveButton();
 
     els.questionText.textContent = question.text;
 
@@ -327,6 +361,12 @@
 
     if (lightboxEl && lightboxEl.classList.contains("is-open")) {
       if (e.key === "Escape" || e.key.toLowerCase() === "f") { e.preventDefault(); closeLightbox(); }
+      return;
+    }
+
+    if (e.key.toLowerCase() === "s" && els.saveBtn && !e.ctrlKey && !e.metaKey && !e.altKey) {
+      e.preventDefault();
+      toggleSave();
       return;
     }
 

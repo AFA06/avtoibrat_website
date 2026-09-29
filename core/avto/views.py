@@ -60,6 +60,7 @@ RESTART_URL_NAMES = {
     ("shablon", "shablon"): "start_shablon_test",
     ("shablon", "mavzu"): "start_mavzu_test",
     ("shablon", "ohshash"): "start_ohshash_test",
+    ("shablon", "saqlangan"): "start_saqlangan_test",
     ("real", "shablon"): "start_test",
 }
 
@@ -67,6 +68,7 @@ LIST_URL_NAMES = {
     ("shablon", "shablon"): "shablon_test",
     ("shablon", "mavzu"): "mavzulashtirilgan",
     ("shablon", "ohshash"): "ohshash_savollar",
+    ("shablon", "saqlangan"): "saqlangan",
     ("real", "shablon"): "real_imtihon",
 }
 
@@ -74,6 +76,7 @@ LIST_LABELS = {
     "shablon_test": _("Shablon testlar"),
     "mavzulashtirilgan": _("Mavzulashtirilgan testlar"),
     "ohshash_savollar": _("Oʻxshash savollar"),
+    "saqlangan": _("Saqlangan testlar"),
     "real_imtihon": _("Real imtihon"),
 }
 
@@ -441,6 +444,10 @@ def ohshash_savollar(request):
 
 
 
+SAVED_TEST_SIZE = 20
+
+
+@login_required
 def saqlangan(request):
     saved = (
         SavedQuestion.objects
@@ -449,8 +456,36 @@ def saqlangan(request):
     )
 
     return render(request, "dashboard/saqlangan.html", {
-        "saved_list": saved
+        "saved_list": saved,
+        "saved_count": len(saved),
+        "test_size": min(len(saved), SAVED_TEST_SIZE),
     })
+
+
+@login_required
+def start_saqlangan_test(request):
+    """Practice test built only from the student's saved questions (max 20, random order)."""
+    question_ids = list(
+        SavedQuestion.objects
+        .filter(user=request.user)
+        .order_by("?")
+        .values_list("question_id", flat=True)[:SAVED_TEST_SIZE]
+    )
+    if not question_ids:
+        return redirect("saqlangan")
+
+    first = Question.objects.select_related("kategoriya").get(id=question_ids[0])
+    session = TestSession.objects.create(
+        user=request.user,
+        category=first.kategoriya,
+        test_kind="shablon",
+        source="saqlangan",
+        started_at=timezone.now(),
+    )
+    session.questions.set(question_ids)
+    session.question_order = question_ids
+    session.save(update_fields=["question_order"])
+    return redirect("test_page", session_id=session.id)
 
 
 
@@ -682,11 +717,18 @@ def test_page(request, session_id):
         for q in ordered_questions
     }
 
+    saved_ids = set(
+        SavedQuestion.objects
+        .filter(user=request.user, question__in=ordered_questions)
+        .values_list("question_id", flat=True)
+    )
+
     questions_data = [
         {
             "id": q.id,
             "text": q.get_text(exam_lang),
             "image": q.rasm.url if q.rasm else None,
+            "saved": q.id in saved_ids,
             "answers": [
                 {"id": a.id, "text": a.get_text(exam_lang)}
                 for a in q.javoblar.all()
@@ -813,6 +855,11 @@ def _result_context(session):
         (session.test_kind, session.source), "shablon_test"
     )
     list_label = LIST_LABELS.get(list_url_name, LIST_LABELS["shablon_test"])
+    restart_url = (
+        reverse(restart_url_name)
+        if restart_url_name == "start_saqlangan_test"
+        else reverse(restart_url_name, args=[session.category_id])
+    )
 
     return {
         "has_session": True,
@@ -825,7 +872,7 @@ def _result_context(session):
         "score_percent": score_percent,
         "duration_display": f"{minutes:02d}:{seconds:02d}",
         "cells": cells,
-        "restart_url_name": restart_url_name,
+        "restart_url": restart_url,
         "list_url_name": list_url_name,
         "list_label": list_label,
     }

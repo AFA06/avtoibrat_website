@@ -620,10 +620,10 @@ class ExamAutoAdvanceTests(TestCase):
         html = self.client.get(start["Location"].replace("/uz/", "/ru/")).content.decode()
         self.assertIn("Автоматический переход", html)
 
-    def test_auto_advance_defaults_to_off_in_script(self):
+    def test_auto_advance_defaults_to_on_in_script(self):
         with open(finders.find("exam/exam.js"), encoding="utf-8") as handle:
             script = handle.read()
-        self.assertIn("let autoAdvanceEnabled = false;", script)
+        self.assertIn("let autoAdvanceEnabled = true;", script)
         self.assertIn("if (practice && !autoAdvanceEnabled) return;", script)
 
 

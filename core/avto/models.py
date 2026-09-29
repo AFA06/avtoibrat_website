@@ -515,6 +515,7 @@ class TestSession(models.Model):
         ("shablon", "Shablon"),
         ("mavzu", "Mavzulashtirilgan"),
         ("ohshash", "O‘xshash"),
+        ("saqlangan", "Saqlangan savollar"),
     )
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

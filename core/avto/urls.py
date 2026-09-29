@@ -36,6 +36,7 @@ urlpatterns = [
 
 
     path('saqlangan/', saqlangan, name="saqlangan"),
+    path('saqlangan/start/', start_saqlangan_test, name="start_saqlangan_test"),
     path(
         "toggle-save-question/",
         toggle_save_question,

@@ -28,6 +28,11 @@
       </span>
     </label>
     {% endif %}
+    <button type="button" class="exam-iconbtn exam-savebtn" id="saveBtn"
+            title="{% trans 'Savolni saqlash' %} (S)" aria-pressed="false">
+      <span class="exam-keyhint">S</span>
+      <i class="far fa-bookmark"></i>
+    </button>
     <div class="exam-timer" id="examTimer">
       <i class="fas fa-clock"></i>
       <span id="examTimerValue">--:--</span>
@@ -121,6 +126,7 @@
     finishFormId: "finishForm",
     csrfToken: "{{ csrf_token }}",
     sessionId: {{ session.id }},
+    toggleSaveUrl: "{% url 'toggle_save_question' %}",
     practice: {{ practice|yesno:"true,false" }}
   };
 </script>
