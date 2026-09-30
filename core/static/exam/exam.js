@@ -264,6 +264,11 @@
         submitting = false;
         const answeredIndex = currentIndex;
         renderQuestion();
+        if (data.exam_failed) {
+          // Too many mistakes: the server already closed the exam, so show the answer briefly, then the result.
+          setTimeout(submitFinish, FEEDBACK_DELAY_MS);
+          return;
+        }
         if (questions.every((q) => answered[q.id])) {
           // Everything is answered: offer to finish, same dialog as the Yakunlash button.
           setTimeout(() => { closeLightbox(); openModal(els.finishModal); }, FEEDBACK_DELAY_MS);

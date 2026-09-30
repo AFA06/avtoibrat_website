@@ -759,6 +759,10 @@ def _ordered_session_questions(session):
     ]
 
 
+# The real exam is failed as soon as the student reaches this many wrong answers.
+REAL_EXAM_MAX_MISTAKES = 3
+
+
 def _remaining_seconds(session):
     total_seconds = session.category.duration_minutes * 60
     elapsed = int((timezone.now() - session.started_at).total_seconds())
@@ -871,9 +875,18 @@ def submit_answer(request):
 
     correct_answer = question.javoblar.filter(togri=True).first()
 
+    exam_failed = False
+    if session.test_kind == "real" and not user_answer.is_correct:
+        mistakes = UserAnswer.objects.filter(session=session, is_correct=False).count()
+        if mistakes >= REAL_EXAM_MAX_MISTAKES:
+            session.finished_at = timezone.now()
+            session.save(update_fields=["finished_at"])
+            exam_failed = True
+
     return JsonResponse({
         "is_correct": user_answer.is_correct,
         "correct_answer_id": correct_answer.id if correct_answer else None,
+        "exam_failed": exam_failed,
     })
 
 
