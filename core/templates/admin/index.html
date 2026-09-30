@@ -1,0 +1,91 @@
+{% extends "admin/index.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="col-12 dash">
+  <div class="dash-kpis">
+    <a class="dash-kpi" href="{% url 'admin:avto_user_changelist' %}"><span class="dash-kpi__icon bg-emerald"><i class="fas fa-user-graduate"></i></span><div><b>{{ students.total }}</b><small>Talabalar</small></div></a>
+    <div class="dash-kpi"><span class="dash-kpi__icon bg-blue"><i class="fas fa-user-check"></i></span><div><b>{{ students.active }}</b><small>Faol akkauntlar</small></div></div>
+    <div class="dash-kpi"><span class="dash-kpi__icon bg-amber"><i class="fas fa-hourglass-half"></i></span><div><b>{{ students.expiring_count }}</b><small>7 kunda tugaydi</small></div></div>
+    <div class="dash-kpi"><span class="dash-kpi__icon bg-red"><i class="fas fa-user-clock"></i></span><div><b>{{ students.expired }}</b><small>Muddati tugagan</small></div></div>
+    <div class="dash-kpi"><span class="dash-kpi__icon bg-violet"><i class="fas fa-clipboard-check"></i></span><div><b>{{ tests_total }}</b><small>Yakunlangan testlar</small></div></div>
+    <div class="dash-kpi"><span class="dash-kpi__icon bg-teal"><i class="fas fa-bolt"></i></span><div><b>{{ tests_today }}</b><small>Bugungi testlar</small></div></div>
+    <div class="dash-kpi"><span class="dash-kpi__icon bg-rose"><i class="fas fa-flag-checkered"></i></span><div><b>{{ real_exams }}</b><small>Real imtihonlar</small></div></div>
+    <div class="dash-kpi"><span class="dash-kpi__icon bg-slate"><i class="fas fa-bullseye"></i></span><div><b>{% if accuracy is None %}—{% else %}{{ accuracy }}%{% endif %}</b><small>To‘g‘ri javoblar ulushi</small></div></div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-7 col-12">
+      <div class="card dash-card">
+        <div class="card-header"><h5 class="m-0">Oxirgi 7 kundagi faollik</h5><span class="text-muted small">Yakunlangan testlar</span></div>
+        <div class="card-body">
+          <div class="dash-chart">
+            {% for d in chart %}
+            <div class="dash-chart__col" title="{{ d.day|date:'d.m' }}: {{ d.count }}">
+              <span class="dash-chart__val">{{ d.count }}</span>
+              <div class="dash-chart__bar"><i style="height: {{ d.height }}%"></i></div>
+              <span class="dash-chart__day">{{ d.day|date:"D" }}</span>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+      <div class="card dash-card">
+        <div class="card-header"><h5 class="m-0">So‘nggi natijalar</h5></div>
+        <div class="card-body p-0">
+          <table class="table table-sm dash-table mb-0">
+            <tbody>
+            {% for s in recent_tests %}
+              <tr>
+                <td><a href="{% url 'admin:avto_user_change' s.user_id %}">{{ s.user.get_full_name|default:s.user.username }}</a></td>
+                <td class="text-muted">{{ s.category.nomi }}</td>
+                <td><span class="dash-pill {% if s.test_kind == 'real' %}dash-pill--rose{% endif %}">{{ s.get_test_kind_display }}</span></td>
+                <td class="text-muted text-right">{{ s.finished_at|date:"d.m H:i" }}</td>
+              </tr>
+            {% empty %}<tr><td class="text-muted p-3">Hali test yakunlanmagan</td></tr>{% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-5 col-12">
+      <div class="card dash-card">
+        <div class="card-header"><h5 class="m-0">Tez orada muddati tugaydi</h5></div>
+        <div class="card-body p-0">
+          <table class="table table-sm dash-table mb-0"><tbody>
+            {% for u in students.expiring %}
+              <tr><td><a href="{% url 'admin:avto_user_change' u.pk %}">{{ u.get_full_name|default:u.username }}</a></td>
+                  <td class="text-right"><span class="dash-pill dash-pill--amber">{{ u.account_expires_at|date:"d.m.Y" }}</span></td></tr>
+            {% empty %}<tr><td class="text-muted p-3">Yaqin kunlarda tugaydigan akkaunt yo‘q</td></tr>{% endfor %}
+          </tbody></table>
+        </div>
+      </div>
+
+      <div class="card dash-card">
+        <div class="card-header"><h5 class="m-0">Yangi murojaatlar</h5><a class="small" href="{% url 'admin:avto_contactmessage_changelist' %}">Barchasi</a></div>
+        <div class="card-body p-0">
+          <ul class="dash-list">
+            {% for m in messages %}<li><b>{{ m.name }}</b> <span class="text-muted">{{ m.phone }}</span><br><small class="text-muted">{{ m.subject|truncatechars:48 }} · {{ m.created_at|date:"d.m H:i" }}</small></li>{% endfor %}
+            {% for c in consults %}<li><b>{{ c.first_name }} {{ c.last_name }}</b> <span class="text-muted">{{ c.phone }}</span><br><small class="text-muted">Maslahat so‘rovi · {{ c.created_at|date:"d.m H:i" }}</small></li>{% endfor %}
+            {% if not messages and not consults %}<li class="text-muted">Murojaatlar yo‘q</li>{% endif %}
+          </ul>
+        </div>
+      </div>
+
+      <div class="card dash-card">
+        <div class="card-header"><h5 class="m-0">Tizim</h5></div>
+        <div class="card-body dash-facts">
+          <div><b>{{ group_count }}</b><small>Guruhlar</small></div>
+          <div><b>{{ question_count }}</b><small>Savollar</small></div>
+          <div><b>{{ staff_count }}</b><small>Xodimlar</small></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h5 class="dash-heading">Boshqaruv bo‘limlari</h5>
+</div>
+{{ block.super }}
+{% endblock %}

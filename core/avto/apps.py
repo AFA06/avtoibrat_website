@@ -5,3 +5,7 @@ class AvtoConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
     name = "avto"
     verbose_name = "Sahifa boshqaruvi"
+
+    def ready(self):
+        from . import admin_dashboard
+        admin_dashboard.install()
