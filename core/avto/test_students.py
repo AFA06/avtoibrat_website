@@ -127,3 +127,9 @@ class AccessWindowTests(TestCase):
         self.client.post(reverse("students:extend", args=[self.running.pk]), {"days": "14"})
         self.running.refresh_from_db()
         self.assertEqual(self.running.account_expires_at - before, timedelta(days=14))
+
+    def test_status_label_and_filter_agree_for_student_without_dates(self):
+        ghost = User.objects.create_user(username="ghost", password="x", first_name="ghost", phone="7777777")
+        self.assertEqual(ghost.access_state, "expired")
+        self.assertIn("ghost", self.names("expired"))
+        self.assertNotIn("ghost", self.names("active"))

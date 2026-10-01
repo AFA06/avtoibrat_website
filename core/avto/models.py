@@ -395,6 +395,13 @@ class User(AbstractUser):
         return self.unlimited or self.vaqt_boyicha_faolmi()
 
     @property
+    def access_state(self):
+        """The one rule behind every status label/filter: blocked, expired or active."""
+        if self.is_blocked and not self.is_superuser:
+            return "blocked"
+        return "active" if self.has_active_account() else "expired"
+
+    @property
     def phone_display(self):
         """Phone as 99-999-99-99 when it is a full Uzbek number, otherwise as stored."""
         digits = normalize_phone(self.phone)

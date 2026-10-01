@@ -67,10 +67,10 @@
             {% else %}<span class="sd-muted">Belgilanmagan</span>{% endif %}
           </td>
           <td>
-            {% if s.is_blocked %}<span class="sd-status is-red">Bloklangan</span>
-            {% elif not s.unlimited and s.account_expires_at and s.account_expires_at < today %}<span class="sd-status is-amber">Muddati tugagan</span>
-            {% else %}<span class="sd-status is-green">Faol</span>{% endif %}
-            {% if not s.unlimited and s.account_expires_at %}<small class="sd-muted d-block">{{ s.account_expires_at|date:"d.m.Y" }} gacha</small>{% endif %}
+            {% if s.access_state == "blocked" %}<span class="sd-status is-red">Bloklangan</span>
+              {% elif s.access_state == "expired" %}<span class="sd-status is-amber">Muddati tugagan</span>
+              {% else %}<span class="sd-status is-green">Faol</span>{% endif %}
+              {% if s.unlimited %}<small class="sd-muted d-block">Muddatsiz</small>{% elif s.account_expires_at %}<small class="sd-muted d-block">{{ s.account_expires_at|date:"d.m.Y" }} gacha</small>{% else %}<small class="sd-muted d-block">Muddat belgilanmagan</small>{% endif %}
           </td>
           <td class="sd-row-actions">
             <a class="sd-btn sd-btn--ghost" href="{% url 'students:edit' s.pk %}">Tahrirlash</a>
