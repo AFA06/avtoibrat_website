@@ -27,6 +27,7 @@ SORTS = {
     "accuracy": ("Aniqlik bo‘yicha", lambda r: (-(r.accuracy or 0), -r.points)),
     "solved": ("Yechilgan savollar", lambda r: (-r.solved, -r.points)),
     "tests": ("Testlar soni", lambda r: (-r.tests, -r.points)),
+    "active": ("Faollik (kunlar)", lambda r: (-r.active_days, -r.points)),
     "name": ("Ism bo‘yicha", lambda r: r.student.first_name.lower()),
 }
 
@@ -42,6 +43,7 @@ class Row:
     correct: int = 0
     tests: int = 0
     exams_passed: int = 0
+    active_days: int = 0  # distinct days with a finished test
     rank: int = 0
 
     @property
@@ -90,8 +92,12 @@ def build(students, period="all", sort="points"):
         row = rows[item["session__user_id"]]
         row.attempts, row.correct, row.solved = item["attempts"], item["correct"], item["solved"]
 
-    for item in sessions.values("user_id").annotate(n=Count("id")):
-        rows[item["user_id"]].tests = item["n"]
+    days = {}
+    for user_id, finished in sessions.values_list("user_id", "finished_at"):
+        rows[user_id].tests += 1
+        days.setdefault(user_id, set()).add(timezone.localtime(finished).date())
+    for user_id, user_days in days.items():
+        rows[user_id].active_days = len(user_days)
 
     real = sessions.filter(test_kind="real").annotate(
         right=Count("useranswer", filter=Q(useranswer__is_correct=True)),

@@ -1,4 +1,4 @@
-from datetime import time
+from datetime import time, timedelta
 
 from django.test import TestCase
 from django.urls import reverse
@@ -132,6 +132,20 @@ class StudentLeaderboardTests(LeaderboardFixture):
         found = self.client.get(reverse("leaderboard"), {"scope": "all", "q": "vali"})
         self.assertEqual([r.student.username for r in found.context["rest"]], ["vali"])
         self.assertEqual(found.context["podium"], [])
+
+    def test_activity_metric_ranks_by_days_not_by_points(self):
+        yesterday = timezone.now() - timedelta(days=1)
+        for when in (timezone.now(), yesterday):          # ali: 2 days, 1 correct answer in total
+            session = self.finish(self.ali, [True][:1])
+            TestSession.objects.filter(pk=session.pk).update(finished_at=when)
+        self.finish(self.vali, [True, True, True])        # vali: 1 day, 3 points
+        self.client.force_login(self.ali)
+        response = self.client.get(reverse("leaderboard"), {"scope": "all", "metric": "active"})
+        ranked = response.context["podium"] + response.context["rest"]
+        by_user = {r.student.username: r for r in ranked}
+        self.assertEqual((by_user["ali"].active_days, by_user["vali"].active_days), (2, 1))
+        self.assertEqual((by_user["ali"].rank, by_user["vali"].rank), (1, 2))   # fewer points, more regular
+        self.assertGreater(by_user["vali"].points, by_user["ali"].points)
 
     def test_podium_is_top_three_by_rank_for_any_sort(self):
         self.finish(self.ali, [True, True, True])
