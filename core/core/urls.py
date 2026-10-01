@@ -27,6 +27,7 @@ from avto.views import set_site_language
 urlpatterns = [
     path('i18n/setlang/', set_site_language, name='set_language'),
     path('admin/students/', include('avto.student_urls')),
+    path('admin/monitoring/', include('avto.monitoring_urls')),
     path('admin/teachers/', include('avto.teacher_urls')),
     path('admin/groups/', include('avto.group_urls')),
     path('admin/leaderboard/', admin_leaderboard, name='admin_leaderboard'),

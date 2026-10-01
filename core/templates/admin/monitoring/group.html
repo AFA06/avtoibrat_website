@@ -1,0 +1,61 @@
+{% extends "admin/base.html" %}
+{% load static monitoring_extras %}
+
+{% block extrastyle %}<link rel="stylesheet" href="{% static 'admin/students.css' %}"><link rel="stylesheet" href="{% static 'admin/monitoring.css' %}">{% endblock %}
+{% block page_content %}
+<div class="container-fluid"><div class="sd">
+  <a class="sd-back" href="{% url 'monitoring:overview' %}"><i class="fas fa-arrow-left"></i> Monitoring</a>
+  <header class="sd-head"><div>
+    <h1>{% if group %}{{ group.name }} <span class="sd-tag">{{ group.category }}</span>{% else %}Guruhsiz talabalar{% endif %}</h1>
+    <p>{% if group %}{% if group.lesson_time %}{{ group.lesson_time }} · {% endif %}O‘qituvchi: {% if group.teacher %}{{ group.teacher.get_full_name|default:group.teacher.username }}{% else %}biriktirilmagan{% endif %}{% else %}Guruhga biriktirilmagan talabalar{% endif %}</p>
+  </div></header>
+
+  <section class="sd-stats sd-stats--4">
+    <div class="sd-stat"><i class="fas fa-user-graduate sd-ico sd-ico--blue"></i><div><span>Talabalar</span><b>{{ summary.count }}</b></div></div>
+    <div class="sd-stat"><i class="fas fa-user-clock sd-ico sd-ico--red"></i><div><span>Test yechmayotganlar</span><b>{{ summary.idle }}</b></div></div>
+    <div class="sd-stat"><i class="fas fa-clipboard-check sd-ico sd-ico--green"></i><div><span>Yechilgan testlar</span><b>{{ summary.tests }}</b></div></div>
+    <div class="sd-stat"><i class="fas fa-bullseye sd-ico sd-ico--amber"></i><div><span>O‘rtacha aniqlik</span><b>{% if summary.accuracy is None %}—{% else %}{{ summary.accuracy }}%{% endif %}</b></div></div>
+  </section>
+
+  <section class="sd-panel">
+    <form class="sd-toolbar" method="get">
+      <label class="sd-search"><i class="fas fa-search"></i>
+        <input type="search" name="q" value="{{ query }}" placeholder="Talaba ismi…" autocomplete="off"></label>
+      <select name="days" onchange="this.form.submit()" aria-label="Davr">
+        {% for d, label in periods.items %}<option value="{{ d }}" {% if days == d %}selected{% endif %}>{{ label }}</option>{% endfor %}
+      </select>
+      <select name="sort" onchange="this.form.submit()" aria-label="Saralash">
+        {% for key, label in sorts.items %}<option value="{{ key }}" {% if sort == key %}selected{% endif %}>{{ label }}</option>{% endfor %}
+      </select>
+      <div class="sd-tabs">
+        <button name="level" value="" class="{% if not level %}is-on{% endif %}">Barchasi</button>
+        {% for key, label in levels.items %}<button name="level" value="{{ key }}" class="{% if level == key %}is-on{% endif %}">{{ label }}</button>{% endfor %}
+      </div>
+    </form>
+
+    <table class="sd-table">
+      <thead><tr><th>Talaba</th><th>Oxirgi faollik</th><th>Oxirgi 7 kun</th><th>Testlar</th><th>Aniqlik</th><th>Vaqt</th><th>Faol kunlar</th><th>Holat</th></tr></thead>
+      <tbody>
+      {% for a in rows %}
+        <tr class="mn-click" data-href="{% url 'monitoring:student' a.student.pk %}{% if days != 30 %}?days={{ days }}{% endif %}">
+          <td><a class="sd-person" href="{% url 'monitoring:student' a.student.pk %}"><span class="sd-avatar">{{ a.student.initial }}</span>
+            <span><b>{{ a.student.get_full_name|default:a.student.username }}</b></span></a></td>
+          <td>{% if a.last_active %}{{ a.last_active|date:"d.m.Y H:i" }}<small class="sd-muted d-block">{% if a.days_since_active == 0 %}bugun{% else %}{{ a.days_since_active }} kun oldin{% endif %}</small>{% else %}<span class="sd-muted">Hech qachon kirmagan</span>{% endif %}</td>
+          <td><span class="mn-strip">{% for day, d in a.week_strip %}<i class="mn-dot mn-dot--{% if d.tests %}solved{% elif d.logins %}login{% else %}none{% endif %}" title="{{ day|date:'d.m' }}: {{ d.tests }} test, {{ d.logins }} kirish"></i>{% endfor %}</span></td>
+          <td><b>{{ a.tests }}</b></td>
+          <td>{% if a.accuracy is None %}<span class="sd-muted">—</span>{% else %}{{ a.accuracy }}%{% endif %}</td>
+          <td>{{ a.seconds|duration }}</td>
+          <td>{{ a.solve_days }} <span class="sd-muted">/ {{ days }}</span></td>
+          <td><span class="sd-status {% if a.level == 'good' %}is-green{% elif a.level == 'low' %}is-amber{% else %}is-red{% endif %}">{{ a.level_label }}</span></td>
+        </tr>
+      {% empty %}
+        <tr><td colspan="8" class="sd-empty"><i class="fas fa-user-graduate"></i><p>{% if query or level %}Hech narsa topilmadi.{% else %}Bu guruhda talabalar yo‘q.{% endif %}</p></td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </section>
+  <p class="mn-legend"><span><i class="mn-dot mn-dot--solved"></i> test yechgan</span><span><i class="mn-dot mn-dot--login"></i> faqat kirgan</span><span><i class="mn-dot mn-dot--none"></i> kirmagan</span></p>
+</div></div>
+{% endblock %}
+
+{% block extrajs %}<script src="{% static 'admin/monitoring.js' %}"></script>{% endblock %}

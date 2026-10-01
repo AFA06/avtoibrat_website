@@ -1,0 +1,39 @@
+{% extends "admin/base.html" %}
+{% load static monitoring_extras %}
+
+{% block extrastyle %}<link rel="stylesheet" href="{% static 'admin/students.css' %}"><link rel="stylesheet" href="{% static 'admin/monitoring.css' %}">{% endblock %}
+{% block page_content %}
+<div class="container-fluid"><div class="sd">
+  <a class="sd-back" href="{% url 'monitoring:student' student.pk %}"><i class="fas fa-arrow-left"></i> {{ student.get_full_name|default:student.username }}</a>
+  <header class="sd-head"><div>
+    <h1>{{ kind }} <span class="sd-tag">{{ session.category.nomi }}</span></h1>
+    <p>{{ session.started_at|date:"d.m.Y H:i" }}{% if session.finished_at %} → {{ session.finished_at|date:"H:i" }}{% else %} · tugatilmagan{% endif %} · faol vaqt: {{ seconds|duration }}</p>
+  </div></header>
+
+  <section class="sd-stats sd-stats--4">
+    <div class="sd-stat"><i class="fas fa-check sd-ico sd-ico--green"></i><div><span>To‘g‘ri</span><b>{{ counts.correct }}</b></div></div>
+    <div class="sd-stat"><i class="fas fa-times sd-ico sd-ico--red"></i><div><span>Xato</span><b>{{ counts.wrong }}</b></div></div>
+    <div class="sd-stat"><i class="fas fa-forward sd-ico sd-ico--amber"></i><div><span>O‘tkazib yuborilgan</span><b>{{ counts.skipped }}</b></div></div>
+    <div class="sd-stat"><i class="fas fa-list-ol sd-ico sd-ico--blue"></i><div><span>Jami savollar</span><b>{{ rows|length }}</b></div></div>
+  </section>
+
+  <section class="sd-panel">
+    <div class="mn-qlist">
+      {% for r in rows %}
+      <div class="mn-q mn-q--{{ r.status }}">
+        <span class="mn-q__no">{{ r.number }}</span>
+        <div class="mn-q__body">
+          <b>{{ r.question }}</b>
+          {% if r.status == "skipped" %}<span class="sd-muted">Javob berilmagan</span>
+          {% else %}
+          <span class="mn-q__ans {% if r.status == 'wrong' %}is-bad{% else %}is-ok{% endif %}"><i class="fas {% if r.status == 'wrong' %}fa-times{% else %}fa-check{% endif %}"></i> {{ r.chosen }}</span>
+          {% if r.status == "wrong" %}<span class="mn-q__ans is-ok"><i class="fas fa-check"></i> To‘g‘ri javob: {{ r.right }}</span>{% endif %}
+          {% endif %}
+        </div>
+        <span class="mn-q__time">{{ r.seconds|duration }}</span>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+</div></div>
+{% endblock %}

@@ -7,5 +7,5 @@ class AvtoConfig(AppConfig):
     verbose_name = "Sahifa boshqaruvi"
 
     def ready(self):
-        from . import admin_dashboard
+        from . import admin_dashboard, signals  # noqa: F401  (signals registers its receivers)
         admin_dashboard.install()

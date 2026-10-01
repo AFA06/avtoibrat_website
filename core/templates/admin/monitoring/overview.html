@@ -1,0 +1,44 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block extrastyle %}<link rel="stylesheet" href="{% static 'admin/students.css' %}"><link rel="stylesheet" href="{% static 'admin/monitoring.css' %}">{% endblock %}
+{% block page_content %}
+<div class="container-fluid"><div class="sd">
+  <header class="sd-head"><div>
+    <h1>Monitoring</h1>
+    <p>Guruhni tanlang — kim har kuni mashq qilayotgani, kim uy vazifasini bajarmayotganini ko‘rasiz.</p>
+  </div></header>
+
+  <div class="mn-cards">
+    {% for c in cards %}
+    <a class="mn-card" href="{% url 'monitoring:group' c.group.pk %}">
+      <div class="mn-card__top">
+        <span class="sd-avatar sd-avatar--square">{{ c.group.category }}</span>
+        <div><b>{{ c.group.name }}</b><small>{{ c.group.branch.name }}{% if c.group.lesson_time %} · {{ c.group.lesson_time }}{% endif %}</small></div>
+        {% if c.idle %}<span class="sd-status is-red">{{ c.idle }} ta yechmayapti</span>{% elif c.count %}<span class="sd-status is-green">Hammasi faol</span>{% endif %}
+      </div>
+      <div class="mn-card__teacher"><i class="fas fa-chalkboard-teacher"></i> {% if c.group.teacher %}{{ c.group.teacher.get_full_name|default:c.group.teacher.username }}{% else %}O‘qituvchi yo‘q{% endif %}</div>
+      <div class="mn-card__stats">
+        <div><b>{{ c.count }}</b><span>Talabalar</span></div>
+        <div><b>{{ c.tests }}</b><span>Test (7 kun)</span></div>
+        <div><b>{% if c.accuracy is None %}—{% else %}{{ c.accuracy }}%{% endif %}</b><span>Aniqlik</span></div>
+      </div>
+    </a>
+    {% endfor %}
+    {% if ungrouped %}
+    <a class="mn-card mn-card--muted" href="{% url 'monitoring:ungrouped' %}">
+      <div class="mn-card__top"><span class="sd-avatar sd-avatar--square"><i class="fas fa-user-clock"></i></span>
+        <div><b>Guruhsiz talabalar</b><small>Hali guruhga biriktirilmagan</small></div></div>
+      <div class="mn-card__stats">
+        <div><b>{{ ungrouped.count }}</b><span>Talabalar</span></div>
+        <div><b>{{ ungrouped.tests }}</b><span>Test (7 kun)</span></div>
+        <div><b>{% if ungrouped.accuracy is None %}—{% else %}{{ ungrouped.accuracy }}%{% endif %}</b><span>Aniqlik</span></div>
+      </div>
+    </a>
+    {% endif %}
+  </div>
+  {% if not cards and not ungrouped %}
+  <section class="sd-panel"><div class="sd-empty"><i class="fas fa-chart-line"></i><p>Hali guruhlar va talabalar yo‘q.</p></div></section>
+  {% endif %}
+</div></div>
+{% endblock %}

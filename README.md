@@ -117,3 +117,17 @@ python manage.py compilemessages
 - **Students → Reyting** (`/leaderboard/`, `avto/leaderboard_views.py`): a «my rank» card (rank in group, rank among all students, points), a search box, a **Mening guruhim / Barcha talabalar** switch, a metric selector (ball / aniqlik / yechilgan / testlar), a period filter and Top 10/20/50. The top three by rank always get a podium (crown for #1) under every filter and sort; the student's own row is always shown, even outside the top N. Other students appear as «Ali T.» only.
 - The leaderboard UI is one shared component: `templates/leaderboard/` + `static/dashboard/leaderboard.css`, used by the student page and by the admin group page / **Reyting** page (`.lb--admin` maps the colours to the admin theme).
 - Scoring lives in `avto/leaderboard.py`: points = unique questions answered correctly + 20 per passed real exam (finished tests only). Ranking follows the selected metric; equal rows share a rank.
+
+## Monitoring (teacher view of student practice)
+
+**Admin → Monitoring** (`/admin/monitoring/`, `avto/monitoring.py` + `monitoring_views.py`), three steps so the list never gets huge:
+
+1. **Pick a group** — cards show students, tests in the last 7 days, average accuracy and a red «N ta yechmayapti» badge. A «Guruhsiz talabalar» card covers students without a group.
+2. **Group page** — every student with last activity, a 7-day strip (green = solved a test, yellow = only logged in, grey = absent), tests, accuracy, time spent, active days and a status: **Faol / Kam faol / Yechmayapti** (no test in the period; «kam faol» = tests on fewer than 25% of the days). Filter by status, search, choose 7/30/90 days and sort («Diqqat talab qiladi» puts the least active first).
+3. **Student page** — KPI cards (tests, answered questions, accuracy, real exams passed, time spent, average time per question, days with a test, streak, logins), a daily activity chart, the hours of day the student practises (and, if the group has a schedule, how much happens on lesson days and in the 3 hours before the lesson — flags «darsdan oldin shoshilib yechmoqda»), accuracy per topic (weakest first), the most-missed questions, the test history and a day-by-day table. **Ko‘rish** opens a test question by question: the chosen answer, the correct one, time per question.
+
+How it is measured
+- *Time spent* is **active time**: the gap between two answers, with a pause longer than 5 minutes counted as 5 minutes (so a tab left open never inflates it). Answers saved before this feature have no timestamp (`UserAnswer.answered_at`); for those the session length is used, capped at 2 hours.
+- *Entries* come from `LoginEvent`, written on every student sign-in (`avto/signals.py`). History starts from the day this feature was deployed.
+- If a student presses «clear statistics», their sessions are deleted as before, but a `StatisticsReset` row is written and the student page shows a warning, so a teacher can see that history was wiped.
+- Only students (not staff) are monitored; all queries are bulk (`collect()`), not per-student loops.

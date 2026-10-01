@@ -1,0 +1,115 @@
+{% extends "admin/base.html" %}
+{% load static monitoring_extras %}
+
+{% block extrastyle %}<link rel="stylesheet" href="{% static 'admin/students.css' %}"><link rel="stylesheet" href="{% static 'admin/monitoring.css' %}">{% endblock %}
+{% block page_content %}
+<div class="container-fluid"><div class="sd">
+  <a class="sd-back" href="{% if student.group %}{% url 'monitoring:group' student.group.pk %}{% else %}{% url 'monitoring:ungrouped' %}{% endif %}"><i class="fas fa-arrow-left"></i> {% if student.group %}{{ student.group.name }}{% else %}Guruhsiz talabalar{% endif %}</a>
+
+  <header class="sd-head">
+    <div>
+      <h1>{{ student.get_full_name|default:student.username }}</h1>
+      <p>{% if student.group %}{{ student.group.name }} · {{ student.group.category }}{% if student.group.teacher %} · {{ student.group.teacher.get_full_name|default:student.group.teacher.username }}{% endif %}{% if student.group.lesson_time %} · {{ student.group.lesson_time }}{% endif %}{% else %}Guruhsiz{% endif %}</p>
+    </div>
+    <div class="sd-head__actions">
+      <form method="get" class="mn-period">
+        <select name="days" onchange="this.form.submit()" aria-label="Davr">{% for d, label in periods.items %}<option value="{{ d }}" {% if days == d %}selected{% endif %}>{{ label }}</option>{% endfor %}</select>
+      </form>
+      <a class="sd-btn sd-btn--ghost" href="{% url 'students:edit' student.pk %}"><i class="fas fa-pen"></i> Profil</a>
+    </div>
+  </header>
+
+  {% if a.level == "none" %}
+  <div class="mn-alert mn-alert--red"><i class="fas fa-exclamation-triangle"></i>
+    <span>Oxirgi {{ days }} kunda <b>bironta test yechmagan</b>.
+    {% if a.last_login %}Oxirgi kirish: {{ a.last_login|date:"d.m.Y H:i" }}.{% else %}Tizimga hali kirmagan.{% endif %}</span></div>
+  {% endif %}
+  {% if reset %}
+  <div class="mn-alert mn-alert--amber"><i class="fas fa-eraser"></i>
+    <span>Talaba <b>{{ reset.at|date:"d.m.Y" }}</b> kuni statistikasini tozalagan ({{ reset.tests }} ta test, {{ reset.answers }} ta javob o‘chirilgan). Shu sanadan oldingi natijalar ko‘rinmaydi.</span></div>
+  {% endif %}
+
+  <section class="sd-stats sd-stats--4">
+    <div class="sd-stat"><i class="fas fa-clipboard-check sd-ico sd-ico--green"></i><div><span>Testlar</span><b>{{ a.tests }}</b><small>{{ a.finished_tests }} tasi yakunlangan</small></div></div>
+    <div class="sd-stat"><i class="fas fa-check-double sd-ico sd-ico--violet"></i><div><span>Javob berilgan savollar</span><b>{{ a.answered }}</b><small>{{ a.correct }} tasi to‘g‘ri</small></div></div>
+    <div class="sd-stat"><i class="fas fa-bullseye sd-ico sd-ico--amber"></i><div><span>Aniqlik</span><b>{% if a.accuracy is None %}—{% else %}{{ a.accuracy }}%{% endif %}</b></div></div>
+    <div class="sd-stat"><i class="fas fa-flag-checkered sd-ico sd-ico--blue"></i><div><span>Real imtihon</span><b>{{ a.real_exams.passed }}<small class="sd-muted"> / {{ a.real_exams.total }}</small></b><small>topshirilgan</small></div></div>
+    <div class="sd-stat"><i class="fas fa-clock sd-ico sd-ico--blue"></i><div><span>Sarflangan vaqt</span><b class="mn-b-sm">{{ a.seconds|duration }}</b></div></div>
+    <div class="sd-stat"><i class="fas fa-stopwatch sd-ico sd-ico--amber"></i><div><span>Savolga o‘rtacha</span><b class="mn-b-sm">{{ a.seconds_per_answer|duration }}</b></div></div>
+    <div class="sd-stat"><i class="fas fa-calendar-check sd-ico sd-ico--green"></i><div><span>Test yechilgan kunlar</span><b>{{ a.solve_days }}<small class="sd-muted"> / {{ days }}</small></b><small>{{ a.active_days }} kun faol (kirgan yoki yechgan)</small></div></div>
+    <div class="sd-stat"><i class="fas fa-fire sd-ico sd-ico--red"></i><div><span>Ketma-ket kunlar</span><b>{{ a.streak }}</b><small>{{ a.logins }} marta kirgan</small></div></div>
+  </section>
+
+  <section class="sd-panel sd-card">
+    <h2>Kunlik faollik <span class="sd-muted mn-h2-note">ustun balandligi = shu kuni sarflangan vaqt</span></h2>
+    <div class="mn-chart {% if days > 30 %}mn-chart--dense{% endif %}">
+      {% for c in a.chart %}
+      <div class="mn-chart__col" title="{{ c.day|date:'d.m.Y' }} · {{ c.stat.tests }} test, {{ c.stat.answers }} savol, {{ c.stat.seconds|duration }}, {{ c.stat.logins }} kirish">
+        <div class="mn-chart__bar"><i class="{% if c.stat.tests %}is-solved{% endif %}" style="height: {{ c.height }}%"></i></div>
+        <span class="mn-chart__mark {% if c.stat.logins and not c.stat.tests %}is-login{% endif %}"></span>
+        {% if days <= 30 %}<span class="mn-chart__day">{{ c.day|date:"d" }}</span>{% endif %}
+      </div>
+      {% endfor %}
+    </div>
+    <p class="mn-legend"><span><i class="mn-dot mn-dot--solved"></i> test yechgan kun</span><span><i class="mn-dot mn-dot--login"></i> faqat kirgan kun</span></p>
+  </section>
+
+  <div class="mn-two">
+    <section class="sd-panel sd-card">
+      <h2>Qaysi vaqtda yechadi</h2>
+      <div class="mn-hours">
+        {% for h in a.hours %}<div class="mn-hours__col" title="{{ h.hour }}:00 — {{ h.count }} ta test"><div><i style="height: {{ h.height }}%"></i></div><span>{% if h.hour|divisibleby:3 %}{{ h.hour }}{% endif %}</span></div>{% endfor %}
+      </div>
+      {% if insight %}
+      <p class="mn-insight {% if insight.cramming %}is-warn{% endif %}"><i class="fas {% if insight.cramming %}fa-bolt{% else %}fa-lightbulb{% endif %}"></i>
+        Testlarning <b>{{ insight.on_lesson_day_pct }}%</b> i dars kunlarida yechilgan, <b>{{ insight.before_lesson_pct }}%</b> i darsdan oldingi {{ insight.hours }} soat ichida.
+        {% if insight.cramming %}<b>Asosan darsdan oldin shoshilib yechmoqda.</b>{% endif %}</p>
+      {% endif %}
+    </section>
+
+    <section class="sd-panel sd-card">
+      <h2>Mavzular bo‘yicha aniqlik <span class="sd-muted mn-h2-note">eng zaifi tepada</span></h2>
+      {% for c in a.by_category %}
+      <div class="mn-topic"><span>{{ c.name }}</span><div class="mn-bar"><i class="{% if c.accuracy < 50 %}is-bad{% elif c.accuracy < 80 %}is-mid{% endif %}" style="width: {{ c.accuracy }}%"></i></div><b>{{ c.accuracy }}%</b><small>{{ c.answered }}</small></div>
+      {% empty %}<p class="sd-muted">Ma’lumot yo‘q.</p>{% endfor %}
+      {% if missed %}
+      <h3 class="mn-sub">Eng ko‘p xato qilingan savollar</h3>
+      <ol class="mn-missed">{% for m in missed %}<li><span>{{ m.text|truncatechars:90 }}</span><b>{{ m.count }}×</b></li>{% endfor %}</ol>
+      {% endif %}
+    </section>
+  </div>
+
+  <section class="sd-panel">
+    <div class="sd-toolbar"><h2 class="sd-toolbar__title"><i class="fas fa-history"></i> Testlar tarixi</h2><span class="sd-spacer"></span>
+      <span class="sd-muted">{% if a.tests > history_limit %}oxirgi {{ history_limit }} ta{% else %}{{ a.tests }} ta{% endif %}</span></div>
+    <table class="sd-table">
+      <thead><tr><th>Boshlangan</th><th>Test</th><th>Savollar</th><th>To‘g‘ri</th><th>Xato</th><th>Vaqt</th><th>Savolga</th><th>Natija</th><th></th></tr></thead>
+      <tbody>
+      {% for s in history %}
+        <tr>
+          <td>{{ s.started|date:"d.m.Y H:i" }}</td>
+          <td><b>{{ s.kind_label }}</b><small class="sd-muted d-block">{{ s.category }}</small></td>
+          <td>{{ s.answered }} <span class="sd-muted">/ {{ s.total }}</span></td>
+          <td class="mn-ok">{{ s.correct }}</td>
+          <td class="{% if s.wrong %}mn-bad{% endif %}">{{ s.wrong }}</td>
+          <td>{{ s.seconds|duration }}</td>
+          <td>{{ s.seconds_per_answer|duration }}</td>
+          <td>{% if s.result == "passed" %}<span class="sd-status is-green">Topshirdi</span>{% elif s.result == "failed" %}<span class="sd-status is-red">Yiqildi</span>{% elif s.result == "done" %}<span class="sd-status is-green">Yakunlangan</span>{% else %}<span class="sd-status is-amber">Tugatilmagan</span>{% endif %}</td>
+          <td class="text-right"><a class="sd-btn sd-btn--ghost" href="{% url 'monitoring:session' s.id %}">Ko‘rish</a></td>
+        </tr>
+      {% empty %}<tr><td colspan="9" class="sd-empty"><i class="fas fa-clipboard"></i><p>Bu davrda test yechilmagan.</p></td></tr>{% endfor %}
+      </tbody>
+    </table>
+  </section>
+
+  <section class="sd-panel sd-card">
+    <h2>Kunlar bo‘yicha jadval <span class="sd-muted mn-h2-note">faqat faol kunlar</span></h2>
+    <table class="sd-table mn-days">
+      <thead><tr><th>Sana</th><th>Kirishlar</th><th>Testlar</th><th>Savollar</th><th>Vaqt</th></tr></thead>
+      <tbody>{% for day, d in a.active_day_list %}<tr><td>{{ day|date:"d.m.Y, l" }}</td><td>{{ d.logins }}</td><td>{{ d.tests }}</td><td>{{ d.answers }}</td><td>{{ d.seconds|duration }}</td></tr>
+      {% empty %}<tr><td colspan="5" class="sd-empty">Bu davrda faollik yo‘q.</td></tr>{% endfor %}</tbody>
+    </table>
+    <p class="sd-help">Kirishlar tarixi shu funksiya qo‘shilgandan boshlab yig‘iladi. Vaqt — faol vaqt: 5 daqiqadan uzoq tanaffus 5 daqiqa deb hisoblanadi.</p>
+  </section>
+</div></div>
+{% endblock %}

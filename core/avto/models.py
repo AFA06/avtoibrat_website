@@ -613,6 +613,10 @@ class UserAnswer(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     selected_answer = models.ForeignKey(Answer, on_delete=models.SET_NULL, null=True)
     is_correct = models.BooleanField(default=False)
+    answered_at = models.DateTimeField(
+        "Javob vaqti", null=True, blank=True,
+        help_text="Savolga sarflangan vaqtni hisoblash uchun. Eski javoblarda bo‘sh.",
+    )
 
     class Meta:
         unique_together = ("session", "question")
@@ -639,3 +643,23 @@ class SavedQuestion(models.Model):
     def __str__(self):
         return f"{self.user} → {self.question.id}"
 
+
+
+class LoginEvent(models.Model):
+    """One row per student sign-in — lets teachers see how often a student actually enters."""
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="login_events")
+    at = models.DateTimeField(default=timezone.now, db_index=True)
+
+    class Meta:
+        ordering = ["-at"]
+
+
+class StatisticsReset(models.Model):
+    """Written when a student clears their statistics, so the teacher can see that history was wiped."""
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="statistics_resets")
+    at = models.DateTimeField(default=timezone.now)
+    tests = models.PositiveIntegerField(default=0)
+    answers = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ["-at"]

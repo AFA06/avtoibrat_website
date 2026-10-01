@@ -20,7 +20,7 @@ from .models import (
     TeamMember, Story, ConsultRequest, Testimonial, FAQ,
     ContactMessage, PdfMaterial, RoadSignCategory, RoadSign,
     ContactPerson, TestSession, Question, TestCategory,
-    Answer, UserAnswer, SavedQuestion, UserDevice, get_device_id, normalize_phone
+    Answer, UserAnswer, SavedQuestion, UserDevice, StatisticsReset, get_device_id, normalize_phone
 )
 
 User = get_user_model()
@@ -618,8 +618,11 @@ def shablon_test(request):
 @login_required
 @require_POST
 def clear_statistics(request):
-    UserAnswer.objects.filter(session__user=request.user).delete()
-    TestSession.objects.filter(user=request.user).delete()
+    answers = UserAnswer.objects.filter(session__user=request.user)
+    sessions = TestSession.objects.filter(user=request.user)
+    StatisticsReset.objects.create(user=request.user, tests=sessions.count(), answers=answers.count())
+    answers.delete()
+    sessions.delete()
     return JsonResponse({"success": True})
 
 
@@ -869,6 +872,7 @@ def submit_answer(request):
         question=question,
         selected_answer=answer,
         is_correct=answer.togri,
+        answered_at=timezone.now(),
     )
 
     correct_answer = question.javoblar.filter(togri=True).first()
