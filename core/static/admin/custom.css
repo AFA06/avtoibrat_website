@@ -44,7 +44,6 @@ a.dash-kpi:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,
 .dash-pill--rose { background: rgba(244,63,94,.14); color: #e11d48; } .dash-pill--amber { background: rgba(245,158,11,.16); color: #b45309; }
 .dash-list { list-style: none; margin: 0; padding: 0; } .dash-list li { padding: .7rem 1rem; border-top: 1px solid var(--d-border); } .dash-list li:first-child { border-top: 0; }
 .dash-facts { display: flex; justify-content: space-around; text-align: center; } .dash-facts b { display: block; font-size: 1.4rem; } .dash-facts small { color: #6b7280; }
-.dash-heading { margin: 8px 0 14px; font-weight: 700; }
 .dark-mode .dash-kpi, .dark-mode .dash-card { background: #1f2937; }
 
 /* Sidebar: only the hamburger opens/closes it, never hover (AdminLTE expand-on-hover off) */
