@@ -123,6 +123,36 @@ class StudentLeaderboardTests(LeaderboardFixture):
         response = self.client.get(reverse("leaderboard"), {"scope": "all", "top": "10"})
         self.assertEqual(len(response.context["podium"]) + len(response.context["rest"]), 4)
 
+    def test_metric_changes_ranking_and_search_filters_names(self):
+        self.finish(self.ali, [True, True, True, ][:3])           # 3 solved, 100%
+        self.finish(self.vali, [True, False, False])              # 1 solved, 33%
+        self.client.force_login(self.ali)
+        by_acc = self.client.get(reverse("leaderboard"), {"scope": "all", "metric": "accuracy"})
+        self.assertEqual(by_acc.context["my_overall_rank"].rank, 1)
+        found = self.client.get(reverse("leaderboard"), {"scope": "all", "q": "vali"})
+        self.assertEqual([r.student.username for r in found.context["rest"]], ["vali"])
+        self.assertEqual(found.context["podium"], [])
+
+    def test_podium_is_top_three_by_rank_for_any_sort(self):
+        self.finish(self.ali, [True, True, True])
+        self.finish(self.vali, [True, True, False])
+        self.finish(self.far, [True, False, False])
+        self.client.force_login(self.ali)
+        response = self.client.get(reverse("leaderboard"), {"scope": "all"})
+        self.assertEqual([r.student.username for r in response.context["podium"]], ["ali", "vali", "far"])
+        self.assertContains(response, "lb-crown")
+        by_name = self.client.get(reverse("leaderboard"), {"scope": "all", "metric": "points", "period": "week"})
+        self.assertEqual(len(by_name.context["podium"]), 3)
+
+    def test_admin_podium_ignores_name_sort_and_shows_without_points(self):
+        self.finish(self.ali, [True])
+        self.client.force_login(self.teacher)
+        response = self.client.get(reverse("admin_leaderboard"), {"sort": "name"})
+        podium = response.context["podium"]
+        self.assertEqual(podium[0].student.username, "ali")  # best rank leads even when listed by name
+        self.assertEqual(len(podium), 3)
+        self.assertEqual(len(podium) + len(response.context["rest"]), 4)
+
 
 class GroupMembershipTests(LeaderboardFixture):
     def setUp(self):
@@ -198,22 +228,3 @@ class LessonScheduleTests(LeaderboardFixture):
         self.assertEqual(self.post(lesson_start="19:00", lesson_end="18:00").status_code, 200)
         self.assertEqual(self.post(lesson_start="19:00").status_code, 200)
         self.assertFalse(StudyGroup.objects.filter(name="70").exists())
-
-    def test_metric_changes_ranking_and_search_filters_names(self):
-        self.finish(self.ali, [True, True, True, ][:3])           # 3 solved, 100%
-        self.finish(self.vali, [True, False, False])              # 1 solved, 33%
-        self.client.force_login(self.ali)
-        by_acc = self.client.get(reverse("leaderboard"), {"scope": "all", "metric": "accuracy"})
-        self.assertEqual(by_acc.context["my_overall_rank"].rank, 1)
-        found = self.client.get(reverse("leaderboard"), {"scope": "all", "q": "vali"})
-        self.assertEqual([r.student.username for r in found.context["rest"]], ["vali"])
-        self.assertEqual(found.context["podium"], [])
-
-    def test_podium_needs_three_students_with_points(self):
-        self.finish(self.ali, [True, True, True])
-        self.finish(self.vali, [True, True, False])
-        self.finish(self.far, [True, False, False])
-        self.client.force_login(self.ali)
-        response = self.client.get(reverse("leaderboard"), {"scope": "all"})
-        self.assertEqual([r.student.username for r in response.context["podium"]], ["ali", "vali", "far"])
-        self.assertContains(response, "lb-crown")

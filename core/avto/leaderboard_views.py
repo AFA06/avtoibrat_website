@@ -36,7 +36,8 @@ def student_leaderboard(request):
         rows = [r for r in rows if query in r.public_name.lower()]
         podium, rest = [], rows[:top]
     else:
-        podium, rest = split_podium(rows[:top])
+        podium, rest = split_podium(rows)
+        rest = rest[:max(top - len(podium), 0)]
     return render(request, "dashboard/leaderboard.html", {
         "podium": podium, "rest": rest,
         "me": me, "me_outside": me is not None and me not in podium + rest,

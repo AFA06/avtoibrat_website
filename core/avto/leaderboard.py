@@ -115,7 +115,9 @@ def build(students, period="all", sort="points"):
 
 
 def split_podium(rows):
-    """(top three, the rest). No podium until three students have points."""
-    if len(rows) >= PODIUM_SIZE and rows[PODIUM_SIZE - 1].points:
-        return rows[:PODIUM_SIZE], rows[PODIUM_SIZE:]
-    return [], rows
+    """(top three by rank, the rest in display order). Shown whatever the sort or filter."""
+    if len(rows) < PODIUM_SIZE:
+        return [], rows
+    podium = sorted(rows, key=lambda r: r.rank)[:PODIUM_SIZE]
+    on_podium = {r.student.pk for r in podium}
+    return podium, [r for r in rows if r.student.pk not in on_podium]
