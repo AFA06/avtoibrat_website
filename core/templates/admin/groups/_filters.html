@@ -1,0 +1,7 @@
+{# Shared period/sort controls; the caller opens and closes the <form>. #}
+<select name="period" aria-label="Davr" onchange="this.form.submit()">
+  {% for key, item in periods.items %}<option value="{{ key }}" {% if period == key %}selected{% endif %}>{{ item.0 }}</option>{% endfor %}
+</select>
+<select name="sort" aria-label="Saralash" onchange="this.form.submit()">
+  {% for key, item in sorts.items %}<option value="{{ key }}" {% if sort == key %}selected{% endif %}>{{ item.0 }}</option>{% endfor %}
+</select>

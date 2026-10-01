@@ -1,0 +1,73 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block extrastyle %}<link rel="stylesheet" href="{% static 'admin/students.css' %}">{% endblock %}
+{% block page_content %}
+<div class="container-fluid"><div class="sd">
+  {% include "admin/students/_messages.html" %}
+
+  <header class="sd-head">
+    <div>
+      <h1>Guruhlar</h1>
+      <p>Guruh yarating, talabalarni kuzating va reytingni ko‘ring.</p>
+    </div>
+    <a class="sd-btn sd-btn--primary" href="{% url 'groups:create' %}"><i class="fas fa-plus"></i> Yangi guruh</a>
+  </header>
+
+  <section class="sd-stats">
+    <div><span>Jami guruhlar</span><b>{{ total }}</b></div>
+    <div><span>Guruhsiz talabalar</span><b class="{% if ungrouped %}is-red{% endif %}">{{ ungrouped }}</b></div>
+    <div><span>Reyting</span><b><a class="sd-link" href="{% url 'admin_leaderboard' %}">Ko‘rish →</a></b></div>
+  </section>
+
+  <section class="sd-panel">
+    <form class="sd-toolbar" method="get">
+      <label class="sd-search"><i class="fas fa-search"></i>
+        <input type="search" name="q" value="{{ query }}" placeholder="Guruh, o‘qituvchi yoki filial…" autocomplete="off"></label>
+      <select name="category" aria-label="Toifa" onchange="this.form.submit()">
+        <option value="">Barcha toifalar</option>
+        {% for code, label in categories %}<option value="{{ code }}" {% if category == code %}selected{% endif %}>{{ label }}</option>{% endfor %}
+      </select>
+    </form>
+
+    <table class="sd-table">
+      <thead><tr><th>Guruh</th><th>O‘qituvchi</th><th>Talabalar</th><th>O‘rtacha aniqlik</th><th>Peshqadam</th><th></th></tr></thead>
+      <tbody>
+      {% for g in groups %}
+        <tr>
+          <td>
+            <a class="sd-person" href="{% url 'groups:detail' g.pk %}">
+              <span class="sd-avatar sd-avatar--square">{{ g.category }}</span>
+              <span><b>{{ g.name }}</b><small>{{ g.branch.name }}</small></span>
+            </a>
+          </td>
+          <td>{% if g.teacher %}{{ g.teacher.get_full_name|default:g.teacher.username }}{% else %}<span class="sd-muted">—</span>{% endif %}</td>
+          <td><b>{{ g.student_count }}</b></td>
+          <td>{% if g.accuracy_avg is None %}<span class="sd-muted">—</span>{% else %}{{ g.accuracy_avg }}%{% endif %}</td>
+          <td>{% if g.leader %}<span class="sd-leader"><i class="fas fa-crown"></i> {{ g.leader.student.get_full_name|default:g.leader.student.username }} <small>{{ g.leader.points }} ball</small></span>{% else %}<span class="sd-muted">—</span>{% endif %}</td>
+          <td class="sd-row-actions">
+            <a class="sd-btn sd-btn--ghost" href="{% url 'groups:detail' g.pk %}">Ochish</a>
+            <div class="sd-dd">
+              <button type="button" class="sd-kebab" data-menu aria-label="Yana"><i class="fas fa-ellipsis-v"></i></button>
+              <div class="sd-menu">
+                <a href="{% url 'groups:edit' g.pk %}"><i class="fas fa-pen"></i> Tahrirlash</a>
+                <hr>
+                <form method="post" action="{% url 'groups:delete' g.pk %}" data-confirm="«{{ g.name }}» guruhi o‘chirilsinmi? Talabalar o‘chmaydi, faqat guruhsiz qoladi.">
+                  {% csrf_token %}<button class="is-danger"><i class="fas fa-trash"></i> O‘chirish</button>
+                </form>
+              </div>
+            </div>
+          </td>
+        </tr>
+      {% empty %}
+        <tr><td colspan="6" class="sd-empty"><i class="fas fa-users"></i>
+          {% if query or category %}<p>Hech narsa topilmadi.</p>{% else %}<p>Hali guruhlar yo‘q.</p><a class="sd-btn sd-btn--primary" href="{% url 'groups:create' %}">Birinchi guruhni yarating</a>{% endif %}
+        </td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </section>
+</div></div>
+{% endblock %}
+
+{% block extrajs %}<script src="{% static 'admin/students.js' %}"></script>{% endblock %}

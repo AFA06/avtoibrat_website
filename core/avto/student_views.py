@@ -20,6 +20,13 @@ STATUS_FILTERS = {
 }
 
 
+SORTS = {
+    "name": ("Ism bo‘yicha (A–Z)", ("first_name", "last_name")),
+    "new": ("Eng yangilari", ("-date_joined",)),
+    "group": ("Guruh bo‘yicha", ("group__name", "first_name")),
+}
+
+
 def _students():
     return User.objects.filter(is_staff=False, is_superuser=False).select_related("group__branch")
 
@@ -46,7 +53,8 @@ def student_list(request):
     if status in STATUS_FILTERS:
         students = students.filter(STATUS_FILTERS[status])
 
-    page = Paginator(students.order_by("first_name", "last_name"), PAGE_SIZE).get_page(request.GET.get("page"))
+    sort = request.GET.get("sort", "name")
+    page = Paginator(students.order_by(*SORTS.get(sort, SORTS["name"])[1]), PAGE_SIZE).get_page(request.GET.get("page"))
     everyone = _students()
     total = everyone.count()
     blocked = everyone.filter(is_blocked=True).count()
@@ -56,6 +64,8 @@ def student_list(request):
         query=query,
         group_id=group_id,
         status=status,
+        sort=sort,
+        sorts=SORTS,
         groups=StudyGroup.objects.select_related("branch"),
         total=total,
         blocked=blocked,
@@ -66,7 +76,7 @@ def student_list(request):
 
 @staff_member_required
 def student_create(request):
-    form = StudentForm(request.POST or None)
+    form = StudentForm(request.POST or None, initial={"group": request.GET.get("group")})
     if request.method == "POST" and form.is_valid():
         student = form.save()
         messages.success(

@@ -101,3 +101,9 @@ After editing `locale/*/LC_MESSAGES/django.po`:
 cd core
 python manage.py compilemessages
 ```
+
+## Groups & leaderboard
+
+- **Admin → Guruhlar** (`/admin/groups/`, `avto/group_views.py`): create/edit/delete groups; a group page shows its info and leaderboard. **Admin → Reyting** is the global leaderboard (filter by group/period, sort).
+- **Students → Reyting** (`/leaderboard/`): own rank in the group and among all students, top 10/20/50, period filter. Other students are shown as «Ali T.» only.
+- Scoring lives in `avto/leaderboard.py`: points = unique questions answered correctly + 20 per passed real exam (finished tests only); ties broken by accuracy.

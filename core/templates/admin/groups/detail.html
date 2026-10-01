@@ -1,0 +1,38 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block extrastyle %}<link rel="stylesheet" href="{% static 'admin/students.css' %}">{% endblock %}
+{% block page_content %}
+<div class="container-fluid"><div class="sd">
+  {% include "admin/students/_messages.html" %}
+  <a class="sd-back" href="{% url 'groups:list' %}"><i class="fas fa-arrow-left"></i> Guruhlar</a>
+
+  <header class="sd-head">
+    <div>
+      <h1>{{ group.name }} <span class="sd-tag">{{ group.category }}</span></h1>
+      <p>{{ group.branch }} · O‘qituvchi: {% if group.teacher %}{{ group.teacher.get_full_name|default:group.teacher.username }}{% else %}biriktirilmagan{% endif %}</p>
+    </div>
+    <div class="sd-head__actions">
+      <a class="sd-btn sd-btn--ghost" href="{% url 'groups:edit' group.pk %}"><i class="fas fa-pen"></i> Tahrirlash</a>
+      <a class="sd-btn sd-btn--primary" href="{% url 'students:create' %}?group={{ group.pk }}"><i class="fas fa-plus"></i> Talaba qo‘shish</a>
+    </div>
+  </header>
+
+  <section class="sd-stats sd-stats--4">
+    <div><span>Talabalar</span><b>{{ rows|length }}</b></div>
+    <div><span>Faol ({{ period_label }})</span><b class="is-green">{{ active_count }}</b></div>
+    <div><span>O‘rtacha aniqlik</span><b>{% if accuracy_avg is None %}—{% else %}{{ accuracy_avg }}%{% endif %}</b></div>
+    <div><span>Yechilgan savollar</span><b>{{ solved_total }}</b></div>
+  </section>
+
+  <section class="sd-panel">
+    <form class="sd-toolbar" method="get">
+      <h2 class="sd-toolbar__title"><i class="fas fa-trophy"></i> Guruh reytingi</h2>
+      <span class="sd-spacer"></span>
+      {% include "admin/groups/_filters.html" %}
+    </form>
+    {% include "admin/groups/_board.html" %}
+  </section>
+  {% include "admin/groups/_rules.html" %}
+</div></div>
+{% endblock %}

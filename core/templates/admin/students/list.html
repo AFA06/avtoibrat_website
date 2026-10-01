@@ -30,6 +30,9 @@
         <option value="">Barcha guruhlar</option>
         {% for g in groups %}<option value="{{ g.pk }}" {% if group_id == g.pk|stringformat:"s" %}selected{% endif %}>{{ g.name }} · {{ g.category }}</option>{% endfor %}
       </select>
+      <select name="sort" aria-label="Saralash" onchange="this.form.submit()">
+        {% for key, item in sorts.items %}<option value="{{ key }}" {% if sort == key %}selected{% endif %}>{{ item.0 }}</option>{% endfor %}
+      </select>
       <div class="sd-tabs" role="tablist">
         <button name="status" value="" class="{% if not status %}is-on{% endif %}">Barchasi</button>
         <button name="status" value="active" class="{% if status == 'active' %}is-on{% endif %}">Faol</button>
@@ -102,8 +105,8 @@
     <footer class="sd-pager">
       <span>{{ page.start_index }}–{{ page.end_index }} / {{ page.paginator.count }}</span>
       <div>
-        {% if page.has_previous %}<a class="sd-btn sd-btn--ghost" href="?page={{ page.previous_page_number }}&q={{ query|urlencode }}&group={{ group_id }}&status={{ status }}">‹ Oldingi</a>{% endif %}
-        {% if page.has_next %}<a class="sd-btn sd-btn--ghost" href="?page={{ page.next_page_number }}&q={{ query|urlencode }}&group={{ group_id }}&status={{ status }}">Keyingi ›</a>{% endif %}
+        {% if page.has_previous %}<a class="sd-btn sd-btn--ghost" href="?page={{ page.previous_page_number }}&q={{ query|urlencode }}&group={{ group_id }}&status={{ status }}&sort={{ sort }}">‹ Oldingi</a>{% endif %}
+        {% if page.has_next %}<a class="sd-btn sd-btn--ghost" href="?page={{ page.next_page_number }}&q={{ query|urlencode }}&group={{ group_id }}&status={{ status }}&sort={{ sort }}">Keyingi ›</a>{% endif %}
       </div>
     </footer>
     {% endif %}

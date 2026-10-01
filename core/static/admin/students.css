@@ -124,3 +124,27 @@
 .sd a.sd-btn--ghost { color: var(--sd-text) !important; }
 .sd a.sd-person, .sd a.sd-person:hover { color: var(--sd-text) !important; }
 .sd a.sd-back { color: var(--sd-muted) !important; }
+
+/* Groups & leaderboard */
+.sd-head__actions { display: flex; gap: 10px; }
+.sd-head h1 .sd-tag { vertical-align: middle; font-size: 13px; }
+.sd-stats--4 { grid-template-columns: repeat(4, 1fr); }
+.sd-link { font-size: 16px; color: var(--sd-brand) !important; }
+.sd-avatar--square { border-radius: 10px; font-size: 13px; }
+.sd-toolbar__title { margin: 0; font-size: 16px; font-weight: 700; }
+.sd-toolbar__title i { color: #f59e0b; margin-right: 6px; }
+.sd-spacer { flex: 1; }
+.sd-leader { font-weight: 600; }
+.sd-leader i { color: #f59e0b; margin-right: 4px; }
+.sd-leader small { color: var(--sd-muted); font-weight: 500; margin-left: 4px; }
+.sd-menu a { display: flex; gap: 10px; align-items: center; padding: 9px 12px; border-radius: 8px; color: var(--sd-text) !important; font-weight: 500; }
+.sd-menu a:hover { background: var(--sd-soft); text-decoration: none; }
+.sd-menu a i { width: 16px; text-align: center; color: var(--sd-muted); }
+.sd-board .w-rank { width: 64px; }
+.sd-rank { display: inline-grid; place-items: center; min-width: 30px; height: 30px; border-radius: 50%; font-weight: 700; color: var(--sd-muted); }
+.sd-rank--1 { background: #fef3c7; color: #b45309; } .sd-rank--2 { background: #e5e7eb; color: #4b5563; } .sd-rank--3 { background: #fde4cf; color: #9a3412; }
+.sd-points { font-size: 16px; }
+.sd-meter { display: inline-block; vertical-align: middle; width: 64px; height: 6px; margin-right: 8px; border-radius: 99px; background: var(--sd-soft); overflow: hidden; }
+.sd-meter i { display: block; height: 100%; background: var(--sd-brand); border-radius: 99px; }
+.sd-rules { margin-top: 14px; color: var(--sd-muted); font-size: 13px; }
+@media (max-width: 767px) { .sd-stats--4 { grid-template-columns: 1fr 1fr; } }

@@ -1,0 +1,31 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block extrastyle %}<link rel="stylesheet" href="{% static 'admin/students.css' %}">{% endblock %}
+{% block page_content %}
+<div class="container-fluid"><div class="sd sd--narrow">
+  <a class="sd-back" href="{% if group %}{% url 'groups:detail' group.pk %}{% else %}{% url 'groups:list' %}{% endif %}"><i class="fas fa-arrow-left"></i> {% if group %}{{ group.name }}{% else %}Guruhlar{% endif %}</a>
+  <header class="sd-head"><div>
+    <h1>{% if group %}Guruhni tahrirlash{% else %}Yangi guruh{% endif %}</h1>
+    <p>Guruh yaratilgach, talabalarni «Talabalar» bo‘limida shu guruhga biriktirasiz.</p>
+  </div></header>
+
+  <form method="post" novalidate>
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    <section class="sd-panel sd-card">
+      <div class="sd-grid">
+        {% include "admin/students/_field.html" with f=form.name %}
+        {% include "admin/students/_field.html" with f=form.category %}
+        {% include "admin/students/_field.html" with f=form.branch %}
+        {% include "admin/students/_field.html" with f=form.teacher %}
+      </div>
+      {% if not has_branches %}<p class="sd-error">Avval filial yarating: <a href="{% url 'admin:avto_branch_add' %}">Filial qo‘shish</a>.</p>{% endif %}
+    </section>
+    <div class="sd-submit">
+      <button type="submit" class="sd-btn sd-btn--primary"><i class="fas fa-check"></i> Saqlash</button>
+      <a class="sd-btn sd-btn--ghost" href="{% url 'groups:list' %}">Bekor qilish</a>
+    </div>
+  </form>
+</div></div>
+{% endblock %}

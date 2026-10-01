@@ -15,6 +15,7 @@ from django.contrib.auth import get_user_model
 from django.views.decorators.http import require_POST, require_http_methods
 from django.db.models import Count, Sum, F, ExpressionWrapper, DurationField
 
+from .leaderboard import REAL_EXAM_MAX_MISTAKES, PERIODS, build as build_leaderboard
 from .models import (
     TeamMember, Story, ConsultRequest, Testimonial, FAQ,
     ContactMessage, PdfMaterial, RoadSignCategory, RoadSign,
@@ -758,9 +759,6 @@ def _ordered_session_questions(session):
         if qid in questions_by_id
     ]
 
-
-# The real exam is failed as soon as the student reaches this many wrong answers.
-REAL_EXAM_MAX_MISTAKES = 3
 
 
 def _remaining_seconds(session):

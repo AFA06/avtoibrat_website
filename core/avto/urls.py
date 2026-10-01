@@ -1,5 +1,6 @@
 from django.urls import path
 from .views import *
+from .leaderboard_views import student_leaderboard
 
 
 urlpatterns = [
@@ -16,6 +17,7 @@ urlpatterns = [
     path('logout/', user_logout, name="logout"),
     path('profile/', profile, name="profile"),
     path('dashboard/', dashboard, name="dashboard"),
+    path('leaderboard/', student_leaderboard, name="leaderboard"),
     path('contact_list/', contact_list, name="contact_list"),
     path('manular/', manular, name="manular"),
 

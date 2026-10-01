@@ -1,0 +1,9 @@
+{% load i18n %}
+<tr class="{% if r.student.pk == user.pk %}is-me{% endif %}">
+  <td><span class="lb-rank {% if r.rank <= 3 and r.points %}lb-rank--{{ r.rank }}{% endif %}">{{ r.rank }}</span></td>
+  <td><b>{{ r.public_name }}</b>{% if r.student.pk == user.pk %} <span class="lb-you">{% trans "Siz" %}</span>{% endif %}</td>
+  <td><b>{{ r.points }}</b></td>
+  <td>{% if r.accuracy is None %}—{% else %}{{ r.accuracy }}%{% endif %}</td>
+  <td class="lb-hide">{{ r.solved }}</td>
+  <td class="lb-hide">{{ r.exams_passed }}</td>
+</tr>

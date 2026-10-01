@@ -1,0 +1,26 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block extrastyle %}<link rel="stylesheet" href="{% static 'admin/students.css' %}">{% endblock %}
+{% block page_content %}
+<div class="container-fluid"><div class="sd">
+  <header class="sd-head"><div>
+    <h1>Reyting</h1>
+    <p>Talabalar natijalari bo‘yicha umumiy reyting — eng yaxshilarni rag‘batlantirish uchun.</p>
+  </div></header>
+
+  <section class="sd-panel">
+    <form class="sd-toolbar" method="get">
+      <label class="sd-search"><i class="fas fa-search"></i>
+        <input type="search" name="q" value="{{ query }}" placeholder="Talaba ismi…" autocomplete="off"></label>
+      <select name="group" aria-label="Guruh" onchange="this.form.submit()">
+        <option value="">Barcha talabalar</option>
+        {% for g in groups %}<option value="{{ g.pk }}" {% if group_id == g.pk|stringformat:"s" %}selected{% endif %}>{{ g.name }} · {{ g.category }}</option>{% endfor %}
+      </select>
+      {% include "admin/groups/_filters.html" %}
+    </form>
+    {% include "admin/groups/_board.html" with show_group=True %}
+  </section>
+  {% include "admin/groups/_rules.html" %}
+</div></div>
+{% endblock %}

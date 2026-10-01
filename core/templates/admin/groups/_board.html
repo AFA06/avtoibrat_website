@@ -1,0 +1,22 @@
+<table class="sd-table sd-board">
+  <thead>
+    <tr><th class="w-rank">#</th><th>Talaba</th>{% if show_group %}<th>Guruh</th>{% endif %}<th>Ball</th><th>Aniqlik</th><th>Yechilgan</th><th>Testlar</th><th>Imtihon</th></tr>
+  </thead>
+  <tbody>
+  {% for r in rows %}
+    <tr>
+      <td><span class="sd-rank {% if r.rank <= 3 and r.points %}sd-rank--{{ r.rank }}{% endif %}">{{ r.rank }}</span></td>
+      <td><a class="sd-person" href="{% url 'students:edit' r.student.pk %}"><span class="sd-avatar">{{ r.student.initial }}</span><span><b>{{ r.student.get_full_name|default:r.student.username }}</b></span></a></td>
+      {% if show_group %}<td>{% if r.student.group %}{{ r.student.group.name }}{% else %}<span class="sd-muted">—</span>{% endif %}</td>{% endif %}
+      <td><b class="sd-points">{{ r.points }}</b></td>
+      <td>{% if r.accuracy is None %}<span class="sd-muted">—</span>{% else %}
+        <span class="sd-meter"><i style="width: {{ r.accuracy }}%"></i></span> {{ r.accuracy }}%{% endif %}</td>
+      <td>{{ r.solved }}</td>
+      <td>{{ r.tests }}</td>
+      <td>{{ r.exams_passed }}</td>
+    </tr>
+  {% empty %}
+    <tr><td colspan="8" class="sd-empty"><i class="fas fa-trophy"></i><p>Reytingda hali talabalar yo‘q.</p></td></tr>
+  {% endfor %}
+  </tbody>
+</table>

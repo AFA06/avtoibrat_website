@@ -27,8 +27,14 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="{% url 'admin:avto_studygroup_changelist' %}" class="nav-link {% if '/admin/avto/studygroup/' in request.path %}active{% endif %}">
+          <a href="{% url 'groups:list' %}" class="nav-link {% if '/admin/groups/' in request.path %}active{% endif %}">
             <i class="nav-icon fas fa-users"></i><p>Guruhlar</p>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="{% url 'admin_leaderboard' %}" class="nav-link {% if '/admin/leaderboard/' in request.path %}active{% endif %}">
+            <i class="nav-icon fas fa-trophy"></i><p>Reyting</p>
           </a>
         </li>
 

@@ -20,12 +20,15 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.i18n import i18n_patterns
 
+from avto.group_views import leaderboard as admin_leaderboard
 from avto.views import set_site_language
 
 
 urlpatterns = [
     path('i18n/setlang/', set_site_language, name='set_language'),
     path('admin/students/', include('avto.student_urls')),
+    path('admin/groups/', include('avto.group_urls')),
+    path('admin/leaderboard/', admin_leaderboard, name='admin_leaderboard'),
     path('admin/', admin.site.urls),
 ]
 
