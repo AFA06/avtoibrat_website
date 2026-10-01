@@ -102,8 +102,16 @@ cd core
 python manage.py compilemessages
 ```
 
+## Admin workflow (Students → Teachers → Groups)
+
+1. **O‘qituvchilar** (`/admin/teachers/`, superusers only): create a teacher (login + generated password). Teachers are staff accounts and log in via the «Xodim» profile.
+2. **Talabalar** (`/admin/students/`): create a student (phone login + generated password). A group can be chosen right away or left empty.
+3. **Guruhlar** (`/admin/groups/`): create a group (name, category, branch, **teacher picked from the list**, lesson time). Open the group → **Talaba qo‘shish** lists existing students (search, multi-select; students already in another group are moved). The ✕ button removes a student from the group.
+4. **Changing a student's group**: open the student → «Boshqa guruhga o‘tkazish» → pick the new group → save. The group, teacher and lesson time on the student's profile update automatically; no remove/re-add.
+5. The student's `/profile/` shows group, teacher, lesson time, branch and category.
+
 ## Groups & leaderboard
 
-- **Admin → Guruhlar** (`/admin/groups/`, `avto/group_views.py`): create/edit/delete groups; a group page shows its info and leaderboard. **Admin → Reyting** is the global leaderboard (filter by group/period, sort).
+- **Admin → Reyting** is the global leaderboard (filter by group/period, sort); each group page has its own.
 - **Students → Reyting** (`/leaderboard/`): own rank in the group and among all students, top 10/20/50, period filter. Other students are shown as «Ali T.» only.
 - Scoring lives in `avto/leaderboard.py`: points = unique questions answered correctly + 20 per passed real exam (finished tests only); ties broken by accuracy.

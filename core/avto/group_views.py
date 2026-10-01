@@ -2,7 +2,7 @@
 from django import forms
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
-from django.db.models import Count, Q
+from django.db.models import Count, F, Q
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_POST
 
@@ -14,15 +14,17 @@ from .student_views import _page, _students
 class GroupForm(forms.ModelForm):
     class Meta:
         model = StudyGroup
-        fields = ("name", "category", "branch", "teacher")
+        fields = ("name", "category", "branch", "teacher", "lesson_time")
         labels = {
             "name": "Guruh raqami yoki nomi", "category": "Ta’lim toifasi",
-            "branch": "Filial", "teacher": "O‘qituvchi",
+            "branch": "Filial", "teacher": "O‘qituvchi", "lesson_time": "Dars vaqti",
         }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields["teacher"].queryset = User.objects.filter(is_staff=True).order_by("first_name")
         self.fields["teacher"].empty_label = "— Biriktirilmagan —"
+        self.fields["lesson_time"].widget.attrs["placeholder"] = "Du-Chor-Ju, 18:00–20:00"
         self.fields["teacher"].label_from_instance = lambda u: u.get_full_name() or u.username
 
 
@@ -88,9 +90,31 @@ def group_detail(request, pk):
         group=group, rows=sort_rows(rows, sort), period=period, sort=sort,
         periods=PERIODS, sorts=SORTS, period_label=PERIODS.get(period, PERIODS['all'])[0].lower(),
         accuracy_avg=round(sum(accuracies) / len(accuracies)) if accuracies else None,
+        candidates=_students().exclude(group=group).order_by(F("group").asc(nulls_first=True), "first_name"),
         solved_total=sum(r.solved for r in rows),
         active_count=sum(1 for r in rows if r.tests),
     ))
+
+
+@staff_member_required
+@require_POST
+def group_add_students(request, pk):
+    group = get_object_or_404(StudyGroup, pk=pk)
+    moved = _students().filter(pk__in=request.POST.getlist("students")).update(group=group)
+    if moved:
+        messages.success(request, f"{moved} ta talaba «{group.name}» guruhiga qo‘shildi.")
+    else:
+        messages.error(request, "Hech kim tanlanmadi.")
+    return redirect("groups:detail", pk=group.pk)
+
+
+@staff_member_required
+@require_POST
+def group_remove_student(request, pk, student_id):
+    group = get_object_or_404(StudyGroup, pk=pk)
+    _students().filter(pk=student_id, group=group).update(group=None)
+    messages.success(request, "Talaba guruhdan chiqarildi.")
+    return redirect("groups:detail", pk=group.pk)
 
 
 @staff_member_required

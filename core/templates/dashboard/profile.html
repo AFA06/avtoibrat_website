@@ -56,6 +56,10 @@
                 <dd>{% firstof student.group.teacher.get_full_name student.group.teacher.username no_data %}</dd>
             </div>
             <div class="profile-row">
+                <dt><i class="ti ti-clock" aria-hidden="true"></i>{% trans "Dars vaqti" %}</dt>
+                <dd>{{ student.group.lesson_time|default:no_data }}</dd>
+            </div>
+            <div class="profile-row">
                 <dt><i class="ti ti-calendar" aria-hidden="true"></i>{% trans "Ta’lim boshlanish va tugash vaqti" %}</dt>
                 <dd>
                     {% if student.study_start and student.study_end %}

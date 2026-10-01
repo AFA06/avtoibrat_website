@@ -120,3 +120,55 @@ class StudentLeaderboardTests(LeaderboardFixture):
         self.finish(self.ali, [True])
         response = self.client.get(reverse("leaderboard"), {"scope": "all", "top": "10"})
         self.assertEqual(len(response.context["rows"]), 4)
+
+
+class GroupMembershipTests(LeaderboardFixture):
+    def setUp(self):
+        self.client.force_login(self.teacher)
+
+    def test_add_existing_students_moves_them_between_groups(self):
+        self.client.post(reverse("groups:add_students", args=[self.other.pk]), {"students": [self.ali.pk, self.zero.pk]})
+        self.ali.refresh_from_db()
+        self.assertEqual(self.ali.group, self.other)
+        detail = self.client.get(reverse("groups:detail", args=[self.group.pk]))
+        self.assertIn(self.far, detail.context["candidates"])
+        self.assertNotIn(self.vali, detail.context["candidates"])
+
+    def test_remove_student_from_group(self):
+        self.client.post(reverse("groups:remove_student", args=[self.group.pk, self.ali.pk]))
+        self.ali.refresh_from_db()
+        self.assertIsNone(self.ali.group)
+
+    def test_changing_group_on_student_form_updates_profile(self):
+        self.client.force_login(self.teacher)
+        self.group.teacher, self.group.lesson_time = self.teacher, "Du-Ju 18:00"
+        self.group.save()
+        response = self.client.post(reverse("students:edit", args=[self.far.pk]), {
+            "first_name": "Far", "last_name": "Test", "phone": "90-111-22-33", "group": self.group.pk,
+            "group_language": "uz", "password": "Far12345",
+        })
+        self.assertEqual(response.status_code, 302, getattr(response, "context", None) and response.context["form"].errors)
+        self.far.refresh_from_db()  # the password was reset by the form
+        self.client.force_login(self.far)
+        profile = self.client.get(reverse("profile"))
+        self.assertContains(profile, "Du-Ju 18:00")
+
+
+class TeacherPagesTests(LeaderboardFixture):
+    def test_admin_creates_teacher_who_can_be_assigned_and_log_in(self):
+        admin = User.objects.create_superuser(username="boss", password="x")
+        self.client.force_login(admin)
+        self.client.post(reverse("teachers:create"), {
+            "first_name": "Ibrat", "last_name": "Karimov", "username": "ibrat", "phone": "", "password": "Ibra1980",
+        })
+        teacher = User.objects.get(username="ibrat")
+        self.assertTrue(teacher.is_staff and teacher.unlimited and teacher.check_password("Ibra1980"))
+        self.client.post(reverse("groups:edit", args=[self.group.pk]), {
+            "name": "52", "category": "B", "branch": self.branch.pk, "teacher": teacher.pk, "lesson_time": "Du-Ju",
+        })
+        self.group.refresh_from_db()
+        self.assertEqual((self.group.teacher, self.group.lesson_time), (teacher, "Du-Ju"))
+
+    def test_teachers_cannot_manage_teachers(self):
+        self.client.force_login(self.teacher)
+        self.assertRedirects(self.client.get(reverse("teachers:list")), reverse("admin:index"), fetch_redirect_response=False)

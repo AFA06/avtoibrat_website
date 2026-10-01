@@ -10,13 +10,33 @@
   <header class="sd-head">
     <div>
       <h1>{{ group.name }} <span class="sd-tag">{{ group.category }}</span></h1>
-      <p>{{ group.branch }} · O‘qituvchi: {% if group.teacher %}{{ group.teacher.get_full_name|default:group.teacher.username }}{% else %}biriktirilmagan{% endif %}</p>
+      <p>{{ group.branch }} · {% if group.lesson_time %}{{ group.lesson_time }} · {% endif %}O‘qituvchi: {% if group.teacher %}{{ group.teacher.get_full_name|default:group.teacher.username }}{% else %}biriktirilmagan{% endif %}</p>
     </div>
     <div class="sd-head__actions">
       <a class="sd-btn sd-btn--ghost" href="{% url 'groups:edit' group.pk %}"><i class="fas fa-pen"></i> Tahrirlash</a>
-      <a class="sd-btn sd-btn--primary" href="{% url 'students:create' %}?group={{ group.pk }}"><i class="fas fa-plus"></i> Talaba qo‘shish</a>
+      <button type="button" class="sd-btn sd-btn--primary" data-toggle-panel="add-students"><i class="fas fa-user-plus"></i> Talaba qo‘shish</button>
     </div>
   </header>
+
+  <section class="sd-panel sd-card" id="add-students" hidden>
+    <h2>Mavjud talabalarni guruhga qo‘shish</h2>
+    <form method="post" action="{% url 'groups:add_students' group.pk %}">
+      {% csrf_token %}
+      <label class="sd-search sd-search--block"><i class="fas fa-search"></i>
+        <input type="search" data-filter-input=".sd-pick" placeholder="Ism yoki telefon bo‘yicha qidirish…" autocomplete="off"></label>
+      <div class="sd-picklist">
+        {% for s in candidates %}
+        <label class="sd-pick">
+          <input type="checkbox" name="students" value="{{ s.pk }}">
+          <span class="sd-avatar">{{ s.initial }}</span>
+          <span><b>{{ s.get_full_name|default:s.username }}</b> <small>{{ s.phone_display }}</small></span>
+          <em>{% if s.group %}hozir: {{ s.group.name }} → ko‘chiriladi{% else %}guruhsiz{% endif %}</em>
+        </label>
+        {% empty %}<p class="sd-muted">Qo‘shish uchun boshqa talabalar yo‘q. Avval <a href="{% url 'students:create' %}">«Talabalar»</a> bo‘limida talaba yarating.</p>{% endfor %}
+      </div>
+      {% if candidates %}<div class="sd-submit"><button class="sd-btn sd-btn--primary"><i class="fas fa-check"></i> Tanlanganlarni qo‘shish</button></div>{% endif %}
+    </form>
+  </section>
 
   <section class="sd-stats sd-stats--4">
     <div><span>Talabalar</span><b>{{ rows|length }}</b></div>
@@ -31,8 +51,10 @@
       <span class="sd-spacer"></span>
       {% include "admin/groups/_filters.html" %}
     </form>
-    {% include "admin/groups/_board.html" %}
+    {% include "admin/groups/_board.html" with removable=True %}
   </section>
   {% include "admin/groups/_rules.html" %}
 </div></div>
 {% endblock %}
+
+{% block extrajs %}<script src="{% static 'admin/students.js' %}"></script>{% endblock %}

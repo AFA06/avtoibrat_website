@@ -38,7 +38,7 @@
           <td>
             <a class="sd-person" href="{% url 'groups:detail' g.pk %}">
               <span class="sd-avatar sd-avatar--square">{{ g.category }}</span>
-              <span><b>{{ g.name }}</b><small>{{ g.branch.name }}</small></span>
+              <span><b>{{ g.name }}</b><small>{{ g.branch.name }}{% if g.lesson_time %} · {{ g.lesson_time }}{% endif %}</small></span>
             </a>
           </td>
           <td>{% if g.teacher %}{{ g.teacher.get_full_name|default:g.teacher.username }}{% else %}<span class="sd-muted">—</span>{% endif %}</td>

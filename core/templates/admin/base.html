@@ -32,6 +32,13 @@
           </a>
         </li>
 
+        {% if request.user.is_superuser %}
+        <li class="nav-item">
+          <a href="{% url 'teachers:list' %}" class="nav-link {% if '/admin/teachers/' in request.path %}active{% endif %}">
+            <i class="nav-icon fas fa-chalkboard-teacher"></i><p>O‘qituvchilar</p>
+          </a>
+        </li>
+        {% endif %}
         <li class="nav-item">
           <a href="{% url 'admin_leaderboard' %}" class="nav-link {% if '/admin/leaderboard/' in request.path %}active{% endif %}">
             <i class="nav-icon fas fa-trophy"></i><p>Reyting</p>

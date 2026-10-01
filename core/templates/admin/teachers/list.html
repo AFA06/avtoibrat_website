@@ -1,0 +1,57 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block extrastyle %}<link rel="stylesheet" href="{% static 'admin/students.css' %}">{% endblock %}
+{% block page_content %}
+<div class="container-fluid"><div class="sd">
+  {% include "admin/students/_messages.html" %}
+  <header class="sd-head">
+    <div><h1>O‘qituvchilar</h1><p>O‘qituvchi yarating, so‘ng guruh yaratayotganda shu ro‘yxatdan tanlang.</p></div>
+    <a class="sd-btn sd-btn--primary" href="{% url 'teachers:create' %}"><i class="fas fa-plus"></i> Yangi o‘qituvchi</a>
+  </header>
+
+  <section class="sd-panel">
+    <form class="sd-toolbar" method="get">
+      <label class="sd-search"><i class="fas fa-search"></i>
+        <input type="search" name="q" value="{{ query }}" placeholder="Ism yoki login…" autocomplete="off"></label>
+      <span class="sd-muted">{{ total }} ta o‘qituvchi</span>
+    </form>
+    <table class="sd-table">
+      <thead><tr><th>O‘qituvchi</th><th>Login</th><th>Parol</th><th>Guruhlar</th><th>Holat</th><th></th></tr></thead>
+      <tbody>
+      {% for t in teachers %}
+        <tr class="{% if t.is_blocked %}is-blocked{% endif %}">
+          <td><a class="sd-person" href="{% url 'teachers:edit' t.pk %}"><span class="sd-avatar">{{ t.initial }}</span>
+            <span><b>{{ t.get_full_name|default:t.username }}</b>{% if t.phone %}<small>+998 {{ t.phone_display }}</small>{% endif %}</span></a></td>
+          <td class="sd-mono">{{ t.username }}</td>
+          <td>{% if t.initial_password %}<span class="sd-pass"><code data-password="{{ t.initial_password }}">••••••••</code>
+            <button type="button" data-reveal title="Ko‘rsatish"><i class="fas fa-eye"></i></button>
+            <button type="button" data-copy title="Nusxalash"><i class="far fa-copy"></i></button></span>
+            {% else %}<span class="sd-muted">Belgilanmagan</span>{% endif %}</td>
+          <td>{{ t.group_count }}</td>
+          <td>{% if t.is_blocked %}<span class="sd-status is-red">Bloklangan</span>{% else %}<span class="sd-status is-green">Faol</span>{% endif %}</td>
+          <td class="sd-row-actions">
+            <a class="sd-btn sd-btn--ghost" href="{% url 'teachers:edit' t.pk %}">Tahrirlash</a>
+            <div class="sd-dd">
+              <button type="button" class="sd-kebab" data-menu aria-label="Yana"><i class="fas fa-ellipsis-v"></i></button>
+              <div class="sd-menu">
+                <form method="post" action="{% url 'teachers:toggle' t.pk %}">{% csrf_token %}
+                  <button><i class="fas {% if t.is_blocked %}fa-user-check{% else %}fa-user-slash{% endif %}"></i> {% if t.is_blocked %}Faollashtirish{% else %}Bloklash{% endif %}</button></form>
+                <hr>
+                <form method="post" action="{% url 'teachers:delete' t.pk %}" data-confirm="{{ t.get_full_name }} o‘chirilsinmi? Uning guruhlari o‘qituvchisiz qoladi.">{% csrf_token %}
+                  <button class="is-danger"><i class="fas fa-trash"></i> O‘chirish</button></form>
+              </div>
+            </div>
+          </td>
+        </tr>
+      {% empty %}
+        <tr><td colspan="6" class="sd-empty"><i class="fas fa-chalkboard-teacher"></i>
+          {% if query %}<p>Hech narsa topilmadi.</p>{% else %}<p>Hali o‘qituvchilar yo‘q.</p><a class="sd-btn sd-btn--primary" href="{% url 'teachers:create' %}">Birinchi o‘qituvchini qo‘shing</a>{% endif %}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </section>
+</div></div>
+{% endblock %}
+
+{% block extrajs %}<script src="{% static 'admin/students.js' %}"></script>{% endblock %}

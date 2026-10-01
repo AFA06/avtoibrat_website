@@ -38,6 +38,13 @@
 
     <section class="sd-panel sd-card">
       <h2>O‘qish</h2>
+      {% if student %}
+      <div class="sd-current">
+        <div><span>Hozirgi guruh</span><b>{% if student.group %}{{ student.group.name }} · {{ student.group.category }}{% else %}Guruhsiz{% endif %}</b></div>
+        <div><span>O‘qituvchi</span><b>{% if student.group.teacher %}{{ student.group.teacher.get_full_name|default:student.group.teacher.username }}{% else %}—{% endif %}</b></div>
+        <div><span>Dars vaqti</span><b>{{ student.group.lesson_time|default:"—" }}</b></div>
+      </div>
+      {% endif %}
       <div class="sd-grid">
         {% include "admin/students/_field.html" with f=form.group %}
         {% include "admin/students/_field.html" with f=form.group_language %}

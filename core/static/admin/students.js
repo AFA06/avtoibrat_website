@@ -41,6 +41,22 @@
   document.addEventListener("click", () => closeMenus());
   document.addEventListener("keydown", (event) => event.key === "Escape" && closeMenus());
 
+  // Live filter for pick lists (e.g. choosing students to add to a group)
+  document.querySelectorAll("[data-filter-input]").forEach((input) => {
+    const items = document.querySelectorAll(input.dataset.filterInput);
+    input.addEventListener("input", () => {
+      const needle = input.value.trim().toLowerCase();
+      items.forEach((item) => (item.hidden = !item.textContent.toLowerCase().includes(needle)));
+    });
+  });
+  document.querySelectorAll("[data-toggle-panel]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const panel = document.getElementById(button.dataset.togglePanel);
+      panel.hidden = !panel.hidden;
+      if (!panel.hidden) panel.querySelector("input[type=search]")?.focus();
+    });
+  });
+
   // --- Student form: 99-999-99-99 phone mask ---
   const phone = document.querySelector("[data-phone-mask]");
   if (phone) {
@@ -62,7 +78,7 @@
     generate.addEventListener("click", async () => {
       const params = new URLSearchParams({
         first_name: form.elements.first_name.value,
-        birth_date: form.elements.birth_date.value,
+        birth_date: form.elements.birth_date ? form.elements.birth_date.value : "",
         again: clicks++ ? "1" : "0",
       });
       const response = await fetch(`${form.dataset.suggestUrl}?${params}`);

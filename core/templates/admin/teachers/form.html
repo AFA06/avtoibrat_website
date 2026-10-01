@@ -1,0 +1,48 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block extrastyle %}<link rel="stylesheet" href="{% static 'admin/students.css' %}">{% endblock %}
+{% block page_content %}
+<div class="container-fluid"><div class="sd sd--narrow">
+  <a class="sd-back" href="{% url 'teachers:list' %}"><i class="fas fa-arrow-left"></i> O‘qituvchilar</a>
+  <header class="sd-head"><div>
+    <h1>{% if teacher %}{{ teacher.get_full_name }}{% else %}Yangi o‘qituvchi{% endif %}</h1>
+    <p>O‘qituvchi admin panelga login va parol bilan kiradi.</p>
+  </div></header>
+
+  <form method="post" novalidate data-suggest-url="{% url 'students:suggest_password' %}">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    <section class="sd-panel sd-card">
+      <h2>Ma’lumotlar</h2>
+      <div class="sd-grid">
+        {% include "admin/students/_field.html" with f=form.first_name %}
+        {% include "admin/students/_field.html" with f=form.last_name %}
+        {% include "admin/students/_field.html" with f=form.username %}
+        <div class="sd-field {% if form.phone.errors %}has-error{% endif %}">
+          <label for="id_phone">Telefon raqami</label>
+          <div class="sd-phone"><span>+998</span>
+            <input type="text" id="id_phone" name="phone" value="{{ form.phone.value|default:'' }}" inputmode="numeric" placeholder="99-999-99-99" maxlength="12" autocomplete="off" data-phone-mask></div>
+          {% for e in form.phone.errors %}<p class="sd-error">{{ e }}</p>{% endfor %}
+        </div>
+      </div>
+    </section>
+    <section class="sd-panel sd-card">
+      <h2>Kirish paroli</h2>
+      <div class="sd-field {% if form.password.errors %}has-error{% endif %}">
+        <div class="sd-password">
+          <input type="text" id="id_password" name="password" value="{{ form.password.value|default:'' }}" autocomplete="off" minlength="6" maxlength="64" aria-label="Parol">
+          <button type="button" class="sd-btn sd-btn--ghost" id="generate-password"><i class="fas fa-random"></i> Generatsiya</button>
+        </div>
+        {% for e in form.password.errors %}<p class="sd-error">{{ e }}</p>{% endfor %}
+      </div>
+    </section>
+    <div class="sd-submit">
+      <button type="submit" class="sd-btn sd-btn--primary"><i class="fas fa-check"></i> Saqlash</button>
+      <a class="sd-btn sd-btn--ghost" href="{% url 'teachers:list' %}">Bekor qilish</a>
+    </div>
+  </form>
+</div></div>
+{% endblock %}
+
+{% block extrajs %}<script src="{% static 'admin/students.js' %}"></script>{% endblock %}

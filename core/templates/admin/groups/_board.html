@@ -1,6 +1,6 @@
 <table class="sd-table sd-board">
   <thead>
-    <tr><th class="w-rank">#</th><th>Talaba</th>{% if show_group %}<th>Guruh</th>{% endif %}<th>Ball</th><th>Aniqlik</th><th>Yechilgan</th><th>Testlar</th><th>Imtihon</th></tr>
+    <tr><th class="w-rank">#</th><th>Talaba</th>{% if show_group %}<th>Guruh</th>{% endif %}<th>Ball</th><th>Aniqlik</th><th>Yechilgan</th><th>Testlar</th><th>Imtihon</th>{% if removable %}<th></th>{% endif %}</tr>
   </thead>
   <tbody>
   {% for r in rows %}
@@ -14,6 +14,8 @@
       <td>{{ r.solved }}</td>
       <td>{{ r.tests }}</td>
       <td>{{ r.exams_passed }}</td>
+      {% if removable %}<td class="text-right"><form method="post" action="{% url 'groups:remove_student' group.pk r.student.pk %}" data-confirm="{{ r.student.first_name }} guruhdan chiqarilsinmi?">{% csrf_token %}
+        <button class="sd-kebab" title="Guruhdan chiqarish"><i class="fas fa-user-minus"></i></button></form></td>{% endif %}
     </tr>
   {% empty %}
     <tr><td colspan="8" class="sd-empty"><i class="fas fa-trophy"></i><p>Reytingda hali talabalar yo‘q.</p></td></tr>

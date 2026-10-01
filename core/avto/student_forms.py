@@ -34,6 +34,13 @@ def generate_password(first_name="", birth_date=None, *, randomize=False):
     return f"{letters}{secrets.randbelow(9000) + 1000}"
 
 
+def group_label(group):
+    """«52 · B · Ibrat Karimov · Du-Ju 18:00» — enough to pick the right group at a glance."""
+    teacher = group.teacher.get_full_name() or group.teacher.username if group.teacher_id else "o‘qituvchisiz"
+    parts = [group.name, group.category, teacher, group.lesson_time]
+    return " · ".join(p for p in parts if p)
+
+
 class StudentForm(forms.ModelForm):
     phone = forms.CharField(label="Telefon raqami", max_length=12)
     password = forms.CharField(label="Parol", min_length=MIN_PASSWORD_LENGTH, max_length=64)
@@ -56,8 +63,14 @@ class StudentForm(forms.ModelForm):
         self.fields["group"].label = "O‘quv guruhi"
         self.fields["first_name"].required = True
         self.fields["last_name"].required = True
-        self.fields["group"].queryset = StudyGroup.objects.select_related("branch")
+        self.fields["group"].queryset = StudyGroup.objects.select_related("branch", "teacher")
         self.fields["group"].empty_label = "— Guruhsiz —"
+        self.fields["group"].label_from_instance = group_label
+        if self.instance.pk:
+            self.fields["group"].label = "Boshqa guruhga o‘tkazish"
+            self.fields["group"].help_text = (
+                "Yangi guruhni tanlab saqlang — guruh, o‘qituvchi va dars vaqti avtomatik yangilanadi."
+            )
         if self.instance.pk:
             self.initial["phone"] = self.instance.phone_display
             self.initial["password"] = self.instance.initial_password

@@ -7,7 +7,7 @@
   <a class="sd-back" href="{% if group %}{% url 'groups:detail' group.pk %}{% else %}{% url 'groups:list' %}{% endif %}"><i class="fas fa-arrow-left"></i> {% if group %}{{ group.name }}{% else %}Guruhlar{% endif %}</a>
   <header class="sd-head"><div>
     <h1>{% if group %}Guruhni tahrirlash{% else %}Yangi guruh{% endif %}</h1>
-    <p>Guruh yaratilgach, talabalarni «Talabalar» bo‘limida shu guruhga biriktirasiz.</p>
+    <p>Guruh yaratilgach, mavjud talabalarni guruh sahifasidan qidirib qo‘shasiz.</p>
   </div></header>
 
   <form method="post" novalidate>
@@ -19,7 +19,9 @@
         {% include "admin/students/_field.html" with f=form.category %}
         {% include "admin/students/_field.html" with f=form.branch %}
         {% include "admin/students/_field.html" with f=form.teacher %}
+        {% include "admin/students/_field.html" with f=form.lesson_time %}
       </div>
+      {% if not has_teachers %}<p class="sd-error">O‘qituvchilar yo‘q: <a href="{% url 'teachers:create' %}">o‘qituvchi qo‘shing</a>.</p>{% endif %}
       {% if not has_branches %}<p class="sd-error">Avval filial yarating: <a href="{% url 'admin:avto_branch_add' %}">Filial qo‘shish</a>.</p>{% endif %}
     </section>
     <div class="sd-submit">

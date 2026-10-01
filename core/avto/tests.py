@@ -296,7 +296,7 @@ class ProfileTests(TestCase):
         self.client.force_login(bare)
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Ma'lumot yo'q", count=8)
+        self.assertContains(response, "Ma'lumot yo'q", count=9)
 
     def test_profile_follows_site_language(self):
         self.client.force_login(self.student)

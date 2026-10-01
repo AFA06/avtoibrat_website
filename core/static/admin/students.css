@@ -148,3 +148,18 @@
 .sd-meter i { display: block; height: 100%; background: var(--sd-brand); border-radius: 99px; }
 .sd-rules { margin-top: 14px; color: var(--sd-muted); font-size: 13px; }
 @media (max-width: 767px) { .sd-stats--4 { grid-template-columns: 1fr 1fr; } }
+
+/* Pick list + group card */
+.sd-search--block { display: block; margin-bottom: 12px; }
+.sd-picklist { max-height: 300px; overflow-y: auto; margin-bottom: 14px; border: 1px solid var(--sd-line); border-radius: 12px; }
+.sd-pick { display: flex; align-items: center; gap: 12px; margin: 0; padding: 10px 14px; cursor: pointer; border-top: 1px solid var(--sd-line); font-weight: 400; }
+.sd-pick:first-child { border-top: 0; }
+.sd-pick:hover { background: var(--sd-soft); }
+.sd-pick[hidden] { display: none; }
+.sd-pick em { margin-left: auto; font-style: normal; color: var(--sd-muted); font-size: 12.5px; }
+.sd-pick small { color: var(--sd-muted); }
+.sd-pick input { width: 16px; height: 16px; }
+.sd-current { display: flex; flex-wrap: wrap; gap: 8px 28px; padding: 14px 16px; margin-bottom: 18px; border-radius: 12px; background: var(--sd-soft); }
+.sd-current div { min-width: 140px; }
+.sd-current span { display: block; color: var(--sd-muted); font-size: 12px; }
+.sd-current b { font-weight: 600; }

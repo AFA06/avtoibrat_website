@@ -256,6 +256,9 @@ class StudyGroup(models.Model):
     branch = models.ForeignKey(
         Branch, verbose_name="Filial", on_delete=models.PROTECT, related_name="groups"
     )
+    lesson_time = models.CharField(
+        "Dars vaqti", max_length=100, blank=True, help_text="Masalan: Du-Chor-Ju, 18:00–20:00",
+    )
     teacher = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         verbose_name="O‘qituvchi",
