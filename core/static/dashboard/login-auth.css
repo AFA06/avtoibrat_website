@@ -285,20 +285,16 @@ body.login-auth {
 }
 
 .login-cc {
+  display: flex;
+  align-items: center;
   height: 100%;
-  padding: 0 28px 0 16px;
-  border: 0;
+  padding: 0 16px;
   border-right: 1.5px solid var(--login-border);
   border-radius: var(--login-radius) 0 0 var(--login-radius);
-  background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23667085' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 12px center;
   color: var(--login-text);
-  font: inherit;
   font-size: 16px;
   font-weight: 500;
-  cursor: pointer;
-  appearance: none;
-  -webkit-appearance: none;
-  outline: none;
+  user-select: none;
 }
 
 .login-btn--outline {

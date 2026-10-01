@@ -53,7 +53,7 @@ Static file URLs are automatically suffixed with the file's modification time (`
 
 ## Login and roles
 
-- **Students** log in with their phone number (any format, with or without `+998`) and password. Phone is required and unique per student; set on the account in the admin (`User.phone`).
+- **Students** log in with their phone number (any format, with or without `+998`) and password. The login form fixes `+998` and masks the rest as `99-999-99-99`. Teachers manage students in **Admin → Talabalar** (`/admin/students/`, `avto/student_views.py`): create/edit, search, group filter, auto-generated passwords (name + birth year, e.g. `Abdu2006`), visible passwords (`User.initial_password`), reset, block/unblock (`User.is_blocked`) and delete. Students cannot change their password.
 - **Staff** (instructors, teachers, admins) log in with their username and password, and are sent to the Django admin. The staff profile on the login page only accepts accounts with `is_staff=True`.
 - The login page (`templates/dashboard/login.html`) is a two-step flow: pick a profile (Student/Staff), then enter credentials. `Parolni unutdingizmi?` links to `forgotlogin.html`, which lists the active contacts from `ContactPerson` (admin panel) for the student to call — there is no self-service password reset.
 - A student's exam/question language (`User.group_language`: uz / uz-kr / ru) is independent of the site's UI language switcher — set per student in the admin to match the group they study in.

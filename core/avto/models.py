@@ -321,6 +321,17 @@ class User(AbstractUser):
         on_delete=models.SET_NULL,
         related_name="students",
     )
+    is_blocked = models.BooleanField(
+        "Bloklangan",
+        default=False,
+        help_text="O‘qituvchi tomonidan o‘chirilgan hisob: muddatidan qat’i nazar kira olmaydi.",
+    )
+    initial_password = models.CharField(
+        "Talaba paroli",
+        max_length=64,
+        blank=True,
+        help_text="Faqat xodimlarga ko‘rinadi — talaba parolni unutsa, o‘qituvchi shu yerdan aytadi.",
+    )
     photo = models.ImageField("Rasm", upload_to="students/", blank=True, null=True)
     birth_date = models.DateField("Tug‘ilgan sana", null=True, blank=True)
     passport_number = models.CharField(
@@ -374,9 +385,19 @@ class User(AbstractUser):
         return self.account_started_at <= now < self.account_expires_at
 
     def has_active_account(self):
-        if self.is_superuser or self.unlimited:
+        if self.is_superuser:
             return True
-        return self.vaqt_boyicha_faolmi()
+        if self.is_blocked:
+            return False
+        return self.unlimited or self.vaqt_boyicha_faolmi()
+
+    @property
+    def phone_display(self):
+        """Phone as 99-999-99-99 when it is a full Uzbek number, otherwise as stored."""
+        digits = normalize_phone(self.phone)
+        if len(digits) != 9:
+            return self.phone
+        return f"{digits[:2]}-{digits[2:5]}-{digits[5:7]}-{digits[7:]}"
 
     def sync_active_status(self):
         active = self.has_active_account()

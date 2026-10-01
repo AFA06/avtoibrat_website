@@ -74,15 +74,15 @@
                     <input type="hidden" name="role" id="role-input" value="">
 
                     <div class="login-field login-phone" data-role-field="student">
-                        <select class="login-cc" aria-label="{% trans 'Davlat kodi' %}">
-                            <option value="+998">+998</option>
-                        </select>
+                        <span class="login-cc" aria-hidden="true">+998</span>
                         <input type="text"
                                name="username"
                                id="phone"
-                               inputmode="tel"
+                               inputmode="numeric"
                                autocomplete="tel-national"
-                               placeholder="00 123 45 67"
+                               maxlength="12"
+                               pattern="\d{2}-\d{3}-\d{2}-\d{2}"
+                               placeholder="99-999-99-99"
                                aria-label="{% trans 'Telefon raqami' %}"
                                required>
                         <i class="fas fa-mobile-alt login-field-icon" aria-hidden="true"></i>

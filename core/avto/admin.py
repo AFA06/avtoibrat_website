@@ -1,13 +1,12 @@
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
 
-from .forms import UserCreateForm
 from .models import (
     TestCategory, TestType, Question, Answer, TestSession, UserAnswer, SavedQuestion,
     TeamMember, Story, ConsultRequest, Testimonial, FAQ, ContactMessage, ContactPerson,
-    RoadSignCategory, RoadSign, PdfMaterial, User, UserDevice, Branch, StudyGroup
+    RoadSignCategory, RoadSign, PdfMaterial, Branch, StudyGroup
 )
-from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
+
 class AnswerInline(admin.TabularInline):
     model = Answer
     extra = 4
@@ -148,85 +147,3 @@ class StudyGroupAdmin(admin.ModelAdmin):
     list_display = ("name", "category", "branch", "teacher")
     list_filter = ("category", "branch")
     search_fields = ("name", "teacher__username", "teacher__first_name", "teacher__last_name")
-
-
-@admin.register(User)
-class UserAdmin(DjangoUserAdmin):
-    model = User
-    add_form = UserCreateForm
-
-    list_display = (
-        "username",
-        "phone",
-        "group",
-        "group_language",
-        "vaqt_boyicha_faol_status",
-        "is_superuser",
-        "is_active",
-    )
-
-    list_editable = ("is_active",)
-
-    search_fields = ("username", "email", "phone")
-    list_filter = ("is_active", "is_superuser", "unlimited", "group_language", "group")
-    ordering = ("-date_joined",)
-
-
-
-    fieldsets = (
-        (None, {"fields": ("username", "password")}),
-        ("Shaxsiy ma’lumotlar", {"fields": ("first_name", "last_name", "email", "phone")
-        }),
-
-        ("Guruh", {"fields": ("group_language",)}),
-
-        ("Talaba profili", {
-            "fields": (
-                "group",
-                "photo",
-                "birth_date",
-                "passport_number",
-                "study_start",
-                "study_end",
-            )
-        }),
-
-        ("Faollik", {
-            "fields": (
-                "is_active",
-                "is_staff",
-                "is_superuser",
-                "unlimited",
-                "device_limit",
-                "account_started_at",
-                "account_expires_at",
-            )
-        }),
-        ("Ruxsatlar", {"fields": ("groups", "user_permissions")}),
-        ("Muhim sanalar", {"fields": ("last_login", "date_joined")}),
-    )
-
-    add_fieldsets = (
-        (None, {
-            "classes": ("wide",),
-            "fields": (
-                "username",
-                "first_name",
-                "last_name",
-                "phone",
-                "group",
-                "password1",
-                "password2",
-                "device_limit",
-                "group_language",
-                "is_active",
-                "is_staff",
-                "is_superuser",
-            ),
-        }),
-    )
-
-    @admin.display(description="Vaqt bo‘yicha aktiv", boolean=True)
-    def vaqt_boyicha_faol_status(self, obj):
-        return obj.vaqt_boyicha_faolmi()
-

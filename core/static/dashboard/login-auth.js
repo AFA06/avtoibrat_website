@@ -67,6 +67,17 @@
     return Array.from(cards).find((card) => card.dataset.role === role);
   }
 
+  // Uzbek mobile number: +998 is fixed, the rest is typed as 99-999-99-99 (9 digits max).
+  const phoneInput = document.getElementById("phone");
+  phoneInput.addEventListener("input", () => {
+    let digits = phoneInput.value.replace(/\D/g, "");
+    if (digits.startsWith("998") && digits.length > 9) digits = digits.slice(3);
+    digits = digits.slice(0, 9);
+    phoneInput.value = [digits.slice(0, 2), digits.slice(2, 5), digits.slice(5, 7), digits.slice(7, 9)]
+      .filter(Boolean)
+      .join("-");
+  });
+
   cards.forEach((card) => card.addEventListener("click", () => selectCard(card)));
   profileNext.addEventListener("click", showCredentials);
   document.getElementById("go-back").addEventListener("click", showProfile);

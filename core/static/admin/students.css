@@ -1,0 +1,49 @@
+/* Admin → Talabalar */
+.st { --st-border: rgba(128,128,128,.2); --st-muted: #6b7280; }
+.st-stats { display: flex; gap: 20px; margin-bottom: 14px; color: var(--st-muted); }
+.st-stats b { color: inherit; font-size: 1.1rem; margin-right: 4px; }
+.st-stats__blocked b { color: #dc2626; }
+.st-filters { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 16px; }
+.st-filters select, .st-field input:not([type=checkbox]), .st-field select { height: 42px; padding: 0 12px; border: 1px solid var(--st-border); border-radius: 10px; background: transparent; color: inherit; width: 100%; }
+.st-filters select { width: auto; min-width: 170px; }
+.st-search { position: relative; flex: 1 1 280px; }
+.st-search i { position: absolute; left: 14px; top: 13px; color: var(--st-muted); }
+.st-search input { width: 100%; height: 42px; padding: 0 14px 0 40px; border: 1px solid var(--st-border); border-radius: 10px; background: transparent; color: inherit; }
+.st-card { border: 1px solid var(--st-border); border-radius: 14px; box-shadow: 0 1px 2px rgba(0,0,0,.04); }
+.st-table { margin: 0; }
+.st-table th { font-size: .75rem; text-transform: uppercase; letter-spacing: .04em; color: var(--st-muted); border-top: 0; white-space: nowrap; }
+.st-table td { vertical-align: middle; }
+.st-table tr.is-blocked td { opacity: .6; }
+.st-name { display: flex; align-items: center; gap: 12px; color: inherit; font-weight: 600; }
+.st-name small { display: block; font-weight: 400; color: var(--st-muted); }
+.st-avatar { width: 38px; height: 38px; flex: none; display: grid; place-items: center; border-radius: 50%; background: rgba(16,185,129,.15); color: #059669; font-weight: 700; }
+.st-mono, .st-pass code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; white-space: nowrap; }
+.st-pass { display: inline-flex; align-items: center; gap: 4px; }
+.st-pass code { color: inherit; background: rgba(128,128,128,.12); padding: 3px 8px; border-radius: 6px; }
+.st-pill { display: inline-block; padding: 2px 10px; border-radius: 999px; font-size: .75rem; font-weight: 600; }
+.st-pill--green { background: rgba(16,185,129,.15); color: #059669; }
+.st-pill--red { background: rgba(239,68,68,.15); color: #dc2626; }
+.st-pill--amber { background: rgba(245,158,11,.18); color: #b45309; }
+.st-actions { white-space: nowrap; }
+.st-actions form { display: inline; }
+.st-icon { display: inline-grid; place-items: center; width: 34px; height: 34px; border: 0; border-radius: 8px; background: transparent; color: var(--st-muted); cursor: pointer; }
+.st-icon:hover { background: rgba(128,128,128,.14); color: inherit; text-decoration: none; }
+.st-icon--danger:hover { background: rgba(239,68,68,.14); color: #dc2626; }
+.st-empty { text-align: center; padding: 40px !important; color: var(--st-muted); }
+.st-pager { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; border-top: 1px solid var(--st-border); }
+
+.st-form { max-width: 860px; }
+.st-form .card { margin-bottom: 16px; }
+.st-section { font-weight: 700; margin-bottom: 16px; }
+.st-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+.st-field label { display: block; font-weight: 600; font-size: .85rem; margin-bottom: 6px; }
+.st-field label em { color: #dc2626; font-style: normal; }
+.st-help { margin: 6px 0 0; font-size: .8rem; color: var(--st-muted); }
+.st-error { margin: 6px 0 0; font-size: .8rem; color: #dc2626; }
+.st-field.has-error input, .st-field.has-error select { border-color: #dc2626; }
+.st-phone, .st-password { display: flex; gap: 8px; }
+.st-phone { align-items: stretch; border: 1px solid var(--st-border); border-radius: 10px; overflow: hidden; }
+.st-phone span { display: grid; place-items: center; padding: 0 12px; background: rgba(128,128,128,.12); font-weight: 600; }
+.st-phone input { border: 0 !important; border-radius: 0 !important; font-family: ui-monospace, Menlo, monospace; letter-spacing: .05em; }
+.st-password input { font-family: ui-monospace, Menlo, monospace; }
+.st-submit { display: flex; gap: 10px; }

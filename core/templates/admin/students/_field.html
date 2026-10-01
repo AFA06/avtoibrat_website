@@ -1,0 +1,6 @@
+<div class="st-field {% if f.errors %}has-error{% endif %}">
+  <label for="{{ f.id_for_label }}">{{ f.label }}{% if f.field.required %} <em>*</em>{% endif %}</label>
+  {{ f }}
+  {% for e in f.errors %}<p class="st-error">{{ e }}</p>{% endfor %}
+  {% if f.help_text %}<p class="st-help">{{ f.help_text }}</p>{% endif %}
+</div>
