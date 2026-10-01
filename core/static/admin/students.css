@@ -179,3 +179,9 @@ a.sd-stat--link:hover { transform: translateY(-2px); box-shadow: 0 10px 24px -10
 .sd .sd-head a.sd-btn--primary, .sd .sd-head a.sd-btn--primary:hover { color: #0b5c43 !important; }
 .sd .sd-head a.sd-btn--ghost { color: #fff !important; }
 .sd-table tbody tr:nth-last-child(-n+2) .sd-menu { top: auto; bottom: calc(100% + 6px); }
+
+/* Inline "+ add" action next to a field label */
+.sd-field__head { min-height: 28px; display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 6px; }
+.sd-field__head label { margin: 0; }
+.sd .sd-chip-btn { display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 12px; border-radius: 999px; background: var(--sd-green-bg); color: var(--sd-green) !important; font-size: 12.5px; font-weight: 600; white-space: nowrap; transition: background .15s; }
+.sd .sd-chip-btn:hover { background: var(--sd-brand); color: #fff !important; text-decoration: none; }

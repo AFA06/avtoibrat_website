@@ -17,12 +17,12 @@
       <div class="sd-grid">
         {% include "admin/students/_field.html" with f=form.name %}
         {% include "admin/students/_field.html" with f=form.category %}
-        {% include "admin/students/_field.html" with f=form.branch %}
-        {% include "admin/students/_field.html" with f=form.teacher %}
+        {% url 'admin:avto_branch_add' as branch_add %}
+        {% include "admin/students/_field.html" with f=form.branch action_url=branch_add action_label="Yangi filial" %}
+        {% if request.user.is_superuser %}{% url 'teachers:create' as teacher_add %}{% endif %}
+        {% include "admin/students/_field.html" with f=form.teacher action_url=teacher_add action_label="Yangi o‘qituvchi" %}
         {% include "admin/students/_field.html" with f=form.lesson_time %}
       </div>
-      {% if not has_teachers %}<p class="sd-error">O‘qituvchilar yo‘q: <a href="{% url 'teachers:create' %}">o‘qituvchi qo‘shing</a>.</p>{% endif %}
-      {% if not has_branches %}<p class="sd-error">Avval filial yarating: <a href="{% url 'admin:avto_branch_add' %}">Filial qo‘shish</a>.</p>{% endif %}
     </section>
     <div class="sd-submit">
       <button type="submit" class="sd-btn sd-btn--primary"><i class="fas fa-check"></i> Saqlash</button>

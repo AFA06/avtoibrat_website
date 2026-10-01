@@ -7,7 +7,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_POST
 
 from .leaderboard import PERIODS, SORTS, build, sort_rows
-from .models import Branch, StudyGroup, User
+from .models import StudyGroup, User
 from .student_views import _page, _students
 
 
@@ -74,7 +74,7 @@ def group_form(request, pk=None):
         return redirect("groups:detail", pk=saved.pk)
     return render(request, "admin/groups/form.html", _page(
         request, group.name if group else "Yangi guruh",
-        form=form, group=group, has_branches=Branch.objects.exists(),
+        form=form, group=group,
     ))
 
 

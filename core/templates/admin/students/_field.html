@@ -1,5 +1,8 @@
 <div class="sd-field {% if f.errors %}has-error{% endif %}">
-  <label for="{{ f.id_for_label }}">{{ f.label }}{% if f.field.required %} <em>*</em>{% endif %}</label>
+  <div class="sd-field__head">
+    <label for="{{ f.id_for_label }}">{{ f.label }}{% if f.field.required %} <em>*</em>{% endif %}</label>
+    {% if action_url %}<a class="sd-chip-btn" href="{{ action_url }}"><i class="fas fa-plus"></i> {{ action_label }}</a>{% endif %}
+  </div>
   {{ f }}
   {% for e in f.errors %}<p class="sd-error">{{ e }}</p>{% endfor %}
   {% if f.help_text %}<p class="sd-help">{{ f.help_text }}</p>{% endif %}
