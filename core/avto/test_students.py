@@ -1,6 +1,7 @@
-from datetime import date
+from datetime import date, timedelta
 
 from django.test import TestCase
+from django.utils import timezone
 from django.urls import reverse
 
 from .models import User
@@ -88,3 +89,41 @@ class StudentSectionTests(TestCase):
 
     def test_staff_cannot_be_edited_here(self):
         self.assertEqual(self.client.get(reverse("students:edit", args=[self.teacher.pk])).status_code, 404)
+
+
+class AccessWindowTests(TestCase):
+    def setUp(self):
+        self.teacher = User.objects.create_user(username="teacher", password="x", is_staff=True, unlimited=True)
+        self.client.force_login(self.teacher)
+        now = timezone.now()
+        self.open = self.student("open", unlimited=True)
+        self.running = self.student("running", account_started_at=now - timedelta(days=5), account_expires_at=now + timedelta(days=5))
+        self.expired = self.student("expired", account_started_at=now - timedelta(days=60), account_expires_at=now - timedelta(days=1))
+        self.blocked = self.student("blocked", unlimited=True, is_blocked=True)
+
+    def student(self, username, **extra):
+        return User.objects.create_user(username=username, password="x", first_name=username, phone=username[:2] * 4 + "1", **extra)
+
+    def names(self, status):
+        page = self.client.get(reverse("students:list"), {"status": status}).context["page"]
+        return {s.username for s in page}
+
+    def test_status_filters_separate_active_expired_and_blocked(self):
+        self.assertEqual(self.names("active"), {"open", "running"})
+        self.assertEqual(self.names("expired"), {"expired"})
+        self.assertEqual(self.names("blocked"), {"blocked"})
+
+    def test_extend_reopens_an_expired_student_and_can_go_open_ended(self):
+        self.client.post(reverse("students:extend", args=[self.expired.pk]), {"days": "30"})
+        self.expired.refresh_from_db()
+        self.assertTrue(self.expired.is_active and self.expired.has_active_account())
+        self.assertGreater(self.expired.account_expires_at, timezone.now() + timedelta(days=29))
+        self.client.post(reverse("students:extend", args=[self.expired.pk]), {"days": "0"})
+        self.expired.refresh_from_db()
+        self.assertTrue(self.expired.unlimited and self.expired.account_expires_at is None)
+
+    def test_extend_adds_to_a_running_window(self):
+        before = self.running.account_expires_at
+        self.client.post(reverse("students:extend", args=[self.running.pk]), {"days": "14"})
+        self.running.refresh_from_db()
+        self.assertEqual(self.running.account_expires_at - before, timedelta(days=14))

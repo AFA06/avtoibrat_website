@@ -15,9 +15,9 @@
   </header>
 
   <section class="sd-stats">
-    <div><span>Jami guruhlar</span><b>{{ total }}</b></div>
-    <div><span>Guruhsiz talabalar</span><b class="{% if ungrouped %}is-red{% endif %}">{{ ungrouped }}</b></div>
-    <div><span>Reyting</span><b><a class="sd-link" href="{% url 'admin_leaderboard' %}">Ko‘rish →</a></b></div>
+    <div class="sd-stat"><i class="fas fa-users sd-ico sd-ico--blue"></i><div><span>Jami guruhlar</span><b>{{ total }}</b></div></div>
+    <div class="sd-stat"><i class="fas fa-user-clock sd-ico sd-ico--amber"></i><div><span>Guruhsiz talabalar</span><b>{{ ungrouped }}</b></div></div>
+    <a class="sd-stat sd-stat--link" href="{% url 'admin_leaderboard' %}"><i class="fas fa-trophy sd-ico sd-ico--gold"></i><div><span>Reyting</span><b>Ko‘rish →</b></div></a>
   </section>
 
   <section class="sd-panel">

@@ -39,10 +39,10 @@
   </section>
 
   <section class="sd-stats sd-stats--4">
-    <div><span>Talabalar</span><b>{{ rows|length }}</b></div>
-    <div><span>Faol ({{ period_label }})</span><b class="is-green">{{ active_count }}</b></div>
-    <div><span>O‘rtacha aniqlik</span><b>{% if accuracy_avg is None %}—{% else %}{{ accuracy_avg }}%{% endif %}</b></div>
-    <div><span>Yechilgan savollar</span><b>{{ solved_total }}</b></div>
+    <div class="sd-stat"><i class="fas fa-user-graduate sd-ico sd-ico--blue"></i><div><span>Talabalar</span><b>{{ rows|length }}</b></div></div>
+    <div class="sd-stat"><i class="fas fa-bolt sd-ico sd-ico--green"></i><div><span>Faol ({{ period_label }})</span><b>{{ active_count }}</b></div></div>
+    <div class="sd-stat"><i class="fas fa-bullseye sd-ico sd-ico--amber"></i><div><span>O‘rtacha aniqlik</span><b>{% if accuracy_avg is None %}—{% else %}{{ accuracy_avg }}%{% endif %}</b></div></div>
+    <div class="sd-stat"><i class="fas fa-check-double sd-ico sd-ico--violet"></i><div><span>Yechilgan savollar</span><b>{{ solved_total }}</b></div></div>
   </section>
 
   <section class="sd-panel">

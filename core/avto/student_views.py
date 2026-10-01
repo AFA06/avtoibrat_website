@@ -1,5 +1,5 @@
 """Teacher-facing student management, living inside the admin panel at /admin/students/."""
-from datetime import date
+from datetime import date, timedelta
 
 from django.contrib import admin, messages
 from django.contrib.admin.views.decorators import staff_member_required
@@ -14,10 +14,17 @@ from .models import StudyGroup, User, normalize_phone
 from .student_forms import StudentForm, generate_password
 
 PAGE_SIZE = 20
-STATUS_FILTERS = {
-    "active": Q(is_blocked=False),
-    "blocked": Q(is_blocked=True),
-}
+EXTEND_CHOICES = {"14": "2 hafta", "30": "1 oy", "60": "2 oy", "0": "muddatsiz"}
+
+
+def status_filters(now):
+    """A student is blocked (teacher's switch), expired (access date passed) or active."""
+    live = Q(unlimited=True) | Q(account_expires_at__gt=now)
+    return {
+        "active": Q(is_blocked=False) & live,
+        "expired": Q(is_blocked=False) & ~live,
+        "blocked": Q(is_blocked=True),
+    }
 
 
 SORTS = {
@@ -50,14 +57,16 @@ def student_list(request):
         students = students.filter(match)
     if group_id.isdigit():
         students = students.filter(group_id=group_id)
-    if status in STATUS_FILTERS:
-        students = students.filter(STATUS_FILTERS[status])
+    now = timezone.now()
+    filters = status_filters(now)
+    if status in filters:
+        students = students.filter(filters[status])
 
     sort = request.GET.get("sort", "name")
     page = Paginator(students.order_by(*SORTS.get(sort, SORTS["name"])[1]), PAGE_SIZE).get_page(request.GET.get("page"))
     everyone = _students()
     total = everyone.count()
-    blocked = everyone.filter(is_blocked=True).count()
+    counts = {name: everyone.filter(q).count() for name, q in filters.items()}
     return render(request, "admin/students/list.html", _page(
         request, "Talabalar",
         page=page,
@@ -68,9 +77,9 @@ def student_list(request):
         sorts=SORTS,
         groups=StudyGroup.objects.select_related("branch"),
         total=total,
-        blocked=blocked,
-        active=total - blocked,
-        today=timezone.now(),
+        counts=counts,
+        extend_choices=EXTEND_CHOICES,
+        today=now,
     ))
 
 
@@ -109,6 +118,28 @@ def student_toggle(request, pk):
     student.sync_active_status()
     state = "bloklandi" if student.is_blocked else "faollashtirildi"
     messages.success(request, f"{student.get_full_name()} {state}.")
+    return redirect(request.POST.get("next") or "students:list")
+
+
+@staff_member_required
+@require_POST
+def student_extend(request, pk):
+    """Open-ended by default; the teacher pushes the end date out until the student is done."""
+    student = get_object_or_404(_students(), pk=pk)
+    days = request.POST.get("days", "")
+    if days not in EXTEND_CHOICES:
+        return redirect("students:list")
+    now = timezone.now()
+    if days == "0":
+        student.unlimited, student.account_expires_at = True, None
+    else:
+        current = student.account_expires_at if not student.unlimited else None
+        student.unlimited = False
+        student.account_expires_at = max(now, current or now) + timedelta(days=int(days))
+        student.account_started_at = student.account_started_at or now
+    student.save(update_fields=["unlimited", "account_expires_at", "account_started_at"])
+    student.sync_active_status()
+    messages.success(request, f"{student.get_full_name()} uchun kirish {EXTEND_CHOICES[days]} qilib belgilandi.")
     return redirect(request.POST.get("next") or "students:list")
 
 

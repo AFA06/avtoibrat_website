@@ -3,7 +3,7 @@
   --sd-bg: #fff; --sd-soft: #f6f7f9; --sd-line: #e6e8ec; --sd-text: #101828; --sd-muted: #667085;
   --sd-brand: #0f9d73; --sd-brand-dark: #0b7d5b; --sd-green: #067647; --sd-green-bg: #ecfdf3;
   --sd-red: #b42318; --sd-red-bg: #fef3f2; --sd-amber: #b54708; --sd-amber-bg: #fffaeb;
-  max-width: 1240px; padding: 28px 0 56px; color: var(--sd-text); font-size: 14px;
+  max-width: 1480px; padding: 24px 0 56px; color: var(--sd-text); font-size: 14px;
 }
 .dark-mode .sd {
   --sd-bg: #1b222c; --sd-soft: #232b37; --sd-line: #2e3744; --sd-text: #f2f4f7; --sd-muted: #98a2b3;
@@ -13,9 +13,16 @@
 .sd--narrow { max-width: 820px; }
 .sd * { box-sizing: border-box; }
 
-.sd-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; margin-bottom: 24px; }
-.sd-head h1 { margin: 0; font-size: 26px; font-weight: 700; letter-spacing: -.02em; }
-.sd-head p { margin: 4px 0 0; color: var(--sd-muted); }
+.sd-head { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 22px; padding: 26px 30px; border-radius: 18px; color: #fff;
+  background: radial-gradient(700px 200px at 100% -40%, rgba(96,165,250,.35), transparent 60%), linear-gradient(135deg, #0b3a2c 0%, #0f7a57 62%, #12a877 100%);
+  box-shadow: 0 10px 30px -12px rgba(15,122,87,.55); }
+.sd-head h1 { margin: 0; font-size: 26px; font-weight: 700; letter-spacing: -.02em; color: #fff; }
+.sd-head p { margin: 4px 0 0; color: rgba(255,255,255,.78); }
+.sd-head .sd-tag { background: rgba(255,255,255,.18); border-color: rgba(255,255,255,.3); color: #fff; }
+.sd-head .sd-btn--primary { background: #fff; color: #0b5c43 !important; box-shadow: 0 6px 16px -6px rgba(0,0,0,.4); }
+.sd-head .sd-btn--primary:hover { background: #ecfdf3; }
+.sd-head .sd-btn--ghost { background: rgba(255,255,255,.14); border-color: rgba(255,255,255,.35); color: #fff !important; }
+.sd-head .sd-btn--ghost:hover { background: rgba(255,255,255,.24); }
 .sd-back { display: inline-flex; gap: 8px; align-items: center; margin-bottom: 14px; color: var(--sd-muted); font-weight: 500; }
 .sd-back:hover { color: var(--sd-text); text-decoration: none; }
 
@@ -23,16 +30,22 @@
 .sd-btn:hover { text-decoration: none; }
 .sd-btn--primary { background: var(--sd-brand); color: #fff; }
 .sd-btn--primary:hover { background: var(--sd-brand-dark); color: #fff; }
-.sd-btn--ghost { background: var(--sd-bg); border-color: var(--sd-line); color: var(--sd-text); height: 36px; }
+.sd-btn--ghost { background: var(--sd-bg); border-color: #cfd4dc; color: var(--sd-text); height: 36px; }
+.dark-mode .sd-btn--ghost { border-color: #3b4658; }
 .sd-btn--ghost:hover { background: var(--sd-soft); color: var(--sd-text); }
 
 .sd-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 20px; }
-.sd-stats > div { padding: 18px 20px; background: var(--sd-bg); border: 1px solid var(--sd-line); border-radius: 14px; }
-.sd-stats span { display: block; color: var(--sd-muted); font-weight: 500; }
-.sd-stats b { display: block; margin-top: 6px; font-size: 28px; line-height: 1; letter-spacing: -.02em; }
-.sd-stats .is-green { color: var(--sd-green); } .sd-stats .is-red { color: var(--sd-red); }
+.sd-stat { display: flex; align-items: center; gap: 16px; padding: 18px 20px; background: var(--sd-bg); border: 1px solid var(--sd-line); border-radius: 16px; box-shadow: 0 1px 2px rgba(16,24,40,.04); color: inherit; }
+a.sd-stat--link { transition: transform .15s, box-shadow .15s; color: inherit !important; }
+a.sd-stat--link:hover { transform: translateY(-2px); box-shadow: 0 10px 24px -10px rgba(16,24,40,.25); text-decoration: none; }
+.sd-stat span { display: block; color: var(--sd-muted); font-weight: 500; }
+.sd-stat b { display: block; margin-top: 4px; font-size: 26px; line-height: 1.1; letter-spacing: -.02em; }
+.sd-ico { flex: none; width: 48px; height: 48px; display: grid; place-items: center; border-radius: 14px; font-size: 18px; }
+.sd-ico--blue { background: #e0ecff; color: #2563eb; } .sd-ico--green { background: var(--sd-green-bg); color: var(--sd-green); }
+.sd-ico--amber { background: var(--sd-amber-bg); color: var(--sd-amber); } .sd-ico--red { background: var(--sd-red-bg); color: var(--sd-red); }
+.sd-ico--violet { background: #ede9fe; color: #7c3aed; } .sd-ico--gold { background: #fef3c7; color: #d97706; }
 
-.sd-panel { background: var(--sd-bg); border: 1px solid var(--sd-line); border-radius: 14px; }
+.sd-panel { background: var(--sd-bg); border: 1px solid var(--sd-line); border-radius: 16px; box-shadow: 0 1px 2px rgba(16,24,40,.04); overflow: visible; }
 .sd-toolbar { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; padding: 16px; border-bottom: 1px solid var(--sd-line); }
 .sd-search { position: relative; flex: 1 1 280px; margin: 0; }
 .sd-search i { position: absolute; left: 14px; top: 13px; color: var(--sd-muted); }
@@ -45,7 +58,7 @@
 .sd-tabs button.is-on { background: var(--sd-bg); color: var(--sd-text); box-shadow: 0 1px 2px rgba(16,24,40,.12); }
 
 .sd-table { width: 100%; border-collapse: collapse; }
-.sd-table th { padding: 12px 16px; background: var(--sd-soft); color: var(--sd-muted); font-size: 12px; font-weight: 600; text-align: left; white-space: nowrap; }
+.sd-table th { padding: 13px 16px; background: var(--sd-soft); border-bottom: 1px solid var(--sd-line); color: var(--sd-muted); font-size: 12px; font-weight: 600; text-align: left; white-space: nowrap; }
 .sd-table td { padding: 14px 16px; border-top: 1px solid var(--sd-line); vertical-align: middle; }
 .sd-table tbody tr:hover { background: var(--sd-soft); }
 .sd-table tr.is-blocked .sd-person, .sd-table tr.is-blocked .sd-mono { opacity: .55; }
@@ -163,3 +176,7 @@
 .sd-current div { min-width: 140px; }
 .sd-current span { display: block; color: var(--sd-muted); font-size: 12px; }
 .sd-current b { font-weight: 600; }
+.sd-menu__label { padding: 8px 12px 4px; color: var(--sd-muted); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; }
+.sd .sd-head a.sd-btn--primary, .sd .sd-head a.sd-btn--primary:hover { color: #0b5c43 !important; }
+.sd .sd-head a.sd-btn--ghost { color: #fff !important; }
+.sd-table tbody tr:nth-last-child(-n+2) .sd-menu { top: auto; bottom: calc(100% + 6px); }

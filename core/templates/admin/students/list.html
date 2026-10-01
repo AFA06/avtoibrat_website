@@ -14,10 +14,11 @@
     <a class="sd-btn sd-btn--primary" href="{% url 'students:create' %}"><i class="fas fa-plus"></i> Yangi talaba</a>
   </header>
 
-  <section class="sd-stats">
-    <div><span>Jami talabalar</span><b>{{ total }}</b></div>
-    <div><span>Faol</span><b class="is-green">{{ active }}</b></div>
-    <div><span>Bloklangan</span><b class="is-red">{{ blocked }}</b></div>
+  <section class="sd-stats sd-stats--4">
+    <div class="sd-stat"><i class="fas fa-user-graduate sd-ico sd-ico--blue"></i><div><span>Jami talabalar</span><b>{{ total }}</b></div></div>
+    <div class="sd-stat"><i class="fas fa-user-check sd-ico sd-ico--green"></i><div><span>Faol</span><b>{{ counts.active }}</b></div></div>
+    <div class="sd-stat"><i class="fas fa-hourglass-end sd-ico sd-ico--amber"></i><div><span>Muddati tugagan</span><b>{{ counts.expired }}</b></div></div>
+    <div class="sd-stat"><i class="fas fa-user-slash sd-ico sd-ico--red"></i><div><span>Bloklangan</span><b>{{ counts.blocked }}</b></div></div>
   </section>
 
   <section class="sd-panel">
@@ -36,6 +37,7 @@
       <div class="sd-tabs" role="tablist">
         <button name="status" value="" class="{% if not status %}is-on{% endif %}">Barchasi</button>
         <button name="status" value="active" class="{% if status == 'active' %}is-on{% endif %}">Faol</button>
+        <button name="status" value="expired" class="{% if status == 'expired' %}is-on{% endif %}">Muddati tugagan</button>
         <button name="status" value="blocked" class="{% if status == 'blocked' %}is-on{% endif %}">Bloklangan</button>
       </div>
     </form>
@@ -79,6 +81,14 @@
                   {% csrf_token %}<input type="hidden" name="next" value="{{ request.get_full_path }}">
                   <button ><i class="fas fa-key"></i> Parolni yangilash</button>
                 </form>
+                <div class="sd-menu__label">Kirish muddati</div>
+                {% for days, label in extend_choices.items %}
+                <form method="post" action="{% url 'students:extend' s.pk %}">
+                  {% csrf_token %}<input type="hidden" name="next" value="{{ request.get_full_path }}"><input type="hidden" name="days" value="{{ days }}">
+                  <button><i class="fas {% if days == '0' %}fa-infinity{% else %}fa-calendar-plus{% endif %}"></i> {% if days == '0' %}Muddatsiz qilish{% else %}+ {{ label }}{% endif %}</button>
+                </form>
+                {% endfor %}
+                <hr>
                 <form method="post" action="{% url 'students:toggle' s.pk %}">
                   {% csrf_token %}<input type="hidden" name="next" value="{{ request.get_full_path }}">
                   <button ><i class="fas {% if s.is_blocked %}fa-user-check{% else %}fa-user-slash{% endif %}"></i> {% if s.is_blocked %}Faollashtirish{% else %}Bloklash{% endif %}</button>
