@@ -1,3 +1,5 @@
+from datetime import time
+
 from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
@@ -141,7 +143,8 @@ class GroupMembershipTests(LeaderboardFixture):
 
     def test_changing_group_on_student_form_updates_profile(self):
         self.client.force_login(self.teacher)
-        self.group.teacher, self.group.lesson_time = self.teacher, "Du-Ju 18:00"
+        self.group.teacher, self.group.lesson_days = self.teacher, "135"
+        self.group.lesson_start, self.group.lesson_end = time(19), time(21)
         self.group.save()
         response = self.client.post(reverse("students:edit", args=[self.far.pk]), {
             "first_name": "Far", "last_name": "Test", "phone": "90-111-22-33", "group": self.group.pk,
@@ -151,7 +154,7 @@ class GroupMembershipTests(LeaderboardFixture):
         self.far.refresh_from_db()  # the password was reset by the form
         self.client.force_login(self.far)
         profile = self.client.get(reverse("profile"))
-        self.assertContains(profile, "Du-Ju 18:00")
+        self.assertContains(profile, "Du-Chor-Ju · 19:00–21:00")
 
 
 class TeacherPagesTests(LeaderboardFixture):
@@ -164,11 +167,34 @@ class TeacherPagesTests(LeaderboardFixture):
         teacher = User.objects.get(username="ibrat")
         self.assertTrue(teacher.is_staff and teacher.unlimited and teacher.check_password("Ibra1980"))
         self.client.post(reverse("groups:edit", args=[self.group.pk]), {
-            "name": "52", "category": "B", "branch": self.branch.pk, "teacher": teacher.pk, "lesson_time": "Du-Ju",
+            "name": "52", "category": "B", "branch": self.branch.pk, "teacher": teacher.pk,
+            "lesson_days": ["2", "4", "6"], "lesson_start": "10:00", "lesson_end": "12:00",
         })
         self.group.refresh_from_db()
-        self.assertEqual((self.group.teacher, self.group.lesson_time), (teacher, "Du-Ju"))
+        self.assertEqual((self.group.teacher, self.group.lesson_time), (teacher, "Se-Pay-Shan · 10:00–12:00"))
 
     def test_teachers_cannot_manage_teachers(self):
         self.client.force_login(self.teacher)
         self.assertRedirects(self.client.get(reverse("teachers:list")), reverse("admin:index"), fetch_redirect_response=False)
+
+
+class LessonScheduleTests(LeaderboardFixture):
+    def post(self, **extra):
+        self.client.force_login(self.teacher)
+        data = {"name": "70", "category": "B", "branch": self.branch.pk, "teacher": "", **extra}
+        return self.client.post(reverse("groups:create"), data)
+
+    def test_days_are_stored_sorted_and_shown_as_text(self):
+        self.post(lesson_days=["5", "1", "3"], lesson_start="09:30", lesson_end="11:30")
+        group = StudyGroup.objects.get(name="70")
+        self.assertEqual(group.lesson_days, "135")
+        self.assertEqual(group.lesson_time, "Du-Chor-Ju · 09:30–11:30")
+
+    def test_schedule_is_optional(self):
+        self.post()
+        self.assertEqual(StudyGroup.objects.get(name="70").lesson_time, "")
+
+    def test_end_must_follow_start_and_both_are_required_together(self):
+        self.assertEqual(self.post(lesson_start="19:00", lesson_end="18:00").status_code, 200)
+        self.assertEqual(self.post(lesson_start="19:00").status_code, 200)
+        self.assertFalse(StudyGroup.objects.filter(name="70").exists())

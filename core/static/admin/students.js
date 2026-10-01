@@ -57,6 +57,24 @@
     });
   });
 
+  // Group schedule: day presets and "end = start + 2h"
+  document.querySelectorAll("[data-days]").forEach((preset) => {
+    preset.addEventListener("click", () => {
+      const days = preset.dataset.days.split(",");
+      document.querySelectorAll(".sd-day input").forEach((box) => (box.checked = days.includes(box.value)));
+    });
+  });
+  const start = document.getElementById("id_lesson_start");
+  const end = document.getElementById("id_lesson_end");
+  if (start && end) {
+    start.addEventListener("change", () => {
+      if (!start.value || (end.value && end.value > start.value)) return;
+      const [h, m] = start.value.split(":").map(Number);
+      const value = `${String(h + 2).padStart(2, "0")}:${String(m).padStart(2, "0")}`;
+      if ([...end.options].some((o) => o.value === value)) end.value = value;
+    });
+  }
+
   // --- Student form: 99-999-99-99 phone mask ---
   const phone = document.querySelector("[data-phone-mask]");
   if (phone) {

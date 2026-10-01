@@ -256,9 +256,11 @@ class StudyGroup(models.Model):
     branch = models.ForeignKey(
         Branch, verbose_name="Filial", on_delete=models.PROTECT, related_name="groups"
     )
-    lesson_time = models.CharField(
-        "Dars vaqti", max_length=100, blank=True, help_text="Masalan: Du-Chor-Ju, 18:00–20:00",
+    lesson_days = models.CharField(
+        "Dars kunlari", max_length=7, blank=True, help_text="1 = dushanba … 7 = yakshanba, masalan «135».",
     )
+    lesson_start = models.TimeField("Dars boshlanishi", null=True, blank=True)
+    lesson_end = models.TimeField("Dars tugashi", null=True, blank=True)
     teacher = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         verbose_name="O‘qituvchi",
@@ -276,6 +278,20 @@ class StudyGroup(models.Model):
 
     def __str__(self):
         return f"{self.name} ({self.category}) — {self.branch}"
+
+    LESSON_DAYS = ((1, "Du"), (2, "Se"), (3, "Chor"), (4, "Pay"), (5, "Ju"), (6, "Shan"), (7, "Yak"))
+
+    @property
+    def lesson_day_numbers(self):
+        return [int(d) for d in self.lesson_days]
+
+    @property
+    def lesson_time(self):
+        """Human text for lists and profiles: «Du-Chor-Ju · 19:00–21:00»."""
+        names = dict(self.LESSON_DAYS)
+        days = "-".join(names[n] for n in sorted(self.lesson_day_numbers))
+        hours = f"{self.lesson_start:%H:%M}–{self.lesson_end:%H:%M}" if self.lesson_start and self.lesson_end else ""
+        return " · ".join(part for part in (days, hours) if part)
 
 
 UZ_COUNTRY_CODE = "998"

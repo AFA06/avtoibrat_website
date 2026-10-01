@@ -11,21 +11,53 @@ from .models import StudyGroup, User
 from .student_views import _page, _students
 
 
+def _time_choices(first=7, last=22):
+    slots = [f"{h:02d}:{m:02d}" for h in range(first, last + 1) for m in (0, 30) if (h, m) <= (last, 0)]
+    return [("", "— Tanlang —")] + [(t, t) for t in slots]
+
+
 class GroupForm(forms.ModelForm):
+    lesson_days = forms.MultipleChoiceField(
+        label="Dars kunlari", required=False, choices=StudyGroup.LESSON_DAYS,
+        widget=forms.CheckboxSelectMultiple,
+    )
+    lesson_start = forms.TimeField(label="Boshlanishi", required=False, widget=forms.Select(choices=_time_choices()))
+    lesson_end = forms.TimeField(label="Tugashi", required=False, widget=forms.Select(choices=_time_choices()))
+
     class Meta:
         model = StudyGroup
-        fields = ("name", "category", "branch", "teacher", "lesson_time")
+        fields = ("name", "category", "branch", "teacher", "lesson_start", "lesson_end")
         labels = {
             "name": "Guruh raqami yoki nomi", "category": "Ta’lim toifasi",
-            "branch": "Filial", "teacher": "O‘qituvchi", "lesson_time": "Dars vaqti",
+            "branch": "Filial", "teacher": "O‘qituvchi",
         }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["teacher"].queryset = User.objects.filter(is_staff=True).order_by("first_name")
         self.fields["teacher"].empty_label = "— Biriktirilmagan —"
-        self.fields["lesson_time"].widget.attrs["placeholder"] = "Du-Chor-Ju, 18:00–20:00"
         self.fields["teacher"].label_from_instance = lambda u: u.get_full_name() or u.username
+        if self.instance.pk:
+            self.initial["lesson_days"] = [str(n) for n in self.instance.lesson_day_numbers]
+            for name in ("lesson_start", "lesson_end"):
+                value = getattr(self.instance, name)
+                self.initial[name] = f"{value:%H:%M}" if value else ""
+
+    def clean(self):
+        data = super().clean()
+        start, end = data.get("lesson_start"), data.get("lesson_end")
+        if bool(start) != bool(end):
+            raise forms.ValidationError("Dars boshlanishi va tugashini ikkalasini ham tanlang.")
+        if start and end and end <= start:
+            self.add_error("lesson_end", "Tugash vaqti boshlanishdan keyin bo‘lishi kerak.")
+        return data
+
+    def save(self, commit=True):
+        group = super().save(commit=False)
+        group.lesson_days = "".join(sorted(self.cleaned_data["lesson_days"]))
+        if commit:
+            group.save()
+        return group
 
 
 def _summaries(groups):

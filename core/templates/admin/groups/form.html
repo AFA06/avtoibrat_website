@@ -12,7 +12,7 @@
 
   <form method="post" novalidate>
     {% csrf_token %}
-    {{ form.non_field_errors }}
+    {% for e in form.non_field_errors %}<p class="sd-flash sd-flash--error">{{ e }}</p>{% endfor %}
     <section class="sd-panel sd-card">
       <div class="sd-grid">
         {% include "admin/students/_field.html" with f=form.name %}
@@ -21,9 +21,30 @@
         {% include "admin/students/_field.html" with f=form.branch action_url=branch_add action_label="Yangi filial" %}
         {% if request.user.is_superuser %}{% url 'teachers:create' as teacher_add %}{% endif %}
         {% include "admin/students/_field.html" with f=form.teacher action_url=teacher_add action_label="Yangi o‘qituvchi" %}
-        {% include "admin/students/_field.html" with f=form.lesson_time %}
       </div>
     </section>
+
+    <section class="sd-panel sd-card" id="schedule">
+      <h2>Dars jadvali</h2>
+      <div class="sd-field">
+        <div class="sd-field__head"><label>Dars kunlari</label>
+          <span class="sd-presets">
+            <button type="button" class="sd-chip-btn" data-days="1,3,5">Toq kunlar · Du-Chor-Ju</button>
+            <button type="button" class="sd-chip-btn" data-days="2,4,6">Juft kunlar · Se-Pay-Shan</button>
+          </span>
+        </div>
+        <div class="sd-days">
+          {% for box in form.lesson_days %}<label class="sd-day">{{ box.tag }}<span>{{ box.choice_label }}</span></label>{% endfor %}
+        </div>
+        <p class="sd-help">Kunni bosing — tanlanadi, yana bossangiz — bekor bo‘ladi.</p>
+      </div>
+      <div class="sd-grid sd-grid--times">
+        {% include "admin/students/_field.html" with f=form.lesson_start %}
+        {% include "admin/students/_field.html" with f=form.lesson_end %}
+      </div>
+      <p class="sd-help">Boshlanish vaqtini tanlasangiz, tugash vaqti o‘zi 2 soatdan keyinga qo‘yiladi (o‘zgartirish mumkin).</p>
+    </section>
+
     <div class="sd-submit">
       <button type="submit" class="sd-btn sd-btn--primary"><i class="fas fa-check"></i> Saqlash</button>
       <a class="sd-btn sd-btn--ghost" href="{% url 'groups:list' %}">Bekor qilish</a>
@@ -31,3 +52,5 @@
   </form>
 </div></div>
 {% endblock %}
+
+{% block extrajs %}<script src="{% static 'admin/students.js' %}"></script>{% endblock %}
