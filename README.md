@@ -114,5 +114,6 @@ python manage.py compilemessages
 ## Groups & leaderboard
 
 - **Admin → Reyting** is the global leaderboard (filter by group/period, sort); each group page has its own.
-- **Students → Reyting** (`/leaderboard/`): own rank in the group and among all students, top 10/20/50, period filter. Other students are shown as «Ali T.» only.
-- Scoring lives in `avto/leaderboard.py`: points = unique questions answered correctly + 20 per passed real exam (finished tests only); ties broken by accuracy.
+- **Students → Reyting** (`/leaderboard/`, `avto/leaderboard_views.py`): a «my rank» card (rank in group, rank among all students, points), a search box, a **Mening guruhim / Barcha talabalar** switch, a metric selector (ball / aniqlik / yechilgan / testlar), a period filter and Top 10/20/50. The top three get a podium (crown for #1) once three students have points; the student's own row is always shown, even outside the top N. Other students appear as «Ali T.» only.
+- The leaderboard UI is one shared component: `templates/leaderboard/` + `static/dashboard/leaderboard.css`, used by the student page and by the admin group page / **Reyting** page (`.lb--admin` maps the colours to the admin theme).
+- Scoring lives in `avto/leaderboard.py`: points = unique questions answered correctly + 20 per passed real exam (finished tests only). Ranking follows the selected metric; equal rows share a rank.

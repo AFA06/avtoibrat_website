@@ -31,6 +31,9 @@ SORTS = {
 }
 
 
+PODIUM_SIZE = 3
+
+
 @dataclass
 class Row:
     student: object
@@ -50,6 +53,11 @@ class Row:
         return round(self.correct * 100 / self.attempts) if self.attempts else None
 
     @property
+    def hue(self):
+        """Stable avatar colour per student."""
+        return self.student.pk * 47 % 360
+
+    @property
     def public_name(self):
         """Name shown to other students: «Abdurashid F.»"""
         last = (self.student.last_name or "")[:1]
@@ -62,8 +70,8 @@ def since_for(period):
     return timezone.now() - timedelta(days=days) if days else None
 
 
-def build(students, period="all"):
-    """Ranked rows (best first) for the given students; `rank` is by points, ties share a rank."""
+def build(students, period="all", sort="points"):
+    """Rows for the given students, best first by `sort`; equal rows share a rank."""
     rows = {s.pk: Row(student=s) for s in students}
     since = since_for(period)
 
@@ -94,15 +102,20 @@ def build(students, period="all"):
         if complete and session.wrong < REAL_EXAM_MAX_MISTAKES:
             rows[session.user_id].exams_passed += 1
 
-    ranked = sorted(rows.values(), key=SORTS["points"][1])
+    # Rank by the chosen metric; «name» only reorders the display, rank stays by points.
+    rank_key = SORTS[sort][1] if sort in SORTS and sort != "name" else SORTS["points"][1]
+    ranked = sorted(rows.values(), key=rank_key)
     previous, rank = None, 0
     for position, row in enumerate(ranked, start=1):
-        key = (row.points, row.accuracy)
+        key = rank_key(row)
         if key != previous:
             rank, previous = position, key
         row.rank = rank
-    return ranked
+    return sorted(ranked, key=SORTS["name"][1]) if sort == "name" else ranked
 
 
-def sort_rows(rows, sort):
-    return sorted(rows, key=SORTS.get(sort, SORTS["points"])[1])
+def split_podium(rows):
+    """(top three, the rest). No podium until three students have points."""
+    if len(rows) >= PODIUM_SIZE and rows[PODIUM_SIZE - 1].points:
+        return rows[:PODIUM_SIZE], rows[PODIUM_SIZE:]
+    return [], rows

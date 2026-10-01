@@ -1,0 +1,16 @@
+{# podium, rest, me_outside/me, viewer_id; flags: admin, removable (+group) #}
+{% if podium %}
+<section class="lb-podium">
+  {% include "leaderboard/_podium_item.html" with r=podium.1 place=2 %}
+  {% include "leaderboard/_podium_item.html" with r=podium.0 place=1 %}
+  {% include "leaderboard/_podium_item.html" with r=podium.2 place=3 %}
+</section>
+{% endif %}
+
+<section class="lb-list">
+  {% for r in rest %}{% include "leaderboard/_row.html" %}{% endfor %}
+  {% if me_outside %}<div class="lb-gap">⋯</div>{% with r=me %}{% include "leaderboard/_row.html" %}{% endwith %}{% endif %}
+  {% if not podium and not rest %}
+    <div class="lb-empty"><i class="fas fa-trophy"></i><p>Reytingda hali hech kim yo‘q. Test yechishni boshlang!</p></div>
+  {% endif %}
+</section>

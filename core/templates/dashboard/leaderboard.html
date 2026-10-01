@@ -2,66 +2,55 @@
 {% load i18n static %}
 
 {% block title %}{% trans "Reyting" %} - AvtoIbrat{% endblock %}
-{% block extra_css %}<link href="{% static 'dashboard/leaderboard.css' %}" rel="stylesheet" type="text/css" />{% endblock %}
+{% block extra_css %}
+<link href="{% static 'assets/css/fontawesome-all.css' %}" rel="stylesheet">
+<link href="{% static 'dashboard/leaderboard.css' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
 
 {% block content %}
-<div class="row"><div class="col-sm-12"><div class="page-title-box"><h4 class="page-title">{% trans "Reyting" %}</h4></div></div></div>
+<div class="lb">
+  <header class="lb-head">
+    <div>
+      <h1>{% trans "Reyting" %}</h1>
+      <p>{% trans "Guruhdoshlaringiz va barcha talabalar orasida o‘rningizni ko‘ring" %}</p>
+    </div>
+    <span class="lb-pill"><i class="fas fa-user-graduate"></i> <b>{{ overall_size }}</b> {% trans "talaba" %}</span>
+  </header>
 
-<section class="lb-summary">
-  <div class="lb-card">
-    <span>{% trans "Guruhingizda" %}</span>
-    {% if my_group_rank %}<b>#{{ my_group_rank.rank }}<small> / {{ group_size }}</small></b>{% else %}<b>—</b>{% endif %}
-  </div>
-  <div class="lb-card">
-    <span>{% trans "Barcha talabalar orasida" %}</span>
-    {% if my_overall_rank %}<b>#{{ my_overall_rank.rank }}<small> / {{ overall_size }}</small></b>{% else %}<b>—</b>{% endif %}
-  </div>
-  <div class="lb-card">
-    <span>{% trans "Sizning ballingiz" %}</span>
-    <b>{% if me %}{{ me.points }}{% elif my_overall_rank %}{{ my_overall_rank.points }}{% else %}0{% endif %}</b>
-  </div>
-</section>
+  <section class="lb-me">
+    <div class="lb-me__who">
+      <span class="lb-av lb-av--big" style="--h: {{ my_overall_rank.hue|default:150 }}">{{ user.initial }}</span>
+      <div>
+        <b>{{ user.get_full_name|default:user.username }}</b>
+        <span>{% if user.group %}{{ user.group.name }} · {{ user.group.category }}{% else %}{% trans "Guruh biriktirilmagan" %}{% endif %}</span>
+      </div>
+    </div>
+    <div class="lb-me__stats">
+      <div><span>{% trans "Guruhda" %}</span><b>{% if my_group_rank %}#{{ my_group_rank.rank }}<small>/{{ group_size }}</small>{% else %}—{% endif %}</b></div>
+      <div><span>{% trans "Barcha talabalar orasida" %}</span><b>{% if my_overall_rank %}#{{ my_overall_rank.rank }}<small>/{{ overall_size }}</small>{% else %}—{% endif %}</b></div>
+      <div><span>{% trans "Ball" %}</span><b>{{ my_overall_rank.points|default:0 }}</b></div>
+    </div>
+  </section>
 
-<form class="lb-controls" method="get">
-  <input type="hidden" name="scope" value="{{ scope }}">
-  <div class="lb-seg">
-    {% if has_group %}<button name="scope" value="group" class="{% if scope == 'group' %}is-on{% endif %}">{% trans "Mening guruhim" %}</button>{% endif %}
-    <button name="scope" value="all" class="{% if scope == 'all' %}is-on{% endif %}">{% trans "Barcha talabalar" %}</button>
-  </div>
-  <select name="period" onchange="this.form.submit()" aria-label="{% trans 'Davr' %}">
-    {% for key, item in periods.items %}<option value="{{ key }}" {% if period == key %}selected{% endif %}>{{ item.0 }}</option>{% endfor %}
-  </select>
-  <select name="top" onchange="this.form.submit()" aria-label="{% trans 'Ko‘rsatish' %}">
-    {% for n in top_choices %}<option value="{{ n }}" {% if top == n %}selected{% endif %}>{% trans "Top" %} {{ n }}</option>{% endfor %}
-  </select>
-</form>
+  <form class="lb-bar" method="get">
+    <input type="hidden" name="scope" value="{{ scope }}">
+    <label class="lb-search"><i class="fas fa-search"></i><input type="search" name="q" value="{{ query }}" placeholder="{% trans 'Qidirish…' %}" autocomplete="off"></label>
+    <div class="lb-seg">
+      {% if has_group %}<button name="scope" value="group" class="{% if scope == 'group' %}is-on{% endif %}"><i class="fas fa-users"></i> {% trans "Mening guruhim" %}</button>{% endif %}
+      <button name="scope" value="all" class="{% if scope == 'all' %}is-on{% endif %}"><i class="fas fa-globe"></i> {% trans "Barcha talabalar" %}</button>
+    </div>
+    <select name="metric" onchange="this.form.submit()" aria-label="{% trans 'Saralash' %}">
+      {% for key, item in metrics.items %}<option value="{{ key }}" {% if metric == key %}selected{% endif %}>{{ item.0 }}</option>{% endfor %}
+    </select>
+    <select name="period" onchange="this.form.submit()" aria-label="{% trans 'Davr' %}">
+      {% for key, item in periods.items %}<option value="{{ key }}" {% if period == key %}selected{% endif %}>{{ item.0 }}</option>{% endfor %}
+    </select>
+    <select name="top" onchange="this.form.submit()" aria-label="{% trans 'Ko‘rsatish' %}">
+      {% for n in top_choices %}<option value="{{ n }}" {% if top == n %}selected{% endif %}>Top {{ n }}</option>{% endfor %}
+    </select>
+  </form>
 
-{% if podium %}
-<section class="lb-podium">
-  {% for r in podium %}
-  <div class="lb-podium__item lb-podium__item--{{ r.rank }} {% if r.student.pk == user.pk %}is-me{% endif %}">
-    <i class="ti ti-trophy"></i>
-    <span class="lb-podium__rank">{{ r.rank }}</span>
-    <b>{{ r.public_name }}</b>
-    <span>{{ r.points }} {% trans "ball" %}</span>
-  </div>
-  {% endfor %}
-</section>
-{% endif %}
-
-<section class="lb-table-wrap">
-  <table class="lb-table">
-    <thead><tr><th>#</th><th>{% trans "Talaba" %}</th><th>{% trans "Ball" %}</th><th>{% trans "Aniqlik" %}</th><th class="lb-hide">{% trans "Yechilgan" %}</th><th class="lb-hide">{% trans "Imtihon" %}</th></tr></thead>
-    <tbody>
-    {% for r in rows %}{% include "dashboard/_leaderboard_row.html" %}
-    {% empty %}<tr><td colspan="6" class="lb-empty">{% trans "Hozircha reyting bo‘sh. Test yechishni boshlang!" %}</td></tr>{% endfor %}
-    {% if me_outside %}
-      <tr class="lb-gap"><td colspan="6">⋯</td></tr>
-      {% with r=me %}{% include "dashboard/_leaderboard_row.html" %}{% endwith %}
-    {% endif %}
-    </tbody>
-  </table>
-</section>
-
-<p class="lb-rules"><i class="ti ti-info-circle"></i> {% trans "Ball = to‘g‘ri yechilgan noyob savollar soni + har bir topshirilgan real imtihon uchun 20 ball. Teng ballda aniqlik hal qiladi." %}</p>
+  {% include "leaderboard/_board.html" with viewer_id=user.pk %}
+  {% include "leaderboard/_rules.html" %}
+</div>
 {% endblock %}

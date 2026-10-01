@@ -1,7 +1,7 @@
 {% extends "admin/base.html" %}
 {% load static %}
 
-{% block extrastyle %}<link rel="stylesheet" href="{% static 'admin/students.css' %}">{% endblock %}
+{% block extrastyle %}<link rel="stylesheet" href="{% static 'admin/students.css' %}"><link rel="stylesheet" href="{% static 'dashboard/leaderboard.css' %}">{% endblock %}
 {% block page_content %}
 <div class="container-fluid"><div class="sd">
   <header class="sd-head"><div>
@@ -9,7 +9,7 @@
     <p>Talabalar natijalari bo‘yicha umumiy reyting — eng yaxshilarni rag‘batlantirish uchun.</p>
   </div></header>
 
-  <section class="sd-panel">
+  <section class="sd-panel sd-panel--bar">
     <form class="sd-toolbar" method="get">
       <label class="sd-search"><i class="fas fa-search"></i>
         <input type="search" name="q" value="{{ query }}" placeholder="Talaba ismi…" autocomplete="off"></label>
@@ -19,8 +19,10 @@
       </select>
       {% include "admin/groups/_filters.html" %}
     </form>
-    {% include "admin/groups/_board.html" with show_group=True %}
-  </section>
-  {% include "admin/groups/_rules.html" %}
+</section>
+  <div class="lb lb--admin">
+    {% include "leaderboard/_board.html" with admin=True %}
+    {% include "leaderboard/_rules.html" %}
+  </div>
 </div></div>
 {% endblock %}

@@ -1,0 +1,4 @@
+{# r = Row, size class via `big` #}
+<span class="lb-av {% if big %}lb-av--big{% endif %}" style="--h: {{ r.hue }}">
+  {% if r.student.photo %}<img src="{{ r.student.photo.url }}" alt="">{% else %}{{ r.student.initial }}{% endif %}
+</span>

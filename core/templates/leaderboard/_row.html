@@ -1,0 +1,19 @@
+<div class="lb-row {% if r.student.pk == viewer_id %}is-me{% endif %}">
+  <span class="lb-row__rank">{{ r.rank }}</span>
+  {% include "leaderboard/_avatar.html" %}
+  <div class="lb-row__who">
+    <b>{% if admin %}<a href="{% url 'students:edit' r.student.pk %}">{% include "leaderboard/_name.html" %}</a>{% else %}{% include "leaderboard/_name.html" %}{% endif %}
+      {% if r.student.pk == viewer_id %}<em class="lb-you">Siz</em>{% endif %}</b>
+    <span>{% if r.student.group %}{{ r.student.group.name }} · {{ r.student.group.category }}{% else %}Guruhsiz{% endif %}</span>
+  </div>
+  <div class="lb-row__stats">
+    <span title="Aniqlik"><i class="fas fa-bullseye"></i> {% if r.accuracy is None %}—{% else %}{{ r.accuracy }}%{% endif %}</span>
+    <span title="Yechilgan savollar"><i class="fas fa-check-double"></i> {{ r.solved }}</span>
+    <span title="Real imtihon"><i class="fas fa-flag-checkered"></i> {{ r.exams_passed }}</span>
+  </div>
+  <div class="lb-row__points"><b>{{ r.points }}</b><small>ball</small></div>
+  {% if removable %}
+  <form method="post" action="{% url 'groups:remove_student' group.pk r.student.pk %}" data-confirm="{{ r.student.first_name }} guruhdan chiqarilsinmi?">{% csrf_token %}
+    <button class="lb-row__remove" title="Guruhdan chiqarish"><i class="fas fa-user-minus"></i></button></form>
+  {% endif %}
+</div>

@@ -1,0 +1,8 @@
+{# r = Row on the podium, place = 1..3 #}
+<div class="lb-pod lb-pod--{{ place }} {% if r.student.pk == viewer_id %}is-me{% endif %}">
+  {% if place == 1 %}<i class="lb-crown fas fa-crown"></i>{% endif %}
+  <div class="lb-pod__avatar">{% include "leaderboard/_avatar.html" with big=True %}<span class="lb-pod__badge">{{ r.rank }}</span></div>
+  <b class="lb-pod__name">{% include "leaderboard/_name.html" %}</b>
+  <span class="lb-pod__sub">{% if r.student.group %}{{ r.student.group.name }} · {{ r.student.group.category }}{% else %}&nbsp;{% endif %}</span>
+  <span class="lb-pod__points">{{ r.points }} <small>ball</small></span>
+</div>

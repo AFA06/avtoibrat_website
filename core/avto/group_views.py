@@ -6,7 +6,7 @@ from django.db.models import Count, F, Q
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_POST
 
-from .leaderboard import PERIODS, SORTS, build, sort_rows
+from .leaderboard import PERIODS, SORTS, build, split_podium
 from .models import StudyGroup, User
 from .student_views import _page, _students
 
@@ -115,11 +115,12 @@ def group_detail(request, pk):
     group = get_object_or_404(StudyGroup.objects.select_related("branch", "teacher"), pk=pk)
     period = request.GET.get("period", "all")
     sort = request.GET.get("sort", "points")
-    rows = build(_students().filter(group=group), period)
+    rows = build(_students().filter(group=group), period, sort)
+    podium, rest = split_podium(rows)
     accuracies = [r.accuracy for r in rows if r.accuracy is not None]
     return render(request, "admin/groups/detail.html", _page(
         request, group.name,
-        group=group, rows=sort_rows(rows, sort), period=period, sort=sort,
+        group=group, rows=rows, podium=podium, rest=rest, period=period, sort=sort,
         periods=PERIODS, sorts=SORTS, period_label=PERIODS.get(period, PERIODS['all'])[0].lower(),
         accuracy_avg=round(sum(accuracies) / len(accuracies)) if accuracies else None,
         candidates=_students().exclude(group=group).order_by(F("group").asc(nulls_first=True), "first_name"),
@@ -169,11 +170,12 @@ def leaderboard(request):
     students = _students()
     if group_id.isdigit():
         students = students.filter(group_id=group_id)
-    rows = build(students, period)
+    rows = build(students, period, sort)
     if query:
         rows = [r for r in rows if query.lower() in r.student.get_full_name().lower()]
+    podium, rest = ([], rows) if query else split_podium(rows)
     return render(request, "admin/groups/leaderboard.html", _page(
         request, "Reyting",
-        rows=sort_rows(rows, sort), group_id=group_id, period=period, sort=sort, query=query,
+        rows=rows, podium=podium, rest=rest, group_id=group_id, period=period, sort=sort, query=query,
         groups=StudyGroup.objects.select_related("branch"), periods=PERIODS, sorts=SORTS,
     ))

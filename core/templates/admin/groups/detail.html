@@ -1,7 +1,7 @@
 {% extends "admin/base.html" %}
 {% load static %}
 
-{% block extrastyle %}<link rel="stylesheet" href="{% static 'admin/students.css' %}">{% endblock %}
+{% block extrastyle %}<link rel="stylesheet" href="{% static 'admin/students.css' %}"><link rel="stylesheet" href="{% static 'dashboard/leaderboard.css' %}">{% endblock %}
 {% block page_content %}
 <div class="container-fluid"><div class="sd">
   {% include "admin/students/_messages.html" %}
@@ -51,9 +51,11 @@
       <span class="sd-spacer"></span>
       {% include "admin/groups/_filters.html" %}
     </form>
-    {% include "admin/groups/_board.html" with removable=True %}
-  </section>
-  {% include "admin/groups/_rules.html" %}
+    </section>
+  <div class="lb lb--admin">
+    {% include "leaderboard/_board.html" with admin=True removable=True %}
+    {% include "leaderboard/_rules.html" %}
+  </div>
 </div></div>
 {% endblock %}
 

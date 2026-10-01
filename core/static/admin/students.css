@@ -197,3 +197,4 @@ a.sd-stat--link:hover { transform: translateY(-2px); box-shadow: 0 10px 24px -10
 .sd-presets { display: flex; gap: 8px; flex-wrap: wrap; }
 .sd .sd-presets .sd-chip-btn { border: 0; cursor: pointer; }
 .sd-grid--times { grid-template-columns: repeat(2, minmax(160px, 260px)); margin: 18px 0 8px; }
+.sd-panel + .lb { margin-top: 18px; }
