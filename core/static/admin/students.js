@@ -28,6 +28,19 @@
     });
   });
 
+  // Row action menus: one open at a time, closed by outside click or Escape
+  const menus = document.querySelectorAll(".sd-dd");
+  const closeMenus = (except) => menus.forEach((m) => m !== except && m.classList.remove("is-open"));
+  menus.forEach((menu) => {
+    menu.querySelector("[data-menu]").addEventListener("click", (event) => {
+      event.stopPropagation();
+      closeMenus(menu);
+      menu.classList.toggle("is-open");
+    });
+  });
+  document.addEventListener("click", () => closeMenus());
+  document.addEventListener("keydown", (event) => event.key === "Escape" && closeMenus());
+
   // --- Student form: 99-999-99-99 phone mask ---
   const phone = document.querySelector("[data-phone-mask]");
   if (phone) {

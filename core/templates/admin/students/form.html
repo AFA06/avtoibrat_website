@@ -2,65 +2,68 @@
 {% load static %}
 
 {% block extrastyle %}<link rel="stylesheet" href="{% static 'admin/students.css' %}">{% endblock %}
-{% block content_title %}{% if student %}Talabani tahrirlash{% else %}Yangi talaba{% endif %}{% endblock %}
-{% block page_actions %}<a class="btn btn-light" href="{% url 'students:list' %}"><i class="fas fa-arrow-left mr-1"></i> Ro‘yxatga qaytish</a>{% endblock %}
+{% block page_content %}
+<div class="container-fluid"><div class="sd sd--narrow">
+  {% include "admin/students/_messages.html" %}
 
-{% block content %}
-<form method="post" class="st st-form" novalidate data-suggest-url="{% url 'students:suggest_password' %}">
-  {% csrf_token %}
-  {{ form.non_field_errors }}
+  <a class="sd-back" href="{% url 'students:list' %}"><i class="fas fa-arrow-left"></i> Talabalar</a>
+  <header class="sd-head">
+    <div>
+      <h1>{% if student %}{{ student.get_full_name|default:student.username }}{% else %}Yangi talaba{% endif %}</h1>
+      <p>{% if student %}Ma’lumotlarni yangilang yoki parolni o‘zgartiring.{% else %}Hisob yarating va mavjud guruhga biriktiring.{% endif %}</p>
+    </div>
+  </header>
 
-  <div class="card st-card">
-    <div class="card-body">
-      <h5 class="st-section">Shaxsiy ma’lumotlar</h5>
-      <div class="st-grid">
-        {% for f in form %}{% if f.name in "first_name last_name" %}{% include "admin/students/_field.html" %}{% endif %}{% endfor %}
-        <div class="st-field {% if form.phone.errors %}has-error{% endif %}">
-          <label for="id_phone">Telefon raqami (login)</label>
-          <div class="st-phone">
+  <form method="post" novalidate data-suggest-url="{% url 'students:suggest_password' %}">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+
+    <section class="sd-panel sd-card">
+      <h2>Shaxsiy ma’lumotlar</h2>
+      <div class="sd-grid">
+        {% include "admin/students/_field.html" with f=form.first_name %}
+        {% include "admin/students/_field.html" with f=form.last_name %}
+        <div class="sd-field {% if form.phone.errors %}has-error{% endif %}">
+          <label for="id_phone">Telefon raqami <em>*</em></label>
+          <div class="sd-phone">
             <span>+998</span>
             <input type="text" id="id_phone" name="phone" value="{{ form.phone.value|default:'' }}" inputmode="numeric" placeholder="99-999-99-99" maxlength="12" autocomplete="off" data-phone-mask>
           </div>
-          {% for e in form.phone.errors %}<p class="st-error">{{ e }}</p>{% endfor %}
-          <p class="st-help">Faqat 9 ta raqam. Har bir talaba uchun noyob.</p>
+          {% for e in form.phone.errors %}<p class="sd-error">{{ e }}</p>{% endfor %}
+          <p class="sd-help">Talaba shu raqam bilan kiradi. Har bir talaba uchun noyob.</p>
         </div>
         {% include "admin/students/_field.html" with f=form.birth_date %}
       </div>
-    </div>
-  </div>
+    </section>
 
-  <div class="card st-card">
-    <div class="card-body">
-      <h5 class="st-section">O‘qish</h5>
-      <div class="st-grid">
+    <section class="sd-panel sd-card">
+      <h2>O‘qish</h2>
+      <div class="sd-grid">
         {% include "admin/students/_field.html" with f=form.group %}
         {% include "admin/students/_field.html" with f=form.group_language %}
         {% include "admin/students/_field.html" with f=form.account_expires_at %}
       </div>
-      <p class="st-help"><a href="{% url 'admin:avto_studygroup_add' %}">+ Yangi guruh yaratish</a></p>
-    </div>
-  </div>
+    </section>
 
-  <div class="card st-card">
-    <div class="card-body">
-      <h5 class="st-section">Kirish paroli</h5>
-      <div class="st-field {% if form.password.errors %}has-error{% endif %}">
-        <label for="id_password">Parol</label>
-        <div class="st-password">
+    <section class="sd-panel sd-card">
+      <h2>Kirish paroli</h2>
+      <div class="sd-field {% if form.password.errors %}has-error{% endif %}">
+        <label for="id_password">Parol <em>*</em></label>
+        <div class="sd-password">
           <input type="text" id="id_password" name="password" value="{{ form.password.value|default:'' }}" autocomplete="off" minlength="6" maxlength="64">
-          <button type="button" class="btn btn-outline-secondary" id="generate-password"><i class="fas fa-random mr-1"></i> Generatsiya</button>
+          <button type="button" class="sd-btn sd-btn--ghost" id="generate-password"><i class="fas fa-random"></i> Generatsiya</button>
         </div>
-        {% for e in form.password.errors %}<p class="st-error">{{ e }}</p>{% endfor %}
-        <p class="st-help">Ism + tug‘ilgan yil (masalan, Abdu2006). Talaba parolni o‘zgartira olmaydi — unutsa, siz tiklaysiz.</p>
+        {% for e in form.password.errors %}<p class="sd-error">{{ e }}</p>{% endfor %}
+        <p class="sd-help">Ism + tug‘ilgan yil (masalan, Abdu2006). Talaba parolni o‘zgartira olmaydi — unutsa, siz yangilaysiz.</p>
       </div>
-    </div>
-  </div>
+    </section>
 
-  <div class="st-submit">
-    <button type="submit" class="btn btn-success"><i class="fas fa-check mr-1"></i> Saqlash</button>
-    <a class="btn btn-light" href="{% url 'students:list' %}">Bekor qilish</a>
-  </div>
-</form>
+    <div class="sd-submit">
+      <button type="submit" class="sd-btn sd-btn--primary"><i class="fas fa-check"></i> Saqlash</button>
+      <a class="sd-btn sd-btn--ghost" href="{% url 'students:list' %}">Bekor qilish</a>
+    </div>
+  </form>
+</div></div>
 {% endblock %}
 
 {% block extrajs %}<script src="{% static 'admin/students.js' %}"></script>{% endblock %}

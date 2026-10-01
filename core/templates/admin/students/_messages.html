@@ -1,0 +1,7 @@
+{% for message in messages %}
+  <div class="sd-flash sd-flash--{{ message.tags }}" role="status">
+    <i class="fas {% if message.tags == 'success' %}fa-check-circle{% else %}fa-exclamation-circle{% endif %}"></i>
+    <span>{{ message }}</span>
+    <button type="button" onclick="this.parentElement.remove()" aria-label="Yopish">×</button>
+  </div>
+{% endfor %}

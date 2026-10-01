@@ -51,6 +51,9 @@ class StudentForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields["first_name"].label = "Ism"
+        self.fields["last_name"].label = "Familiya"
+        self.fields["group"].label = "O‘quv guruhi"
         self.fields["first_name"].required = True
         self.fields["last_name"].required = True
         self.fields["group"].queryset = StudyGroup.objects.select_related("branch")

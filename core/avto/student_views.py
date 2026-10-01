@@ -48,6 +48,8 @@ def student_list(request):
 
     page = Paginator(students.order_by("first_name", "last_name"), PAGE_SIZE).get_page(request.GET.get("page"))
     everyone = _students()
+    total = everyone.count()
+    blocked = everyone.filter(is_blocked=True).count()
     return render(request, "admin/students/list.html", _page(
         request, "Talabalar",
         page=page,
@@ -55,8 +57,9 @@ def student_list(request):
         group_id=group_id,
         status=status,
         groups=StudyGroup.objects.select_related("branch"),
-        total=everyone.count(),
-        blocked=everyone.filter(is_blocked=True).count(),
+        total=total,
+        blocked=blocked,
+        active=total - blocked,
         today=timezone.now(),
     ))
 

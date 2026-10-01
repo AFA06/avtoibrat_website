@@ -1,0 +1,49 @@
+{% extends "admin/base.html" %}
+{% load i18n jazzmin %}
+
+{% comment %}
+  Sidebar override: Talabalar and Guruhlar are pinned on top, and the sidebar only opens/closes
+  with the hamburger button (sidebar-no-expand disables AdminLTE's expand-on-hover).
+{% endcomment %}
+{% block sidebar %}
+{% get_side_menu as side_menu_list %}
+<aside class="main-sidebar sidebar-no-expand elevation-4 {{ jazzmin_ui.sidebar_classes }}" id="jazzy-sidebar">
+  <div class="sidebar">
+    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <div class="image"><i class="fas fa-inverse user-profile fa-user-circle"></i></div>
+      <div class="info"><span class="d-block" style="color: white;">{{ request.user }}</span></div>
+    </div>
+
+    <nav class="mt-2">
+      <ul class="nav nav-pills nav-sidebar flex-column {{ jazzmin_ui.sidebar_list_classes }}" role="menu" data-collapsible="false">
+        <li class="nav-item">
+          <a href="{% url 'admin:index' %}" class="nav-link {% if request.path == '/admin/' %}active{% endif %}">
+            <i class="nav-icon fas fa-th-large"></i><p>{% trans 'Dashboard' %}</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'students:list' %}" class="nav-link {% if '/admin/students/' in request.path %}active{% endif %}">
+            <i class="nav-icon fas fa-user-graduate"></i><p>Talabalar</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'admin:avto_studygroup_changelist' %}" class="nav-link {% if '/admin/avto/studygroup/' in request.path %}active{% endif %}">
+            <i class="nav-icon fas fa-users"></i><p>Guruhlar</p>
+          </a>
+        </li>
+
+        {% for app in side_menu_list %}
+          <li class="nav-header">{{ app.name }}</li>
+          {% for model in app.models %}
+            <li class="nav-item">
+              <a href="{{ model.url }}" class="nav-link {% if model.url and model.url in request.path %}active{% endif %}">
+                <i class="nav-icon {{ model.icon }}"></i><p>{{ model.name }}</p>
+              </a>
+            </li>
+          {% endfor %}
+        {% endfor %}
+      </ul>
+    </nav>
+  </div>
+</aside>
+{% endblock %}

@@ -46,3 +46,8 @@ a.dash-kpi:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,
 .dash-facts { display: flex; justify-content: space-around; text-align: center; } .dash-facts b { display: block; font-size: 1.4rem; } .dash-facts small { color: #6b7280; }
 .dash-heading { margin: 8px 0 14px; font-weight: 700; }
 .dark-mode .dash-kpi, .dark-mode .dash-card { background: #1f2937; }
+
+/* Sidebar: only the hamburger opens/closes it, never hover (AdminLTE expand-on-hover off) */
+.sidebar-mini.sidebar-collapse .main-sidebar.sidebar-no-expand:hover { width: 4.6rem; }
+.sidebar-mini.sidebar-collapse .main-sidebar.sidebar-no-expand:hover .nav-sidebar > .nav-item .nav-link p,
+.sidebar-mini.sidebar-collapse .main-sidebar.sidebar-no-expand:hover .nav-header { display: none; }

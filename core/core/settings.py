@@ -228,7 +228,6 @@ JAZZMIN_SETTINGS = {
     # Additional links to include in the user menu on the top right ("app" url type is not allowed)
     "usermenu_links": [
         # {"name": "Support", "url": "https://github.com/farridav/django-jazzmin/issues", "new_window": True},
-        {"name": "Talabalar", "url": "students:list"},
     ],
 
     #############
@@ -245,14 +244,7 @@ JAZZMIN_SETTINGS = {
     "hide_apps": [],
 
     # Hide these models when generating side menu (e.g auth.user)
-    "hide_models": ['auth.User', 'auth.Group'],
-
-    # The student section is a custom page (avto/student_views.py), not a model admin
-    "custom_links": {
-        "avto": [
-            {"name": "Talabalar", "url": "students:list", "icon": "fas fa-user-graduate"},
-        ],
-    },
+    "hide_models": ['auth.User', 'auth.Group', 'avto.StudyGroup'],
 
     # List of apps (and/or models) to base side menu ordering off of (does not need to contain all apps/models)
     "order_with_respect_to": ["avto"],
