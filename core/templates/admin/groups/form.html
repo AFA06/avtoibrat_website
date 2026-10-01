@@ -3,7 +3,7 @@
 
 {% block extrastyle %}<link rel="stylesheet" href="{% static 'admin/students.css' %}">{% endblock %}
 {% block page_content %}
-<div class="container-fluid"><div class="sd sd--narrow">
+<div class="container-fluid"><div class="sd">
   <a class="sd-back" href="{% if group %}{% url 'groups:detail' group.pk %}{% else %}{% url 'groups:list' %}{% endif %}"><i class="fas fa-arrow-left"></i> {% if group %}{{ group.name }}{% else %}Guruhlar{% endif %}</a>
   <header class="sd-head"><div>
     <h1>{% if group %}Guruhni tahrirlash{% else %}Yangi guruh{% endif %}</h1>

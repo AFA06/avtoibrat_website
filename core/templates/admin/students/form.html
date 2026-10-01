@@ -3,7 +3,7 @@
 
 {% block extrastyle %}<link rel="stylesheet" href="{% static 'admin/students.css' %}">{% endblock %}
 {% block page_content %}
-<div class="container-fluid"><div class="sd sd--narrow">
+<div class="container-fluid"><div class="sd">
   {% include "admin/students/_messages.html" %}
 
   <a class="sd-back" href="{% url 'students:list' %}"><i class="fas fa-arrow-left"></i> Talabalar</a>

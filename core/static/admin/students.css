@@ -10,7 +10,6 @@
   --sd-green: #6ce9a6; --sd-green-bg: rgba(18,183,106,.14); --sd-red: #fda29b; --sd-red-bg: rgba(240,68,56,.14);
   --sd-amber: #fec84b; --sd-amber-bg: rgba(247,144,9,.14);
 }
-.sd--narrow { max-width: 820px; }
 .sd * { box-sizing: border-box; }
 
 .sd-head { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 22px; padding: 26px 30px; border-radius: 18px; color: #fff;
@@ -107,7 +106,7 @@ a.sd-stat--link:hover { transform: translateY(-2px); box-shadow: 0 10px 24px -10
 /* Form */
 .sd-card { padding: 24px; margin-bottom: 16px; }
 .sd-card h2 { margin: 0 0 18px; font-size: 16px; font-weight: 700; }
-.sd-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px 20px; }
+.sd-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px 24px; }
 .sd-field label { display: block; margin-bottom: 6px; font-weight: 600; }
 .sd-field label em { color: var(--sd-red); font-style: normal; }
 .sd-field input:not([type=checkbox]), .sd-field select { width: 100%; }
@@ -118,10 +117,10 @@ a.sd-stat--link:hover { transform: translateY(-2px); box-shadow: 0 10px 24px -10
 .sd-phone:focus-within { border-color: var(--sd-brand); box-shadow: 0 0 0 3px rgba(15,157,115,.15); }
 .sd-phone span { display: grid; place-items: center; padding: 0 14px; background: var(--sd-soft); border-right: 1px solid var(--sd-line); font-weight: 600; }
 .sd-phone input { border: 0 !important; box-shadow: none !important; border-radius: 0 !important; font-family: ui-monospace, Menlo, monospace; letter-spacing: .04em; }
-.sd-password { display: flex; gap: 10px; }
+.sd-password { display: flex; gap: 10px; max-width: 560px; }
 .sd-password input { font-family: ui-monospace, Menlo, monospace; }
 .sd-password .sd-btn { height: 40px; }
-.sd-submit { display: flex; gap: 10px; }
+.sd-submit { position: sticky; bottom: 0; z-index: 5; display: flex; gap: 10px; padding: 14px 0; background: linear-gradient(to top, var(--sd-page, #f4f6f9) 70%, transparent); }
 .sd-submit .sd-btn--ghost { height: 40px; }
 
 @media (max-width: 767px) {

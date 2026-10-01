@@ -3,7 +3,7 @@
 
 {% block extrastyle %}<link rel="stylesheet" href="{% static 'admin/students.css' %}">{% endblock %}
 {% block page_content %}
-<div class="container-fluid"><div class="sd sd--narrow">
+<div class="container-fluid"><div class="sd">
   <a class="sd-back" href="{% url 'teachers:list' %}"><i class="fas fa-arrow-left"></i> O‘qituvchilar</a>
   <header class="sd-head"><div>
     <h1>{% if teacher %}{{ teacher.get_full_name }}{% else %}Yangi o‘qituvchi{% endif %}</h1>
