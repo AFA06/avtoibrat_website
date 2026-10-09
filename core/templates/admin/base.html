@@ -33,6 +33,16 @@
         </li>
 
         <li class="nav-item">
+          <a href="{% url 'express:list' %}" class="nav-link {% if '/admin/express/' in request.path %}active{% endif %}">
+            <i class="nav-icon fas fa-bolt"></i><p>Express</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'assignments:list' %}" class="nav-link {% if '/admin/assignments/' in request.path %}active{% endif %}">
+            <i class="nav-icon fas fa-tasks"></i><p>Vazifalar</p>
+          </a>
+        </li>
+        <li class="nav-item">
           <a href="{% url 'monitoring:overview' %}" class="nav-link {% if '/admin/monitoring/' in request.path %}active{% endif %}">
             <i class="nav-icon fas fa-chart-line"></i><p>Monitoring</p>
           </a>

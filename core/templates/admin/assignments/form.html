@@ -1,0 +1,65 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block extrastyle %}<link rel="stylesheet" href="{% static 'admin/students.css' %}"><link rel="stylesheet" href="{% static 'admin/assignments.css' %}">{% endblock %}
+{% block page_content %}
+<div class="container-fluid"><div class="sd">
+  <a class="sd-back" href="{% if assignment %}{% url 'assignments:detail' assignment.pk %}{% else %}{% url 'assignments:list' %}{% endif %}"><i class="fas fa-arrow-left"></i> {% if assignment %}{{ assignment.title }}{% else %}Vazifalar{% endif %}</a>
+  <header class="sd-head"><div>
+    <h1>{% if assignment %}Vazifani tahrirlash{% else %}Yangi vazifa{% endif %}</h1>
+    <p>Talaba kuniga shuncha test (har biri alohida tugatilgan test) yechishi kerak.</p>
+  </div></header>
+
+  <form method="post" novalidate id="assignment-form">
+    {% csrf_token %}
+    {% for e in form.non_field_errors %}<p class="sd-flash sd-flash--error">{{ e }}</p>{% endfor %}
+
+    <section class="sd-panel sd-card">
+      <h2>Vazifa</h2>
+      <div class="sd-grid">
+        {% include "admin/students/_field.html" with f=form.title %}
+        {% include "admin/students/_field.html" with f=form.tests_per_day %}
+      </div>
+      <div class="sd-field {% if form.audience.errors %}has-error{% endif %}">
+        <div class="sd-field__head"><label>Kimlar uchun</label></div>
+        <div class="as-audience">
+          {% for radio in form.audience %}
+          <label class="as-choice">{{ radio.tag }}<span>
+            <i class="fas {% if radio.data.value == 'express' %}fa-bolt{% else %}fa-users{% endif %}"></i>
+            <b>{{ radio.choice_label }}</b>
+            <small>{% if radio.data.value == 'express' %}Express kursiga qo‘shilgan barcha talabalar{% else %}Tanlangan guruhning barcha talabalari{% endif %}</small>
+          </span></label>
+          {% endfor %}
+        </div>
+        {% for e in form.audience.errors %}<p class="sd-error">{{ e }}</p>{% endfor %}
+      </div>
+      <div id="group-field" class="as-group">
+        {% include "admin/students/_field.html" with f=form.group %}
+      </div>
+    </section>
+
+    <section class="sd-panel sd-card">
+      <h2>Muddat</h2>
+      <div class="sd-grid">
+        {% include "admin/students/_field.html" with f=form.start_date %}
+        {% include "admin/students/_field.html" with f=form.end_date %}
+      </div>
+      {% include "admin/students/_field.html" with f=form.note %}
+      <label class="as-check">{{ form.is_active }} <span>Vazifa faol (o‘chirib qo‘ysangiz, talabalarga ko‘rinmaydi)</span></label>
+    </section>
+
+    <div class="sd-submit">
+      <button type="submit" class="sd-btn sd-btn--primary"><i class="fas fa-check"></i> Saqlash</button>
+      <a class="sd-btn sd-btn--ghost" href="{% url 'assignments:list' %}">Bekor qilish</a>
+    </div>
+  </form>
+
+  {% if assignment %}
+  <form method="post" action="{% url 'assignments:delete' assignment.pk %}" class="as-danger" data-confirm="«{{ assignment.title }}» vazifasi o‘chirilsinmi?">
+    {% csrf_token %}<button class="sd-btn sd-btn--ghost is-danger"><i class="fas fa-trash"></i> Vazifani o‘chirish</button>
+  </form>
+  {% endif %}
+</div></div>
+{% endblock %}
+
+{% block extrajs %}<script src="{% static 'admin/students.js' %}"></script><script src="{% static 'admin/assignments.js' %}"></script>{% endblock %}

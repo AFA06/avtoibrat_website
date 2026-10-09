@@ -1,0 +1,90 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block extrastyle %}<link rel="stylesheet" href="{% static 'admin/students.css' %}"><link rel="stylesheet" href="{% static 'admin/assignments.css' %}">{% endblock %}
+{% block page_content %}
+<div class="container-fluid"><div class="sd">
+  {% include "admin/students/_messages.html" %}
+
+  <header class="sd-head">
+    <div>
+      <h1><i class="fas fa-bolt"></i> Express</h1>
+      <p>Express kursi talabalari va ularning bugungi test natijalari.</p>
+    </div>
+    <div class="sd-head__actions">
+      <a class="sd-btn sd-btn--ghost" href="{% url 'assignments:list' %}"><i class="fas fa-tasks"></i> Vazifalar</a>
+      <button type="button" class="sd-btn sd-btn--primary" data-toggle-panel="add-students"><i class="fas fa-user-plus"></i> Talaba qo‘shish</button>
+    </div>
+  </header>
+
+  <section class="sd-panel sd-card" id="add-students" hidden>
+    <h2>Talabalarni Express kursiga qo‘shish</h2>
+    <form method="post" action="{% url 'express:add' %}">
+      {% csrf_token %}
+      <label class="sd-search sd-search--block"><i class="fas fa-search"></i>
+        <input type="search" data-filter-input=".sd-pick" placeholder="Ism yoki telefon bo‘yicha qidirish…" autocomplete="off"></label>
+      <div class="sd-picklist">
+        {% for s in candidates %}
+        <label class="sd-pick">
+          <input type="checkbox" name="students" value="{{ s.pk }}">
+          <span class="sd-avatar">{{ s.initial }}</span>
+          <span><b>{{ s.get_full_name|default:s.username }}</b> <small>{{ s.phone_display }}</small></span>
+          <em>{% if s.group %}guruh: {{ s.group.name }}{% else %}guruhsiz{% endif %}</em>
+        </label>
+        {% empty %}<p class="sd-muted">Qo‘shish uchun boshqa talabalar yo‘q. Avval <a href="{% url 'students:create' %}">«Talabalar»</a> bo‘limida talaba yarating.</p>{% endfor %}
+      </div>
+      {% if candidates %}<div class="sd-submit"><button class="sd-btn sd-btn--primary"><i class="fas fa-check"></i> Tanlanganlarni qo‘shish</button></div>{% endif %}
+    </form>
+  </section>
+
+  <section class="sd-stats">
+    <div class="sd-stat"><i class="fas fa-bolt sd-ico sd-ico--violet"></i><div><span>Express talabalari</span><b>{{ roster|length }}</b></div></div>
+    <div class="sd-stat"><i class="fas fa-check-circle sd-ico sd-ico--green"></i><div><span>Bugun vazifani bajargan</span><b>{% if target %}{{ done_count }}{% else %}—{% endif %}</b></div></div>
+    <div class="sd-stat"><i class="fas fa-bullseye sd-ico sd-ico--amber"></i><div><span>Kunlik reja</span><b>{% if target %}{{ target }} <small>ta test</small>{% else %}—{% endif %}</b></div></div>
+  </section>
+
+  {% if not target %}
+  <p class="sd-flash sd-flash--error"><i class="fas fa-info-circle"></i><span>Hozir Express uchun faol vazifa yo‘q. <a href="{% url 'assignments:create' %}">Vazifa yarating</a> — shunda talabalar bajarganligi shu yerda ko‘rinadi.</span></p>
+  {% endif %}
+
+  <section class="sd-panel">
+    <table class="sd-table">
+      <thead><tr><th>Talaba</th><th>Guruh</th><th>Bugun yechilgan testlar</th><th>Oxirgi test</th><th></th></tr></thead>
+      <tbody>
+      {% for s in roster %}
+        <tr>
+          <td>
+            <a class="sd-person" href="{% url 'students:edit' s.pk %}">
+              <span class="sd-avatar">{{ s.initial }}</span>
+              <span><b>{{ s.get_full_name|default:s.username }}</b><small>+998 {{ s.phone_display }}</small></span>
+            </a>
+          </td>
+          <td>{% if s.group %}<b class="sd-group">{{ s.group.name }}</b> <span class="sd-tag">{{ s.group.category }}</span>{% else %}<span class="sd-muted">Guruhsiz</span>{% endif %}</td>
+          <td>
+            <div class="as-progress {% if s.done %}is-done{% endif %}">
+              <div class="as-bar"><i style="width: {{ s.percent }}%"></i></div>
+              <b>{{ s.today }}{% if target %} / {{ target }}{% endif %}</b>
+              {% if s.done %}<span class="sd-status is-green">Bajardi</span>{% endif %}
+            </div>
+          </td>
+          <td>{% if s.last_test %}{{ s.last_test|date:"d.m.Y H:i" }}{% else %}<span class="sd-muted">Hali yechmagan</span>{% endif %}</td>
+          <td class="sd-row-actions">
+            <form method="post" action="{% url 'express:remove' s.pk %}" data-confirm="{{ s.first_name|default:s.username }} Express kursidan chiqarilsinmi?">
+              {% csrf_token %}<button class="sd-btn sd-btn--ghost"><i class="fas fa-user-minus"></i> Chiqarish</button>
+            </form>
+          </td>
+        </tr>
+      {% empty %}
+        <tr><td colspan="5" class="sd-empty">
+          <i class="fas fa-bolt"></i>
+          <p>Express kursida hali talaba yo‘q.</p>
+          <button type="button" class="sd-btn sd-btn--primary" data-toggle-panel="add-students">Birinchi talabani qo‘shing</button>
+        </td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </section>
+</div></div>
+{% endblock %}
+
+{% block extrajs %}<script src="{% static 'admin/students.js' %}"></script>{% endblock %}

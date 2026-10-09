@@ -7,7 +7,7 @@ from django.utils import timezone
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.core.exceptions import ValidationError
-from django.core.validators import RegexValidator
+from django.core.validators import MaxValueValidator, MinValueValidator, RegexValidator
 from django.conf import settings
 
 from pydub import AudioSegment
@@ -351,6 +351,11 @@ class User(AbstractUser):
         blank=True,
         help_text="Faqat xodimlarga ko‘rinadi — talaba parolni unutsa, o‘qituvchi shu yerdan aytadi.",
     )
+    is_express = models.BooleanField(
+        "Express kursida",
+        default=False,
+        help_text="Express kursi talabalari o‘qituvchi bergan kunlik test vazifasini bajaradi.",
+    )
     photo = models.ImageField("Rasm", upload_to="students/", blank=True, null=True)
     birth_date = models.DateField("Tug‘ilgan sana", null=True, blank=True)
     passport_number = models.CharField(
@@ -663,3 +668,65 @@ class StatisticsReset(models.Model):
 
     class Meta:
         ordering = ["-at"]
+
+
+class Assignment(models.Model):
+    """A daily test task from a teacher: «solve N tests every day» for express students or one group."""
+    AUDIENCE_CHOICES = (
+        ("express", "Express kursi talabalari"),
+        ("group", "Bitta guruh"),
+    )
+
+    title = models.CharField("Vazifa nomi", max_length=120)
+    note = models.TextField("Izoh", blank=True)
+    audience = models.CharField("Kimlar uchun", max_length=10, choices=AUDIENCE_CHOICES, default="express")
+    group = models.ForeignKey(
+        StudyGroup, verbose_name="Guruh", null=True, blank=True,
+        on_delete=models.CASCADE, related_name="assignments",
+    )
+    tests_per_day = models.PositiveSmallIntegerField(
+        "Kuniga testlar soni", default=25,
+        validators=[MinValueValidator(1), MaxValueValidator(200)],
+        help_text="Bitta test — bitta tugatilgan test (masalan, 20 savoldan iborat).",
+    )
+    start_date = models.DateField("Boshlanish sanasi", default=timezone.localdate)
+    end_date = models.DateField("Tugash sanasi", null=True, blank=True, help_text="Bo‘sh qoldirilsa — muddatsiz.")
+    is_active = models.BooleanField("Faol", default=True)
+    created_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.SET_NULL, related_name="assignments",
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = "Vazifa"
+        verbose_name_plural = "Vazifalar"
+        ordering = ["-is_active", "-start_date", "-created_at"]
+
+    def __str__(self):
+        return self.title
+
+    def clean(self):
+        super().clean()
+        if self.audience == "group" and not self.group_id:
+            raise ValidationError({"group": "Guruhni tanlang."})
+        if self.end_date and self.end_date < self.start_date:
+            raise ValidationError({"end_date": "Tugash sanasi boshlanishdan oldin bo‘lishi mumkin emas."})
+
+    def save(self, *args, **kwargs):
+        if self.audience == "express":
+            self.group = None
+        super().save(*args, **kwargs)
+
+    def students(self):
+        """The students this task is for."""
+        students = User.objects.filter(is_staff=False, is_superuser=False)
+        if self.audience == "express":
+            return students.filter(is_express=True)
+        return students.filter(group_id=self.group_id)
+
+    def runs_on(self, day):
+        return self.is_active and self.start_date <= day and (self.end_date is None or day <= self.end_date)
+
+    @property
+    def audience_label(self):
+        return "Express" if self.audience == "express" else f"Guruh {self.group.name}"

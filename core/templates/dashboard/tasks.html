@@ -1,0 +1,49 @@
+{% extends "dashboard/base_panel.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Vazifalar" %} - AvtoIbrat{% endblock %}
+{% block extra_css %}
+<link href="{% static 'assets/css/fontawesome-all.css' %}" rel="stylesheet">
+<link href="{% static 'dashboard/tasks.css' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block content %}
+<div class="tk">
+  <header class="tk-head">
+    <h1>{% trans "Vazifalar" %}</h1>
+    <p>{% if pending %}{% blocktrans with n=pending %}Bugun bajarilishi kerak bo‘lgan {{ n }} ta vazifa bor{% endblocktrans %}{% elif cards %}{% trans "Bugungi barcha vazifalar bajarildi — barakalla!" %}{% else %}{% trans "O‘qituvchingiz bergan vazifalar shu yerda ko‘rinadi" %}{% endif %}</p>
+  </header>
+
+  {% for card in cards %}
+  {% with a=card.assignment p=card.progress %}
+  <article class="tk-card {% if p.done_today %}is-done{% endif %}">
+    <div class="tk-card__top">
+      <div>
+        <h2>{{ a.title }}</h2>
+        {% if a.note %}<p>{{ a.note }}</p>{% endif %}
+      </div>
+      <span class="tk-badge">{% if p.done_today %}<i class="fas fa-check-circle"></i> {% trans "Bajarildi" %}{% else %}<i class="fas fa-hourglass-half"></i> {% trans "Bajarilmoqda" %}{% endif %}</span>
+    </div>
+
+    <div class="tk-progress" role="progressbar" aria-valuemin="0" aria-valuemax="{{ p.target }}" aria-valuenow="{{ p.today }}">
+      <i style="width: {{ p.percent }}%"></i>
+    </div>
+    <div class="tk-numbers">
+      <span><b>{{ p.today }}</b> / {{ p.target }} {% trans "ta test bugun" %}</span>
+      {% if not p.done_today %}<span>{% blocktrans with n=card.left %}Yana {{ n }} ta test qoldi{% endblocktrans %}</span>{% endif %}
+    </div>
+
+    <footer>
+      <span class="tk-days"><i class="fas fa-calendar-check"></i> {% blocktrans with done=p.days_done total=p.days_total %}{{ done }} / {{ total }} kun bajarilgan{% endblocktrans %}</span>
+      {% if not p.done_today %}<a class="tk-btn" href="{% url 'shablon_test' %}">{% trans "Test yechishni boshlash" %} <i class="fas fa-arrow-right"></i></a>{% endif %}
+    </footer>
+  </article>
+  {% endwith %}
+  {% empty %}
+  <div class="tk-empty">
+    <i class="fas fa-clipboard-check"></i>
+    <p>{% trans "Hozircha vazifa yo‘q" %}</p>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

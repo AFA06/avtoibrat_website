@@ -1,0 +1,65 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block extrastyle %}<link rel="stylesheet" href="{% static 'admin/students.css' %}"><link rel="stylesheet" href="{% static 'admin/assignments.css' %}">{% endblock %}
+{% block page_content %}
+<div class="container-fluid"><div class="sd">
+  {% include "admin/students/_messages.html" %}
+  <a class="sd-back" href="{% url 'assignments:list' %}"><i class="fas fa-arrow-left"></i> Vazifalar</a>
+
+  <header class="sd-head">
+    <div>
+      <h1>{{ assignment.title }}</h1>
+      <p>{{ assignment.audience_label }} · kuniga {{ assignment.tests_per_day }} ta test · {{ assignment.start_date|date:"d.m.Y" }} – {% if assignment.end_date %}{{ assignment.end_date|date:"d.m.Y" }}{% else %}muddatsiz{% endif %}{% if assignment.note %}<br>{{ assignment.note }}{% endif %}</p>
+    </div>
+    <div class="sd-head__actions">
+      <a class="sd-btn sd-btn--ghost" href="{% url 'assignments:edit' assignment.pk %}"><i class="fas fa-pen"></i> Tahrirlash</a>
+    </div>
+  </header>
+
+  {% if not running %}
+  <p class="sd-flash sd-flash--error"><i class="fas fa-info-circle"></i><span>{% if not assignment.is_active %}Vazifa o‘chirilgan.{% elif assignment.start_date > today %}Vazifa {{ assignment.start_date|date:"d.m.Y" }} kuni boshlanadi.{% else %}Vazifa muddati tugagan.{% endif %}</span></p>
+  {% endif %}
+
+  <section class="sd-stats">
+    <div class="sd-stat"><i class="fas fa-user-graduate sd-ico sd-ico--blue"></i><div><span>Talabalar</span><b>{{ stats.students }}</b></div></div>
+    <div class="sd-stat"><i class="fas fa-check-circle sd-ico sd-ico--green"></i><div><span>Bugun bajargan</span><b>{{ stats.done }}</b></div></div>
+    <div class="sd-stat"><i class="fas fa-hourglass-half sd-ico sd-ico--amber"></i><div><span>Hali bajarmagan</span><b>{{ stats.pending }}</b></div></div>
+  </section>
+
+  <section class="sd-panel">
+    <table class="sd-table">
+      <thead><tr><th>Talaba</th><th>Guruh</th><th>Bugun</th><th>Bajarilgan kunlar</th></tr></thead>
+      <tbody>
+      {% for r in rows %}
+        <tr>
+          <td>
+            <a class="sd-person" href="{% url 'monitoring:student' r.student.pk %}">
+              <span class="sd-avatar">{{ r.student.initial }}</span>
+              <span><b>{{ r.student.get_full_name|default:r.student.username }}</b><small>+998 {{ r.student.phone_display }}</small></span>
+            </a>
+          </td>
+          <td>{% if r.student.group %}<b class="sd-group">{{ r.student.group.name }}</b> <span class="sd-tag">{{ r.student.group.category }}</span>{% else %}<span class="sd-muted">Guruhsiz</span>{% endif %}</td>
+          <td>
+            <div class="as-progress {% if r.done_today %}is-done{% endif %}">
+              <div class="as-bar"><i style="width: {{ r.percent }}%"></i></div>
+              <b>{{ r.today }} / {{ r.target }}</b>
+              {% if r.done_today %}<span class="sd-status is-green">Bajardi</span>{% endif %}
+            </div>
+          </td>
+          <td>{% if r.days_total %}<b>{{ r.days_done }}</b> / {{ r.days_total }} kun <small class="sd-muted">({{ r.days_percent }}%)</small>{% else %}<span class="sd-muted">Hali boshlanmagan</span>{% endif %}</td>
+        </tr>
+      {% empty %}
+        <tr><td colspan="4" class="sd-empty">
+          <i class="fas fa-user-graduate"></i>
+          <p>{% if assignment.audience == "express" %}Express kursida hali talaba yo‘q.{% else %}Bu guruhda hali talaba yo‘q.{% endif %}</p>
+          {% if assignment.audience == "express" %}<a class="sd-btn sd-btn--primary" href="{% url 'express:list' %}">Talaba qo‘shish</a>{% endif %}
+        </td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </section>
+</div></div>
+{% endblock %}
+
+{% block extrajs %}<script src="{% static 'admin/students.js' %}"></script>{% endblock %}

@@ -1,0 +1,36 @@
+/* Student → Vazifalar (daily test tasks) */
+.tk {
+  --tk-surface: var(--ai-surface, #fff); --tk-soft: var(--ai-bg, #f4f6f9); --tk-line: var(--ai-line, #e6eaf2);
+  --tk-ink: var(--ai-ink, #0f172a); --tk-muted: var(--ai-ink-2, #667085); --tk-brand: var(--ai-brand, #0f9d6e);
+  --tk-brand-soft: var(--ai-brand-50, #e8f7f1); --tk-amber: #d99a1c;
+  max-width: 760px; margin: 0 auto; padding: 8px 0 48px; color: var(--tk-ink);
+}
+.tk-head h1 { margin: 0; font-size: 26px; font-weight: 700; letter-spacing: -.02em; }
+.tk-head p { margin: 4px 0 20px; color: var(--tk-muted); }
+
+.tk-card { margin-bottom: 16px; padding: 22px; border: 1px solid var(--tk-line); border-radius: 18px; background: var(--tk-surface); }
+.tk-card.is-done { background: linear-gradient(135deg, var(--tk-brand-soft), var(--tk-surface) 70%); }
+.tk-card__top { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 18px; }
+.tk-card h2 { margin: 0; font-size: 18px; font-weight: 700; }
+.tk-card__top p { margin: 4px 0 0; color: var(--tk-muted); }
+.tk-badge { flex: none; display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 999px; background: #fef3c7; color: #92400e; font-size: 12.5px; font-weight: 600; }
+.tk-card.is-done .tk-badge { background: var(--tk-brand-soft); color: var(--tk-brand); }
+
+.tk-progress { height: 12px; border-radius: 99px; background: var(--tk-soft); border: 1px solid var(--tk-line); overflow: hidden; }
+.tk-progress i { display: block; height: 100%; border-radius: 99px; background: var(--tk-amber); transition: width .4s; }
+.tk-card.is-done .tk-progress i { background: var(--tk-brand); }
+.tk-numbers { display: flex; justify-content: space-between; gap: 12px; margin-top: 10px; color: var(--tk-muted); }
+.tk-numbers b { color: var(--tk-ink); font-size: 18px; }
+
+.tk-card footer { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--tk-line); }
+.tk-days { color: var(--tk-muted); }
+.tk-btn { display: inline-flex; align-items: center; gap: 8px; padding: 9px 18px; border-radius: 10px; background: var(--tk-brand); color: #fff !important; font-weight: 600; text-decoration: none !important; }
+.tk-btn:hover { filter: brightness(.94); }
+
+.tk-empty { padding: 56px 16px; text-align: center; color: var(--tk-muted); border: 1px dashed var(--tk-line); border-radius: 18px; }
+.tk-empty i { display: block; margin-bottom: 12px; font-size: 36px; opacity: .5; }
+
+@media (max-width: 575px) {
+  .tk-card__top { flex-direction: column; }
+  .tk-numbers { flex-direction: column; gap: 4px; }
+}

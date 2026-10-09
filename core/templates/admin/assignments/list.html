@@ -1,0 +1,57 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block extrastyle %}<link rel="stylesheet" href="{% static 'admin/students.css' %}"><link rel="stylesheet" href="{% static 'admin/assignments.css' %}">{% endblock %}
+{% block page_content %}
+<div class="container-fluid"><div class="sd">
+  {% include "admin/students/_messages.html" %}
+
+  <header class="sd-head">
+    <div>
+      <h1>Vazifalar</h1>
+      <p>Talabalarga kunlik test vazifasi bering, masalan: Express kursi — har kuni 25 ta test.</p>
+    </div>
+    <a class="sd-btn sd-btn--primary" href="{% url 'assignments:create' %}"><i class="fas fa-plus"></i> Yangi vazifa</a>
+  </header>
+
+  <section class="sd-stats sd-stats--2">
+    <div class="sd-stat"><i class="fas fa-tasks sd-ico sd-ico--blue"></i><div><span>Jami vazifalar</span><b>{{ assignments|length }}</b></div></div>
+    <div class="sd-stat"><i class="fas fa-play-circle sd-ico sd-ico--green"></i><div><span>Hozir davom etayotgan</span><b>{{ running_count }}</b></div></div>
+  </section>
+
+  <section class="sd-panel">
+    <table class="sd-table">
+      <thead><tr><th>Vazifa</th><th>Kimlar uchun</th><th>Kunlik reja</th><th>Muddat</th><th>Bugun</th><th></th></tr></thead>
+      <tbody>
+      {% for a in assignments %}
+        <tr>
+          <td><a class="as-title" href="{% url 'assignments:detail' a.pk %}"><b>{{ a.title }}</b>{% if a.note %}<small>{{ a.note|truncatechars:70 }}</small>{% endif %}</a></td>
+          <td>{% if a.audience == "express" %}<span class="as-badge"><i class="fas fa-bolt"></i> Express</span>{% else %}<b class="sd-group">{{ a.group.name }}</b> <span class="sd-tag">{{ a.group.category }}</span>{% endif %}</td>
+          <td><b>{{ a.tests_per_day }}</b> ta test / kun</td>
+          <td>
+            {{ a.start_date|date:"d.m.Y" }} – {% if a.end_date %}{{ a.end_date|date:"d.m.Y" }}{% else %}muddatsiz{% endif %}
+            {% if not a.is_active %}<small class="sd-muted d-block">O‘chirilgan</small>{% elif not a.running %}<small class="sd-muted d-block">Hozir faol emas</small>{% endif %}
+          </td>
+          <td>
+            {% if a.running %}<b>{{ a.summary.done }}</b> / {{ a.summary.students }} <small class="sd-muted">bajardi</small>
+            {% else %}<span class="sd-muted">—</span>{% endif %}
+          </td>
+          <td class="sd-row-actions">
+            <a class="sd-btn sd-btn--ghost" href="{% url 'assignments:detail' a.pk %}">Natijalar</a>
+            <a class="sd-btn sd-btn--ghost" href="{% url 'assignments:edit' a.pk %}">Tahrirlash</a>
+          </td>
+        </tr>
+      {% empty %}
+        <tr><td colspan="6" class="sd-empty">
+          <i class="fas fa-tasks"></i>
+          <p>Hali vazifa yo‘q.</p>
+          <a class="sd-btn sd-btn--primary" href="{% url 'assignments:create' %}">Birinchi vazifani yarating</a>
+        </td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </section>
+</div></div>
+{% endblock %}
+
+{% block extrajs %}<script src="{% static 'admin/students.js' %}"></script>{% endblock %}
