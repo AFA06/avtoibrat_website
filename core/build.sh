@@ -8,3 +8,4 @@ python manage.py migrate --noinput
 python manage.py loaddata demo_content
 python manage.py import_road_signs --sample
 python manage.py seed_demo
+python manage.py seed_admin

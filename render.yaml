@@ -16,3 +16,7 @@ services:
         generateValue: true
       - key: DEMO_PASSWORD
         generateValue: true
+      - key: ADMIN_USERNAME
+        value: admin
+      - key: ADMIN_PASSWORD
+        generateValue: true
