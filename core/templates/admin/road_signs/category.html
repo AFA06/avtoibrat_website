@@ -1,0 +1,53 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block extrastyle %}<link rel="stylesheet" href="{% static 'admin/students.css' %}"><link rel="stylesheet" href="{% static 'admin/road-signs.css' %}">{% endblock %}
+{% block page_content %}
+<div class="container-fluid"><div class="sd">
+  {% include "admin/students/_messages.html" %}
+  <a class="sd-back" href="{% url 'signs:list' %}"><i class="fas fa-arrow-left"></i> Belgilar</a>
+
+  <header class="sd-head">
+    <div>
+      <h1>{{ category.title }}</h1>
+      <p>{{ signs|length }} ta belgi · belgilar raqami bo‘yicha tartiblanadi</p>
+    </div>
+    <div class="sd-head__actions">
+      <a class="sd-btn sd-btn--ghost" href="{% url 'signs:category_edit' category.pk %}"><i class="fas fa-pen"></i> Bo‘limni tahrirlash</a>
+      <a class="sd-btn sd-btn--primary" href="{% url 'signs:sign_create' %}?category={{ category.pk }}"><i class="fas fa-plus"></i> Belgi qo‘shish</a>
+    </div>
+  </header>
+
+  <div class="rsa-grid rsa-grid--signs">
+    {% for sign in signs %}
+    <article class="rsa-card">
+      <a class="rsa-card__media" href="{% url 'signs:sign_edit' sign.pk %}"><img src="{{ sign.image.url }}" alt="{{ sign.full_title }}" loading="lazy"></a>
+      <div class="rsa-card__body">
+        <div>
+          <b>{{ sign.full_title }}</b>
+          <small>{% if sign.description %}{{ sign.description|truncatechars:90 }}{% else %}Tavsif yozilmagan{% endif %}</small>
+        </div>
+      </div>
+      <footer class="rsa-card__foot">
+        <a class="sd-btn sd-btn--ghost" href="{% url 'signs:sign_edit' sign.pk %}"><i class="fas fa-pen"></i> Tahrirlash</a>
+        <form method="post" action="{% url 'signs:sign_delete' sign.pk %}" data-confirm="«{{ sign.full_title }}» belgisi o‘chirilsinmi?">
+          {% csrf_token %}<button class="sd-btn sd-btn--ghost is-danger" title="O‘chirish" aria-label="O‘chirish"><i class="fas fa-trash"></i></button>
+        </form>
+      </footer>
+    </article>
+    {% empty %}
+    <div class="sd-panel sd-empty rsa-wide">
+      <i class="fas fa-sign"></i><p>Bu bo‘limda hali belgi yo‘q.</p>
+      <a class="sd-btn sd-btn--primary" href="{% url 'signs:sign_create' %}?category={{ category.pk }}">Birinchi belgini qo‘shing</a>
+    </div>
+    {% endfor %}
+  </div>
+
+  <form method="post" action="{% url 'signs:category_delete' category.pk %}" class="as-danger"
+        data-confirm="«{{ category.title }}» bo‘limi va undagi barcha belgilar o‘chirilsinmi? Bu qaytarilmaydi.">
+    {% csrf_token %}<button class="sd-btn sd-btn--ghost is-danger"><i class="fas fa-trash"></i> Bo‘limni o‘chirish</button>
+  </form>
+</div></div>
+{% endblock %}
+
+{% block extrajs %}<script src="{% static 'admin/students.js' %}"></script>{% endblock %}

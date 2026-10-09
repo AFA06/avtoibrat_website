@@ -1,0 +1,37 @@
+/* Admin → Belgilar. Builds on students.css (.sd variables and components). */
+.rsa-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 16px; }
+.rsa-wide { grid-column: 1 / -1; }
+.rsa-card { display: flex; flex-direction: column; background: var(--sd-bg); border: 1px solid var(--sd-line); border-radius: 16px; overflow: hidden; box-shadow: 0 1px 2px rgba(16,24,40,.04); }
+.rsa-card__media { display: flex; align-items: center; justify-content: center; height: 150px; overflow: hidden; padding: 14px; background: var(--sd-soft); border-bottom: 1px solid var(--sd-line); color: var(--sd-muted); font-size: 32px; }
+.rsa-card__media img { max-width: 100%; max-height: 120px; width: auto; height: auto; object-fit: contain; }
+.rsa-card__body { flex: 1; display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px; }
+.rsa-card__body a { color: inherit !important; }
+.rsa-card__body small { display: block; margin-top: 3px; color: var(--sd-muted); }
+.rsa-num { flex: none; width: 28px; height: 28px; display: grid; place-items: center; border-radius: 50%; background: var(--sd-green-bg); color: var(--sd-brand); font-weight: 700; font-size: 13px; }
+.rsa-card__foot { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 0 16px 14px; }
+.rsa-card__foot form { margin: 0; }
+.rsa-move { display: flex; gap: 6px; }
+.rsa-move button { width: 34px; height: 34px; border: 1px solid var(--sd-line); border-radius: 8px; background: var(--sd-bg); color: var(--sd-text); cursor: pointer; }
+.rsa-move button:hover:not(:disabled) { border-color: var(--sd-brand); color: var(--sd-brand); }
+.rsa-move button:disabled { opacity: .35; cursor: default; }
+
+.rsa-form { display: grid; grid-template-columns: minmax(220px, 300px) 1fr; gap: 28px; align-items: start; }
+.rsa-form__fields { display: grid; gap: 18px; }
+.sd-grid--number { grid-template-columns: 140px 1fr; }
+.rsa-drop { position: relative; display: grid; place-items: center; min-height: 220px; padding: 16px; border: 2px dashed var(--sd-line); border-radius: 14px; background: var(--sd-soft); color: var(--sd-muted); text-align: center; cursor: pointer; transition: border-color .15s; }
+.rsa-drop:hover, .rsa-drop.is-over { border-color: var(--sd-brand); }
+.rsa-drop img { max-width: 100%; max-height: 190px; object-fit: contain; }
+.rsa-drop [hidden] { display: none; }
+.rsa-drop__change { margin-top: 8px; font-size: 12.5px; font-weight: 600; color: var(--sd-brand); }
+.rsa-drop i { display: block; margin-bottom: 8px; font-size: 28px; }
+.sd-field input[type=file] { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+.sd-field textarea, .sd-field select { width: 100%; }
+.sd-field textarea { padding: 10px 12px; border: 1px solid var(--sd-line); border-radius: 10px; background: var(--sd-bg); color: var(--sd-text); outline: 0; resize: vertical; }
+.sd-field textarea:focus { border-color: var(--sd-brand); box-shadow: 0 0 0 3px rgba(15,157,115,.15); }
+.sd-btn.is-danger, .sd-btn.is-danger i { color: var(--sd-red); }
+.as-danger { margin-top: 24px; }
+
+@media (max-width: 767px) {
+  .rsa-form { grid-template-columns: 1fr; }
+  .sd-grid--number { grid-template-columns: 1fr; }
+}

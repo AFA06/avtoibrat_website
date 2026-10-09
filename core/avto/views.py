@@ -23,6 +23,8 @@ from .models import (
     Answer, UserAnswer, SavedQuestion, UserDevice, StatisticsReset, get_device_id, normalize_phone
 )
 
+from .road_signs import ordered_categories, sorted_signs
+
 User = get_user_model()
 
 _LANGUAGE_PREFIX_RE = re.compile(
@@ -992,7 +994,7 @@ ROAD_SIGN_MAIN_COUNT = 7
 def road_signs(request):
     # Categories with no signs yet stay hidden until they have content.
     categories = list(
-        RoadSignCategory.objects
+        ordered_categories()
         .annotate(sign_count=Count("signs"))
         .filter(sign_count__gt=0)
     )
@@ -1005,7 +1007,7 @@ def road_signs(request):
 @login_required
 def road_signs_two(request, category_slug):
     category = get_object_or_404(RoadSignCategory, slug=category_slug)
-    signs = list(category.signs.all())
+    signs = sorted_signs(category)
     return render(request, "dashboard/road-signs-two.html", {
         "category": category,
         "signs": signs,

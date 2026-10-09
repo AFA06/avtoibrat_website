@@ -1,0 +1,54 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block extrastyle %}<link rel="stylesheet" href="{% static 'admin/students.css' %}"><link rel="stylesheet" href="{% static 'admin/road-signs.css' %}">{% endblock %}
+{% block page_content %}
+<div class="container-fluid"><div class="sd">
+  {% include "admin/students/_messages.html" %}
+
+  <header class="sd-head">
+    <div>
+      <h1><i class="fas fa-sign"></i> Belgilar</h1>
+      <p>Talabalar «Yo‘l belgilari» bo‘limida ko‘radigan belgilar. Bo‘limni oching va yangi belgi qo‘shing.</p>
+    </div>
+    <div class="sd-head__actions">
+      <a class="sd-btn sd-btn--ghost" href="{% url 'signs:category_create' %}"><i class="fas fa-folder-plus"></i> Yangi bo‘lim</a>
+      <a class="sd-btn sd-btn--primary" href="{% url 'signs:sign_create' %}"><i class="fas fa-plus"></i> Yangi belgi</a>
+    </div>
+  </header>
+
+  <section class="sd-stats sd-stats--2">
+    <div class="sd-stat"><i class="fas fa-folder-open sd-ico sd-ico--blue"></i><div><span>Bo‘limlar</span><b>{{ categories|length }}</b></div></div>
+    <div class="sd-stat"><i class="fas fa-sign sd-ico sd-ico--green"></i><div><span>Jami belgilar</span><b>{{ sign_total }}</b></div></div>
+  </section>
+
+  <div class="rsa-grid">
+    {% for c in categories %}
+    <article class="rsa-card">
+      <a class="rsa-card__media" href="{% url 'signs:category' c.pk %}">
+        {% if c.cover %}<img src="{{ c.cover.url }}" alt="">{% else %}<i class="fas fa-image"></i>{% endif %}
+      </a>
+      <div class="rsa-card__body">
+        <span class="rsa-num">{{ forloop.counter }}</span>
+        <div>
+          <a href="{% url 'signs:category' c.pk %}"><b>{{ c.title }}</b></a>
+          <small>{% if c.sign_count %}{{ c.sign_count }} ta belgi{% else %}Hali belgi yo‘q — talabalarga ko‘rinmaydi{% endif %}</small>
+        </div>
+      </div>
+      <footer class="rsa-card__foot">
+        <a class="sd-btn sd-btn--primary" href="{% url 'signs:sign_create' %}?category={{ c.pk }}"><i class="fas fa-plus"></i> Belgi qo‘shish</a>
+        <span class="rsa-move">
+          <form method="post" action="{% url 'signs:category_move' c.pk 'up' %}">{% csrf_token %}<button {% if forloop.first %}disabled{% endif %} title="Yuqoriga" aria-label="Yuqoriga"><i class="fas fa-arrow-up"></i></button></form>
+          <form method="post" action="{% url 'signs:category_move' c.pk 'down' %}">{% csrf_token %}<button {% if forloop.last %}disabled{% endif %} title="Pastga" aria-label="Pastga"><i class="fas fa-arrow-down"></i></button></form>
+        </span>
+      </footer>
+    </article>
+    {% empty %}
+    <div class="sd-panel sd-empty rsa-wide">
+      <i class="fas fa-sign"></i><p>Hali bo‘limlar yo‘q.</p>
+      <a class="sd-btn sd-btn--primary" href="{% url 'signs:category_create' %}">Birinchi bo‘limni yarating</a>
+    </div>
+    {% endfor %}
+  </div>
+</div></div>
+{% endblock %}

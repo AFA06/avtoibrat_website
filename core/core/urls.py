@@ -31,6 +31,7 @@ urlpatterns = [
     path('admin/teachers/', include('avto.teacher_urls')),
     path('admin/express/', include('avto.express_urls')),
     path('admin/assignments/', include('avto.assignment_urls')),
+    path('admin/road-signs/', include('avto.road_sign_urls')),
     path('admin/groups/', include('avto.group_urls')),
     path('admin/leaderboard/', admin_leaderboard, name='admin_leaderboard'),
     path('admin/', admin.site.urls),

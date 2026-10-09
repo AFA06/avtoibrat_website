@@ -1,0 +1,39 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block extrastyle %}<link rel="stylesheet" href="{% static 'admin/students.css' %}"><link rel="stylesheet" href="{% static 'admin/road-signs.css' %}">{% endblock %}
+{% block page_content %}
+<div class="container-fluid"><div class="sd">
+  <a class="sd-back" href="{% if back %}{% url 'signs:category' back.pk %}{% else %}{% url 'signs:list' %}{% endif %}"><i class="fas fa-arrow-left"></i> {% if back %}{{ back.title }}{% else %}Belgilar{% endif %}</a>
+  <header class="sd-head"><div>
+    <h1>{% if sign %}Belgini tahrirlash{% else %}Yangi belgi{% endif %}</h1>
+    <p>Rasm, raqam, nom va tavsifni kiriting — talabalar shuni «Yo‘l belgilari» bo‘limida ko‘radi.</p>
+  </div></header>
+
+  <form method="post" enctype="multipart/form-data" novalidate>
+    {% csrf_token %}
+    {% for e in form.non_field_errors %}<p class="sd-flash sd-flash--error">{{ e }}</p>{% endfor %}
+    <section class="sd-panel sd-card">
+      <div class="rsa-form">
+        {% include "admin/road_signs/_image_field.html" with f=form.image current=sign.image %}
+        <div class="rsa-form__fields">
+          {% url 'signs:category_create' as category_add %}
+          {% include "admin/students/_field.html" with f=form.category action_url=category_add action_label="Yangi bo‘lim" %}
+          <div class="sd-grid sd-grid--number">
+            {% include "admin/students/_field.html" with f=form.number %}
+            {% include "admin/students/_field.html" with f=form.title %}
+          </div>
+          {% include "admin/students/_field.html" with f=form.description %}
+        </div>
+      </div>
+    </section>
+    <div class="sd-submit">
+      <button type="submit" class="sd-btn sd-btn--primary"><i class="fas fa-check"></i> Saqlash</button>
+      {% if not sign %}<button type="submit" name="add_another" value="1" class="sd-btn sd-btn--ghost"><i class="fas fa-plus"></i> Saqlash va yana qo‘shish</button>{% endif %}
+      <a class="sd-btn sd-btn--ghost" href="{% if back %}{% url 'signs:category' back.pk %}{% else %}{% url 'signs:list' %}{% endif %}">Bekor qilish</a>
+    </div>
+  </form>
+</div></div>
+{% endblock %}
+
+{% block extrajs %}<script src="{% static 'admin/road-signs.js' %}"></script>{% endblock %}

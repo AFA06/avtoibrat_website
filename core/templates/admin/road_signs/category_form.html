@@ -1,0 +1,29 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block extrastyle %}<link rel="stylesheet" href="{% static 'admin/students.css' %}"><link rel="stylesheet" href="{% static 'admin/road-signs.css' %}">{% endblock %}
+{% block page_content %}
+<div class="container-fluid"><div class="sd">
+  <a class="sd-back" href="{% if category %}{% url 'signs:category' category.pk %}{% else %}{% url 'signs:list' %}{% endif %}"><i class="fas fa-arrow-left"></i> {% if category %}{{ category.title }}{% else %}Belgilar{% endif %}</a>
+  <header class="sd-head"><div>
+    <h1>{% if category %}Bo‘limni tahrirlash{% else %}Yangi bo‘lim{% endif %}</h1>
+    <p>Bo‘lim yaratilgach, ichiga belgilarni qo‘shasiz. Yangi bo‘lim ro‘yxat oxiriga qo‘shiladi.</p>
+  </div></header>
+
+  <form method="post" enctype="multipart/form-data" novalidate>
+    {% csrf_token %}
+    <section class="sd-panel sd-card">
+      <div class="sd-grid">
+        {% include "admin/students/_field.html" with f=form.title %}
+        {% include "admin/road_signs/_image_field.html" with f=form.image current=category.image %}
+      </div>
+    </section>
+    <div class="sd-submit">
+      <button type="submit" class="sd-btn sd-btn--primary"><i class="fas fa-check"></i> Saqlash</button>
+      <a class="sd-btn sd-btn--ghost" href="{% url 'signs:list' %}">Bekor qilish</a>
+    </div>
+  </form>
+</div></div>
+{% endblock %}
+
+{% block extrajs %}<script src="{% static 'admin/road-signs.js' %}"></script>{% endblock %}

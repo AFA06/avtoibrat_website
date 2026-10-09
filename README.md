@@ -66,6 +66,10 @@ Static file URLs are automatically suffixed with the file's modification time (`
 
 The left sidebar (`static/dashboard/sidebar.js` + `sidebar.css`, included via `base_panel.html` and each panel template) only opens or collapses when the hamburger button is clicked — hovering never changes its state. Collapsed, it shows icons only; hovering an icon shows a tooltip with the page name. The open/closed choice is remembered per browser (`localStorage`). Below 992px it becomes an off-canvas drawer instead.
 
+## Road signs
+
+Students browse `/road_signs/`; teachers manage the content in **Admin → Belgilar** (`/admin/road-signs/`, `avto/road_sign_views.py`): add a category (cover picture optional), add signs to it (image PNG/JPG/GIF/WEBP/SVG, number, name, description) with «Saqlash va yana qo‘shish» for batches, and reorder categories with the arrows. Signs are shown sorted by number part by part (1.2 before 1.10, `avto/road_signs.py`); categories follow their `order`. Annotated queries ignore `Meta.ordering`, so category lists always use `ordered_categories()`.
+
 ## Exam engine
 
 One template (`templates/exam/exam.html`) serves both practice tests (Shablon, Mavzulashtirilgan, O'xshash — `practice: true`) and the real exam (`practice: false`), with different layouts and behaviour:

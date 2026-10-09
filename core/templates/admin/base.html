@@ -43,6 +43,11 @@
           </a>
         </li>
         <li class="nav-item">
+          <a href="{% url 'signs:list' %}" class="nav-link {% if '/admin/road-signs/' in request.path %}active{% endif %}">
+            <i class="nav-icon fas fa-sign"></i><p>Belgilar</p>
+          </a>
+        </li>
+        <li class="nav-item">
           <a href="{% url 'monitoring:overview' %}" class="nav-link {% if '/admin/monitoring/' in request.path %}active{% endif %}">
             <i class="nav-icon fas fa-chart-line"></i><p>Monitoring</p>
           </a>

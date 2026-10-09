@@ -1,0 +1,11 @@
+<div class="sd-field {% if f.errors %}has-error{% endif %}">
+  <div class="sd-field__head"><label for="{{ f.id_for_label }}">{{ f.label }}{% if f.field.required %} <em>*</em>{% endif %}</label></div>
+  <label class="rsa-drop" for="{{ f.id_for_label }}">
+    <img data-image-preview {% if current %}src="{{ current.url }}"{% else %}hidden{% endif %} alt="">
+    <span data-image-hint {% if current %}hidden{% endif %}><i class="fas fa-cloud-upload-alt"></i> Rasmni tanlang yoki shu yerga tashlang</span>
+    <span class="rsa-drop__change" data-image-change {% if not current %}hidden{% endif %}><i class="fas fa-sync-alt"></i> Rasmni almashtirish</span>
+  </label>
+  {{ f }}
+  {% for e in f.errors %}<p class="sd-error">{{ e }}</p>{% endfor %}
+  {% if f.help_text %}<p class="sd-help">{{ f.help_text }}</p>{% endif %}
+</div>
