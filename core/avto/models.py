@@ -33,11 +33,11 @@ def validate_audio_duration(audio):
         raise ValidationError("Audio hajmi 5MB dan oshmasligi kerak")
 
 
-def video_embed_url(self):
-    if "youtube.com/watch?v=" in self.video_url:
-        video_id = self.video_url.split("v=")[1].split("&")[0]
-        return f"https://www.youtube.com/embed/{video_id}"
-    return self.video_url
+def validate_video_file(video):
+    if not video.name.lower().endswith((".mp4", ".webm", ".mov")):
+        raise ValidationError("Video MP4, WEBM yoki MOV formatida bo‘lishi kerak")
+    if video.size > 50 * 1024 * 1024:  # 50MB
+        raise ValidationError("Video hajmi 50MB dan oshmasligi kerak")
 
 
 class TeamMember(models.Model):
@@ -519,7 +519,13 @@ class Question(models.Model):
         validators=[validate_audio_duration],
     )
 
-    video_url = models.URLField(blank=True, null=True)
+    video = models.FileField(
+        "Video",
+        upload_to="questions/video/",
+        blank=True,
+        null=True,
+        validators=[validate_video_file],
+    )
 
     def get_text(self, lang=None):
         lang = lang or get_language()
@@ -542,12 +548,6 @@ class Question(models.Model):
         elif lang == "ru":
             return self.audio_rus.url if self.audio_rus else None
         return None
-
-    @property
-    def video_embed_url(self):
-        if not self.video_url:
-            return ""
-        return self.video_url.replace("watch?v=", "embed/")
 
 
 class Answer(models.Model):

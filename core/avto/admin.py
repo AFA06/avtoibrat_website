@@ -23,7 +23,7 @@ class QuestionAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (_("Asosiy ma’lumotlar"), {"fields": ("test_turi", "kategoriya", "matn_uzb","matn_uz_kr", "matn_rus")}),
-        (_("Media fayllar"), {"fields": ("rasm", "audio_uzb", "audio_rus", "video_url")}),
+        (_("Media fayllar"), {"fields": ("rasm", "audio_uzb", "audio_rus", "video")}),
     )
 
 
