@@ -191,25 +191,45 @@
     renderNav();
   }
 
-  function renderNav() {
+  // Long sessions (marathon) have hundreds of cells: build them once, then only update classes.
+  const MANY_QUESTIONS = 40;
+  let navCells = [];
+
+  function buildNav() {
+    document.body.classList.toggle("exam--many", questions.length > MANY_QUESTIONS);
     els.navGrid.textContent = "";
-    questions.forEach((question, index) => {
+    navCells = questions.map((question, index) => {
       const cell = document.createElement("button");
       cell.type = "button";
       cell.className = "exam-navcell";
       cell.textContent = String(index + 1);
-
-      const result = answered[question.id];
-      if (result) {
-        cell.classList.add(result.is_correct ? "exam-navcell--correct" : "exam-navcell--wrong");
-      }
-      if (index === currentIndex) {
-        cell.classList.add("exam-navcell--current");
-      }
-
       cell.addEventListener("click", () => goToIndex(index));
       els.navGrid.appendChild(cell);
+      return cell;
     });
+  }
+
+  function renderNav() {
+    if (navCells.length !== questions.length) buildNav();
+    navCells.forEach((cell, index) => {
+      const result = answered[questions[index].id];
+      cell.classList.toggle("exam-navcell--correct", Boolean(result && result.is_correct));
+      cell.classList.toggle("exam-navcell--wrong", Boolean(result && !result.is_correct));
+      cell.classList.toggle("exam-navcell--current", index === currentIndex);
+    });
+    keepCurrentCellVisible();
+  }
+
+  // Scroll only the navigator itself, never the page, so the current question's cell stays in view.
+  function keepCurrentCellVisible() {
+    const nav = els.navGrid.closest(".exam-navigator");
+    const cell = navCells[currentIndex];
+    if (!nav || !cell || nav.scrollHeight <= nav.clientHeight) return;
+    const navBox = nav.getBoundingClientRect();
+    const cellBox = cell.getBoundingClientRect();
+    if (cellBox.top < navBox.top || cellBox.bottom > navBox.bottom) {
+      nav.scrollTop += cellBox.top - navBox.top - (nav.clientHeight - cellBox.height) / 2;
+    }
   }
 
   function goToIndex(index) {
@@ -315,9 +335,11 @@
   }
 
   function formatTime(totalSeconds) {
-    const m = String(Math.floor(totalSeconds / 60)).padStart(2, "0");
-    const s = String(totalSeconds % 60).padStart(2, "0");
-    return `${m}:${s}`;
+    const pad = (n) => String(n).padStart(2, "0");
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+    return hours ? `${hours}:${pad(minutes)}:${pad(seconds)}` : `${pad(minutes)}:${pad(seconds)}`;
   }
 
   function tickTimer() {

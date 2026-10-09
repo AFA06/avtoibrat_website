@@ -52,7 +52,7 @@
         </div>
       </div>
 
-      <div class="result-grid">
+      <div class="result-grid{% if cells|length > 60 %} result-grid--many{% endif %}">
         {% for cell in cells %}
           <span class="result-cell result-cell--{{ cell.status }}">{{ cell.number }}</span>
         {% endfor %}

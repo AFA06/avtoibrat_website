@@ -760,3 +760,50 @@ body {
 .exam-savebtn.is-saved i {
   color: #f5c542;
 }
+
+/* ---------- Long sessions (marathon: hundreds of questions) ----------
+   Smaller cells in a fixed-height, scrollable navigator, so the grid never pushes the
+   question off screen or overflows its container. */
+.exam--many .exam-navigator {
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 16px 14px;
+  max-height: 24vh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.exam--many .exam-navarrow {
+  position: sticky;
+  top: 0;
+  width: 40px;
+  height: 40px;
+}
+
+.exam--many .exam-navgrid {
+  min-width: 0;
+  gap: 6px;
+  padding: 2px;
+  justify-content: flex-start;
+}
+
+.exam--many .exam-navcell,
+.exam--practice.exam--many .exam-navcell {
+  flex: 0 0 auto;
+  width: 36px;
+  height: 36px;
+  font-size: 13px;
+  box-shadow: none;
+}
+
+.exam--many .exam-timer {
+  min-width: 96px;
+  justify-content: center;
+}
+
+@media (max-width: 760px) {
+  .exam--many .exam-navigator { max-height: 20vh; padding: 8px 10px 10px; }
+  .exam--many .exam-navcell,
+  .exam--practice.exam--many .exam-navcell { width: 32px; height: 32px; font-size: 12px; }
+  .exam--many .exam-navarrow { width: 34px; height: 34px; }
+}

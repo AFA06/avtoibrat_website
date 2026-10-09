@@ -64,14 +64,19 @@ RESTART_URL_NAMES = {
     ("shablon", "mavzu"): "start_mavzu_test",
     ("shablon", "ohshash"): "start_ohshash_test",
     ("shablon", "saqlangan"): "start_saqlangan_test",
+    ("shablon", "marafon"): "marathon",
     ("real", "shablon"): "start_test",
 }
+
+# Restart targets that are plain pages, not «start test for category N».
+RESTART_WITHOUT_CATEGORY = ("start_saqlangan_test", "marathon")
 
 LIST_URL_NAMES = {
     ("shablon", "shablon"): "shablon_test",
     ("shablon", "mavzu"): "mavzulashtirilgan",
     ("shablon", "ohshash"): "ohshash_savollar",
     ("shablon", "saqlangan"): "saqlangan",
+    ("shablon", "marafon"): "marathon",
     ("real", "shablon"): "real_imtihon",
 }
 
@@ -80,6 +85,7 @@ LIST_LABELS = {
     "mavzulashtirilgan": _("Mavzulashtirilgan testlar"),
     "ohshash_savollar": _("Oʻxshash savollar"),
     "saqlangan": _("Saqlangan testlar"),
+    "marathon": _("Marafon"),
     "real_imtihon": _("Real imtihon"),
 }
 
@@ -767,7 +773,7 @@ def _ordered_session_questions(session):
 
 
 def _remaining_seconds(session):
-    total_seconds = session.category.duration_minutes * 60
+    total_seconds = session.time_limit_seconds
     elapsed = int((timezone.now() - session.started_at).total_seconds())
     return max(0, total_seconds - elapsed)
 
@@ -845,7 +851,7 @@ def submit_answer(request):
     if session.finished_at:
         return JsonResponse({"error": "finished"}, status=409)
 
-    total_seconds = session.category.duration_minutes * 60
+    total_seconds = session.time_limit_seconds
     elapsed = (timezone.now() - session.started_at).total_seconds()
     grace_seconds = 5
     if elapsed > total_seconds + grace_seconds:
@@ -944,7 +950,7 @@ def _result_context(session):
     list_label = LIST_LABELS.get(list_url_name, LIST_LABELS["shablon_test"])
     restart_url = (
         reverse(restart_url_name)
-        if restart_url_name == "start_saqlangan_test"
+        if restart_url_name in RESTART_WITHOUT_CATEGORY
         else reverse(restart_url_name, args=[session.category_id])
     )
 

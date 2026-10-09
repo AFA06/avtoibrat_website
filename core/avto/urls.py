@@ -2,6 +2,7 @@ from django.urls import path
 from .views import *
 from .leaderboard_views import student_leaderboard
 from .task_views import student_tasks
+from .marathon_views import marathon_page, start_marathon
 
 
 urlpatterns = [
@@ -20,6 +21,8 @@ urlpatterns = [
     path('dashboard/', dashboard, name="dashboard"),
     path('leaderboard/', student_leaderboard, name="leaderboard"),
     path('vazifalar/', student_tasks, name="tasks"),
+    path('marafon/', marathon_page, name="marathon"),
+    path('marafon/start/', start_marathon, name="start_marathon"),
     path('contact_list/', contact_list, name="contact_list"),
     path('manular/', manular, name="manular"),
 

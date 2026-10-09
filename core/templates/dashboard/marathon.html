@@ -1,0 +1,66 @@
+{% extends "dashboard/base_panel.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Marafon" %} - AvtoIbrat{% endblock %}
+{% block extra_css %}
+<link href="{% static 'assets/css/fontawesome-all.css' %}" rel="stylesheet">
+<link href="{% static 'dashboard/marathon.css' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block content %}
+<div class="mr">
+  <header class="mr-head">
+    <h1>{% trans "Marafon" %}</h1>
+    <p>{% trans "Ko‘p savollarni ketma-ket yeching: miqdorni tanlang va boshlang. Har bir savolga real imtihondagidek 1 daqiqa beriladi." %}</p>
+  </header>
+
+  {% if active %}
+  <section class="mr-resume">
+    <div>
+      <b><i class="fas fa-play-circle"></i> {% trans "Davom etayotgan marafon" %}</b>
+      <span>{% blocktrans with done=active_answered total=active_total %}{{ done }} / {{ total }} savolga javob berilgan{% endblocktrans %}</span>
+      <div class="mr-bar" role="progressbar" aria-valuemin="0" aria-valuemax="{{ active_total }}" aria-valuenow="{{ active_answered }}"><i style="width: {% widthratio active_answered active_total 100 %}%"></i></div>
+    </div>
+    <a class="mr-btn" href="{% url 'test_page' active.id %}">{% trans "Davom ettirish" %} <i class="fas fa-arrow-right"></i></a>
+  </section>
+  {% endif %}
+
+  <form class="mr-picker" method="post" action="{% url 'start_marathon' %}" id="marathon-form">
+    {% csrf_token %}
+    <h2>{% trans "Savollar sonini tanlang" %}</h2>
+    <div class="mr-options" role="radiogroup">
+      {% for o in options %}
+      <label class="mr-option {% if not o.enabled %}is-disabled{% endif %}">
+        <input type="radio" name="size" value="{{ o.size }}" {% if not o.enabled %}disabled{% endif %} required>
+        <span class="mr-option__card">
+          <b class="mr-option__size">{{ o.size }}</b>
+          <span class="mr-option__unit">{% trans "ta savol" %}</span>
+          <span class="mr-option__time"><i class="far fa-clock"></i> {{ o.label }}</span>
+          {% if not o.enabled %}<em>{% trans "Savollar yetarli emas" %}</em>{% endif %}
+        </span>
+      </label>
+      {% endfor %}
+    </div>
+    <p class="mr-note"><i class="fas fa-info-circle"></i> {% blocktrans with n=available %}Savollar bazasida hozir {{ n }} ta savol bor. Savollar tasodifiy tanlanadi va takrorlanmaydi.{% endblocktrans %}{% if active %} {% trans "Yangi marafon boshlansa, davom etayotgani yakunlanadi." %}{% endif %}</p>
+    <button type="submit" class="mr-btn mr-btn--start" id="marathon-start" disabled><i class="fas fa-flag-checkered"></i> {% trans "Marafonni boshlash" %}</button>
+  </form>
+
+  {% if history %}
+  <section class="mr-history">
+    <h2>{% trans "So‘nggi marafonlar" %}</h2>
+    <ul>
+      {% for row in history %}
+      <li>
+        <a href="{% url 'test_result' row.session.id %}">
+          <b>{{ row.total }} {% trans "ta savol" %}</b>
+          <span>{{ row.session.finished_at|date:"d.m.Y H:i" }}</span>
+          <span class="mr-score">{{ row.correct }} / {{ row.total }} <small>({{ row.percent }}%)</small></span>
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+</div>
+<script src="{% static 'dashboard/marathon.js' %}"></script>
+{% endblock %}

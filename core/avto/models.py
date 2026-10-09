@@ -590,6 +590,7 @@ class TestSession(models.Model):
         ("mavzu", "Mavzulashtirilgan"),
         ("ohshash", "O‘xshash"),
         ("saqlangan", "Saqlangan savollar"),
+        ("marafon", "Marafon"),
     )
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -603,12 +604,20 @@ class TestSession(models.Model):
 
     questions = models.ManyToManyField(Question, blank=True)
     question_order = models.JSONField(default=list, blank=True)
+    duration_minutes = models.PositiveIntegerField(
+        "Vaqt (daqiqa)", null=True, blank=True,
+        help_text="Bo‘sh bo‘lsa — toifadagi standart vaqt (marafonda savollar soniga qarab belgilanadi).",
+    )
 
     started_at = models.DateTimeField(null=True, blank=True)
     finished_at = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
         return f"{self.user} | {self.category} | {self.source}"
+
+    @property
+    def time_limit_seconds(self):
+        return (self.duration_minutes or self.category.duration_minutes) * 60
 
 
 

@@ -96,6 +96,19 @@ body {
   margin-bottom: 30px;
 }
 
+.result-grid--many {
+  max-height: 320px;
+  overflow-y: auto;
+  padding: 4px;
+  gap: 6px;
+}
+
+.result-grid--many .result-cell {
+  width: 34px;
+  height: 34px;
+  font-size: 12px;
+}
+
 .result-cell {
   width: 38px;
   height: 38px;

@@ -66,6 +66,12 @@ Static file URLs are automatically suffixed with the file's modification time (`
 
 The left sidebar (`static/dashboard/sidebar.js` + `sidebar.css`, included via `base_panel.html` and each panel template) only opens or collapses when the hamburger button is clicked — hovering never changes its state. Collapsed, it shows icons only; hovering an icon shows a tooltip with the page name. The open/closed choice is remembered per browser (`localStorage`). Below 992px it becomes an off-canvas drawer instead.
 
+## Marathon
+
+Students pick 100 / 300 / 500 / 700 / 1000 random, non-repeating questions at `/marafon/` (`avto/marathon.py`, `marathon_views.py`). The time budget is one minute per question, like the real exam (20 questions in 20 minutes), stored on `TestSession.duration_minutes`; the exam page, timer and answer grace period all read `TestSession.time_limit_seconds`. A range bigger than the active question bank is shown but disabled. An unfinished marathon can be resumed from the same page; starting a new one finishes the old one. Sessions with more than 40 questions get the compact scrollable question grid (`exam--many` in `exam.css`).
+
+The student sidebar lives in one place, `templates/dashboard/_sidebar_nav.html`, included by every panel page.
+
 ## Road signs
 
 Students browse `/road_signs/`; teachers manage the content in **Admin → Belgilar** (`/admin/road-signs/`, `avto/road_sign_views.py`): add a category (cover picture optional), add signs to it (image PNG/JPG/GIF/WEBP/SVG, number, name, description) with «Saqlash va yana qo‘shish» for batches, and reorder categories with the arrows. Signs are shown sorted by number part by part (1.2 before 1.10, `avto/road_signs.py`); categories follow their `order`. Annotated queries ignore `Meta.ordering`, so category lists always use `ordered_categories()`.
