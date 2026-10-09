@@ -68,7 +68,7 @@ The left sidebar (`static/dashboard/sidebar.js` + `sidebar.css`, included via `b
 
 ## Marathon
 
-Students pick 100 / 300 / 500 / 700 / 1000 random, non-repeating questions at `/marafon/` (`avto/marathon.py`, `marathon_views.py`). The time budget is one minute per question, like the real exam (20 questions in 20 minutes), stored on `TestSession.duration_minutes`; the exam page, timer and answer grace period all read `TestSession.time_limit_seconds`. A range bigger than the active question bank is shown but disabled. An unfinished marathon can be resumed from the same page; starting a new one finishes the old one. Sessions with more than 40 questions get the compact scrollable question grid (`exam--many` in `exam.css`).
+Students pick 100 / 300 / 500 / 700 / 1000 mixed, non-repeating questions at `/marafon/` (`avto/marathon.py`, `marathon_views.py`). The time budget is one minute per question, like the real exam (20 questions in 20 minutes), stored on `TestSession.duration_minutes`; the exam page, timer and answer grace period all read `TestSession.time_limit_seconds`. Questions are drawn evenly from every test (`pick_question_ids`: round-robin over all tests, then shuffled), so a marathon is never one test after another. A range bigger than the active question bank is shown but disabled. An unfinished marathon can be resumed from the same page; starting a new one finishes the old one. Sessions with more than 40 questions get the compact scrollable question grid (`exam--many` in `exam.css`).
 
 The student sidebar lives in one place, `templates/dashboard/_sidebar_nav.html`, included by every panel page.
 

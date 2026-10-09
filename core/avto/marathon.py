@@ -1,4 +1,7 @@
 """Marathon: one long practice session of 100–1000 questions with a time budget like the real exam."""
+import random
+from collections import defaultdict
+
 from django.utils import timezone
 
 from .models import Question, TestSession
@@ -48,9 +51,38 @@ def finish_active(user):
     TestSession.objects.filter(user=user, source=SOURCE, finished_at__isnull=True).update(finished_at=timezone.now())
 
 
+def pick_question_ids(size):
+    """`size` question ids drawn evenly from every test (bilet/topic), then shuffled together.
+
+    Each test contributes about the same number of questions, so a marathon is never
+    one topic after another; tests with fewer questions hand their share to the others.
+    """
+    by_test = defaultdict(list)
+    for question_id, test_id in question_pool().values_list("id", "kategoriya_id"):
+        by_test[test_id].append(question_id)
+    for ids in by_test.values():
+        random.shuffle(ids)
+
+    picked = []
+    remaining = size
+    pending = list(by_test.values())
+    while remaining > 0 and pending:
+        # Hand out one question per test per round; the round's order is random so the
+        # remainder (size not divisible by the number of tests) doesn't always favour the same tests.
+        random.shuffle(pending)
+        for ids in pending:
+            if remaining == 0:
+                break
+            picked.append(ids.pop())
+            remaining -= 1
+        pending = [ids for ids in pending if ids]
+    random.shuffle(picked)
+    return picked
+
+
 def start(user, size):
-    """Finish any running marathon and open a new one with `size` random questions."""
-    question_ids = list(question_pool().order_by("?").values_list("id", flat=True)[:size])
+    """Finish any running marathon and open a new one with `size` mixed questions."""
+    question_ids = pick_question_ids(size)
     if size not in SIZES or len(question_ids) < size:
         raise ValueError("not enough questions")
     finish_active(user)

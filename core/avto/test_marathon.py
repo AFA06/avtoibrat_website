@@ -120,3 +120,51 @@ class MarathonViewTests(MarathonFixture):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context["restart_url"], reverse("marathon"))
         self.assertEqual(len(response.context["cells"]), 100)
+
+
+class MarathonMixTests(TestCase):
+    TESTS, PER_TEST = 10, 20
+
+    @classmethod
+    def setUpTestData(cls):
+        kind = TestType.objects.create(nomi="t", vaqt_daqiqa=20, savollar_soni=20)
+        cls.tests = [TestCategory.objects.create(nomi=f"Bilet {i}", aktiv=True) for i in range(cls.TESTS)]
+        for test in cls.tests:
+            for i in range(cls.PER_TEST):
+                Question.objects.create(test_turi=kind, kategoriya=test, matn_uzb=f"{test.nomi}-{i}", matn_uz_kr="q", matn_rus="q")
+
+    def share(self, ids):
+        counts = {}
+        for test_id in Question.objects.filter(id__in=ids).values_list("kategoriya_id", flat=True):
+            counts[test_id] = counts.get(test_id, 0) + 1
+        return counts
+
+    def test_every_test_contributes_evenly(self):
+        for _ in range(5):
+            counts = self.share(marathon.pick_question_ids(100))
+            self.assertEqual(set(counts), {t.pk for t in self.tests})
+            self.assertEqual(set(counts.values()), {10})
+
+    def test_remainder_spreads_over_tests(self):
+        counts = self.share(marathon.pick_question_ids(105))
+        self.assertEqual(sorted(set(counts.values())), [10, 11])
+        self.assertEqual(sum(counts.values()), 105)
+
+    def test_a_small_test_hands_its_share_to_the_others(self):
+        Question.objects.filter(kategoriya=self.tests[0]).exclude(
+            id__in=Question.objects.filter(kategoriya=self.tests[0]).values_list("id", flat=True)[:2]
+        ).delete()
+        ids = marathon.pick_question_ids(100)
+        counts = self.share(ids)
+        self.assertEqual(len(ids), 100)
+        self.assertEqual(counts[self.tests[0].pk], 2)
+
+    def test_questions_are_not_grouped_by_test(self):
+        ids = marathon.pick_question_ids(100)
+        owner = dict(Question.objects.filter(id__in=ids).values_list("id", "kategoriya_id"))
+        runs = sum(1 for a, b in zip(ids, ids[1:]) if owner[a] != owner[b])
+        self.assertGreater(runs, 60)  # grouped by test would give only 9 changes
+        self.assertEqual(len(set(ids)), 100)
+
+    def test_asking_for_more_than_exists_returns_everything(self):
+        self.assertEqual(len(marathon.pick_question_ids(1000)), self.TESTS * self.PER_TEST)
