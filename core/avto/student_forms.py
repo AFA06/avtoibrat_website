@@ -85,6 +85,16 @@ class StudentForm(forms.ModelForm):
             raise forms.ValidationError("Bu telefon raqami boshqa foydalanuvchida mavjud.")
         return digits
 
+    def clean_account_expires_at(self):
+        expires = self.cleaned_data["account_expires_at"]
+        if expires and expires < timezone.localdate() and expires != self._saved_expiry():
+            raise forms.ValidationError("Muddat o‘tib ketgan sana bo‘lishi mumkin emas — talaba kira olmaydi.")
+        return expires
+
+    def _saved_expiry(self):
+        """Editing keeps an already-expired date as is; only a newly typed past date is rejected."""
+        return self.initial.get("account_expires_at")
+
     def clean_password(self):
         return self.cleaned_data["password"].strip()
 

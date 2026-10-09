@@ -12,7 +12,9 @@
 
   <form method="post" novalidate id="assignment-form">
     {% csrf_token %}
-    {% for e in form.non_field_errors %}<p class="sd-flash sd-flash--error">{{ e }}</p>{% endfor %}
+    {% if form.errors %}
+    <p class="sd-flash sd-flash--error" id="form-errors" role="alert"><i class="fas fa-exclamation-circle"></i><span>Vazifa saqlanmadi — qizil bilan belgilangan maydonlarni to‘g‘rilang.{% for e in form.non_field_errors %} {{ e }}{% endfor %}</span></p>
+    {% endif %}
 
     <section class="sd-panel sd-card">
       <h2>Vazifa</h2>

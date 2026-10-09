@@ -13,4 +13,8 @@
   };
   radios.forEach((radio) => radio.addEventListener("change", sync));
   sync();
+
+  // After a failed save, bring the first problem into view — the Save button is far from the fields.
+  const firstError = form.querySelector(".has-error") || document.getElementById("form-errors");
+  if (firstError) firstError.scrollIntoView({ block: "center" });
 })();
