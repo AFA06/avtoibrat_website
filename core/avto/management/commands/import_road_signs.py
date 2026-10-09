@@ -100,7 +100,8 @@ class Command(BaseCommand):
     def handle(self, *args, **opts):
         cats = {}
         for order, (slug, title) in enumerate(CATEGORIES, start=1):
-            cat, _ = RoadSignCategory.objects.update_or_create(
+            # get_or_create: a redeploy must not undo a teacher's renames or reordering.
+            cat, _ = RoadSignCategory.objects.get_or_create(
                 slug=slug, defaults={"title": title, "order": order}
             )
             cats[slug] = cat
@@ -108,6 +109,9 @@ class Command(BaseCommand):
 
         if opts["sample"]:
             for n, (cat_slug, number, title, desc, svg) in enumerate(SAMPLE):
+                slug = slugify(f"{number}-{title}")[:50] or slugify(title)[:50]
+                if RoadSign.objects.filter(slug=slug).exists():
+                    continue  # keep the teacher's edits on redeploy
                 self._save(cats[cat_slug], number, title, desc, f"{number}.svg", svg, n)
             self.stdout.write(f"{len(SAMPLE)} sample signs saved")
 
