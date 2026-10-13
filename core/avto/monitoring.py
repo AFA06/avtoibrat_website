@@ -321,7 +321,7 @@ def session_review(session, language):
         if answer and answer.answered_at and previous:
             seconds = int(min(max((answer.answered_at - previous).total_seconds(), 0), IDLE_CAP_SECONDS))
             previous = answer.answered_at
-        correct = next((a for a in question.javoblar.all() if a.togri), None)
+        correct = question.correct_answer_for(language)
         status = "skipped" if not answer or not answer.selected_answer_id else ("correct" if answer.is_correct else "wrong")
         rows.append({
             "number": number, "question": question.get_text(language), "status": status, "seconds": seconds,

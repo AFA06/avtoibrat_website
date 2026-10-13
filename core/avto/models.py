@@ -541,6 +541,15 @@ class Question(models.Model):
 
         return self.matn_uzb
 
+    def answers_for(self, lang=None):
+        """Answers that have a text in this language (Russian may list different options than Uzbek)."""
+        lang = lang or get_language()
+        answers = [a for a in self.javoblar.all() if a.has_text(lang)]
+        return answers or list(self.javoblar.all())
+
+    def correct_answer_for(self, lang=None):
+        return next((a for a in self.answers_for(lang) if a.togri), None)
+
     def get_audio_file(self):
         lang = get_language()
         if lang in ("uz", "uz-kr"):
@@ -557,26 +566,29 @@ class Answer(models.Model):
         on_delete=models.CASCADE
     )
 
-    matn_uzb = models.CharField(max_length=255)
-    matn_uz_kr = models.CharField(max_length=255)
-    matn_rus = models.CharField(max_length=255)
+    # A language left empty means the answer is not offered in that language.
+    matn_uzb = models.TextField("Javob (O‘zbek)", blank=True)
+    matn_uz_kr = models.TextField("Javob (Крил)", blank=True)
+    matn_rus = models.TextField("Javob (Русский)", blank=True)
 
     togri = models.BooleanField(default=False)
 
-    def get_text(self, lang=None):
-        lang = lang or get_language()
+    class Meta:
+        ordering = ["id"]
 
-        if lang in ("uz",):
-            return self.matn_uzb
-
-        elif lang in ("uz-kr",):
+    def _text(self, lang):
+        if lang == "uz-kr":
             return self.matn_uz_kr
-
-        elif lang in ("ru",):
+        if lang == "ru":
             return self.matn_rus
-
         return self.matn_uzb
 
+    def has_text(self, lang):
+        return bool(self._text(lang).strip())
+
+    def get_text(self, lang=None):
+        lang = lang or get_language()
+        return self._text(lang) or self.matn_uzb or self.matn_uz_kr or self.matn_rus
 
 
 class TestSession(models.Model):

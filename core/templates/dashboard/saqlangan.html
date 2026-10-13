@@ -208,7 +208,7 @@
                             {% endif %}
 
                             <div class="saved-options">
-                              {% for ans in item.question.javoblar.all %}
+                              {% for ans in item.question.answers_for %}
                                 <div class="saved-option {% if ans.togri %}correct{% endif %}">
                                   {{ ans.get_text }}
                                 </div>

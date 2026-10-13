@@ -796,7 +796,7 @@ def test_page(request, session_id):
     exam_lang = request.user.group_language
 
     correct_answer_map = {
-        q.id: next((a.id for a in q.javoblar.all() if a.togri), None)
+        q.id: getattr(q.correct_answer_for(exam_lang), "id", None)
         for q in ordered_questions
     }
 
@@ -814,7 +814,7 @@ def test_page(request, session_id):
             "saved": q.id in saved_ids,
             "answers": [
                 {"id": a.id, "text": a.get_text(exam_lang)}
-                for a in q.javoblar.all()
+                for a in q.answers_for(exam_lang)
             ],
         }
         for q in ordered_questions
@@ -883,7 +883,7 @@ def submit_answer(request):
         answered_at=timezone.now(),
     )
 
-    correct_answer = question.javoblar.filter(togri=True).first()
+    correct_answer = question.correct_answer_for(request.user.group_language)
 
     exam_failed = False
     if session.test_kind == "real" and not user_answer.is_correct:
