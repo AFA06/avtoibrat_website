@@ -1,6 +1,7 @@
 import json
 from io import StringIO
 
+from django.contrib.staticfiles import finders
 from django.core.management import call_command
 from django.test import TestCase
 from django.urls import reverse
@@ -128,3 +129,24 @@ class ExamLanguageTests(TestCase):
             {"session_id": session.id, "question_id": question.id, "answer_id": wrong.id},
         )
         self.assertEqual(response.json()["correct_answer_id"], question.correct_answer_for("ru").id)
+
+
+class LinkedOptionTests(TestCase):
+    """«F1 va F2 javoblar to‘g‘ri» names options by key; the exam script re-points the keys after a shuffle."""
+
+    @classmethod
+    def setUpTestData(cls):
+        call_command("import_bilets", stdout=StringIO())
+
+    def test_exam_sends_options_in_original_order_so_keys_can_be_followed(self):
+        question = Question.objects.filter(kategoriya__nomi="Bilet 52").order_by("id")[4]
+        for lang in ("uz", "uz-kr", "ru"):
+            texts = [a.get_text(lang) for a in question.answers_for(lang)]
+            self.assertRegex(texts[3], r"^F1 \S+ F2 ")
+            self.assertTrue(question.answers_for(lang)[3].togri)
+
+    def test_exam_script_links_keys_to_options(self):
+        with open(finders.find("exam/exam.js"), encoding="utf-8") as handle:
+            script = handle.read()
+        self.assertIn("text.textContent = linkedText(question, answer);", script)
+        self.assertIn("els.answerModalText.textContent = linkedText(question, answer);", script)

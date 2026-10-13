@@ -89,6 +89,24 @@
     return shuffledOptionOrder(question);
   }
 
+  // An option like "F1 va F2 javoblar to‘g‘ri" names other options by their original keys.
+  // Options move between keys, so the keys in such a text follow the options they point at.
+  function linkedText(question, answer) {
+    const order = optionOrders[question.id] || question.answers.map((a) => a.id);
+    const pattern = /\bF([1-9])\b/g;
+    const keys = [];
+    let match;
+    while ((match = pattern.exec(answer.text)) !== null) {
+      const target = question.answers[Number(match[1]) - 1];
+      if (!target || target.id === answer.id) return answer.text;
+      keys.push(order.indexOf(target.id) + 1);
+    }
+    if (!keys.length) return answer.text;
+    keys.sort((x, y) => x - y);
+    let next = 0;
+    return answer.text.replace(pattern, () => `F${keys[next++]}`);
+  }
+
   function renderCounter() {
     els.counter.textContent = `${strings.questionCounter} ${currentIndex + 1} / ${questions.length}`;
   }
@@ -167,7 +185,7 @@
 
       const text = document.createElement("span");
       text.className = "exam-option__text";
-      text.textContent = answer.text;
+      text.textContent = linkedText(question, answer);
 
       row.appendChild(key);
       row.appendChild(text);
@@ -244,7 +262,7 @@
       return;
     }
     pendingSelection = { question, answer };
-    els.answerModalText.textContent = answer.text;
+    els.answerModalText.textContent = linkedText(question, answer);
     openModal(els.answerModal);
   }
 
