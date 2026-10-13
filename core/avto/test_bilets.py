@@ -1,13 +1,17 @@
 import json
+import tempfile
 from io import StringIO
 
 from django.contrib.staticfiles import finders
 from django.core.management import call_command
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.urls import reverse
+from PIL import Image
 
-from .management.commands.import_bilets import DATA_FILE
+from .management.commands.import_bilets import DATA_FILE, IMAGE_DIR
 from .models import Answer, Question, TestCategory, TestSession, TestType, User
+
+MEDIA = tempfile.mkdtemp()
 
 
 class BiletDataTests(TestCase):
@@ -34,6 +38,7 @@ class BiletDataTests(TestCase):
                     self.assertNotRegex(answer["ru"], "[ўқғҳ]|[a-z]{4,}")
 
 
+@override_settings(MEDIA_ROOT=MEDIA)
 class ImportBiletsTests(TestCase):
     @classmethod
     def setUpTestData(cls):
@@ -81,6 +86,7 @@ class ImportBiletsTests(TestCase):
         self.assertEqual(set(Answer.objects.values_list("id", flat=True)), answer_ids)
 
 
+@override_settings(MEDIA_ROOT=MEDIA)
 class DemoContentReplacementTests(TestCase):
     def test_placeholder_questions_are_replaced_and_demo_category_purged(self):
         kind = TestType.objects.create(nomi="t", vaqt_daqiqa=20, savollar_soni=20)
@@ -99,6 +105,7 @@ class DemoContentReplacementTests(TestCase):
         self.assertTrue(TestCategory.objects.filter(nomi="Mavzu: belgilar").exists())
 
 
+@override_settings(MEDIA_ROOT=MEDIA)
 class ExamLanguageTests(TestCase):
     @classmethod
     def setUpTestData(cls):
@@ -131,6 +138,7 @@ class ExamLanguageTests(TestCase):
         self.assertEqual(response.json()["correct_answer_id"], question.correct_answer_for("ru").id)
 
 
+@override_settings(MEDIA_ROOT=MEDIA)
 class LinkedOptionTests(TestCase):
     """«F1 va F2 javoblar to‘g‘ri» names options by key; the exam script re-points the keys after a shuffle."""
 
@@ -150,3 +158,56 @@ class LinkedOptionTests(TestCase):
             script = handle.read()
         self.assertIn("text.textContent = linkedText(question, answer);", script)
         self.assertIn("els.answerModalText.textContent = linkedText(question, answer);", script)
+
+
+@override_settings(MEDIA_ROOT=MEDIA)
+class BiletPictureTests(TestCase):
+    """Picture "<bilet>-<N>.webp" belongs to question N of that bilet, counted as in the Word document."""
+
+    @classmethod
+    def setUpTestData(cls):
+        call_command("import_bilets", stdout=StringIO())
+
+    def _question(self, bilet, number):
+        return Question.objects.filter(kategoriya__nomi=f"Bilet {bilet}").order_by("id")[number - 1]
+
+    def test_picture_files_are_named_and_sized_correctly(self):
+        files = sorted(IMAGE_DIR.glob("*.webp"))
+        self.assertTrue(files)
+        for path in files:
+            bilet, number = map(int, path.stem.split("-"))
+            self.assertTrue(1 <= bilet <= 60 and 1 <= number <= 20, path.name)
+            with Image.open(path) as image:
+                self.assertEqual(image.size, (945, 530), path.name)
+
+    def test_every_picture_lands_on_its_own_question(self):
+        files = list(IMAGE_DIR.glob("*.webp"))
+        self.assertEqual(Question.objects.exclude(rasm="").exclude(rasm=None).count(), len(files))
+        for path in files:
+            bilet, number = map(int, path.stem.split("-"))
+            question = self._question(bilet, number)
+            self.assertEqual(question.rasm.name, f"questions/images/bilet-{bilet}-{number}.webp")
+            with question.rasm.open() as stored:
+                self.assertEqual(stored.read(), path.read_bytes())
+
+    def test_known_pairs(self):
+        self.assertIn("Umurtqa pog", self._question(1, 9).matn_uzb)
+        self.assertTrue(self._question(1, 9).rasm)
+        self.assertIn("Tibbiyot qutichasi", self._question(1, 3).matn_uzb)
+        self.assertFalse(self._question(1, 3).rasm)
+
+    def test_rerun_keeps_a_teachers_picture_and_force_restores_the_original(self):
+        question = self._question(1, 1)
+        Question.objects.filter(pk=question.pk).update(rasm="questions/images/teacher.png")
+        call_command("import_bilets", stdout=StringIO())
+        question.refresh_from_db()
+        self.assertEqual(question.rasm.name, "questions/images/teacher.png")
+        call_command("import_bilets", force=True, stdout=StringIO())
+        question.refresh_from_db()
+        self.assertEqual(question.rasm.name, "questions/images/bilet-1-1.webp")
+
+    def test_exam_page_sends_the_picture(self):
+        user = User.objects.create_user(username="pic", password="x", unlimited=True)
+        self.client.force_login(user)
+        start = self.client.post(reverse("start_shablon_test", args=[TestCategory.objects.get(nomi="Bilet 1").id]))
+        self.assertContains(self.client.get(start.url), "questions/images/bilet-1-9.webp")

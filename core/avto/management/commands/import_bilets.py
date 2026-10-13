@@ -9,18 +9,24 @@ Cyrillic share their answer rows; Russian answers are separate rows, because the
 question often lists different options.
 
 A bilet that already holds real questions is left alone, so teacher edits and uploaded pictures
-survive a re-run. --force rewrites texts in place and still keeps pictures, audio and video.
+survive a re-run. --force rewrites texts in place and still keeps audio and video.
+
+Pictures live in avto/fixtures/bilet_images as "<bilet>-<question>.webp" (945x530), numbered like the
+questions of the Word documents. A picture is attached to a question that has none; --force also
+replaces the pictures that are already there.
 """
 import json
 import re
 from pathlib import Path
 
+from django.core.files.base import ContentFile
 from django.core.management.base import BaseCommand, CommandError
 from django.db import transaction
 
 from avto.models import Answer, Question, TestCategory, TestType
 
 DATA_FILE = Path(__file__).resolve().parents[2] / "fixtures" / "bilets.json"
+IMAGE_DIR = DATA_FILE.parent / "bilet_images"
 QUESTIONS_PER_BILET = 20
 DURATION_MINUTES = 25
 # Placeholder questions of the old demo content.
@@ -59,6 +65,26 @@ def _is_demo(category):
     return all(DEMO_TEXT.match(text) for text in texts)
 
 
+def _attach_images(category, number, force):
+    """Give question N of the bilet its picture "<bilet>-<N>.webp". Returns how many were attached."""
+    questions = list(category.question_set.order_by("id"))
+    if len(questions) != QUESTIONS_PER_BILET:
+        return 0
+    attached = 0
+    for position, question in enumerate(questions, start=1):
+        source = IMAGE_DIR / f"{number}-{position}.webp"
+        if not source.exists() or (question.rasm and not force):
+            continue
+        name = f"questions/images/bilet-{number}-{position}.webp"
+        storage = question.rasm.storage
+        if storage.exists(name):
+            storage.delete(name)
+        question.rasm.save(f"bilet-{number}-{position}.webp", ContentFile(source.read_bytes()), save=False)
+        Question.objects.filter(pk=question.pk).update(rasm=question.rasm.name)
+        attached += 1
+    return attached
+
+
 class Command(BaseCommand):
     help = "Create the exam bilets (questions and answers in three languages) from bilets.json."
 
@@ -81,7 +107,7 @@ class Command(BaseCommand):
                     self.stdout.write(f"deleted demo category «{category.nomi}»")
                     category.delete()
 
-        created = rewritten = skipped = 0
+        created = rewritten = skipped = pictures = 0
         for bilet in bilets:
             name = f"Bilet {bilet['bilet']}"
             category, _ = TestCategory.objects.get_or_create(
@@ -96,28 +122,31 @@ class Command(BaseCommand):
             existing = list(category.question_set.order_by("id"))
             if existing and not options["force"]:
                 skipped += 1
-                continue
-            if existing and len(existing) != len(bilet["questions"]):
+            elif existing and len(existing) != len(bilet["questions"]):
                 self.stderr.write(f"{name}: has {len(existing)} questions, not rewritten")
                 skipped += 1
-                continue
-
-            for position, item in enumerate(bilet["questions"]):
-                texts = {"matn_uzb": item["uz"], "matn_uz_kr": item["kr"], "matn_rus": item["ru"]}
-                rows = _answer_rows(item)
-                if existing:
-                    question = existing[position]
-                    Question.objects.filter(pk=question.pk).update(**texts)
-                    current = list(question.javoblar.values("matn_uzb", "matn_uz_kr", "matn_rus", "togri"))
-                    if current == rows:
-                        continue
-                    question.javoblar.all().delete()
-                else:
-                    question = Question.objects.create(test_turi=test_type, kategoriya=category, **texts)
-                Answer.objects.bulk_create(Answer(question=question, **row) for row in rows)
-            if existing:
-                rewritten += 1
             else:
-                created += 1
+                self._write_questions(category, test_type, bilet, existing)
+                rewritten += bool(existing)
+                created += not existing
+            pictures += _attach_images(category, bilet["bilet"], options["force"])
 
-        self.stdout.write(f"bilets: {created} created, {rewritten} rewritten, {skipped} left as they were")
+        self.stdout.write(
+            f"bilets: {created} created, {rewritten} rewritten, {skipped} left as they were; "
+            f"{pictures} pictures attached"
+        )
+
+    def _write_questions(self, category, test_type, bilet, existing):
+        for position, item in enumerate(bilet["questions"]):
+            texts = {"matn_uzb": item["uz"], "matn_uz_kr": item["kr"], "matn_rus": item["ru"]}
+            rows = _answer_rows(item)
+            if existing:
+                question = existing[position]
+                Question.objects.filter(pk=question.pk).update(**texts)
+                current = list(question.javoblar.values("matn_uzb", "matn_uz_kr", "matn_rus", "togri"))
+                if current == rows:
+                    continue
+                question.javoblar.all().delete()
+            else:
+                question = Question.objects.create(test_turi=test_type, kategoriya=category, **texts)
+            Answer.objects.bulk_create(Answer(question=question, **row) for row in rows)
