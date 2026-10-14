@@ -845,6 +845,12 @@ msgstr "<b data-size></b> та савол, <b data-minutes></b> дақиқа. <b
 msgid "Real imtihon · %(n)s ta savol"
 msgstr "Реал имтиҳон · %(n)s та савол"
 
+msgid "Test to‘liq ekranda ochiladi"
+msgstr "Тест тўлиқ экранда очилади"
+
+msgid "Boshlash tugmasini yoki Enter tugmasini bosing."
+msgstr "Бошлаш тугмасини ёки Enter тугмасини босинг."
+
 #~ msgid "To'g'ri javoblar:"
 #~ msgstr "Тўғри жавоблар:"
 

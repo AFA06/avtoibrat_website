@@ -848,6 +848,12 @@ msgstr "<b data-size></b> вопросов, <b data-minutes></b> мин. Доп�
 msgid "Real imtihon · %(n)s ta savol"
 msgstr "Реальный экзамен · %(n)s вопросов"
 
+msgid "Test to‘liq ekranda ochiladi"
+msgstr "Тест откроется на весь экран"
+
+msgid "Boshlash tugmasini yoki Enter tugmasini bosing."
+msgstr "Нажмите кнопку «Начать» или клавишу Enter."
+
 #~| msgid "Русский"
 #~ msgid "Audio (Русский)"
 #~ msgstr "Русский"

@@ -1,7 +1,7 @@
 """Real exam (Real imtihon): 20 or 50 questions drawn at random from every topic, new ones each time.
 
-Like the state exam, it allows one mistake per ten questions (2 of 20): the next mistake ends the
-exam as failed. Each question gets a minute.
+A 20-question exam allows 2 mistakes (the 3rd ends it as failed), a 50-question exam allows 4
+(the 5th ends it). Each question gets a minute.
 """
 from django.utils import timezone
 
@@ -13,9 +13,13 @@ MINUTES_PER_QUESTION = 1
 HISTORY_LIMIT = 6
 
 
+# The wrong answer that ends the exam: the 3rd in a 20-question exam, the 5th in a 50-question one.
+FAILING_MISTAKE = {20: 3, 50: 5}
+
+
 def max_mistakes(size):
-    """The number of wrong answers that fails an exam of `size` questions (3 for 20, 6 for 50)."""
-    return size // 10 + 1
+    """The number of wrong answers that fails an exam of `size` questions."""
+    return FAILING_MISTAKE.get(size, size // 10 + 1)
 
 
 def passed(size, wrong, answered):

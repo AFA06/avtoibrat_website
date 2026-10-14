@@ -94,6 +94,15 @@
 </div>
 {% endif %}
 
+<div class="exam-start" id="examStart" hidden>
+  <div class="exam-modal__card exam-start__card">
+    <span class="exam-start__icon"><i class="ti ti-arrows-maximize"></i></span>
+    <h3>{% trans "Test to‘liq ekranda ochiladi" %}</h3>
+    <p class="exam-modal__hint">{% trans "Boshlash tugmasini yoki Enter tugmasini bosing." %}</p>
+    <button type="button" class="exam-btn exam-btn--primary" id="examStartBtn">{% trans "Boshlash" %}</button>
+  </div>
+</div>
+
 <div class="exam-modal" id="finishModal">
   <div class="exam-modal__card">
     <h3>{% trans "Testni yakunlaysizmi?" %}</h3>

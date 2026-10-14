@@ -55,11 +55,12 @@ class RealExamTests(TestCase):
         self.assertIsNone(session)
 
     def test_allowed_mistakes_grow_with_the_exam(self):
-        self.assertEqual((real_exam.max_mistakes(20), real_exam.max_mistakes(50)), (3, 6))
+        self.assertEqual((real_exam.max_mistakes(20), real_exam.max_mistakes(50)), (3, 5))
         self.assertTrue(real_exam.passed(20, 2, 20))
         self.assertFalse(real_exam.passed(20, 3, 20))
-        self.assertTrue(real_exam.passed(50, 5, 50))
-        self.assertFalse(real_exam.passed(50, 5, 49))
+        self.assertTrue(real_exam.passed(50, 4, 50))
+        self.assertFalse(real_exam.passed(50, 5, 50))
+        self.assertFalse(real_exam.passed(50, 4, 49))
 
     def answer_wrong(self, session, question_id):
         wrong = Answer.objects.get(question_id=question_id, togri=False)
@@ -67,10 +68,20 @@ class RealExamTests(TestCase):
             "session_id": session.id, "question_id": question_id, "answer_id": wrong.id,
         }).json()
 
-    def test_the_exam_ends_at_the_first_mistake_over_the_limit(self):
+    def test_twenty_question_exam_ends_at_the_third_mistake(self):
+        _, session = self.start(20)
+        results = [self.answer_wrong(session, qid)["exam_failed"] for qid in session.question_order[:3]]
+        self.assertEqual(results, [False, False, True])
+
+    def test_fifty_question_exam_ends_at_the_fifth_mistake(self):
         _, session = self.start(50)
-        results = [self.answer_wrong(session, qid)["exam_failed"] for qid in session.question_order[:6]]
-        self.assertEqual(results, [False] * 5 + [True])
+        results = [self.answer_wrong(session, qid)["exam_failed"] for qid in session.question_order[:5]]
+        self.assertEqual(results, [False] * 4 + [True])
+
+    def test_page_states_the_allowed_mistakes(self):
+        response = self.client.get(reverse("real_imtihon"))
+        self.assertContains(response, "2 tagacha xatoga ruxsat")
+        self.assertContains(response, "4 tagacha xatoga ruxsat")
 
     def test_result_page_names_the_exam_and_restarts_the_same_size(self):
         _, session = self.start(50)

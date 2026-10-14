@@ -12,6 +12,8 @@
     timer: document.getElementById("examTimer"),
     timerValue: document.getElementById("examTimerValue"),
     fullscreenBtn: document.getElementById("fullscreenBtn"),
+    startOverlay: document.getElementById("examStart"),
+    startBtn: document.getElementById("examStartBtn"),
     finishBtn: document.getElementById("finishBtn"),
     questionText: document.getElementById("examQuestionText"),
     imageBox: document.getElementById("examImageBox"),
@@ -49,6 +51,7 @@
   let pendingSelection = null;
   let submitting = false;
   let autoAdvanceEnabled = true;
+  let leaving = false; // set once the test is being finished, so leaving the page is no longer blocked
   const optionOrders = {};
 
   function shuffledOptionOrder(question) {
@@ -320,6 +323,7 @@
         }, FEEDBACK_DELAY_MS);
       })
       .catch(() => {
+        leaving = true;
         window.location.reload();
       });
   }
@@ -349,7 +353,61 @@
   }
 
   function submitFinish() {
+    leaving = true;
     els.finishForm.submit();
+  }
+
+  // ---------- Staying in the test ----------
+  // The browser's Back button must not drop the student out of a running test: it opens the
+  // «finish the test?» dialog instead. Only finishing (button, timer, failed exam) leaves the page.
+  function guardBackButton() {
+    const trap = () => history.pushState({ examGuard: true }, "", window.location.href);
+    // Chrome ignores history entries added before the student touched the page, so the entry
+    // is added on the first touch or key press.
+    let armed = false;
+    const arm = () => {
+      if (armed) return;
+      armed = true;
+      trap();
+    };
+    document.addEventListener("pointerdown", arm, { capture: true });
+    document.addEventListener("keydown", arm, { capture: true });
+
+    window.addEventListener("popstate", () => {
+      if (leaving) return;
+      trap();
+      closeLightbox();
+      if (!anyModalOpen()) openModal(els.finishModal);
+    });
+    // Second guard (closing the tab, a fast double Back): the browser's own «leave the page?» question.
+    window.addEventListener("beforeunload", (e) => {
+      if (leaving) return;
+      e.preventDefault();
+      e.returnValue = "";
+    });
+  }
+
+  // ---------- Full screen ----------
+  // Browsers only allow full screen after a click or key press, so every test opens with a
+  // one-tap start screen that switches to full screen.
+  function startOverlayOpen() {
+    return Boolean(els.startOverlay) && !els.startOverlay.hidden;
+  }
+
+  function enterFullscreenAndStart() {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(() => {});
+    }
+    els.startOverlay.hidden = true;
+  }
+
+  function setupFullscreenStart() {
+    if (!els.startOverlay) return;
+    // Phones without the full screen API (iPhone Safari) go straight to the questions.
+    if (!document.fullscreenEnabled || document.fullscreenElement) return;
+    els.startOverlay.hidden = false;
+    els.startBtn.addEventListener("click", enterFullscreenAndStart);
+    els.startBtn.focus();
   }
 
   function formatTime(totalSeconds) {
@@ -392,6 +450,12 @@
   els.finishConfirmBtn.addEventListener("click", submitFinish);
 
   document.addEventListener("keydown", (e) => {
+    if (startOverlayOpen()) {
+      if (e.key === "Enter" || e.key === " ") enterFullscreenAndStart();
+      e.preventDefault();
+      return;
+    }
+
     if (isModalOpen(els.answerModal)) {
       if (e.key === "Enter") { e.preventDefault(); confirmSelection(); }
       if (e.key === "Escape") { e.preventDefault(); pendingSelection = null; closeModal(els.answerModal); }
@@ -542,5 +606,7 @@
 
   setupTextSize();
   setupAutoAdvance();
+  guardBackButton();
+  setupFullscreenStart();
   renderQuestion();
 })();
