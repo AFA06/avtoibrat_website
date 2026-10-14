@@ -1,4 +1,9 @@
+import os
 from datetime import timedelta
+from io import StringIO
+from unittest import mock
+
+from django.core.management import call_command
 
 from django.test import TestCase
 from django.urls import reverse
@@ -58,3 +63,13 @@ class ExpiryValidationTests(TestCase):
         student.save()
         same_date = timezone.localtime(student.account_expires_at).date()
         self.assertTrue(self.form(same_date, instance=student).is_valid())
+
+
+class SeedDemoTests(TestCase):
+    def test_demo_student_can_log_in_with_the_number_the_form_accepts(self):
+        with mock.patch.dict(os.environ, {"DEMO_PASSWORD": "demo-pass-1"}):
+            call_command("seed_demo", stdout=StringIO())
+        response = self.client.post(reverse("login"), {
+            "role": "student", "username": "99-999-99-99", "password": "demo-pass-1",
+        })
+        self.assertRedirects(response, reverse("dashboard"), fetch_redirect_response=False)
