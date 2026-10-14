@@ -851,6 +851,54 @@ msgstr "Тест тўлиқ экранда очилади"
 msgid "Boshlash tugmasini yoki Enter tugmasini bosing."
 msgstr "Бошлаш тугмасини ёки Enter тугмасини босинг."
 
+msgid "Natijalar va reyting"
+msgstr "Натижалар ва рейтинг"
+
+msgid "Reyting"
+msgstr "Рейтинг"
+
+msgid "O‘quv materiallar"
+msgstr "Ўқув материаллар"
+
+msgid "Belgilar va qo‘llanmalar"
+msgstr "Белгилар ва қўлланмалар"
+
+msgid "Testlar"
+msgstr "Тестлар"
+
+msgid "Mashq qilish uchun"
+msgstr "Машқ қилиш учун"
+
+msgid "O‘xshash savollar"
+msgstr "Ўхшаш саволлар"
+
+msgid "Saqlangan testlar"
+msgstr "Сақланган тестлар"
+
+msgid "Marafon"
+msgstr "Марафон"
+
+msgid "Imtihon"
+msgstr "Имтиҳон"
+
+msgid "O‘zingizni sinab ko‘ring"
+msgstr "Ўзингизни синаб кўринг"
+
+msgid "Uy vazifasi"
+msgstr "Уй вазифаси"
+
+msgid "O‘qituvchi topshiriqlari"
+msgstr "Ўқитувчи топшириқлари"
+
+msgid "Vazifalar"
+msgstr "Вазифалар"
+
+msgid "Yordam"
+msgstr "Ёрдам"
+
+msgid "Biz bilan bog‘laning"
+msgstr "Биз билан боғланинг"
+
 #~ msgid "To'g'ri javoblar:"
 #~ msgstr "Тўғри жавоблар:"
 

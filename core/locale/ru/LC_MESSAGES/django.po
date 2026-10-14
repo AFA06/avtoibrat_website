@@ -854,6 +854,54 @@ msgstr "Тест откроется на весь экран"
 msgid "Boshlash tugmasini yoki Enter tugmasini bosing."
 msgstr "Нажмите кнопку «Начать» или клавишу Enter."
 
+msgid "Natijalar va reyting"
+msgstr "Результаты и рейтинг"
+
+msgid "Reyting"
+msgstr "Рейтинг"
+
+msgid "O‘quv materiallar"
+msgstr "Учебные материалы"
+
+msgid "Belgilar va qo‘llanmalar"
+msgstr "Знаки и пособия"
+
+msgid "Testlar"
+msgstr "Тесты"
+
+msgid "Mashq qilish uchun"
+msgstr "Для тренировки"
+
+msgid "O‘xshash savollar"
+msgstr "Похожие вопросы"
+
+msgid "Saqlangan testlar"
+msgstr "Сохранённые тесты"
+
+msgid "Marafon"
+msgstr "Марафон"
+
+msgid "Imtihon"
+msgstr "Экзамен"
+
+msgid "O‘zingizni sinab ko‘ring"
+msgstr "Проверьте себя"
+
+msgid "Uy vazifasi"
+msgstr "Домашнее задание"
+
+msgid "O‘qituvchi topshiriqlari"
+msgstr "Задания преподавателя"
+
+msgid "Vazifalar"
+msgstr "Задания"
+
+msgid "Yordam"
+msgstr "Помощь"
+
+msgid "Biz bilan bog‘laning"
+msgstr "Свяжитесь с нами"
+
 #~| msgid "Русский"
 #~ msgid "Audio (Русский)"
 #~ msgstr "Русский"
