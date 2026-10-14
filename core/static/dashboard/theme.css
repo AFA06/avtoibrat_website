@@ -329,3 +329,24 @@ html { transition: background-color 0.25s ease; }
 [data-theme] .saved-intro p, [data-theme] .saved-intro__note { color: rgba(255, 255, 255, 0.9) !important; }
 [data-theme] .saved-intro h3, [data-theme] .saved-group__head, [data-theme] .saved-group__head span { color: #fff !important; }
 [data-theme="dark"] .footer { background: transparent; border-color: var(--ai-line); color: var(--ai-ink-3); }
+
+/* ---------- Moving between pages ----------
+   The browser cross-fades from one page to the next instead of flashing a blank page
+   (Chrome, Edge, Safari 18+). The sidebar and top bar are the same on every page, so they stay put. */
+@view-transition { navigation: auto; }
+.left-sidebar { view-transition-name: ai-sidebar; }
+.topbar { view-transition-name: ai-topbar; }
+::view-transition-group(ai-sidebar),
+::view-transition-group(ai-topbar),
+::view-transition-old(ai-sidebar),
+::view-transition-new(ai-sidebar),
+::view-transition-old(ai-topbar),
+::view-transition-new(ai-topbar) { animation: none; }
+::view-transition-old(ai-sidebar),
+::view-transition-old(ai-topbar) { display: none; }
+::view-transition-old(root),
+::view-transition-new(root) { animation-duration: 0.18s; }
+
+@media (prefers-reduced-motion: reduce) {
+  @view-transition { navigation: none; }
+}

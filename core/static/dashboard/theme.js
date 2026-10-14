@@ -9,6 +9,22 @@
 
   const { animate, stagger, inView, hover, press } = M;
   const root = document.documentElement;
+
+  // The full entrance (sidebar sliding in, cards rising) plays once per visit. Moving between
+  // pages afterwards keeps the sidebar still and only fades the new content in briefly, so a
+  // click in the sidebar feels like switching a tab rather than reloading the site.
+  const firstPage = (() => {
+    try {
+      if (window.sessionStorage.getItem("avtoibrat.entered")) return false;
+      window.sessionStorage.setItem("avtoibrat.entered", "1");
+      return true;
+    } catch (error) {
+      return false;
+    }
+  })();
+  const ENTRANCE = firstPage
+    ? { from: "translateY(14px) scale(0.985)", duration: 0.5, step: 0.045 }
+    : { from: "translateY(6px)", duration: 0.28, step: 0.02 };
   root.classList.add("motion-ready");
   // Safety net: never leave content hidden if animation frames are throttled (background tab).
   setTimeout(() => {
@@ -43,8 +59,8 @@
     const above = items.filter((el) => el.getBoundingClientRect().top < vh);
     const below = items.filter((el) => !above.includes(el));
 
-    animate(above, { opacity: [0, 1], transform: ["translateY(14px) scale(0.985)", "translateY(0) scale(1)"] },
-      { duration: 0.5, delay: stagger(0.045, { startDelay: 0.05 }), ease: [0.22, 1, 0.36, 1] });
+    animate(above, { opacity: [0, 1], transform: [ENTRANCE.from, "translateY(0) scale(1)"] },
+      { duration: ENTRANCE.duration, delay: stagger(ENTRANCE.step, { startDelay: 0.03 }), ease: [0.22, 1, 0.36, 1] });
 
     below.forEach((el) => {
       inView(el, () => {
@@ -55,6 +71,7 @@
   }
 
   function sidebar() {
+    if (!firstPage) return;
     const links = document.querySelectorAll(".left-sidebar .menu-body .nav-item");
     animate(links, { opacity: [0, 1], transform: ["translateX(-10px)", "translateX(0)"] },
       { duration: 0.4, delay: stagger(0.035), ease: "easeOut" });
