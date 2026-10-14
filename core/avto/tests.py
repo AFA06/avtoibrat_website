@@ -9,6 +9,7 @@ from django.urls import reverse
 from django.utils import translation
 from django.utils import timezone
 
+from .views import _create_test_session
 from .models import Answer, Branch, ContactPerson, Question, StudyGroup, TestCategory, TestSession, TestType, Topic, TopicGroup, UserAnswer
 
 User = get_user_model()
@@ -42,10 +43,7 @@ class ExamEngineTests(TestCase):
         self.client.force_login(self.user)
 
     def _start_session(self):
-        response = self.client.get(reverse("start_test", args=[self.category.id]))
-        self.assertEqual(response.status_code, 302)
-        session_id = int(response.url.rstrip("/").split("/")[-1])
-        return TestSession.objects.get(id=session_id)
+        return _create_test_session(self.user, self.category, "real")
 
     def test_start_creates_session_with_fixed_question_order(self):
         session = self._start_session()
@@ -453,7 +451,7 @@ class ExamModeTests(TestCase):
     def setUp(self):
         translation.activate("uz")
         self.addCleanup(translation.deactivate)
-        user = User.objects.create_user(username="talaba", password="x", unlimited=True, phone="9999999")
+        self.user = user = User.objects.create_user(username="talaba", password="x", unlimited=True, phone="9999999")
         test_type = TestType.objects.create(nomi="Umumiy", vaqt_daqiqa=25, savollar_soni=2)
         self.category = TestCategory.objects.create(
             nomi="Bilet", aktiv=True, show_in_shablon=True, show_in_real=True,
@@ -474,6 +472,9 @@ class ExamModeTests(TestCase):
         self.client.force_login(user)
 
     def exam_html(self, start_url_name):
+        if start_url_name == "real":
+            session = _create_test_session(self.user, self.category, "real")
+            return self.client.get(reverse("test_page", args=[session.id])).content.decode()
         target = self.topic if start_url_name == "start_mavzu_test" else self.category
         start = self.client.get(reverse(start_url_name, args=[target.id]))
         return self.client.get(start["Location"]).content.decode()
@@ -497,7 +498,7 @@ class ExamModeTests(TestCase):
         self.assertNotIn("Javobni tasdiqlaysizmi", html)
 
     def test_real_exam_keeps_its_own_layout_and_confirmation(self):
-        html = self.exam_html("start_test")
+        html = self.exam_html("real")
         self.assertNotIn("exam--practice", html)
         self.assertIn("practice: false", html)
         self.assertIn('id="answerModal"', html)
@@ -591,7 +592,7 @@ class ExamAutoAdvanceTests(TestCase):
     def setUp(self):
         translation.activate("uz")
         self.addCleanup(translation.deactivate)
-        user = User.objects.create_user(username="talaba", password="x", unlimited=True, phone="9999999")
+        self.user = user = User.objects.create_user(username="talaba", password="x", unlimited=True, phone="9999999")
         test_type = TestType.objects.create(nomi="Umumiy", vaqt_daqiqa=25, savollar_soni=2)
         self.category = TestCategory.objects.create(
             nomi="Bilet", aktiv=True, show_in_shablon=True, show_in_real=True,
@@ -607,6 +608,9 @@ class ExamAutoAdvanceTests(TestCase):
         self.client.force_login(user)
 
     def exam_html(self, start_url_name):
+        if start_url_name == "real":
+            session = _create_test_session(self.user, self.category, "real")
+            return self.client.get(reverse("test_page", args=[session.id])).content.decode()
         start = self.client.get(reverse(start_url_name, args=[self.category.id]))
         return self.client.get(start["Location"]).content.decode()
 
@@ -616,7 +620,7 @@ class ExamAutoAdvanceTests(TestCase):
         self.assertIn('id="autoAdvanceInput"', html)
 
     def test_real_exam_has_no_auto_advance_toggle(self):
-        html = self.exam_html("start_test")
+        html = self.exam_html("real")
         self.assertNotIn('id="autoAdvanceToggle"', html)
 
     def test_toggle_is_translated(self):

@@ -11,7 +11,7 @@ from datetime import date, datetime, time, timedelta
 from django.db.models import Max
 from django.utils import timezone
 
-from .leaderboard import REAL_EXAM_MAX_MISTAKES
+from . import real_exam
 from .models import LoginEvent, Question, TestSession, UserAnswer
 
 PERIOD_CHOICES = {7: "Oxirgi 7 kun", 30: "Oxirgi 30 kun", 90: "Oxirgi 90 kun"}
@@ -71,8 +71,7 @@ class SessionStat:
     def result(self):
         """«passed»/«failed» for a finished real exam, «done»/«open» for practice tests."""
         if self.kind == "real" and self.finished:
-            complete = self.answered >= self.total > 0
-            return "passed" if complete and self.wrong < REAL_EXAM_MAX_MISTAKES else "failed"
+            return "passed" if real_exam.passed(self.total, self.wrong, self.answered) else "failed"
         return "done" if self.finished else "open"
 
 

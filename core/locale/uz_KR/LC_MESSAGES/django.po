@@ -800,6 +800,51 @@ msgstr "Охирги марта хато жавоб берган саволла�
 msgid "Bu mavzuda hozircha xatolaringiz yo‘q"
 msgstr "Бу мавзуда ҳозирча хатоларингиз йўқ"
 
+msgid "Imtihondagidek sinov: savollar barcha mavzulardan tasodifiy tanlanadi va har safar yangi bo‘ladi. Har bir savolga 1 daqiqa beriladi."
+msgstr "Имтиҳондагидек синов: саволлар барча мавзулардан тасодифий танланади ва ҳар сафар янги бўлади. Ҳар бир саволга 1 дақиқа берилади."
+
+msgid "ta savol"
+msgstr "та савол"
+
+#, python-format
+msgid "%(n)s daqiqa"
+msgstr "%(n)s дақиқа"
+
+#, python-format
+msgid "%(n)s tagacha xatoga ruxsat"
+msgstr "%(n)s тагача хатога рухсат"
+
+msgid "Barcha mavzulardan"
+msgstr "Барча мавзулардан"
+
+msgid "Imtihonni boshlash"
+msgstr "Имтиҳонни бошлаш"
+
+msgid "Savollar yetarli emas"
+msgstr "Саволлар етарли эмас"
+
+msgid "Ruxsat etilganidan bitta ko‘p xato qilsangiz, imtihon to‘xtaydi va «Topshirilmadi» deb hisoblanadi."
+msgstr "Рухсат этилганидан битта кўп хато қилсангиз, имтиҳон тўхтайди ва «Топширилмади» деб ҳисобланади."
+
+msgid "So‘nggi imtihonlar"
+msgstr "Сўнгги имтиҳонлар"
+
+msgid "Topshirildi"
+msgstr "Топширилди"
+
+msgid "Topshirilmadi"
+msgstr "Топширилмади"
+
+msgid "Imtihonni boshlaysizmi?"
+msgstr "Имтиҳонни бошлайсизми?"
+
+msgid "<b data-size></b> ta savol, <b data-minutes></b> daqiqa. <b data-allowed></b> tagacha xatoga ruxsat beriladi."
+msgstr "<b data-size></b> та савол, <b data-minutes></b> дақиқа. <b data-allowed></b> тагача хатога рухсат берилади."
+
+#, python-format
+msgid "Real imtihon · %(n)s ta savol"
+msgstr "Реал имтиҳон · %(n)s та савол"
+
 #~ msgid "To'g'ri javoblar:"
 #~ msgstr "Тўғри жавоблар:"
 

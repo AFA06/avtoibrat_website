@@ -11,10 +11,9 @@ from datetime import timedelta
 from django.db.models import Count, Q
 from django.utils import timezone
 
+from . import real_exam
 from .models import TestSession, UserAnswer
 
-# The real exam is failed as soon as the student reaches this many wrong answers.
-REAL_EXAM_MAX_MISTAKES = 3
 EXAM_BONUS = 20
 
 PERIODS = {
@@ -104,8 +103,7 @@ def build(students, period="all", sort="points"):
         wrong=Count("useranswer", filter=Q(useranswer__is_correct=False, useranswer__selected_answer__isnull=False)),
     )
     for session in real:
-        complete = session.right + session.wrong >= len(session.question_order) > 0
-        if complete and session.wrong < REAL_EXAM_MAX_MISTAKES:
+        if real_exam.passed(len(session.question_order), session.wrong, session.right + session.wrong):
             rows[session.user_id].exams_passed += 1
 
     # Rank by the chosen metric; «name» only reorders the display, rank stays by points.

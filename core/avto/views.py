@@ -15,7 +15,8 @@ from django.contrib.auth import get_user_model
 from django.views.decorators.http import require_POST, require_http_methods
 from django.db.models import Count, Sum, F, ExpressionWrapper, DurationField
 
-from .leaderboard import REAL_EXAM_MAX_MISTAKES, PERIODS, build as build_leaderboard
+from .leaderboard import PERIODS, build as build_leaderboard
+from . import real_exam
 from .models import (
     TeamMember, Story, ConsultRequest, Testimonial, FAQ,
     ContactMessage, PdfMaterial, RoadSignCategory, RoadSign,
@@ -67,7 +68,6 @@ RESTART_URL_NAMES = {
     ("shablon", "ohshash"): "start_ohshash_test",
     ("shablon", "saqlangan"): "start_saqlangan_test",
     ("shablon", "marafon"): "marathon",
-    ("real", "shablon"): "start_test",
 }
 
 # Restart targets that are plain pages, not «start test for category N».
@@ -653,63 +653,18 @@ def start_ohshash_test(request, category_id):
 
 @login_required
 def real_imtihon(request):
-    categories_qs = TestCategory.objects.filter(
-        aktiv=True,
-        show_in_real=True
-    )
-
-    categories = []
-
-    for cat in categories_qs:
-        last_session = (
-            TestSession.objects
-            .filter(
-                user=request.user,
-                category=cat,
-                finished_at__isnull=False,
-                test_kind="real"
-            )
-            .order_by("-finished_at")
-            .first()
-        )
-
-        if last_session:
-            correct = UserAnswer.objects.filter(
-                session=last_session,
-                is_correct=True
-            ).count()
-
-            wrong = UserAnswer.objects.filter(
-                session=last_session,
-                is_correct=False,
-                selected_answer__isnull=False
-            ).count()
-
-            answered = correct + wrong
-            empty = max(cat.question_count - answered, 0)
-        else:
-            correct = wrong = empty = 0
-
-        categories.append({
-            "id": cat.id,
-            "count": cat.question_count,
-            "correct": correct,
-            "wrong": wrong,
-            "empty": empty,
-        })
-
     return render(request, "dashboard/real-imtihon.html", {
-        "categories": categories
+        "options": real_exam.options(),
+        "history": real_exam.history(request.user),
     })
 
+
 @login_required
-def start_test(request, category_id):
-    category = get_object_or_404(
-        TestCategory,
-        id=category_id,
-        aktiv=True
-    )
-    session = _create_test_session(request.user, category, "real")
+def start_real_exam(request, size):
+    try:
+        session = real_exam.start(request.user, size)
+    except ValueError:
+        return redirect("real_imtihon")
     return redirect("test_page", session_id=session.id)
 
 
@@ -844,7 +799,7 @@ def submit_answer(request):
     exam_failed = False
     if session.test_kind == "real" and not user_answer.is_correct:
         mistakes = UserAnswer.objects.filter(session=session, is_correct=False).count()
-        if mistakes >= REAL_EXAM_MAX_MISTAKES:
+        if mistakes >= real_exam.max_mistakes(len(session.question_order)):
             session.finished_at = timezone.now()
             session.save(update_fields=["finished_at"])
             exam_failed = True
@@ -904,7 +859,9 @@ def _result_context(session):
         (session.test_kind, session.source), "shablon_test"
     )
     list_label = LIST_LABELS.get(list_url_name, LIST_LABELS["shablon_test"])
-    if session.source == topic_tests.SOURCE:
+    if session.test_kind == "real":
+        restart_url = reverse("start_real_exam", args=[len(session.question_order) or real_exam.SIZES[0]])
+    elif session.source == topic_tests.SOURCE:
         restart_url = (
             reverse("start_mavzu_test", args=[session.topic_id]) + f"?mode={topic_tests.restart_mode(session)}"
             if session.topic_id else reverse("mavzulashtirilgan")

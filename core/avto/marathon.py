@@ -51,14 +51,14 @@ def finish_active(user):
     TestSession.objects.filter(user=user, source=SOURCE, finished_at__isnull=True).update(finished_at=timezone.now())
 
 
-def pick_question_ids(size):
-    """`size` question ids drawn evenly from every test (bilet/topic), then shuffled together.
+def pick_question_ids(size, spread_over="kategoriya_id"):
+    """`size` question ids drawn evenly from every bilet (or topic: spread_over="mavzu_id"), then shuffled.
 
-    Each test contributes about the same number of questions, so a marathon is never
-    one topic after another; tests with fewer questions hand their share to the others.
+    Each bilet contributes about the same number of questions, so a marathon is never
+    one topic after another; bilets with fewer questions hand their share to the others.
     """
     by_test = defaultdict(list)
-    for question_id, test_id in question_pool().values_list("id", "kategoriya_id"):
+    for question_id, test_id in question_pool().values_list("id", spread_over):
         by_test[test_id].append(question_id)
     for ids in by_test.values():
         random.shuffle(ids)

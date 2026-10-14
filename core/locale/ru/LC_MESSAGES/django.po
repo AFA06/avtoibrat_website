@@ -803,6 +803,51 @@ msgstr "Вопросы, на которые вы в последний раз о
 msgid "Bu mavzuda hozircha xatolaringiz yo‘q"
 msgstr "В этой теме у вас пока нет ошибок"
 
+msgid "Imtihondagidek sinov: savollar barcha mavzulardan tasodifiy tanlanadi va har safar yangi bo‘ladi. Har bir savolga 1 daqiqa beriladi."
+msgstr "Как на настоящем экзамене: вопросы выбираются случайно из всех тем и каждый раз новые. На каждый вопрос даётся 1 минута."
+
+msgid "ta savol"
+msgstr "вопросов"
+
+#, python-format
+msgid "%(n)s daqiqa"
+msgstr "%(n)s мин"
+
+#, python-format
+msgid "%(n)s tagacha xatoga ruxsat"
+msgstr "Допускается ошибок: до %(n)s"
+
+msgid "Barcha mavzulardan"
+msgstr "Из всех тем"
+
+msgid "Imtihonni boshlash"
+msgstr "Начать экзамен"
+
+msgid "Savollar yetarli emas"
+msgstr "Недостаточно вопросов"
+
+msgid "Ruxsat etilganidan bitta ko‘p xato qilsangiz, imtihon to‘xtaydi va «Topshirilmadi» deb hisoblanadi."
+msgstr "Если ошибок станет больше допустимого, экзамен остановится и будет считаться «Не сдан»."
+
+msgid "So‘nggi imtihonlar"
+msgstr "Последние экзамены"
+
+msgid "Topshirildi"
+msgstr "Сдан"
+
+msgid "Topshirilmadi"
+msgstr "Не сдан"
+
+msgid "Imtihonni boshlaysizmi?"
+msgstr "Начать экзамен?"
+
+msgid "<b data-size></b> ta savol, <b data-minutes></b> daqiqa. <b data-allowed></b> tagacha xatoga ruxsat beriladi."
+msgstr "<b data-size></b> вопросов, <b data-minutes></b> мин. Допускается ошибок: до <b data-allowed></b>."
+
+#, python-format
+msgid "Real imtihon · %(n)s ta savol"
+msgstr "Реальный экзамен · %(n)s вопросов"
+
 #~| msgid "Русский"
 #~ msgid "Audio (Русский)"
 #~ msgstr "Русский"

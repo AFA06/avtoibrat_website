@@ -32,12 +32,12 @@ class QuestionAdmin(admin.ModelAdmin):
 
 @admin.register(TestCategory)
 class TestCategoryAdmin(admin.ModelAdmin):
-    list_display = ("nomi", "tartib", "aktiv", "show_in_shablon", "show_in_real", "show_in_ohshash")
-    list_editable = ("tartib", "aktiv", "show_in_shablon", "show_in_real", "show_in_ohshash")
+    list_display = ("nomi", "tartib", "aktiv", "show_in_shablon", "show_in_ohshash")
+    list_editable = ("tartib", "aktiv", "show_in_shablon", "show_in_ohshash")
     search_fields = ("nomi",)
     fieldsets = (
         (None, {"fields": ("nomi", "tavsif", "tartib", "aktiv")}),
-        (_("Ko‘rinish"), {"fields": ("show_in_shablon", "show_in_real", "show_in_ohshash")}),
+        (_("Ko‘rinish"), {"fields": ("show_in_shablon", "show_in_ohshash")}),
         (_("Parametrlar"), {"fields": ("question_count", "duration_minutes")}),
     )
 

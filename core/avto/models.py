@@ -678,8 +678,12 @@ class TestSession(models.Model):
 
     @property
     def title(self):
-        """What the student practised: the topic of a topic test, otherwise the bilet."""
-        return self.topic.name() if self.topic_id else self.category.nomi
+        """What the student practised: the topic of a topic test, the size of a real exam, otherwise the bilet."""
+        if self.topic_id:
+            return self.topic.name()
+        if self.test_kind == "real":
+            return _("Real imtihon · %(n)s ta savol") % {"n": len(self.question_order)}
+        return self.category.nomi
 
     @property
     def time_limit_seconds(self):
