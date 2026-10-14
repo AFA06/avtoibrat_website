@@ -478,6 +478,49 @@ class TestCategory(models.Model):
         return self.nomi
 
 
+class _NamedInLanguages(models.Model):
+    nomi_uzb = models.CharField("Nomi (O‘zbek)", max_length=200)
+    nomi_uz_kr = models.CharField("Nomi (Крил)", max_length=200, blank=True)
+    nomi_rus = models.CharField("Nomi (Русский)", max_length=200, blank=True)
+    tartib = models.PositiveIntegerField(default=1)
+
+    class Meta:
+        abstract = True
+        ordering = ["tartib", "id"]
+
+    def name(self, lang=None):
+        lang = lang or get_language()
+        if lang == "uz-kr":
+            return self.nomi_uz_kr or self.nomi_uzb
+        if lang == "ru":
+            return self.nomi_rus or self.nomi_uzb
+        return self.nomi_uzb
+
+    def __str__(self):
+        return self.nomi_uzb
+
+
+class TopicGroup(_NamedInLanguages):
+    """A section of the topic tests page, e.g. «Yo‘l belgilari»."""
+    slug = models.SlugField(unique=True)
+    icon = models.CharField("Ikonka (Tabler)", max_length=40, default="ti-book")
+
+    class Meta(_NamedInLanguages.Meta):
+        verbose_name = "Mavzular bo‘limi"
+        verbose_name_plural = "Mavzular bo‘limlari"
+
+
+class Topic(_NamedInLanguages):
+    """A topic of the rules (e.g. «Quvib o‘tish») that bilet questions are sorted into."""
+    group = models.ForeignKey(TopicGroup, on_delete=models.CASCADE, related_name="topics", verbose_name="Bo‘lim")
+    slug = models.SlugField(unique=True)
+    aktiv = models.BooleanField(default=True)
+
+    class Meta(_NamedInLanguages.Meta):
+        verbose_name = "Mavzu"
+        verbose_name_plural = "Mavzular"
+
+
 class TestType(models.Model):
     nomi = models.CharField(max_length=100)
     vaqt_daqiqa = models.PositiveIntegerField()
@@ -492,6 +535,10 @@ class TestType(models.Model):
 class Question(models.Model):
     test_turi = models.ForeignKey(TestType, on_delete=models.CASCADE)
     kategoriya = models.ForeignKey(TestCategory, on_delete=models.CASCADE)
+    mavzu = models.ForeignKey(
+        Topic, verbose_name="Mavzu", null=True, blank=True,
+        on_delete=models.SET_NULL, related_name="questions",
+    )
 
     matn_uzb = models.TextField("Savol (O‘zbek)")
     matn_uz_kr = models.TextField("Savol (Крил)")
@@ -607,6 +654,8 @@ class TestSession(models.Model):
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     category = models.ForeignKey(TestCategory, on_delete=models.CASCADE)
+    # Set for topic tests, whose questions come from many bilets.
+    topic = models.ForeignKey(Topic, null=True, blank=True, on_delete=models.SET_NULL)
     test_kind = models.CharField(max_length=20, choices=TEST_KIND)
     source = models.CharField(
         max_length=20,
@@ -626,6 +675,11 @@ class TestSession(models.Model):
 
     def __str__(self):
         return f"{self.user} | {self.category} | {self.source}"
+
+    @property
+    def title(self):
+        """What the student practised: the topic of a topic test, otherwise the bilet."""
+        return self.topic.name() if self.topic_id else self.category.nomi
 
     @property
     def time_limit_seconds(self):

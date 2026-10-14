@@ -23,7 +23,7 @@
       <a href="{% url 'dashboard' %}" class="result-btn result-btn--primary">{% trans "Bosh sahifa" %}</a>
     {% else %}
       <h1 class="result-title">{% trans "Test natijangiz" %}</h1>
-      <p class="result-category">{{ category.nomi }}</p>
+      <p class="result-category">{{ session.title }}</p>
 
       <div class="result-stats">
         <div class="result-stat">

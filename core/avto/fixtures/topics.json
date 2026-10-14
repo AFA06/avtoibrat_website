@@ -1,0 +1,326 @@
+[
+ {
+  "slug": "yol-belgilari",
+  "icon": "ti-road-sign",
+  "uz": "Yo‘l belgilari",
+  "kr": "Йўл белгилари",
+  "ru": "Дорожные знаки",
+  "topics": [
+   {
+    "slug": "ogohlantiruvchi-belgilar",
+    "uz": "Ogohlantiruvchi belgilar",
+    "kr": "Огоҳлантирувчи белгилар",
+    "ru": "Предупреждающие знаки"
+   },
+   {
+    "slug": "imtiyoz-belgilari",
+    "uz": "Imtiyoz belgilari",
+    "kr": "Имтиёз белгилари",
+    "ru": "Знаки приоритета"
+   },
+   {
+    "slug": "taqiqlovchi-belgilar",
+    "uz": "Taqiqlovchi belgilar",
+    "kr": "Тақиқловчи белгилар",
+    "ru": "Запрещающие знаки"
+   },
+   {
+    "slug": "buyuruvchi-belgilar",
+    "uz": "Buyuruvchi belgilar",
+    "kr": "Буюрувчи белгилар",
+    "ru": "Предписывающие знаки"
+   },
+   {
+    "slug": "axborot-korsatkich-belgilari",
+    "uz": "Axborot-ko‘rsatkich belgilari",
+    "kr": "Ахборот-кўрсаткич белгилари",
+    "ru": "Информационно-указательные знаки"
+   },
+   {
+    "slug": "servis-belgilari",
+    "uz": "Servis belgilari",
+    "kr": "Сервис белгилари",
+    "ru": "Знаки сервиса"
+   },
+   {
+    "slug": "qoshimcha-axborot-belgilari",
+    "uz": "Qo‘shimcha axborot belgilari",
+    "kr": "Қўшимча ахборот белгилари",
+    "ru": "Знаки дополнительной информации"
+   }
+  ]
+ },
+ {
+  "slug": "chorrahalar",
+  "icon": "ti-directions",
+  "uz": "Chorrahalar",
+  "kr": "Чорраҳалар",
+  "ru": "Перекрёстки",
+  "topics": [
+   {
+    "slug": "chorrahalarda-harakatlanish",
+    "uz": "Chorrahalarda harakatlanish",
+    "kr": "Чорраҳаларда ҳаракатланиш",
+    "ru": "Проезд перекрёстков"
+   },
+   {
+    "slug": "tartibga-solingan-chorrahalar",
+    "uz": "Tartibga solingan chorrahalar",
+    "kr": "Тартибга солинган чорраҳалар",
+    "ru": "Регулируемые перекрёстки"
+   },
+   {
+    "slug": "teng-ahamiyatli-chorrahalar",
+    "uz": "Tartibga solinmagan teng ahamiyatli chorrahalar",
+    "kr": "Тартибга солинмаган тенг аҳамиятли чорраҳалар",
+    "ru": "Нерегулируемые перекрёстки равнозначных дорог"
+   },
+   {
+    "slug": "asosiy-yol-togri-yonalishda",
+    "uz": "Tartibga solinmagan chorrahalar (asosiy yo‘l to‘g‘ri yo‘nalishda)",
+    "kr": "Тартибга солинмаган чорраҳалар (асосий йўл тўғри йўналишда)",
+    "ru": "Нерегулируемые перекрёстки (главная дорога прямо)"
+   },
+   {
+    "slug": "asosiy-yol-yonalishi-ozgaradi",
+    "uz": "Tartibga solinmagan chorrahalar (asosiy yo‘l yo‘nalishi o‘zgarishi)",
+    "kr": "Тартибга солинмаган чорраҳалар (асосий йўл йўналиши ўзгариши)",
+    "ru": "Нерегулируемые перекрёстки (главная дорога меняет направление)"
+   }
+  ]
+ },
+ {
+  "slug": "ishoralar-va-chiziqlar",
+  "icon": "ti-traffic-lights",
+  "uz": "Ishoralar va chiziqlar",
+  "kr": "Ишоралар ва чизиқлар",
+  "ru": "Сигналы и разметка",
+  "topics": [
+   {
+    "slug": "svetofor-ishoralari",
+    "uz": "Svetofor ishoralari",
+    "kr": "Светофор ишоралари",
+    "ru": "Сигналы светофора"
+   },
+   {
+    "slug": "tartibga-soluvchining-ishoralari",
+    "uz": "Tartibga soluvchining ishoralari",
+    "kr": "Тартибга солувчининг ишоралари",
+    "ru": "Сигналы регулировщика"
+   },
+   {
+    "slug": "ogohlantiruvchi-va-avariya-ishoralari",
+    "uz": "Ogohlantiruvchi va avariya ishoralari",
+    "kr": "Огоҳлантирувчи ва авария ишоралари",
+    "ru": "Предупредительные и аварийные сигналы"
+   },
+   {
+    "slug": "yotiq-chiziqlar",
+    "uz": "Yotiq chiziqlar",
+    "kr": "Ётиқ чизиқлар",
+    "ru": "Горизонтальная разметка"
+   },
+   {
+    "slug": "tik-chiziqlar",
+    "uz": "Tik chiziqlar",
+    "kr": "Тик чизиқлар",
+    "ru": "Вертикальная разметка"
+   }
+  ]
+ },
+ {
+  "slug": "asosiy-manyovrlar",
+  "icon": "ti-steering-wheel",
+  "uz": "Asosiy manyovrlar",
+  "kr": "Асосий манёврлар",
+  "ru": "Основные манёвры",
+  "topics": [
+   {
+    "slug": "harakatlanishni-boshlash-manyovr",
+    "uz": "Harakatlanishni boshlash, manyovr qilish",
+    "kr": "Ҳаракатланишни бошлаш, манёвр қилиш",
+    "ru": "Начало движения, маневрирование"
+   },
+   {
+    "slug": "qatnov-qismida-joylashuv",
+    "uz": "Yo‘lning qatnov qismida transport vositalarining joylashuvi",
+    "kr": "Йўлнинг қатнов қисмида транспорт воситаларининг жойлашуви",
+    "ru": "Расположение транспортных средств на проезжей части"
+   },
+   {
+    "slug": "harakatlanish-tezligi",
+    "uz": "Harakatlanish tezligi",
+    "kr": "Ҳаракатланиш тезлиги",
+    "ru": "Скорость движения"
+   },
+   {
+    "slug": "quvib-otish",
+    "uz": "Quvib o‘tish",
+    "kr": "Қувиб ўтиш",
+    "ru": "Обгон"
+   },
+   {
+    "slug": "toxtash-va-toxtab-turish",
+    "uz": "To‘xtash va to‘xtab turish",
+    "kr": "Тўхташ ва тўхтаб туриш",
+    "ru": "Остановка и стоянка"
+   }
+  ]
+ },
+ {
+  "slug": "maxsus-vaziyatlar",
+  "icon": "ti-route",
+  "uz": "Maxsus vaziyatlar",
+  "kr": "Махсус вазиятлар",
+  "ru": "Особые условия движения",
+  "topics": [
+   {
+    "slug": "piyodalar-otish-joylari-va-bekatlar",
+    "uz": "Piyodalar o‘tish joylari va yo‘nalishli transport vositalari bekatlari",
+    "kr": "Пиёдалар ўтиш жойлари ва йўналишли транспорт воситалари бекатлари",
+    "ru": "Пешеходные переходы и остановки маршрутных транспортных средств"
+   },
+   {
+    "slug": "temir-yol-kesishmalari",
+    "uz": "Temir yo‘l kesishmalari orqali harakatlanish",
+    "kr": "Темир йўл кесишмалари орқали ҳаракатланиш",
+    "ru": "Движение через железнодорожные переезды"
+   },
+   {
+    "slug": "avtomagistrallarda-harakatlanish",
+    "uz": "Avtomagistrallarda harakatlanish",
+    "kr": "Автомагистралларда ҳаракатланиш",
+    "ru": "Движение по автомагистралям"
+   },
+   {
+    "slug": "turar-joy-dahalarida-harakatlanish",
+    "uz": "Turar joy dahalarida harakatlanish",
+    "kr": "Турар жой даҳаларида ҳаракатланиш",
+    "ru": "Движение в жилых зонах"
+   },
+   {
+    "slug": "tik-balandlik-va-nishabliklar",
+    "uz": "Tik balandlik va nishabliklarda harakatlanish",
+    "kr": "Тик баландлик ва нишабликларда ҳаракатланиш",
+    "ru": "Движение на крутых подъёмах и спусках"
+   },
+   {
+    "slug": "yonalishli-transport-imtiyozlari",
+    "uz": "Yo‘nalishli transport vositalarining imtiyozlari",
+    "kr": "Йўналишли транспорт воситаларининг имтиёзлари",
+    "ru": "Приоритет маршрутных транспортных средств"
+   },
+   {
+    "slug": "maxsus-transport-imtiyozlari",
+    "uz": "Maxsus transport vositalarining imtiyozlari",
+    "kr": "Махсус транспорт воситаларининг имтиёзлари",
+    "ru": "Приоритет специальных транспортных средств"
+   },
+   {
+    "slug": "tashqi-yoritish-asboblari",
+    "uz": "Tashqi yoritish asboblaridan foydalanish",
+    "kr": "Ташқи ёритиш асбобларидан фойдаланиш",
+    "ru": "Пользование внешними световыми приборами"
+   }
+  ]
+ },
+ {
+  "slug": "umumiy-qoidalar",
+  "icon": "ti-book",
+  "uz": "Umumiy qoidalar",
+  "kr": "Умумий қоидалар",
+  "ru": "Общие положения",
+  "topics": [
+   {
+    "slug": "umumiy-qoidalar",
+    "uz": "Umumiy qoidalar",
+    "kr": "Умумий қоидалар",
+    "ru": "Общие положения и термины"
+   },
+   {
+    "slug": "haydovchilarning-umumiy-vazifalari",
+    "uz": "Haydovchilarning umumiy vazifalari",
+    "kr": "Ҳайдовчиларнинг умумий вазифалари",
+    "ru": "Общие обязанности водителей"
+   },
+   {
+    "slug": "piyodalarning-umumiy-vazifalari",
+    "uz": "Piyodalarning umumiy vazifalari",
+    "kr": "Пиёдаларнинг умумий вазифалари",
+    "ru": "Обязанности пешеходов"
+   }
+  ]
+ },
+ {
+  "slug": "tashish",
+  "icon": "ti-truck",
+  "uz": "Maxsus holatlar va tashish",
+  "kr": "Махсус ҳолатлар ва ташиш",
+  "ru": "Буксировка и перевозки",
+  "topics": [
+   {
+    "slug": "shatakka-olish",
+    "uz": "Mexanik transport vositalarini shatakka olish",
+    "kr": "Механик транспорт воситаларини шатакка олиш",
+    "ru": "Буксировка механических транспортных средств"
+   },
+   {
+    "slug": "boshqarishni-orgatish",
+    "uz": "Transport vositalarini boshqarishni o‘rgatish",
+    "kr": "Транспорт воситаларини бошқаришни ўргатиш",
+    "ru": "Учебная езда"
+   },
+   {
+    "slug": "odam-tashish",
+    "uz": "Odam tashish",
+    "kr": "Одам ташиш",
+    "ru": "Перевозка людей"
+   },
+   {
+    "slug": "yuk-tashish",
+    "uz": "Yuk tashish",
+    "kr": "Юк ташиш",
+    "ru": "Перевозка грузов"
+   },
+   {
+    "slug": "velosiped-moped-arava",
+    "uz": "Velosiped, moped va aravalar, hayvonlarni haydab o‘tish",
+    "kr": "Велосипед, мопед ва аравалар, ҳайвонларни ҳайдаб ўтиш",
+    "ru": "Велосипеды, мопеды, повозки и прогон животных"
+   }
+  ]
+ },
+ {
+  "slug": "xavfsizlik",
+  "icon": "ti-shield-check",
+  "uz": "Xavfsizlik va texnik holat",
+  "kr": "Хавфсизлик ва техник ҳолат",
+  "ru": "Безопасность и техсостояние",
+  "topics": [
+   {
+    "slug": "birinchi-tibbiy-yordam",
+    "uz": "Birinchi tibbiy yordam",
+    "kr": "Биринчи тиббий ёрдам",
+    "ru": "Первая медицинская помощь"
+   },
+   {
+    "slug": "harakat-xavfsizligi-asoslari",
+    "uz": "Harakat xavfsizligi asoslari",
+    "kr": "Ҳаракат хавфсизлиги асослари",
+    "ru": "Основы безопасности движения"
+   },
+   {
+    "slug": "foydalanishni-taqiqlovchi-nosozliklar",
+    "uz": "Transport vositalaridan foydalanishni taqiqlovchi shartlar",
+    "kr": "Транспорт воситаларидан фойдаланишни тақиқловчи шартлар",
+    "ru": "Неисправности, запрещающие эксплуатацию"
+   },
+   {
+    "slug": "taniqlik-belgilari",
+    "uz": "Taniqlik belgilari",
+    "kr": "Таниқлик белгилари",
+    "ru": "Опознавательные знаки"
+   }
+  ]
+ }
+]

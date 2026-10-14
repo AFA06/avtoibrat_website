@@ -9,7 +9,7 @@ from django.urls import reverse
 from django.utils import translation
 from django.utils import timezone
 
-from .models import Answer, Branch, ContactPerson, Question, StudyGroup, TestCategory, TestSession, TestType, UserAnswer
+from .models import Answer, Branch, ContactPerson, Question, StudyGroup, TestCategory, TestSession, TestType, Topic, TopicGroup, UserAnswer
 
 User = get_user_model()
 
@@ -468,10 +468,14 @@ class ExamModeTests(TestCase):
                 Answer.objects.create(
                     question=question, matn_uzb=f"J{j}", matn_uz_kr=f"Ж{j}", matn_rus=f"О{j}", togri=(j == 0)
                 )
+        group = TopicGroup.objects.create(slug="belgilar", nomi_uzb="Yo‘l belgilari")
+        self.topic = Topic.objects.create(group=group, slug="taqiq", nomi_uzb="Taqiqlovchi belgilar")
+        Question.objects.filter(kategoriya=self.category).update(mavzu=self.topic)
         self.client.force_login(user)
 
     def exam_html(self, start_url_name):
-        start = self.client.get(reverse(start_url_name, args=[self.category.id]))
+        target = self.topic if start_url_name == "start_mavzu_test" else self.category
+        start = self.client.get(reverse(start_url_name, args=[target.id]))
         return self.client.get(start["Location"]).content.decode()
 
     def test_practice_tests_use_the_practice_layout(self):

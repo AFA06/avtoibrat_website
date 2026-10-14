@@ -6,7 +6,7 @@
 <div class="container-fluid"><div class="sd">
   <a class="sd-back" href="{% url 'monitoring:student' student.pk %}"><i class="fas fa-arrow-left"></i> {{ student.get_full_name|default:student.username }}</a>
   <header class="sd-head"><div>
-    <h1>{{ kind }} <span class="sd-tag">{{ session.category.nomi }}</span></h1>
+    <h1>{{ kind }} <span class="sd-tag">{{ session.title }}</span></h1>
     <p>{{ session.started_at|date:"d.m.Y H:i" }}{% if session.finished_at %} → {{ session.finished_at|date:"H:i" }}{% else %} · tugatilmagan{% endif %} · faol vaqt: {{ seconds|duration }}</p>
   </div></header>
 

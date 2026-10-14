@@ -726,6 +726,80 @@ msgstr "Шаблон тестлар"
 msgid "Oʻxshash savollar"
 msgstr "Ўхшаш саволлар"
 
+msgid "Imtihon savollari yo‘l harakati qoidalari mavzulari bo‘yicha saralangan. Mavzuni tanlang va faqat shu mavzu savollarini yeching."
+msgstr "Имтиҳон саволлари йўл ҳаракати қоидалари мавзулари бўйича сараланган. Мавзуни танланг ва фақат шу мавзу саволларини ечинг."
+
+#, python-format
+msgid "%(p)s%% o‘zlashtirildi"
+msgstr "%(p)s%% ўзлаштирилди"
+
+msgid "savol o‘zlashtirildi"
+msgstr "савол ўзлаштирилди"
+
+#, python-format
+msgid "%(n)s ta mavzu"
+msgstr "%(n)s та мавзу"
+
+msgid "Mavzuni qidiring…"
+msgstr "Мавзуни қидиринг…"
+
+msgid "Mavzuni qidiring"
+msgstr "Мавзуни қидиринг"
+
+msgid "Bo‘limlar"
+msgstr "Бўлимлар"
+
+msgid "Barchasi"
+msgstr "Барчаси"
+
+#, python-format
+msgid "%(n)s ta savol"
+msgstr "%(n)s та савол"
+
+#, python-format
+msgid "%(n)s ta xato"
+msgstr "%(n)s та хато"
+
+msgid "O‘zlashtirildi"
+msgstr "Ўзлаштирилди"
+
+msgid "Bunday mavzu topilmadi."
+msgstr "Бундай мавзу топилмади."
+
+msgid "Hozircha mavzular qo‘shilmagan."
+msgstr "Ҳозирча мавзулар қўшилмаган."
+
+msgid "Yopish"
+msgstr "Ёпиш"
+
+msgid "Mavzu"
+msgstr "Мавзу"
+
+msgid "Xatolar"
+msgstr "Хатолар"
+
+#, python-format
+msgid "Tezkor test — %(n)s ta savol"
+msgstr "Тезкор тест — %(n)s та савол"
+
+msgid "Mavzudan tasodifiy savollar · <span data-minutes></span> daqiqa"
+msgstr "Мавзудан тасодифий саволлар · <span data-minutes></span> дақиқа"
+
+msgid "Barcha savollar — <span data-count></span> ta"
+msgstr "Барча саволлар — <span data-count></span> та"
+
+msgid "Mavzuning hamma savollari · <span data-minutes></span> daqiqa"
+msgstr "Мавзунинг ҳамма саволлари · <span data-minutes></span> дақиқа"
+
+msgid "Xatolar ustida ishlash — <span data-count></span> ta"
+msgstr "Хатолар устида ишлаш — <span data-count></span> та"
+
+msgid "Oxirgi marta xato javob bergan savollaringiz"
+msgstr "Охирги марта хато жавоб берган саволларингиз"
+
+msgid "Bu mavzuda hozircha xatolaringiz yo‘q"
+msgstr "Бу мавзуда ҳозирча хатоларингиз йўқ"
+
 #~ msgid "To'g'ri javoblar:"
 #~ msgstr "Тўғри жавоблар:"
 

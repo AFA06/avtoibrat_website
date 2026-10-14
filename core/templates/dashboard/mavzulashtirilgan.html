@@ -1,261 +1,123 @@
-{% load i18n %}
-{% load static %}
-<!DOCTYPE html>
-<html lang="{{ LANGUAGE_CODE }}">
+{% extends "dashboard/base_panel.html" %}
+{% load i18n static %}
 
-<!-- Mirrored from themes.getappui.com/collab/unikit/default/by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 18 Oct 2025 20:09:56 GMT -->
-<head>
-        <meta charset="utf-8" />
-        <title>{% trans "AvtoIbrat - O'quv platforma paneli!" %}</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
-        <meta content="" name="author" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+{% block title %}{% trans "Mavzulashtirilgan testlar" %} - AvtoIbrat{% endblock %}
+{% block extra_css %}
+<link href="{% static 'dashboard/topics.css' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
 
-        <!-- App favicon -->
-        <link rel="shortcut icon" href="{% static 'assets_dashboard/images/favicon.png' %}">
+{% block content %}
+<div class="tp">
+  <header class="tp-hero">
+    <div class="tp-hero__text">
+      <h1>{% trans "Mavzulashtirilgan testlar" %}</h1>
+      <p>{% trans "Imtihon savollari yo‘l harakati qoidalari mavzulari bo‘yicha saralangan. Mavzuni tanlang va faqat shu mavzu savollarini yeching." %}</p>
+    </div>
+    {% if summary.total %}
+    <div class="tp-hero__progress" style="--p: {{ summary.percent }}">
+      <div class="tp-ring" role="img" aria-label="{% blocktrans with p=summary.percent %}{{ p }}% o‘zlashtirildi{% endblocktrans %}">
+        <b>{{ summary.percent }}%</b>
+      </div>
+      <div>
+        <b>{{ summary.learned }} / {{ summary.total }}</b>
+        <span>{% trans "savol o‘zlashtirildi" %}</span>
+        <small>{% blocktrans with n=summary.topics %}{{ n }} ta mavzu{% endblocktrans %}</small>
+      </div>
+    </div>
+    {% endif %}
+  </header>
 
-         <!-- App css -->
-         <link href="{% static 'assets_dashboard/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
-         <link href="{% static 'assets_dashboard/css/icons.min.css' %}" rel="stylesheet" type="text/css" />
-         <link href="{% static 'assets_dashboard/css/app.min.css' %}" rel="stylesheet" type="text/css" />
-         <link href="{% static 'dashboard/user-menu.css' %}" rel="stylesheet" type="text/css" />
-     <link href="{% static 'dashboard/sidebar.css' %}" rel="stylesheet" type="text/css" />
-     <script src="{% static 'dashboard/sidebar.js' %}"></script>
+  {% if groups %}
+  <div class="tp-toolbar">
+    <label class="tp-search">
+      <i class="ti ti-search" aria-hidden="true"></i>
+      <input type="search" id="tp-search" placeholder="{% trans 'Mavzuni qidiring…' %}" autocomplete="off" aria-label="{% trans 'Mavzuni qidiring' %}">
+    </label>
+    <div class="tp-chips" role="tablist" aria-label="{% trans 'Bo‘limlar' %}">
+      <button type="button" class="tp-chip is-active" data-filter="" role="tab" aria-selected="true">{% trans "Barchasi" %}</button>
+      {% for group in groups %}
+      <button type="button" class="tp-chip" data-filter="{{ group.slug }}" role="tab" aria-selected="false"><i class="ti {{ group.icon }}" aria-hidden="true"></i>{{ group.name }}</button>
+      {% endfor %}
+    </div>
+  </div>
 
-        <link href="{% static 'dashboard/theme.css' %}" rel="stylesheet" type="text/css" />
-    <script>(function(){try{var t=localStorage.getItem('avtoibrat.theme');document.documentElement.setAttribute('data-theme',t==='dark'?'dark':'light')}catch(e){}})()</script>
-</head>
+  {% for group in groups %}
+  <section class="tp-group" data-group="{{ group.slug }}">
+    <h2 class="tp-group__title">
+      <span class="tp-group__icon"><i class="ti {{ group.icon }}" aria-hidden="true"></i></span>
+      {{ group.name }}
+      <small>{% blocktrans with n=group.total %}{{ n }} ta savol{% endblocktrans %}</small>
+    </h2>
+    <div class="tp-grid">
+      {% for topic in group.topics %}
+      <button type="button" class="tp-card{% if topic.percent == 100 %} is-done{% endif %}" style="--i: {{ forloop.counter0 }}"
+              data-name="{{ topic.name }}" data-total="{{ topic.total }}" data-learned="{{ topic.learned }}" data-mistakes="{{ topic.mistakes }}"
+              data-url="{% url 'start_mavzu_test' topic.id %}">
+        <span class="tp-card__num">{{ topic.number }}</span>
+        <span class="tp-card__name">{{ topic.name }}</span>
+        <span class="tp-card__meta">
+          <span>{% blocktrans with n=topic.total %}{{ n }} ta savol{% endblocktrans %}</span>
+          {% if topic.mistakes %}<span class="tp-card__mistakes">{% blocktrans with n=topic.mistakes %}{{ n }} ta xato{% endblocktrans %}</span>{% endif %}
+          {% if topic.percent == 100 %}<span class="tp-card__done"><i class="ti ti-circle-check" aria-hidden="true"></i>{% trans "O‘zlashtirildi" %}</span>{% endif %}
+        </span>
+        <span class="tp-card__progress">
+          <span class="tp-bar"><i style="width: {{ topic.percent }}%"></i></span>
+          <b>{{ topic.percent }}%</b>
+        </span>
+      </button>
+      {% endfor %}
+    </div>
+  </section>
+  {% endfor %}
 
-    <body id="body" class="dark-sidebar">
-        <div class="left-sidebar">
-            <!-- LOGO -->
-            <div class="brand">
-                <a href="{% url 'home' %}" class="logo">
+  <p class="tp-empty" id="tp-no-results" hidden><i class="ti ti-mood-empty" aria-hidden="true"></i>{% trans "Bunday mavzu topilmadi." %}</p>
+  {% else %}
+  <p class="tp-empty"><i class="ti ti-mood-empty" aria-hidden="true"></i>{% trans "Hozircha mavzular qo‘shilmagan." %}</p>
+  {% endif %}
+</div>
 
-                    <span>
-                        <img src="{% static 'assets_dashboard/images/logo-sm.png' %}" alt="logo-large" class="logo-lg logo-light">
-                        <img src="{% static 'assets_dashboard/images/logo-dark.png' %}" alt="logo-large" class="logo-lg logo-dark">
-                    </span>
-                </a>
-            </div>
-            <div class="sidebar-user-pro media border-end">
-                <div class="position-relative mx-auto">
-                    <img src="{% static 'assets_dashboard/images/users/user-4.jpg' %}" alt="user" class="rounded-circle thumb-md">
-                    <span class="online-icon position-absolute end-0"><i class="mdi mdi-record text-success"></i></span>
-                </div>
-                <div class="media-body ms-2 user-detail align-self-center">
-                   <h5 class="font-14 m-0 fw-bold">
-                        {{ user.first_name }} {{ user.last_name }}
-                    </h5>
-                    <p class="opacity-50 mb-0">
-                        {{ user.username }}
-                    </p>
-                </div>
-            </div>
-            <!-- Tab panes -->
+<dialog class="tp-sheet" id="tp-sheet" aria-labelledby="tp-sheet-title">
+  <div class="tp-sheet__panel">
+    <button type="button" class="tp-sheet__close" data-close aria-label="{% trans 'Yopish' %}"><i class="ti ti-x"></i></button>
+    <span class="tp-sheet__kicker">{% trans "Mavzu" %}</span>
+    <h3 id="tp-sheet-title"></h3>
 
-            <!--end logo-->
-            <div class="menu-content h-100" data-simplebar>
-                <div class="menu-body navbar-vertical">
-                    <div class="collapse navbar-collapse tab-content" id="sidebarCollapse">
-                        <!-- Navigation -->
-                        {% include "dashboard/_sidebar_nav.html" %}
-                    </div><!--end sidebarCollapse-->
-                </div>
+    <div class="tp-sheet__stats">
+      <div><b data-stat="total"></b><span>{% trans "Jami savollar" %}</span></div>
+      <div class="is-good"><b data-stat="learned"></b><span>{% trans "O‘zlashtirildi" %}</span></div>
+      <div class="is-bad"><b data-stat="mistakes"></b><span>{% trans "Xatolar" %}</span></div>
+    </div>
 
-            </div>
-        </div>
-        <div class="topbar">
-            <!-- Navbar -->
-            <nav class="navbar-custom" id="navbar-custom">
-                <ul class="list-unstyled topbar-nav float-end mb-0">
+    <div class="tp-modes">
+      <a class="tp-mode" data-mode="quick" href="#">
+        <span class="tp-mode__icon"><i class="ti ti-bolt"></i></span>
+        <span class="tp-mode__text">
+          <b>{% blocktrans with n=quick_size %}Tezkor test — {{ n }} ta savol{% endblocktrans %}</b>
+          <small>{% blocktrans %}Mavzudan tasodifiy savollar · <span data-minutes></span> daqiqa{% endblocktrans %}</small>
+        </span>
+        <i class="ti ti-chevron-right tp-mode__go"></i>
+      </a>
+      <a class="tp-mode" data-mode="all" href="#">
+        <span class="tp-mode__icon"><i class="ti ti-list-check"></i></span>
+        <span class="tp-mode__text">
+          <b>{% blocktrans %}Barcha savollar — <span data-count></span> ta{% endblocktrans %}</b>
+          <small>{% blocktrans %}Mavzuning hamma savollari · <span data-minutes></span> daqiqa{% endblocktrans %}</small>
+        </span>
+        <i class="ti ti-chevron-right tp-mode__go"></i>
+      </a>
+      <a class="tp-mode tp-mode--mistakes" data-mode="mistakes" href="#">
+        <span class="tp-mode__icon"><i class="ti ti-refresh-alert"></i></span>
+        <span class="tp-mode__text">
+          <b>{% blocktrans %}Xatolar ustida ishlash — <span data-count></span> ta{% endblocktrans %}</b>
+          <small data-hint-some>{% trans "Oxirgi marta xato javob bergan savollaringiz" %}</small>
+          <small data-hint-none>{% trans "Bu mavzuda hozircha xatolaringiz yo‘q" %}</small>
+        </span>
+        <i class="ti ti-chevron-right tp-mode__go"></i>
+      </a>
+    </div>
+  </div>
+</dialog>
 
-                    <li class="dropdown">
-                        <form action="{% url 'set_language' %}" method="post">
-                            {% csrf_token %}
-                            <input type="hidden" name="next" value="{{ request.path }}">
-
-                            {% get_current_language as LANGUAGE_CODE %}
-
-                            <a class="nav-link dropdown-toggle arrow-none nav-icon"
-                               data-bs-toggle="dropdown"
-                               href="#"
-                               role="button">
-
-                                {% if LANGUAGE_CODE == 'uz-kr' %}
-                                    <img src="{% static 'assets_dashboard/images/flags/uz_bayroq.png' %}"
-                                         class="thumb-xxs rounded me-1">
-                                    Ўзбек
-                                {% elif LANGUAGE_CODE == 'ru' %}
-                                    <img src="{% static 'assets_dashboard/images/flags/rus_bayroq.png' %}"
-                                         class="thumb-xxs rounded me-1">
-                                    Рус
-                                {% else %}
-                                    <img src="{% static 'assets_dashboard/images/flags/uz_bayroq.png' %}"
-                                         class="thumb-xxs rounded me-1">
-                                    O‘zbek
-                                {% endif %}
-                            </a>
-
-                            <div class="dropdown-menu dropdown-menu-end">
-
-                                <button name="language" value="uz" class="dropdown-item d-flex align-items-center">
-                                    <img src="{% static 'assets_dashboard/images/flags/uz_bayroq.png' %}"
-                                         class="thumb-xxs rounded me-2">
-                                    O‘zbek (lotin)
-                                </button>
-
-                                <button name="language" value="uz-kr" class="dropdown-item d-flex align-items-center">
-                                    <img src="{% static 'assets_dashboard/images/flags/uz_bayroq.png' %}"
-                                         class="thumb-xxs rounded me-2">
-                                    Ўзбек (кирил)
-                                </button>
-
-                                <button name="language" value="ru" class="dropdown-item d-flex align-items-center">
-                                    <img src="{% static 'assets_dashboard/images/flags/rus_bayroq.png' %}"
-                                         class="thumb-xxs rounded me-2">
-                                    Русский
-                                </button>
-
-                            </div>
-                        </form>
-                    </li>
-
-                    {% include "dashboard/_user_menu.html" %}
-                </ul><!--end topbar-nav-->
-
-                <ul class="list-unstyled topbar-nav mb-0">                        
-                    <li>
-                        <button type="button" class="nav-link button-menu-mobile nav-icon" id="togglemenu" aria-label="{% trans 'Menyu' %}">
-                            <i class="ti ti-menu-2"></i>
-                        </button>
-                    </li>                  
-                </ul>
-            </nav>
-            <!-- end navbar-->
-        </div>    
-
-        <div class="page-wrapper">
-
-            <!-- Page Content-->
-            <div class="page-content-tab">
-
-                <div class="container-fluid">
-                    <!-- Page-Title -->
-                    <!-- end page title end breadcrumb -->
-                    <div class="top-actions">
-                        <button class="clear-btn">
-                            <i class="ti ti-trash"></i>{% trans "Statistikani tozalash" %}
-                        </button>
-                    </div>
-
-                <div class="bilet-container">
-
-                    {% for cat in categories %}
-                        <div class="topic-card" data-bilet="{{ cat.id }}" onclick="openPopup(this)">
-                            <div class="topic-name">{{ cat.nomi }}</div>
-
-                            {% if cat.has_started %}
-                            <div class="topic-status-row">
-                                <div class="topic-status success">
-                                    <i class="ti ti-check"></i>{{ cat.correct }}
-                                </div>
-                                <div class="topic-status danger">
-                                    <i class="ti ti-x"></i>{{ cat.wrong }}
-                                </div>
-                                <div class="topic-status warning">
-                                    <i class="ti ti-alert-circle"></i>{{ cat.empty }}
-                                </div>
-                            </div>
-                            {% endif %}
-                        </div>
-                        {% endfor %}
-
-
-                    <script>
-                        let selectedBilet = null;
-
-                        function openPopup(card) {
-                            selectedBilet = card.getAttribute("data-bilet");  // qaysi bilet bosilgan?
-                            document.getElementById("popup").style.display = "flex";
-                        }
-
-                        function closePopup() {
-                            document.getElementById("popup").style.display = "none";
-                        }
-
-                        function startTest() {
-                            if (selectedBilet) {
-                                window.location.href = "{% url 'start_mavzu_test' 0 %}".replace("/0/", "/" + selectedBilet + "/");
-                                // yoki to‘g‘ridan-to‘g‘ri:
-                                // window.location.href = "/mavzu/start/" + selectedBilet + "/";
-                            }
-                        }
-
-                        // Statistikani tozalash
-                        document.querySelector(".clear-btn").addEventListener("click", function() {
-                            if (confirm("Statistikani tozalashni xohlaysizmi? Barcha test natijalaringiz o‘chib ketadi!")) {
-                                fetch("{% url 'clear_statistics' %}", {
-                                    method: "POST",
-                                    headers: {
-                                        "X-CSRFToken": "{{ csrf_token }}",
-                                        "Content-Type": "application/json",
-                                    },
-                                })
-                                .then(response => response.json())
-                                .then(data => {
-                                    if (data.success) {
-                                        alert("Statistika tozalandi!");
-                                        location.reload();  // sahifani yangilash → statuslar yo‘qoladi
-                                    }
-                                })
-                                .catch(error => {
-                                    alert("Xatolik yuz berdi: " + error);
-                                });
-                            }
-                        });
-                        </script>
-
-
-                   <div id="popup" class="topic-popup">
-                        <div class="topic-popup-content">
-                            <h3>{% trans "Testni boshlaysizmi?" %}</h3>
-
-                            <div class="popup-buttons">
-                                <button class="topic-cancel-btn" onclick="closePopup()">{% trans "Orqaga" %}</button>
-                                <button class="topic-start-btn" onclick="startTest()">{% trans "Boshlash" %}</button>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                
-            </div><!--end row-->
-        </div><!-- container -->
-                 
-                <!--Start Footer-->
-                <footer class="footer text-center text-sm-start">
-                    &copy; <script>
-                        document.write(new Date().getFullYear())
-                    </script> AvtoIbrat <span class="text-muted d-none d-sm-inline-block float-end">{% trans "Ishlab chiqgan" %}<i
-                            class="mdi mdi-heart text-danger"></i>AvtoIbrart</span>
-                </footer>                
-                <!--end footer-->
-            </div>
-            <!-- end page content -->
-        </div>
-        <!-- end page-wrapper -->
-
-        <!-- Javascript  -->   
-        <!-- App js -->
-        <script src="{% static 'assets_dashboard/js/app.js' %}"></script>
-
-        <script src="{% static 'dashboard/theme-toggle.js' %}"></script>
-    <script src="{% static 'vendor/motion.js' %}"></script>
-    <script src="{% static 'dashboard/theme.js' %}" defer></script>
-</body>
-    <!--end body-->
-
-<!-- Mirrored from themes.getappui.com/collab/unikit/default/ by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 18 Oct 2025 20:09:56 GMT -->
-</html>
+<script>window.TOPIC_TESTS = {quickSize: {{ quick_size }}, minutesPerQuestion: {{ minutes_per_question }}};</script>
+<script src="{% static 'dashboard/topics.js' %}"></script>
+{% endblock %}

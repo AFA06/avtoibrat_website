@@ -224,7 +224,7 @@ def collect(students, days=DEFAULT_DAYS):
     today = timezone.localdate()
 
     sessions = list(
-        TestSession.objects.filter(user_id__in=ids, started_at__gte=since).select_related("category")
+        TestSession.objects.filter(user_id__in=ids, started_at__gte=since).select_related("category", "topic")
     )
     answers = defaultdict(list)
     rows = UserAnswer.objects.filter(session__in=sessions).values_list(
@@ -255,7 +255,7 @@ def collect(students, days=DEFAULT_DAYS):
         stat = SessionStat(
             id=session.pk, kind=session.test_kind, source=session.source,
             kind_label=session.get_test_kind_display() if session.test_kind == "real" else session.get_source_display(),
-            category=session.category.nomi, started=session.started_at, finished=session.finished_at,
+            category=session.title, started=session.started_at, finished=session.finished_at,
             total=len(session.question_order) or session.category.question_count,
             answered=len(picked), correct=correct, wrong=len(picked) - correct,
             seconds=active_seconds(session.started_at, session.finished_at, [a[3] for a in picked]),

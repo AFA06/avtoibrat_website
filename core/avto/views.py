@@ -20,10 +20,12 @@ from .models import (
     TeamMember, Story, ConsultRequest, Testimonial, FAQ,
     ContactMessage, PdfMaterial, RoadSignCategory, RoadSign,
     ContactPerson, TestSession, Question, TestCategory,
-    Answer, UserAnswer, SavedQuestion, UserDevice, StatisticsReset, get_device_id, normalize_phone
+    Answer, UserAnswer, SavedQuestion, UserDevice, StatisticsReset, Topic, get_device_id, normalize_phone
 )
 
 from .road_signs import ordered_categories, sorted_signs
+from . import topic_tests
+from .marathon import MINUTES_PER_QUESTION
 
 User = get_user_model()
 
@@ -258,7 +260,7 @@ def _student_stats(user):
     sessions = list(
         TestSession.objects
         .filter(user=user, finished_at__isnull=False)
-        .select_related("category")
+        .select_related("category", "topic")
         .order_by("-finished_at")
     )
     session_ids = [s.id for s in sessions]
@@ -302,13 +304,14 @@ def _student_stats(user):
             week[finished.date()]["correct"] += counts["correct"]
             week[finished.date()]["wrong"] += counts["wrong"]
             week[finished.date()]["tests"] += 1
-        cat = by_category.setdefault(s.category_id, {"name": s.category.nomi, "correct": 0, "wrong": 0})
+        key = ("topic", s.topic_id) if s.topic_id else ("bilet", s.category_id)
+        cat = by_category.setdefault(key, {"name": s.title, "correct": 0, "wrong": 0})
         cat["correct"] += counts["correct"]
         cat["wrong"] += counts["wrong"]
         if len(recent) < 5:
             recent.append({
                 "id": s.id,
-                "name": s.category.nomi,
+                "name": s.title,
                 "percent": percent,
                 "correct": counts["correct"],
                 "size": size,
@@ -400,57 +403,12 @@ def manular(request):
 
 @login_required
 def mavzulashtirilgan(request):
-    categories_qs = TestCategory.objects.filter(
-        aktiv=True,
-        show_in_mavzu=True
-    ).order_by("tartib")
-
-    categories = []
-
-    for cat in categories_qs:
-        last_session = (
-            TestSession.objects
-            .filter(
-                user=request.user,
-                category=cat,
-                test_kind="shablon",
-                source="mavzu",
-                finished_at__isnull=False
-            )
-            .order_by("-finished_at")
-            .first()
-        )
-
-        has_started = last_session is not None
-
-        if has_started:
-            correct = UserAnswer.objects.filter(
-                session=last_session,
-                is_correct=True
-            ).count()
-
-            wrong = UserAnswer.objects.filter(
-                session=last_session,
-                is_correct=False,
-                selected_answer__isnull=False
-            ).count()
-
-            answered = correct + wrong
-            empty = max(cat.question_count - answered, 0)
-        else:
-            correct = wrong = empty = None
-
-        categories.append({
-            "id": cat.id,
-            "nomi": cat.nomi,
-            "has_started": has_started,
-            "correct": correct,
-            "wrong": wrong,
-            "empty": empty,
-        })
-
+    groups = topic_tests.page_groups(request.user)
     return render(request, "dashboard/mavzulashtirilgan.html", {
-        "categories": categories
+        "groups": groups,
+        "summary": topic_tests.summary(groups),
+        "quick_size": topic_tests.QUICK_SIZE,
+        "minutes_per_question": MINUTES_PER_QUESTION,
     })
 
 
@@ -672,14 +630,12 @@ def start_shablon_test(request, category_id):
 
 
 @login_required
-def start_mavzu_test(request, category_id):
-    category = get_object_or_404(
-        TestCategory,
-        id=category_id,
-        aktiv=True,
-        show_in_mavzu=True
-    )
-    session = _create_test_session(request.user, category, "shablon", "mavzu")
+def start_mavzu_test(request, topic_id):
+    topic = get_object_or_404(Topic, id=topic_id, aktiv=True)
+    try:
+        session = topic_tests.start(request.user, topic, request.GET.get("mode", "quick"))
+    except ValueError:
+        return redirect("mavzulashtirilgan")
     return redirect("test_page", session_id=session.id)
 
 
@@ -948,11 +904,15 @@ def _result_context(session):
         (session.test_kind, session.source), "shablon_test"
     )
     list_label = LIST_LABELS.get(list_url_name, LIST_LABELS["shablon_test"])
-    restart_url = (
-        reverse(restart_url_name)
-        if restart_url_name in RESTART_WITHOUT_CATEGORY
-        else reverse(restart_url_name, args=[session.category_id])
-    )
+    if session.source == topic_tests.SOURCE:
+        restart_url = (
+            reverse("start_mavzu_test", args=[session.topic_id]) + f"?mode={topic_tests.restart_mode(session)}"
+            if session.topic_id else reverse("mavzulashtirilgan")
+        )
+    elif restart_url_name in RESTART_WITHOUT_CATEGORY:
+        restart_url = reverse(restart_url_name)
+    else:
+        restart_url = reverse(restart_url_name, args=[session.category_id])
 
     return {
         "has_session": True,

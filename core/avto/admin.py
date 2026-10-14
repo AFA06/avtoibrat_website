@@ -4,8 +4,9 @@ from django.utils.translation import gettext_lazy as _
 from .models import (
     TestCategory, TestType, Question, Answer, TestSession, UserAnswer, SavedQuestion,
     TeamMember, Story, ConsultRequest, Testimonial, FAQ, ContactMessage, ContactPerson,
-    RoadSignCategory, RoadSign, PdfMaterial, Branch, StudyGroup
+    RoadSignCategory, RoadSign, PdfMaterial, Branch, StudyGroup, Topic, TopicGroup
 )
+from django.db.models import Count
 
 class AnswerInline(admin.TabularInline):
     model = Answer
@@ -16,13 +17,14 @@ class AnswerInline(admin.TabularInline):
 
 @admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):
-    list_display = ("matn", "kategoriya", "test_turi")
-    list_filter = ("kategoriya", "test_turi")
+    list_display = ("matn_uzb", "kategoriya", "mavzu", "test_turi")
+    list_filter = ("kategoriya", "mavzu__group", "mavzu", "test_turi")
+    list_select_related = ("kategoriya", "mavzu", "test_turi")
     search_fields = ("matn_uzb", "matn_uz_kr", "matn_rus")
     inlines = [AnswerInline]
 
     fieldsets = (
-        (_("Asosiy ma’lumotlar"), {"fields": ("test_turi", "kategoriya", "matn_uzb","matn_uz_kr", "matn_rus")}),
+        (_("Asosiy ma’lumotlar"), {"fields": ("test_turi", "kategoriya", "mavzu", "matn_uzb","matn_uz_kr", "matn_rus")}),
         (_("Media fayllar"), {"fields": ("rasm", "audio_uzb", "audio_rus", "video")}),
     )
 
@@ -30,16 +32,42 @@ class QuestionAdmin(admin.ModelAdmin):
 
 @admin.register(TestCategory)
 class TestCategoryAdmin(admin.ModelAdmin):
-    list_display = ("nomi", "tartib", "aktiv", "show_in_shablon", "show_in_real",
-                    "show_in_mavzu", "show_in_ohshash")
-    list_editable = ("tartib", "aktiv", "show_in_shablon", "show_in_real",
-                     "show_in_mavzu", "show_in_ohshash")
+    list_display = ("nomi", "tartib", "aktiv", "show_in_shablon", "show_in_real", "show_in_ohshash")
+    list_editable = ("tartib", "aktiv", "show_in_shablon", "show_in_real", "show_in_ohshash")
     search_fields = ("nomi",)
     fieldsets = (
         (None, {"fields": ("nomi", "tavsif", "tartib", "aktiv")}),
-        (_("Ko‘rinish"), {"fields": ("show_in_shablon", "show_in_real", "show_in_mavzu", "show_in_ohshash")}),
+        (_("Ko‘rinish"), {"fields": ("show_in_shablon", "show_in_real", "show_in_ohshash")}),
         (_("Parametrlar"), {"fields": ("question_count", "duration_minutes")}),
     )
+
+
+class TopicInline(admin.TabularInline):
+    model = Topic
+    fields = ("tartib", "nomi_uzb", "nomi_uz_kr", "nomi_rus", "slug", "aktiv")
+    extra = 0
+
+
+@admin.register(TopicGroup)
+class TopicGroupAdmin(admin.ModelAdmin):
+    list_display = ("nomi_uzb", "tartib", "icon")
+    list_editable = ("tartib",)
+    inlines = [TopicInline]
+
+
+@admin.register(Topic)
+class TopicAdmin(admin.ModelAdmin):
+    list_display = ("nomi_uzb", "group", "tartib", "aktiv", "question_count")
+    list_editable = ("tartib", "aktiv")
+    list_filter = ("group",)
+    search_fields = ("nomi_uzb", "nomi_uz_kr", "nomi_rus")
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).annotate(n=Count("questions"))
+
+    @admin.display(description=_("Savollar"), ordering="n")
+    def question_count(self, obj):
+        return obj.n
 
 
 @admin.register(TestType)

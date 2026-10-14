@@ -728,6 +728,81 @@ msgid "Oʻxshash savollar"
 msgstr "Похожие вопросы"
 
 #, fuzzy
+
+msgid "Imtihon savollari yo‘l harakati qoidalari mavzulari bo‘yicha saralangan. Mavzuni tanlang va faqat shu mavzu savollarini yeching."
+msgstr "Экзаменационные вопросы разделены по темам правил дорожного движения. Выберите тему и решайте только её вопросы."
+
+#, python-format
+msgid "%(p)s%% o‘zlashtirildi"
+msgstr "Освоено %(p)s%%"
+
+msgid "savol o‘zlashtirildi"
+msgstr "вопросов освоено"
+
+#, python-format
+msgid "%(n)s ta mavzu"
+msgstr "Тем: %(n)s"
+
+msgid "Mavzuni qidiring…"
+msgstr "Поиск темы…"
+
+msgid "Mavzuni qidiring"
+msgstr "Поиск темы"
+
+msgid "Bo‘limlar"
+msgstr "Разделы"
+
+msgid "Barchasi"
+msgstr "Все"
+
+#, python-format
+msgid "%(n)s ta savol"
+msgstr "Вопросов: %(n)s"
+
+#, python-format
+msgid "%(n)s ta xato"
+msgstr "Ошибок: %(n)s"
+
+msgid "O‘zlashtirildi"
+msgstr "Освоено"
+
+msgid "Bunday mavzu topilmadi."
+msgstr "Такая тема не найдена."
+
+msgid "Hozircha mavzular qo‘shilmagan."
+msgstr "Темы пока не добавлены."
+
+msgid "Yopish"
+msgstr "Закрыть"
+
+msgid "Mavzu"
+msgstr "Тема"
+
+msgid "Xatolar"
+msgstr "Ошибки"
+
+#, python-format
+msgid "Tezkor test — %(n)s ta savol"
+msgstr "Быстрый тест — %(n)s вопросов"
+
+msgid "Mavzudan tasodifiy savollar · <span data-minutes></span> daqiqa"
+msgstr "Случайные вопросы темы · <span data-minutes></span> мин"
+
+msgid "Barcha savollar — <span data-count></span> ta"
+msgstr "Все вопросы — <span data-count></span>"
+
+msgid "Mavzuning hamma savollari · <span data-minutes></span> daqiqa"
+msgstr "Все вопросы темы · <span data-minutes></span> мин"
+
+msgid "Xatolar ustida ishlash — <span data-count></span> ta"
+msgstr "Работа над ошибками — <span data-count></span>"
+
+msgid "Oxirgi marta xato javob bergan savollaringiz"
+msgstr "Вопросы, на которые вы в последний раз ответили неверно"
+
+msgid "Bu mavzuda hozircha xatolaringiz yo‘q"
+msgstr "В этой теме у вас пока нет ошибок"
+
 #~| msgid "Русский"
 #~ msgid "Audio (Русский)"
 #~ msgstr "Русский"
