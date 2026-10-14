@@ -186,7 +186,7 @@ class LoginTests(TestCase):
         self.url = reverse("login")
 
     def post(self, identifier, password="pass12345", role="student"):
-        return self.client.post(self.url, {"username": identifier, "password": password, "role": role})
+        return self.client.post(self.url, {"username": identifier, "password": password, "role": role, "accept_terms": "1"})
 
     def test_login_page_renders(self):
         response = self.client.get(self.url)

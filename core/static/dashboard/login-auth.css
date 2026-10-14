@@ -687,3 +687,95 @@ body.login-auth {
     padding: 14px 16px;
   }
 }
+
+/* Terms of use: a required tick box above the sign-in button */
+.login-terms {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 2px 0 4px;
+  color: var(--login-muted);
+  font-size: 14px;
+  line-height: 1.45;
+  cursor: pointer;
+  user-select: none;
+}
+
+.login-terms input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.login-terms-box {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 20px;
+  height: 20px;
+  margin-top: 1px;
+  border: 1.5px solid var(--login-border);
+  border-radius: 6px;
+  background: #fff;
+  color: #fff;
+  font-size: 11px;
+  transition: background 0.15s, border-color 0.15s, box-shadow 0.15s;
+}
+
+.login-terms-box i {
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 0.15s, transform 0.15s;
+}
+
+.login-terms input:checked + .login-terms-box {
+  border-color: var(--login-brand);
+  background: var(--login-brand);
+}
+
+.login-terms input:checked + .login-terms-box i {
+  opacity: 1;
+  transform: none;
+}
+
+.login-terms input:focus-visible + .login-terms-box {
+  box-shadow: 0 0 0 4px var(--login-brand-tint);
+  border-color: var(--login-brand);
+}
+
+.login-terms.is-invalid .login-terms-box {
+  border-color: var(--login-danger);
+  box-shadow: 0 0 0 4px var(--login-danger-bg);
+}
+
+.login-terms-text a {
+  color: var(--login-brand-dark);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.login-guide-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 14px 0 0;
+  font-size: 14px;
+}
+
+.login-guide-link i {
+  color: var(--login-brand);
+}
+
+.login-guide-link a {
+  color: var(--login-brand-dark);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.login-guide-link a:hover {
+  text-decoration: underline;
+}

@@ -97,15 +97,6 @@
     display: none;
   }
 
-  /* User block: avatar only */
-  html.sidebar-collapsed .left-sidebar .sidebar-user-pro {
-    justify-content: center;
-    padding: 20px 0;
-  }
-
-  html.sidebar-collapsed .left-sidebar .sidebar-user-pro .user-detail {
-    display: none;
-  }
 
   /* Section headings become thin dividers */
   html.sidebar-collapsed .left-sidebar .navbar-vertical .navbar-nav .menu-label {

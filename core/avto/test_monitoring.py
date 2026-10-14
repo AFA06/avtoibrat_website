@@ -149,10 +149,10 @@ class TrackingTests(MonitoringFixture):
     def test_student_login_is_recorded_but_staff_login_is_not(self):
         self.ali.phone = "901112233"
         self.ali.save()
-        self.client.post(reverse("login"), {"role": "student", "username": "90-111-22-33", "password": "x"})
+        self.client.post(reverse("login"), {"role": "student", "username": "90-111-22-33", "password": "x", "accept_terms": "1"})
         self.assertEqual(LoginEvent.objects.filter(user=self.ali).count(), 1)
         self.client.logout()
-        self.client.post(reverse("login"), {"role": "staff", "username": "t", "password": "x"})
+        self.client.post(reverse("login"), {"role": "staff", "username": "t", "password": "x", "accept_terms": "1"})
         self.assertFalse(LoginEvent.objects.filter(user=self.teacher).exists())
 
     def test_clearing_statistics_leaves_a_trace_for_the_teacher(self):

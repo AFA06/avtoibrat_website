@@ -43,7 +43,7 @@ class StudentSectionTests(TestCase):
         self.assertEqual((student.username, student.initial_password), ("999999999", "Abdu2006"))
         self.assertTrue(student.unlimited and not student.is_staff)
         self.assertTrue(student.check_password("Abdu2006"))
-        response = self.client.post(reverse("login"), {"role": "student", "username": "99-999-99-99", "password": "Abdu2006"})
+        response = self.client.post(reverse("login"), {"role": "student", "username": "99-999-99-99", "password": "Abdu2006", "accept_terms": "1"})
         self.assertRedirects(response, reverse("dashboard"), fetch_redirect_response=False)
 
     def test_phone_must_be_nine_digits_and_unique(self):

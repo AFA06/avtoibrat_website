@@ -1,7 +1,7 @@
 {% load i18n %}
 {% load static %}
 <!DOCTYPE html>
-<html lang="{{ LANGUAGE_CODE }}">
+<html lang="{{ LANGUAGE_CODE }}" data-protect="strict">
 <head>
 <meta charset="UTF-8">
 <title>{% trans "AvtoIbrat - Imtihon" %}</title>
@@ -9,6 +9,7 @@
 <link rel="shortcut icon" href="{% static 'assets_dashboard/images/favicon.png' %}">
 <link rel="stylesheet" href="{% static 'assets_dashboard/css/icons.min.css' %}">
 <link rel="stylesheet" href="{% static 'exam/exam.css' %}">
+<script src="{% static 'dashboard/protect.js' %}" defer></script>
 </head>
 <body{% if practice %} class="exam--practice"{% endif %}>
 

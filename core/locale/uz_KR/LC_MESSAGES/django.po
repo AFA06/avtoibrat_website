@@ -899,6 +899,55 @@ msgstr "Ёрдам"
 msgid "Biz bilan bog‘laning"
 msgstr "Биз билан боғланинг"
 
+#, python-format
+msgid "<a href=\"%(terms_url)s\" target=\"_blank\" rel=\"noopener\">Foydalanish shartlari</a> bilan tanishdim va ularni qabul qilaman"
+msgstr "<a href=\"%(terms_url)s\" target=\"_blank\" rel=\"noopener\">Фойдаланиш шартлари</a> билан танишдим ва уларни қабул қиламан"
+
+msgid "Kirish uchun foydalanish shartlarini qabul qiling."
+msgstr "Кириш учун фойдаланиш шартларини қабул қилинг."
+
+msgid "Platformadan qanday foydalaniladi?"
+msgstr "Платформадан қандай фойдаланилади?"
+
+msgid "Foydalanish shartlari"
+msgstr "Фойдаланиш шартлари"
+
+msgid "Foydalanish yo‘riqnomasi"
+msgstr "Фойдаланиш йўриқномаси"
+
+msgid "Yo‘riqnoma, shartlar va aloqa"
+msgstr "Йўриқнома, шартлар ва алоқа"
+
+msgid "Hujjatlar"
+msgstr "Ҳужжатлар"
+
+msgid "Yo‘riqnoma"
+msgstr "Йўриқнома"
+
+msgid "Shartlar"
+msgstr "Шартлар"
+
+msgid "Panelga qaytish"
+msgstr "Панелга қайтиш"
+
+msgid "Kirish"
+msgstr "Кириш"
+
+msgid "Mundarija"
+msgstr "Мундарижа"
+
+msgid "Tahrir sanasi"
+msgstr "Таҳрир санаси"
+
+msgid "Oxirgi yangilanish"
+msgstr "Охирги янгиланиш"
+
+msgid "Yuqoriga"
+msgstr "Юқорига"
+
+msgid "Saqlanganlardan test boshlash"
+msgstr "Сақланганлардан тест бошлаш"
+
 #~ msgid "To'g'ri javoblar:"
 #~ msgstr "Тўғри жавоблар:"
 

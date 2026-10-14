@@ -358,6 +358,11 @@ class User(AbstractUser):
     )
     photo = models.ImageField("Rasm", upload_to="students/", blank=True, null=True)
     birth_date = models.DateField("Tug‘ilgan sana", null=True, blank=True)
+    terms_accepted_at = models.DateTimeField(
+        "Shartlar qabul qilingan vaqt", null=True, blank=True,
+        help_text="Foydalanish shartlariga oxirgi marta rozilik bildirilgan vaqt (kirish sahifasida).",
+    )
+    terms_version = models.CharField("Qabul qilingan shartlar tahriri", max_length=20, blank=True)
     passport_number = models.CharField(
         "Pasport raqami",
         max_length=10,

@@ -78,6 +78,16 @@
       .join("-");
   });
 
+  // The terms box is required: an unticked box is outlined instead of the browser's own bubble.
+  const termsBox = document.querySelector(".login-terms");
+  const termsInput = termsBox.querySelector("input");
+  termsInput.addEventListener("invalid", (event) => {
+    event.preventDefault();
+    termsBox.classList.add("is-invalid");
+    termsInput.focus();
+  });
+  termsInput.addEventListener("change", () => termsBox.classList.toggle("is-invalid", !termsInput.checked));
+
   cards.forEach((card) => card.addEventListener("click", () => selectCard(card)));
   profileNext.addEventListener("click", showCredentials);
   document.getElementById("go-back").addEventListener("click", showProfile);

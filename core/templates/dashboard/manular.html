@@ -22,6 +22,7 @@
          <link href="{% static 'dashboard/user-menu.css' %}" rel="stylesheet" type="text/css" />
      <link href="{% static 'dashboard/sidebar.css' %}" rel="stylesheet" type="text/css" />
      <script src="{% static 'dashboard/sidebar.js' %}"></script>
+     <script src="{% static 'dashboard/protect.js' %}" defer></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
         <link href="{% static 'dashboard/theme.css' %}" rel="stylesheet" type="text/css" />
@@ -39,20 +40,6 @@
                         <img src="{% static 'assets_dashboard/images/logo-dark.png' %}" alt="logo-large" class="logo-lg logo-dark">
                     </span>
                 </a>
-            </div>
-            <div class="sidebar-user-pro media border-end">
-                <div class="position-relative mx-auto">
-                    <img src="{% static 'assets_dashboard/images/users/user-4.jpg' %}" alt="user" class="rounded-circle thumb-md">
-                    <span class="online-icon position-absolute end-0"><i class="mdi mdi-record text-success"></i></span>
-                </div>
-                <div class="media-body ms-2 user-detail align-self-center">
-                   <h5 class="font-14 m-0 fw-bold">
-                        {{ user.first_name }} {{ user.last_name }}
-                    </h5>
-                    <p class="opacity-50 mb-0">
-                        {{ user.username }}
-                    </p>
-                </div>
             </div>
             <!-- Tab panes -->
 

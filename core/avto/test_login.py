@@ -23,7 +23,7 @@ class StudentLoginTests(TestCase):
 
     def login(self, language, phone="90-123-45-67", password="Ali2006"):
         return self.client.post(
-            f"/{language}/login/", {"role": "student", "username": phone, "password": password}, follow=True,
+            f"/{language}/login/", {"role": "student", "username": phone, "password": password, "accept_terms": "1"}, follow=True,
         )
 
     def test_student_created_in_admin_can_log_in_under_every_language(self):
@@ -70,6 +70,6 @@ class SeedDemoTests(TestCase):
         with mock.patch.dict(os.environ, {"DEMO_PASSWORD": "demo-pass-1"}):
             call_command("seed_demo", stdout=StringIO())
         response = self.client.post(reverse("login"), {
-            "role": "student", "username": "99-999-99-99", "password": "demo-pass-1",
+            "role": "student", "username": "99-999-99-99", "password": "demo-pass-1", "accept_terms": "1",
         })
         self.assertRedirects(response, reverse("dashboard"), fetch_redirect_response=False)

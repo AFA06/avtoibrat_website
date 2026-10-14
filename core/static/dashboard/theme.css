@@ -350,3 +350,9 @@ html { transition: background-color 0.25s ease; }
 @media (prefers-reduced-motion: reduce) {
   @view-transition { navigation: none; }
 }
+
+/* Pictures can't be dragged out or saved with a long press (Foydalanish shartlari, section 5). */
+.page-wrapper img {
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
+}

@@ -43,8 +43,14 @@
         <a class="nav-link" href="{% url 'tasks' %}"><i class="ti ti-clipboard-check menu-icon"></i><span>{% trans "Vazifalar" %}</span></a>
     </li>
 
-    <li class="menu-label text-primary font-12 fw-semibold"><span>{% trans "Yordam" %}</span><br><span class="font-10 text-secondary fw-normal">{% trans "Biz bilan bog‘laning" %}</span></li>
+    <li class="menu-label text-primary font-12 fw-semibold"><span>{% trans "Yordam" %}</span><br><span class="font-10 text-secondary fw-normal">{% trans "Yo‘riqnoma, shartlar va aloqa" %}</span></li>
     <li class="nav-item">
         <a class="nav-link" href="{% url 'contact_list' %}"><i class="ti ti-headphones menu-icon"></i><span>{% trans "Tezkor bog'lanish" %}</span></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'guide' %}"><i class="ti ti-help menu-icon"></i><span>{% trans "Foydalanish yo‘riqnomasi" %}</span></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'terms' %}"><i class="ti ti-file-certificate menu-icon"></i><span>{% trans "Foydalanish shartlari" %}</span></a>
     </li>
 </ul>

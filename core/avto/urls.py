@@ -16,6 +16,8 @@ urlpatterns = [
     # ===== AUTH / DASHBOARD =====
     path('login/', login_view, name="login"),
     path('forgot-login/', forgot_login, name="forgot_login"),
+    path('foydalanish-shartlari/', terms, name="terms"),
+    path('yoriqnoma/', guide, name="guide"),
     path('logout/', user_logout, name="logout"),
     path('profile/', profile, name="profile"),
     path('dashboard/', dashboard, name="dashboard"),

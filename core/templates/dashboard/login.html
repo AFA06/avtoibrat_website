@@ -63,6 +63,11 @@
                         {% trans "Login yoki parol noto‘g‘ri !" %}
                     </div>
                 {% endif %}
+                {% if request.GET.error == "terms" %}
+                    <div class="login-alert login-alert--warning" role="alert">
+                        {% trans "Kirish uchun foydalanish shartlarini qabul qiling." %}
+                    </div>
+                {% endif %}
                 {% if request.GET.error == "inactive" %}
                     <div class="login-alert login-alert--warning" role="alert">
                         {% trans "Hisobingiz faol emas yoki muddati tugagan !" %}
@@ -111,6 +116,15 @@
                                required>
                     </label>
 
+                    <label class="login-terms">
+                        <input type="checkbox" name="accept_terms" value="1" required>
+                        <span class="login-terms-box" aria-hidden="true"><i class="fas fa-check"></i></span>
+                        <span class="login-terms-text">
+                            {% url 'terms' as terms_url %}
+                            {% blocktrans %}<a href="{{ terms_url }}" target="_blank" rel="noopener">Foydalanish shartlari</a> bilan tanishdim va ularni qabul qilaman{% endblocktrans %}
+                        </span>
+                    </label>
+
                     <button type="submit" class="login-btn">
                         {% trans "Keyingi" %}
                         <i class="fas fa-arrow-right" aria-hidden="true"></i>
@@ -121,6 +135,10 @@
                     <button type="button" class="login-link" id="go-back">{% trans "Orqaga" %}</button>
                     <a class="login-link" id="forgot-link" href="{% url 'forgot_login' %}" data-base-url="{% url 'forgot_login' %}">{% trans "Parolni unutdingizmi?" %}</a>
                 </div>
+                <p class="login-guide-link">
+                    <i class="fas fa-book-open" aria-hidden="true"></i>
+                    <a href="{% url 'guide' %}" target="_blank" rel="noopener">{% trans "Platformadan qanday foydalaniladi?" %}</a>
+                </p>
 
                 <footer class="login-browsers">
                     <p>{% trans "Faqat quyidagi brauzerlar qo‘llab-quvvatlanadi" %}</p>

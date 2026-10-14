@@ -1,0 +1,80 @@
+{% load i18n static %}
+{% get_current_language as LANGUAGE_CODE %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+    <meta charset="utf-8">
+    <title>{{ title }} — AvtoIbrat</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="{% static 'assets_dashboard/images/favicon.png' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="{% static 'assets_dashboard/css/icons.min.css' %}" rel="stylesheet">
+    <link href="{% static 'legal/legal.css' %}" rel="stylesheet">
+    <script>(function(){try{var t=localStorage.getItem('avtoibrat.theme');if(t)document.documentElement.setAttribute('data-theme',t==='dark'?'dark':'light')}catch(e){}})()</script>
+</head>
+<body class="lg">
+
+<header class="lg-top">
+    <div class="lg-top__inner">
+        <a class="lg-brand" href="{% url 'home' %}">
+            <img class="lg-brand__light" src="{% static 'assets/images/logo.png' %}" alt="AvtoIbrat">
+            <img class="lg-brand__dark" src="{% static 'assets/images/logo-white.png' %}" alt="AvtoIbrat">
+        </a>
+
+        <nav class="lg-tabs" aria-label="{% trans 'Hujjatlar' %}">
+            <a href="{% url 'guide' %}" class="{% if page == 'guide' %}is-active{% endif %}"><i class="ti ti-book"></i><span>{% trans "Yo‘riqnoma" %}</span></a>
+            <a href="{% url 'terms' %}" class="{% if page == 'terms' %}is-active{% endif %}"><i class="ti ti-file-text"></i><span>{% trans "Shartlar" %}</span></a>
+        </nav>
+
+        <div class="lg-top__actions">
+            <form action="{% url 'set_language' %}" method="post" class="lg-lang">
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{{ request.path }}">
+                <button name="language" value="uz" class="{% if LANGUAGE_CODE == 'uz' %}is-active{% endif %}" title="O‘zbek (lotin)">UZ</button>
+                <button name="language" value="uz-kr" class="{% if LANGUAGE_CODE == 'uz-kr' %}is-active{% endif %}" title="Ўзбек (кирил)">ЎЗ</button>
+                <button name="language" value="ru" class="{% if LANGUAGE_CODE == 'ru' %}is-active{% endif %}" title="Русский">RU</button>
+            </form>
+            {% if user.is_authenticated %}
+            <a class="lg-btn" href="{% url 'dashboard' %}"><i class="ti ti-home"></i><span>{% trans "Panelga qaytish" %}</span></a>
+            {% else %}
+            <a class="lg-btn" href="{% url 'login' %}"><i class="ti ti-login"></i><span>{% trans "Kirish" %}</span></a>
+            {% endif %}
+        </div>
+    </div>
+</header>
+
+<div class="lg-wrap">
+    <aside class="lg-toc" aria-label="{% trans 'Mundarija' %}">
+        <p class="lg-toc__title">{% trans "Mundarija" %}</p>
+        <nav id="lg-toc"></nav>
+    </aside>
+
+    <main class="lg-doc">
+        <header class="lg-doc__head">
+            <span class="lg-kicker">AvtoIbrat</span>
+            <h1>{{ title }}</h1>
+            {% if page == "terms" %}
+            <p class="lg-meta"><i class="ti ti-calendar"></i>{% trans "Tahrir sanasi" %}: 14.10.2026</p>
+            {% else %}
+            <p class="lg-meta"><i class="ti ti-calendar"></i>{% trans "Oxirgi yangilanish" %}: 14.10.2026</p>
+            {% endif %}
+        </header>
+
+        <article class="lg-content" id="lg-content">
+            {% include content_template %}
+        </article>
+    </main>
+</div>
+
+<footer class="lg-foot">
+    <span>&copy; 2026 AvtoIbrat</span>
+    <a href="{% url 'guide' %}">{% trans "Yo‘riqnoma" %}</a>
+    <a href="{% url 'terms' %}">{% trans "Foydalanish shartlari" %}</a>
+</footer>
+
+<button type="button" class="lg-up" id="lg-up" aria-label="{% trans 'Yuqoriga' %}"><i class="ti ti-arrow-up"></i></button>
+<script src="{% static 'legal/legal.js' %}"></script>
+</body>
+</html>

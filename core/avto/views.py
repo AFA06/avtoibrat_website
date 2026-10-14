@@ -25,7 +25,7 @@ from .models import (
 )
 
 from .road_signs import ordered_categories, sorted_signs
-from . import topic_tests
+from . import legal, topic_tests
 from .marathon import MINUTES_PER_QUESTION
 
 User = get_user_model()
@@ -112,6 +112,33 @@ def index(request):
     })
 
 
+LEGAL_PAGES = {
+    "terms": ("terms", _("Foydalanish shartlari")),
+    "guide": ("guide", _("Foydalanish yo‘riqnomasi")),
+}
+LEGAL_LANGUAGES = {"uz": "uz", "uz-kr": "kr", "ru": "ru"}
+
+
+def _legal_page(request, page):
+    """Terms of use and the user guide: public pages, written separately for each site language."""
+    slug, title = LEGAL_PAGES[page]
+    lang = LEGAL_LANGUAGES.get(request.LANGUAGE_CODE, "uz")
+    return render(request, "legal/page.html", {
+        "page": page,
+        "title": title,
+        "content_template": f"legal/content/{slug}.{lang}.html",
+        "terms_version": legal.TERMS_VERSION,
+    })
+
+
+def terms(request):
+    return _legal_page(request, "terms")
+
+
+def guide(request):
+    return _legal_page(request, "guide")
+
+
 def error(request):
     return render(request, "404.html")
 
@@ -168,6 +195,10 @@ def login_view(request):
         if role not in LOGIN_ROLES:
             role = "student"
 
+        # Signing in means agreeing to the terms of use: the box on the form must be ticked.
+        if not legal.accepted(request.POST):
+            return _login_redirect(role, error="terms")
+
         identifier = request.POST.get("username", "").strip()
         username = _username_for_phone(identifier) if role == "student" else identifier
         user = authenticate(
@@ -205,6 +236,7 @@ def login_view(request):
                 return _login_redirect(role, device_limit=1)
 
         auth_login(request, user)
+        legal.record_acceptance(user)
         return redirect("admin:index" if role == "staff" else "dashboard")
 
     return render(request, "dashboard/login.html")
