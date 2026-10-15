@@ -1,0 +1,131 @@
+{
+  "facts": {
+    "ticketId": 1,
+    "questionLabel": 12,
+    "questionDbId": 209,
+    "positionInTicket": 5,
+    "topic": "Tartibga soluvchining ishoralari",
+    "questionText": "Harakatlanish taqiqlangan:",
+    "answerChoices": [
+      { "dbId": 660, "text": "Ko‘k, yashil va oq avtomobillarga.", "correct": true },
+      { "dbId": 661, "text": "Oq, ko‘k va sariq avtomobillarga.", "correct": false, "whyWrong": "Sariq yura oladi, yashil esa yo‘q" },
+      { "dbId": 659, "text": "Qizil va oq avtomobillarga.", "correct": false, "whyWrong": "Qizil yura oladi, ko‘k va yashil yo‘q" }
+    ],
+    "correctAnswerShort": "Ko‘k, yashil va oq avtomobillarga",
+    "rule": {
+      "reference": "YHQ 38-band",
+      "document": "Yo‘l harakati qoidalari, VM 2022-yil 12-apreldagi 172-son qarori",
+      "gesture": "Qo‘llari yon tomonga uzatilganda yoki tushirilganda",
+      "quote": "chap va o‘ng yon tomonidan … relssiz transport vositalariga to‘g‘riga va o‘ngga harakatlanishga … ruxsat beriladi; old va orqa tomonidan barcha transport vositalari va piyodalarning harakatlanishi taqiqlanadi.",
+      "source": "https://lex.uz/uz/docs/-5953883"
+    },
+    "controller": {
+      "gesture": "Ikkala qo‘li yon tomonga uzatilgan",
+      "facing": "white",
+      "backTo": "green"
+    },
+    "vehicles": [
+      { "id": "white", "name": "Oq", "position": "Old tomon", "status": "prohibited", "reason": "Old tomonidan harakat taqiqlanadi" },
+      { "id": "green", "name": "Yashil", "position": "Orqa tomon", "status": "prohibited", "reason": "Orqa tomonidan harakat taqiqlanadi" },
+      { "id": "blue", "name": "Ko‘k", "position": "Yon tomon · chapga", "status": "prohibited", "reason": "Yon tomondan faqat to‘g‘riga va o‘ngga" },
+      { "id": "red", "name": "Qizil", "position": "Yon tomon", "status": "permitted", "reason": "To‘g‘riga yoki o‘ngga" },
+      { "id": "yellow", "name": "Sariq", "position": "Yon tomon", "status": "permitted", "reason": "To‘g‘riga yoki o‘ngga" }
+    ],
+    "verification": {
+      "correctAnswer": "Database: avto_answer.togri = 1 for answer 660 (question 209).",
+      "gesture": "Visually checked on the source image: both arms horizontal, baton toward the red/blue road; chest toward the white car, back toward the green car.",
+      "blueCar": "Front-left turn indicator lit (amber) — left turn, which this signal does not allow from the side.",
+      "rule": "Checked against the official text on lex.uz (VM 172, in force since 01.05.2022), paragraph 38."
+    }
+  },
+
+  "visual": {
+    "image": "q209@2x.png",
+    "imageWidth": 945,
+    "imageHeight": 530,
+    "controller": { "x": 434, "y": 178, "rx": 58, "ry": 46, "feetX": 437, "feetY": 206 },
+    "vehicles": {
+      "white":  { "x": 313, "y": 452, "rx": 92, "ry": 80, "labelAt": [470, 470], "labelAnchor": "center" },
+      "green":  { "x": 497, "y": 86,  "rx": 34, "ry": 26, "labelAt": [560, 60], "labelAnchor": "center" },
+      "blue":   { "x": 106, "y": 131, "rx": 54, "ry": 30, "labelAt": [130, 88], "labelAnchor": "center", "signal": [144, 130] },
+      "red":    { "x": 56,  "y": 149, "rx": 52, "ry": 28, "labelAt": [4, 240], "labelAnchor": "start" },
+      "yellow": { "x": 871, "y": 216, "rx": 78, "ry": 34, "labelAt": [940, 268], "labelAnchor": "end" }
+    },
+    "directions": {
+      "sideLeft":  { "from": [384, 170], "to": [262, 142] },
+      "sideRight": { "from": [482, 188], "to": [622, 210] },
+      "front":     { "from": [404, 232], "to": [322, 300] },
+      "back":      { "from": [472, 134], "to": [530, 92] }
+    },
+    "arrows": {
+      "redStraight":  { "d": "M 112 168 L 318 209", "kind": "permitted" },
+      "redRight":     { "d": "M 112 170 Q 250 202 206 292", "kind": "permitted" },
+      "yellowStraight": { "d": "M 800 211 L 600 172", "kind": "permitted" },
+      "yellowRight":  { "d": "M 800 213 Q 636 204 640 124", "kind": "permitted" },
+      "blueLeft":     { "d": "M 156 138 Q 300 172 372 138", "kind": "prohibited" }
+    }
+  },
+
+  "timeline": {
+    "fps": 30,
+    "durationInFrames": 1170,
+    "layoutAt": [92, 126],
+    "chapters": [
+      { "id": "intro",    "label": "Savol",        "from": 0,    "to": 110 },
+      { "id": "signal",   "label": "Ishora",       "from": 110,  "to": 395 },
+      { "id": "vehicles", "label": "Avtomobillar", "from": 395,  "to": 840 },
+      { "id": "answer",   "label": "Javob",        "from": 840,  "to": 1050 },
+      { "id": "summary",  "label": "Xulosa",       "from": 1050, "to": 1170 }
+    ],
+    "camera": [
+      { "frame": 0,    "x": 472, "y": 265, "zoom": 1.0 },
+      { "frame": 105,  "x": 452, "y": 225, "zoom": 1.12 },
+      { "frame": 150,  "x": 440, "y": 200, "zoom": 1.45 },
+      { "frame": 290,  "x": 440, "y": 200, "zoom": 1.45 },
+      { "frame": 330,  "x": 440, "y": 215, "zoom": 1.15 },
+      { "frame": 390,  "x": 440, "y": 215, "zoom": 1.15 },
+      { "frame": 420,  "x": 360, "y": 330, "zoom": 1.2 },
+      { "frame": 465,  "x": 360, "y": 330, "zoom": 1.2 },
+      { "frame": 495,  "x": 480, "y": 170, "zoom": 1.2 },
+      { "frame": 545,  "x": 480, "y": 170, "zoom": 1.2 },
+      { "frame": 575,  "x": 250, "y": 180, "zoom": 1.25 },
+      { "frame": 725,  "x": 250, "y": 180, "zoom": 1.25 },
+      { "frame": 760,  "x": 472, "y": 265, "zoom": 1.0 }
+    ],
+    "events": {
+      "controllerRing": 120,
+      "sideArrows": 210,
+      "frontBackArrows": 300,
+      "directionsOut": 395,
+      "white": 405,
+      "green": 485,
+      "blueSignal": 570,
+      "blueLeft": 660,
+      "permitted": 745,
+      "answers": 845,
+      "wrongA": 870,
+      "wrongB": 905,
+      "correct": 965,
+      "summary": 1055,
+      "fadeOut": 1140
+    },
+    "cues": [
+      { "from": 8,    "to": 92,   "text": "Keling, bu savolni birga ko‘rib chiqamiz." },
+      { "from": 112,  "to": 205,  "text": "Tartibga soluvchining ikkala qo‘li yon tomonga uzatilgan." },
+      { "from": 210,  "to": 296,  "text": "Yon tomonlardan to‘g‘riga va o‘ngga yurish mumkin." },
+      { "from": 300,  "to": 392,  "text": "Old va orqa tomonidan esa harakatlanish taqiqlanadi." },
+      { "from": 402,  "to": 476,  "text": "Oq avtomobil old tomonda — u to‘xtaydi." },
+      { "from": 482,  "to": 560,  "text": "Yashil avtomobil orqa tomonda — u ham to‘xtaydi." },
+      { "from": 566,  "to": 655,  "text": "Ko‘k yon tomonda, lekin chapga burilish ishorasini yoqqan." },
+      { "from": 660,  "to": 736,  "text": "Chapga burilish taqiqlangan — u ham kutadi." },
+      { "from": 742,  "to": 836,  "text": "Qizil va sariq esa to‘g‘riga yoki o‘ngga yura oladi." },
+      { "from": 848,  "to": 952,  "text": "Ikki javobda yura oladigan avtomobil bor — ular xato." },
+      { "from": 962,  "to": 1050, "text": "To‘g‘ri javob: ko‘k, yashil va oq avtomobillarga." }
+    ]
+  },
+
+  "narration": {
+    "audioPath": null,
+    "note": "No reliable local Uzbek TTS. Put a recorded file in public/ and set audioPath (e.g. \"narration-uz.wav\"), then retime the cues to the recording."
+  }
+}

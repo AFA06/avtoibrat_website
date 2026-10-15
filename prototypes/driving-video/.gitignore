@@ -1,0 +1,6 @@
+node_modules/
+output/*
+!output/.gitkeep
+public/*.png
+public/*.wav
+public/*.mp3

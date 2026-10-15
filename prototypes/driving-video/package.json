@@ -1,0 +1,24 @@
+{
+  "name": "avtoibrat-driving-video",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Prototype: animated explanation video for one driving theory question (Bilet 1, question 209).",
+  "scripts": {
+    "prepare-assets": "ffmpeg -loglevel error -y -i ../../core/media/questions/images/bilet-1-5.webp -vf scale=1890:1060:flags=lanczos public/q209@2x.png",
+    "studio": "remotion studio src/index.ts",
+    "render": "remotion render src/index.ts DrivingQuestionVideo output/bilet-1-savol-12.mp4 --codec=h264 --crf=16",
+    "still": "remotion still src/index.ts DrivingQuestionVideo",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.535",
+    "@remotion/google-fonts": "4.0.535",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "remotion": "4.0.535"
+  },
+  "devDependencies": {
+    "@types/react": "19.1.8",
+    "typescript": "5.8.3"
+  }
+}

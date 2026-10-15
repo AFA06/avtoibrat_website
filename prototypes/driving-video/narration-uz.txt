@@ -1,0 +1,14 @@
+# Bilet 1 — Savol 12: diktor matni (o‘zbek, lotin)
+# Har bir qator — bitta subtitr. Vaqtlar: subtitles-uz.srt
+
+Keling, bu savolni birga ko‘rib chiqamiz.
+Tartibga soluvchining ikkala qo‘li yon tomonga uzatilgan.
+Yon tomonlardan to‘g‘riga va o‘ngga yurish mumkin.
+Old va orqa tomonidan esa harakatlanish taqiqlanadi.
+Oq avtomobil old tomonda — u to‘xtaydi.
+Yashil avtomobil orqa tomonda — u ham to‘xtaydi.
+Ko‘k yon tomonda, lekin chapga burilish ishorasini yoqqan.
+Chapga burilish taqiqlangan — u ham kutadi.
+Qizil va sariq esa to‘g‘riga yoki o‘ngga yura oladi.
+Ikki javobda yura oladigan avtomobil bor — ular xato.
+To‘g‘ri javob: ko‘k, yashil va oq avtomobillarga.

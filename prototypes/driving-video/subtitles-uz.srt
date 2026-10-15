@@ -1,0 +1,43 @@
+1
+00:00:00,267 --> 00:00:03,067
+Keling, bu savolni birga ko‘rib chiqamiz.
+
+2
+00:00:03,733 --> 00:00:06,833
+Tartibga soluvchining ikkala qo‘li yon tomonga uzatilgan.
+
+3
+00:00:07,000 --> 00:00:09,867
+Yon tomonlardan to‘g‘riga va o‘ngga yurish mumkin.
+
+4
+00:00:10,000 --> 00:00:13,067
+Old va orqa tomonidan esa harakatlanish taqiqlanadi.
+
+5
+00:00:13,400 --> 00:00:15,867
+Oq avtomobil old tomonda — u to‘xtaydi.
+
+6
+00:00:16,067 --> 00:00:18,667
+Yashil avtomobil orqa tomonda — u ham to‘xtaydi.
+
+7
+00:00:18,867 --> 00:00:21,833
+Ko‘k yon tomonda, lekin chapga burilish ishorasini yoqqan.
+
+8
+00:00:22,000 --> 00:00:24,533
+Chapga burilish taqiqlangan — u ham kutadi.
+
+9
+00:00:24,733 --> 00:00:27,867
+Qizil va sariq esa to‘g‘riga yoki o‘ngga yura oladi.
+
+10
+00:00:28,267 --> 00:00:31,733
+Ikki javobda yura oladigan avtomobil bor — ular xato.
+
+11
+00:00:32,067 --> 00:00:35,000
+To‘g‘ri javob: ko‘k, yashil va oq avtomobillarga.
