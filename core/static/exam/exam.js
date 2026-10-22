@@ -168,6 +168,13 @@
       frame.appendChild(hint);
       frame.addEventListener("click", () => openLightbox(question.image));
       els.imageBox.appendChild(frame);
+    } else if (config.logoUrl) {
+      const placeholder = document.createElement("div");
+      placeholder.className = "exam-noimage";
+      placeholder.setAttribute("role", "img");
+      placeholder.setAttribute("aria-label", "AvtoIbrat");
+      placeholder.style.setProperty("--exam-logo", `url("${config.logoUrl}")`);
+      els.imageBox.appendChild(placeholder);
     }
 
     els.optionsBox.textContent = "";

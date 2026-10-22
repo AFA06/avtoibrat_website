@@ -226,6 +226,19 @@ body {
   gap: 12px;
 }
 
+/* Question without a picture: the school logo, centred on a panel the size of a picture (16:9). */
+.exam-noimage {
+  width: 100%;
+  aspect-ratio: 945 / 530;
+  max-height: 100%;
+  border-radius: 10px;
+  border: 1px solid var(--exam-border);
+  background: var(--exam-logo) center / min(46%, 280px) auto no-repeat, var(--exam-panel);
+  user-select: none;
+  -webkit-user-select: none;
+  pointer-events: none;
+}
+
 .exam-main__image:empty {
   display: none;
 }
