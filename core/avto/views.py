@@ -625,6 +625,18 @@ def clear_statistics(request):
 
 
 
+@login_required
+@require_POST
+def clear_real_statistics(request):
+    """Wipe the student's real-exam history only; practice tests stay."""
+    sessions = TestSession.objects.filter(user=request.user, test_kind="real")
+    answers = UserAnswer.objects.filter(session__in=sessions)
+    StatisticsReset.objects.create(user=request.user, tests=sessions.count(), answers=answers.count())
+    answers.delete()
+    sessions.delete()
+    return JsonResponse({"success": True})
+
+
 def _create_test_session(user, category, test_kind, source="shablon"):
     """Create a session with a fixed, randomly-picked, ordered question set."""
     session = TestSession.objects.create(

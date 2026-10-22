@@ -62,6 +62,7 @@ urlpatterns = [
 
     # ===== SHABLON TEST =====
     path("clear-statistics/", clear_statistics, name="clear_statistics"),
+    path("clear-real-statistics/", clear_real_statistics, name="clear_real_statistics"),
 
 
     path(

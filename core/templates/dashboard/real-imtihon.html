@@ -40,7 +40,10 @@
 
   {% if history %}
   <section class="rx-history">
-    <h2>{% trans "So‘nggi imtihonlar" %}</h2>
+    <div class="rx-history__head">
+      <h2>{% trans "So‘nggi imtihonlar" %}</h2>
+      <button type="button" class="rx-clear" data-clear-open><i class="ti ti-trash" aria-hidden="true"></i>{% trans "Statistikani tozalash" %}</button>
+    </div>
     <ul>
       {% for row in history %}
       <li>
@@ -71,5 +74,18 @@
     </div>
   </div>
 </dialog>
+{% if history %}
+<dialog class="rx-confirm" id="rx-clear" data-url="{% url 'clear_real_statistics' %}" data-csrf="{{ csrf_token }}" aria-labelledby="rx-clear-title">
+  <div class="rx-confirm__panel">
+    <span class="rx-confirm__icon rx-confirm__icon--danger"><i class="ti ti-trash"></i></span>
+    <h3 id="rx-clear-title">{% trans "Statistikani tozalaysizmi?" %}</h3>
+    <p>{% trans "Barcha real imtihon natijalaringiz o‘chiriladi. Buni qaytarib bo‘lmaydi." %}</p>
+    <div class="rx-confirm__buttons">
+      <button type="button" class="rx-btn rx-btn--ghost" data-close>{% trans "Bekor qilish" %}</button>
+      <button type="button" class="rx-btn rx-btn--danger" data-confirm><i class="ti ti-trash" aria-hidden="true"></i>{% trans "Tozalash" %}</button>
+    </div>
+  </div>
+</dialog>
+{% endif %}
 <script src="{% static 'dashboard/real-exam.js' %}"></script>
 {% endblock %}

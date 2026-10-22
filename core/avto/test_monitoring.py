@@ -165,6 +165,19 @@ class TrackingTests(MonitoringFixture):
         page = self.client.get(reverse("monitoring:student", args=[self.ali.pk]))
         self.assertContains(page, "statistikasini tozalagan")
 
+    def test_clearing_real_statistics_keeps_practice_tests(self):
+        self.solve(self.ali, [True, False])
+        real = TestSession.objects.create(
+            user=self.ali, category=self.category, test_kind="real", started_at=timezone.now(),
+            finished_at=timezone.now(), question_order=[q.pk for q in self.questions],
+        )
+        UserAnswer.objects.create(session=real, question=self.questions[0], is_correct=True)
+        self.client.force_login(self.ali)
+        self.assertEqual(self.client.post(reverse("clear_real_statistics")).status_code, 200)
+        self.assertFalse(TestSession.objects.filter(user=self.ali, test_kind="real").exists())
+        self.assertEqual(TestSession.objects.filter(user=self.ali).count(), 1)
+        self.assertEqual(StatisticsReset.objects.get(user=self.ali).tests, 1)
+
     def test_new_answers_get_a_timestamp(self):
         self.client.force_login(self.ali)
         session = TestSession.objects.create(
