@@ -57,7 +57,7 @@
           <td>
             <a class="qs-text" href="{% url 'questions:edit' q.pk %}">
               {% if q.rasm %}<img class="qs-thumb" src="{{ q.rasm.url }}" alt="" loading="lazy">{% else %}<span class="qs-thumb qs-thumb--none" title="Rasm yo‘q"><i class="fas fa-image"></i></span>{% endif %}
-              <span>{{ q.matn_uzb|truncatechars:140 }}</span>
+              <span>{{ q.matn_uzb|truncatechars:140 }}{% if q.audio_uzb or q.audio_rus %} <i class="fas fa-volume-up qs-voice-ico" title="Ovozli tushuntirish bor"></i>{% endif %}</span>
             </a>
           </td>
           <td>

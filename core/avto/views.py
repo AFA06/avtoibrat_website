@@ -1,4 +1,5 @@
 import json
+import mimetypes
 import os
 import re
 from urllib.parse import urlencode
@@ -10,10 +11,10 @@ from django.utils.translation import gettext_lazy as _
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login as auth_login, logout
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse, FileResponse, Http404, HttpResponseRedirect
+from django.http import JsonResponse, FileResponse, Http404, HttpResponse, HttpResponseRedirect
 from django.contrib.auth import get_user_model
 from django.views.decorators.http import require_POST, require_http_methods
-from django.db.models import Count, Sum, F, ExpressionWrapper, DurationField
+from django.db.models import Count, Q, Sum, F, ExpressionWrapper, DurationField
 
 from .leaderboard import PERIODS, build as build_leaderboard
 from . import real_exam
@@ -768,6 +769,8 @@ def test_page(request, session_id):
             "id": q.id,
             "text": q.get_text(exam_lang),
             "image": q.rasm.url if q.rasm else None,
+            # Only the fact that a voice explanation exists; the file itself is served after a mistake.
+            "has_explanation": bool(q.explanation_for(exam_lang)),
             "saved": q.id in saved_ids,
             "answers": [
                 {"id": a.id, "text": a.get_text(exam_lang)}
@@ -932,6 +935,44 @@ def _result_context(session):
         "list_url_name": list_url_name,
         "list_label": list_label,
     }
+
+
+def _may_hear_explanation(user, question):
+    """Only a student who has answered this question wrongly (in a practice test, or in a finished exam)."""
+    return UserAnswer.objects.filter(
+        Q(session__test_kind="shablon") | Q(session__finished_at__isnull=False),
+        session__user=user, question=question, selected_answer__isnull=False, is_correct=False,
+    ).exists()
+
+
+def serve_audio(request, audio):
+    """The whole file, or the byte range a browser asks for (Safari will not play audio without ranges)."""
+    data = audio.read()
+    total = len(data)
+    content_type = mimetypes.guess_type(audio.name)[0] or "audio/mpeg"
+    match = re.match(r"bytes=(\d*)-(\d*)$", request.headers.get("Range", ""))
+    if match and (match[1] or match[2]):
+        start = int(match[1]) if match[1] else max(0, total - int(match[2]))
+        end = min(int(match[2]), total - 1) if match[1] and match[2] else total - 1
+        if start > end or start >= total:
+            return HttpResponse(status=416, headers={"Content-Range": f"bytes */{total}"})
+        response = HttpResponse(data[start:end + 1], status=206, content_type=content_type)
+        response["Content-Range"] = f"bytes {start}-{end}/{total}"
+    else:
+        response = HttpResponse(data, content_type=content_type)
+    response["Accept-Ranges"] = "bytes"
+    response["Cache-Control"] = "private, max-age=3600"
+    return response
+
+
+@login_required
+def question_explanation(request, question_id):
+    question = get_object_or_404(Question, pk=question_id)
+    audio = question.explanation_for(request.user.group_language)
+    if not audio or not _may_hear_explanation(request.user, question):
+        raise Http404
+    with audio.open("rb") as handle:
+        return serve_audio(request, handle)
 
 
 @login_required

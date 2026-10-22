@@ -53,6 +53,7 @@
   let autoAdvanceEnabled = true;
   let leaving = false; // set once the test is being finished, so leaving the page is no longer blocked
   const optionOrders = {};
+  let currentVoice = null; // the explanation being played, stopped when the question changes
 
   function shuffledOptionOrder(question) {
     const ids = question.answers.map((a) => a.id);
@@ -179,6 +180,7 @@
     }
 
     els.optionsBox.textContent = "";
+    if (currentVoice) { currentVoice.pause(); currentVoice = null; }
     const order = questionOptionOrder(question);
     const answersById = {};
     question.answers.forEach((a) => { answersById[a.id] = a; });
@@ -216,8 +218,37 @@
       els.optionsBox.appendChild(row);
     });
 
+    if (result && !result.is_correct && question.has_explanation && practice) {
+      els.optionsBox.appendChild(explanationPlayer(question));
+    }
+
     renderCounter();
     renderNav();
+  }
+
+  // After a mistake: the teacher's short voice explanation. The server only serves it to a student who got it wrong.
+  function explanationPlayer(question) {
+    const box = document.createElement("div");
+    box.className = "exam-voice";
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "exam-voice__btn";
+    button.innerHTML = '<i class="ti ti-player-play-filled"></i><span></span>';
+    const label = button.querySelector("span");
+    label.textContent = config.explanationLabel || "Tushuntirishni tinglash";
+    const audio = new Audio(config.explanationUrl.replace(/0\/$/, `${question.id}/`));
+    audio.preload = "none";
+    const setPlaying = (on) => {
+      box.classList.toggle("is-playing", on);
+      button.querySelector("i").className = on ? "ti ti-player-pause-filled" : "ti ti-player-play-filled";
+    };
+    button.addEventListener("click", () => (audio.paused ? audio.play() : audio.pause()));
+    audio.addEventListener("play", () => setPlaying(true));
+    audio.addEventListener("pause", () => setPlaying(false));
+    audio.addEventListener("ended", () => setPlaying(false));
+    box.appendChild(button);
+    currentVoice = audio;
+    return box;
   }
 
   // Long sessions (marathon) have hundreds of cells: build them once, then only update classes.

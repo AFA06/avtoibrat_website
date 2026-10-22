@@ -10,7 +10,7 @@ from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator, MinValueValidator, RegexValidator
 from django.conf import settings
 
-from pydub import AudioSegment
+from .storage import private_storage
 from PIL import Image
 
 
@@ -28,9 +28,15 @@ def validate_question_image(image):
         raise ValidationError("Rasm o‘lchami aniq 945x530 bo‘lishi kerak!")
 
 
+AUDIO_TYPES = (".mp3", ".m4a", ".mp4", ".aac", ".ogg", ".oga", ".opus", ".webm", ".wav")
+
+
 def validate_audio_duration(audio):
-    if audio.size > 5 * 1024 * 1024:  # 5MB
-        raise ValidationError("Audio hajmi 5MB dan oshmasligi kerak")
+    """A voice explanation is 10–15 seconds, so 2 MB is generous even for uncompressed audio."""
+    if not audio.name.lower().endswith(AUDIO_TYPES):
+        raise ValidationError("Audio MP3, M4A, OGG, WEBM yoki WAV formatida bo‘lishi kerak")
+    if audio.size > 2 * 1024 * 1024:
+        raise ValidationError("Audio hajmi 2 MB dan oshmasligi kerak (10–15 soniya uchun odatda 100–300 KB)")
 
 
 def validate_video_file(video):
@@ -563,13 +569,15 @@ class Question(models.Model):
     )
 
     audio_uzb = models.FileField(
-        upload_to="questions/audio/",
+        "Ovozli tushuntirish (o‘zbekcha)",
+        upload_to="questions/audio/", storage=private_storage,
         blank=True,
         null=True,
         validators=[validate_audio_duration],
     )
     audio_rus = models.FileField(
-        upload_to="questions/audio/",
+        "Ovozli tushuntirish (русский)",
+        upload_to="questions/audio/", storage=private_storage,
         blank=True,
         null=True,
         validators=[validate_audio_duration],
@@ -606,13 +614,10 @@ class Question(models.Model):
     def correct_answer_for(self, lang=None):
         return next((a for a in self.answers_for(lang) if a.togri), None)
 
-    def get_audio_file(self):
-        lang = get_language()
-        if lang in ("uz", "uz-kr"):
-            return self.audio_uzb.url if self.audio_uzb else None
-        elif lang == "ru":
-            return self.audio_rus.url if self.audio_rus else None
-        return None
+    def explanation_for(self, lang):
+        """The voice explanation in the student's language (Uzbek Latin and Cyrillic share one), or None."""
+        audio = self.audio_rus if lang == "ru" else self.audio_uzb
+        return audio if audio else None
 
 
 class Answer(models.Model):

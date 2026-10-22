@@ -8,3 +8,4 @@ __pycache__/
 core/db.sqlite3*
 core/media/
 core/staticfiles/
+core/private_media/

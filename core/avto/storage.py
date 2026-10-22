@@ -1,5 +1,8 @@
 import os
 
+from django.conf import settings
+from django.core.files.storage import FileSystemStorage
+
 from django.contrib.staticfiles import finders
 from django.contrib.staticfiles.storage import StaticFilesStorage
 
@@ -17,3 +20,19 @@ class VersionedStaticFilesStorage(StaticFilesStorage):
         if isinstance(path, str) and os.path.isfile(path):
             return f"{url}?v={int(os.path.getmtime(path))}"
         return url
+
+
+class PrivateStorage(FileSystemStorage):
+    """Voice explanations live outside MEDIA_ROOT: they have no public URL, only the gated view serves them."""
+
+    @property
+    def base_location(self):
+        return settings.PRIVATE_MEDIA_ROOT
+
+    @property
+    def location(self):
+        return os.path.abspath(settings.PRIVATE_MEDIA_ROOT)
+
+
+def private_storage():
+    return PrivateStorage()

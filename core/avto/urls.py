@@ -97,6 +97,7 @@ urlpatterns = [
         test_result,
         name="test_result"
     ),
+    path('savol-izoh/<int:question_id>/', question_explanation, name="question_explanation"),
     path(
         'submit-answer/',
         submit_answer,

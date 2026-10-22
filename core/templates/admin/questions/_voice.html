@@ -1,0 +1,12 @@
+<div class="qs-voice" data-voice>
+  <h3>{{ title }}</h3>
+  <div class="qs-voice__actions">
+    <button type="button" class="sd-btn sd-btn--ghost" data-record><i class="fas fa-microphone"></i> <span>Ovoz yozish</span></button>
+    <label class="sd-btn sd-btn--ghost" for="{{ f.id_for_label }}"><i class="fas fa-upload"></i> Fayl tanlash</label>
+  </div>
+  <div class="sd-field" style="margin:0">{{ f }}</div>
+  <audio controls preload="none" data-voice-player {% if stored %}src="{% url 'questions:audio' question.pk language %}"{% else %}hidden{% endif %}></audio>
+  <p data-voice-status>{% if stored %}Saqlangan tushuntirish bor. Yangisini yozsangiz, almashadi.{% else %}Hali yo‘q.{% endif %}</p>
+  {% for e in f.errors %}<p class="sd-error">{{ e }}</p>{% endfor %}
+  {% if stored %}<label class="qs-check"><input type="checkbox" name="remove_{{ f.name }}" value="1"><span>Tushuntirishni o‘chirish</span></label>{% endif %}
+</div>

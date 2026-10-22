@@ -226,6 +226,17 @@ body {
   gap: 12px;
 }
 
+/* Voice explanation shown under the options after a wrong answer. */
+.exam-voice { margin-top: 6px; }
+.exam-voice__btn {
+  display: inline-flex; align-items: center; gap: 10px; padding: 12px 18px;
+  border: 1px solid var(--exam-accent); border-radius: 10px; background: var(--exam-accent-dim);
+  color: var(--exam-text); font: inherit; font-weight: 600; cursor: pointer;
+}
+.exam-voice__btn i { font-size: 20px; color: var(--exam-current); }
+.exam-voice__btn:hover { filter: brightness(1.12); }
+.exam-voice.is-playing .exam-voice__btn { background: var(--exam-accent); }
+
 /* Question without a picture: the school logo, centred on a panel the size of a picture (16:9). */
 .exam-noimage {
   width: 100%;

@@ -11,12 +11,14 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.core.paginator import Paginator
 from django.db import transaction
 from django.db.models import Count, Q
+from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.views.decorators.http import require_POST
 
 from .models import Answer, Question, TestCategory, TestType, Topic, TopicGroup
 from .student_views import _page
+from .views import serve_audio
 
 PAGE_SIZE = 25
 ANSWER_LIMIT = 8
@@ -92,7 +94,7 @@ def question_list(request):
 class QuestionForm(forms.ModelForm):
     class Meta:
         model = Question
-        fields = ("kategoriya", "mavzu", "extra_topics", "matn_uzb", "matn_uz_kr", "matn_rus", "rasm")
+        fields = ("kategoriya", "mavzu", "extra_topics", "matn_uzb", "matn_uz_kr", "matn_rus", "rasm", "audio_uzb", "audio_rus")
         labels = {
             "kategoriya": "Bilet", "mavzu": "Asosiy mavzu", "extra_topics": "Qo‘shimcha mavzular",
             "matn_uzb": "Savol — o‘zbekcha (lotin)", "matn_uz_kr": "Савол — ўзбекча (кирилл)",
@@ -120,6 +122,8 @@ class QuestionForm(forms.ModelForm):
         self.fields["extra_topics"].queryset = _topics()
         self.fields["extra_topics"].choices = [(pk, name) for _, items in _topic_choices() for pk, name in items]
         self.fields["rasm"].widget = forms.FileInput(attrs={"accept": "image/*", "data-image-input": ""})
+        for name in ("audio_uzb", "audio_rus"):
+            self.fields[name].widget = forms.FileInput(attrs={"accept": "audio/*", "data-audio-input": ""})
 
     def clean(self):
         data = super().clean()
@@ -205,6 +209,10 @@ def question_form(request, pk=None):
                 saved = form.save(commit=False)
                 if request.POST.get("remove_picture") and not request.FILES.get("rasm"):
                     saved.rasm = None
+                for name in ("audio_uzb", "audio_rus"):
+                    if request.POST.get(f"remove_{name}") and not request.FILES.get(name):
+                        getattr(saved, name).delete(save=False)
+                        setattr(saved, name, None)
                 if not saved.pk:
                     saved.test_turi = TestType.objects.order_by("id").first() or TestType.objects.create(
                         nomi="Bilet", vaqt_daqiqa=25, savollar_soni=20)
@@ -229,6 +237,17 @@ def question_form(request, pk=None):
         bilet_counts={b.pk: b.total for b in _bilets()},
         number=_with_numbers([question])[0].number if question else None,
     ))
+
+
+@staff_member_required
+def question_audio(request, pk, language):
+    """Lets a teacher listen to the stored explanation while editing (students use a gated view)."""
+    question = get_object_or_404(Question, pk=pk)
+    audio = question.audio_rus if language == "ru" else question.audio_uzb
+    if not audio:
+        raise Http404
+    with audio.open("rb") as handle:
+        return serve_audio(request, handle)
 
 
 @staff_member_required

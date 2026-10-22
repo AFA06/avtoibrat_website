@@ -67,6 +67,60 @@
     syncMain();
   }
 
+  // --- Voice explanations: pick a file or record with the microphone (stops by itself after 20 s) ---
+  const MAX_SECONDS = 20;
+  document.querySelectorAll("[data-voice]").forEach((box) => {
+    const input = box.querySelector("[data-audio-input]");
+    const player = box.querySelector("[data-voice-player]");
+    const status = box.querySelector("[data-voice-status]");
+    const recordButton = box.querySelector("[data-record]");
+    const show = (url, text) => {
+      player.src = url;
+      player.hidden = false;
+      status.textContent = text;
+    };
+    input.addEventListener("change", () => {
+      if (input.files[0]) show(URL.createObjectURL(input.files[0]), `Tanlandi: ${input.files[0].name}`);
+    });
+    if (!navigator.mediaDevices || !window.MediaRecorder) {
+      recordButton.hidden = true;
+      return;
+    }
+    let recorder = null;
+    let timer = null;
+    const stop = () => { clearTimeout(timer); if (recorder && recorder.state !== "inactive") recorder.stop(); };
+    recordButton.addEventListener("click", async () => {
+      if (recorder && recorder.state === "recording") return stop();
+      let stream;
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      } catch (error) {
+        status.textContent = "Mikrofonga ruxsat berilmadi.";
+        return;
+      }
+      const chunks = [];
+      recorder = new MediaRecorder(stream);
+      recorder.addEventListener("dataavailable", (event) => chunks.push(event.data));
+      recorder.addEventListener("stop", () => {
+        stream.getTracks().forEach((track) => track.stop());
+        recordButton.classList.remove("is-recording");
+        recordButton.querySelector("span").textContent = "Ovoz yozish";
+        const type = recorder.mimeType || "audio/webm";
+        const extension = type.includes("mp4") ? "m4a" : type.includes("ogg") ? "ogg" : "webm";
+        const file = new File(chunks, `tushuntirish.${extension}`, { type });
+        const transfer = new DataTransfer();
+        transfer.items.add(file);
+        input.files = transfer.files;
+        show(URL.createObjectURL(file), "Yozildi — saqlash tugmasini bosing.");
+      });
+      recorder.start();
+      recordButton.classList.add("is-recording");
+      recordButton.querySelector("span").textContent = "To‘xtatish";
+      status.textContent = `Yozilmoqda… (eng ko‘pi bilan ${MAX_SECONDS} soniya)`;
+      timer = setTimeout(stop, MAX_SECONDS * 1000);
+    });
+  });
+
   // --- Show how many questions the chosen bilet already has ---
   const bilet = document.getElementById("id_kategoriya");
   const note = document.getElementById("bilet-note");

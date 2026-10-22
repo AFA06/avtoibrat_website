@@ -44,3 +44,16 @@
   .qs-key { display: none; }
   .qs-answer input[name$="_kr"] { grid-column: 2; }
 }
+
+.qs-voices { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+.qs-voice { padding: 14px; border: 1px solid var(--sd-line); border-radius: 12px; }
+.qs-voice h3 { margin: 0 0 10px; font-size: 14px; font-weight: 700; }
+.qs-voice audio { width: 100%; margin: 10px 0 4px; }
+.qs-voice__actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.qs-voice__actions input[type=file] { max-width: 100%; }
+.qs-voice [data-voice-status] { margin: 6px 0 0; font-size: 13px; color: var(--sd-muted); }
+.sd-btn.is-recording { background: var(--sd-red-bg); color: var(--sd-red); border-color: var(--sd-red); }
+.sd-btn.is-recording i { animation: qs-pulse 1s infinite; }
+@keyframes qs-pulse { 50% { opacity: .3; } }
+@media (prefers-reduced-motion: reduce) { .sd-btn.is-recording i { animation: none; } }
+.qs-voice-ico { margin-left: 6px; color: var(--sd-brand); }

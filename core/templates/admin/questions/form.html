@@ -61,7 +61,16 @@
     </section>
 
     <section class="sd-panel sd-card">
-      <h2>4. Javoblar</h2>
+      <h2>4. Ovozli tushuntirish <small>(ixtiyoriy)</small></h2>
+      <p class="sd-help">10–15 soniyalik qisqa tushuntirish. Talaba bu savolda xato qilgandan keyingina tinglay oladi; xato qilmaguncha ko‘rinmaydi va yuklanmaydi.</p>
+      <div class="sd-grid qs-voices">
+        {% include "admin/questions/_voice.html" with f=form.audio_uzb language="uz" title="O‘zbekcha (lotin va кирилл talabalar uchun)" stored=question.audio_uzb %}
+        {% include "admin/questions/_voice.html" with f=form.audio_rus language="ru" title="Русский (ruscha talabalar uchun)" stored=question.audio_rus %}
+      </div>
+    </section>
+
+    <section class="sd-panel sd-card">
+      <h2>5. Javoblar</h2>
       <p class="sd-help">Bitta to‘g‘ri javobni belgilang. Talabalar javoblarni har safar boshqa tartibda ko‘radi, bu yerda esa tartib o‘zgarmaydi. Bo‘sh qatorlar hisobga olinmaydi.</p>
 
       <h3 class="qs-sub">O‘zbekcha (lotin va кирилл)</h3>

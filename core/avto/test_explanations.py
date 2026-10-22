@@ -1,0 +1,113 @@
+import shutil
+import tempfile
+
+from django.core.files.uploadedfile import SimpleUploadedFile
+from django.test import TestCase, override_settings
+from django.urls import reverse
+from django.utils import timezone
+
+from .models import Answer, Question, TestCategory, TestSession, TestType, User, UserAnswer
+
+PRIVATE = tempfile.mkdtemp()
+
+
+@override_settings(PRIVATE_MEDIA_ROOT=PRIVATE)
+class VoiceExplanationTests(TestCase):
+    @classmethod
+    def tearDownClass(cls):
+        super().tearDownClass()
+        shutil.rmtree(PRIVATE, ignore_errors=True)
+
+    def setUp(self):
+        self.student = User.objects.create_user(username="s", password="x", unlimited=True)
+        self.russian = User.objects.create_user(username="r", password="x", unlimited=True, group_language="ru")
+        kind = TestType.objects.create(nomi="B", vaqt_daqiqa=25, savollar_soni=20)
+        self.category = TestCategory.objects.create(nomi="Bilet 1")
+        self.question = Question.objects.create(
+            test_turi=kind, kategoriya=self.category, matn_uzb="q", matn_uz_kr="q", matn_rus="q",
+            audio_uzb=SimpleUploadedFile("uz.mp3", b"0123456789"),
+        )
+        self.right = Answer.objects.create(question=self.question, matn_uzb="a", togri=True)
+        self.wrong = Answer.objects.create(question=self.question, matn_uzb="b")
+        self.url = reverse("question_explanation", args=[self.question.pk])
+
+    def answer(self, user, correct, kind="shablon", finished=False):
+        session = TestSession.objects.create(
+            user=user, category=self.category, test_kind=kind, started_at=timezone.now(),
+            finished_at=timezone.now() if finished else None, question_order=[self.question.pk],
+        )
+        UserAnswer.objects.create(
+            session=session, question=self.question, selected_answer=self.right if correct else self.wrong, is_correct=correct,
+        )
+
+    def test_locked_until_the_student_makes_a_mistake(self):
+        self.client.force_login(self.student)
+        self.assertEqual(self.client.get(self.url).status_code, 404)
+        self.answer(self.student, correct=True)
+        self.assertEqual(self.client.get(self.url).status_code, 404)
+        self.answer(self.student, correct=False)
+        response = self.client.get(self.url)
+        self.assertEqual((response.status_code, response.content), (200, b"0123456789"))
+
+    def test_someone_elses_mistake_does_not_unlock_it(self):
+        self.answer(self.student, correct=False)
+        self.client.force_login(self.russian)
+        self.assertEqual(self.client.get(self.url).status_code, 404)
+
+    def test_a_running_real_exam_stays_silent_until_it_is_finished(self):
+        self.answer(self.student, correct=False, kind="real")
+        self.client.force_login(self.student)
+        self.assertEqual(self.client.get(self.url).status_code, 404)
+        TestSession.objects.filter(test_kind="real").update(finished_at=timezone.now())
+        self.assertEqual(self.client.get(self.url).status_code, 200)
+
+    def test_the_students_language_decides_which_recording_plays(self):
+        self.answer(self.russian, correct=False)
+        self.client.force_login(self.russian)
+        self.assertEqual(self.client.get(self.url).status_code, 404)  # only an Uzbek recording exists
+        self.question.audio_rus = SimpleUploadedFile("ru.mp3", b"ruso")
+        self.question.save()
+        self.assertEqual(self.client.get(self.url).content, b"ruso")
+
+    def test_byte_ranges_work_for_safari(self):
+        self.answer(self.student, correct=False)
+        self.client.force_login(self.student)
+        response = self.client.get(self.url, HTTP_RANGE="bytes=2-5")
+        self.assertEqual((response.status_code, response.content), (206, b"2345"))
+        self.assertEqual(response["Content-Range"], "bytes 2-5/10")
+
+    def test_the_file_has_no_public_url_and_the_exam_page_only_says_it_exists(self):
+        self.client.force_login(self.student)
+        self.assertTrue(self.question.audio_uzb.path.startswith(PRIVATE))  # outside MEDIA_ROOT: no public URL
+        session = TestSession.objects.create(
+            user=self.student, category=self.category, test_kind="shablon", started_at=timezone.now(),
+            question_order=[self.question.pk],
+        )
+        session.questions.add(self.question)
+        html = self.client.get(reverse("test_page", args=[session.pk])).content.decode()
+        self.assertIn('"has_explanation": true', html.replace('":true', '": true'))
+        self.assertNotIn("questions/audio", html)
+
+    def test_teacher_can_listen_upload_and_remove_it(self):
+        teacher = User.objects.create_user(username="t", password="x", is_staff=True, is_superuser=True)
+        self.client.force_login(teacher)
+        self.assertEqual(self.client.get(reverse("questions:audio", args=[self.question.pk, "uz"])).content, b"0123456789")
+        self.assertEqual(self.client.get(reverse("questions:audio", args=[self.question.pk, "ru"])).status_code, 404)
+
+        from .models import Topic, TopicGroup
+        topic = Topic.objects.create(group=TopicGroup.objects.create(slug="g", nomi_uzb="G"), slug="t", nomi_uzb="T")
+        edit = reverse("questions:edit", args=[self.question.pk])
+        data = {
+            "kategoriya": self.category.pk, "mavzu": topic.pk, "matn_uzb": "q", "matn_uz_kr": "q", "matn_rus": "q",
+            "uz_id": [self.right.pk, self.wrong.pk], "uz_uz": ["a", "b"], "uz_kr": ["a", "b"], "uz_correct": "0",
+            "ru_id": ["", ""], "ru_ru": ["x", "y"], "ru_correct": "0",
+        }
+        bad = self.client.post(edit, {**data, "audio_rus": SimpleUploadedFile("voice.exe", b"x")})
+        self.assertContains(bad, "MP3, M4A, OGG, WEBM yoki WAV")
+        ok = self.client.post(edit, {**data, "audio_rus": SimpleUploadedFile("ru.webm", b"voice")})
+        self.assertEqual(ok.status_code, 302)
+        self.question.refresh_from_db()
+        self.assertTrue(self.question.audio_rus)
+        self.client.post(edit, {**data, "remove_audio_rus": "1"})
+        self.question.refresh_from_db()
+        self.assertFalse(self.question.audio_rus)
