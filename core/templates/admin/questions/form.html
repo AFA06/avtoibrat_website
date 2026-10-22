@@ -1,0 +1,114 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block extrastyle %}<link rel="stylesheet" href="{% static 'admin/students.css' %}"><link rel="stylesheet" href="{% static 'admin/road-signs.css' %}"><link rel="stylesheet" href="{% static 'admin/questions.css' %}">{% endblock %}
+{% block page_content %}
+<div class="container-fluid"><div class="sd">
+  <a class="sd-back" href="{% url 'questions:list' %}"><i class="fas fa-arrow-left"></i> Savollar</a>
+  <header class="sd-head"><div>
+    <h1>{% if question %}Savolni tahrirlash{% else %}Yangi savol{% endif %}</h1>
+    <p>{% if question %}{{ question.kategoriya.nomi }}, {{ number }}-savol. {% endif %}Savol matni, javoblar, bilet va mavzularni to‘ldiring. Javoblar doim shu tartibda saqlanadi.</p>
+  </div></header>
+
+  <form method="post" enctype="multipart/form-data" novalidate id="question-form">
+    {% csrf_token %}
+    {% for e in form.non_field_errors %}<p class="sd-flash sd-flash--error">{{ e }}</p>{% endfor %}
+
+    <section class="sd-panel sd-card">
+      <h2>1. Qayerga tegishli</h2>
+      <div class="sd-grid">
+        <div class="sd-field {% if form.kategoriya.errors %}has-error{% endif %}">
+          <label for="{{ form.kategoriya.id_for_label }}">{{ form.kategoriya.label }} <em>*</em></label>
+          {{ form.kategoriya }}
+          <p class="sd-help" id="bilet-note"></p>
+          {% for e in form.kategoriya.errors %}<p class="sd-error">{{ e }}</p>{% endfor %}
+        </div>
+        <div class="sd-field {% if form.mavzu.errors %}has-error{% endif %}">
+          <label for="{{ form.mavzu.id_for_label }}">{{ form.mavzu.label }} <em>*</em></label>
+          {{ form.mavzu }}
+          {% for e in form.mavzu.errors %}<p class="sd-error">{{ e }}</p>{% endfor %}
+          <p class="sd-help">{{ form.mavzu.help_text }} <a href="{% url 'admin:avto_topic_add' %}" target="_blank" rel="noopener">Yangi mavzu yaratish</a></p>
+        </div>
+      </div>
+      <div class="sd-field qs-extra">
+        <label>{{ form.extra_topics.label }}</label>
+        <p class="sd-help">{{ form.extra_topics.help_text }}</p>
+        <input type="search" class="qs-topic-filter" placeholder="Mavzuni qidirish…" data-topic-filter autocomplete="off">
+        <div class="qs-checks" data-topic-list>
+          {% for box in form.extra_topics %}<label class="qs-check">{{ box.tag }}<span>{{ box.choice_label }}</span></label>{% endfor %}
+        </div>
+      </div>
+    </section>
+
+    <section class="sd-panel sd-card">
+      <h2>2. Savol matni</h2>
+      <div class="sd-grid qs-langs">
+        {% include "admin/students/_field.html" with f=form.matn_uzb %}
+        {% include "admin/students/_field.html" with f=form.matn_uz_kr %}
+        {% include "admin/students/_field.html" with f=form.matn_rus %}
+      </div>
+    </section>
+
+    <section class="sd-panel sd-card">
+      <h2>3. Rasm</h2>
+      <div class="rsa-form">
+        {% include "admin/road_signs/_image_field.html" with f=form.rasm current=question.rasm %}
+        <div>
+          <p class="sd-help">Rasm tanlamasangiz, savolda AvtoIbrat logotipi ko‘rinadi.</p>
+          {% if question.rasm %}<label class="qs-check"><input type="checkbox" name="remove_picture" value="1"><span>Rasmni o‘chirish</span></label>{% endif %}
+        </div>
+      </div>
+    </section>
+
+    <section class="sd-panel sd-card">
+      <h2>4. Javoblar</h2>
+      <p class="sd-help">Bitta to‘g‘ri javobni belgilang. Talabalar javoblarni har safar boshqa tartibda ko‘radi, bu yerda esa tartib o‘zgarmaydi. Bo‘sh qatorlar hisobga olinmaydi.</p>
+
+      <h3 class="qs-sub">O‘zbekcha (lotin va кирилл)</h3>
+      <div class="qs-answers" data-list="uz" data-limit="{{ answer_limit }}">
+        {% for row in uz_rows %}
+        <div class="qs-answer">
+          <input type="hidden" name="uz_id" value="{{ row.id }}">
+          <label class="qs-correct" title="To‘g‘ri javob"><input type="radio" name="uz_correct" value="{{ forloop.counter0 }}" {% if row.correct %}checked{% endif %}><span><i class="fas fa-check"></i></span></label>
+          <span class="qs-key">F{{ forloop.counter }}</span>
+          <input type="text" name="uz_uz" value="{{ row.uz }}" placeholder="Javob (lotin)">
+          <input type="text" name="uz_kr" value="{{ row.kr }}" placeholder="Жавоб (кирилл)">
+          <button type="button" class="qs-remove" data-remove title="Qatorni o‘chirish"><i class="fas fa-times"></i></button>
+        </div>
+        {% endfor %}
+      </div>
+      <button type="button" class="sd-btn sd-btn--ghost" data-add="uz"><i class="fas fa-plus"></i> Javob qo‘shish</button>
+
+      <h3 class="qs-sub">Русский <small>(ruscha javoblar boshqacha bo‘lishi mumkin)</small></h3>
+      <div class="qs-answers" data-list="ru" data-limit="{{ answer_limit }}">
+        {% for row in ru_rows %}
+        <div class="qs-answer">
+          <input type="hidden" name="ru_id" value="{{ row.id }}">
+          <label class="qs-correct" title="Правильный ответ"><input type="radio" name="ru_correct" value="{{ forloop.counter0 }}" {% if row.correct %}checked{% endif %}><span><i class="fas fa-check"></i></span></label>
+          <span class="qs-key">F{{ forloop.counter }}</span>
+          <input type="text" name="ru_ru" value="{{ row.ru }}" placeholder="Ответ">
+          <button type="button" class="qs-remove" data-remove title="Qatorni o‘chirish"><i class="fas fa-times"></i></button>
+        </div>
+        {% endfor %}
+      </div>
+      <button type="button" class="sd-btn sd-btn--ghost" data-add="ru"><i class="fas fa-plus"></i> Javob qo‘shish</button>
+    </section>
+
+    <div class="sd-submit">
+      <button type="submit" class="sd-btn sd-btn--primary"><i class="fas fa-check"></i> Saqlash</button>
+      <button type="submit" name="add_another" value="1" class="sd-btn sd-btn--ghost"><i class="fas fa-plus"></i> Saqlash va yana qo‘shish</button>
+      <a class="sd-btn sd-btn--ghost" href="{% url 'questions:list' %}">Bekor qilish</a>
+    </div>
+  </form>
+
+  {% if question %}
+  <form method="post" action="{% url 'questions:delete' question.pk %}" class="as-danger" data-confirm="Bu savol butunlay o‘chirilsinmi? Talabalarning shu savolga javoblari ham yo‘qoladi, bilet ichidagi savol raqamlari o‘zgaradi.">
+    {% csrf_token %}
+    <button class="sd-btn sd-btn--ghost is-danger"><i class="fas fa-trash"></i> Savolni o‘chirish</button>
+  </form>
+  {% endif %}
+</div></div>
+{{ bilet_counts|json_script:"bilet-counts" }}
+{% endblock %}
+
+{% block extrajs %}<script src="{% static 'admin/students.js' %}"></script><script src="{% static 'admin/road-signs.js' %}"></script><script src="{% static 'admin/questions.js' %}"></script>{% endblock %}

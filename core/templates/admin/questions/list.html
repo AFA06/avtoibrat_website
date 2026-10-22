@@ -1,0 +1,91 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block extrastyle %}<link rel="stylesheet" href="{% static 'admin/students.css' %}"><link rel="stylesheet" href="{% static 'admin/questions.css' %}">{% endblock %}
+{% block page_content %}
+<div class="container-fluid"><div class="sd">
+  {% include "admin/students/_messages.html" %}
+
+  <header class="sd-head">
+    <div>
+      <h1><i class="fas fa-question-circle"></i> Savollar</h1>
+      <p>Barcha imtihon savollari. Qidiring, mavzu yoki bilet bo‘yicha saralang, tahrirlang yoki yangisini qo‘shing.</p>
+    </div>
+    <a class="sd-btn sd-btn--primary" href="{% url 'questions:create' %}{% if bilet_id %}?kategoriya={{ bilet_id }}{% endif %}"><i class="fas fa-plus"></i> Yangi savol</a>
+  </header>
+
+  <section class="sd-stats sd-stats--3">
+    <div class="sd-stat"><i class="fas fa-question-circle sd-ico sd-ico--blue"></i><div><span>Jami savollar</span><b>{{ total }}</b></div></div>
+    <div class="sd-stat"><i class="fas fa-layer-group sd-ico sd-ico--green"></i><div><span>Biletlar</span><b>{{ bilets|length }}</b></div></div>
+    <a class="sd-stat qs-stat-link" href="?topic=none"><i class="fas fa-tag sd-ico {% if no_topic %}sd-ico--red{% else %}sd-ico--green{% endif %}"></i><div><span>Mavzusiz savollar</span><b>{{ no_topic }}</b></div></a>
+  </section>
+
+  <section class="sd-panel">
+    <form class="sd-toolbar qs-toolbar" method="get">
+      <label class="sd-search">
+        <i class="fas fa-search"></i>
+        <input type="search" name="q" value="{{ query }}" placeholder="Savol matni yoki bilet-savol raqami (masalan 10-12)…" autocomplete="off">
+      </label>
+      <select name="bilet" aria-label="Bilet" onchange="this.form.submit()">
+        <option value="">Barcha biletlar</option>
+        {% for b in bilets %}<option value="{{ b.pk }}" {% if bilet_id == b.pk|stringformat:"s" %}selected{% endif %}>{{ b.nomi }} ({{ b.total }})</option>{% endfor %}
+      </select>
+      <select name="topic" aria-label="Mavzu" onchange="this.form.submit()">
+        <option value="">Barcha mavzular</option>
+        <option value="none" {% if topic_id == "none" %}selected{% endif %}>Mavzusiz savollar</option>
+        {% for group, items in topic_choices %}
+        <optgroup label="{{ group }}">
+          {% for pk, name in items %}<option value="{{ pk }}" {% if topic_id == pk|stringformat:"s" %}selected{% endif %}>{{ name }}</option>{% endfor %}
+        </optgroup>
+        {% endfor %}
+      </select>
+      <select name="picture" aria-label="Rasm" onchange="this.form.submit()">
+        <option value="">Rasm: hammasi</option>
+        <option value="yes" {% if picture == "yes" %}selected{% endif %}>Rasmli</option>
+        <option value="no" {% if picture == "no" %}selected{% endif %}>Rasmsiz</option>
+      </select>
+      <button class="sd-btn sd-btn--primary" type="submit">Qidirish</button>
+      {% if filtered %}<a class="sd-btn sd-btn--ghost" href="{% url 'questions:list' %}"><i class="fas fa-times"></i> Tozalash</a>{% endif %}
+    </form>
+
+    <table class="sd-table qs-table">
+      <thead><tr><th>Bilet</th><th>Savol</th><th>Mavzular</th><th>Javoblar</th><th></th></tr></thead>
+      <tbody>
+      {% for q in page %}
+        <tr>
+          <td class="qs-place"><b>{{ q.kategoriya.nomi }}</b><small>{{ q.number }}-savol</small></td>
+          <td>
+            <a class="qs-text" href="{% url 'questions:edit' q.pk %}">
+              {% if q.rasm %}<img class="qs-thumb" src="{{ q.rasm.url }}" alt="" loading="lazy">{% else %}<span class="qs-thumb qs-thumb--none" title="Rasm yo‘q"><i class="fas fa-image"></i></span>{% endif %}
+              <span>{{ q.matn_uzb|truncatechars:140 }}</span>
+            </a>
+          </td>
+          <td>
+            {% if q.mavzu %}<span class="sd-tag qs-main">{{ q.mavzu.name }}</span>{% endif %}
+            {% for t in q.extra_topics.all %}<span class="sd-tag">{{ t.name }}</span>{% endfor %}
+            {% if not q.mavzu and not q.extra_topics.all %}<span class="sd-status is-red">Mavzusiz</span>{% endif %}
+          </td>
+          <td class="sd-mono">{{ q.javoblar.all|length }}</td>
+          <td class="sd-row-actions"><a class="sd-btn sd-btn--ghost" href="{% url 'questions:edit' q.pk %}">Tahrirlash</a></td>
+        </tr>
+      {% empty %}
+        <tr><td colspan="5" class="sd-empty">
+          <i class="fas fa-question-circle"></i>
+          <p>{% if filtered %}Qidiruv bo‘yicha hech narsa topilmadi.{% else %}Hali savollar yo‘q.{% endif %}</p>
+        </td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+
+    {% if page.paginator.num_pages > 1 %}
+    <footer class="sd-pager">
+      <span>{{ page.start_index }}–{{ page.end_index }} / {{ page.paginator.count }}</span>
+      <div>
+        {% if page.has_previous %}<a class="sd-btn sd-btn--ghost" href="?page={{ page.previous_page_number }}&q={{ query|urlencode }}&bilet={{ bilet_id }}&topic={{ topic_id }}&picture={{ picture }}">‹ Oldingi</a>{% endif %}
+        {% if page.has_next %}<a class="sd-btn sd-btn--ghost" href="?page={{ page.next_page_number }}&q={{ query|urlencode }}&bilet={{ bilet_id }}&topic={{ topic_id }}&picture={{ picture }}">Keyingi ›</a>{% endif %}
+      </div>
+    </footer>
+    {% endif %}
+  </section>
+</div></div>
+{% endblock %}

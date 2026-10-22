@@ -123,7 +123,9 @@ def _legal_page(request, page):
     """Terms of use and the user guide: public pages, written separately for each site language."""
     slug, title = LEGAL_PAGES[page]
     lang = LEGAL_LANGUAGES.get(request.LANGUAGE_CODE, "uz")
-    return render(request, "legal/page.html", {
+    # A signed-in student reads the document inside the panel, with the sidebar and a way back.
+    in_panel = request.user.is_authenticated and not request.user.is_staff
+    return render(request, "legal/panel.html" if in_panel else "legal/page.html", {
         "page": page,
         "title": title,
         "content_template": f"legal/content/{slug}.{lang}.html",

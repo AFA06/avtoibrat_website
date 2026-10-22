@@ -22,9 +22,10 @@ class QuestionAdmin(admin.ModelAdmin):
     list_select_related = ("kategoriya", "mavzu", "test_turi")
     search_fields = ("matn_uzb", "matn_uz_kr", "matn_rus")
     inlines = [AnswerInline]
+    filter_horizontal = ("extra_topics",)
 
     fieldsets = (
-        (_("Asosiy ma’lumotlar"), {"fields": ("test_turi", "kategoriya", "mavzu", "matn_uzb","matn_uz_kr", "matn_rus")}),
+        (_("Asosiy ma’lumotlar"), {"fields": ("test_turi", "kategoriya", "mavzu", "extra_topics", "matn_uzb","matn_uz_kr", "matn_rus")}),
         (_("Media fayllar"), {"fields": ("rasm", "audio_uzb", "audio_rus", "video")}),
     )
 

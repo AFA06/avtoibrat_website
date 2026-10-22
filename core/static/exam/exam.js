@@ -58,7 +58,8 @@
     const ids = question.answers.map((a) => a.id);
     const previous = optionOrders[question.id];
 
-    if (ids.length < 2) {
+    // Teachers and admins see every question exactly as stored, answers always in the same place.
+    if (ids.length < 2 || config.shuffleOptions === false) {
       optionOrders[question.id] = ids;
       return ids;
     }

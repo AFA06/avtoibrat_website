@@ -1,0 +1,49 @@
+{% extends "dashboard/base_panel.html" %}
+{% load i18n static %}
+
+{% block title %}{{ title }} - AvtoIbrat{% endblock %}
+{% block extra_css %}
+<link href="{% static 'legal/legal.css' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block content %}
+<div class="lg lg-panel">
+    <div class="lg-backbar">
+        <button type="button" class="lg-btn" id="lg-back" data-fallback="{% url 'dashboard' %}"><i class="ti ti-arrow-left"></i><span>{% trans "Orqaga" %}</span></button>
+        <nav class="lg-tabs" aria-label="{% trans 'Hujjatlar' %}">
+            <a href="{% url 'guide' %}" class="{% if page == 'guide' %}is-active{% endif %}"><i class="ti ti-book"></i><span>{% trans "Yo‘riqnoma" %}</span></a>
+            <a href="{% url 'terms' %}" class="{% if page == 'terms' %}is-active{% endif %}"><i class="ti ti-file-text"></i><span>{% trans "Shartlar" %}</span></a>
+        </nav>
+    </div>
+
+    <div class="lg-wrap">
+        <aside class="lg-toc" aria-label="{% trans 'Mundarija' %}">
+            <p class="lg-toc__title">{% trans "Mundarija" %}</p>
+            <nav id="lg-toc"></nav>
+        </aside>
+
+        <main class="lg-doc">
+            <header class="lg-doc__head">
+                <span class="lg-kicker">AvtoIbrat</span>
+                <h1>{{ title }}</h1>
+                {% if page == "terms" %}
+                <p class="lg-meta"><i class="ti ti-calendar"></i>{% trans "Tahrir sanasi" %}: 14.10.2026</p>
+                {% else %}
+                <p class="lg-meta"><i class="ti ti-calendar"></i>{% trans "Oxirgi yangilanish" %}: 14.10.2026</p>
+                {% endif %}
+            </header>
+            <article class="lg-content" id="lg-content">
+                {% include content_template %}
+            </article>
+        </main>
+    </div>
+    <button type="button" class="lg-up" id="lg-up" aria-label="{% trans 'Yuqoriga' %}"><i class="ti ti-arrow-up"></i></button>
+</div>
+<script src="{% static 'legal/legal.js' %}"></script>
+<script>
+  document.getElementById("lg-back").addEventListener("click", function () {
+    if (document.referrer && new URL(document.referrer).origin === location.origin) history.back();
+    else location.href = this.dataset.fallback;
+  });
+</script>
+{% endblock %}

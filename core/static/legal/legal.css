@@ -41,7 +41,7 @@ body.lg {
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
 }
-a { color: var(--lg-brand-ink); }
+.lg-wrap a, .lg-doc a { color: var(--lg-brand-ink); }
 
 /* ---------- Top bar ---------- */
 .lg-top {
@@ -180,3 +180,13 @@ a { color: var(--lg-brand-ink); }
   html { scroll-behavior: auto; }
   * { transition: none !important; }
 }
+
+/* Inside the student panel: no own top bar or page background, the panel supplies them. */
+.lg-panel .lg-wrap { max-width: none; padding: 0 0 32px; }
+.lg-panel .lg-toc { top: 90px; }
+.lg-panel .lg-doc { background: var(--lg-surface); color: var(--lg-ink); font-family: "Inter", system-ui, sans-serif; line-height: 1.65; }
+.lg-backbar { display: flex; align-items: center; gap: 10px; margin: 6px 0 18px; }
+.lg-backbar .lg-btn { cursor: pointer; font: inherit; }
+.lg-backbar .lg-tabs { margin-left: auto; }
+.lg-panel .lg-up { z-index: 20; }
+@media (max-width: 900px) { .lg-panel .lg-wrap { grid-template-columns: 1fr; } .lg-panel .lg-toc { display: none; } }

@@ -137,6 +137,7 @@
     csrfToken: "{{ csrf_token }}",
     sessionId: {{ session.id }},
     toggleSaveUrl: "{% url 'toggle_save_question' %}",
+    shuffleOptions: {{ user.is_staff|yesno:"false,true" }},
     logoUrl: "{% static 'assets/images/logo-white.png' %}",
     practice: {{ practice|yesno:"true,false" }}
   };

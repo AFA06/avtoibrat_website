@@ -5,6 +5,7 @@ wrong last time. A question counts as learned while the student's latest answer 
 """
 import random
 
+from django.db.models import Q
 from django.utils import timezone
 
 from .marathon import MINUTES_PER_QUESTION
@@ -16,14 +17,14 @@ MODES = ("quick", "all", "mistakes")
 
 
 def question_pool(topic):
-    return Question.objects.filter(mavzu=topic, kategoriya__aktiv=True)
+    return Question.objects.filter(Q(mavzu=topic) | Q(extra_topics=topic), kategoriya__aktiv=True).distinct()
 
 
 def latest_results(user):
     """{question_id: True/False} — whether the student's latest answer to each question was correct."""
     answers = (
         UserAnswer.objects
-        .filter(session__user=user, selected_answer__isnull=False, question__mavzu__isnull=False)
+        .filter(session__user=user, selected_answer__isnull=False)
         .order_by("id")
         .values_list("question_id", "is_correct")
     )
@@ -34,10 +35,13 @@ def page_groups(user):
     """The topic groups with their topics and the student's progress in each; empty groups are left out."""
     results = latest_results(user)
     by_topic = {}
-    for question_id, topic_id in Question.objects.filter(
-        mavzu__aktiv=True, kategoriya__aktiv=True
-    ).values_list("id", "mavzu_id"):
-        by_topic.setdefault(topic_id, []).append(question_id)
+    live = Question.objects.filter(kategoriya__aktiv=True)
+    pairs = list(live.filter(mavzu__isnull=False).values_list("id", "mavzu_id"))
+    pairs += list(live.filter(extra_topics__isnull=False).values_list("id", "extra_topics"))
+    for question_id, topic_id in pairs:
+        ids = by_topic.setdefault(topic_id, [])
+        if question_id not in ids:
+            ids.append(question_id)
 
     groups = []
     number = 0

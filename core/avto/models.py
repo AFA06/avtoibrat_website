@@ -544,6 +544,10 @@ class Question(models.Model):
         Topic, verbose_name="Mavzu", null=True, blank=True,
         on_delete=models.SET_NULL, related_name="questions",
     )
+    # A question may belong to more than one topic: `mavzu` is the main one, these are the others.
+    extra_topics = models.ManyToManyField(
+        Topic, verbose_name="Qo‘shimcha mavzular", blank=True, related_name="extra_questions",
+    )
 
     matn_uzb = models.TextField("Savol (O‘zbek)")
     matn_uz_kr = models.TextField("Savol (Крил)")
