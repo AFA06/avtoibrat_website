@@ -138,7 +138,7 @@
     sessionId: {{ session.id }},
     toggleSaveUrl: "{% url 'toggle_save_question' %}",
     shuffleOptions: {{ user.is_staff|yesno:"false,true" }},
-    explanationLabel: "{% trans 'Tushuntirishni tinglash' %}",
+    explanationTitle: "{% trans 'Ustoz tushuntirishi' %}",
     explanationUrl: "{% url 'question_explanation' 0 %}",
     logoUrl: "{% static 'assets/images/logo-white.png' %}",
     practice: {{ practice|yesno:"true,false" }}

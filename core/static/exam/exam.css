@@ -226,16 +226,37 @@ body {
   gap: 12px;
 }
 
-/* Voice explanation shown under the options after a wrong answer. */
-.exam-voice { margin-top: 6px; }
-.exam-voice__btn {
-  display: inline-flex; align-items: center; gap: 10px; padding: 12px 18px;
-  border: 1px solid var(--exam-accent); border-radius: 10px; background: var(--exam-accent-dim);
-  color: var(--exam-text); font: inherit; font-weight: 600; cursor: pointer;
+/* Voice explanation shown under the options after a wrong answer: a compact audio player. */
+.exam-voice {
+  display: flex; align-items: center; gap: 16px; margin-top: 8px; padding: 14px 18px;
+  border: 1px solid var(--exam-border); border-left: 4px solid var(--exam-accent); border-radius: 12px;
+  background: var(--exam-panel);
 }
-.exam-voice__btn i { font-size: 20px; color: var(--exam-current); }
-.exam-voice__btn:hover { filter: brightness(1.12); }
-.exam-voice.is-playing .exam-voice__btn { background: var(--exam-accent); }
+.exam-voice__play {
+  flex: none; display: grid; place-items: center; width: 48px; height: 48px; padding: 0;
+  border: 0; border-radius: 50%; background: var(--exam-accent); color: #fff; font-size: 22px; cursor: pointer;
+  box-shadow: 0 4px 14px rgba(58, 111, 240, 0.35); transition: transform .15s, filter .15s;
+}
+.exam-voice__play:hover { filter: brightness(1.1); transform: scale(1.05); }
+.exam-voice__play:active { transform: scale(.96); }
+.exam-voice__play:focus-visible, .exam-voice__bar:focus-visible { outline: 2px solid var(--exam-current); outline-offset: 3px; }
+.exam-voice__body { flex: 1; min-width: 0; }
+.exam-voice__head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
+.exam-voice__title { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; font-size: 14px; color: var(--exam-text); }
+.exam-voice__title i { color: var(--exam-current); font-size: 17px; }
+.exam-voice__time { font-variant-numeric: tabular-nums; font-size: 13px; color: var(--exam-text-dim); white-space: nowrap; }
+.exam-voice__bar {
+  --fill: 0%;
+  display: block; width: 100%; height: 6px; margin: 0; border-radius: 3px; cursor: pointer;
+  -webkit-appearance: none; appearance: none;
+  background: linear-gradient(to right, var(--exam-accent) var(--fill), var(--exam-border) var(--fill));
+}
+.exam-voice__bar::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%; background: #fff; border: 2px solid var(--exam-accent); }
+.exam-voice__bar::-moz-range-thumb { width: 10px; height: 10px; border-radius: 50%; background: #fff; border: 2px solid var(--exam-accent); }
+.exam-voice.is-playing { border-color: var(--exam-accent); }
+.exam-voice.is-error { border-left-color: var(--exam-wrong); }
+.exam-voice.is-error .exam-voice__time::after { content: "!"; color: var(--exam-wrong); margin-left: 4px; font-weight: 700; }
+@media (prefers-reduced-motion: reduce) { .exam-voice__play { transition: none; } }
 
 /* Question without a picture: the school logo, centred on a panel the size of a picture (16:9). */
 .exam-noimage {

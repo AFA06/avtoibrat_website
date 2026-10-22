@@ -62,10 +62,9 @@
 
     <section class="sd-panel sd-card">
       <h2>4. Ovozli tushuntirish <small>(ixtiyoriy)</small></h2>
-      <p class="sd-help">10–15 soniyalik qisqa tushuntirish. Talaba bu savolda xato qilgandan keyingina tinglay oladi; xato qilmaguncha ko‘rinmaydi va yuklanmaydi.</p>
+      <p class="sd-help">10–15 soniyalik qisqa tushuntirish (hozircha faqat o‘zbekcha; ruscha keyinroq qo‘shiladi). Talaba bu savolda xato qilgandan keyingina tinglay oladi; xato qilmaguncha ko‘rinmaydi va yuklanmaydi.</p>
       <div class="sd-grid qs-voices">
-        {% include "admin/questions/_voice.html" with f=form.audio_uzb language="uz" title="O‘zbekcha (lotin va кирилл talabalar uchun)" stored=question.audio_uzb %}
-        {% include "admin/questions/_voice.html" with f=form.audio_rus language="ru" title="Русский (ruscha talabalar uchun)" stored=question.audio_rus %}
+        {% include "admin/questions/_voice.html" with f=form.audio_uzb language="uz" title="O‘zbekcha (lotin va кирилл)" stored=question.audio_uzb %}
       </div>
     </section>
 

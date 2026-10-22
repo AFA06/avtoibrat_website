@@ -102,12 +102,12 @@ class VoiceExplanationTests(TestCase):
             "uz_id": [self.right.pk, self.wrong.pk], "uz_uz": ["a", "b"], "uz_kr": ["a", "b"], "uz_correct": "0",
             "ru_id": ["", ""], "ru_ru": ["x", "y"], "ru_correct": "0",
         }
-        bad = self.client.post(edit, {**data, "audio_rus": SimpleUploadedFile("voice.exe", b"x")})
+        bad = self.client.post(edit, {**data, "audio_uzb": SimpleUploadedFile("voice.exe", b"x")})
         self.assertContains(bad, "MP3, M4A, OGG, WEBM yoki WAV")
-        ok = self.client.post(edit, {**data, "audio_rus": SimpleUploadedFile("ru.webm", b"voice")})
+        ok = self.client.post(edit, {**data, "audio_uzb": SimpleUploadedFile("uz.webm", b"voice")})
         self.assertEqual(ok.status_code, 302)
         self.question.refresh_from_db()
-        self.assertTrue(self.question.audio_rus)
-        self.client.post(edit, {**data, "remove_audio_rus": "1"})
+        self.assertTrue(self.question.audio_uzb)
+        self.client.post(edit, {**data, "remove_audio_uzb": "1"})
         self.question.refresh_from_db()
-        self.assertFalse(self.question.audio_rus)
+        self.assertFalse(self.question.audio_uzb)

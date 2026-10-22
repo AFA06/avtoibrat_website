@@ -227,28 +227,62 @@
   }
 
   // After a mistake: the teacher's short voice explanation. The server only serves it to a student who got it wrong.
+  function formatTime(seconds) {
+    const whole = Math.max(0, Math.floor(seconds || 0));
+    return `${Math.floor(whole / 60)}:${String(whole % 60).padStart(2, "0")}`;
+  }
+
   function explanationPlayer(question) {
-    const box = document.createElement("div");
-    box.className = "exam-voice";
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "exam-voice__btn";
-    button.innerHTML = '<i class="ti ti-player-play-filled"></i><span></span>';
-    const label = button.querySelector("span");
-    label.textContent = config.explanationLabel || "Tushuntirishni tinglash";
+    const title = config.explanationTitle || "Ustoz tushuntirishi";
+    const card = document.createElement("div");
+    card.className = "exam-voice";
+    card.innerHTML = `
+      <button type="button" class="exam-voice__play" aria-label="${title}">
+        <i class="ti ti-player-play-filled" aria-hidden="true"></i>
+      </button>
+      <div class="exam-voice__body">
+        <div class="exam-voice__head">
+          <span class="exam-voice__title"><i class="ti ti-microphone-2" aria-hidden="true"></i>${title}</span>
+          <span class="exam-voice__time">0:00</span>
+        </div>
+        <input type="range" class="exam-voice__bar" min="0" max="1000" value="0" step="1" aria-label="${title}">
+      </div>`;
+    const play = card.querySelector(".exam-voice__play");
+    const icon = play.querySelector("i");
+    const time = card.querySelector(".exam-voice__time");
+    const bar = card.querySelector(".exam-voice__bar");
+
     const audio = new Audio(config.explanationUrl.replace(/0\/$/, `${question.id}/`));
-    audio.preload = "none";
-    const setPlaying = (on) => {
-      box.classList.toggle("is-playing", on);
-      button.querySelector("i").className = on ? "ti ti-player-pause-filled" : "ti ti-player-play-filled";
+    audio.preload = "metadata";
+    const paint = () => {
+      const duration = audio.duration || 0;
+      const fraction = duration ? audio.currentTime / duration : 0;
+      bar.value = Math.round(fraction * 1000);
+      bar.style.setProperty("--fill", `${fraction * 100}%`);
+      time.textContent = duration ? `${formatTime(audio.currentTime)} / ${formatTime(duration)}` : formatTime(audio.currentTime);
     };
-    button.addEventListener("click", () => (audio.paused ? audio.play() : audio.pause()));
+    const setPlaying = (on) => {
+      card.classList.toggle("is-playing", on);
+      icon.className = on ? "ti ti-player-pause-filled" : "ti ti-player-play-filled";
+    };
+
+    play.addEventListener("click", () => {
+      if (!audio.paused) { audio.pause(); return; }
+      if (audio.ended) audio.currentTime = 0;
+      audio.play().catch(() => card.classList.add("is-error"));
+    });
+    bar.addEventListener("input", () => {
+      if (audio.duration) audio.currentTime = (bar.value / 1000) * audio.duration;
+      paint();
+    });
+    audio.addEventListener("loadedmetadata", paint);
+    audio.addEventListener("timeupdate", paint);
     audio.addEventListener("play", () => setPlaying(true));
     audio.addEventListener("pause", () => setPlaying(false));
-    audio.addEventListener("ended", () => setPlaying(false));
-    box.appendChild(button);
+    audio.addEventListener("ended", () => { setPlaying(false); paint(); });
+    audio.addEventListener("error", () => card.classList.add("is-error"));
     currentVoice = audio;
-    return box;
+    return card;
   }
 
   // Long sessions (marathon) have hundreds of cells: build them once, then only update classes.

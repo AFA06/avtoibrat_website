@@ -94,7 +94,7 @@ def question_list(request):
 class QuestionForm(forms.ModelForm):
     class Meta:
         model = Question
-        fields = ("kategoriya", "mavzu", "extra_topics", "matn_uzb", "matn_uz_kr", "matn_rus", "rasm", "audio_uzb", "audio_rus")
+        fields = ("kategoriya", "mavzu", "extra_topics", "matn_uzb", "matn_uz_kr", "matn_rus", "rasm", "audio_uzb")
         labels = {
             "kategoriya": "Bilet", "mavzu": "Asosiy mavzu", "extra_topics": "Qo‘shimcha mavzular",
             "matn_uzb": "Savol — o‘zbekcha (lotin)", "matn_uz_kr": "Савол — ўзбекча (кирилл)",
@@ -122,7 +122,7 @@ class QuestionForm(forms.ModelForm):
         self.fields["extra_topics"].queryset = _topics()
         self.fields["extra_topics"].choices = [(pk, name) for _, items in _topic_choices() for pk, name in items]
         self.fields["rasm"].widget = forms.FileInput(attrs={"accept": "image/*", "data-image-input": ""})
-        for name in ("audio_uzb", "audio_rus"):
+        for name in ("audio_uzb",):
             self.fields[name].widget = forms.FileInput(attrs={"accept": "audio/*", "data-audio-input": ""})
 
     def clean(self):
@@ -209,7 +209,7 @@ def question_form(request, pk=None):
                 saved = form.save(commit=False)
                 if request.POST.get("remove_picture") and not request.FILES.get("rasm"):
                     saved.rasm = None
-                for name in ("audio_uzb", "audio_rus"):
+                for name in ("audio_uzb",):
                     if request.POST.get(f"remove_{name}") and not request.FILES.get(name):
                         getattr(saved, name).delete(save=False)
                         setattr(saved, name, None)
