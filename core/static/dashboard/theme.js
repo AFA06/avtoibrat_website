@@ -46,6 +46,11 @@
     ".ds-hero",
     ".ds-kpi",
     ".ds-panel",
+    ".ds-journey",
+    ".jr-hero",
+    ".jr-tabs",
+    ".jr-scene",
+    ".jr-rules article",
   ].join(",");
 
   function tag() {

@@ -957,8 +957,6 @@ msgstr "Сақланганлардан тест бошлаш"
 #~ msgid "Bosh sahifaga qaytish"
 #~ msgstr "Бош саҳифага қайтиш"
 
-#~ msgid "Davom etish"
-#~ msgstr "Давом этиш"
 
 #~ msgid "TOPSHIRUVCHI:"
 #~ msgstr "ТОПШИРУВЧИ:"
@@ -1061,3 +1059,255 @@ msgstr "Ҳозирча қўлланмалар йўқ. Ўқитувчи юкла�
 
 msgid "Ko‘rish"
 msgstr "Кўриш"
+
+msgid "Bahor"
+msgstr "Баҳор"
+
+msgid "Yo‘lga chiqish"
+msgstr "Йўлга чиқиш"
+
+msgid "Yoz"
+msgstr "Ёз"
+
+msgid "Kuz"
+msgstr "Куз"
+
+msgid "Ishonch"
+msgstr "Ишонч"
+
+msgid "Qish"
+msgstr "Қиш"
+
+msgid "Mahorat sinovi"
+msgstr "Маҳорат синови"
+
+msgid "Imtihonga tayyor"
+msgstr "Имтиҳонга тайёр"
+
+msgid "Deyarli tayyor"
+msgstr "Деярли тайёр"
+
+msgid "O‘sib bormoqda"
+msgstr "Ўсиб бормоқда"
+
+msgid "Boshlang‘ich"
+msgstr "Бошланғич"
+
+msgid "Bilet"
+msgstr "Билет"
+
+msgid "Qayta yechish"
+msgstr "Қайта ечиш"
+
+msgid "Eng yaxshi natija"
+msgstr "Энг яхши натижа"
+
+msgid "Urinishlar"
+msgstr "Уринишлар"
+
+msgid "Hali yechilmagan"
+msgstr "Ҳали ечилмаган"
+
+msgid "Bosqich o‘tildi"
+msgstr "Босқич ўтилди"
+
+msgid "Ochiq bosqich"
+msgstr "Очиқ босқич"
+
+msgid "Navbatdagi bosqich"
+msgstr "Навбатдаги босқич"
+
+msgid "Avvalgi faslni yakunlang"
+msgstr "Аввалги фаслни якунланг"
+
+msgid "O‘tish uchun: ko‘pi bilan 2 ta xato"
+msgstr "Ўтиш учун: кўпи билан 2 та хато"
+
+msgid "Xatosiz — 3 yulduz"
+msgstr "Хатосиз — 3 юлдуз"
+
+msgid "Siz shu yerdasiz"
+msgstr "Сиз шу ердасиз"
+
+msgid "Marra"
+msgstr "Марра"
+
+msgid "Fasl"
+msgstr "Фасл"
+
+msgid "Yakuniy marra"
+msgstr "Якуний марра"
+
+msgid "Ketma-ket ikki real imtihon"
+msgstr "Кетма-кет икки реал имтиҳон"
+
+msgid "fasli yakunlandi"
+msgstr "фасли якунланди"
+
+msgid "Keyingi fasl ochildi"
+msgstr "Кейинги фасл очилди"
+
+msgid "Davom etish"
+msgstr "Давом этиш"
+
+msgid "yakunlandi"
+msgstr "якунланди"
+
+msgid "yulduz"
+msgstr "юлдуз"
+
+msgid "Siz imtihonga tayyorsiz!"
+msgstr "Сиз имтиҳонга тайёрсиз!"
+
+msgid "Barcha fasllar va ketma-ket ikki real imtihon topshirildi."
+msgstr "Барча фасллар ва кетма-кет икки реал имтиҳон топширилди."
+
+msgid "Sertifikatni ko‘rish"
+msgstr "Сертификатни кўриш"
+
+msgid "Imtihonga yo‘l"
+msgstr "Имтиҳонга йўл"
+
+msgid "Yo‘lni ochish"
+msgstr "Йўлни очиш"
+
+msgid "navbatda"
+msgstr "навбатда"
+
+msgid "Yakuniy marra: real imtihon"
+msgstr "Якуний марра: реал имтиҳон"
+
+msgid "Marra bosib o‘tildi"
+msgstr "Марра босиб ўтилди"
+
+msgid "%(n)s ta bilet, to‘rt fasl va yakuniy imtihon. Har bir biletni ko‘pi bilan 2 ta xato bilan yeching — yo‘lda bir bosqich oldinga siljiysiz."
+msgstr "%(n)s та билет, тўрт фасл ва якуний имтиҳон. Ҳар бир билетни кўпи билан 2 та хато билан ечинг — йўлда бир босқич олдинга силжийсиз."
+
+msgid "Bosqichlar"
+msgstr "Босқичлар"
+
+msgid "Yulduzlar"
+msgstr "Юлдузлар"
+
+msgid "Shu hafta"
+msgstr "Шу ҳафта"
+
+msgid "bosqich"
+msgstr "босқич"
+
+msgid "Yakuniy imtihonni boshlash"
+msgstr "Якуний имтиҳонни бошлаш"
+
+msgid "Qanday ishlaydi"
+msgstr "Қандай ишлайди"
+
+msgid "imtihonga tayyorlik"
+msgstr "имтиҳонга тайёрлик"
+
+msgid "Biletlarni o‘zlashtirish"
+msgstr "Билетларни ўзлаштириш"
+
+msgid "Real imtihon formasi"
+msgstr "Реал имтиҳон формаси"
+
+msgid "Fasllar"
+msgstr "Фасллар"
+
+msgid "AvtoIbrat avtomaktabi"
+msgstr "AvtoIbrat автомактаби"
+
+msgid "Imtihonga tayyorlik sertifikati"
+msgstr "Имтиҳонга тайёрлик сертификати"
+
+msgid "Ushbu sertifikat egasi"
+msgstr "Ушбу сертификат эгаси"
+
+msgid "barcha %(n)s ta biletni xatolarsiz yoki ruxsat etilgan xatolar bilan yechib, ketma-ket ikki real imtihonni muvaffaqiyatli topshirdi va haydovchilik guvohnomasining nazariy imtihoniga tayyor deb topildi."
+msgstr "барча %(n)s та билетни хатоларсиз ёки рухсат этилган хатолар билан ечиб, кетма-кет икки реал имтиҳонни муваффақиятли топширди ва ҳайдовчилик гувоҳномасининг назарий имтиҳонига тайёр деб топилди."
+
+msgid "Sana"
+msgstr "Сана"
+
+msgid "Chop etish"
+msgstr "Чоп этиш"
+
+msgid "To‘rt faslni yakunlang va ketma-ket ikki real imtihonni topshiring — AvtoIbrat sizni imtihonga tayyor deb tan oladi."
+msgstr "Тўрт фаслни якунланг ва кетма-кет икки реал имтиҳонни топширинг — AvtoIbrat сизни имтиҳонга тайёр деб тан олади."
+
+msgid "To‘rt fasl yakunlandi"
+msgstr "Тўрт фасл якунланди"
+
+msgid "Ketma-ket 2 ta real imtihon"
+msgstr "Кетма-кет 2 та реал имтиҳон"
+
+msgid "Hozirgi seriya"
+msgstr "Ҳозирги серия"
+
+msgid "Real imtihonni boshlash"
+msgstr "Реал имтиҳонни бошлаш"
+
+msgid "Marra barcha fasllar yakunlangach ochiladi. Real imtihonni hozir ham mashq qilishingiz mumkin."
+msgstr "Марра барча фасллар якунлангач очилади. Реал имтиҳонни ҳозир ҳам машқ қилишингиз мумкин."
+
+msgid "Bosqich — bitta bilet"
+msgstr "Босқич — битта билет"
+
+msgid "Biletning 20 savolini ko‘pi bilan 2 ta xato bilan yeching. Bu real imtihondagi qoida bilan bir xil."
+msgstr "Билетнинг 20 саволини кўпи билан 2 та хато билан ечинг. Бу реал имтиҳондаги қоида билан бир хил."
+
+msgid "xatosiz"
+msgstr "хатосиз"
+
+msgid "1 xato"
+msgstr "1 хато"
+
+msgid "2 xato. Eng yaxshi natijangiz saqlanadi."
+msgstr "2 хато. Энг яхши натижангиз сақланади."
+
+msgid "Bahor, Yoz, Kuz va Qish — har biri 15 biletdan. Fasldagi barcha bosqichlar o‘tilganda keyingi fasl ochiladi."
+msgstr "Баҳор, Ёз, Куз ва Қиш — ҳар бири 15 билетдан. Фаслдаги барча босқичлар ўтилганда кейинги фасл очилади."
+
+msgid "Marra va sertifikat"
+msgstr "Марра ва сертификат"
+
+msgid "To‘rt fasldan so‘ng ketma-ket ikki real imtihonni topshiring va AvtoIbrat sertifikatini oling."
+msgstr "Тўрт фаслдан сўнг кетма-кет икки реал имтиҳонни топширинг ва AvtoIbrat сертификатини олинг."
+
+msgid "Bosqichni o‘tish uchun ko‘pi bilan 2 ta xato qilish mumkin"
+msgstr "Босқични ўтиш учун кўпи билан 2 та хато қилиш мумкин"
+
+msgid "O‘rtacha natija"
+msgstr "Ўртача натижа"
+
+msgid "Eng yaxshi"
+msgstr "Энг яхши"
+
+msgid "Jami o‘qish vaqti"
+msgstr "Жами ўқиш вақти"
+
+msgid "Bugun"
+msgstr "Бугун"
+
+msgid "Ketma-ket kunlar"
+msgstr "Кетма-кет кунлар"
+
+msgid "Bugun test yeching"
+msgstr "Бугун тест ечинг"
+
+msgid "Oxirgi 7 kunlik faollik"
+msgstr "Охирги 7 кунлик фаоллик"
+
+msgid "Kunlik toʻgʻri va xato javoblar"
+msgstr "Кунлик тўғри ва хато жавоблар"
+
+msgid "test"
+msgstr "тест"
+
+msgid "Oxirgi 7 kunda test yechilmagan. Birinchi testni boshlang — natijalar shu yerda ko‘rinadi."
+msgstr "Охирги 7 кунда тест ечилмаган. Биринчи тестни бошланг — натижалар шу ерда кўринади."
+
+msgid "Umumiy aniqlik"
+msgstr "Умумий аниқлик"
+
+msgid "Javobsiz"
+msgstr "Жавобсиз"

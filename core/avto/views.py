@@ -27,7 +27,7 @@ from .models import (
 )
 
 from .road_signs import ordered_categories, sorted_signs
-from . import legal, topic_tests
+from . import journey, legal, topic_tests
 from .marathon import MINUTES_PER_QUESTION
 
 User = get_user_model()
@@ -278,6 +278,7 @@ def dashboard(request):
 
     return render(request, "dashboard/dashboard.html", {
         "user": user,
+        "journey": journey.build(user),
         **_student_stats(user),
     })
 
@@ -968,8 +969,15 @@ def _result_context(session):
             },
         }
 
+    journey_stage = None
+    is_bilet_run = session.test_kind == "shablon" and session.source in ("shablon", "ohshash") and not session.topic_id
+    if is_bilet_run and session.finished_at and total >= session.category.question_count:
+        stars = journey.stars_for(correct, total)
+        journey_stage = {"stars": stars, "marks": "★" * stars}
+
     return {
         "reveal": reveal,
+        "journey_stage": journey_stage,
         "has_session": True,
         "session": session,
         "category": session.category,

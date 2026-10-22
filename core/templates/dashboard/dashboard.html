@@ -57,6 +57,26 @@
   </article>
 </section>
 
+<a class="ds-journey" href="{% url 'journey' %}" style="--r:{{ journey.readiness }}">
+  <span class="ds-journey__ring" aria-hidden="true">
+    <svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="19" pathLength="100"/><circle cx="22" cy="22" r="19" pathLength="100" class="is-value"/></svg>
+    <b>{{ journey.readiness }}<small>%</small></b>
+  </span>
+  <span class="ds-journey__main">
+    <small>{% trans "Imtihonga yo‘l" %} · {{ journey.tier_label }}</small>
+    <strong>
+      {% if journey.final.certified %}{% trans "Siz imtihonga tayyorsiz!" %}
+      {% elif journey.next_stage %}{{ journey.active_season.title }} · {{ journey.next_stage.name }} {% trans "navbatda" %}
+      {% else %}{% trans "Yakuniy marra: real imtihon" %}{% endif %}
+    </strong>
+    <span class="ds-journey__track">
+      {% for s in journey.seasons %}<i class="ds-journey__seg ds-journey__seg--{{ s.key }}" style="--p:{{ s.percent }}%" title="{{ s.title }} {{ s.cleared }}/{{ s.total }}"></i>{% endfor %}
+      <i class="ds-journey__seg ds-journey__seg--final" style="--p:{% if journey.final.certified %}100{% else %}0{% endif %}%" title="{% trans 'Marra' %}"></i>
+    </span>
+  </span>
+  <span class="ds-journey__go">{% trans "Yo‘lni ochish" %} <i class="ti ti-arrow-right"></i></span>
+</a>
+
 <div class="ds-grid">
   <section class="ds-panel ds-panel--wide">
     <header class="ds-panel__head">

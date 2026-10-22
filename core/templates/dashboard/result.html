@@ -59,6 +59,17 @@
         {% endfor %}
       </div>
 
+      {% if journey_stage %}
+      <a class="result-journey{% if journey_stage.stars %} is-cleared{% endif %}" href="{% url 'journey' %}">
+        <i class="ti ti-route"></i>
+        <span>
+          {% if journey_stage.stars %}{% trans "Bosqich o‘tildi" %} <em>{{ journey_stage.marks }}</em>
+          {% else %}{% trans "Bosqichni o‘tish uchun ko‘pi bilan 2 ta xato qilish mumkin" %}{% endif %}
+        </span>
+        <b>{% trans "Imtihonga yo‘l" %} <i class="ti ti-arrow-right"></i></b>
+      </a>
+      {% endif %}
+
       <div class="result-actions">
         {% if reveal %}
         <button type="button" class="result-btn result-btn--ghost" id="rv-replay"><i class="ti ti-player-play"></i> {% trans "Natijani qayta ko‘rsatish" %}</button>

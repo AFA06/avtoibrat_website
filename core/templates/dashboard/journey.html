@@ -1,0 +1,237 @@
+{% extends "dashboard/base_panel.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Imtihonga yo‘l" %} — AvtoIbrat{% endblock %}
+
+{% block extra_css %}
+<link href="{% static 'dashboard/journey.css' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block content %}
+{% with final=journey.final season=journey.active_season %}
+<div class="jr" id="jr">
+
+  <section class="jr-hero">
+    <div class="jr-hero__main">
+      <p class="jr-eyebrow"><span class="jr-eyebrow__pulse"></span>{% trans "Imtihonga yo‘l" %}</p>
+      <h1 class="jr-hero__title">
+        {% if final.certified %}{% trans "Marra bosib o‘tildi" %}
+        {% elif season %}{{ season.title }} <span>· {{ season.motto }}</span>
+        {% else %}{% trans "Yakuniy marra" %}{% endif %}
+      </h1>
+      <p class="jr-hero__lead">
+        {% blocktrans with n=journey.stages_total %}{{ n }} ta bilet, to‘rt fasl va yakuniy imtihon. Har bir biletni ko‘pi bilan 2 ta xato bilan yeching — yo‘lda bir bosqich oldinga siljiysiz.{% endblocktrans %}
+      </p>
+
+      <dl class="jr-facts">
+        <div><dt>{% trans "Bosqichlar" %}</dt><dd><b data-count="{{ journey.stages_cleared }}">{{ journey.stages_cleared }}</b><small>/{{ journey.stages_total }}</small></dd></div>
+        <div><dt>{% trans "Yulduzlar" %}</dt><dd><b data-count="{{ journey.stars }}">{{ journey.stars }}</b><small>/{{ journey.max_stars }}</small></dd></div>
+        <div><dt>{% trans "Shu hafta" %}</dt><dd><b>+{{ journey.week_cleared }}</b><small>{% trans "bosqich" %}</small></dd></div>
+      </dl>
+
+      <div class="jr-hero__actions">
+        {% if journey.next_stage %}
+        <a class="jr-btn jr-btn--primary" href="{% url 'start_shablon_test' journey.next_stage.id %}">
+          <i class="ti ti-player-play"></i>{% trans "Davom etish" %} · {{ journey.next_stage.name }}
+        </a>
+        {% elif final.unlocked and not final.certified %}
+        <a class="jr-btn jr-btn--primary" href="{% url 'start_real_exam' real_size %}">
+          <i class="ti ti-flag-3"></i>{% trans "Yakuniy imtihonni boshlash" %}
+        </a>
+        {% elif final.certified %}
+        <button type="button" class="jr-btn jr-btn--primary" data-jr-go="final">
+          <i class="ti ti-certificate"></i>{% trans "Sertifikatni ko‘rish" %}
+        </button>
+        {% endif %}
+        <a class="jr-btn jr-btn--ghost" href="#jr-rules"><i class="ti ti-info-circle"></i>{% trans "Qanday ishlaydi" %}</a>
+      </div>
+    </div>
+
+    <div class="jr-gauge jr-gauge--{{ journey.tier }}" data-value="{{ journey.readiness }}">
+      <div class="jr-gauge__dial">
+        <svg viewBox="0 0 200 200" aria-hidden="true">
+          <defs>
+            <linearGradient id="jr-gauge-grad" x1="0" y1="1" x2="1" y2="0">
+              <stop offset="0" stop-color="#34d399"/><stop offset="0.6" stop-color="#a3e635"/><stop offset="1" stop-color="#fde68a"/>
+            </linearGradient>
+          </defs>
+          <circle class="jr-gauge__track" cx="100" cy="100" r="84" pathLength="100"/>
+          <circle class="jr-gauge__ticks" cx="100" cy="100" r="70" pathLength="100"/>
+          <circle class="jr-gauge__value" cx="100" cy="100" r="84" pathLength="100"/>
+        </svg>
+        <div class="jr-gauge__center">
+          <strong><span class="jr-gauge__num">{{ journey.readiness }}</span><small>%</small></strong>
+          <span>{% trans "imtihonga tayyorlik" %}</span>
+        </div>
+      </div>
+      <p class="jr-gauge__tier">{{ journey.tier_label }}</p>
+      <ul class="jr-gauge__parts">
+        <li>
+          <span>{% trans "Biletlarni o‘zlashtirish" %}<b>{{ journey.mastery }}%</b></span>
+          <i class="jr-meter"><em style="--w:{{ journey.mastery }}%"></em></i>
+        </li>
+        <li>
+          <span>{% trans "Real imtihon formasi" %}<b>{{ journey.form_passes }}/{{ journey.form_window }}</b></span>
+          <i class="jr-pips">{% for i in "123" %}<em class="{% if forloop.counter <= journey.form_passes %}is-on{% endif %}"></em>{% endfor %}</i>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <nav class="jr-tabs" role="tablist" aria-label="{% trans 'Fasllar' %}">
+    {% for s in journey.seasons %}
+    <button type="button" role="tab" class="jr-tab jr-tab--{{ s.key }}{% if s.done %} is-done{% endif %}{% if not s.unlocked %} is-locked{% endif %}"
+            data-season="{{ s.key }}" aria-selected="false" style="--p:{{ s.percent }}%">
+      <span class="jr-tab__icon">
+        {% if not s.unlocked %}<i class="ti ti-lock"></i>
+        {% elif s.done %}<i class="ti ti-check"></i>
+        {% elif s.key == "spring" %}<i class="ti ti-plant-2"></i>
+        {% elif s.key == "summer" %}<i class="ti ti-sun"></i>
+        {% elif s.key == "autumn" %}<i class="ti ti-leaf"></i>
+        {% else %}<i class="ti ti-snowflake"></i>{% endif %}
+      </span>
+      <span class="jr-tab__text">
+        <b>{{ s.title }}</b>
+        <small>{{ s.cleared }}/{{ s.total }}{% if s.stages %} · {% trans "Bilet" %} {{ s.first }}–{{ s.last }}{% endif %}</small>
+      </span>
+      <span class="jr-tab__bar"><em></em></span>
+    </button>
+    {% endfor %}
+    <button type="button" role="tab" class="jr-tab jr-tab--final{% if final.certified %} is-done{% endif %}{% if not final.unlocked %} is-locked{% endif %}"
+            data-season="final" aria-selected="false" style="--p:{% if final.certified %}100{% else %}0{% endif %}%">
+      <span class="jr-tab__icon">{% if final.certified %}<i class="ti ti-certificate"></i>{% else %}<i class="ti ti-flag-3"></i>{% endif %}</span>
+      <span class="jr-tab__text"><b>{% trans "Marra" %}</b><small>{% trans "Real imtihon" %}</small></span>
+      <span class="jr-tab__bar"><em></em></span>
+    </button>
+  </nav>
+
+  <section class="jr-scene" data-season="{{ journey.active_key }}" aria-live="polite">
+    <div class="jr-sky" aria-hidden="true">
+      <i class="jr-sky__layer jr-sky--spring"></i><i class="jr-sky__layer jr-sky--summer"></i>
+      <i class="jr-sky__layer jr-sky--autumn"></i><i class="jr-sky__layer jr-sky--winter"></i>
+      <i class="jr-sky__layer jr-sky--final"></i>
+    </div>
+    <svg class="jr-topo" aria-hidden="true"></svg>
+    <canvas class="jr-particles" aria-hidden="true"></canvas>
+    <div class="jr-vignette" aria-hidden="true"></div>
+
+    <header class="jr-hud">
+      <div class="jr-hud__title">
+        <span class="jr-hud__index"></span>
+        <h2></h2>
+        <p></p>
+      </div>
+      <div class="jr-hud__chips">
+        <span class="jr-chip"><i class="ti ti-flag"></i><b class="jr-hud__cleared">0</b></span>
+        <span class="jr-chip"><i class="ti ti-star"></i><b class="jr-hud__stars">0</b></span>
+      </div>
+    </header>
+
+    <div class="jr-map"></div>
+
+    <div class="jr-lock" hidden>
+      <span class="jr-lock__icon"><i class="ti ti-lock"></i></span>
+      <p class="jr-lock__text"></p>
+    </div>
+
+    <div class="jr-final" hidden>
+      {% if final.certified %}
+      <article class="jr-cert" id="jr-cert">
+        <div class="jr-cert__frame">
+          <header class="jr-cert__head">
+            <img src="{% static 'assets/images/logo.png' %}" alt="AvtoIbrat" class="jr-cert__logo">
+            <span class="jr-cert__no">№ {{ final.certificate_no }}</span>
+          </header>
+          <p class="jr-cert__kicker">{% trans "AvtoIbrat avtomaktabi" %}</p>
+          <h3 class="jr-cert__title">{% trans "Imtihonga tayyorlik sertifikati" %}</h3>
+          <p class="jr-cert__given">{% trans "Ushbu sertifikat egasi" %}</p>
+          <p class="jr-cert__name">{{ user.first_name }} {{ user.last_name }}{% if not user.first_name and not user.last_name %}{{ user.username }}{% endif %}</p>
+          <p class="jr-cert__text">
+            {% blocktrans with n=journey.stages_total %}barcha {{ n }} ta biletni xatolarsiz yoki ruxsat etilgan xatolar bilan yechib, ketma-ket ikki real imtihonni muvaffaqiyatli topshirdi va haydovchilik guvohnomasining nazariy imtihoniga tayyor deb topildi.{% endblocktrans %}
+          </p>
+          <footer class="jr-cert__foot">
+            <div><span>{% trans "Sana" %}</span><b>{{ final.certified_at|date:"d.m.Y" }}</b></div>
+            <svg class="jr-cert__seal" viewBox="0 0 120 120" aria-hidden="true">
+              <defs><path id="jr-seal-ring" d="M60,60 m-44,0 a44,44 0 1,1 88,0 a44,44 0 1,1 -88,0"/></defs>
+              <circle cx="60" cy="60" r="56" class="jr-cert__seal-outer"/>
+              <circle cx="60" cy="60" r="34" class="jr-cert__seal-inner"/>
+              <text><textPath href="#jr-seal-ring">AVTOIBRAT · AVTOMAKTAB · TOSHKENT ·</textPath></text>
+              <path d="M47 61l9 9 18-20" class="jr-cert__seal-check"/>
+            </svg>
+            <div><span>{% trans "Yulduzlar" %}</span><b>{{ journey.stars }}/{{ journey.max_stars }}</b></div>
+          </footer>
+        </div>
+      </article>
+      <div class="jr-final__actions">
+        <button type="button" class="jr-btn jr-btn--light" data-jr-print><i class="ti ti-printer"></i>{% trans "Chop etish" %}</button>
+        <a class="jr-btn jr-btn--ghost-light" href="{% url 'real_imtihon' %}"><i class="ti ti-award"></i>{% trans "Real imtihon" %}</a>
+      </div>
+      {% else %}
+      <div class="jr-gate">
+        <div class="jr-gate__emblem" aria-hidden="true">
+          <svg viewBox="0 0 120 120">
+            <defs>
+              <pattern id="jr-check" width="12" height="12" patternUnits="userSpaceOnUse">
+                <rect width="6" height="6"/><rect x="6" y="6" width="6" height="6"/>
+              </pattern>
+            </defs>
+            <circle cx="60" cy="60" r="56" class="jr-gate__ring"/>
+            <circle cx="60" cy="60" r="44" class="jr-gate__disc"/>
+            <rect x="36" y="38" width="48" height="36" rx="3" fill="url(#jr-check)" class="jr-gate__flag"/>
+            <path d="M36 38v48" class="jr-gate__pole"/>
+          </svg>
+        </div>
+        <p class="jr-gate__sub">{% trans "To‘rt faslni yakunlang va ketma-ket ikki real imtihonni topshiring — AvtoIbrat sizni imtihonga tayyor deb tan oladi." %}</p>
+        <ol class="jr-gate__steps">
+          <li class="{% if final.unlocked %}is-done{% endif %}">
+            <span class="jr-gate__mark"><i class="ti ti-check"></i></span>
+            <div><b>{% trans "To‘rt fasl yakunlandi" %}</b><small>{{ journey.seasons_done }}/4</small></div>
+            <i class="jr-pips">{% for s in journey.seasons %}<em class="{% if s.done %}is-on{% endif %}"></em>{% endfor %}</i>
+          </li>
+          <li class="{% if final.streak >= final.needed %}is-done{% endif %}">
+            <span class="jr-gate__mark"><i class="ti ti-check"></i></span>
+            <div><b>{% trans "Ketma-ket 2 ta real imtihon" %}</b><small>{% trans "Hozirgi seriya" %}: {{ final.streak }}/{{ final.needed }}</small></div>
+            <i class="jr-pips">{% for i in "12" %}<em class="{% if forloop.counter <= final.streak %}is-on{% endif %}"></em>{% endfor %}</i>
+          </li>
+        </ol>
+        {% if final.unlocked %}
+        <a class="jr-btn jr-btn--light" href="{% url 'start_real_exam' real_size %}"><i class="ti ti-flag-3"></i>{% trans "Real imtihonni boshlash" %}</a>
+        {% else %}
+        <p class="jr-gate__hint"><i class="ti ti-lock"></i>{% trans "Marra barcha fasllar yakunlangach ochiladi. Real imtihonni hozir ham mashq qilishingiz mumkin." %}</p>
+        {% endif %}
+      </div>
+      {% endif %}
+    </div>
+
+    <div class="jr-pop" role="dialog" aria-modal="false" hidden></div>
+    <div class="jr-toast" role="status" hidden></div>
+  </section>
+
+  <section class="jr-rules" id="jr-rules" aria-label="{% trans 'Qanday ishlaydi' %}">
+    <article>
+      <span class="jr-rules__num">01</span>
+      <h3>{% trans "Bosqich — bitta bilet" %}</h3>
+      <p>{% trans "Biletning 20 savolini ko‘pi bilan 2 ta xato bilan yeching. Bu real imtihondagi qoida bilan bir xil." %}</p>
+    </article>
+    <article>
+      <span class="jr-rules__num">02</span>
+      <h3>{% trans "Yulduzlar" %}</h3>
+      <p><span class="jr-rules__stars">★★★</span> {% trans "xatosiz" %} · <span class="jr-rules__stars">★★</span> {% trans "1 xato" %} · <span class="jr-rules__stars">★</span> {% trans "2 xato. Eng yaxshi natijangiz saqlanadi." %}</p>
+    </article>
+    <article>
+      <span class="jr-rules__num">03</span>
+      <h3>{% trans "Fasllar" %}</h3>
+      <p>{% trans "Bahor, Yoz, Kuz va Qish — har biri 15 biletdan. Fasldagi barcha bosqichlar o‘tilganda keyingi fasl ochiladi." %}</p>
+    </article>
+    <article>
+      <span class="jr-rules__num">04</span>
+      <h3>{% trans "Marra va sertifikat" %}</h3>
+      <p>{% trans "To‘rt fasldan so‘ng ketma-ket ikki real imtihonni topshiring va AvtoIbrat sertifikatini oling." %}</p>
+    </article>
+  </section>
+</div>
+{% endwith %}
+
+{{ client|json_script:"jr-data" }}
+<script src="{% static 'dashboard/journey.js' %}"></script>
+{% endblock %}

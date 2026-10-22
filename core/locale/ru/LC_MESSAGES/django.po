@@ -964,8 +964,6 @@ msgstr "Начать тест из сохранённых"
 #~ msgid "Bosh sahifaga qaytish"
 #~ msgstr "Вернуться на главную"
 
-#~ msgid "Davom etish"
-#~ msgstr "Продолжить"
 
 #~ msgid "O'quv platforma paneli!"
 #~ msgstr "Панель учебной платформы!"
@@ -1068,3 +1066,255 @@ msgstr "Пока нет пособий. Они появятся здесь, ко
 
 msgid "Ko‘rish"
 msgstr "Смотреть"
+
+msgid "Bahor"
+msgstr "Весна"
+
+msgid "Yo‘lga chiqish"
+msgstr "Выезд на дорогу"
+
+msgid "Yoz"
+msgstr "Лето"
+
+msgid "Kuz"
+msgstr "Осень"
+
+msgid "Ishonch"
+msgstr "Уверенность"
+
+msgid "Qish"
+msgstr "Зима"
+
+msgid "Mahorat sinovi"
+msgstr "Испытание мастерства"
+
+msgid "Imtihonga tayyor"
+msgstr "Готов к экзамену"
+
+msgid "Deyarli tayyor"
+msgstr "Почти готов"
+
+msgid "O‘sib bormoqda"
+msgstr "Растёт"
+
+msgid "Boshlang‘ich"
+msgstr "Начальный"
+
+msgid "Bilet"
+msgstr "Билет"
+
+msgid "Qayta yechish"
+msgstr "Решить снова"
+
+msgid "Eng yaxshi natija"
+msgstr "Лучший результат"
+
+msgid "Urinishlar"
+msgstr "Попытки"
+
+msgid "Hali yechilmagan"
+msgstr "Ещё не решён"
+
+msgid "Bosqich o‘tildi"
+msgstr "Этап пройден"
+
+msgid "Ochiq bosqich"
+msgstr "Открытый этап"
+
+msgid "Navbatdagi bosqich"
+msgstr "Следующий этап"
+
+msgid "Avvalgi faslni yakunlang"
+msgstr "Завершите предыдущий сезон"
+
+msgid "O‘tish uchun: ko‘pi bilan 2 ta xato"
+msgstr "Для прохождения: не более 2 ошибок"
+
+msgid "Xatosiz — 3 yulduz"
+msgstr "Без ошибок — 3 звезды"
+
+msgid "Siz shu yerdasiz"
+msgstr "Вы здесь"
+
+msgid "Marra"
+msgstr "Финиш"
+
+msgid "Fasl"
+msgstr "Сезон"
+
+msgid "Yakuniy marra"
+msgstr "Финальная черта"
+
+msgid "Ketma-ket ikki real imtihon"
+msgstr "Два реальных экзамена подряд"
+
+msgid "fasli yakunlandi"
+msgstr "— сезон завершён"
+
+msgid "Keyingi fasl ochildi"
+msgstr "Открыт следующий сезон"
+
+msgid "Davom etish"
+msgstr "Продолжить"
+
+msgid "yakunlandi"
+msgstr "пройден"
+
+msgid "yulduz"
+msgstr "звёзд"
+
+msgid "Siz imtihonga tayyorsiz!"
+msgstr "Вы готовы к экзамену!"
+
+msgid "Barcha fasllar va ketma-ket ikki real imtihon topshirildi."
+msgstr "Пройдены все сезоны и два реальных экзамена подряд."
+
+msgid "Sertifikatni ko‘rish"
+msgstr "Посмотреть сертификат"
+
+msgid "Imtihonga yo‘l"
+msgstr "Путь к экзамену"
+
+msgid "Yo‘lni ochish"
+msgstr "Открыть путь"
+
+msgid "navbatda"
+msgstr "на очереди"
+
+msgid "Yakuniy marra: real imtihon"
+msgstr "Финальная черта: реальный экзамен"
+
+msgid "Marra bosib o‘tildi"
+msgstr "Финиш пройден"
+
+msgid "%(n)s ta bilet, to‘rt fasl va yakuniy imtihon. Har bir biletni ko‘pi bilan 2 ta xato bilan yeching — yo‘lda bir bosqich oldinga siljiysiz."
+msgstr "%(n)s билетов, четыре сезона и итоговый экзамен. Решите каждый билет не более чем с 2 ошибками — и продвиньтесь на этап вперёд."
+
+msgid "Bosqichlar"
+msgstr "Этапы"
+
+msgid "Yulduzlar"
+msgstr "Звёзды"
+
+msgid "Shu hafta"
+msgstr "На этой неделе"
+
+msgid "bosqich"
+msgstr "этапов"
+
+msgid "Yakuniy imtihonni boshlash"
+msgstr "Начать итоговый экзамен"
+
+msgid "Qanday ishlaydi"
+msgstr "Как это работает"
+
+msgid "imtihonga tayyorlik"
+msgstr "готовность к экзамену"
+
+msgid "Biletlarni o‘zlashtirish"
+msgstr "Освоение билетов"
+
+msgid "Real imtihon formasi"
+msgstr "Форма на реальном экзамене"
+
+msgid "Fasllar"
+msgstr "Сезоны"
+
+msgid "AvtoIbrat avtomaktabi"
+msgstr "Автошкола AvtoIbrat"
+
+msgid "Imtihonga tayyorlik sertifikati"
+msgstr "Сертификат готовности к экзамену"
+
+msgid "Ushbu sertifikat egasi"
+msgstr "Обладатель этого сертификата"
+
+msgid "barcha %(n)s ta biletni xatolarsiz yoki ruxsat etilgan xatolar bilan yechib, ketma-ket ikki real imtihonni muvaffaqiyatli topshirdi va haydovchilik guvohnomasining nazariy imtihoniga tayyor deb topildi."
+msgstr "решил(а) все %(n)s билетов без ошибок или в пределах допустимых ошибок, успешно сдал(а) два реальных экзамена подряд и признан(а) готовым(ой) к теоретическому экзамену на водительское удостоверение."
+
+msgid "Sana"
+msgstr "Дата"
+
+msgid "Chop etish"
+msgstr "Печать"
+
+msgid "To‘rt faslni yakunlang va ketma-ket ikki real imtihonni topshiring — AvtoIbrat sizni imtihonga tayyor deb tan oladi."
+msgstr "Завершите четыре сезона и сдайте два реальных экзамена подряд — AvtoIbrat признает вас готовым к экзамену."
+
+msgid "To‘rt fasl yakunlandi"
+msgstr "Четыре сезона завершены"
+
+msgid "Ketma-ket 2 ta real imtihon"
+msgstr "2 реальных экзамена подряд"
+
+msgid "Hozirgi seriya"
+msgstr "Текущая серия"
+
+msgid "Real imtihonni boshlash"
+msgstr "Начать реальный экзамен"
+
+msgid "Marra barcha fasllar yakunlangach ochiladi. Real imtihonni hozir ham mashq qilishingiz mumkin."
+msgstr "Финиш откроется после всех сезонов. Реальный экзамен можно тренировать уже сейчас."
+
+msgid "Bosqich — bitta bilet"
+msgstr "Этап — один билет"
+
+msgid "Biletning 20 savolini ko‘pi bilan 2 ta xato bilan yeching. Bu real imtihondagi qoida bilan bir xil."
+msgstr "Решите 20 вопросов билета не более чем с 2 ошибками. Это то же правило, что и на реальном экзамене."
+
+msgid "xatosiz"
+msgstr "без ошибок"
+
+msgid "1 xato"
+msgstr "1 ошибка"
+
+msgid "2 xato. Eng yaxshi natijangiz saqlanadi."
+msgstr "2 ошибки. Сохраняется лучший результат."
+
+msgid "Bahor, Yoz, Kuz va Qish — har biri 15 biletdan. Fasldagi barcha bosqichlar o‘tilganda keyingi fasl ochiladi."
+msgstr "Весна, Лето, Осень и Зима — по 15 билетов. Когда все этапы сезона пройдены, открывается следующий."
+
+msgid "Marra va sertifikat"
+msgstr "Финиш и сертификат"
+
+msgid "To‘rt fasldan so‘ng ketma-ket ikki real imtihonni topshiring va AvtoIbrat sertifikatini oling."
+msgstr "После четырёх сезонов сдайте два реальных экзамена подряд и получите сертификат AvtoIbrat."
+
+msgid "Bosqichni o‘tish uchun ko‘pi bilan 2 ta xato qilish mumkin"
+msgstr "Чтобы пройти этап, можно допустить не более 2 ошибок"
+
+msgid "O‘rtacha natija"
+msgstr "Средний результат"
+
+msgid "Eng yaxshi"
+msgstr "Лучший"
+
+msgid "Jami o‘qish vaqti"
+msgstr "Всего времени учёбы"
+
+msgid "Bugun"
+msgstr "Сегодня"
+
+msgid "Ketma-ket kunlar"
+msgstr "Дней подряд"
+
+msgid "Bugun test yeching"
+msgstr "Решите тест сегодня"
+
+msgid "Oxirgi 7 kunlik faollik"
+msgstr "Активность за 7 дней"
+
+msgid "Kunlik toʻgʻri va xato javoblar"
+msgstr "Верные и неверные ответы по дням"
+
+msgid "test"
+msgstr "тест"
+
+msgid "Oxirgi 7 kunda test yechilmagan. Birinchi testni boshlang — natijalar shu yerda ko‘rinadi."
+msgstr "За последние 7 дней тестов не было. Начните первый тест — результаты появятся здесь."
+
+msgid "Umumiy aniqlik"
+msgstr "Общая точность"
+
+msgid "Javobsiz"
+msgstr "Без ответа"
