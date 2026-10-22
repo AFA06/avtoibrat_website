@@ -356,3 +356,7 @@ html { transition: background-color 0.25s ease; }
   -webkit-user-drag: none;
   -webkit-touch-callout: none;
 }
+
+/* Content area while pjax.js swaps pages */
+.page-content-tab { transition: opacity .09s ease-out; }
+.page-content-tab.pjax-out { opacity: 0; }

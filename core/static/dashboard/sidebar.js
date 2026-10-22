@@ -27,28 +27,6 @@
   // Runs while <head> is parsed so the sidebar never flashes in the wrong state.
   root.classList.toggle(COLLAPSED_CLASS, readCollapsed());
 
-  // Pages in the sidebar are prepared in the background while the pointer rests on their link
-  // (or the finger presses it), so they open at once. Chrome and Edge support this; other
-  // browsers simply open the page as usual. Logout is never prepared ahead.
-  (function prepareSidebarPages() {
-    if (!window.HTMLScriptElement || !HTMLScriptElement.supports || !HTMLScriptElement.supports("speculationrules")) return;
-    const rules = {
-      prerender: [{
-        where: {
-          and: [
-            { selector_matches: ".left-sidebar .menu-body a.nav-link" },
-            { not: { href_matches: "/*/logout/*" } },
-          ],
-        },
-        eagerness: "moderate",
-      }],
-    };
-    const script = document.createElement("script");
-    script.type = "speculationrules";
-    script.textContent = JSON.stringify(rules);
-    document.head.appendChild(script);
-  })();
-
   // A browser can keep serving an older cached copy of the theme script (app.js), which still
   // adds these body classes. Their CSS expands the sidebar on hover, so they are removed whenever added.
   function keepThemeSidebarClassesOff() {

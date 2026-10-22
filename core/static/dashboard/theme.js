@@ -110,6 +110,15 @@
     microInteractions();
   }
 
+  // Used by pjax.js after it swaps the content area, so new pages get the same quick entrance.
+  window.panelMotion = {
+    run() {
+      root.classList.add("motion-ready");
+      init();
+      setTimeout(() => root.classList.remove("motion-ready"), 1500);
+    },
+  };
+
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
   else init();
 })();
