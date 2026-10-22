@@ -9,6 +9,7 @@
     <link rel="shortcut icon" href="{% static 'assets_dashboard/images/favicon.png' %}">
     <link href="{% static 'assets_dashboard/css/icons.min.css' %}" rel="stylesheet" type="text/css" />
     <link href="{% static 'dashboard/result.css' %}" rel="stylesheet" type="text/css" />
+    {% if reveal %}<link href="{% static 'dashboard/real-reveal.css' %}" rel="stylesheet" type="text/css" />{% endif %}
 </head>
 <body>
 
@@ -59,6 +60,9 @@
       </div>
 
       <div class="result-actions">
+        {% if reveal %}
+        <button type="button" class="result-btn result-btn--ghost" id="rv-replay"><i class="ti ti-player-play"></i> {% trans "Natijani qayta ko‘rsatish" %}</button>
+        {% endif %}
         <a href="{{ restart_url }}" class="result-btn result-btn--ghost">
           {% trans "Qayta boshlash" %}
         </a>
@@ -70,5 +74,10 @@
   </div>
 </div>
 
+{% if reveal %}
+<div id="reveal" class="rv" hidden role="dialog" aria-modal="true" aria-label="{% trans 'Imtihon natijasi' %}"></div>
+{{ reveal|json_script:"reveal-data" }}
+<script src="{% static 'dashboard/real-reveal.js' %}"></script>
+{% endif %}
 </body>
 </html>

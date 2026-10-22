@@ -920,7 +920,45 @@ def _result_context(session):
     else:
         restart_url = reverse(restart_url_name, args=[session.category_id])
 
+    reveal = None
+    if session.test_kind == "real" and session.finished_at:
+        size = len(session.question_order)
+        user = session.user
+        reveal = {
+            "id": session.id,
+            "passed": real_exam.passed(size, wrong, answered),
+            "name": user.first_name or user.get_full_name() or user.username,
+            "correct": correct, "wrong": wrong, "total": total, "percent": score_percent,
+            "allowed": real_exam.max_mistakes(size) - 1,
+            "time": f"{minutes:02d}:{seconds:02d}",
+            "cells": [cell["status"] for cell in cells],
+            "restart": restart_url,
+            "t": {
+                "counting": str(_("Natija hisoblanmoqda…")),
+                "pass_word": str(_("TOPSHIRILDI")),
+                "fail_word": str(_("TOPSHIRILMADI")),
+                "pass_title": str(_("Tabriklaymiz, %(name)s!")),
+                "pass_sub": str(_("Real imtihonni muvaffaqiyatli topshirdingiz. Yo‘l ochiq!")),
+                "cert": str(_("IMTIHON SERTIFIKATI")),
+                "correct": str(_("to‘g‘ri")),
+                "wrong": str(_("xato")),
+                "of": str(_("dan")),
+                "time": str(_("vaqt")),
+                "fail_title": str(_("Bu hali oxiri emas, %(name)s")),
+                "fail_sub": str(_("Dvigatel o‘chdi, lekin yo‘l davom etadi. Har bir xato — keyingi safar bilish kerak bo‘lgan narsa.")),
+                "allowed": str(_("Ruxsat etilgan xato")),
+                "made": str(_("Sizning xatolaringiz")),
+                "hope": str(_("Xatolarni ko‘rib chiqing va qayta urinib ko‘ring — siz buni uddalaysiz!")),
+                "see": str(_("Natijani ko‘rish")),
+                "retry": str(_("Qayta urinish")),
+                "skip": str(_("O‘tkazib yuborish")),
+                "mute": str(_("Ovozni o‘chirish")),
+                "unmute": str(_("Ovozni yoqish")),
+            },
+        }
+
     return {
+        "reveal": reveal,
         "has_session": True,
         "session": session,
         "category": session.category,

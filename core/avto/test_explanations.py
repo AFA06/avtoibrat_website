@@ -111,3 +111,30 @@ class VoiceExplanationTests(TestCase):
         self.client.post(edit, {**data, "remove_audio_uzb": "1"})
         self.question.refresh_from_db()
         self.assertFalse(self.question.audio_uzb)
+
+
+class RevealDataTests(TestCase):
+    def test_a_finished_real_exam_carries_the_reveal_data(self):
+        student = User.objects.create_user(username="s", password="x", first_name="Ali", unlimited=True)
+        kind = TestType.objects.create(nomi="B", vaqt_daqiqa=25, savollar_soni=20)
+        category = TestCategory.objects.create(nomi="Bilet 1")
+        questions = [
+            Question.objects.create(test_turi=kind, kategoriya=category, matn_uzb="q", matn_uz_kr="q", matn_rus="q")
+            for _ in range(20)
+        ]
+        session = TestSession.objects.create(
+            user=student, category=category, test_kind="real", started_at=timezone.now(), finished_at=timezone.now(),
+            question_order=[q.pk for q in questions],
+        )
+        for q in questions:
+            right = Answer.objects.create(question=q, matn_uzb="a", togri=True)
+            UserAnswer.objects.create(session=session, question=q, selected_answer=right, is_correct=True)
+        self.client.force_login(student)
+        response = self.client.get(reverse("test_result", args=[session.pk]))
+        reveal = response.context["reveal"]
+        self.assertTrue(reveal["passed"])
+        self.assertEqual((reveal["name"], reveal["correct"], reveal["allowed"]), ("Ali", 20, 2))
+        self.assertContains(response, 'id="reveal-data"')
+        session.test_kind = "shablon"
+        session.save()
+        self.assertNotContains(self.client.get(reverse("test_result", args=[session.pk])), 'id="reveal-data"')

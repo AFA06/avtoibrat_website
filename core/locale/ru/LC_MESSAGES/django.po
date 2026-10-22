@@ -984,3 +984,81 @@ msgstr "Начать тест из сохранённых"
 
 #~ msgid "Davom ettirish"
 #~ msgstr "Продолжить"
+
+msgid "Natija hisoblanmoqda…"
+msgstr "Идёт подсчёт результата…"
+
+msgid "TOPSHIRILDI"
+msgstr "СДАНО"
+
+msgid "TOPSHIRILMADI"
+msgstr "НЕ СДАНО"
+
+msgid "Tabriklaymiz, %(name)s!"
+msgstr "Поздравляем, %(name)s!"
+
+msgid "Real imtihonni muvaffaqiyatli topshirdingiz. Yo‘l ochiq!"
+msgstr "Вы успешно сдали реальный экзамен. Дорога открыта!"
+
+msgid "IMTIHON SERTIFIKATI"
+msgstr "СЕРТИФИКАТ ЭКЗАМЕНА"
+
+msgid "to‘g‘ri"
+msgstr "правильно"
+
+msgid "xato"
+msgstr "ошибок"
+
+msgid "dan"
+msgstr "из"
+
+msgid "vaqt"
+msgstr "время"
+
+msgid "Bu hali oxiri emas, %(name)s"
+msgstr "Это ещё не конец, %(name)s"
+
+msgid "Dvigatel o‘chdi, lekin yo‘l davom etadi. Har bir xato — keyingi safar bilish kerak bo‘lgan narsa."
+msgstr "Двигатель заглох, но дорога продолжается. Каждая ошибка — то, что нужно знать в следующий раз."
+
+msgid "Ruxsat etilgan xato"
+msgstr "Допустимо ошибок"
+
+msgid "Sizning xatolaringiz"
+msgstr "Ваши ошибки"
+
+msgid "Xatolarni ko‘rib chiqing va qayta urinib ko‘ring — siz buni uddalaysiz!"
+msgstr "Разберите ошибки и попробуйте снова — у вас получится!"
+
+msgid "Natijani ko‘rish"
+msgstr "Посмотреть результат"
+
+msgid "Qayta urinish"
+msgstr "Попробовать снова"
+
+msgid "O‘tkazib yuborish"
+msgstr "Пропустить"
+
+msgid "Ovozni o‘chirish"
+msgstr "Выключить звук"
+
+msgid "Ovozni yoqish"
+msgstr "Включить звук"
+
+msgid "Natijani qayta ko‘rsatish"
+msgstr "Показать результат ещё раз"
+
+msgid "Imtihon natijasi"
+msgstr "Результат экзамена"
+
+msgid "Statistikani tozalaysizmi?"
+msgstr "Очистить статистику?"
+
+msgid "Barcha real imtihon natijalaringiz o‘chiriladi. Buni qaytarib bo‘lmaydi."
+msgstr "Все результаты реальных экзаменов будут удалены. Это нельзя отменить."
+
+msgid "Tozalash"
+msgstr "Очистить"
+
+msgid "Ustoz tushuntirishi"
+msgstr "Объяснение учителя"

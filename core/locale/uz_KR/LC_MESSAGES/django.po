@@ -977,3 +977,81 @@ msgstr "Сақланганлардан тест бошлаш"
 
 #~ msgid "Davom ettirish"
 #~ msgstr "Давом эттириш"
+
+msgid "Natija hisoblanmoqda…"
+msgstr "Натижа ҳисобланмоқда…"
+
+msgid "TOPSHIRILDI"
+msgstr "ТОПШИРИЛДИ"
+
+msgid "TOPSHIRILMADI"
+msgstr "ТОПШИРИЛМАДИ"
+
+msgid "Tabriklaymiz, %(name)s!"
+msgstr "Табриклаймиз, %(name)s!"
+
+msgid "Real imtihonni muvaffaqiyatli topshirdingiz. Yo‘l ochiq!"
+msgstr "Реал имтиҳонни муваффақиятли топширдингиз. Йўл очиқ!"
+
+msgid "IMTIHON SERTIFIKATI"
+msgstr "ИМТИҲОН СЕРТИФИКАТИ"
+
+msgid "to‘g‘ri"
+msgstr "тўғри"
+
+msgid "xato"
+msgstr "хато"
+
+msgid "dan"
+msgstr "дан"
+
+msgid "vaqt"
+msgstr "вақт"
+
+msgid "Bu hali oxiri emas, %(name)s"
+msgstr "Бу ҳали охири эмас, %(name)s"
+
+msgid "Dvigatel o‘chdi, lekin yo‘l davom etadi. Har bir xato — keyingi safar bilish kerak bo‘lgan narsa."
+msgstr "Двигатель ўчди, лекин йўл давом этади. Ҳар бир хато — кейинги сафар билиш керак бўлган нарса."
+
+msgid "Ruxsat etilgan xato"
+msgstr "Рухсат этилган хато"
+
+msgid "Sizning xatolaringiz"
+msgstr "Сизнинг хатоларингиз"
+
+msgid "Xatolarni ko‘rib chiqing va qayta urinib ko‘ring — siz buni uddalaysiz!"
+msgstr "Хатоларни кўриб чиқинг ва қайта уриниб кўринг — сиз буни уддалайсиз!"
+
+msgid "Natijani ko‘rish"
+msgstr "Натижани кўриш"
+
+msgid "Qayta urinish"
+msgstr "Қайта уриниш"
+
+msgid "O‘tkazib yuborish"
+msgstr "Ўтказиб юбориш"
+
+msgid "Ovozni o‘chirish"
+msgstr "Овозни ўчириш"
+
+msgid "Ovozni yoqish"
+msgstr "Овозни ёқиш"
+
+msgid "Natijani qayta ko‘rsatish"
+msgstr "Натижани қайта кўрсатиш"
+
+msgid "Imtihon natijasi"
+msgstr "Имтиҳон натижаси"
+
+msgid "Statistikani tozalaysizmi?"
+msgstr "Статистикани тозалайсизми?"
+
+msgid "Barcha real imtihon natijalaringiz o‘chiriladi. Buni qaytarib bo‘lmaydi."
+msgstr "Барча реал имтиҳон натижаларингиз ўчирилади. Буни қайтариб бўлмайди."
+
+msgid "Tozalash"
+msgstr "Тозалаш"
+
+msgid "Ustoz tushuntirishi"
+msgstr "Устоз тушунтириши"
