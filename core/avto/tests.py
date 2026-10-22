@@ -488,12 +488,11 @@ class ExamModeTests(TestCase):
                 self.assertIn('id="textUpBtn"', html)
                 self.assertIn('id="textDownBtn"', html)
 
-    def test_every_test_opens_with_the_full_screen_start(self):
+    def test_every_test_goes_full_screen_on_the_first_touch_without_a_pop_up(self):
         for kind in ("start_shablon_test", "start_mavzu_test", "real"):
             with self.subTest(kind=kind):
                 html = self.exam_html(kind)
-                self.assertIn('id="examStart"', html)
-                self.assertIn('id="examStartBtn"', html)
+                self.assertNotIn('id="examStart"', html)
         with open(finders.find("exam/exam.js"), encoding="utf-8") as handle:
             script = handle.read()
         self.assertIn("requestFullscreen", script)

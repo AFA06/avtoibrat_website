@@ -12,8 +12,6 @@
     timer: document.getElementById("examTimer"),
     timerValue: document.getElementById("examTimerValue"),
     fullscreenBtn: document.getElementById("fullscreenBtn"),
-    startOverlay: document.getElementById("examStart"),
-    startBtn: document.getElementById("examStartBtn"),
     finishBtn: document.getElementById("finishBtn"),
     questionText: document.getElementById("examQuestionText"),
     imageBox: document.getElementById("examImageBox"),
@@ -461,26 +459,16 @@
   }
 
   // ---------- Full screen ----------
-  // Browsers only allow full screen after a click or key press, so every test opens with a
-  // one-tap start screen that switches to full screen.
-  function startOverlayOpen() {
-    return Boolean(els.startOverlay) && !els.startOverlay.hidden;
-  }
-
-  function enterFullscreenAndStart() {
-    if (!document.fullscreenElement) {
-      document.documentElement.requestFullscreen().catch(() => {});
-    }
-    els.startOverlay.hidden = true;
-  }
-
+  // Browsers only allow full screen after a click, tap or key press, so there is no pop-up:
+  // the first thing the student does on the page (an answer, a key, a tap) also opens full screen.
   function setupFullscreenStart() {
-    if (!els.startOverlay) return;
-    // Phones without the full screen API (iPhone Safari) go straight to the questions.
     if (!document.fullscreenEnabled || document.fullscreenElement) return;
-    els.startOverlay.hidden = false;
-    els.startBtn.addEventListener("click", enterFullscreenAndStart);
-    els.startBtn.focus();
+    const events = ["pointerdown", "keydown", "touchend"];
+    const enter = () => {
+      events.forEach((name) => document.removeEventListener(name, enter, true));
+      if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(() => {});
+    };
+    events.forEach((name) => document.addEventListener(name, enter, true));
   }
 
   function formatTime(totalSeconds) {
@@ -523,11 +511,6 @@
   els.finishConfirmBtn.addEventListener("click", submitFinish);
 
   document.addEventListener("keydown", (e) => {
-    if (startOverlayOpen()) {
-      if (e.key === "Enter" || e.key === " ") enterFullscreenAndStart();
-      e.preventDefault();
-      return;
-    }
 
     if (isModalOpen(els.answerModal)) {
       if (e.key === "Enter") { e.preventDefault(); confirmSelection(); }

@@ -434,36 +434,6 @@ body {
   text-align: center;
 }
 
-.exam-start {
-  position: fixed;
-  inset: 0;
-  z-index: 1100;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(6, 9, 15, 0.86);
-}
-
-.exam-start[hidden] {
-  display: none;
-}
-
-.exam-start__card .exam-btn {
-  width: 100%;
-}
-
-.exam-start__icon {
-  display: inline-grid;
-  place-items: center;
-  width: 56px;
-  height: 56px;
-  margin-bottom: 14px;
-  border-radius: 16px;
-  background: var(--exam-accent-dim);
-  color: var(--exam-current);
-  font-size: 28px;
-}
-
 .exam-modal__card h3 {
   margin: 0 0 12px;
   font-size: 18px;
