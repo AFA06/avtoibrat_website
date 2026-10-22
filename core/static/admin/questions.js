@@ -7,7 +7,55 @@
       row.querySelector(".qs-key").textContent = `F${index + 1}`;
       row.querySelector("input[type=radio]").value = index;
     });
+    refresh(list);
   }
+
+  // What is missing in an answer list: at least two filled rows and one of them marked «To‘g‘ri».
+  function problemOf(list) {
+    const rows = Array.from(list.querySelectorAll(".qs-answer"));
+    const filled = rows.filter((row) => Array.from(row.querySelectorAll("input[type=text]")).some((i) => i.value.trim()));
+    const correct = rows.findIndex((row) => row.querySelector("input[type=radio]").checked);
+    if (filled.length < 2) return "Kamida 2 ta javob yozing.";
+    if (correct < 0 || !filled.includes(rows[correct])) return "To‘g‘ri javob qatoridagi «To‘g‘ri» tugmasini bosing.";
+    return "";
+  }
+
+  function refresh(list) {
+    const status = document.querySelector(`[data-status="${list.dataset.list}"]`);
+    const rows = Array.from(list.querySelectorAll(".qs-answer"));
+    const correct = rows.findIndex((row) => row.querySelector("input[type=radio]").checked);
+    const problem = problemOf(list);
+    list.classList.remove("has-problem");
+    status.className = `qs-status ${problem ? "is-warn" : "is-ok"}`;
+    status.textContent = problem || `✓ To‘g‘ri javob: F${correct + 1}`;
+  }
+
+  document.querySelectorAll("[data-list]").forEach((list) => {
+    list.addEventListener("input", () => refresh(list));
+    list.addEventListener("change", () => refresh(list));
+    refresh(list);
+  });
+
+  const form = document.getElementById("question-form");
+  if (form) {
+    form.addEventListener("submit", (event) => {
+      const broken = Array.from(document.querySelectorAll("[data-list]")).filter((list) => problemOf(list));
+      if (!broken.length) return;
+      event.preventDefault();
+      broken.forEach((list) => list.classList.add("has-problem"));
+      broken[0].scrollIntoView({ behavior: "smooth", block: "center" });
+    });
+  }
+
+  // --- List: changing only a question's picture uploads it straight away ---
+  document.querySelectorAll("[data-quick-picture]").forEach((input) => {
+    input.addEventListener("change", () => {
+      if (!input.files.length) return;
+      const pic = input.closest(".qs-pic");
+      pic.classList.add("is-busy");
+      pic.submit();
+    });
+  });
 
   document.querySelectorAll("[data-add]").forEach((button) => {
     button.addEventListener("click", () => {

@@ -4,8 +4,10 @@ Questions and answers are shown exactly as stored: the order never changes here 
 exam pages shuffle the options).
 """
 import re
+from io import BytesIO
 
 from django import forms
+from django.core.files.base import ContentFile
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
 from django.core.paginator import Paginator
@@ -15,6 +17,8 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.views.decorators.http import require_POST
+
+from PIL import Image
 
 from .models import Answer, Question, TestCategory, TestType, Topic, TopicGroup
 from .student_views import _page
@@ -91,19 +95,44 @@ def question_list(request):
     ))
 
 
+IMAGE_SIZE = (945, 530)
+IMAGE_MAX_MB = 10
+
+
+class QuestionImageField(forms.ImageField):
+    """Accepts any 16:9 picture and stores it as the 945×530 WebP the exam pages expect."""
+
+    def clean(self, data, initial=None):
+        upload = super().clean(data, initial)
+        if not upload or not hasattr(upload, "size"):
+            return upload
+        if upload.size > IMAGE_MAX_MB * 1024 * 1024:
+            raise forms.ValidationError(f"Rasm hajmi {IMAGE_MAX_MB} MB dan oshmasligi kerak.")
+        with Image.open(upload) as picture:
+            width, height = picture.size
+            if abs(width / height - IMAGE_SIZE[0] / IMAGE_SIZE[1]) > 0.03:
+                raise forms.ValidationError(
+                    f"Rasm 16:9 nisbatda bo‘lishi kerak (sizniki {width}×{height}). Masalan 1920×1080 yoki 945×530."
+                )
+            buffer = BytesIO()
+            picture.convert("RGB").resize(IMAGE_SIZE, Image.LANCZOS).save(buffer, "WEBP", quality=82)
+        return ContentFile(buffer.getvalue(), name="question.webp")
+
+
 class QuestionForm(forms.ModelForm):
+    rasm = QuestionImageField(label="Savol rasmi", required=False)
+
     class Meta:
         model = Question
         fields = ("kategoriya", "mavzu", "extra_topics", "matn_uzb", "matn_uz_kr", "matn_rus", "rasm", "audio_uzb")
         labels = {
             "kategoriya": "Bilet", "mavzu": "Asosiy mavzu", "extra_topics": "Qo‘shimcha mavzular",
             "matn_uzb": "Savol — o‘zbekcha (lotin)", "matn_uz_kr": "Савол — ўзбекча (кирилл)",
-            "matn_rus": "Вопрос — русский", "rasm": "Savol rasmi",
-        }
+            "matn_rus": "Вопрос — русский",         }
         help_texts = {
             "mavzu": "Mavzulashtirilgan testlarda savol shu mavzudan chiqadi.",
             "extra_topics": "Savol boshqa mavzularga ham tegishli bo‘lsa, belgilang (ixtiyoriy).",
-            "rasm": "Ixtiyoriy. Aniq 945×530 piksel. Rasm bo‘lmasa, savolda AvtoIbrat logotipi ko‘rinadi.",
+            "rasm": "Ixtiyoriy. Istalgan 16:9 rasm (masalan 1920×1080) — o‘zi 945×530 ga keltiriladi. Rasm bo‘lmasa, savolda AvtoIbrat logotipi ko‘rinadi.",
         }
         widgets = {
             "matn_uzb": forms.Textarea(attrs={"rows": 3}),
@@ -154,7 +183,7 @@ def _check_answers(rows, languages, label, errors):
     if any(not row[lang] for row in rows for lang in languages):
         errors.append(f"{label}: har bir javob matni to‘liq (barcha tillarda) yozilishi kerak.")
     if sum(row["correct"] for row in rows) != 1:
-        errors.append(f"{label}: to‘g‘ri javobni bitta qilib belgilang.")
+        errors.append(f"{label}: to‘g‘ri javobni belgilang (to‘ldirilgan javoblardan bittasi).")
 
 
 def _initial_answers(question):
@@ -237,6 +266,35 @@ def question_form(request, pk=None):
         bilet_counts={b.pk: b.total for b in _bilets()},
         number=_with_numbers([question])[0].number if question else None,
     ))
+
+
+class PictureForm(forms.ModelForm):
+    rasm = QuestionImageField(label="Savol rasmi", required=True)
+
+    class Meta:
+        model = Question
+        fields = ("rasm",)
+
+
+@staff_member_required
+@require_POST
+def question_picture(request, pk):
+    """Change (or remove) only the picture; the texts, answers and topics stay untouched."""
+    question = get_object_or_404(Question, pk=pk)
+    back = request.POST.get("next", "")
+    target = back if back.startswith("/admin/questions/") else reverse("questions:list")
+    if request.POST.get("remove"):
+        question.rasm.delete(save=False)
+        Question.objects.filter(pk=pk).update(rasm="")
+        messages.success(request, "Rasm o‘chirildi — savolda logotip ko‘rinadi.")
+        return redirect(target)
+    form = PictureForm(request.POST, request.FILES, instance=question)
+    if form.is_valid():
+        form.save()
+        messages.success(request, "Savol rasmi almashtirildi.")
+    else:
+        messages.error(request, " ".join(form.errors["rasm"]))
+    return redirect(target)
 
 
 @staff_member_required

@@ -76,7 +76,7 @@ class QuestionAdminTests(TestCase):
         response = self.client.post(reverse("questions:create"), self.posted(mavzu="", uz_correct=""))
         self.assertEqual(response.status_code, 200)
         self.assertFalse(Question.objects.filter(matn_uzb="Yangi savol").exists())
-        self.assertContains(response, "to‘g‘ri javobni bitta qilib belgilang")
+        self.assertContains(response, "to‘g‘ri javobni belgilang")
 
     def test_editing_keeps_the_answer_rows_and_their_order(self):
         uz_ids = [str(self.answers[0].pk), str(self.answers[1].pk), "", ""]
@@ -100,6 +100,44 @@ class QuestionAdminTests(TestCase):
     def test_delete(self):
         self.client.post(reverse("questions:delete", args=[self.question.pk]))
         self.assertFalse(Question.objects.filter(pk=self.question.pk).exists())
+
+
+class QuestionPictureTests(TestCase):
+    def setUp(self):
+        teacher = User.objects.create_user(username="t", password="x", is_staff=True, is_superuser=True)
+        self.client.force_login(teacher)
+        kind = TestType.objects.create(nomi="Bilet", vaqt_daqiqa=25, savollar_soni=20)
+        self.question = Question.objects.create(
+            test_turi=kind, kategoriya=TestCategory.objects.create(nomi="Bilet 1"),
+            matn_uzb="Savol", matn_uz_kr="Савол", matn_rus="Вопрос",
+        )
+        self.answer = Answer.objects.create(question=self.question, matn_uzb="A", togri=True)
+        self.url = reverse("questions:picture", args=[self.question.pk])
+
+    def png(self, size):
+        from io import BytesIO
+        from PIL import Image
+        from django.core.files.uploadedfile import SimpleUploadedFile
+        buffer = BytesIO()
+        Image.new("RGB", size, "#3366cc").save(buffer, "PNG")
+        return SimpleUploadedFile("pic.png", buffer.getvalue(), content_type="image/png")
+
+    def test_only_the_picture_changes_and_is_scaled_to_the_exam_size(self):
+        import tempfile
+        from PIL import Image
+        with self.settings(MEDIA_ROOT=tempfile.mkdtemp()):
+            response = self.client.post(self.url, {"rasm": self.png((1672, 941))})
+            self.assertRedirects(response, reverse("questions:list"))
+            self.question.refresh_from_db()
+            self.assertEqual(Image.open(self.question.rasm).size, (945, 530))
+        self.assertEqual(self.question.matn_uzb, "Savol")
+        self.assertEqual(self.question.javoblar.count(), 1)
+
+    def test_a_wrong_shaped_picture_is_refused_with_a_message(self):
+        response = self.client.post(self.url, {"rasm": self.png((800, 800))}, follow=True)
+        self.assertContains(response, "16:9")
+        self.question.refresh_from_db()
+        self.assertFalse(self.question.rasm)
 
 
 class GuideInPanelTests(TestCase):

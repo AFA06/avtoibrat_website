@@ -56,6 +56,7 @@
         <div>
           <p class="sd-help">Rasm tanlamasangiz, savolda AvtoIbrat logotipi ko‘rinadi.</p>
           {% if question.rasm %}<label class="qs-check"><input type="checkbox" name="remove_picture" value="1"><span>Rasmni o‘chirish</span></label>{% endif %}
+          {% if question %}<p class="sd-help">Faqat rasmni almashtirmoqchimisiz? Rasmni tanlang va «Saqlash»ni bosing — matn va javoblar o‘zgarmaydi. Yoki ro‘yxatdagi rasm ustiga bosing.</p>{% endif %}
         </div>
       </div>
     </section>
@@ -69,22 +70,27 @@
     </section>
 
     <section class="sd-panel sd-card">
-      <h2>5. Javoblar</h2>
-      <p class="sd-help">Bitta to‘g‘ri javobni belgilang. Talabalar javoblarni har safar boshqa tartibda ko‘radi, bu yerda esa tartib o‘zgarmaydi. Bo‘sh qatorlar hisobga olinmaydi.</p>
+      <h2>5. Javoblar va to‘g‘ri javob</h2>
+      <ol class="qs-steps">
+        <li>Javob variantlarini yozing (kamida 2 ta).</li>
+        <li>To‘g‘ri variant qatoridagi <b>«To‘g‘ri»</b> tugmasini bosing — qator yashil bo‘ladi.</li>
+      </ol>
+      <p class="sd-help">Talabalar variantlarni har safar boshqa tartibda ko‘radi, bu yerda tartib o‘zgarmaydi. Bo‘sh qatorlar hisobga olinmaydi.</p>
 
       <h3 class="qs-sub">O‘zbekcha (lotin va кирилл)</h3>
       <div class="qs-answers" data-list="uz" data-limit="{{ answer_limit }}">
         {% for row in uz_rows %}
         <div class="qs-answer">
           <input type="hidden" name="uz_id" value="{{ row.id }}">
-          <label class="qs-correct" title="To‘g‘ri javob"><input type="radio" name="uz_correct" value="{{ forloop.counter0 }}" {% if row.correct %}checked{% endif %}><span><i class="fas fa-check"></i></span></label>
           <span class="qs-key">F{{ forloop.counter }}</span>
           <input type="text" name="uz_uz" value="{{ row.uz }}" placeholder="Javob (lotin)">
           <input type="text" name="uz_kr" value="{{ row.kr }}" placeholder="Жавоб (кирилл)">
+          <label class="qs-correct" title="Shu javob to‘g‘ri"><input type="radio" name="uz_correct" value="{{ forloop.counter0 }}" {% if row.correct %}checked{% endif %}><span><i class="fas fa-check"></i> To‘g‘ri</span></label>
           <button type="button" class="qs-remove" data-remove title="Qatorni o‘chirish"><i class="fas fa-times"></i></button>
         </div>
         {% endfor %}
       </div>
+      <p class="qs-status" data-status="uz" role="status"></p>
       <button type="button" class="sd-btn sd-btn--ghost" data-add="uz"><i class="fas fa-plus"></i> Javob qo‘shish</button>
 
       <h3 class="qs-sub">Русский <small>(ruscha javoblar boshqacha bo‘lishi mumkin)</small></h3>
@@ -92,13 +98,14 @@
         {% for row in ru_rows %}
         <div class="qs-answer">
           <input type="hidden" name="ru_id" value="{{ row.id }}">
-          <label class="qs-correct" title="Правильный ответ"><input type="radio" name="ru_correct" value="{{ forloop.counter0 }}" {% if row.correct %}checked{% endif %}><span><i class="fas fa-check"></i></span></label>
           <span class="qs-key">F{{ forloop.counter }}</span>
           <input type="text" name="ru_ru" value="{{ row.ru }}" placeholder="Ответ">
+          <label class="qs-correct" title="Правильный ответ"><input type="radio" name="ru_correct" value="{{ forloop.counter0 }}" {% if row.correct %}checked{% endif %}><span><i class="fas fa-check"></i> To‘g‘ri</span></label>
           <button type="button" class="qs-remove" data-remove title="Qatorni o‘chirish"><i class="fas fa-times"></i></button>
         </div>
         {% endfor %}
       </div>
+      <p class="qs-status" data-status="ru" role="status"></p>
       <button type="button" class="sd-btn sd-btn--ghost" data-add="ru"><i class="fas fa-plus"></i> Javob qo‘shish</button>
     </section>
 

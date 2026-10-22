@@ -49,16 +49,23 @@
     </form>
 
     <table class="sd-table qs-table">
-      <thead><tr><th>Bilet</th><th>Savol</th><th>Mavzular</th><th>Javoblar</th><th></th></tr></thead>
+      <thead><tr><th>Bilet</th><th>Rasm va savol</th><th>Mavzular</th><th>Javoblar</th><th></th></tr></thead>
       <tbody>
       {% for q in page %}
         <tr>
           <td class="qs-place"><b>{{ q.kategoriya.nomi }}</b><small>{{ q.number }}-savol</small></td>
           <td>
-            <a class="qs-text" href="{% url 'questions:edit' q.pk %}">
-              {% if q.rasm %}<img class="qs-thumb" src="{{ q.rasm.url }}" alt="" loading="lazy">{% else %}<span class="qs-thumb qs-thumb--none" title="Rasm yo‘q"><i class="fas fa-image"></i></span>{% endif %}
-              <span>{{ q.matn_uzb|truncatechars:140 }}{% if q.audio_uzb or q.audio_rus %} <i class="fas fa-volume-up qs-voice-ico" title="Ovozli tushuntirish bor"></i>{% endif %}</span>
-            </a>
+            <div class="qs-text">
+              <form class="qs-pic" method="post" action="{% url 'questions:picture' q.pk %}" enctype="multipart/form-data">
+                {% csrf_token %}<input type="hidden" name="next" value="{{ request.get_full_path }}">
+                <label title="Rasmni almashtirish">
+                  {% if q.rasm %}<img class="qs-thumb" src="{{ q.rasm.url }}" alt="" loading="lazy">{% else %}<span class="qs-thumb qs-thumb--none"><i class="fas fa-image"></i></span>{% endif %}
+                  <span class="qs-pic__hint"><i class="fas fa-camera"></i>{% if q.rasm %}Almashtirish{% else %}Rasm qo‘shish{% endif %}</span>
+                  <input type="file" name="rasm" accept="image/*" data-quick-picture>
+                </label>
+              </form>
+              <a href="{% url 'questions:edit' q.pk %}"><span>{{ q.matn_uzb|truncatechars:140 }}{% if q.audio_uzb or q.audio_rus %} <i class="fas fa-volume-up qs-voice-ico" title="Ovozli tushuntirish bor"></i>{% endif %}</span></a>
+            </div>
           </td>
           <td>
             {% if q.mavzu %}<span class="sd-tag qs-main">{{ q.mavzu.name }}</span>{% endif %}

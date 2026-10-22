@@ -24,15 +24,17 @@
 .qs-check { display: flex; align-items: center; gap: 8px; margin: 0 !important; font-weight: 500 !important; cursor: pointer; }
 .qs-check[hidden] { display: none; }
 .qs-answers { display: grid; gap: 8px; margin-bottom: 10px; }
-.qs-answer { display: grid; grid-template-columns: 34px 34px 1fr 1fr 34px; gap: 8px; align-items: center; }
-.qs-answers[data-list="ru"] .qs-answer { grid-template-columns: 34px 34px 1fr 34px; }
+.qs-answer { display: grid; grid-template-columns: 34px 1fr 1fr 104px 34px; gap: 8px; align-items: center; padding: 6px; border: 1px solid transparent; border-radius: 12px; transition: background .15s, border-color .15s; }
+.qs-answers[data-list="ru"] .qs-answer { grid-template-columns: 34px 1fr 104px 34px; }
+.qs-answer:has(input[type=radio]:checked) { background: var(--sd-green-bg); border-color: var(--sd-green); }
 .qs-answer input[type=text] { width: 100%; }
 .qs-key { font-weight: 700; color: var(--sd-muted); text-align: center; }
 .qs-correct { position: relative; margin: 0 !important; cursor: pointer; }
 .qs-correct input { position: absolute; opacity: 0; }
-.qs-correct span { display: grid; place-items: center; width: 30px; height: 30px; border: 2px solid var(--sd-line); border-radius: 50%; color: transparent; transition: .15s; }
+.qs-correct span { display: flex; align-items: center; justify-content: center; gap: 6px; height: 36px; padding: 0 10px; border: 1.5px solid var(--sd-line); border-radius: 10px; color: var(--sd-muted); font-size: 13px; font-weight: 600; transition: .15s; white-space: nowrap; }
 .qs-correct:hover span { border-color: var(--sd-green); }
 .qs-correct input:checked + span { background: var(--sd-green); border-color: var(--sd-green); color: #fff; }
+.qs-correct:not(:has(input:checked)) span i { opacity: .35; }
 .qs-correct input:focus-visible + span { box-shadow: 0 0 0 3px rgba(15,157,115,.25); }
 .qs-remove { width: 30px; height: 30px; border: 0; border-radius: 8px; background: none; color: var(--sd-muted); cursor: pointer; }
 .qs-remove:hover { background: var(--sd-red-bg); color: var(--sd-red); }
@@ -40,9 +42,6 @@
 
 @media (max-width: 767px) {
   .sd-stats--3 { grid-template-columns: 1fr; }
-  .qs-answer, .qs-answers[data-list="ru"] .qs-answer { grid-template-columns: 30px 1fr 30px; }
-  .qs-key { display: none; }
-  .qs-answer input[name$="_kr"] { grid-column: 2; }
 }
 
 .qs-voices { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
@@ -57,3 +56,26 @@
 @keyframes qs-pulse { 50% { opacity: .3; } }
 @media (prefers-reduced-motion: reduce) { .sd-btn.is-recording i { animation: none; } }
 .qs-voice-ico { margin-left: 6px; color: var(--sd-brand); }
+
+.qs-steps { margin: 0 0 8px; padding-left: 20px; color: var(--sd-text, inherit); }
+.qs-steps li { margin: 2px 0; }
+.qs-status { min-height: 22px; margin: 4px 0 10px; font-size: 13px; font-weight: 600; }
+.qs-status.is-ok { color: var(--sd-green); }
+.qs-status.is-warn { color: var(--sd-red); }
+.qs-answers.has-problem { outline: 2px solid var(--sd-red); outline-offset: 4px; border-radius: 12px; }
+
+/* Quick picture change in the list */
+.qs-pic { margin: 0; flex: none; }
+.qs-pic label { position: relative; display: block; margin: 0; cursor: pointer; }
+.qs-pic input[type=file] { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.qs-pic__hint { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 5px; border-radius: 6px; background: rgba(15, 23, 42, .72); color: #fff; font-size: 10.5px; font-weight: 600; opacity: 0; transition: opacity .15s; }
+.qs-pic label:hover .qs-pic__hint, .qs-pic label:focus-within .qs-pic__hint { opacity: 1; }
+.qs-pic.is-busy { opacity: .5; pointer-events: none; }
+.qs-text > a { color: inherit !important; text-decoration: none !important; }
+.qs-text > a:hover { color: var(--sd-brand) !important; }
+
+@media (max-width: 767px) {
+  .qs-answer, .qs-answers[data-list="ru"] .qs-answer { grid-template-columns: 1fr 96px 30px; }
+  .qs-answer input[name$="_kr"] { grid-column: 1 / -1; grid-row: 2; }
+  .qs-key { display: none; }
+}
