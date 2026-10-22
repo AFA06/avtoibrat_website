@@ -7,5 +7,6 @@ python manage.py collectstatic --noinput
 python manage.py migrate --noinput
 python manage.py import_bilets
 python manage.py import_road_signs --sample
+python manage.py import_materials
 python manage.py seed_demo
 python manage.py seed_admin

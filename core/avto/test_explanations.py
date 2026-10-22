@@ -138,3 +138,22 @@ class RevealDataTests(TestCase):
         session.test_kind = "shablon"
         session.save()
         self.assertNotContains(self.client.get(reverse("test_result", args=[session.pk])), 'id="reveal-data"')
+
+
+class StudyMaterialsTests(TestCase):
+    def test_materials_are_imported_once_and_shown_and_viewable(self):
+        import tempfile
+        from django.core.management import call_command
+        from io import StringIO
+        from .models import PdfMaterial
+        with self.settings(MEDIA_ROOT=tempfile.mkdtemp()):
+            call_command("import_materials", stdout=StringIO())
+            call_command("import_materials", stdout=StringIO())
+            self.assertEqual(PdfMaterial.objects.count(), 2)
+            self.client.force_login(User.objects.create_user(username="s", password="x", unlimited=True))
+            page = self.client.get(reverse("manular"))
+            self.assertContains(page, "Yo‘l belgilari")
+            pdf = PdfMaterial.objects.first()
+            response = self.client.get(reverse("manular_view", args=[pdf.pk]))
+            self.assertEqual(response["Content-Type"], "application/pdf")
+            self.assertEqual(response["X-Frame-Options"], "SAMEORIGIN")

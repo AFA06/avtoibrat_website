@@ -13,6 +13,7 @@ from django.contrib.auth import authenticate, login as auth_login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, FileResponse, Http404, HttpResponse, HttpResponseRedirect
 from django.contrib.auth import get_user_model
+from django.views.decorators.clickjacking import xframe_options_sameorigin
 from django.views.decorators.http import require_POST, require_http_methods
 from django.db.models import Count, Q, Sum, F, ExpressionWrapper, DurationField
 
@@ -432,8 +433,18 @@ def manular(request):
         )
 
     return render(request, "dashboard/manular.html", {
-        "pdfs": PdfMaterial.objects.all()
+        "pdfs": PdfMaterial.objects.order_by("title")
     })
+
+
+@login_required
+@xframe_options_sameorigin
+def manular_view(request, pk):
+    """Show a study PDF inside the page's viewer (a frame of our own site)."""
+    pdf = get_object_or_404(PdfMaterial, pk=pk)
+    if not os.path.exists(pdf.file.path):
+        raise Http404("Fayl topilmadi")
+    return FileResponse(open(pdf.file.path, "rb"), content_type="application/pdf")
 
 
 @login_required

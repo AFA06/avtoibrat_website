@@ -154,6 +154,9 @@
                             </div>
 
                             <div class="card-body text-center">
+                              <button type="button" class="btn btn-outline-success openPdfBtn me-1" data-pdf-url="{% url 'manular_view' pdf.id %}">
+                                {% trans "Ko‘rish" %}
+                              </button>
                               <a
                                 href="{% url 'manular' %}?download={{ pdf.id }}"
                                 class="btn btn-success"
@@ -162,6 +165,13 @@
                             </a>
                             </div>
                         </div>
+                    </div>
+                    {% empty %}
+                    <div class="col-12">
+                        <div class="card"><div class="card-body text-center text-muted py-5">
+                            <i class="ti ti-file-off" style="font-size:42px"></i>
+                            <p class="mt-2 mb-0">{% trans "Hozircha qo‘llanmalar yo‘q. O‘qituvchi yuklagach, shu yerda ko‘rinadi." %}</p>
+                        </div></div>
                     </div>
                     {% endfor %}
                 </div>

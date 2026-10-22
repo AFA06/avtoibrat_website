@@ -27,6 +27,7 @@ urlpatterns = [
     path('marafon/start/', start_marathon, name="start_marathon"),
     path('contact_list/', contact_list, name="contact_list"),
     path('manular/', manular, name="manular"),
+    path('manular/<int:pk>/korish/', manular_view, name="manular_view"),
 
 
     path('mavzulashtirilgan/', mavzulashtirilgan, name="mavzulashtirilgan"),

@@ -1055,3 +1055,9 @@ msgstr "Тозалаш"
 
 msgid "Ustoz tushuntirishi"
 msgstr "Устоз тушунтириши"
+
+msgid "Hozircha qo‘llanmalar yo‘q. O‘qituvchi yuklagach, shu yerda ko‘rinadi."
+msgstr "Ҳозирча қўлланмалар йўқ. Ўқитувчи юклагач, шу ерда кўринади."
+
+msgid "Ko‘rish"
+msgstr "Кўриш"
