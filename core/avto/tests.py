@@ -75,7 +75,7 @@ class ExamEngineTests(TestCase):
         self.assertEqual(response.status_code, 200)
         data = response.json()
         self.assertTrue(data["is_correct"])
-        self.assertEqual(data["correct_answer_id"], correct.id)
+        self.assertEqual(data["correct_answer_ids"]["uz"], correct.id)
 
         question2 = self.questions[1]
         wrong = question2.javoblar.get(togri=False)

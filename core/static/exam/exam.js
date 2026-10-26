@@ -32,6 +32,7 @@
     textUpBtn: document.getElementById("textUpBtn"),
     textScaleValue: document.getElementById("textScaleValue"),
     autoAdvanceInput: document.getElementById("autoAdvanceInput"),
+    lang: document.getElementById("examLang"),
   };
 
   const practice = Boolean(config.practice);
@@ -45,7 +46,10 @@
     storageKey: "avtoibrat.exam.textLevel",
   };
   const AUTO_ADVANCE_STORAGE_KEY = "avtoibrat.exam.autoAdvance";
+  const LANGUAGE_STORAGE_KEY = "avtoibrat.exam.language";
+  const LANGUAGE_SWAP_MS = 140;
   let currentIndex = 0;
+  let language = config.defaultLanguage;
   let pendingSelection = null;
   let submitting = false;
   let autoAdvanceEnabled = true;
@@ -53,8 +57,13 @@
   const optionOrders = {};
   let currentVoice = null; // the explanation being played, stopped when the question changes
 
+  // Text, answers and voice explanation of a question in the language the student has chosen.
+  function contentOf(question) {
+    return question.languages[language];
+  }
+
   function shuffledOptionOrder(question) {
-    const ids = question.answers.map((a) => a.id);
+    const ids = contentOf(question).answers.map((a) => a.id);
     const previous = optionOrders[question.id];
 
     // Teachers and admins see every question exactly as stored, answers always in the same place.
@@ -63,7 +72,7 @@
       return ids;
     }
 
-    const next = previous ? derangement(previous) : fisherYates(ids.slice());
+    const next = previous ? derangement(orderInLanguage(question)) : fisherYates(ids.slice());
     optionOrders[question.id] = next;
     return next;
   }
@@ -85,9 +94,16 @@
     return arr;
   }
 
+  // The order the student already saw, limited to (and completed with) the options of the current language.
+  function orderInLanguage(question) {
+    const ids = contentOf(question).answers.map((a) => a.id);
+    const previous = (optionOrders[question.id] || []).filter((id) => ids.includes(id));
+    return previous.concat(ids.filter((id) => !previous.includes(id)));
+  }
+
   function questionOptionOrder(question) {
     if (answered[question.id]) {
-      return optionOrders[question.id] || question.answers.map((a) => a.id);
+      return orderInLanguage(question);
     }
     return shuffledOptionOrder(question);
   }
@@ -95,12 +111,13 @@
   // An option like "F1 va F2 javoblar to‘g‘ri" names other options by their original keys.
   // Options move between keys, so the keys in such a text follow the options they point at.
   function linkedText(question, answer) {
-    const order = optionOrders[question.id] || question.answers.map((a) => a.id);
+    const answers = contentOf(question).answers;
+    const order = orderInLanguage(question);
     const pattern = /\bF([1-9])\b/g;
     const keys = [];
     let match;
     while ((match = pattern.exec(answer.text)) !== null) {
-      const target = question.answers[Number(match[1]) - 1];
+      const target = answers[Number(match[1]) - 1];
       if (!target || target.id === answer.id) return answer.text;
       keys.push(order.indexOf(target.id) + 1);
     }
@@ -146,11 +163,13 @@
 
   if (els.saveBtn) els.saveBtn.addEventListener("click", toggleSave);
 
-  function renderQuestion() {
+  // keepOrder: the same question again in another language, so its options stay where they are.
+  function renderQuestion({ keepOrder = false } = {}) {
     const question = questions[currentIndex];
+    const content = contentOf(question);
     renderSaveButton();
 
-    els.questionText.textContent = question.text;
+    els.questionText.textContent = content.text;
 
     els.imageBox.textContent = "";
     if (question.image) {
@@ -179,10 +198,11 @@
 
     els.optionsBox.textContent = "";
     if (currentVoice) { currentVoice.pause(); currentVoice = null; }
-    const order = questionOptionOrder(question);
+    const order = keepOrder ? orderInLanguage(question) : questionOptionOrder(question);
     const answersById = {};
-    question.answers.forEach((a) => { answersById[a.id] = a; });
+    content.answers.forEach((a) => { answersById[a.id] = a; });
     const result = answered[question.id];
+    const correctId = result && result.correct[language];
 
     order.forEach((answerId, position) => {
       const answer = answersById[answerId];
@@ -203,7 +223,7 @@
 
       if (result) {
         row.classList.add("exam-option--locked");
-        if (answer.id === result.correct) {
+        if (answer.id === correctId) {
           row.classList.add("exam-option--correct");
         }
         if (answer.id === result.selected && !result.is_correct) {
@@ -216,7 +236,7 @@
       els.optionsBox.appendChild(row);
     });
 
-    if (result && !result.is_correct && question.has_explanation && practice) {
+    if (result && !result.is_correct && content.has_explanation && practice) {
       els.optionsBox.appendChild(explanationPlayer(question));
     }
 
@@ -250,7 +270,7 @@
     const time = card.querySelector(".exam-voice__time");
     const bar = card.querySelector(".exam-voice__bar");
 
-    const audio = new Audio(config.explanationUrl.replace(/0\/$/, `${question.id}/`));
+    const audio = new Audio(`${config.explanationUrl.replace(/0\/$/, `${question.id}/`)}?lang=${language}`);
     audio.preload = "metadata";
     const paint = () => {
       const duration = audio.duration || 0;
@@ -370,7 +390,7 @@
       .then((data) => {
         answered[question.id] = {
           selected: answer.id,
-          correct: data.correct_answer_id,
+          correct: data.correct_answer_ids,
           is_correct: data.is_correct,
         };
         submitting = false;
@@ -660,6 +680,42 @@
     if (lightboxEl) lightboxEl.classList.remove("is-open");
   }
 
+  // ---------- Question language ----------
+  // The student can read the questions in any of the languages; the choice is remembered on this device.
+  function setupLanguage() {
+    const buttons = Array.from(els.lang.querySelectorAll("[data-lang]"));
+    const stored = (() => { try { return localStorage.getItem(LANGUAGE_STORAGE_KEY); } catch (e) { return null; } })();
+    if (buttons.some((b) => b.dataset.lang === stored)) language = stored;
+
+    const paint = () => {
+      const index = buttons.findIndex((b) => b.dataset.lang === language);
+      els.lang.style.setProperty("--lang-index", String(Math.max(index, 0)));
+      buttons.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.lang === language)));
+    };
+
+    let swapTimer = null;
+    const choose = (next) => {
+      if (next === language) return;
+      language = next;
+      try { localStorage.setItem(LANGUAGE_STORAGE_KEY, next); } catch (e) { /* storage unavailable: the choice just is not remembered */ }
+      document.documentElement.lang = next === "uz-kr" ? "uz-Cyrl" : next;
+      paint();
+      if (pendingSelection) { pendingSelection = null; closeModal(els.answerModal); }
+
+      // Fade the question out, swap its language, fade back in.
+      clearTimeout(swapTimer);
+      document.body.classList.add("exam--swapping");
+      swapTimer = setTimeout(() => {
+        renderQuestion({ keepOrder: true });
+        document.body.classList.remove("exam--swapping");
+      }, LANGUAGE_SWAP_MS);
+    };
+
+    buttons.forEach((button) => button.addEventListener("click", () => choose(button.dataset.lang)));
+    paint();
+  }
+
+  setupLanguage();
   setupTextSize();
   setupAutoAdvance();
   guardBackButton();

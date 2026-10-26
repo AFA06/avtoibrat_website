@@ -32,6 +32,14 @@ from .marathon import MINUTES_PER_QUESTION
 
 User = get_user_model()
 
+CONTENT_LANGUAGES = tuple(code for code, _ in User.GROUP_LANGUAGE_CHOICES)
+
+
+def _content_language(user, requested=None):
+    """The language of questions and answers: what the student picked in the test, else their group's."""
+    return requested if requested in CONTENT_LANGUAGES else user.group_language
+
+
 _LANGUAGE_PREFIX_RE = re.compile(
     r"^/(%s)(/|$)" % "|".join(re.escape(code) for code, _ in settings.LANGUAGES)
 )
@@ -763,12 +771,6 @@ def test_page(request, session_id):
         return redirect("test_result", session_id=session.id)
 
     ordered_questions = _ordered_session_questions(session)
-    exam_lang = request.user.group_language
-
-    correct_answer_map = {
-        q.id: getattr(q.correct_answer_for(exam_lang), "id", None)
-        for q in ordered_questions
-    }
 
     saved_ids = set(
         SavedQuestion.objects
@@ -776,27 +778,31 @@ def test_page(request, session_id):
         .values_list("question_id", flat=True)
     )
 
+    # Every language is sent so the student can switch inside the test without a reload.
     questions_data = [
         {
             "id": q.id,
-            "text": q.get_text(exam_lang),
             "image": q.rasm.url if q.rasm else None,
-            # Only the fact that a voice explanation exists; the file itself is served after a mistake.
-            "has_explanation": bool(q.explanation_for(exam_lang)),
             "saved": q.id in saved_ids,
-            "answers": [
-                {"id": a.id, "text": a.get_text(exam_lang)}
-                for a in q.answers_for(exam_lang)
-            ],
+            "languages": {
+                lang: {
+                    "text": q.get_text(lang),
+                    "answers": [{"id": a.id, "text": a.get_text(lang)} for a in q.answers_for(lang)],
+                    # Only the fact that a voice explanation exists; the file itself is served after a mistake.
+                    "has_explanation": bool(q.explanation_for(lang)),
+                }
+                for lang in CONTENT_LANGUAGES
+            },
         }
         for q in ordered_questions
     ]
+    questions_by_id = {q.id: q for q in ordered_questions}
 
     user_answers = UserAnswer.objects.filter(session=session)
     answered_data = {
         ua.question_id: {
             "selected": ua.selected_answer_id,
-            "correct": correct_answer_map.get(ua.question_id),
+            "correct": _correct_answer_ids(questions_by_id[ua.question_id]),
             "is_correct": ua.is_correct,
         }
         for ua in user_answers
@@ -808,7 +814,17 @@ def test_page(request, session_id):
         "remaining_seconds": remaining,
         "questions_data": questions_data,
         "answered_data": answered_data,
+        "content_languages": CONTENT_LANGUAGES,
+        "default_language": request.user.group_language,
     })
+
+
+def _correct_answer_ids(question):
+    """The right answer's id in each language (a language may leave some options out)."""
+    return {
+        lang: getattr(question.correct_answer_for(lang), "id", None)
+        for lang in CONTENT_LANGUAGES
+    }
 
 
 @require_POST
@@ -855,8 +871,6 @@ def submit_answer(request):
         answered_at=timezone.now(),
     )
 
-    correct_answer = question.correct_answer_for(request.user.group_language)
-
     exam_failed = False
     if session.test_kind == "real" and not user_answer.is_correct:
         mistakes = UserAnswer.objects.filter(session=session, is_correct=False).count()
@@ -867,7 +881,7 @@ def submit_answer(request):
 
     return JsonResponse({
         "is_correct": user_answer.is_correct,
-        "correct_answer_id": correct_answer.id if correct_answer else None,
+        "correct_answer_ids": _correct_answer_ids(question),
         "exam_failed": exam_failed,
     })
 
@@ -1025,7 +1039,7 @@ def serve_audio(request, audio):
 @login_required
 def question_explanation(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
-    audio = question.explanation_for(request.user.group_language)
+    audio = question.explanation_for(_content_language(request.user, request.GET.get("lang")))
     if not audio or not _may_hear_explanation(request.user, question):
         raise Http404
     with audio.open("rb") as handle:

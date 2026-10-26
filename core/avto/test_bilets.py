@@ -119,15 +119,20 @@ class ExamLanguageTests(TestCase):
         session = TestSession.objects.get(user=user)
         return session, self.client.get(response.url)
 
-    def test_russian_student_gets_only_russian_options(self):
+    def test_test_page_carries_every_language_and_starts_in_the_students_own(self):
         session, response = self._exam("ru")
-        html = response.content.decode()
-        shown = [a for q in session.questions.all() for a in q.answers_for("ru")]
-        hidden = [a for q in session.questions.all() for a in q.answers_for("uz")]
-        self.assertTrue(all(f'"id": {a.id},' in html for a in shown))
-        self.assertFalse(any(f'"id": {a.id},' in html for a in hidden))
+        questions = response.context["questions_data"]
+        for question in questions:
+            self.assertEqual(set(question["languages"]), {"uz", "uz-kr", "ru"})
+        self.assertEqual(response.context["default_language"], "ru")
+        stored = session.questions.first()
+        data = next(q for q in questions if q["id"] == stored.id)
+        self.assertEqual(
+            [a["id"] for a in data["languages"]["ru"]["answers"]],
+            [a.id for a in stored.answers_for("ru")],
+        )
 
-    def test_answering_reports_the_correct_answer_of_the_students_language(self):
+    def test_answering_reports_the_correct_answer_in_every_language(self):
         session, _ = self._exam("ru")
         question = session.questions.first()
         wrong = next(a for a in question.answers_for("ru") if not a.togri)
@@ -135,7 +140,9 @@ class ExamLanguageTests(TestCase):
             reverse("submit_answer"),
             {"session_id": session.id, "question_id": question.id, "answer_id": wrong.id},
         )
-        self.assertEqual(response.json()["correct_answer_id"], question.correct_answer_for("ru").id)
+        ids = response.json()["correct_answer_ids"]
+        self.assertEqual(ids["ru"], question.correct_answer_for("ru").id)
+        self.assertEqual(ids["uz"], question.correct_answer_for("uz").id)
 
 
 @override_settings(MEDIA_ROOT=MEDIA)

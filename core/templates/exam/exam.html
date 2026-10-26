@@ -29,6 +29,12 @@
       </span>
     </label>
     {% endif %}
+    <div class="exam-lang" id="examLang" role="group" aria-label="{% trans 'Savol tili' %}">
+      <span class="exam-lang__thumb" aria-hidden="true"></span>
+      {% for code in content_languages %}
+      <button type="button" class="exam-lang__btn" data-lang="{{ code }}" aria-pressed="false">{% if code == 'uz-kr' %}ЎЗ{% else %}{{ code|upper }}{% endif %}</button>
+      {% endfor %}
+    </div>
     <button type="button" class="exam-iconbtn exam-savebtn" id="saveBtn"
             title="{% trans 'Savolni saqlash' %} (S)" aria-pressed="false">
       <span class="exam-keyhint">S</span>
@@ -130,6 +136,7 @@
     toggleSaveUrl: "{% url 'toggle_save_question' %}",
     shuffleOptions: {{ user.is_staff|yesno:"false,true" }},
     explanationTitle: "{% trans 'Ustoz tushuntirishi' %}",
+    defaultLanguage: "{{ default_language }}",
     explanationUrl: "{% url 'question_explanation' 0 %}",
     logoUrl: "{% static 'assets/images/logo-white.png' %}",
     practice: {{ practice|yesno:"true,false" }}

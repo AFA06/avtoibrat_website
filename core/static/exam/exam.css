@@ -868,3 +868,61 @@ body {
 img {
   -webkit-touch-callout: none;
 }
+
+/* ---------- Question language switch ---------- */
+.exam-lang {
+  --lang-index: 0;
+  position: relative;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  background: var(--exam-panel-alt);
+  border: 1px solid var(--exam-border);
+  border-radius: 8px;
+  padding: 3px;
+}
+
+.exam-lang__thumb {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  left: 3px;
+  width: calc((100% - 6px) / 3);
+  border-radius: 6px;
+  background: var(--exam-accent);
+  transform: translateX(calc(var(--lang-index) * 100%));
+  transition: transform 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.exam-lang__btn {
+  position: relative;
+  min-width: 42px;
+  padding: 7px 10px;
+  border: 0;
+  background: transparent;
+  color: var(--exam-text-dim);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.exam-lang__btn[aria-pressed="true"] { color: #fff; }
+.exam-lang__btn:focus-visible { outline: 2px solid var(--exam-current); outline-offset: 1px; border-radius: 6px; }
+
+/* The question fades while its language is swapped. */
+.exam-question-bar,
+.exam-main {
+  transition: opacity 0.14s ease;
+}
+
+.exam--swapping .exam-question-bar,
+.exam--swapping .exam-main {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .exam-lang__thumb,
+  .exam-question-bar,
+  .exam-main { transition: none; }
+}
