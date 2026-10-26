@@ -165,6 +165,23 @@ class ExamEngineTests(TestCase):
         self.assertEqual(response.context["correct"], 1)
         self.assertEqual(response.context["wrong"], 1)
         self.assertEqual(response.context["empty"], 1)
+        html = response.content.decode()
+        self.assertIn("result-stat--wrong", html)
+        self.assertIn("result-stat--empty", html)
+
+    def test_result_page_hides_wrong_and_skipped_tiles_when_there_are_none(self):
+        session = self._start_session()
+        for question in self.questions:
+            self.client.post(reverse("submit_answer"), {
+                "session_id": session.id, "question_id": question.id,
+                "answer_id": question.javoblar.get(togri=True).id,
+            })
+        self.client.post(reverse("finish_test", args=[session.id]))
+
+        html = self.client.get(reverse("test_result", args=[session.id])).content.decode()
+        self.assertNotIn("result-stat--wrong", html)
+        self.assertNotIn("result-stat--empty", html)
+        self.assertIn("result-stat--correct", html)
 
     def test_exam_page_redirects_to_result_when_finished(self):
         session = self._start_session()

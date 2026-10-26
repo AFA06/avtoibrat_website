@@ -57,7 +57,8 @@ body {
 
 .result-stats {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  /* Wrong / skipped tiles appear only when there are any, so the row refills evenly. */
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: 14px;
   margin-bottom: 28px;
 }

@@ -35,14 +35,18 @@
           <span class="result-stat__value">{{ correct }}</span>
           <span class="result-stat__label">{% trans "Toʻgʻri" %}</span>
         </div>
+        {% if wrong %}
         <div class="result-stat result-stat--wrong">
           <span class="result-stat__value">{{ wrong }}</span>
           <span class="result-stat__label">{% trans "Notoʻgʻri" %}</span>
         </div>
+        {% endif %}
+        {% if empty %}
         <div class="result-stat result-stat--empty">
           <span class="result-stat__value">{{ empty }}</span>
           <span class="result-stat__label">{% trans "Javob berilmagan" %}</span>
         </div>
+        {% endif %}
         <div class="result-stat">
           <span class="result-stat__value">{{ score_percent }}%</span>
           <span class="result-stat__label">{% trans "Ball" %}</span>
