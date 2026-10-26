@@ -174,7 +174,8 @@
                     function startTest() {
                         if (!selectedBilet) return;
                         // ✅ To‘g‘ri URL: o‘xshash savollar uchun
-                        window.location.href = "{% url 'start_ohshash_test' 0 %}".replace("0", selectedBilet);
+                        var startUrl = "{% url 'start_ohshash_test' 0 %}".replace("0", selectedBilet);
+                        if (!(window.avtoExamLaunch && window.avtoExamLaunch(startUrl))) window.location.href = startUrl;
                         // yoki to‘g‘ridan-to‘g‘ri:
                         // window.location.href = "/ohshash/start/" + selectedBilet + "/";
                     }

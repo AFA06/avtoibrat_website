@@ -208,7 +208,8 @@
                         function startTest() {
                             if (!selectedCategory) return;
                             // âœ… Toâ€˜gâ€˜ri URL: shablon test uchun
-                            window.location.href = "{% url 'start_shablon_test' 0 %}".replace("0", selectedCategory);
+                            var startUrl = "{% url 'start_shablon_test' 0 %}".replace("0", selectedCategory);
+                            if (!(window.avtoExamLaunch && window.avtoExamLaunch(startUrl))) window.location.href = startUrl;
                             // yoki toâ€˜gâ€˜ridan-toâ€˜gâ€˜ri:
                             // window.location.href = "/shablon/start/" + selectedCategory + "/";
                         }

@@ -462,7 +462,7 @@
   // Browsers only allow full screen after a click, tap or key press, so there is no pop-up:
   // the first thing the student does on the page (an answer, a key, a tap) also opens full screen.
   function setupFullscreenStart() {
-    if (!document.fullscreenEnabled || document.fullscreenElement) return;
+    if (!document.fullscreenEnabled || document.fullscreenElement || window.top !== window.self) return; // inside the launcher frame the parent is already full screen
     const events = ["pointerdown", "keydown", "touchend"];
     const enter = () => {
       events.forEach((name) => document.removeEventListener(name, enter, true));
