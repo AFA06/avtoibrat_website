@@ -4,6 +4,7 @@ from .leaderboard_views import student_leaderboard
 from .task_views import student_tasks
 from .marathon_views import marathon_page, start_marathon
 from .journey_views import journey_page
+from .cheatsheet_views import cheatsheet_page
 
 
 urlpatterns = [
@@ -28,6 +29,7 @@ urlpatterns = [
     path('marafon/', marathon_page, name="marathon"),
     path('marafon/start/', start_marathon, name="start_marathon"),
     path('contact_list/', contact_list, name="contact_list"),
+    path('shpargalka/', cheatsheet_page, name="cheatsheet"),
     path('manular/', manular, name="manular"),
     path('manular/<int:pk>/korish/', manular_view, name="manular_view"),
 

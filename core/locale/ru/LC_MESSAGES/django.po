@@ -1318,3 +1318,534 @@ msgstr "Общая точность"
 
 msgid "Javobsiz"
 msgstr "Без ответа"
+
+msgid "Tezlik"
+msgstr "Скорость"
+
+msgid "Belgi bilan boshqa tezlik oʻrnatilgan boʻlsa, shu belgi amal qiladi."
+msgstr "Если знаком установлена другая скорость, действует знак."
+
+msgid "Aholi punktida"
+msgstr "В населённом пункте"
+
+msgid "Aholi punktlarida umumiy chegara"
+msgstr "Общий предел в населённых пунктах"
+
+msgid "Toshkent, Nukus, viloyat va tuman markazlarida"
+msgstr "В Ташкенте, Нукусе, областных и районных центрах"
+
+msgid "Maktab va bolalar bogʻchasidan 300 m oldin va keyin (belgi boʻlsa)"
+msgstr "У школ и детсадов, за 300 м до и после (при наличии знака)"
+
+msgid "Turar joy dahalari va hovlilarda"
+msgstr "В жилых зонах и дворах"
+
+msgid "Aholi punktidan tashqarida"
+msgstr "Вне населённых пунктов"
+
+msgid "Yengil avtomobil va 3,5 t gacha yuk avtomobili"
+msgstr "Легковой автомобиль и грузовик до 3,5 т"
+
+msgid "Shaharlararo avtobus va mikroavtobus"
+msgstr "Междугородный автобус и микроавтобус"
+
+msgid "Boshqa avtobuslar, tirkamali avtomobil, mototsikl, 3,5 t dan ogʻir yuk avtomobili"
+msgstr "Прочие автобусы, автомобиль с прицепом, мотоцикл, грузовик свыше 3,5 т"
+
+msgid "Avtopoyezdlar"
+msgstr "Автопоезда"
+
+msgid "Hamma yoʻllarda"
+msgstr "На всех дорогах"
+
+msgid "Yuk kuzovida odam yoki tashkiliy bolalar guruhi tashilganda"
+msgstr "Люди в кузове грузовика или организованная перевозка детей"
+
+msgid "Mexanik transportni shatakka olganda"
+msgstr "При буксировке механического транспорта"
+
+msgid "Tezligi 40 km/soatdan kam transport avtomagistralda harakatlana olmaydi"
+msgstr "Транспорт медленнее 40 км/ч на автомагистрали ездить не может"
+
+msgid "Masofalar"
+msgstr "Расстояния"
+
+msgid "Eng koʻp so‘raladigan raqamlar: qancha metr oldin toʻxtash, ogohlantirish, ulash mumkin."
+msgstr "Самые частые цифры: за сколько метров можно остановиться, предупредить, сцепиться."
+
+msgid "Toʻxtash va toʻxtab turish"
+msgstr "Остановка и стоянка"
+
+msgid "Piyodalar oʻtish joyi va velosiped yoʻlkasi kesishmasigacha — toʻxtash taqiqlanadi"
+msgstr "До пешеходного перехода и пересечения с велодорожкой — остановка запрещена"
+
+msgid "Yoʻnalishli transport bekatidan oldin va keyin — toʻxtash taqiqlanadi"
+msgstr "До остановки маршрутного транспорта и после неё — остановка запрещена"
+
+msgid "Transport qayrilib oladigan joyga yetmasdan va oʻtib — toʻxtash taqiqlanadi"
+msgstr "До места разворота и после него — остановка запрещена"
+
+msgid "Temir yoʻl kesishmasining ikkala tomonida — toʻxtab turish taqiqlanadi"
+msgstr "По обе стороны железнодорожного переезда — стоянка запрещена"
+
+msgid "Toʻxtagan transport bilan sidirgʻa chiziq orasida 3 m dan kam qolsa — toʻxtash taqiqlanadi"
+msgstr "Если между машиной и сплошной линией меньше 3 м — остановка запрещена"
+
+msgid "Koʻrinish"
+msgstr "Видимость"
+
+msgid "Koʻrinish 100 m dan kam joyda qayrilib olish, quvib oʻtish va dongliklar yonida toʻxtash taqiqlanadi"
+msgstr "При видимости менее 100 м нельзя разворачиваться, обгонять и останавливаться у выпуклостей дороги"
+
+msgid "Qarshidan kelayotgan transportga 150 m qolganda yaqinni yorituvchi faraga oʻting"
+msgstr "Переключайтесь на ближний свет, когда до встречного осталось 150 м"
+
+msgid "Temir yoʻl kesishmasigacha 100 m dan kam qolsa quvib oʻtish taqiqlanadi"
+msgstr "Обгон запрещён, если до переезда меньше 100 м"
+
+msgid "Ogohlantirish va temir yoʻl"
+msgstr "Предупреждение и переезд"
+
+msgid "Avariya belgisini qoʻying: aholi punktida 15 m, tashqarida 30 m dan kam boʻlmagan masofada"
+msgstr "Знак аварийной остановки: в населённом пункте не ближе 15 м, вне его — не ближе 30 м"
+
+msgid "Shlagbaum boʻlsa, unga kamida 5 m qolganda toʻxtang"
+msgstr "Остановитесь не ближе 5 м до шлагбаума"
+
+msgid "Shlagbaum boʻlmasa, birinchi relsga kamida 10 m qolganda toʻxtang"
+msgstr "Если шлагбаума нет — не ближе 10 м до первого рельса"
+
+msgid "Kesishmada majburiy toʻxtaganda odamni poyezd tomonga 1000 m gacha yuboring"
+msgstr "При вынужденной остановке на переезде отправьте людей вдоль путей на 1000 м"
+
+msgid "Shatakka olish"
+msgstr "Буксировка"
+
+msgid "Egiluvchan ulagich bilan shatakka olishda orasidagi masofa"
+msgstr "Расстояние между машинами при гибкой сцепке"
+
+msgid "Qattiq ulagichda masofa 4 m dan oshmasin"
+msgstr "При жёсткой сцепке — не более 4 м"
+
+msgid "Ulagich bilan birga umumiy uzunlik 20 m dan oshsa, shatakka olish taqiqlanadi"
+msgstr "Общая длина со сцепкой более 20 м — буксировка запрещена"
+
+msgid "Yosh, vazn va oʻlcham"
+msgstr "Возраст, масса и размеры"
+
+msgid "Yosh chegaralari, yuk avtomobili va yuk oʻlchamlari."
+msgstr "Возрастные пределы, грузовики и габариты груза."
+
+msgid "Yosh"
+msgstr "Возраст"
+
+msgid "Velosiped, arava va hayvon haydash uchun eng kam yosh"
+msgstr "Минимальный возраст для велосипеда, повозки и погонщика животных"
+
+msgid "Moped va skuter boshqarish uchun eng kam yosh"
+msgstr "Минимальный возраст для мопеда и скутера"
+
+msgid "12 yoshgacha bolalar old oʻrindiqda faqat maxsus qurilma bilan tashiladi"
+msgstr "Дети до 12 лет на переднем сиденье — только в детском удерживающем устройстве"
+
+msgid "Yuk va odam tashish"
+msgstr "Грузы и перевозка людей"
+
+msgid "Ruxsat etilgan toʻliq vazn chegarasi: undan ogʻir yuk avtomobillariga alohida cheklovlar"
+msgstr "Граница разрешённой массы: для более тяжёлых грузовиков — особые ограничения"
+
+msgid "Yuk kuzovida kabinani qoʻshib 8 kishigacha — «C» toifa; 8 dan koʻp boʻlsa «D» ham kerak"
+msgstr "В кузове с кабиной до 8 человек — категория «C»; больше 8 — нужна ещё «D»"
+
+msgid "Yuk kuzovida odam tashish uchun «C» toifada kamida 3 yillik tajriba"
+msgstr "Для перевозки людей в кузове — стаж по категории «C» не менее 3 лет"
+
+msgid "Odam tashiydigan yuk kuzovi bortining eng kam balandligi"
+msgstr "Минимальная высота борта кузова для перевозки людей"
+
+msgid "Yuk va transport oʻlchami"
+msgstr "Размеры груза и транспорта"
+
+msgid "Yuk oldi yoki orqasidan 1 m dan ortiq chiqsa — «Katta oʻlchamli yuk» belgisi"
+msgstr "Груз выступает спереди или сзади более чем на 1 м — знак «Крупногабаритный груз»"
+
+msgid "Yuk yon tomondan 0,4 m dan ortiq chiqsa — xuddi shu belgi"
+msgstr "Груз выступает сбоку более чем на 0,4 м — тот же знак"
+
+msgid "Velosiped va yengil avtomobil tomidagi yuk uzunligi/eni boʻyicha 0,5 m dan ortiq chiqmasin"
+msgstr "Груз на велосипеде и на крыше легковушки не должен выступать более чем на 0,5 м"
+
+msgid "Eni 2,55 m (sovitgichda 2,6 m) dan oshsa — katta oʻlchamli"
+msgstr "Ширина более 2,55 м (для рефрижераторов 2,6 м) — крупногабаритный"
+
+msgid "Yoʻl sathidan balandligi 4 m dan oshsa — katta oʻlchamli"
+msgstr "Высота от дороги более 4 м — крупногабаритный"
+
+msgid "Uzunligi: yakka transport 12 m, avtopoyezd 20 m dan oshsa — katta oʻlchamli"
+msgstr "Длина: одиночное ТС более 12 м, автопоезд более 20 м — крупногабаритный"
+
+msgid "Shina protektori"
+msgstr "Протектор шин"
+
+msgid "Yengil avtomobil va 3,5 t gacha yuk avtomobili: qoldiq 1,6 mm dan kam boʻlmasin"
+msgstr "Легковой и грузовик до 3,5 т: остаток не менее 1,6 мм"
+
+msgid "Avtobus: 2,0 mm dan kam boʻlmasin"
+msgstr "Автобус: не менее 2,0 мм"
+
+msgid "Ogʻir yuk avtomobili va tirkama: 1,0 mm dan kam boʻlmasin"
+msgstr "Тяжёлый грузовик и прицеп: не менее 1,0 мм"
+
+msgid "Mototsikl va moped: 0,8 mm dan kam boʻlmasin"
+msgstr "Мотоцикл и мопед: не менее 0,8 мм"
+
+msgid "Imtihon va foizlar"
+msgstr "Экзамен и проценты"
+
+msgid "AvtoIbrat real imtihonida oʻtish uchun nechta xato mumkin."
+msgstr "Сколько ошибок допустимо в реальном экзамене AvtoIbrat."
+
+msgid "20 savolli imtihon"
+msgstr "Экзамен на 20 вопросов"
+
+msgid "Ruxsat etilgan xatolar; 3-xatoda imtihon tugaydi"
+msgstr "Допустимо ошибок; на 3-й ошибке экзамен прекращается"
+
+msgid "Oʻtish uchun kamida 18 ta toʻgʻri javob"
+msgstr "Для сдачи нужно минимум 18 верных ответов"
+
+msgid "Har savolga 1 daqiqa"
+msgstr "По 1 минуте на вопрос"
+
+msgid "50 savolli imtihon"
+msgstr "Экзамен на 50 вопросов"
+
+msgid "Ruxsat etilgan xatolar; 5-xatoda imtihon tugaydi"
+msgstr "Допустимо ошибок; на 5-й ошибке экзамен прекращается"
+
+msgid "Oʻtish uchun kamida 46 ta toʻgʻri javob"
+msgstr "Для сдачи нужно минимум 46 верных ответов"
+
+msgid "Bilet (Imtihonga yoʻl)"
+msgstr "Билет (Дорога к экзамену)"
+
+msgid "Bosqichni oʻtish uchun biletda koʻpi bilan 2 ta xato"
+msgstr "Чтобы пройти этап, в билете не более 2 ошибок"
+
+msgid "Quvib oʻtish"
+msgstr "Обгон"
+
+msgid "Qayerda mumkin emas va qanday boshlanadi."
+msgstr "Где нельзя и как начинать."
+
+msgid "Tartibga solingan chorrahalarda"
+msgstr "На регулируемых перекрёстках"
+
+msgid "Asosiy boʻlmagan yoʻldan tartibga solinmagan chorrahaga kirishda"
+msgstr "На нерегулируемом перекрёстке, если вы не на главной дороге"
+
+msgid "Koʻprik, yoʻl oʻtkazgich, estakadada va ularning ostida"
+msgstr "На мостах, путепроводах, эстакадах и под ними"
+
+msgid "Piyodalar oʻtish joylarida"
+msgstr "На пешеходных переходах"
+
+msgid "Temir yoʻl kesishmasida va undan oldin 100 m dan kam qolganda"
+msgstr "На переезде и ближе 100 м до него"
+
+msgid "Quvib yoki aylanib oʻtayotgan transportni"
+msgstr "Транспорт, который сам обгоняет или объезжает"
+
+msgid "Tepalik oxirida va yoʻl koʻrinishi cheklangan joylarda"
+msgstr "В конце подъёма и там, где ограничена видимость"
+
+msgid "3.20 va 3.22 belgilari taʼsir oraligʻida"
+msgstr "В зоне действия знаков 3.20 и 3.22"
+
+msgid "Boshlashdan oldin chap burilish ishorasini yoqing va yoʻl boʻshligiga ishonch hosil qiling"
+msgstr "Перед началом включите левый поворотник и убедитесь, что путь свободен"
+
+msgid "Quvib oʻtgach, avvalgi qatorga xalaqit bermay qayting"
+msgstr "После обгона вернитесь в прежний ряд, не мешая обогнанному"
+
+msgid "Chapga burilish ishorasini bergan transportni oʻng tomondan oʻtasiz"
+msgstr "Транспорт с левым поворотником объезжают справа"
+
+msgid "Quvib oʻtilayotgan haydovchi tezlikni oshirishi taqiqlanadi"
+msgstr "Обгоняемому водителю запрещено увеличивать скорость"
+
+msgid "Qayerda mumkin, qayerda taqiqlanadi."
+msgstr "Где можно, а где запрещено."
+
+msgid "Yoʻlning oʻng tomonida, yoʻl yoqasida; u boʻlmasa — qatnov qismi chetida"
+msgstr "Справа по ходу, на обочине; если её нет — у края проезжей части"
+
+msgid "Aholi punktida har yoʻnalishda bittadan tasma boʻlgan yoki bir tomonlama yoʻlda chap tomonda ham mumkin"
+msgstr "В населённом пункте на дороге с одной полосой в каждую сторону или одностороннем — можно и слева"
+
+msgid "Temir yoʻl kesishmasi, tunnel, tramvay yoʻli ustida"
+msgstr "На переезде, в тоннеле, на трамвайных путях"
+
+msgid "Piyodalar oʻtish joyi va velosiped yoʻlkasi kesishmasi (10 m gacha)"
+msgstr "На пешеходном переходе и у велодорожки (ближе 10 м)"
+
+msgid "Bekat maydonchasi va undan 15 m gacha"
+msgstr "На остановке и ближе 15 м до неё и после"
+
+msgid "Koʻrinish 100 m dan kam boʻlgan dongliklar va xavfli burilishlarda"
+msgstr "На выпуклостях дороги с видимостью менее 100 м и на опасных поворотах"
+
+msgid "Svetofor yoki belgini boshqa haydovchidan toʻsadigan, piyodaga xalaqit beradigan joyda"
+msgstr "Там, где закрываете светофор или знак, мешаете пешеходам"
+
+msgid "Uchtadan kam tasmali koʻprik, yoʻl oʻtkazgich, estakada ustida va ostida"
+msgstr "На мостах и эстакадах с менее чем тремя полосами и под ними"
+
+msgid "Velosipedchilar tasmasida (odam tushirish va mindirishdan tashqari)"
+msgstr "На велосипедной полосе (кроме высадки и посадки)"
+
+msgid "3.27 belgisi yoki 1.4 chizigʻi taʼsir oraligʻida"
+msgstr "В зоне знака 3.27 и линии 1.4"
+
+msgid "Turar joy dahasida dvigatel yoqilgan holda turish"
+msgstr "Стоять во дворе с работающим двигателем"
+
+msgid "Eshikni boshqalarga xalaqit beradigan yoki xavf tugʻdiradigan paytda ochish"
+msgstr "Открывать дверь, когда это мешает или создаёт опасность"
+
+msgid "Tashlab ketishdan oldin transport oʻz-oʻzidan yurib ketmasligini taʼminlang"
+msgstr "Перед уходом исключите самопроизвольное движение машины"
+
+msgid "Yoʻl berish"
+msgstr "Уступить дорогу"
+
+msgid "Navbat qoidalarda koʻrsatilmagan boʻlsa, oʻng tomondagiga yoʻl bering."
+msgstr "Если очерёдность не определена, уступайте тому, кто справа."
+
+msgid "Yoʻllar kesishganda va navbat belgilanmagan boʻlsa — oʻng tomondan kelayotganga yoʻl bering"
+msgstr "Если очерёдность не определена — уступите тому, кто справа"
+
+msgid "Chorrahada burilayotganda kesayotgan yoʻldagi piyodaga va velosipedchiga yoʻl bering"
+msgstr "При повороте на перекрёстке уступите пешеходам и велосипедистам"
+
+msgid "Aylanma chorrahada aylanada harakatlanayotgan transport ustun"
+msgstr "На кольце преимущество у тех, кто уже едет по кругу"
+
+msgid "Qayta tizilishda bir vaqtda — oʻng tomondagiga yoʻl bering"
+msgstr "При одновременном перестроении уступите тому, кто справа"
+
+msgid "Yondosh hududdan yoʻlga chiqishda hammaga yoʻl bering"
+msgstr "При выезде с прилегающей территории уступите всем"
+
+msgid "Chorrahadan tashqarida chapga burilish yoki qayrilishda qarshidan kelayotganlarga yoʻl bering"
+msgstr "Вне перекрёстка при левом повороте и развороте уступите встречным"
+
+msgid "Tartibga solinmagan piyodalar oʻtish joyida tezlikni kamaytiring yoki toʻxtang"
+msgstr "На нерегулируемом переходе снизьте скорость или остановитесь"
+
+msgid "Oq hassali koʻzi ojiz piyodani har doim oʻtkazing"
+msgstr "Слепого пешехода с белой тростью пропускайте всегда"
+
+msgid "«Bolalar guruhini tashish» belgili, avariya ishorali transport toʻxtasa — sekinlashing, zarur boʻlsa toʻxtang"
+msgstr "Если остановился транспорт со знаком «Перевозка детей» и аварийкой — снизьте скорость или остановитесь"
+
+msgid "Tirbandlik boʻlsa chorrahaga kirmang: koʻndalang harakatga xalaqit berasiz"
+msgstr "При заторе не въезжайте на перекрёсток: помешаете поперечному движению"
+
+msgid "Chiroq va ishoralar"
+msgstr "Свет и сигналы"
+
+msgid "Fara, burilish ko‘rsatkichi, avariya ishorasi va signal."
+msgstr "Фары, поворотники, аварийка и звуковой сигнал."
+
+msgid "Qorongʻida, koʻrinish yomon boʻlganda va tunnelda fara yoqilgan boʻlsin"
+msgstr "В темноте, при плохой видимости и в тоннеле — фары включены"
+
+msgid "Yoritilgan yoʻlda yaqinni yorituvchi fara"
+msgstr "На освещённой дороге — ближний свет"
+
+msgid "Qarshidan kelayotganga 150 m qolganda yaqinni yorituvchi faraga oʻting"
+msgstr "Переключайтесь на ближний за 150 м до встречной машины"
+
+msgid "Koʻzi qamashgan haydovchi: avariya ishorasi, bir qatorda tezlikni kamaytirib toʻxtaydi"
+msgstr "Ослеплённый водитель: аварийка, не меняя полосу снижает скорость и останавливается"
+
+msgid "Kunduzi yaqin chiroq: tashkiliy kolonna, yoʻlovchi avtobusi, bolalar guruhi, xavfli yuk, shatakka olish, kuchli yogʻin, mototsikl va moped"
+msgstr "Днём ближний свет: колонна, пассажирский автобус, дети, опасный груз, буксировка, сильные осадки, мотоцикл и мопед"
+
+msgid "Tumanga qarshi fara — koʻrinish yomon boʻlganda; orqa tuman chiroqi faqat shunda"
+msgstr "Противотуманные фары — при плохой видимости; задний противотуманный только тогда"
+
+msgid "Orqa tuman chiroqini stop-signalga ulash"
+msgstr "Подключать задний противотуманный к стоп-сигналу"
+
+msgid "Burilish ishorasi manyovrdan oldinroq beriladi va tugagach oʻchiriladi"
+msgstr "Поворотник включают заранее и выключают после манёвра"
+
+msgid "Qoʻl ishorasi — chapga: chap qoʻl yonga yoki oʻng qoʻl tirsakdan toʻgʻri burchak bilan yuqoriga"
+msgstr "Жест влево: левая рука в сторону или правая согнута вверх под прямым углом"
+
+msgid "Qoʻl ishorasi — oʻngga: oʻng qoʻl yonga yoki chap qoʻl tirsakdan yuqoriga"
+msgstr "Жест вправо: правая рука в сторону или левая согнута вверх"
+
+msgid "Avariya ishorasi: YTH, taqiqlangan joyda majburiy toʻxtash, koʻz qamashishi, shatakka olish, bolalar chiqayotganda"
+msgstr "Аварийка: ДТП, вынужденная остановка в запрещённом месте, ослепление, буксировка, высадка детей"
+
+msgid "Ovozli signal faqat aholi punktidan tashqarida quvib oʻtishda ogohlantirish yoki YTHning oldini olish uchun"
+msgstr "Звуковой сигнал — только вне населённых пунктов при обгоне или для предотвращения ДТП"
+
+msgid "Ishora berish sizga oldin oʻtish huquqini bermaydi"
+msgstr "Сигнал не даёт вам права проезда первым"
+
+msgid "Temir yoʻl, magistral, turar joy"
+msgstr "Переезд, магистраль, жилая зона"
+
+msgid "Alohida joylar uchun alohida qoidalar."
+msgstr "Особые места — особые правила."
+
+msgid "Temir yoʻl: shlagbaum yopiq yoki yopilayotgan boʻlsa kirish — svetoforga qaramay"
+msgstr "Переезд: шлагбаум закрыт или закрывается — въезд запрещён, что бы ни показывал светофор"
+
+msgid "Temir yoʻl: svetofor taqiqlovchi, navbatchi taqiqlagan yoki poyezd koʻrinib turganda"
+msgstr "Переезд: запрещающий сигнал светофора, запрет дежурного или виден поезд"
+
+msgid "Temir yoʻl: kesishma ortida tirbandlik boʻlsa kirish mumkin emas"
+msgstr "Переезд: нельзя въезжать, если за ним затор"
+
+msgid "Temir yoʻl: tezligi 8 km/soatdan kam transport ruxsatsiz oʻtolmaydi"
+msgstr "Переезд: транспорт медленнее 8 км/ч без разрешения проезжать нельзя"
+
+msgid "Kesishmada majburiy toʻxtasangiz: odamlarni tushiring, ikki kishini 1000 m ga yuboring, umumiy xatar ishorasi — 1 uzun + 3 qisqa"
+msgstr "Вынужденная остановка на переезде: высадите людей, отправьте двоих на 1000 м, сигнал общей опасности — 1 длинный + 3 коротких"
+
+msgid "Avtomagistral: piyoda, velosiped, moped, traktor, tezligi 40 km/soatdan kam transport"
+msgstr "Автомагистраль: пешеходы, велосипеды, мопеды, тракторы, транспорт медленнее 40 км/ч"
+
+msgid "Avtomagistral: yuk avtomobili chetki chap qatorda; toʻxtash (maxsus maydonchadan tashqari); orqaga yurish; qayrilib olish"
+msgstr "Автомагистраль: грузовик в крайнем левом ряду; остановка (кроме площадок); задний ход; разворот"
+
+msgid "Avtomagistralda majburiy toʻxtasangiz: belgi qoʻying va chetki tasmaga chiqing"
+msgstr "Вынужденная остановка на магистрали: выставьте знак и съезжайте в крайнюю полосу"
+
+msgid "Turar joy dahasida (5.38 / 5.39) piyodalar ustun, tezlik 20 km/soat"
+msgstr "В жилой зоне (5.38 / 5.39) приоритет у пешеходов, скорость 20 км/ч"
+
+msgid "Turar joy dahasida: haydashni oʻrgatish, dvigatel yoqilgan holda turish"
+msgstr "В жилой зоне: учебная езда, стоянка с работающим двигателем"
+
+msgid "Turar joy dahasidan chiqishda hammaga yoʻl bering"
+msgstr "При выезде из жилой зоны уступите всем"
+
+msgid "1.13 belgisi (tik pasayish): uzatma yoki ilashishni ajratib yurish"
+msgstr "Знак 1.13 (крутой спуск): ехать с выключенной передачей или сцеплением"
+
+msgid "Tormoz ishlamay qolsa, tik nishablikda avariya yoʻliga (5.40) burilib toʻxtating"
+msgstr "При отказе тормозов на крутом спуске сворачивайте на аварийный съезд (5.40)"
+
+msgid "Shatakka olish, odam va yuk tashish"
+msgstr "Буксировка, перевозка людей и грузов"
+
+msgid "Taqiqlangan holatlar va majburiy shartlar."
+msgstr "Запреты и обязательные условия."
+
+msgid "Shatakka olinayotgan transportning rulida haydovchi boʻlishi shart"
+msgstr "В буксируемой машине за рулём должен быть водитель"
+
+msgid "Shatakka olgan transportda yaqinni yorituvchi fara yoqilgan, shatakka olinganda avariya ishorasi"
+msgstr "Буксирующий включает ближний свет, буксируемый — аварийку"
+
+msgid "Rul boshqaruvi ishlamaydigan transportni (qisman ortishdan tashqari) shatakka olish"
+msgstr "Буксировка с неисправным рулём (кроме частичной погрузки)"
+
+msgid "Ikki va undan koʻp transportni shatakka olish; mototsikl, moped, skuter bilan yoki ularni shatakka olish"
+msgstr "Буксировать два и более ТС; буксировка мотоциклом, мопедом, скутером или их самих"
+
+msgid "Yaxmalak, sirpanchiq yoʻlda egiluvchan ulagich bilan shatakka olish"
+msgstr "Гибкая сцепка на скользкой дороге"
+
+msgid "Shatakka olingan avtobus, trolleybus yoki yuk kuzovida odam tashish"
+msgstr "Люди в буксируемом автобусе, троллейбусе или кузове грузовика"
+
+msgid "Bolalarni yuk avtomobili kuzovida tashish"
+msgstr "Перевозка детей в кузове грузовика"
+
+msgid "Transport kabinasidan tashqarida odam tashish (odam tashishga moslangan bortli yuk avtomobili bundan mustasno)"
+msgstr "Перевозка людей вне кабины (кроме специально оборудованных грузовиков)"
+
+msgid "Odam soni texnik tavsifnomadagi miqdordan oshishi"
+msgstr "Больше людей, чем разрешено техническими характеристиками"
+
+msgid "12 yoshgacha bolani maxsus qurilmasiz old oʻrindiqda tashish"
+msgstr "Ребёнок до 12 лет на переднем сиденье без удерживающего устройства"
+
+msgid "Haydovchi va old oʻrindiqdagi yoʻlovchi harakatdan oldin xavfsizlik kamarini taqadi; mototsiklda — qadalgan shlem"
+msgstr "Водитель и пассажир спереди пристёгиваются до начала движения; на мотоцикле — застёгнутый шлем"
+
+msgid "Katta oʻlchamli yukda kechasi oldi — oq, orqasi — qizil chiroq yoki qaytargich"
+msgstr "Крупногабаритный груз ночью: спереди белый, сзади красный фонарь или катафот"
+
+msgid "Mast holatda yoki dori-darmon taʼsirida, charchoq va betoblikda boshqarish"
+msgstr "Управление в состоянии опьянения, под действием лекарств, в усталости и нездоровье"
+
+msgid "Shpargalka"
+msgstr "Шпаргалка"
+
+msgid "Yoʻl harakati qoidalarining eng kerakli raqamlari va taqiqlari bir joyda. Qidiring, boʻlimni tanlang, kerakli kartani yulduzcha bilan belgilang."
+msgstr "Самые нужные цифры и запреты ПДД в одном месте. Ищите, выбирайте раздел и отмечайте нужные карточки звёздочкой."
+
+msgid "Qidirish: masalan, 70, shlagbaum, shina…"
+msgstr "Поиск: например, 70, шлагбаум, шины…"
+
+msgid "Boʻlimlar"
+msgstr "Разделы"
+
+msgid "Belgilanganlar"
+msgstr "Отмеченные"
+
+msgid "Hozircha hech narsa belgilanmagan. Kartadagi yulduzchani bosing — u shu yerda tez topiladi."
+msgstr "Пока ничего не отмечено. Нажмите звёздочку на карточке — она появится здесь."
+
+msgid "Hech narsa topilmadi. Boshqa soʻz bilan urinib koʻring."
+msgstr "Ничего не найдено. Попробуйте другое слово."
+
+msgid "Belgilash"
+msgstr "Отметить"
+
+msgid "Taqiqlanadi"
+msgstr "Запрещено"
+
+msgid "Mumkin / shart"
+msgstr "Можно / обязательно"
+
+msgid "Manba: Yoʻl harakati qoidalari (Vazirlar Mahkamasining 2022-yil 12-apreldagi 172-son qarori). Aniq holatda rasmiy matnga qarang."
+msgstr "Источник: Правила дорожного движения (постановление Кабинета министров № 172 от 12 апреля 2022 г.). В спорных случаях смотрите официальный текст."
+
+msgid "km/soat"
+msgstr "км/ч"
+
+msgid "m"
+msgstr "м"
+
+msgid "yosh"
+msgstr "лет"
+
+msgid "tonna"
+msgstr "т"
+
+msgid "kishi"
+msgstr "чел."
+
+msgid "yil"
+msgstr "лет"
+
+msgid "mm"
+msgstr "мм"
+
+msgid "daqiqa"
+msgstr "мин"
+
+msgid "eni"
+msgstr "ширина"
+
+msgid "balandligi"
+msgstr "высота"

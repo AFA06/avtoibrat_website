@@ -1,0 +1,83 @@
+{% extends "dashboard/base_panel.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Shpargalka" %} - AvtoIbrat{% endblock %}
+{% block extra_css %}
+<link href="{% static 'assets/css/fontawesome-all.css' %}" rel="stylesheet">
+<link href="{% static 'dashboard/cheatsheet.css' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block content %}
+<div class="cs" id="cs">
+
+  <header class="cs-hero">
+    <div>
+      <h1><i class="ti ti-bolt"></i>{% trans "Shpargalka" %}</h1>
+      <p>{% trans "Yoʻl harakati qoidalarining eng kerakli raqamlari va taqiqlari bir joyda. Qidiring, boʻlimni tanlang, kerakli kartani yulduzcha bilan belgilang." %}</p>
+    </div>
+    <label class="cs-search">
+      <i class="ti ti-search" aria-hidden="true"></i>
+      <input type="search" id="cs-search" placeholder="{% trans 'Qidirish: masalan, 70, shlagbaum, shina…' %}" autocomplete="off" spellcheck="false">
+      <kbd aria-hidden="true">/</kbd>
+    </label>
+  </header>
+
+  <nav class="cs-nav" id="cs-nav" aria-label="{% trans 'Boʻlimlar' %}">
+    <button type="button" class="cs-chip cs-chip--pins" data-target="cs-pins"><i class="fas fa-star"></i><span>{% trans "Belgilanganlar" %}</span><b id="cs-pin-count">0</b></button>
+    {% for section in sections %}
+    <button type="button" class="cs-chip cs-s{{ section.hue }}" data-target="cs-{{ section.id }}"><i class="ti ti-{{ section.icon }}"></i><span>{{ section.title }}</span></button>
+    {% endfor %}
+  </nav>
+
+  <section class="cs-pins" id="cs-pins" aria-live="polite">
+    <h2><i class="fas fa-star"></i>{% trans "Belgilanganlar" %}</h2>
+    <p class="cs-pins__empty">{% trans "Hozircha hech narsa belgilanmagan. Kartadagi yulduzchani bosing — u shu yerda tez topiladi." %}</p>
+    <div class="cs-pins__list" id="cs-pins-list"></div>
+  </section>
+
+  {% for section in sections %}
+  <section class="cs-section cs-s{{ section.hue }}" id="cs-{{ section.id }}" data-section>
+    <header class="cs-section__head">
+      <span class="cs-section__icon"><i class="ti ti-{{ section.icon }}"></i></span>
+      <div>
+        <h2>{{ section.title }}</h2>
+        <p>{{ section.lead }}</p>
+      </div>
+    </header>
+
+    {% if section.kind == "numbers" %}
+      {% for title, items in section.groups %}
+      <div class="cs-group" data-group>
+        <h3>{{ title }}</h3>
+        <div class="cs-cards">
+          {% for value, unit, label in items %}
+          <article class="cs-card" data-item data-id="{{ section.id }}-{{ forloop.parentloop.counter }}-{{ forloop.counter }}">
+            <button type="button" class="cs-pin" data-pin aria-pressed="false" title="{% trans 'Belgilash' %}"><i class="far fa-star"></i></button>
+            <div class="cs-card__value"><b>{{ value }}</b>{% if unit %}<small>{{ unit }}</small>{% endif %}</div>
+            <p>{{ label }}</p>
+          </article>
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    {% else %}
+      <ul class="cs-rules">
+        {% for mark, text in section.rules %}
+        <li class="cs-rule cs-rule--{{ mark }}" data-item data-id="{{ section.id }}-{{ forloop.counter }}">
+          <span class="cs-rule__mark" title="{% if mark == 'no' %}{% trans 'Taqiqlanadi' %}{% else %}{% trans 'Mumkin / shart' %}{% endif %}"><i class="ti ti-{% if mark == 'no' %}x{% else %}check{% endif %}"></i></span>
+          <span class="cs-rule__text">{{ text }}</span>
+          <button type="button" class="cs-pin" data-pin aria-pressed="false" title="{% trans 'Belgilash' %}"><i class="far fa-star"></i></button>
+        </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </section>
+  {% endfor %}
+
+  <p class="cs-empty" id="cs-empty" hidden>{% trans "Hech narsa topilmadi. Boshqa soʻz bilan urinib koʻring." %}</p>
+  <p class="cs-source">{% trans "Manba: Yoʻl harakati qoidalari (Vazirlar Mahkamasining 2022-yil 12-apreldagi 172-son qarori). Aniq holatda rasmiy matnga qarang." %}</p>
+
+  <button type="button" class="cs-top" id="cs-top" aria-label="{% trans 'Yuqoriga' %}" hidden><i class="ti ti-arrow-up"></i></button>
+</div>
+<script src="{% static 'dashboard/cheatsheet.js' %}"></script>
+{% endblock %}

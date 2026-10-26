@@ -1,0 +1,141 @@
+/* Student → Shpargalka (cheat sheet). Colours follow the panel theme tokens (--ai-*). */
+.cs {
+  --cs-sticky: 0px;
+  max-width: 1040px; margin: 0 auto; padding: 8px 0 72px; color: var(--ai-ink);
+}
+
+/* One hue per section; every accent is derived from it so light and dark stay in tune. */
+.cs-s1  { --cs-h: 158; } .cs-s2  { --cs-h: 214; } .cs-s3  { --cs-h: 268; } .cs-s4  { --cs-h: 38; }
+.cs-s5  { --cs-h: 8; }   .cs-s6  { --cs-h: 190; } .cs-s7  { --cs-h: 330; } .cs-s8  { --cs-h: 48; }
+.cs-s9  { --cs-h: 120; } .cs-s10 { --cs-h: 240; }
+.cs-s1, .cs-s2, .cs-s3, .cs-s4, .cs-s5, .cs-s6, .cs-s7, .cs-s8, .cs-s9, .cs-s10 {
+  --cs-accent: hsl(var(--cs-h) 62% 42%);
+  --cs-tint: color-mix(in srgb, hsl(var(--cs-h) 70% 50%) 11%, var(--ai-surface));
+  --cs-edge: color-mix(in srgb, hsl(var(--cs-h) 70% 50%) 28%, var(--ai-line));
+}
+[data-theme="dark"] .cs-s1, [data-theme="dark"] .cs-s2, [data-theme="dark"] .cs-s3, [data-theme="dark"] .cs-s4,
+[data-theme="dark"] .cs-s5, [data-theme="dark"] .cs-s6, [data-theme="dark"] .cs-s7, [data-theme="dark"] .cs-s8,
+[data-theme="dark"] .cs-s9, [data-theme="dark"] .cs-s10 { --cs-accent: hsl(var(--cs-h) 72% 66%); }
+
+/* ---------- Hero ---------- */
+.cs-hero { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 18px 28px; margin-bottom: 18px; }
+.cs-hero > div { flex: 1 1 340px; }
+.cs-hero h1 { display: flex; align-items: center; gap: 10px; margin: 0; font-size: 28px; font-weight: 800; letter-spacing: -.02em; }
+.cs-hero h1 i { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; font-size: 22px; color: #fff !important; background: linear-gradient(135deg, var(--ai-brand), var(--ai-accent)); }
+.cs-hero p { margin: 8px 0 0; max-width: 560px; color: var(--ai-ink-2); }
+
+.cs-search { position: relative; flex: 1 1 300px; max-width: 380px; margin: 0; }
+.cs-search > i { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--ai-ink-3); font-size: 18px; pointer-events: none; }
+.cs-search input {
+  width: 100%; height: 48px; padding: 0 44px 0 42px; border: 1px solid var(--ai-line); border-radius: 14px;
+  background: var(--ai-surface); color: var(--ai-ink); font-size: 15px; box-shadow: var(--ai-shadow-sm);
+  transition: border-color .15s, box-shadow .15s;
+}
+.cs-search input::placeholder { color: var(--ai-ink-3); }
+.cs-search input:focus { outline: 0; border-color: var(--ai-brand); box-shadow: 0 0 0 4px color-mix(in srgb, var(--ai-brand) 18%, transparent); }
+.cs-search kbd { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); padding: 1px 8px; border: 1px solid var(--ai-line); border-radius: 6px; background: var(--ai-bg); color: var(--ai-ink-3); font: 600 12px/20px system-ui, sans-serif; }
+.cs-search input:focus ~ kbd, .cs-search input:not(:placeholder-shown) ~ kbd { opacity: 0; }
+
+/* ---------- Section chips (sticky) ---------- */
+.cs-nav {
+  position: sticky; top: var(--cs-sticky); z-index: 20; display: flex; gap: 8px; margin: 0 -12px 22px; padding: 10px 12px;
+  overflow-x: auto; scrollbar-width: none; background: color-mix(in srgb, var(--ai-bg) 86%, transparent);
+  backdrop-filter: blur(10px); border-bottom: 1px solid transparent; transition: border-color .2s;
+}
+.cs-nav::-webkit-scrollbar { display: none; }
+.cs-nav.is-stuck { border-bottom-color: var(--ai-line); }
+.cs-chip {
+  flex: none; display: inline-flex; align-items: center; gap: 7px; padding: 8px 14px; border: 1px solid var(--ai-line); border-radius: 999px;
+  background: var(--ai-surface); color: var(--ai-ink-2); font-size: 13.5px; font-weight: 600; white-space: nowrap; cursor: pointer;
+  transition: background .18s, color .18s, border-color .18s, transform .18s;
+}
+.cs-chip i { font-size: 16px; color: var(--cs-accent, var(--ai-brand)); }
+.cs-chip:hover { transform: translateY(-1px); border-color: var(--cs-edge, var(--ai-brand)); color: var(--ai-ink); }
+.cs-chip.is-active { background: var(--cs-tint, var(--ai-brand-50)); border-color: var(--cs-edge, var(--ai-brand)); color: var(--ai-ink); }
+.cs-chip:focus-visible { outline: 2px solid var(--ai-brand); outline-offset: 2px; }
+.cs-chip--pins { --cs-accent: #e0a100; --cs-tint: color-mix(in srgb, #f5b301 14%, var(--ai-surface)); --cs-edge: color-mix(in srgb, #f5b301 40%, var(--ai-line)); }
+.cs-chip--pins b { min-width: 20px; padding: 0 6px; border-radius: 999px; background: var(--ai-bg); color: var(--ai-ink); font-size: 12px; line-height: 20px; text-align: center; }
+
+/* ---------- Pinned strip ---------- */
+.cs-pins { display: none; margin-bottom: 28px; padding: 18px; border: 1px dashed color-mix(in srgb, #f5b301 55%, var(--ai-line)); border-radius: 18px; background: color-mix(in srgb, #f5b301 7%, var(--ai-surface)); scroll-margin-top: calc(var(--cs-sticky) + 72px); }
+.cs-pins.is-open { display: block; animation: cs-rise .3s var(--ai-ease, ease) both; }
+.cs-pins h2 { display: flex; align-items: center; gap: 8px; margin: 0 0 12px; font-size: 16px; font-weight: 700; }
+.cs-pins h2 i { color: #e0a100; }
+.cs-pins__empty { margin: 0; color: var(--ai-ink-2); }
+.cs-pins.has-items .cs-pins__empty { display: none; }
+.cs-pins__list { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 12px; }
+.cs-pins__list .cs-rule { grid-column: 1 / -1; }
+
+/* ---------- Sections ---------- */
+.cs-section { margin-bottom: 34px; scroll-margin-top: calc(var(--cs-sticky) + 72px); }
+.cs-section__head { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+.cs-section__icon { flex: none; display: grid; place-items: center; width: 46px; height: 46px; border-radius: 14px; background: var(--cs-tint); border: 1px solid var(--cs-edge); }
+.cs-section__icon i { font-size: 24px; color: var(--cs-accent); }
+.cs-section__head h2 { margin: 0; font-size: 21px; font-weight: 800; letter-spacing: -.015em; }
+.cs-section__head p { margin: 2px 0 0; color: var(--ai-ink-2); font-size: 14px; }
+
+.cs-group { margin-bottom: 18px; }
+.cs-group h3 { margin: 0 0 10px; padding-left: 2px; color: var(--ai-ink-2); font-size: 12.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+.cs-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 12px; }
+
+/* Number cards: the figure is the point, the sentence under it explains it. */
+.cs-card {
+  position: relative; display: flex; flex-direction: column; gap: 8px; padding: 16px 16px 15px; border: 1px solid var(--ai-line); border-radius: 16px;
+  background: var(--ai-surface); box-shadow: var(--ai-shadow-sm); overflow: hidden;
+  transition: transform .2s var(--ai-ease, ease), box-shadow .2s, border-color .2s;
+}
+.cs-card::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 4px; background: var(--cs-accent); opacity: .85; }
+.cs-card:hover { transform: translateY(-3px); box-shadow: var(--ai-shadow); border-color: var(--cs-edge); }
+.cs-card__value { display: flex; align-items: baseline; gap: 7px; padding-left: 6px; padding-right: 28px; }
+.cs-card__value b { font-size: 34px; line-height: 1; font-weight: 800; letter-spacing: -.03em; color: var(--cs-accent); font-variant-numeric: tabular-nums; }
+.cs-card__value small { color: var(--ai-ink-2); font-size: 13px; font-weight: 600; }
+.cs-card p { margin: 0; padding-left: 6px; color: var(--ai-ink); font-size: 14px; line-height: 1.45; }
+
+/* Rules: a calm list, the icon says whether it is a ban or a must. */
+.cs-rules { margin: 0; padding: 0; list-style: none; border: 1px solid var(--ai-line); border-radius: 18px; background: var(--ai-surface); box-shadow: var(--ai-shadow-sm); overflow: hidden; }
+.cs-rule { position: relative; display: flex; align-items: flex-start; gap: 12px; padding: 13px 14px; transition: background .15s; }
+.cs-rule + .cs-rule { border-top: 1px solid var(--ai-line); }
+.cs-rule:hover { background: var(--cs-tint); }
+.cs-rule__mark { flex: none; display: grid; place-items: center; width: 26px; height: 26px; margin-top: 1px; border-radius: 8px; font-size: 16px; }
+.cs-rule--no .cs-rule__mark { background: color-mix(in srgb, var(--ai-danger) 14%, var(--ai-surface)); color: var(--ai-danger); }
+.cs-rule--ok .cs-rule__mark { background: color-mix(in srgb, var(--ai-brand) 16%, var(--ai-surface)); color: var(--ai-brand); }
+.cs-rule__text { flex: 1; font-size: 14.5px; line-height: 1.5; }
+.cs-pins__list .cs-rule { border: 1px solid var(--ai-line); border-radius: 12px; background: var(--ai-surface); }
+
+/* ---------- Pin (star) ---------- */
+.cs-pin { flex: none; display: grid; place-items: center; width: 30px; height: 30px; border: 0; border-radius: 9px; background: transparent; color: var(--ai-ink-3); cursor: pointer; transition: background .15s, color .15s, transform .2s; }
+.cs-card > .cs-pin { position: absolute; top: 10px; right: 10px; }
+.cs-pin:hover { background: var(--ai-bg); color: #e0a100; }
+.cs-pin:focus-visible { outline: 2px solid var(--ai-brand); outline-offset: 1px; }
+.cs-pin[aria-pressed="true"] { color: #e0a100; }
+.cs-pin[aria-pressed="true"] i { font-weight: 900; }
+.cs-pin.is-pop { animation: cs-pop .32s var(--ai-ease, ease); }
+
+/* ---------- Misc ---------- */
+.cs-empty { margin: 40px 0; text-align: center; color: var(--ai-ink-2); font-size: 15px; }
+.cs-source { margin: 28px 0 0; padding-top: 16px; border-top: 1px solid var(--ai-line); color: var(--ai-ink-3); font-size: 12.5px; }
+.cs-top { position: fixed; right: 22px; bottom: 22px; z-index: 30; display: grid; place-items: center; width: 44px; height: 44px; border: 0; border-radius: 14px; background: var(--ai-brand); color: #fff; font-size: 20px; box-shadow: var(--ai-shadow-lg); cursor: pointer; transition: transform .2s; }
+.cs-top:hover { transform: translateY(-2px); }
+
+/* Filtering and scroll reveal */
+.cs [hidden], .cs .is-filtered { display: none !important; }
+.cs-reveal { opacity: 0; transform: translateY(14px); }
+.cs-reveal.is-in { opacity: 1; transform: none; transition: opacity .45s ease, transform .45s var(--ai-ease, ease); }
+
+@keyframes cs-rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes cs-pop { 40% { transform: scale(1.35) rotate(-12deg); } 100% { transform: none; } }
+
+@media (max-width: 575px) {
+  .cs-hero h1 { font-size: 24px; }
+  .cs-cards, .cs-pins__list { grid-template-columns: 1fr; }
+  .cs-card__value b { font-size: 30px; }
+  .cs-nav { margin: 0 -16px 18px; padding: 8px 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cs *, .cs-reveal { animation: none !important; transition: none !important; }
+  .cs-reveal { opacity: 1; transform: none; }
+}
+@media print {
+  .cs-nav, .cs-search, .cs-pin, .cs-top, .cs-pins { display: none !important; }
+  .cs-card, .cs-rules { box-shadow: none; break-inside: avoid; }
+}
