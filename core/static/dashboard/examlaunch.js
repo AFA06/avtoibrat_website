@@ -5,11 +5,13 @@
 (function () {
   "use strict";
 
-  // Inside the frame: any page other than the test itself (the result) belongs in the top window.
+  // Inside the frame: any panel page (e.g. the season road with its result) belongs in the top window.
+  // Loaded first in <head>, so stopping here keeps the page's own scripts from running inside the frame.
   if (window.top !== window.self) {
     try {
       if (window.frameElement && window.frameElement.id === "examLaunchFrame" && !/\/test-session\//.test(location.pathname)) {
         window.top.location.replace(location.href);
+        window.stop();
       }
     } catch (e) { /* cross-origin: leave as is */ }
     return;

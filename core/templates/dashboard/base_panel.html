@@ -17,6 +17,8 @@
      <link href="{% static 'assets_dashboard/css/app.min.css' %}" rel="stylesheet" type="text/css" />
      <link href="{% static 'dashboard/user-menu.css' %}" rel="stylesheet" type="text/css" />
      <link href="{% static 'dashboard/sidebar.css' %}" rel="stylesheet" type="text/css" />
+     <!-- First, not deferred: inside the test frame it must hand the page to the top window before any page script runs. -->
+     <script src="{% static 'dashboard/examlaunch.js' %}"></script>
      <script src="{% static 'dashboard/sidebar.js' %}"></script>
      <script src="{% static 'dashboard/protect.js' %}" defer></script>
 
@@ -137,6 +139,5 @@
     <script src="{% static 'vendor/motion.js' %}"></script>
     <script src="{% static 'dashboard/theme.js' %}" defer></script>
     <script src="{% static 'dashboard/pjax.js' %}" defer></script>
-    <script src="{% static 'dashboard/examlaunch.js' %}" defer></script>
 </body>
 </html>
