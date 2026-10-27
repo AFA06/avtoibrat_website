@@ -532,7 +532,7 @@ class ExamModeTests(TestCase):
         self.assertIn("practice: false", html)
         self.assertIn('id="answerModal"', html)
         self.assertNotIn('id="textUpBtn"', html)
-        self.assertLess(html.index('id="examImageBox"'), html.index('id="examOptions"'))
+        self.assertLess(html.index('id="examOptions"'), html.index('id="examImageBox"'))
 
     def test_text_size_limits(self):
         with open(finders.find("exam/exam.js"), encoding="utf-8") as handle:
