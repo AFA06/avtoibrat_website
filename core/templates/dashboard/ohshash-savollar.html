@@ -148,12 +148,16 @@
                             <div class="topic-status success">
                                 <i class="ti ti-check"></i>{{ cat.correct }}
                             </div>
+                            {% if cat.wrong %}
                             <div class="topic-status danger">
                                 <i class="ti ti-x"></i>{{ cat.wrong }}
                             </div>
+                            {% endif %}
+                            {% if cat.empty %}
                             <div class="topic-status warning">
                                 <i class="ti ti-alert-circle"></i>{{ cat.empty }}
                             </div>
+                            {% endif %}
                         </div>
                         {% endif %}
                     </div>
