@@ -441,7 +441,7 @@ body {
 
 /* Answer confirmation: the question and all options, the chosen one in yellow (like the real exam terminal). */
 .exam-confirm {
-  width: 760px;
+  width: 1100px;
   max-width: 94vw;
   max-height: 90vh;
   overflow-y: auto;
