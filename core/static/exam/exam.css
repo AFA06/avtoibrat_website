@@ -1067,3 +1067,9 @@ img {
 @media (prefers-reduced-motion: reduce) {
   .exam--intro * { animation: none !important; }
 }
+
+/* Real exam answer confirmation: green confirms, red cancels. */
+.exam-confirm #answerConfirmBtn { background: #1e9e64; color: #fff; }
+.exam-confirm #answerConfirmBtn:hover { background: #188553; }
+.exam-confirm #answerCancelBtn { background: #c0392b; border-color: #c0392b; color: #fff; }
+.exam-confirm #answerCancelBtn:hover { background: #a93226; }
