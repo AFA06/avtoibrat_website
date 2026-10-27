@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="{% static 'exam/exam.css' %}">
 <script src="{% static 'dashboard/protect.js' %}" defer></script>
 </head>
-<body class="{% if practice %}exam--practice{% else %}exam--real{% endif %}">
+<body class="{% if practice %}exam--practice{% else %}exam--real{% if not answered_data %} exam--intro{% endif %}{% endif %}">
 
 <header class="exam-header">
   <div class="exam-header__brand">

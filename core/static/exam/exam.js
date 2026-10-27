@@ -751,4 +751,9 @@
   guardBackButton();
   setupFullscreenStart();
   renderQuestion();
+
+  // A fresh real exam opens with an entrance animation (CSS); afterwards questions change without it.
+  if (document.body.classList.contains("exam--intro")) {
+    setTimeout(() => document.body.classList.remove("exam--intro"), 1600);
+  }
 })();

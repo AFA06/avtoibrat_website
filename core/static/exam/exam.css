@@ -1047,3 +1047,23 @@ img {
   background: rgba(14, 30, 46, 0.92);
 }
 
+/* Entrance of a fresh real exam: the screen assembles top to bottom, options one after another. */
+.exam--intro .exam-header { animation: exam-drop 0.5s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.exam--intro .exam-question-bar { animation: exam-rise 0.6s 0.15s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.exam--intro .exam-option { animation: exam-slide 0.55s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.exam--intro .exam-option:nth-child(1) { animation-delay: 0.35s; }
+.exam--intro .exam-option:nth-child(2) { animation-delay: 0.45s; }
+.exam--intro .exam-option:nth-child(3) { animation-delay: 0.55s; }
+.exam--intro .exam-option:nth-child(4) { animation-delay: 0.65s; }
+.exam--intro .exam-option:nth-child(n + 5) { animation-delay: 0.75s; }
+.exam--intro .exam-main__image { animation: exam-zoom 0.7s 0.4s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.exam--intro .exam-navigator { animation: exam-rise 0.6s 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+@keyframes exam-drop { from { opacity: 0; transform: translateY(-100%); } }
+@keyframes exam-rise { from { opacity: 0; transform: translateY(18px); } }
+@keyframes exam-slide { from { opacity: 0; transform: translateX(-28px); } }
+@keyframes exam-zoom { from { opacity: 0; transform: scale(0.94); filter: blur(6px); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .exam--intro * { animation: none !important; }
+}

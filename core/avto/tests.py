@@ -528,7 +528,7 @@ class ExamModeTests(TestCase):
     def test_real_exam_keeps_its_own_layout_and_confirmation(self):
         html = self.exam_html("real")
         self.assertNotIn("exam--practice", html)
-        self.assertIn('class="exam--real"', html)
+        self.assertIn('class="exam--real exam--intro"', html)  # a fresh exam opens with its entrance
         self.assertIn("practice: false", html)
         self.assertIn('id="answerModal"', html)
         self.assertNotIn('id="textUpBtn"', html)
