@@ -53,6 +53,25 @@
     osc.start(start);
     osc.stop(start + duration + 0.05);
   }
+  function noise(duration, { volume = 0.2, delay = 0, freq = 1000, q = 1, type = "bandpass" } = {}) {
+    const c = muted ? null : ctx();
+    if (!c) return;
+    const start = c.currentTime + delay;
+    const buffer = c.createBuffer(1, Math.ceil(c.sampleRate * duration), c.sampleRate);
+    const samples = buffer.getChannelData(0);
+    for (let i = 0; i < samples.length; i++) samples[i] = Math.random() * 2 - 1;
+    const source = c.createBufferSource();
+    const filter = c.createBiquadFilter();
+    const gain = c.createGain();
+    source.buffer = buffer;
+    filter.type = type;
+    filter.frequency.value = freq;
+    filter.Q.value = q;
+    gain.gain.setValueAtTime(volume, start);
+    gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
+    source.connect(filter).connect(gain).connect(c.destination);
+    source.start(start);
+  }
   const sounds = {
     tick: (ok, step) => tone(ok ? 520 + step * 14 : 180, 0.07, { type: ok ? "triangle" : "square", volume: ok ? 0.07 : 0.06 }),
     heartbeat: () => { tone(60, 0.18, { volume: 0.35, slideTo: 40 }); tone(60, 0.18, { volume: 0.3, slideTo: 40, delay: 0.22 }); },
@@ -64,6 +83,15 @@
     fail: () => {
       [392, 370, 349, 311].forEach((f, i) => tone(f, 0.38, { type: "sawtooth", volume: 0.09, delay: i * 0.28, slideTo: f * 0.93 }));
       tone(70, 0.7, { type: "sine", volume: 0.4, slideTo: 38, delay: 0.1 });
+    },
+    screech: () => {
+      noise(0.95, { volume: 0.22, freq: 2600, q: 8 });
+      tone(1900, 0.9, { type: "sawtooth", volume: 0.035, slideTo: 1450 });
+    },
+    crash: () => {
+      noise(0.9, { volume: 0.9, freq: 900, q: 0.4, type: "lowpass" });
+      tone(55, 0.6, { volume: 0.6, slideTo: 30 });
+      for (let i = 0; i < 9; i++) tone(rand(2600, 5200), 0.12, { type: "triangle", volume: 0.04, delay: 0.08 + i * 0.05 }); // glass
     },
     restart: () => { tone(110, 0.5, { type: "sawtooth", volume: 0.07, slideTo: 260 }); tone(330, 0.25, { type: "triangle", volume: 0.1, delay: 0.5 }); tone(494, 0.35, { type: "triangle", volume: 0.1, delay: 0.7 }); },
   };
@@ -103,6 +131,13 @@
   function smoke(x, y, count) {
     for (let i = 0; i < count; i++) {
       add({ x: x + rand(-10, 10), y, vx: rand(-0.7, 0.7), vy: rand(-2.2, -0.8), drag: 0.99, max: rand(1.8, 3.2), size: rand(10, 20), grow: rand(0.35, 0.7), color: "170,178,195", shape: "puff" });
+    }
+  }
+  function shards(x, y, count) {
+    for (let i = 0; i < count; i++) {
+      const a = rand(-Math.PI * 0.95, -Math.PI * 0.25);
+      const speed = rand(3, 10);
+      add({ x, y, vx: Math.cos(a) * speed, vy: Math.sin(a) * speed, g: 0.4, drag: 0.985, max: rand(0.9, 1.6), size: rand(3, 7), color: ["#bae6fd", "#e0f2fe", "#cbd5e1"][i % 3], shape: "rect", rot: rand(0, 6.28), vr: rand(-0.5, 0.5) });
     }
   }
   function sparks(x, y, count) {
@@ -166,6 +201,9 @@
       <path class="rv-car__body" d="M10 56 Q12 42 32 38 L58 36 Q74 14 100 14 L140 14 Q160 16 172 36 L200 42 Q212 46 210 58 L208 62 L12 62 Z" />
       <path class="rv-car__glass" d="M70 36 Q82 20 100 20 L124 20 L124 36 Z M130 20 L142 20 Q154 24 160 36 L130 36 Z" />
       <rect class="rv-car__light" x="198" y="46" width="12" height="7" rx="3" />
+      <rect class="rv-car__brake" x="9" y="44" width="9" height="8" rx="2" />
+      <path class="rv-car__crack" d="M150 22 l-6 6 l5 3 l-7 5 M146 28 l7 4 M136 20 l4 9" />
+      <path class="rv-car__dent" d="M176 38 L186 30 L190 41 L199 35 L206 47" />
       <g class="rv-car__wheel" style="--cx:56px"><circle cx="56" cy="62" r="15" /><path d="M56 49v26M43 62h26M47 53l18 18M65 53L47 71" /></g>
       <g class="rv-car__wheel" style="--cx:160px"><circle cx="160" cy="62" r="15" /><path d="M160 49v26M147 62h26M151 53l18 18M169 53l-18 18" /></g>
     </svg>`;
@@ -238,7 +276,7 @@
         </div>
       </section>
 
-      <div class="rv-road"><div class="rv-road__line"></div>${carSvg}</div>`;
+      <div class="rv-road"><div class="rv-road__line"></div><i class="rv-skid rv-skid--rear"></i><i class="rv-skid rv-skid--front"></i><div class="rv-barrier"></div>${carSvg}</div>`;
 
     canvas = root.querySelector(".rv-canvas");
     g = canvas.getContext("2d");
@@ -305,11 +343,14 @@
     await wait(350);
     if (!alive()) return;
     q(".rv-tally").hidden = true;
-    q(".rv-flash").classList.add("go");
-    root.classList.add(d.passed ? "is-pass" : "is-fail", "rv-shake");
-    setTimeout(() => root.classList.remove("rv-shake"), 700);
+    const verdict = () => {
+      q(".rv-flash").classList.add("go");
+      root.classList.add(d.passed ? "is-pass" : "is-fail", "rv-shake");
+      setTimeout(() => root.classList.remove("rv-shake"), 700);
+    };
 
     if (d.passed) {
+      verdict();
       sounds.fanfare();
       q(".rv-pass").hidden = false;
       typeTitle(q("[data-type]"));
@@ -320,20 +361,34 @@
       run();
       tiltCard();
     } else {
-      sounds.fail();
-      q(".rv-road").classList.remove("is-driving");
-      q(".rv-road").classList.add("is-stalled");
-      q(".rv-fail").hidden = false;
+      // Brakes: the barrier rushes in, wheels lock, skid marks, screech… then the impact.
+      const road = q(".rv-road");
+      road.classList.add("is-scene"); // the road grows into a close-up first
+      await wait(550);
+      if (!alive()) return;
+      road.classList.add("is-braking");
+      sounds.screech();
+      await wait(900);
+      if (!alive()) return;
+      road.classList.remove("is-driving", "is-braking");
+      road.classList.add("is-crashed");
+      verdict();
+      sounds.crash();
+      setTimeout(() => alive() && sounds.fail(), 650);
       const carBox = q(".rv-car").getBoundingClientRect();
-      const puff = setInterval(() => alive() && !root.classList.contains("is-hope") && (smoke(carBox.left + carBox.width * 0.82, carBox.top + 10, 3), run()), 110);
-      sparks(carBox.left + carBox.width * 0.8, carBox.top + 20, 40);
+      const hit = { x: carBox.right - carBox.width * 0.06, y: carBox.top + carBox.height * 0.5 };
+      sparks(hit.x, hit.y, 70);
+      shards(hit.x - carBox.width * 0.25, carBox.top + carBox.height * 0.3, 36);
+      smoke(hit.x, hit.y, 10);
+      q(".rv-fail").hidden = false;
+      const puff = setInterval(() => alive() && !root.classList.contains("is-hope") && (smoke(hit.x - carBox.width * 0.12, carBox.top + 6, 3), run()), 110);
       run();
-      await wait(2600);
+      await wait(3000);
       clearInterval(puff);
       if (!alive()) return;
       root.classList.add("is-hope");
-      q(".rv-road").classList.remove("is-stalled");
-      q(".rv-road").classList.add("is-driving", "is-slow");
+      road.classList.remove("is-crashed");
+      road.classList.add("is-driving", "is-slow", "is-leaving");
       sounds.restart();
     }
   }

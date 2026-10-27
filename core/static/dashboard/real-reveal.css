@@ -100,9 +100,11 @@
 .rv-road__line { position: absolute; left: 0; right: 0; top: 52px; height: 4px; background: repeating-linear-gradient(90deg, #cbd5e1 0 36px, transparent 36px 78px); background-size: 78px 4px; }
 .rv-road.is-driving .rv-road__line { animation: rv-road .5s linear infinite; }
 .rv-road.is-slow .rv-road__line { animation-duration: 1.1s; }
-.rv-car { position: absolute; left: 50%; bottom: 12px; width: 150px; margin-left: -75px; filter: drop-shadow(0 6px 10px rgba(0,0,0,.5)); }
+.rv-road { --car: 150px; transition: height .5s cubic-bezier(.2,.8,.3,1); }
+.rv-road.is-scene { --car: 300px; height: 170px; }
+.rv-road__line { transition: top .5s cubic-bezier(.2,.8,.3,1); } .rv-road.is-scene .rv-road__line { top: 120px; }
+.rv-car { position: absolute; z-index: 2; left: 50%; bottom: 12px; width: var(--car); margin-left: calc(var(--car) / -2); filter: drop-shadow(0 6px 10px rgba(0,0,0,.5)); transform-origin: 90% 85%; transition: width .5s cubic-bezier(.2,.8,.3,1), margin-left .5s cubic-bezier(.2,.8,.3,1); }
 .rv-road.is-driving .rv-car { animation: rv-bob .4s ease-in-out infinite; }
-.rv-road.is-stalled .rv-car { animation: rv-stall .5s ease-out both; }
 .rv-car__body { fill: #14b8a6; } .rv-car__glass { fill: #bae6fd; opacity: .85; } .rv-car__light { fill: #fde047; }
 .rv-car__wheel circle { fill: #0f172a; stroke: #e2e8f0; stroke-width: 3; }
 .rv-car__wheel path { stroke: #94a3b8; stroke-width: 2; fill: none; }
@@ -112,6 +114,51 @@
 .rv.is-fail .rv-car__body { fill: #6b7280; }
 .rv.is-fail.is-hope .rv-car__body { fill: #14b8a6; }
 .rv.is-fail .rv-car__light { fill: #475569; } .rv.is-fail.is-hope .rv-car__light { fill: #fde047; }
+
+/* Failed exam: brake, skid into a road barrier, crash; then the car pulls away again. */
+.rv-car__brake { fill: #7f1d1d; }
+.rv-car__crack, .rv-car__dent { fill: none; stroke-linecap: round; stroke-linejoin: round; opacity: 0; }
+.rv-car__crack { stroke: #f8fafc; stroke-width: 1.6; }
+.rv-car__dent { stroke: #1f2937; stroke-width: 4; }
+.rv-barrier {
+  position: absolute; z-index: 1; bottom: 10px; left: calc(50% + var(--car) / 2 - 2px); width: calc(var(--car) * .17); height: calc(var(--car) * .36); border-radius: 5px 5px 2px 2px;
+  background: repeating-linear-gradient(-45deg, #ef4444 0 9px, #f8fafc 9px 18px);
+  box-shadow: inset 0 -7px 0 rgba(0,0,0,.28), 0 6px 12px rgba(0,0,0,.55);
+  transform: translateX(65vw); transform-origin: 100% 100%; opacity: 0;
+}
+.rv-skid { position: absolute; z-index: 1; bottom: 11px; height: 4px; width: 0; border-radius: 2px; background: linear-gradient(90deg, transparent, rgba(0,0,0,.75)); }
+.rv-skid--rear { right: calc(50% + var(--car) * .245); }
+.rv-skid--front { right: calc(50% - var(--car) * .227); }
+
+.rv-road.is-braking .rv-road__line { animation: rv-road-brake .9s cubic-bezier(.15,.6,.35,1) forwards; }
+.rv-road.is-braking .rv-barrier { animation: rv-barrier-in .9s cubic-bezier(.15,.6,.35,1) forwards; }
+.rv-road.is-braking .rv-skid { animation: rv-skid .9s ease-out forwards; }
+.rv-road.is-braking .rv-car { animation: rv-brake .9s ease-out forwards; }
+.rv-road.is-braking .rv-car__wheel { animation: none; } /* locked wheels */
+.rv-road.is-braking .rv-car__brake { fill: #ef4444; filter: drop-shadow(0 0 6px #ef4444); }
+
+.rv-road.is-crashed .rv-barrier { opacity: 1; animation: rv-barrier-hit .5s ease-out forwards; }
+.rv-road.is-crashed .rv-skid { width: 38vw; }
+.rv-road.is-crashed .rv-car { animation: rv-impact .6s cubic-bezier(.2,.9,.3,1) forwards; }
+.rv-road.is-crashed .rv-car__crack, .rv-road.is-crashed .rv-car__dent { opacity: 1; }
+.rv-road.is-crashed .rv-car__light, .rv-road.is-crashed .rv-car__brake { fill: #f59e0b; animation: rv-hazard .8s steps(1) infinite; }
+.rv-road.is-leaving .rv-barrier { opacity: 1; animation: rv-barrier-out 1.4s ease-in forwards; }
+.rv-road.is-leaving .rv-skid { width: 38vw; animation: rv-skid-out 1.4s ease-in forwards; }
+
+@keyframes rv-road-brake { from { background-position-x: 0; } to { background-position-x: -150px; } }
+@keyframes rv-barrier-in { from { opacity: 1; transform: translateX(65vw); } to { opacity: 1; transform: none; } }
+@keyframes rv-skid { to { width: 38vw; } }
+@keyframes rv-brake { 0% { transform: none; } 25% { transform: rotate(2.4deg); } 100% { transform: rotate(1.6deg); } }
+@keyframes rv-impact {
+  0% { transform: rotate(1.6deg); }
+  14% { transform: translateX(5px) rotate(-4deg) scaleX(.88); }
+  45% { transform: translateX(-16px) rotate(2.5deg) scaleX(.92); }
+  100% { transform: translateX(-11px) rotate(1deg) scaleX(.93); }
+}
+@keyframes rv-barrier-hit { 0% { transform: none; } 30% { transform: translateX(10px) rotate(12deg); } 100% { transform: translateX(7px) rotate(8deg); } }
+@keyframes rv-barrier-out { from { transform: translateX(7px) rotate(8deg); } to { transform: translateX(-80vw) rotate(8deg); } }
+@keyframes rv-skid-out { to { transform: translateX(-80vw); } }
+@keyframes rv-hazard { 50% { fill: #78350f; } }
 
 @keyframes rv-flash { 0% { opacity: .95; } 100% { opacity: 0; } }
 @keyframes rv-pulse { 50% { background-color: #0d1424; box-shadow: inset 0 0 160px rgba(0,0,0,.9); } }
@@ -130,14 +177,13 @@
 @keyframes rv-glitch-b { 0% { transform: translate(3px, 0); } 50% { transform: translate(-3px, 2px); } 100% { transform: translate(2px, -2px); } }
 @keyframes rv-road { to { background-position-x: -78px; } }
 @keyframes rv-bob { 50% { transform: translateY(-2px); } }
-@keyframes rv-stall { 0% { transform: translateX(0) rotate(0); } 30% { transform: translateX(10px) rotate(-1.5deg); } 100% { transform: translateX(0) rotate(1.2deg); } }
 @keyframes rv-spin { to { transform: rotate(360deg); } }
 @property --p { syntax: "<number>"; inherits: true; initial-value: 0; }
 
 @media (max-width: 520px) {
   .rv-card__name { font-size: 21px; }
   .rv-compare div { min-width: 92px; }
-  .rv-car { width: 120px; margin-left: -60px; }
+  .rv-road { --car: 120px; } .rv-road.is-scene { --car: 190px; height: 130px; } .rv-road.is-scene .rv-road__line { top: 92px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .rv *, .rv { animation: none !important; transition: none !important; }
