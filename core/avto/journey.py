@@ -21,6 +21,7 @@ from . import real_exam
 from .models import TestCategory, TestSession, UserAnswer
 
 ALLOWED_MISTAKES = 2
+RUN_KEY = "journey_run"  # django-session key: the bilet run started from the road
 SEASON_KEYS = ("spring", "summer", "autumn", "winter")
 FINAL_STREAK = 2
 FORM_WINDOW = 3

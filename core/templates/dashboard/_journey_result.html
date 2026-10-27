@@ -1,0 +1,30 @@
+{% load i18n %}
+{% comment %}A bilet's result, shown by the season road above the road itself (journey.js fetches this fragment).{% endcomment %}
+<div class="rw-sheet__head">
+  <div>
+    <p class="rw-sheet__kicker">{{ session.title }}</p>
+    <h3>{% if journey_stage.stars %}{% trans "Bosqich o‘tildi" %}{% else %}{% trans "Bosqich o‘tilmadi" %}{% endif %}</h3>
+  </div>
+  <span class="rw-sheet__stars" aria-hidden="true">{% for i in "123" %}<i class="{% if forloop.counter <= journey_stage.stars %}is-on{% endif %}">★</i>{% endfor %}</span>
+  <button type="button" class="rw-sheet__close" data-rw-close aria-label="{% trans 'Yopish' %}"><i class="ti ti-x"></i></button>
+</div>
+
+<dl class="rw-stats">
+  <div class="is-right"><dt>{% trans "Toʻgʻri" %}</dt><dd>{{ correct }}</dd></div>
+  <div class="is-wrong"><dt>{% trans "Notoʻgʻri" %}</dt><dd>{{ wrong }}</dd></div>
+  <div><dt>{% trans "Ball" %}</dt><dd>{{ score_percent }}%</dd></div>
+  <div><dt>{% trans "Sarflangan vaqt" %}</dt><dd>{{ duration_display }}</dd></div>
+</dl>
+
+<div class="rw-cells">
+  {% for cell in cells %}<span class="rw-cell rw-cell--{{ cell.status }}">{{ cell.number }}</span>{% endfor %}
+</div>
+
+{% if not journey_stage.stars %}<p class="rw-hint">{% trans "Bosqichni o‘tish uchun ko‘pi bilan 2 ta xato qilish mumkin" %}</p>{% endif %}
+
+{% include "dashboard/_review.html" %}
+
+<div class="rw-sheet__actions">
+  <a class="jr-btn jr-btn--ghost-light" href="{{ restart_url }}"><i class="ti ti-refresh"></i>{% trans "Qayta boshlash" %}</a>
+  <button type="button" class="jr-btn jr-btn--light" data-rw-close>{% trans "Yo‘lga qaytish" %}<i class="ti ti-arrow-right"></i></button>
+</div>

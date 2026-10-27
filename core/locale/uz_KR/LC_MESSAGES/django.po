@@ -1842,3 +1842,21 @@ msgstr "эни"
 
 msgid "balandligi"
 msgstr "баландлиги"
+
+msgid "Xatolarni ko‘rib chiqish"
+msgstr "Хатоларни кўриб чиқиш"
+
+msgid "Sizning javobingiz"
+msgstr "Сизнинг жавобингиз"
+
+msgid "To‘g‘ri javob"
+msgstr "Тўғри жавоб"
+
+msgid "Nima uchun? Ustoz tushuntirishi"
+msgstr "Нима учун? Устоз тушунтириши"
+
+msgid "Bosqich o‘tilmadi"
+msgstr "Босқич ўтилмади"
+
+msgid "Yo‘lga qaytish"
+msgstr "Йўлга қайтиш"

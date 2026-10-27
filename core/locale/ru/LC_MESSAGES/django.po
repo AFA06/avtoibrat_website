@@ -1849,3 +1849,21 @@ msgstr "ширина"
 
 msgid "balandligi"
 msgstr "высота"
+
+msgid "Xatolarni ko‘rib chiqish"
+msgstr "Разбор ошибок"
+
+msgid "Sizning javobingiz"
+msgstr "Ваш ответ"
+
+msgid "To‘g‘ri javob"
+msgstr "Правильный ответ"
+
+msgid "Nima uchun? Ustoz tushuntirishi"
+msgstr "Почему? Объяснение преподавателя"
+
+msgid "Bosqich o‘tilmadi"
+msgstr "Этап не пройден"
+
+msgid "Yo‘lga qaytish"
+msgstr "Вернуться на дорогу"

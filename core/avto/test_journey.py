@@ -127,3 +127,43 @@ class JourneyTests(TestCase):
         response = self.client.get(reverse("journey"))
         self.assertContains(response, 'id="jr-cert"')
         self.assertContains(response, f"AI-{self.user.pk:05d}-08")
+
+    # The result of a bilet started on the road is shown on the road, with the mistakes to review.
+    def test_run_started_from_the_road_returns_to_the_road(self):
+        self.client.get(reverse("start_shablon_test", args=[self.bilets[0].id]) + "?from=journey")
+        session = TestSession.objects.latest("id")
+        session.finished_at = timezone.now()
+        session.save()
+        response = self.client.get(reverse("test_result", args=[session.id]))
+        self.assertRedirects(response, f"{reverse('journey')}?result={session.id}", fetch_redirect_response=False)
+        # Once: reloading the result afterwards shows the ordinary result page.
+        self.assertEqual(self.client.get(reverse("test_result", args=[session.id])).status_code, 200)
+
+    def test_run_started_elsewhere_keeps_the_ordinary_result_page(self):
+        session = self.run_bilet(self.bilets[0], 3)
+        self.assertEqual(self.client.get(reverse("test_result", args=[session.id])).status_code, 200)
+
+    def test_fragment_lists_the_wrong_questions_with_the_right_answer(self):
+        session = self.run_bilet(self.bilets[0], 3)
+        response = self.client.get(reverse("journey_result", args=[session.id]))
+        self.assertContains(response, "Xatolarni ko‘rib chiqish")
+        self.assertContains(response, "S0-3")
+        self.assertNotContains(response, "S0-0")
+        self.assertContains(response, "Sizning javobingiz")
+
+    def test_fragment_is_private_to_the_student(self):
+        session = self.run_bilet(self.bilets[0], 3)
+        other = User.objects.create_user(username="boshqa", password="x", unlimited=True, phone="8888888")
+        self.client.force_login(other)
+        self.assertEqual(self.client.get(reverse("journey_result", args=[session.id])).status_code, 404)
+
+    def test_perfect_run_has_nothing_to_review(self):
+        session = self.run_bilet(self.bilets[0], 4)
+        self.assertNotContains(self.client.get(reverse("journey_result", args=[session.id])), "rw-toggle")
+
+    def test_real_exam_result_page_lists_the_mistakes(self):
+        questions = list(Question.objects.order_by("id")[:4])
+        session = self._session(questions[0].kategoriya, questions, 2, "real", "shablon")
+        response = self.client.get(reverse("test_result", args=[session.id]))
+        self.assertContains(response, "rw-toggle")
+        self.assertContains(response, "S0-3")

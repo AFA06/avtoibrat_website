@@ -1,0 +1,31 @@
+{% load i18n %}
+{% comment %}The mistakes of a finished test, one card per question: the student's answer, the right one and the teacher's voice explanation.{% endcomment %}
+{% if mistakes %}
+<details class="rw">
+  <summary class="rw-toggle">
+    <i class="ti ti-checklist"></i>
+    <span>{% trans "Xatolarni ko‘rib chiqish" %}</span>
+    <b>{{ mistakes|length }}</b>
+    <i class="ti ti-chevron-down rw-toggle__arrow"></i>
+  </summary>
+  <ol class="rw-list">
+    {% for item in mistakes %}
+    <li class="rw-item">
+      <span class="rw-item__no">{{ item.number }}</span>
+      <div class="rw-item__body">
+        <p class="rw-item__text">{{ item.text }}</p>
+        {% if item.image %}<img class="rw-item__img" src="{{ item.image }}" alt="" loading="lazy">{% endif %}
+        <p class="rw-answer rw-answer--wrong"><i class="ti ti-x"></i><span><small>{% trans "Sizning javobingiz" %}</small>{{ item.chosen }}</span></p>
+        <p class="rw-answer rw-answer--right"><i class="ti ti-check"></i><span><small>{% trans "To‘g‘ri javob" %}</small>{{ item.correct }}</span></p>
+        {% if item.explanation %}
+        <div class="rw-why">
+          <span><i class="ti ti-headphones"></i>{% trans "Nima uchun? Ustoz tushuntirishi" %}</span>
+          <audio controls preload="none" src="{{ item.explanation }}"></audio>
+        </div>
+        {% endif %}
+      </div>
+    </li>
+    {% endfor %}
+  </ol>
+</details>
+{% endif %}

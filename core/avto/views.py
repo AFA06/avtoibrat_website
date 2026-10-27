@@ -27,7 +27,7 @@ from .models import (
 )
 
 from .road_signs import ordered_categories, sorted_signs
-from . import journey, legal, topic_tests
+from . import journey, legal, review, topic_tests
 from .marathon import MINUTES_PER_QUESTION
 
 User = get_user_model()
@@ -693,6 +693,9 @@ def start_shablon_test(request, category_id):
         show_in_shablon=True
     )
     session = _create_test_session(request.user, category, "shablon", "shablon")
+    if request.GET.get("from") == "journey":
+        # The result of a bilet started on the season road is shown on the road itself.
+        request.session[journey.RUN_KEY] = session.id
     return redirect("test_page", session_id=session.id)
 
 
@@ -989,8 +992,13 @@ def _result_context(session):
         stars = journey.stars_for(correct, total)
         journey_stage = {"stars": stars, "marks": "★" * stars}
 
+    mistakes = []
+    if session.test_kind == "real" and session.finished_at:
+        mistakes = review.mistakes(session, _content_language(session.user))
+
     return {
         "reveal": reveal,
+        "mistakes": mistakes,
         "journey_stage": journey_stage,
         "has_session": True,
         "session": session,
@@ -1049,6 +1057,9 @@ def question_explanation(request, question_id):
 @login_required
 def test_result(request, session_id):
     session = get_object_or_404(TestSession, id=session_id, user=request.user)
+    if session.finished_at and request.session.get(journey.RUN_KEY) == session.id:
+        del request.session[journey.RUN_KEY]
+        return redirect(f"{reverse('journey')}?result={session.id}")
     return render(request, "dashboard/result.html", _result_context(session))
 
 

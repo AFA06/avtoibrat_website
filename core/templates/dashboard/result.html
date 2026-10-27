@@ -10,6 +10,7 @@
     <link href="{% static 'assets_dashboard/css/icons.min.css' %}" rel="stylesheet" type="text/css" />
     <link href="{% static 'dashboard/result.css' %}" rel="stylesheet" type="text/css" />
     {% if reveal %}<link href="{% static 'dashboard/real-reveal.css' %}" rel="stylesheet" type="text/css" />{% endif %}
+    {% if mistakes %}<link href="{% static 'dashboard/review.css' %}" rel="stylesheet" type="text/css" />{% endif %}
 </head>
 <body>
 
@@ -73,6 +74,8 @@
         <b>{% trans "Imtihonga yo‘l" %} <i class="ti ti-arrow-right"></i></b>
       </a>
       {% endif %}
+
+      {% include "dashboard/_review.html" %}
 
       <div class="result-actions">
         {% if reveal %}

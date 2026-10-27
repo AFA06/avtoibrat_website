@@ -5,6 +5,7 @@
 
 {% block extra_css %}
 <link href="{% static 'dashboard/journey.css' %}" rel="stylesheet" type="text/css" />
+<link href="{% static 'dashboard/review.css' %}" rel="stylesheet" type="text/css" />
 {% endblock %}
 
 {% block content %}
@@ -31,7 +32,7 @@
 
       <div class="jr-hero__actions">
         {% if journey.next_stage %}
-        <a class="jr-btn jr-btn--primary" href="{% url 'start_shablon_test' journey.next_stage.id %}">
+        <a class="jr-btn jr-btn--primary" href="{% url 'start_shablon_test' journey.next_stage.id %}?from=journey">
           <i class="ti ti-player-play"></i>{% trans "Davom etish" %} · {{ journey.next_stage.name }}
         </a>
         {% elif final.unlocked and not final.certified %}

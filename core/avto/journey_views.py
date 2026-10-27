@@ -1,10 +1,12 @@
 """Student page «Imtihonga yo‘l»: the season map, readiness and the final certificate."""
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.utils.translation import gettext as _
 
-from . import journey, real_exam
+from . import journey, real_exam, review
+from .models import TestSession
+from .views import _content_language, _result_context
 
 
 def _texts():
@@ -47,8 +49,21 @@ def journey_page(request):
         "client": {
             **journey.client_data(data),
             "user": request.user.pk,
-            "start_url": reverse("start_shablon_test", args=[0]),
+            "start_url": reverse("start_shablon_test", args=[0]) + "?from=journey",
+            "result_url": reverse("journey_result", args=[0]),
             "t": _texts(),
         },
         "real_size": real_exam.SIZES[0],
     })
+
+
+@login_required
+def journey_result(request, session_id):
+    """The result of a finished bilet run, as a fragment the road page shows above itself."""
+    session = get_object_or_404(
+        TestSession, id=session_id, user=request.user, test_kind="shablon", source="shablon", finished_at__isnull=False,
+    )
+    context = _result_context(session)
+    context["mistakes"] = review.mistakes(session, _content_language(request.user))
+    context["restart_url"] += "?from=journey"
+    return render(request, "dashboard/_journey_result.html", context)

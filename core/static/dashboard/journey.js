@@ -781,6 +781,39 @@
     }).observe(scene);
   }
 
+  // ---------- Result of the bilet just finished ----------
+  // The result sheet opens over the road (kept visible behind it); the finish ceremonies play once it is closed.
+  async function showResult(id) {
+    try {
+      const response = await fetch(D.result_url.replace(/0\/$/, `${id}/`), { credentials: "same-origin" });
+      if (!response.ok) return false;
+      const overlay = document.createElement("div");
+      overlay.className = "rw-overlay";
+      overlay.innerHTML = `<section class="rw-sheet" role="dialog" aria-modal="true">${await response.text()}</section>`;
+      document.body.appendChild(overlay);
+      return new Promise((resolve) => {
+        const close = () => {
+          document.removeEventListener("keydown", onEscape);
+          overlay.classList.add("is-leaving");
+          setTimeout(() => { overlay.remove(); resolve(true); }, reduced ? 0 : 250);
+        };
+        const onEscape = (event) => { if (event.key === "Escape") close(); };
+        document.addEventListener("keydown", onEscape);
+        overlay.addEventListener("click", (event) => { if (event.target === overlay) close(); });
+        overlay.querySelectorAll("[data-rw-close]").forEach((button) => button.addEventListener("click", close));
+      });
+    } catch (e) { return false; }
+  }
+
+  async function start() {
+    const id = new URLSearchParams(location.search).get("result");
+    if (!/^\d+$/.test(id || "")) return playJustDone();
+    history.replaceState(null, "", location.pathname);
+    await show(D.active);
+    await showResult(id);
+    playJustDone();
+  }
+
   hero();
-  playJustDone();
+  start();
 })();

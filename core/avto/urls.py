@@ -3,7 +3,7 @@ from .views import *
 from .leaderboard_views import student_leaderboard
 from .task_views import student_tasks
 from .marathon_views import marathon_page, start_marathon
-from .journey_views import journey_page
+from .journey_views import journey_page, journey_result
 from .cheatsheet_views import cheatsheet_page
 
 
@@ -24,6 +24,7 @@ urlpatterns = [
     path('profile/', profile, name="profile"),
     path('dashboard/', dashboard, name="dashboard"),
     path('imtihonga-yol/', journey_page, name="journey"),
+    path('imtihonga-yol/natija/<int:session_id>/', journey_result, name="journey_result"),
     path('leaderboard/', student_leaderboard, name="leaderboard"),
     path('vazifalar/', student_tasks, name="tasks"),
     path('marafon/', marathon_page, name="marathon"),
