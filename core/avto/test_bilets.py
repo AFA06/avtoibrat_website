@@ -164,7 +164,8 @@ class LinkedOptionTests(TestCase):
         with open(finders.find("exam/exam.js"), encoding="utf-8") as handle:
             script = handle.read()
         self.assertIn("text.textContent = linkedText(question, answer);", script)
-        self.assertIn("els.answerModalText.textContent = linkedText(question, answer);", script)
+        # The confirm dialog copies the rendered option rows, so its texts are linked the same way.
+        self.assertIn("const row = option.cloneNode(true);", script)
 
 
 @override_settings(MEDIA_ROOT=MEDIA)

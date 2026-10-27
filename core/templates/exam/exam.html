@@ -90,9 +90,10 @@
 
 {% if not practice %}
 <div class="exam-modal" id="answerModal">
-  <div class="exam-modal__card">
-    <h3>{% trans "Javobni tasdiqlaysizmi?" %}</h3>
-    <p class="exam-modal__answer" id="answerModalText"></p>
+  <div class="exam-modal__card exam-confirm" role="dialog" aria-modal="true" aria-labelledby="answerModalTitle">
+    <h3 class="exam-confirm__title" id="answerModalTitle">{% trans "Javobni tasdiqlang" %}</h3>
+    <p class="exam-confirm__question"><span class="exam-confirm__number" id="answerModalNumber"></span><span id="answerModalQuestion"></span></p>
+    <div class="exam-confirm__options" id="answerModalOptions"></div>
     <div class="exam-modal__actions">
       <button type="button" class="exam-btn exam-btn--ghost" id="answerCancelBtn">{% trans "Bekor qilish" %}</button>
       <button type="button" class="exam-btn exam-btn--primary" id="answerConfirmBtn">{% trans "Tasdiqlash" %}</button>

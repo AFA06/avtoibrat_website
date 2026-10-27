@@ -1860,3 +1860,6 @@ msgstr "Босқич ўтилмади"
 
 msgid "Yo‘lga qaytish"
 msgstr "Йўлга қайтиш"
+
+msgid "Javobni tasdiqlang"
+msgstr "Жавобни тасдиқланг"

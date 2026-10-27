@@ -523,7 +523,7 @@ class ExamModeTests(TestCase):
     def test_practice_has_no_answer_confirmation(self):
         html = self.exam_html("start_shablon_test")
         self.assertNotIn('id="answerModal"', html)
-        self.assertNotIn("Javobni tasdiqlaysizmi", html)
+        self.assertNotIn("Javobni tasdiqlang", html)
 
     def test_real_exam_keeps_its_own_layout_and_confirmation(self):
         html = self.exam_html("real")

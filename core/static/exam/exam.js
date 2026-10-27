@@ -20,7 +20,9 @@
     prevBtn: document.getElementById("prevBtn"),
     nextBtn: document.getElementById("nextBtn"),
     answerModal: document.getElementById("answerModal"),
-    answerModalText: document.getElementById("answerModalText"),
+    answerModalNumber: document.getElementById("answerModalNumber"),
+    answerModalQuestion: document.getElementById("answerModalQuestion"),
+    answerModalOptions: document.getElementById("answerModalOptions"),
     answerCancelBtn: document.getElementById("answerCancelBtn"),
     answerConfirmBtn: document.getElementById("answerConfirmBtn"),
     finishModal: document.getElementById("finishModal"),
@@ -356,8 +358,33 @@
       return;
     }
     pendingSelection = { question, answer };
-    els.answerModalText.textContent = linkedText(question, answer);
+    renderConfirm();
     openModal(els.answerModal);
+  }
+
+  // The confirm dialog repeats the question and every option on its key, the chosen one marked;
+  // another option (click or F-key) can be chosen right there, as on the real exam terminal.
+  function renderConfirm() {
+    const { question, answer } = pendingSelection;
+    els.answerModalNumber.textContent = String(currentIndex + 1);
+    els.answerModalQuestion.textContent = els.questionText.textContent;
+    els.answerModalOptions.textContent = "";
+    els.optionsBox.querySelectorAll(".exam-option").forEach((option) => {
+      const row = option.cloneNode(true);
+      row.className = "exam-confirm__option";
+      const selected = row.dataset.answerId === String(answer.id);
+      row.classList.toggle("is-selected", selected);
+      row.setAttribute("aria-selected", selected ? "true" : "false");
+      row.addEventListener("click", () => changeSelection(question, row.dataset.answerId));
+      els.answerModalOptions.appendChild(row);
+    });
+  }
+
+  function changeSelection(question, answerId) {
+    const answer = contentOf(question).answers.find((a) => String(a.id) === String(answerId));
+    if (!answer) return;
+    pendingSelection = { question, answer };
+    renderConfirm();
   }
 
   function confirmSelection() {
@@ -535,6 +562,9 @@
     if (isModalOpen(els.answerModal)) {
       if (e.key === "Enter") { e.preventDefault(); confirmSelection(); }
       if (e.key === "Escape") { e.preventDefault(); pendingSelection = null; closeModal(els.answerModal); }
+      const key = /^F(\d+)$/.exec(e.key);
+      const row = key && els.answerModalOptions.children[parseInt(key[1], 10) - 1];
+      if (row) { e.preventDefault(); row.click(); }
       return;
     }
 

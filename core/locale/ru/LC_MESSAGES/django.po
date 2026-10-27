@@ -1867,3 +1867,6 @@ msgstr "Этап не пройден"
 
 msgid "Yo‘lga qaytish"
 msgstr "Вернуться на дорогу"
+
+msgid "Javobni tasdiqlang"
+msgstr "Подтвердите ответ"
