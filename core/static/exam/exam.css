@@ -1025,3 +1025,25 @@ img {
   .exam-question-bar,
   .exam-main { transition: none; }
 }
+
+/* ---------- Real exam: the terminal-like blue backdrop, seen through translucent panels ---------- */
+
+.exam--real {
+  --exam-panel: rgba(16, 34, 52, 0.72);
+  --exam-panel-alt: rgba(24, 48, 72, 0.78);
+  --exam-border: rgba(120, 180, 225, 0.22);
+  background: #12324c url("real-bg.svg") center / cover no-repeat fixed;
+}
+
+.exam--real .exam-header,
+.exam--real .exam-question-bar,
+.exam--real .exam-option,
+.exam--real .exam-navcell,
+.exam--real .exam-modal__card {
+  backdrop-filter: blur(8px);
+}
+
+.exam--real .exam-modal__card {
+  background: rgba(14, 30, 46, 0.92);
+}
+
