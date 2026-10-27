@@ -82,3 +82,11 @@
   .qs-answer input[name$="_kr"] { grid-column: 1 / -1; grid-row: 2; }
   .qs-key { display: none; }
 }
+
+/* Search: the query marked in the question text and in the answers it was found in. */
+.qs-table mark { padding: 0 2px; border-radius: 3px; background: #fde68a; color: #1f2937; }
+.qs-hits { margin: 8px 0 0 76px; padding: 0; list-style: none; display: grid; gap: 4px; font-size: 13px; color: var(--sd-muted); }
+.qs-hits li { display: flex; gap: 8px; align-items: baseline; }
+.qs-hits i { font-size: 11px; opacity: 0.7; }
+.qs-hits li.is-correct { color: #15803d; }
+.dark-mode .qs-table mark { background: #b45309; color: #fff; }

@@ -55,6 +55,27 @@ class QuestionAdminTests(TestCase):
         self.assertEqual(ids(topic=self.second.pk), {second.pk})
         self.assertEqual(ids(bilet=self.other_bilet.pk), set())
 
+    def test_search_finds_answers_and_marks_the_query(self):
+        url = reverse("questions:list")
+        response = self.client.get(url, {"q": "a2"})  # an answer text, any case
+        self.assertEqual([q.pk for q in response.context["page"]], [self.question.pk])  # once, not per answer
+        self.assertContains(response, "<mark>A2</mark>", html=False)
+        self.assertNotContains(response, "<mark>A1</mark>", html=False)
+        response = self.client.get(url, {"q": "первый"})  # Cyrillic, other case: found in the Russian text, shown
+        self.assertContains(response, "<mark>Первый</mark> вопрос", html=False)
+        response = self.client.get(url, {"q": "<b>"})
+        self.assertEqual(list(response.context["page"]), [])
+        self.assertNotContains(response, "<mark><b>", html=False)
+
+    def test_highlight_escapes_and_trims_long_texts(self):
+        from .templatetags.search_extras import highlight
+        self.assertEqual(highlight("a <b> A", "a"), "<mark>a</mark> &lt;b&gt; <mark>A</mark>")
+        self.assertEqual(highlight("x<y", ""), "x&lt;y")
+        long = "s" * 300 + " kalit " + "e" * 300
+        cut = highlight(long, "kalit")
+        self.assertIn("<mark>kalit</mark>", cut)
+        self.assertTrue(cut.startswith("…") and cut.endswith("…"))
+
     def test_adding_a_question_with_two_topics(self):
         response = self.client.post(reverse("questions:create"), self.posted(extra_topics=[self.second.pk]))
         self.assertRedirects(response, reverse("questions:list"))

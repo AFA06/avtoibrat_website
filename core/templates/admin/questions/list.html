@@ -1,5 +1,5 @@
 {% extends "admin/base.html" %}
-{% load static %}
+{% load static search_extras %}
 
 {% block extrastyle %}<link rel="stylesheet" href="{% static 'admin/students.css' %}"><link rel="stylesheet" href="{% static 'admin/questions.css' %}">{% endblock %}
 {% block page_content %}
@@ -24,7 +24,7 @@
     <form class="sd-toolbar qs-toolbar" method="get">
       <label class="sd-search">
         <i class="fas fa-search"></i>
-        <input type="search" name="q" value="{{ query }}" placeholder="Savol matni yoki bilet-savol raqami (masalan 10-12)…" autocomplete="off">
+        <input type="search" name="q" value="{{ query }}" placeholder="Savol yoki javob matni, yoki bilet-savol raqami (masalan 10-12)…" autocomplete="off">
       </label>
       <select name="bilet" aria-label="Bilet" onchange="this.form.submit()">
         <option value="">Barcha biletlar</option>
@@ -64,8 +64,13 @@
                   <input type="file" name="rasm" accept="image/*" data-quick-picture>
                 </label>
               </form>
-              <a href="{% url 'questions:edit' q.pk %}"><span>{{ q.matn_uzb|truncatechars:140 }}{% if q.audio_uzb or q.audio_rus %} <i class="fas fa-volume-up qs-voice-ico" title="Ovozli tushuntirish bor"></i>{% endif %}</span></a>
+              <a href="{% url 'questions:edit' q.pk %}"><span>{{ q.shown_text|highlight:query }}{% if q.audio_uzb or q.audio_rus %} <i class="fas fa-volume-up qs-voice-ico" title="Ovozli tushuntirish bor"></i>{% endif %}</span></a>
             </div>
+            {% if q.matching_answers %}
+            <ul class="qs-hits">
+              {% for a in q.matching_answers %}<li{% if a.correct %} class="is-correct"{% endif %}><i class="fas {% if a.correct %}fa-check{% else %}fa-reply{% endif %}"></i><span>{{ a.text|highlight:query }}</span></li>{% endfor %}
+            </ul>
+            {% endif %}
           </td>
           <td>
             {% if q.mavzu %}<span class="sd-tag qs-main">{{ q.mavzu.name }}</span>{% endif %}

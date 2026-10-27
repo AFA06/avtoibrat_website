@@ -71,9 +71,7 @@ def question_list(request):
             number = int(pair[2])
             questions = questions.filter(pk=ids[number - 1] if 0 < number <= len(ids) else 0)
         else:
-            questions = questions.filter(
-                Q(matn_uzb__icontains=query) | Q(matn_uz_kr__icontains=query) | Q(matn_rus__icontains=query)
-            )
+            questions = questions.filter(pk__in=_matching_ids(query))
     if bilet_id.isdigit():
         questions = questions.filter(kategoriya_id=bilet_id)
     if topic_id == "none":
@@ -87,12 +85,42 @@ def question_list(request):
 
     page = Paginator(questions.distinct().order_by("kategoriya__tartib", "kategoriya_id", "id"), PAGE_SIZE).get_page(request.GET.get("page"))
     _with_numbers(page.object_list)
+    _search_hits(page.object_list, query)
     return render(request, "admin/questions/list.html", _page(
         request, "Savollar", page=page, query=query, bilet_id=bilet_id, topic_id=topic_id, picture=picture,
         bilets=_bilets(), topic_choices=_topic_choices(), total=Question.objects.count(),
         no_topic=Question.objects.filter(mavzu__isnull=True, extra_topics__isnull=True).distinct().count(),
         filtered=bool(query or bilet_id or topic_id or picture),
     ))
+
+
+def _matching_ids(query):
+    """Questions whose text or any answer contains the query, ignoring case in every alphabet.
+
+    Matched in Python: SQLite only folds the case of Latin letters, so Cyrillic «первый» would miss «Первый».
+    """
+    needle = query.casefold()
+    ids = set()
+    for rows in (
+        Question.objects.values_list("id", "matn_uzb", "matn_uz_kr", "matn_rus"),
+        Answer.objects.values_list("question_id", "matn_uzb", "matn_uz_kr", "matn_rus"),
+    ):
+        ids.update(pk for pk, *texts in rows if any(needle in text.casefold() for text in texts))
+    return ids
+
+
+def _search_hits(questions, query):
+    """For each listed question: the text to show (in the language the query was found in) and the answers it is in."""
+    needle = query.casefold()
+    for question in questions:
+        texts = (question.matn_uzb, question.matn_uz_kr, question.matn_rus)
+        question.shown_text = next((t for t in texts if needle and needle in t.casefold()), question.matn_uzb)
+        question.matching_answers = [
+            {"text": text, "correct": answer.togri}
+            for answer in question.javoblar.all()
+            for text in (answer.matn_uzb, answer.matn_uz_kr, answer.matn_rus)
+            if needle and text and needle in text.casefold()
+        ]
 
 
 IMAGE_SIZE = (945, 530)
