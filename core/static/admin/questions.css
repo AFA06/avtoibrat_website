@@ -50,6 +50,9 @@
 .qs-voice audio { width: 100%; margin: 10px 0 4px; }
 .qs-voice__actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 .qs-voice__actions input[type=file] { max-width: 100%; }
+.qs-voice__delete { color: #c0392b !important; }
+.qs-voice__delete[hidden] { display: none; }
+.qs-voice__delete.is-confirming { background: #c0392b; border-color: #c0392b; color: #fff !important; }
 .qs-voice [data-voice-status] { margin: 6px 0 0; font-size: 13px; color: var(--sd-muted); }
 .sd-btn.is-recording { background: var(--sd-red-bg); color: var(--sd-red); border-color: var(--sd-red); }
 .sd-btn.is-recording i { animation: qs-pulse 1s infinite; }

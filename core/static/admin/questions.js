@@ -122,13 +122,63 @@
     const player = box.querySelector("[data-voice-player]");
     const status = box.querySelector("[data-voice-status]");
     const recordButton = box.querySelector("[data-record]");
+    const deleteButton = box.querySelector("[data-voice-delete]");
+    const storedUrl = player.getAttribute("src");
     const show = (url, text) => {
       player.src = url;
       player.hidden = false;
       status.textContent = text;
+      deleteButton.hidden = false;
+    };
+    const showNothing = () => {
+      player.pause();
+      player.removeAttribute("src");
+      player.hidden = true;
+      deleteButton.hidden = true;
+      status.textContent = "Hali yo‘q.";
     };
     input.addEventListener("change", () => {
       if (input.files[0]) show(URL.createObjectURL(input.files[0]), `Tanlandi: ${input.files[0].name}`);
+    });
+
+    // Delete: a new, unsaved recording is just dropped (the saved one comes back);
+    // the saved explanation is deleted on the server after a second click to confirm.
+    let confirmTimer = null;
+    const resetDelete = () => {
+      clearTimeout(confirmTimer);
+      deleteButton.classList.remove("is-confirming");
+      deleteButton.querySelector("span").textContent = "O‘chirish";
+    };
+    deleteButton.addEventListener("click", async () => {
+      if (input.files.length) {
+        input.value = "";
+        if (storedUrl && box.dataset.deleteUrl) show(storedUrl, "Saqlangan tushuntirish bor. Yangisini yozsangiz, almashadi.");
+        else showNothing();
+        return;
+      }
+      if (!deleteButton.classList.contains("is-confirming")) {
+        deleteButton.classList.add("is-confirming");
+        deleteButton.querySelector("span").textContent = "Rostdan o‘chirilsinmi?";
+        confirmTimer = setTimeout(resetDelete, 4000);
+        return;
+      }
+      resetDelete();
+      deleteButton.disabled = true;
+      try {
+        const response = await fetch(box.dataset.deleteUrl, {
+          method: "POST",
+          headers: { "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value },
+          credentials: "same-origin",
+        });
+        if (!response.ok) throw new Error(String(response.status));
+        delete box.dataset.deleteUrl;
+        showNothing();
+        status.textContent = "O‘chirildi. Endi yangisini yozishingiz mumkin.";
+      } catch (error) {
+        status.textContent = "O‘chirib bo‘lmadi. Qayta urinib ko‘ring.";
+      } finally {
+        deleteButton.disabled = false;
+      }
     });
     if (!navigator.mediaDevices || !window.MediaRecorder) {
       recordButton.hidden = true;

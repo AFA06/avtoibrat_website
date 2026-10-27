@@ -13,7 +13,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.core.paginator import Paginator
 from django.db import transaction
 from django.db.models import Count, Q
-from django.http import Http404
+from django.http import Http404, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.views.decorators.http import require_POST
@@ -238,10 +238,6 @@ def question_form(request, pk=None):
                 saved = form.save(commit=False)
                 if request.POST.get("remove_picture") and not request.FILES.get("rasm"):
                     saved.rasm = None
-                for name in ("audio_uzb",):
-                    if request.POST.get(f"remove_{name}") and not request.FILES.get(name):
-                        getattr(saved, name).delete(save=False)
-                        setattr(saved, name, None)
                 if not saved.pk:
                     saved.test_turi = TestType.objects.order_by("id").first() or TestType.objects.create(
                         nomi="Bilet", vaqt_daqiqa=25, savollar_soni=20)
@@ -306,6 +302,17 @@ def question_audio(request, pk, language):
         raise Http404
     with audio.open("rb") as handle:
         return serve_audio(request, handle)
+
+
+@staff_member_required
+@require_POST
+def question_audio_delete(request, pk, language):
+    """Delete the stored explanation at once (file and field), so a new one can be recorded."""
+    question = get_object_or_404(Question, pk=pk)
+    name = "audio_rus" if language == "ru" else "audio_uzb"
+    getattr(question, name).delete(save=False)
+    Question.objects.filter(pk=pk).update(**{name: ""})
+    return JsonResponse({"ok": True})
 
 
 @staff_member_required

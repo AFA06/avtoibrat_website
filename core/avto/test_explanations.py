@@ -108,9 +108,28 @@ class VoiceExplanationTests(TestCase):
         self.assertEqual(ok.status_code, 302)
         self.question.refresh_from_db()
         self.assertTrue(self.question.audio_uzb)
-        self.client.post(edit, {**data, "remove_audio_uzb": "1"})
+        self.assertContains(self.client.get(edit), "data-voice-delete")
+        stored = self.question.audio_uzb.name
+        delete = reverse("questions:audio_delete", args=[self.question.pk, "uz"])
+        self.assertEqual(self.client.get(delete).status_code, 405)
+        self.assertEqual(self.client.post(delete).json(), {"ok": True})
         self.question.refresh_from_db()
         self.assertFalse(self.question.audio_uzb)
+        self.assertFalse(self.question.audio_uzb.storage.exists(stored))
+        # Saving the form afterwards keeps it deleted, and a new recording can be saved.
+        self.assertEqual(self.client.post(edit, data).status_code, 302)
+        self.question.refresh_from_db()
+        self.assertFalse(self.question.audio_uzb)
+        self.client.post(edit, {**data, "audio_uzb": SimpleUploadedFile("again.webm", b"voice2")})
+        self.question.refresh_from_db()
+        self.assertTrue(self.question.audio_uzb)
+
+    def test_students_cannot_delete_explanations(self):
+        student = User.objects.create_user(username="s2", password="x", unlimited=True)
+        self.client.force_login(student)
+        self.client.post(reverse("questions:audio_delete", args=[self.question.pk, "uz"]))
+        self.question.refresh_from_db()
+        self.assertTrue(self.question.audio_uzb)
 
 
 class RevealDataTests(TestCase):
