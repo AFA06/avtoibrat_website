@@ -299,3 +299,6 @@ JAZZMIN_SETTINGS = {
 }
 
 
+
+# The test opens in a full-screen frame of our own page (static/dashboard/examlaunch.js); other sites still cannot frame us.
+X_FRAME_OPTIONS = "SAMEORIGIN"
