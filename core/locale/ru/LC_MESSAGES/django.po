@@ -1870,3 +1870,18 @@ msgstr "Вернуться на дорогу"
 
 msgid "Javobni tasdiqlang"
 msgstr "Подтвердите ответ"
+
+msgid "Harakat tartibi"
+msgstr "Порядок движения"
+
+msgid "Ijro etish"
+msgstr "Воспроизвести"
+
+msgid "Pauza"
+msgstr "Пауза"
+
+msgid "Qayta ko‘rish"
+msgstr "Повторить"
+
+msgid "Kamaytirilgan harakat yoqilgan. Bosqichlar quyida statik ko‘rsatilgan."
+msgstr "Включено уменьшение движения. Этапы ниже показаны статически."

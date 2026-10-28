@@ -1863,3 +1863,18 @@ msgstr "Йўлга қайтиш"
 
 msgid "Javobni tasdiqlang"
 msgstr "Жавобни тасдиқланг"
+
+msgid "Harakat tartibi"
+msgstr "Ҳаракат тартиби"
+
+msgid "Ijro etish"
+msgstr "Ижро этиш"
+
+msgid "Pauza"
+msgstr "Пауза"
+
+msgid "Qayta ko‘rish"
+msgstr "Қайта кўриш"
+
+msgid "Kamaytirilgan harakat yoqilgan. Bosqichlar quyida statik ko‘rsatilgan."
+msgstr "Камайтирилган ҳаракат ёқилган. Босқичлар қуйида статик кўрсатилган."

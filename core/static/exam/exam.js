@@ -58,6 +58,7 @@
   let leaving = false; // set once the test is being finished, so leaving the page is no longer blocked
   const optionOrders = {};
   let currentVoice = null; // the explanation being played, stopped when the question changes
+  let currentAnimation = null;
 
   // Text, answers and voice explanation of a question in the language the student has chosen.
   function contentOf(question) {
@@ -169,12 +170,26 @@
   function renderQuestion({ keepOrder = false } = {}) {
     const question = questions[currentIndex];
     const content = contentOf(question);
+    const result = answered[question.id];
     renderSaveButton();
 
     els.questionText.textContent = content.text;
 
+    if (currentAnimation) {
+      currentAnimation.destroy();
+      currentAnimation = null;
+    }
     els.imageBox.textContent = "";
-    if (question.image) {
+    if (practice && result && result.animation_scenario && window.DrivingAnimation) {
+      const panel = document.createElement("div");
+      els.imageBox.appendChild(panel);
+      currentAnimation = window.DrivingAnimation.mount(
+        panel,
+        result.animation_scenario,
+        language,
+        config.animationStrings
+      );
+    } else if (question.image) {
       const img = document.createElement("img");
       img.src = question.image;
       img.alt = "";
@@ -203,7 +218,6 @@
     const order = keepOrder ? orderInLanguage(question) : questionOptionOrder(question);
     const answersById = {};
     content.answers.forEach((a) => { answersById[a.id] = a; });
-    const result = answered[question.id];
     const correctId = result && result.correct[language];
 
     order.forEach((answerId, position) => {
@@ -419,10 +433,12 @@
           selected: answer.id,
           correct: data.correct_answer_ids,
           is_correct: data.is_correct,
+          animation_scenario: data.animation_scenario || null,
         };
         submitting = false;
         const answeredIndex = currentIndex;
         renderQuestion();
+        if (practice && data.animation_scenario) return;
         if (data.exam_failed) {
           // Too many mistakes: the server already closed the exam, so show the answer briefly, then the result.
           setTimeout(submitFinish, FEEDBACK_DELAY_MS);
@@ -751,6 +767,11 @@
   guardBackButton();
   setupFullscreenStart();
   renderQuestion();
+
+  window.addEventListener("pagehide", () => {
+    if (currentAnimation) currentAnimation.destroy();
+    if (currentVoice) currentVoice.pause();
+  }, { once: true });
 
   // A fresh real exam opens with an entrance animation (CSS); afterwards questions change without it.
   if (document.body.classList.contains("exam--intro")) {

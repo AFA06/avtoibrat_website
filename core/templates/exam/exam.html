@@ -9,6 +9,7 @@
 <link rel="shortcut icon" href="{% static 'assets_dashboard/images/favicon.png' %}">
 <link rel="stylesheet" href="{% static 'assets_dashboard/css/icons.min.css' %}">
 <link rel="stylesheet" href="{% static 'exam/exam.css' %}">
+<link rel="stylesheet" href="{% static 'exam/driving-animation.css' %}">
 <script src="{% static 'dashboard/protect.js' %}" defer></script>
 </head>
 <body class="{% if practice %}exam--practice{% else %}exam--real{% if not answered_data %} exam--intro{% endif %}{% endif %}">
@@ -140,9 +141,18 @@
     defaultLanguage: "{{ default_language }}",
     explanationUrl: "{% url 'question_explanation' 0 %}",
     logoUrl: "{% static 'assets/images/logo-white.png' %}",
-    practice: {{ practice|yesno:"true,false" }}
+    practice: {{ practice|yesno:"true,false" }},
+    animationStrings: {
+      title: "{% trans 'Harakat tartibi' %}",
+      play: "{% trans 'Ijro etish' %}",
+      pause: "{% trans 'Pauza' %}",
+      replay: "{% trans 'Qayta ko‘rish' %}",
+      speed: "{% trans 'Tezlik' %}",
+      reducedMotion: "{% trans 'Kamaytirilgan harakat yoqilgan. Bosqichlar quyida statik ko‘rsatilgan.' %}"
+    }
   };
 </script>
+<script src="{% static 'exam/driving-animation.js' %}"></script>
 <script src="{% static 'exam/exam.js' %}"></script>
 </body>
 </html>

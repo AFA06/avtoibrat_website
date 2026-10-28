@@ -18,6 +18,7 @@ from django.views.decorators.http import require_POST, require_http_methods
 from django.db.models import Count, Q, Sum, F, ExpressionWrapper, DurationField
 
 from .leaderboard import PERIODS, build as build_leaderboard
+from .animation_scenarios import scenario_for
 from . import real_exam
 from .models import (
     TeamMember, Story, ConsultRequest, Testimonial, FAQ,
@@ -807,6 +808,11 @@ def test_page(request, session_id):
             "selected": ua.selected_answer_id,
             "correct": _correct_answer_ids(questions_by_id[ua.question_id]),
             "is_correct": ua.is_correct,
+            "animation_scenario": (
+                scenario_for(questions_by_id[ua.question_id])
+                if session.test_kind == "shablon" and session.source == "shablon"
+                else None
+            ),
         }
         for ua in user_answers
     }
@@ -882,11 +888,14 @@ def submit_answer(request):
             session.save(update_fields=["finished_at"])
             exam_failed = True
 
-    return JsonResponse({
+    response = {
         "is_correct": user_answer.is_correct,
         "correct_answer_ids": _correct_answer_ids(question),
         "exam_failed": exam_failed,
-    })
+    }
+    if session.test_kind == "shablon" and session.source == "shablon":
+        response["animation_scenario"] = scenario_for(question)
+    return JsonResponse(response)
 
 
 @login_required
@@ -1140,7 +1149,5 @@ def delete_saved_question(request):
     sid = request.POST.get("id")
     SavedQuestion.objects.filter(id=sid, user=request.user).delete()
     return JsonResponse({"success": True})
-
-
 
 
