@@ -809,8 +809,9 @@
     const id = new URLSearchParams(location.search).get("result");
     if (!/^\d+$/.test(id || "")) return playJustDone();
     history.replaceState(null, "", location.pathname);
-    await show(D.active);
-    await showResult(id);
+    // Show the result as soon as it loads, without waiting for the road/car intro.
+    // Ceremonies still wait for both the intro and the result sheet to finish.
+    await Promise.all([show(D.active), showResult(id)]);
     playJustDone();
   }
 
