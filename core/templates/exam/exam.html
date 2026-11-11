@@ -47,6 +47,12 @@
       <span class="exam-keyhint">S</span>
       <i class="far fa-bookmark"></i>
     </button>
+    {% if session.can_pause %}
+    <button type="button" class="exam-iconbtn exam-pausebtn" id="pauseBtn" title="{% trans 'Pauza' %} (P)">
+      <span class="exam-keyhint">P</span>
+      <i class="fas fa-pause"></i>
+    </button>
+    {% endif %}
     <div class="exam-timer" id="examTimer">
       <i class="fas fa-clock"></i>
       <span id="examTimerValue">--:--</span>
@@ -124,6 +130,19 @@
   </div>
 </div>
 
+{% if session.can_pause %}
+{# Covers the whole test while paused: the clock stands still and the questions stay hidden. #}
+<div class="exam-pause{% if session.is_paused %} is-open{% endif %}" id="pauseOverlay" role="dialog" aria-modal="true" aria-labelledby="pauseTitle">
+  <div class="exam-pause__card">
+    <span class="exam-pause__icon"><i class="fas fa-coffee"></i></span>
+    <h2 id="pauseTitle">{% trans "Pauza" %}</h2>
+    <p>{% trans "Vaqt to‘xtatildi, savollar yashirildi. Dam oling — qaytganingizda shu joydan davom etasiz." %}</p>
+    <div class="exam-pause__time"><i class="fas fa-clock"></i> <span id="pauseRemaining">--:--</span> <small>{% trans "qoldi" %}</small></div>
+    <button type="button" class="exam-btn exam-btn--primary" id="resumeBtn"><i class="fas fa-play"></i> {% trans "Davom ettirish" %} <span class="exam-keyhint">P</span></button>
+  </div>
+</div>
+{% endif %}
+
 <form id="finishForm" method="post" action="{% url 'finish_test' session.id %}" style="display:none">
   {% csrf_token %}
 </form>
@@ -152,6 +171,8 @@
     explanationUrl: "{% url 'question_explanation' 0 %}",
     logoUrl: "{% static 'assets/images/logo-white.png' %}",
     practice: {{ practice|yesno:"true,false" }},
+    pauseUrl: {% if session.can_pause %}"{% url 'pause_test' session.id %}"{% else %}null{% endif %},
+    startPaused: {{ session.is_paused|yesno:"true,false" }},
     animationStrings: {
       title: "{% trans 'Harakat tartibi' %}",
       play: "{% trans 'Ijro etish' %}",

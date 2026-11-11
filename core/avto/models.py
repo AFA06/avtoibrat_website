@@ -689,6 +689,9 @@ class TestSession(models.Model):
     marathon_section = models.PositiveIntegerField(null=True, blank=True)
     # Marathon «work on mistakes» run: only the questions last answered wrong (section, or all when no section).
     marathon_retry = models.BooleanField(default=False)
+    # Pause (marathon only): while paused_at is set the clock stands still; paused_seconds is the total of earlier pauses.
+    paused_at = models.DateTimeField(null=True, blank=True)
+    paused_seconds = models.PositiveIntegerField(default=0)
 
     started_at = models.DateTimeField(null=True, blank=True)
     finished_at = models.DateTimeField(null=True, blank=True)
@@ -718,6 +721,38 @@ class TestSession(models.Model):
     @property
     def time_limit_seconds(self):
         return (self.duration_minutes or self.category.duration_minutes) * 60
+
+    @property
+    def can_pause(self):
+        return self.source == "marafon"
+
+    @property
+    def is_paused(self):
+        return self.paused_at is not None
+
+    def elapsed_seconds(self, at=None):
+        """Seconds of test time used up to `at` (default now), not counting pauses."""
+        if not self.started_at:
+            return 0
+        end = self.paused_at or at or timezone.now()
+        if at and at < end:
+            end = at
+        return max(0, int((end - self.started_at).total_seconds()) - self.paused_seconds)
+
+    @property
+    def remaining_seconds(self):
+        return max(0, self.time_limit_seconds - self.elapsed_seconds())
+
+    def pause(self):
+        if self.can_pause and not self.finished_at and not self.paused_at:
+            self.paused_at = timezone.now()
+            self.save(update_fields=["paused_at"])
+
+    def resume(self):
+        if self.paused_at:
+            self.paused_seconds += max(0, int((timezone.now() - self.paused_at).total_seconds()))
+            self.paused_at = None
+            self.save(update_fields=["paused_at", "paused_seconds"])
 
 
 

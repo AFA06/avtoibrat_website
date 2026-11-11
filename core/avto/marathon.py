@@ -79,7 +79,7 @@ def active_session(user):
     """The student's unfinished marathon that still has time left, if any."""
     now = timezone.now()
     for session in TestSession.objects.filter(user=user, source=SOURCE, finished_at__isnull=True).select_related("category"):
-        if (now - session.started_at).total_seconds() < session.time_limit_seconds:
+        if session.elapsed_seconds(now) < session.time_limit_seconds:
             return session
     return None
 

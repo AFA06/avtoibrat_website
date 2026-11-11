@@ -341,7 +341,7 @@ def _student_stats(user):
         percent = round(counts["correct"] * 100 / size)
         scores.append(percent)
         finished = timezone.localtime(s.finished_at)
-        duration = max((s.finished_at - s.started_at).total_seconds(), 0) if s.started_at else 0
+        duration = s.elapsed_seconds(s.finished_at)  # pauses don't count
         seconds_total += duration
         if finished.date() == today:
             seconds_today += duration
@@ -732,9 +732,7 @@ def _ordered_session_questions(session):
 
 
 def _remaining_seconds(session):
-    total_seconds = session.time_limit_seconds
-    elapsed = int((timezone.now() - session.started_at).total_seconds())
-    return max(0, total_seconds - elapsed)
+    return session.remaining_seconds
 
 
 @login_required
@@ -815,6 +813,22 @@ def _correct_answer_ids(question):
 
 @require_POST
 @login_required
+def pause_test(request, session_id):
+    """Marathon pause: action=pause stops the clock and hides the test, action=resume starts it again."""
+    session = get_object_or_404(TestSession, id=session_id, user=request.user)
+    if session.finished_at:
+        return JsonResponse({"error": "finished"}, status=409)
+    if not session.can_pause:
+        return JsonResponse({"error": "not_allowed"}, status=403)
+    if request.POST.get("action") == "resume":
+        session.resume()
+    else:
+        session.pause()
+    return JsonResponse({"paused": session.is_paused, "remaining_seconds": session.remaining_seconds})
+
+
+@require_POST
+@login_required
 def submit_answer(request):
     session = get_object_or_404(
         TestSession,
@@ -825,10 +839,11 @@ def submit_answer(request):
     if session.finished_at:
         return JsonResponse({"error": "finished"}, status=409)
 
-    total_seconds = session.time_limit_seconds
-    elapsed = (timezone.now() - session.started_at).total_seconds()
+    if session.is_paused:
+        return JsonResponse({"error": "paused"}, status=409)
+
     grace_seconds = 5
-    if elapsed > total_seconds + grace_seconds:
+    if session.elapsed_seconds() > session.time_limit_seconds + grace_seconds:
         return JsonResponse({"error": "time_over"}, status=409)
 
     try:
@@ -902,9 +917,7 @@ def _result_context(session):
 
     duration_seconds = 0
     if session.started_at and session.finished_at:
-        duration_seconds = int(
-            (session.finished_at - session.started_at).total_seconds()
-        )
+        duration_seconds = session.elapsed_seconds(session.finished_at)  # pauses don't count
     minutes, seconds = divmod(max(duration_seconds, 0), 60)
 
     status_map = {

@@ -89,6 +89,7 @@ urlpatterns = [
         name="real_imtihon"
     ),
     path('real_imtihon/start/<int:size>/', start_real_exam, name="start_real_exam"),
+    path('test-session/<int:session_id>/pause/', pause_test, name="pause_test"),
     path(
         'test-session/<int:session_id>/',
         test_page,            # test oynasi

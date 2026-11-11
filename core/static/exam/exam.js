@@ -558,7 +558,41 @@
     return hours ? `${hours}:${pad(minutes)}:${pad(seconds)}` : `${pad(minutes)}:${pad(seconds)}`;
   }
 
+  // ---------- Pause (marathon only) ----------
+  // The server owns the clock: pausing stops it there, so a reload or another device can't gain time.
+  const pauseOverlay = document.getElementById("pauseOverlay");
+  const pauseRemaining = document.getElementById("pauseRemaining");
+  let paused = Boolean(config.startPaused);
+
+  function showPaused(state) {
+    paused = state;
+    document.body.classList.toggle("exam--paused", state);
+    if (pauseOverlay) pauseOverlay.classList.toggle("is-open", state);
+    if (pauseRemaining) pauseRemaining.textContent = formatTime(Math.max(remainingSeconds, 0));
+    if (state) document.getElementById("resumeBtn")?.focus();
+  }
+
+  async function setPaused(state) {
+    if (!config.pauseUrl || state === paused) return;
+    showPaused(state); // react at once; the server's answer corrects the time
+    try {
+      const response = await fetch(config.pauseUrl, {
+        method: "POST",
+        headers: { "X-CSRFToken": config.csrfToken, "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({ action: state ? "pause" : "resume" }),
+      });
+      if (!response.ok) throw new Error(response.status);
+      const data = await response.json();
+      remainingSeconds = data.remaining_seconds;
+      showPaused(data.paused);
+    } catch (error) {
+      console.warn("Pause failed", error);
+      showPaused(!state);
+    }
+  }
+
   function tickTimer() {
+    if (paused) return;
     els.timerValue.textContent = formatTime(Math.max(remainingSeconds, 0));
     els.timer.classList.toggle("exam-timer--danger", remainingSeconds <= 60);
 
@@ -578,6 +612,12 @@
   els.nextBtn?.addEventListener("click", () => goToIndex(currentIndex + 1));
   els.fullscreenBtn.addEventListener("click", toggleFullscreen);
   els.finishBtn.addEventListener("click", () => openModal(els.finishModal));
+  document.getElementById("pauseBtn")?.addEventListener("click", () => setPaused(true));
+  document.getElementById("resumeBtn")?.addEventListener("click", () => setPaused(false));
+  if (paused) {
+    els.timerValue.textContent = formatTime(Math.max(remainingSeconds, 0));
+    showPaused(true);
+  }
 
   if (!practice) {
     els.answerCancelBtn.addEventListener("click", () => {
@@ -591,6 +631,18 @@
   els.finishConfirmBtn.addEventListener("click", submitFinish);
 
   document.addEventListener("keydown", (e) => {
+
+    // While paused only P / Enter (resume) work; everything else stays locked behind the cover.
+    if (paused) {
+      e.preventDefault();
+      if (!e.repeat && (e.code === "KeyP" || e.key === "Enter")) setPaused(false);
+      return;
+    }
+    if (config.pauseUrl && e.code === "KeyP" && !anyModalOpen() && !e.ctrlKey && !e.metaKey && !e.altKey) {
+      e.preventDefault();
+      if (!e.repeat) setPaused(true);
+      return;
+    }
 
     if (isModalOpen(els.answerModal)) {
       if (e.key === "Enter") { e.preventDefault(); confirmSelection(); }

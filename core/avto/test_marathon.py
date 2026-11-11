@@ -295,6 +295,77 @@ class MarathonMistakesTests(MarathonFixture):
         self.assertFalse(TestSession.objects.exists())
 
 
+class MarathonPauseTests(MarathonFixture):
+    """Pause stops the marathon clock on the server; time spent paused never counts."""
+
+    def setUp(self):
+        super().setUp()
+        self.session = marathon.start(self.user, 50, 1)
+        self.url = reverse("pause_test", args=[self.session.id])
+
+    def shift(self, **delta):
+        """Pretend the session started (and was paused) earlier by `delta`."""
+        fields = {"started_at": self.session.started_at - timedelta(**delta)}
+        if self.session.paused_at:
+            fields["paused_at"] = self.session.paused_at - timedelta(**delta)
+        TestSession.objects.filter(pk=self.session.pk).update(**fields)
+        self.session.refresh_from_db()
+
+    def test_paused_time_does_not_count(self):
+        self.shift(minutes=10)
+        self.client.post(self.url, {"action": "pause"})
+        self.session.refresh_from_db()
+        self.assertTrue(self.session.is_paused)
+        # 30 minutes on a smoke break: the clock still shows ~40 of 50 minutes left.
+        TestSession.objects.filter(pk=self.session.pk).update(paused_at=self.session.paused_at - timedelta(minutes=30))
+        self.shift(minutes=30)
+        self.assertAlmostEqual(self.session.remaining_seconds, 40 * 60, delta=3)
+        response = self.client.post(self.url, {"action": "resume"})
+        self.session.refresh_from_db()
+        self.assertFalse(response.json()["paused"])
+        self.assertAlmostEqual(response.json()["remaining_seconds"], 40 * 60, delta=3)
+        self.assertGreaterEqual(self.session.paused_seconds, 30 * 60)
+
+    def test_a_long_pause_keeps_the_marathon_resumable(self):
+        self.client.post(self.url, {"action": "pause"})
+        self.session.refresh_from_db()
+        self.shift(hours=3)
+        self.assertEqual(marathon.active_session(self.user), self.session)
+        response = self.client.get(reverse("test_page", args=[self.session.id]))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "exam-pause is-open")
+
+    def test_answers_are_refused_while_paused(self):
+        self.client.post(self.url, {"action": "pause"})
+        question = Question.objects.get(pk=self.session.question_order[0])
+        response = self.client.post(reverse("submit_answer"), {
+            "session_id": self.session.id, "question_id": question.id, "answer_id": question.javoblar.first().id,
+        })
+        self.assertEqual(response.json()["error"], "paused")
+
+    def test_pause_is_marathon_only(self):
+        other = TestSession.objects.create(user=self.user, category=self.category, test_kind="real",
+                                           source="shablon", started_at=timezone.now())
+        response = self.client.post(reverse("pause_test", args=[other.id]), {"action": "pause"})
+        self.assertEqual(response.status_code, 403)
+        self.assertNotContains(self.client.get(reverse("test_page", args=[other.id])), 'id="pauseBtn"')
+        self.assertContains(self.client.get(reverse("test_page", args=[self.session.id])), 'id="pauseBtn"')
+
+    def test_result_duration_leaves_pauses_out(self):
+        TestSession.objects.filter(pk=self.session.pk).update(
+            started_at=timezone.now() - timedelta(minutes=40), paused_seconds=30 * 60)
+        response = self.client.post(reverse("finish_test", args=[self.session.id]), follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.session.refresh_from_db()
+        self.assertAlmostEqual(self.session.elapsed_seconds(self.session.finished_at), 10 * 60, delta=3)
+
+    def test_pause_requires_post_and_owner(self):
+        self.assertEqual(self.client.get(self.url).status_code, 405)
+        stranger = User.objects.create_user(username="other", password="x", unlimited=True)
+        self.client.force_login(stranger)
+        self.assertEqual(self.client.post(self.url, {"action": "pause"}).status_code, 404)
+
+
 class MarathonMixTests(TestCase):
     TESTS, PER_TEST = 10, 20
 
