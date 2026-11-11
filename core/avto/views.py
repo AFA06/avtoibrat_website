@@ -471,59 +471,36 @@ def mavzulashtirilgan(request):
 
 @login_required
 def ohshash_savollar(request):
-    categories_qs = TestCategory.objects.filter(
-        aktiv=True,
-        show_in_ohshash=True
-    ).order_by("tartib")
-
-    categories = []
-
-    for cat in categories_qs:
-        last_session = (
+    """Groups of look-alike questions; each row shows the result of its last finished attempt."""
+    groups = []
+    for cat in TestCategory.objects.filter(aktiv=True, show_in_ohshash=True).order_by("tartib"):
+        total = cat.question_count
+        last = (
             TestSession.objects
-            .filter(
-                user=request.user,
-                category=cat,
-                test_kind="shablon",
-                source="ohshash",
-                finished_at__isnull=False
-            )
+            .filter(user=request.user, category=cat, test_kind="shablon", source="ohshash", finished_at__isnull=False)
             .order_by("-finished_at")
             .first()
         )
+        group = {"id": cat.id, "nomi": cat.nomi, "total": total, "started": last is not None}
+        if last:
+            answers = UserAnswer.objects.filter(session=last)
+            correct = answers.filter(is_correct=True).count()
+            wrong = answers.filter(is_correct=False, selected_answer__isnull=False).count()
+            group.update(
+                correct=correct,
+                wrong=wrong,
+                empty=max(total - correct - wrong, 0),
+                percent=round(correct * 100 / total) if total else 0,
+            )
+        groups.append(group)
 
-        has_started = last_session is not None
-
-        if has_started:
-            correct = UserAnswer.objects.filter(
-                session=last_session,
-                is_correct=True
-            ).count()
-
-            wrong = UserAnswer.objects.filter(
-                session=last_session,
-                is_correct=False,
-                selected_answer__isnull=False
-            ).count()
-
-            answered = correct + wrong
-            empty = max(cat.question_count - answered, 0)
-        else:
-            correct = wrong = empty = None
-
-        categories.append({
-            "id": cat.id,
-            "nomi": cat.nomi,
-            "has_started": has_started,
-            "correct": correct,
-            "wrong": wrong,
-            "empty": empty,
-        })
-
+    done = [g for g in groups if g["started"]]
     return render(request, "dashboard/ohshash-savollar.html", {
-        "categories": categories
+        "groups": groups,
+        "done_count": len(done),
+        "mastered_count": sum(1 for g in done if g["percent"] == 100),
+        "avg_percent": round(sum(g["percent"] for g in done) / len(done)) if done else None,
     })
-
 
 
 SAVED_TEST_SIZE = 20
