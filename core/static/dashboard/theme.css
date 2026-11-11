@@ -297,6 +297,20 @@ html.motion-ready [data-motion] { opacity: 0; }
 [data-theme="dark"] .form-control::placeholder, [data-theme="dark"] input::placeholder { color: var(--ai-ink-3); }
 
 /* practice list: cards, popup */
+.popup-content { width: min(420px, calc(100vw - 32px)); padding: 34px 30px 30px; border: 1px solid var(--ai-line); border-radius: 22px; box-shadow: 0 24px 70px rgba(15, 23, 42, .22); }
+.popup-icon { display: inline-grid; place-items: center; width: 56px; height: 56px; margin-bottom: 14px; border-radius: 17px; background: var(--ai-brand-50); color: var(--ai-brand-600); font-size: 27px; }
+.popup-test-name { margin: 0 0 7px; color: var(--ai-ink-2); font-size: 18px; font-weight: 700; }
+.popup-content h3 { margin: 0 0 24px; color: var(--ai-ink); font-size: 24px; }
+.popup-buttons { gap: 12px; margin-top: 0; }
+.popup-buttons button { min-width: 132px; border: 0; font-weight: 600; transition: transform .15s ease, filter .15s ease; }
+.popup-buttons button:hover { transform: translateY(-1px); filter: brightness(1.05); }
+.popup-buttons button:focus-visible { outline: 3px solid rgba(59, 108, 246, .35); outline-offset: 3px; }
+[data-theme="dark"] .popup { background: rgba(2, 6, 12, .78); backdrop-filter: blur(4px); }
+[data-theme="dark"] .popup-content { border: 1px solid var(--ai-line); box-shadow: 0 24px 70px rgba(0, 0, 0, .4); }
+[data-theme="dark"] .popup-test-name { color: var(--ai-ink-2); }
+[data-theme="dark"] .popup-icon { background: rgba(52, 211, 153, .14); color: #6fe3a1; }
+[data-theme="dark"] .popup-content h3 { color: var(--ai-ink); }
+[data-theme="dark"] .cancel-btn { background: #2a3345; color: var(--ai-ink); }
 [data-theme="dark"] .topic-card { background: var(--ai-surface) !important; border-color: var(--ai-line) !important; }
 [data-theme="dark"] .topic-progress-track { background: #1a2438 !important; }
 [data-theme="dark"] .topic-progress-tag--correct { background: rgba(34, 181, 115, 0.16); border-color: rgba(34, 181, 115, 0.4); color: #6fe3a1 !important; }

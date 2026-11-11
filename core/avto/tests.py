@@ -703,7 +703,7 @@ class ResultPageActionsTests(TestCase):
     def test_bosh_sahifa_links_to_shablon_test_list(self):
         session = self.make_session("shablon", "shablon")
         response = self.client.get(reverse("test_result", args=[session.id]))
-        self.assertContains(response, f'href="{reverse("shablon_test")}" class="result-btn result-btn--primary"')
+        self.assertContains(response, f'href="{reverse("shablon_test")}" class="result-btn result-btn--primary ')
 
     def test_bosh_sahifa_links_match_the_finished_test_kind(self):
         cases = {

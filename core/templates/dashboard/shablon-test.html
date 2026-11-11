@@ -162,7 +162,7 @@
 
                <div class="bilet-container">
                 {% for cat in kategoriyalar %}
-                    <div class="topic-card" data-category="{{ cat.id }}" onclick="openPopup(this)">
+                    <div class="topic-card" data-category="{{ cat.id }}" data-title="{{ cat.nomi|escape }}" onclick="openPopup(this)">
                         <div class="topic-card-body">
                             {% if cat.has_started %}<span class="topic-percent">{{ cat.percent }}%</span>{% endif %}
                             <div class="topic-title">{{ cat.nomi }}</div>
@@ -195,21 +195,38 @@
 
                     <script>
                         let selectedCategory = null;
+                        let selectedCategoryTitle = "";
 
                         function openPopup(card) {
                             selectedCategory = card.dataset.category;
+                            selectedCategoryTitle = card.dataset.title || "";
+                            document.getElementById("popupTestName").textContent = selectedCategoryTitle;
                             document.getElementById("popup").style.display = "flex";
+                            document.getElementById("popup").setAttribute("aria-hidden", "false");
+                            document.querySelector(".start-btn").focus();
                         }
 
                         function closePopup() {
                             selectedCategory = null;
+                            selectedCategoryTitle = "";
                             document.getElementById("popup").style.display = "none";
+                            document.getElementById("popup").setAttribute("aria-hidden", "true");
                         }
+
+                        window.addEventListener("DOMContentLoaded", () => {
+                            document.getElementById("popup").addEventListener("click", (event) => {
+                                if (event.target === event.currentTarget) closePopup();
+                            });
+                        });
+                        document.addEventListener("keydown", (event) => {
+                            if (event.key === "Escape" && selectedCategory) closePopup();
+                        });
 
                         function startTest() {
                             if (!selectedCategory) return;
                             // âœ… Toâ€˜gâ€˜ri URL: shablon test uchun
                             var startUrl = "{% url 'start_shablon_test' 0 %}".replace("0", selectedCategory);
+                            closePopup();
                             if (!(window.avtoExamLaunch && window.avtoExamLaunch(startUrl))) window.location.href = startUrl;
                             // yoki toâ€˜gâ€˜ridan-toâ€˜gâ€˜ri:
                             // window.location.href = "/shablon/start/" + selectedCategory + "/";
@@ -238,13 +255,15 @@
 
 
 
-                    <div id="popup" class="popup">
-                        <div class="popup-content">
-                            <h3>{% trans "Testni boshlaysizmi?" %}</h3>
+                    <div id="popup" class="popup" aria-hidden="true">
+                        <div class="popup-content" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
+                            <span class="popup-icon" aria-hidden="true"><i class="ti ti-player-play"></i></span>
+                            <p class="popup-test-name" id="popupTestName"></p>
+                            <h3 id="popupTitle">{% trans "Testni boshlaysizmi?" %}</h3>
 
                             <div class="popup-buttons">
-                                <button class="cancel-btn" onclick="closePopup()">{% trans "Orqaga" %}</button>
-                                <button class="start-btn" onclick="startTest()">{% trans "Boshlash" %}</button>
+                                <button type="button" class="cancel-btn" onclick="closePopup()">{% trans "Orqaga" %}</button>
+                                <button type="button" class="start-btn" onclick="startTest()">{% trans "Boshlash" %}</button>
                             </div>
                         </div>
                     </div>

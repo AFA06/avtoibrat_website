@@ -10,13 +10,19 @@
 <link rel="stylesheet" href="{% static 'assets_dashboard/css/icons.min.css' %}">
 <link rel="stylesheet" href="{% static 'exam/exam.css' %}">
 <link rel="stylesheet" href="{% static 'exam/driving-animation.css' %}">
+<script src="{% static 'exam/theme-sync.js' %}"></script>
 <script src="{% static 'dashboard/protect.js' %}" defer></script>
 </head>
 <body class="{% if practice %}exam--practice{% else %}exam--real{% if not answered_data %} exam--intro{% endif %}{% endif %}">
 
+<nav class="exam-panel-nav" aria-label="{% trans 'Menyu' %}">
+  <a class="exam-panel-nav__brand" href="{% url 'dashboard' %}"><img class="exam-logo exam-logo--dark" src="{% static 'assets/images/logo-white.png' %}" alt="AvtoIbrat"><img class="exam-logo exam-logo--light" src="{% static 'assets/images/logo.png' %}" alt="AvtoIbrat"></a>
+  {% include "dashboard/_sidebar_nav.html" %}
+</nav>
+
 <header class="exam-header">
   <div class="exam-header__brand">
-    <img src="{% static 'assets/images/logo-white.png' %}" alt="AvtoIbrat">
+    <img class="exam-logo exam-logo--dark" src="{% static 'assets/images/logo-white.png' %}" alt="AvtoIbrat"><img class="exam-logo exam-logo--light" src="{% static 'assets/images/logo.png' %}" alt="AvtoIbrat">
   </div>
   <div class="exam-header__actions">
     <div class="exam-counter" id="examCounter">{% trans "Savol" %} 1 / 1</div>

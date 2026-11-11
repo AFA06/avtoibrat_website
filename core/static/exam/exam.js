@@ -376,20 +376,17 @@
     openModal(els.answerModal);
   }
 
-  // The confirm dialog repeats the question and every option on its key, the chosen one marked;
-  // another option (click or F-key) can be chosen right there, as on the real exam terminal.
+  // Keep confirmation focused on the question and the selected answer only.
   function renderConfirm() {
-    const { question, answer } = pendingSelection;
+    const { answer } = pendingSelection;
     els.answerModalNumber.textContent = String(currentIndex + 1);
     els.answerModalQuestion.textContent = els.questionText.textContent;
     els.answerModalOptions.textContent = "";
     els.optionsBox.querySelectorAll(".exam-option").forEach((option) => {
+      if (option.dataset.answerId !== String(answer.id)) return;
       const row = option.cloneNode(true);
-      row.className = "exam-confirm__option";
-      const selected = row.dataset.answerId === String(answer.id);
-      row.classList.toggle("is-selected", selected);
-      row.setAttribute("aria-selected", selected ? "true" : "false");
-      row.addEventListener("click", () => changeSelection(question, row.dataset.answerId));
+      row.className = "exam-confirm__option is-selected";
+      row.setAttribute("aria-selected", "true");
       els.answerModalOptions.appendChild(row);
     });
   }
@@ -478,11 +475,20 @@
     return isModalOpen(els.answerModal) || isModalOpen(els.finishModal);
   }
 
-  function toggleFullscreen() {
-    if (!document.fullscreenElement) {
-      document.documentElement.requestFullscreen().catch(() => {});
-    } else {
-      document.exitFullscreen().catch(() => {});
+  async function toggleFullscreen() {
+    try {
+      if (window.top !== window.self && window.top.avtoExamToggleFullscreen) {
+        await window.top.avtoExamToggleFullscreen();
+      } else {
+        const windowed = document.body.classList.toggle("exam--windowed");
+        if (windowed) {
+          if (document.fullscreenElement) await document.exitFullscreen();
+        } else if (document.fullscreenEnabled) {
+          await document.documentElement.requestFullscreen();
+        }
+      }
+    } catch (error) {
+      console.warn("Exam fullscreen toggle failed", error);
     }
   }
 
@@ -527,12 +533,22 @@
   function setupFullscreenStart() {
     if (!document.fullscreenEnabled || document.fullscreenElement || window.top !== window.self) return; // inside the launcher frame the parent is already full screen
     const events = ["pointerdown", "keydown", "touchend"];
-    const enter = () => {
+    const enter = (event) => {
       events.forEach((name) => document.removeEventListener(name, enter, true));
+      // A fullscreen control must perform exactly one toggle, even on the
+      // first interaction. Physical KeyL also works with Cyrillic keyboards.
+      if (event.code === "KeyL" || event.target.closest?.("#fullscreenBtn")) return;
+      if (document.body.classList.contains("exam--windowed")) return;
       if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(() => {});
     };
     events.forEach((name) => document.addEventListener(name, enter, true));
   }
+
+  document.addEventListener("fullscreenchange", () => {
+    if (window.top === window.self && !document.fullscreenElement) {
+      document.body.classList.add("exam--windowed");
+    }
+  });
 
   function formatTime(totalSeconds) {
     const pad = (n) => String(n).padStart(2, "0");
@@ -616,7 +632,11 @@
     if (e.key === "ArrowLeft") { e.preventDefault(); goToIndex(currentIndex - 1); return; }
     if (e.key === "ArrowRight") { e.preventDefault(); goToIndex(currentIndex + 1); return; }
 
-    if (e.key.toLowerCase() === "l") { e.preventDefault(); toggleFullscreen(); return; }
+    if ((e.code === "KeyL" || e.key.toLowerCase() === "l") && !e.ctrlKey && !e.metaKey && !e.altKey) {
+      e.preventDefault();
+      if (!e.repeat) toggleFullscreen();
+      return;
+    }
 
     const fMatch = /^F(\d+)$/.exec(e.key);
     if (fMatch && !anyModalOpen()) {
