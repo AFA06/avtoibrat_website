@@ -86,13 +86,17 @@
 </main>
 
 <nav class="exam-navigator">
+  {% if practice %}
   <button type="button" class="exam-navarrow" id="prevBtn" aria-label="{% trans 'Oldingi' %}">
     <i class="fas fa-chevron-left"></i>
   </button>
+  {% endif %}
   <div class="exam-navgrid" id="examNavGrid"></div>
+  {% if practice %}
   <button type="button" class="exam-navarrow" id="nextBtn" aria-label="{% trans 'Keyingi' %}">
     <i class="fas fa-chevron-right"></i>
   </button>
+  {% endif %}
 </nav>
 
 {% if not practice %}

@@ -573,8 +573,9 @@
   const timerHandle = setInterval(tickTimer, 1000);
   tickTimer();
 
-  els.prevBtn.addEventListener("click", () => goToIndex(currentIndex - 1));
-  els.nextBtn.addEventListener("click", () => goToIndex(currentIndex + 1));
+  // The real exam has no arrow buttons (numbers and the keyboard arrows only).
+  els.prevBtn?.addEventListener("click", () => goToIndex(currentIndex - 1));
+  els.nextBtn?.addEventListener("click", () => goToIndex(currentIndex + 1));
   els.fullscreenBtn.addEventListener("click", toggleFullscreen);
   els.finishBtn.addEventListener("click", () => openModal(els.finishModal));
 
