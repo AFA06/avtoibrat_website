@@ -50,21 +50,23 @@ def marathon_sections(request, size):
         "done_count": sum(row["state"] == "done" for row in rows),
         "total_questions": sum(row["total"] for row in rows),
         "mastered_count": sum(row["mastered"] for row in rows),
-        "jar": marathon.jar(request.user),
+        "jar": marathon.jar(request.user, size),
     })
 
 
 @login_required
 @require_POST
 def start_marathon(request):
-    """Start a section, or with mode=mistakes a run over its wrong answers (no section: every mistake)."""
+    """Start a section, or with mode=mistakes a run over still-wrong answers (a section, a size, or every size)."""
     try:
-        size = int(request.POST.get("size", ""))
+        raw_size = request.POST.get("size", "")
         section = request.POST.get("section", "")
         if request.POST.get("mode") == "mistakes":
+            # size "all" = the main jar (every size); a number = that size's jar or one of its sections.
+            size = marathon.GLOBAL if raw_size == marathon.GLOBAL else int(raw_size)
             session = marathon.start_mistakes(request.user, size, int(section) if section else None)
         else:
-            session = marathon.start(request.user, size, int(section))
+            session = marathon.start(request.user, int(raw_size), int(section))
     except ValueError:
         messages.error(request, _("Bunday bo‘lim yoki xato savollar topilmadi."))
         return redirect("marathon")

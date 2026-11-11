@@ -219,12 +219,41 @@ class MarathonMistakesTests(MarathonFixture):
         with self.assertRaises(ValueError):
             marathon.start_mistakes(self.user, 50, 1)
 
-    def test_a_right_answer_later_fixes_a_mistake_from_any_size(self):
-        first = marathon.start(self.user, 50, 1)
-        self.answer(first, first.question_order[:1], False)
+    def test_each_size_keeps_its_own_mistakes(self):
+        fifty = marathon.start(self.user, 50, 1)
+        self.answer(fifty, fifty.question_order[:2], False)
+        # The same question answered right in another size doesn't fix the 50 size's mistake.
         whole = marathon.start(self.user, marathon.ALL, 1)
         self.answer(whole, whole.question_order[:1], True)
+        self.assertEqual(marathon.mistake_ids(self.user, 50), fifty.question_order[:2])
+        self.assertEqual(marathon.mistake_ids(self.user, marathon.ALL), [])
+        # Mistakes made in the «all questions» run only show in the main jar.
+        self.answer(whole, whole.question_order[5:6], False)
+        self.assertEqual(marathon.mistake_ids(self.user), fifty.question_order[:2] + whole.question_order[5:6])
+        self.assertEqual(marathon.jar(self.user, 50)["count"], 2)
+        self.assertEqual(marathon.jar(self.user)["count"], 3)
+
+    def test_size_jar_run_fixes_only_that_size(self):
+        fifty = marathon.start(self.user, 50, 1)
+        self.answer(fifty, fifty.question_order[:1], False)
+        whole = marathon.start(self.user, marathon.ALL, 1)
+        self.answer(whole, whole.question_order[:1], False)
+        retry = marathon.start_mistakes(self.user, 50)
+        self.assertEqual((retry.marathon_size, retry.marathon_section), (50, None))
+        self.answer(retry, retry.question_order, True)
+        self.assertEqual(marathon.mistake_ids(self.user, 50), [])
+        self.assertEqual(marathon.mistake_ids(self.user), whole.question_order[:1])
+
+    def test_main_jar_run_fixes_every_size(self):
+        fifty = marathon.start(self.user, 50, 1)
+        self.answer(fifty, fifty.question_order[:1], False)
+        whole = marathon.start(self.user, marathon.ALL, 1)
+        self.answer(whole, whole.question_order[:1], False)
+        retry = marathon.start_mistakes(self.user)
+        self.assertEqual(retry.question_order, fifty.question_order[:1])
+        self.answer(retry, retry.question_order, True)
         self.assertEqual(marathon.mistake_ids(self.user), [])
+        self.assertEqual(marathon.mistake_ids(self.user, 50), [])
 
     def test_unanswered_questions_are_not_mistakes(self):
         session = marathon.start(self.user, 50, 1)
@@ -239,7 +268,7 @@ class MarathonMistakesTests(MarathonFixture):
         jar = marathon.jar(self.user)
         self.assertEqual((jar["count"], len(jar["balls"]), jar["overflow"]), (5, 5, 0))
 
-        response = self.client.post(reverse("start_marathon"), {"size": "0", "mode": "mistakes"})
+        response = self.client.post(reverse("start_marathon"), {"size": "all", "mode": "mistakes"})
         retry = TestSession.objects.latest("id")
         self.assertRedirects(response, reverse("test_page", args=[retry.id]))
         self.assertEqual(retry.question_order, one.question_order[:2] + two.question_order[:3])
@@ -253,7 +282,7 @@ class MarathonMistakesTests(MarathonFixture):
         self.answer(session, session.question_order[:2], False)
         response = self.client.get(reverse("marathon_sections", args=[50]))
         self.assertContains(response, 'name="mode" value="mistakes"')
-        self.assertEqual(response.context["jar"]["count"], 2)
+        self.assertEqual((response.context["jar"]["count"], response.context["jar"]["size"]), (2, 50))
         response = self.client.post(reverse("start_marathon"), {"size": "50", "section": "1", "mode": "mistakes"})
         retry = TestSession.objects.latest("id")
         self.assertRedirects(response, reverse("test_page", args=[retry.id]))

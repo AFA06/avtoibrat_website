@@ -88,25 +88,53 @@ def finish_active(user):
     TestSession.objects.filter(user=user, source=SOURCE, finished_at__isnull=True).update(finished_at=timezone.now())
 
 
-def answer_state(user):
-    """{question id: was its latest marathon answer right?} — questions never answered are absent.
+GLOBAL = "all"  # scope of the main page jar: every size combined
 
-    Every marathon run counts (any size, sections and mistake runs alike), so a question
-    answered wrong once stays a mistake until the student answers it right later.
+
+def _scope(size, section, retry):
+    """Which jar a run belongs to: the main jar's run fixes every size, any other run only its own size."""
+    if retry and section is None and size == ALL:
+        return GLOBAL
+    return size
+
+
+def answer_states(user):
+    """{size: {question id: was its latest answer in that size right?}} — unanswered questions are absent.
+
+    A mistake belongs to the size it was made in and is fixed by a right answer in that size.
+    A right answer in the main jar's run (every mistake combined) fixes the question in every size.
     """
-    state = {}
-    for question_id, correct in (UserAnswer.objects
-                                 .filter(session__user=user, session__source=SOURCE, selected_answer__isnull=False)
-                                 .order_by("id")
-                                 .values_list("question_id", "is_correct")):
-        state[question_id] = correct  # later answers overwrite earlier ones
-    return state
+    states = {}
+    answers = (UserAnswer.objects
+               .filter(session__user=user, session__source=SOURCE, selected_answer__isnull=False,
+                       session__marathon_size__isnull=False)
+               .order_by("id")
+               .values_list("question_id", "is_correct",
+                            "session__marathon_size", "session__marathon_section", "session__marathon_retry"))
+    for question_id, correct, size, section, retry in answers:
+        scope = _scope(size, section, retry)
+        if scope == GLOBAL:
+            if correct:
+                for state in states.values():
+                    if question_id in state:
+                        state[question_id] = True
+            continue  # a wrong answer there leaves the question a mistake wherever it already is
+        states.setdefault(scope, {})[question_id] = correct  # later answers overwrite earlier ones
+    return states
 
 
-def mistake_ids(user, size=ALL, number=None, state=None, ids=None):
-    """Questions last answered wrong, in marathon order: one section's, or the whole bank's (number=None)."""
-    state = answer_state(user) if state is None else state
+def mistake_ids(user, size=GLOBAL, number=None, states=None, ids=None):
+    """Questions still answered wrong, in marathon order.
+
+    size=GLOBAL: every size combined (the main jar). Otherwise one size's mistakes:
+    a single section of it, or the whole size when number is None.
+    """
+    states = answer_states(user) if states is None else states
     ids = ordered_ids() if ids is None else ids
+    if size == GLOBAL:
+        wrong = {qid for state in states.values() for qid, ok in state.items() if ok is False}
+        return [qid for qid in ids if qid in wrong]
+    state = states.get(size, {})
     scope = ids if number is None else section_ids(size, number, ids)
     return [qid for qid in scope if state.get(qid) is False]
 
@@ -115,7 +143,7 @@ def sections(user, size):
     """Sections of one size: progress from the latest full attempt, plus mistakes still to fix."""
     ids = ordered_ids()
     step = section_size(size, len(ids))
-    state = answer_state(user)
+    state = answer_states(user).get(size, {})
     active = active_session(user)
     latest = {}
     for session in (TestSession.objects
@@ -166,13 +194,26 @@ JAR_COLUMNS, JAR_ROWS = 6, 8
 JAR_CAPACITY = JAR_COLUMNS * JAR_ROWS
 
 
-def jar(user):
-    """The mistakes jar: one crumpled paper ball per mistake, piled from the bottom, coloured by bilet."""
-    state = answer_state(user)
-    mistakes = [qid for qid in ordered_ids() if state.get(qid) is False]
-    bilet = dict(Question.objects.filter(id__in=mistakes[:JAR_CAPACITY]).values_list("id", "kategoriya_id"))
+def jar(user, size=GLOBAL):
+    """A mistakes jar: one crumpled paper ball per mistake, piled from the bottom.
+
+    The main jar (size=GLOBAL) holds every size's mistakes, coloured by bilet;
+    a size's jar holds only that size's, coloured by section.
+    """
+    states = answer_states(user)
+    ids = ordered_ids()
+    mistakes = mistake_ids(user, size, states=states, ids=ids)
+    shown = mistakes[:JAR_CAPACITY]
+    if size == GLOBAL:
+        colour = dict(Question.objects.filter(id__in=shown).values_list("id", "kategoriya_id"))
+        answered = len(set().union(*states.values())) if states else 0
+    else:
+        step = section_size(size, len(ids))
+        position = {qid: index for index, qid in enumerate(ids)}
+        colour = {qid: position[qid] // step + 1 for qid in shown}
+        answered = len(states.get(size, {}))
     balls = []
-    for index, qid in enumerate(mistakes[:JAR_CAPACITY]):
+    for index, qid in enumerate(shown):
         row, col = divmod(index, JAR_COLUMNS)
         wobble = (qid * 7919) % 7 - 3  # small, stable offset so the pile looks tossed, not gridded
         # SVG numbers as plain strings: the template would localise a float to «44,8».
@@ -180,16 +221,22 @@ def jar(user):
             "x": f"{53 + col * 21 + (10 if row % 2 else 0) + wobble * .7:.1f}",
             "y": f"{225 - row * 18.5 + (wobble % 3):.1f}",
             "r": f"{10 + (qid % 3) * .6:.1f}",
-            "hue": (bilet.get(qid, 0) * 47) % 360,
+            "hue": (colour.get(qid, 0) * 47) % 360,
             "turn": (qid * 37) % 360,
             "delay": index * 25,
         })
+    active = active_session(user)
+    stored_size = ALL if size == GLOBAL else size
+    if not (active and active.marathon_retry and active.marathon_section is None and active.marathon_size == stored_size):
+        active = None
     return {
+        "active": active,  # this jar's mistakes run, still going
+        "size": size,
+        "is_global": size == GLOBAL,
         "count": len(mistakes),
-        "answered": len(state),
+        "answered": answered,
         "balls": balls,
         "overflow": max(len(mistakes) - JAR_CAPACITY, 0),
-        "level": min(len(mistakes) / JAR_CAPACITY, 1),
     }
 
 
@@ -220,11 +267,15 @@ def start(user, size, number):
     return _open_session(user, question_ids, size, number)
 
 
-def start_mistakes(user, size, number=None):
-    """A run over the questions last answered wrong: one section's, or every mistake (number=None)."""
-    if not is_valid_size(size):
+def start_mistakes(user, size=GLOBAL, number=None):
+    """A run over questions still answered wrong: the main jar (every size), a size's jar, or one section."""
+    if size == GLOBAL:
+        question_ids = mistake_ids(user)
+        size, number = ALL, None  # stored as size 0 without a section: see _scope()
+    elif is_valid_size(size) and size != ALL:
+        question_ids = mistake_ids(user, size, number)
+    else:
         raise ValueError("unknown size")
-    question_ids = mistake_ids(user, size, number)
     if not question_ids:
         raise ValueError("no mistakes to work on")
     return _open_session(user, question_ids, size, number, retry=True)

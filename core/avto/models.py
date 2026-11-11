@@ -706,6 +706,8 @@ class TestSession(models.Model):
         if self.source == "marafon" and self.marathon_retry:
             if self.marathon_section:
                 return _("Marafon · %(n)s-bo‘lim xatolari") % {"n": self.marathon_section}
+            if self.marathon_size:
+                return _("Marafon · %(n)s talik xatolari") % {"n": self.marathon_size}
             return _("Marafon · barcha xatolar")
         if self.source == "marafon" and self.marathon_size == 0:
             return _("Marafon · barcha savollar")

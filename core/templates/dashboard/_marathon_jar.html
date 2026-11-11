@@ -1,5 +1,8 @@
 {% load i18n %}
-{# Mistakes jar: every question last answered wrong is a crumpled paper ball; fixing it takes the ball out. #}
+{% comment %}
+Mistakes jar: every question still answered wrong is a crumpled paper ball; fixing it takes the ball out.
+The main page jar holds every size's mistakes; a size's page shows only that size's jar.
+{% endcomment %}
 <section class="mr-jar{% if not jar.count %} is-empty{% endif %}">
   <svg class="mr-jar__art" viewBox="0 0 220 250" role="img"
        aria-label="{% blocktrans with n=jar.count %}Xatolar idishi: {{ n }} ta xato{% endblocktrans %}">
@@ -32,17 +35,21 @@
   </svg>
 
   <div class="mr-jar__text">
-    <span class="mr-jar__kicker">{% trans "Xatolar idishi" %}</span>
+    <span class="mr-jar__kicker">{% if jar.is_global %}{% trans "Umumiy xatolar idishi" %}{% else %}{% blocktrans with n=jar.size %}{{ n }} talik xatolar idishi{% endblocktrans %}{% endif %}</span>
     {% if jar.count %}
       <b class="mr-jar__count">{{ jar.count }} <small>{% trans "ta xato" %}</small></b>
-      <p>{% trans "Har bir noto‘g‘ri javob idishga g‘ijimlangan qog‘oz bo‘lib tushadi. Xato savolni to‘g‘ri yechsangiz — u idishdan chiqadi. Idishni bo‘shating!" %}</p>
+      <p>{% if jar.is_global %}{% trans "Barcha bo‘limlardagi xatolaringiz shu yerda. Bu yerdan tuzatilgan savol hamma bo‘limlarda tuzatilgan hisoblanadi." %}{% else %}{% blocktrans with n=jar.size %}Faqat {{ n }} talik bo‘limlarda qilingan xatolar. Har bir noto‘g‘ri javob idishga g‘ijimlangan qog‘oz bo‘lib tushadi, to‘g‘ri yechsangiz — chiqadi.{% endblocktrans %}{% endif %}</p>
       {% if jar.overflow %}<p class="mr-jar__overflow">{% blocktrans with n=jar.overflow %}Idish to‘lib ketdi: yana {{ n }} ta xato sig‘madi.{% endblocktrans %}</p>{% endif %}
+      {% if jar.active %}
+      <a class="mr-btn mr-btn--warn" href="{% url 'test_page' jar.active.id %}"><i class="ti ti-player-play"></i> {% trans "Xatolar testini davom ettirish" %}</a>
+      {% else %}
       <form method="post" action="{% url 'start_marathon' %}">
         {% csrf_token %}
-        <input type="hidden" name="size" value="0">
+        <input type="hidden" name="size" value="{% if jar.is_global %}all{% else %}{{ jar.size }}{% endif %}">
         <input type="hidden" name="mode" value="mistakes">
-        <button type="submit" class="mr-btn mr-btn--warn"><i class="ti ti-recycle"></i> {% trans "Barcha xatolar ustida ishlash" %}</button>
+        <button type="submit" class="mr-btn mr-btn--warn"><i class="ti ti-recycle"></i> {% if jar.is_global %}{% trans "Barcha xatolar ustida ishlash" %}{% else %}{% blocktrans with n=jar.size %}{{ n }} talik xatolar ustida ishlash{% endblocktrans %}{% endif %}</button>
       </form>
+      {% endif %}
     {% elif jar.answered %}
       <b class="mr-jar__count">{% trans "Idish bo‘sh!" %}</b>
       <p>{% trans "Barcha xatolar tuzatildi. Shunday davom eting — yangi bo‘limlarni yeching." %}</p>
