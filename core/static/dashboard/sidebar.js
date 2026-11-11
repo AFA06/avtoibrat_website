@@ -59,8 +59,19 @@
       return drawerMode.matches ? sidebar.classList.contains("open") : !root.classList.contains(COLLAPSED_CLASS);
     }
 
+    // The icon says what a click will do: « folds the open menu, » opens the folded one;
+    // on phones ≡ opens the drawer and ✕ closes it.
+    const icon = toggle.querySelector("i") || toggle.appendChild(document.createElement("i"));
+    const LABELS = { fold: "Menyuni yig‘ish", unfold: "Menyuni ochish", close: "Menyuni yopish" };
+
     function syncToggle() {
-      toggle.setAttribute("aria-expanded", String(isOpen()));
+      const open = isOpen();
+      const action = drawerMode.matches ? (open ? "close" : "unfold") : (open ? "fold" : "unfold");
+      const glyph = drawerMode.matches ? (open ? "ti-x" : "ti-menu-2") : (open ? "ti-chevrons-left" : "ti-chevrons-right");
+      icon.className = `ti ${glyph}`;
+      toggle.setAttribute("aria-expanded", String(open));
+      toggle.setAttribute("aria-label", LABELS[action]);
+      toggle.title = LABELS[action];
       backdrop.classList.toggle("is-visible", drawerMode.matches && sidebar.classList.contains("open"));
     }
 
