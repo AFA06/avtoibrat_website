@@ -81,6 +81,8 @@
     frame.style.cssText = "width:100%;height:100%;border:0;display:block;";
     layer.appendChild(frame);
     document.body.appendChild(layer);
+    // The test has its own question-language switch; hide the panel's site-language menu meanwhile.
+    document.documentElement.classList.add("exam-active");
     dismissStartDialog();
     if (document.fullscreenEnabled) layer.requestFullscreen().catch(() => {});
     openIt(frame);

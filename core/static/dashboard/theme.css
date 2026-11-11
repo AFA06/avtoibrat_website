@@ -374,3 +374,7 @@ html { transition: background-color 0.25s ease; }
 /* Content area while pjax.js swaps pages */
 .page-content-tab { transition: opacity .09s ease-out; }
 .page-content-tab.pjax-out { opacity: 0; }
+
+/* While a test is open (examlaunch.js), its own UZ/ЎЗ/RU switch replaces the site-language menu,
+   which would also reload the page and drop the running test. */
+.exam-active .topbar-nav li.dropdown:has(button[name="language"]) { display: none !important; }
