@@ -39,13 +39,16 @@
   position: relative; display: flex; flex-direction: column; gap: 4px; padding: 22px 22px 20px; border: 1px solid var(--mr-line); border-radius: 16px;
   background: var(--mr-surface); color: var(--mr-ink) !important; text-decoration: none; transition: border-color .15s, box-shadow .15s, transform .15s;
 }
-a.mr-size:hover { border-color: var(--mr-accent); box-shadow: 0 14px 28px -18px rgba(249, 115, 22, .55); transform: translateY(-2px); }
+/* The «all questions» card is a form: an invisible submit button covers the whole card. */
+.mr-size__submit { position: absolute; inset: 0; z-index: 1; width: 100%; border: 0; border-radius: inherit; background: transparent; cursor: pointer; }
+.mr-size__submit:focus-visible { outline: 2px solid var(--mr-accent); outline-offset: 2px; }
+a.mr-size:hover, form.mr-size:hover { border-color: var(--mr-accent); box-shadow: 0 14px 28px -18px rgba(249, 115, 22, .55); transform: translateY(-2px); }
 .mr-size__value { font-size: 44px; line-height: 1; font-weight: 800; letter-spacing: -.03em; color: var(--mr-accent); font-variant-numeric: tabular-nums; }
 .mr-size__value i { font-size: 44px; }
 .mr-size__label { color: var(--mr-ink); font-weight: 600; }
 .mr-size__meta { margin-top: 10px; color: var(--mr-muted); font-size: 13px; }
 .mr-size__go { position: absolute; top: 22px; right: 20px; color: var(--mr-faint); font-size: 20px; transition: transform .15s, color .15s; }
-a.mr-size:hover .mr-size__go { color: var(--mr-accent); transform: translateX(3px); }
+a.mr-size:hover .mr-size__go, form.mr-size:hover .mr-size__go { color: var(--mr-accent); transform: translateX(3px); }
 .mr-size--all { background: linear-gradient(140deg, var(--mr-accent-soft), var(--mr-surface) 70%); }
 .mr-size.is-disabled { opacity: .55; }
 .mr-note { display: flex; align-items: center; gap: 6px; margin: 16px 0 0; color: var(--mr-muted); font-size: 13px; }

@@ -126,6 +126,17 @@ class MarathonViewTests(MarathonFixture):
         self.assertContains(response, "101–120")
         self.assertEqual(self.client.get(reverse("marathon_sections", args=[100])).status_code, 404)
 
+    def test_all_questions_start_straight_away_without_sections(self):
+        self.assertRedirects(self.client.get(reverse("marathon_sections", args=[marathon.ALL])), reverse("marathon"))
+        response = self.client.post(reverse("start_marathon"), {"size": "0", "section": "1"})
+        session = TestSession.objects.get()
+        self.assertRedirects(response, reverse("test_page", args=[session.id]))
+        self.assertEqual(len(session.question_order), self.POOL)
+        # While it runs, the card continues it instead of starting over.
+        self.assertEqual(self.client.get(reverse("marathon")).context["all_active"], session)
+        finished = self.client.post(reverse("finish_test", args=[session.id]), follow=True)
+        self.assertEqual(finished.context["restart_url"], reverse("marathon"))
+
     def test_start_redirects_into_the_exam(self):
         response = self.client.post(reverse("start_marathon"), {"size": "50", "section": "2"})
         session = TestSession.objects.get()

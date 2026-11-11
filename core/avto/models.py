@@ -701,6 +701,8 @@ class TestSession(models.Model):
             return self.topic.name()
         if self.test_kind == "real":
             return _("Real imtihon · %(n)s ta savol") % {"n": len(self.question_order)}
+        if self.source == "marafon" and self.marathon_size == 0:
+            return _("Marafon · barcha savollar")
         if self.source == "marafon" and self.marathon_section:
             return _("Marafon · %(n)s-bo‘lim") % {"n": self.marathon_section}
         return self.category.nomi

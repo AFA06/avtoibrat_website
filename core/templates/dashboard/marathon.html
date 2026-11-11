@@ -29,16 +29,36 @@
 
   <div class="mr-sizes">
     {% for o in options %}
-    {% if o.enabled %}<a class="mr-size{% if o.size == all_size %} mr-size--all{% endif %}" href="{% url 'marathon_sections' o.size %}">{% else %}<div class="mr-size is-disabled" aria-disabled="true">{% endif %}
-      <span class="mr-size__value">{% if o.size == all_size %}<i class="ti ti-infinity"></i>{% else %}{{ o.size }}{% endif %}</span>
-      <span class="mr-size__label">{% if o.size == all_size %}{% trans "Barcha savollar birdaniga" %}{% else %}{% trans "savoldan bo‘limlar" %}{% endif %}</span>
-      <span class="mr-size__meta">
-        {% if o.enabled %}
-          {% if o.size == all_size %}{% blocktrans with n=available %}{{ n }} ta savol · 1 bo‘lim{% endblocktrans %}{% else %}{% blocktrans with n=o.sections %}{{ n }} ta bo‘lim{% endblocktrans %}{% endif %}
-        {% else %}{% trans "Savollar yetarli emas" %}{% endif %}
-      </span>
-      {% if o.enabled %}<i class="ti ti-chevron-right mr-size__go"></i>{% endif %}
-    {% if o.enabled %}</a>{% else %}</div>{% endif %}
+    {% if not o.enabled %}
+    <div class="mr-size is-disabled" aria-disabled="true">
+      <span class="mr-size__value">{{ o.size }}</span>
+      <span class="mr-size__label">{% trans "savoldan bo‘limlar" %}</span>
+      <span class="mr-size__meta">{% trans "Savollar yetarli emas" %}</span>
+    </div>
+    {% elif o.size == all_size %}
+    {# All questions at once is a single run: no section page, it starts (or continues) right here. #}
+    {% if all_active %}
+    <a class="mr-size mr-size--all" href="{% url 'test_page' all_active.id %}">
+    {% else %}
+    <form class="mr-size mr-size--all" method="post" action="{% url 'start_marathon' %}">
+      {% csrf_token %}
+      <input type="hidden" name="size" value="{{ all_size }}">
+      <input type="hidden" name="section" value="1">
+      <button type="submit" class="mr-size__submit" aria-label="{% trans 'Barcha savollarni boshlash' %}"></button>
+    {% endif %}
+      <span class="mr-size__value"><i class="ti ti-infinity"></i></span>
+      <span class="mr-size__label">{% trans "Barcha savollar birdaniga" %}</span>
+      <span class="mr-size__meta">{% blocktrans with n=available %}{{ n }} ta savol{% endblocktrans %} · {% if all_active %}{% trans "Davom ettirish" %}{% else %}{% trans "Darhol boshlanadi" %}{% endif %}</span>
+      <i class="ti ti-{% if all_active %}player-play{% else %}arrow-right{% endif %} mr-size__go"></i>
+    {% if all_active %}</a>{% else %}</form>{% endif %}
+    {% else %}
+    <a class="mr-size" href="{% url 'marathon_sections' o.size %}">
+      <span class="mr-size__value">{{ o.size }}</span>
+      <span class="mr-size__label">{% trans "savoldan bo‘limlar" %}</span>
+      <span class="mr-size__meta">{% blocktrans with n=o.sections %}{{ n }} ta bo‘lim{% endblocktrans %}</span>
+      <i class="ti ti-chevron-right mr-size__go"></i>
+    </a>
+    {% endif %}
     {% endfor %}
   </div>
 

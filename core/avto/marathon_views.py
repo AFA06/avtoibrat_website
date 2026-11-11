@@ -23,6 +23,7 @@ def marathon_page(request):
         "available": available,
         "all_size": marathon.ALL,
         "active": active,
+        "all_active": active if active and active.marathon_size == marathon.ALL else None,
         "active_total": len(active.question_order) if active else 0,
         "active_answered": UserAnswer.objects.filter(session=active).count() if active else 0,
     })
@@ -32,6 +33,8 @@ def marathon_page(request):
 def marathon_sections(request, size):
     if not marathon.is_valid_size(size):
         raise Http404
+    if size == marathon.ALL:  # one run, nothing to pick: started from the size page
+        return redirect("marathon")
     if size != marathon.ALL and size > marathon.question_pool().count():
         return redirect("marathon")
     rows = marathon.sections(request.user, size)
