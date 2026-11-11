@@ -687,6 +687,8 @@ class TestSession(models.Model):
     # Marathon only: section size (0 = all questions at once) and the 1-based section number.
     marathon_size = models.PositiveIntegerField(null=True, blank=True)
     marathon_section = models.PositiveIntegerField(null=True, blank=True)
+    # Marathon «work on mistakes» run: only the questions last answered wrong (section, or all when no section).
+    marathon_retry = models.BooleanField(default=False)
 
     started_at = models.DateTimeField(null=True, blank=True)
     finished_at = models.DateTimeField(null=True, blank=True)
@@ -701,6 +703,10 @@ class TestSession(models.Model):
             return self.topic.name()
         if self.test_kind == "real":
             return _("Real imtihon · %(n)s ta savol") % {"n": len(self.question_order)}
+        if self.source == "marafon" and self.marathon_retry:
+            if self.marathon_section:
+                return _("Marafon · %(n)s-bo‘lim xatolari") % {"n": self.marathon_section}
+            return _("Marafon · barcha xatolar")
         if self.source == "marafon" and self.marathon_size == 0:
             return _("Marafon · barcha savollar")
         if self.source == "marafon" and self.marathon_section:

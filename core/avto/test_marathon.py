@@ -178,6 +178,94 @@ class MarathonViewTests(MarathonFixture):
         self.assertEqual(len(response.context["cells"]), 50)
 
 
+class MarathonMistakesTests(MarathonFixture):
+    """The mistakes loop: wrong answers collect per section until the student answers them right."""
+
+    def answer(self, session, questions, correct):
+        for qid in questions:
+            question = Question.objects.get(pk=qid)
+            UserAnswer.objects.create(session=session, question=question, is_correct=correct,
+                                      selected_answer=question.javoblar.get(togri=correct))
+
+    def test_wrong_answers_become_section_mistakes(self):
+        session = marathon.start(self.user, 50, 1)
+        self.answer(session, session.question_order[:3], False)
+        self.answer(session, session.question_order[3:10], True)
+        self.assertEqual(marathon.mistake_ids(self.user, 50, 1), session.question_order[:3])
+        self.assertEqual(marathon.mistake_ids(self.user, 50, 2), [])
+        row = marathon.sections(self.user, 50)[0]
+        self.assertEqual((row["mistakes"], row["mastered"]), (3, False))
+
+    def test_mistake_run_holds_only_mistakes_and_fixing_empties_the_section(self):
+        first = marathon.start(self.user, 50, 1)
+        self.answer(first, first.question_order[:3], False)
+        self.answer(first, first.question_order[3:], True)
+
+        retry = marathon.start_mistakes(self.user, 50, 1)
+        self.assertTrue(retry.marathon_retry)
+        self.assertEqual(retry.question_order, first.question_order[:3])
+        self.assertEqual(retry.time_limit_seconds, 3 * 60)
+        self.answer(retry, retry.question_order[:1], True)
+        self.answer(retry, retry.question_order[1:], False)
+        self.assertEqual(marathon.mistake_ids(self.user, 50, 1), first.question_order[1:3])
+
+        again = marathon.start_mistakes(self.user, 50, 1)
+        self.answer(again, again.question_order, True)
+        self.assertEqual(marathon.mistake_ids(self.user, 50, 1), [])
+        row = marathon.sections(self.user, 50)[0]
+        self.assertTrue(row["mastered"])
+        # Mistake runs don't replace the section's own last full attempt.
+        self.assertEqual(row["session"], first)
+        with self.assertRaises(ValueError):
+            marathon.start_mistakes(self.user, 50, 1)
+
+    def test_a_right_answer_later_fixes_a_mistake_from_any_size(self):
+        first = marathon.start(self.user, 50, 1)
+        self.answer(first, first.question_order[:1], False)
+        whole = marathon.start(self.user, marathon.ALL, 1)
+        self.answer(whole, whole.question_order[:1], True)
+        self.assertEqual(marathon.mistake_ids(self.user), [])
+
+    def test_unanswered_questions_are_not_mistakes(self):
+        session = marathon.start(self.user, 50, 1)
+        UserAnswer.objects.create(session=session, question_id=session.question_order[0], is_correct=False)
+        self.assertEqual(marathon.mistake_ids(self.user), [])
+
+    def test_all_mistakes_run_and_the_jar(self):
+        one = marathon.start(self.user, 50, 1)
+        self.answer(one, one.question_order[:2], False)
+        two = marathon.start(self.user, 50, 2)
+        self.answer(two, two.question_order[:3], False)
+        jar = marathon.jar(self.user)
+        self.assertEqual((jar["count"], len(jar["balls"]), jar["overflow"]), (5, 5, 0))
+
+        response = self.client.post(reverse("start_marathon"), {"size": "0", "mode": "mistakes"})
+        retry = TestSession.objects.latest("id")
+        self.assertRedirects(response, reverse("test_page", args=[retry.id]))
+        self.assertEqual(retry.question_order, one.question_order[:2] + two.question_order[:3])
+        self.assertIsNone(retry.marathon_section)
+        self.assertIsNone(self.client.get(reverse("marathon")).context["all_active"])
+        self.answer(retry, retry.question_order, True)
+        self.assertEqual(marathon.jar(self.user)["count"], 0)
+
+    def test_section_page_offers_the_mistakes_run(self):
+        session = marathon.start(self.user, 50, 1)
+        self.answer(session, session.question_order[:2], False)
+        response = self.client.get(reverse("marathon_sections", args=[50]))
+        self.assertContains(response, 'name="mode" value="mistakes"')
+        self.assertEqual(response.context["jar"]["count"], 2)
+        response = self.client.post(reverse("start_marathon"), {"size": "50", "section": "1", "mode": "mistakes"})
+        retry = TestSession.objects.latest("id")
+        self.assertRedirects(response, reverse("test_page", args=[retry.id]))
+        finished = self.client.post(reverse("finish_test", args=[retry.id]), follow=True)
+        self.assertEqual(finished.context["restart_url"], reverse("marathon_sections", args=[50]))
+
+    def test_no_mistakes_means_no_run(self):
+        response = self.client.post(reverse("start_marathon"), {"size": "50", "section": "1", "mode": "mistakes"}, follow=True)
+        self.assertRedirects(response, reverse("marathon"))
+        self.assertFalse(TestSession.objects.exists())
+
+
 class MarathonMixTests(TestCase):
     TESTS, PER_TEST = 10, 20
 

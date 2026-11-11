@@ -23,7 +23,8 @@ def marathon_page(request):
         "available": available,
         "all_size": marathon.ALL,
         "active": active,
-        "all_active": active if active and active.marathon_size == marathon.ALL else None,
+        "all_active": active if active and active.marathon_size == marathon.ALL and not active.marathon_retry else None,
+        "jar": marathon.jar(request.user),
         "active_total": len(active.question_order) if active else 0,
         "active_answered": UserAnswer.objects.filter(session=active).count() if active else 0,
     })
@@ -48,17 +49,23 @@ def marathon_sections(request, size):
         "sections": rows,
         "done_count": sum(row["state"] == "done" for row in rows),
         "total_questions": sum(row["total"] for row in rows),
+        "mastered_count": sum(row["mastered"] for row in rows),
+        "jar": marathon.jar(request.user),
     })
 
 
 @login_required
 @require_POST
 def start_marathon(request):
+    """Start a section, or with mode=mistakes a run over its wrong answers (no section: every mistake)."""
     try:
         size = int(request.POST.get("size", ""))
-        number = int(request.POST.get("section", ""))
-        session = marathon.start(request.user, size, number)
+        section = request.POST.get("section", "")
+        if request.POST.get("mode") == "mistakes":
+            session = marathon.start_mistakes(request.user, size, int(section) if section else None)
+        else:
+            session = marathon.start(request.user, size, int(section))
     except ValueError:
-        messages.error(request, _("Bunday bo‘lim topilmadi."))
+        messages.error(request, _("Bunday bo‘lim yoki xato savollar topilmadi."))
         return redirect("marathon")
     return redirect("test_page", session_id=session.id)

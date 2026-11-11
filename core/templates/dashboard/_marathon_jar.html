@@ -1,0 +1,54 @@
+{% load i18n %}
+{# Mistakes jar: every question last answered wrong is a crumpled paper ball; fixing it takes the ball out. #}
+<section class="mr-jar{% if not jar.count %} is-empty{% endif %}">
+  <svg class="mr-jar__art" viewBox="0 0 220 250" role="img"
+       aria-label="{% blocktrans with n=jar.count %}Xatolar idishi: {{ n }} ta xato{% endblocktrans %}">
+    <defs>
+      <clipPath id="mr-jar-inside"><path d="M42 50 Q36 52 36 64 V222 Q36 238 54 238 H166 Q184 238 184 222 V64 Q184 52 178 50 Z"/></clipPath>
+      <linearGradient id="mr-jar-glass" x1="0" x2="1">
+        <stop offset="0" stop-color="currentColor" stop-opacity=".10"/>
+        <stop offset=".18" stop-color="currentColor" stop-opacity=".02"/>
+        <stop offset=".85" stop-color="currentColor" stop-opacity=".02"/>
+        <stop offset="1" stop-color="currentColor" stop-opacity=".12"/>
+      </linearGradient>
+    </defs>
+    <rect class="mr-jar__lid" x="48" y="18" width="124" height="22" rx="7"/>
+    <rect class="mr-jar__lid-band" x="44" y="36" width="132" height="10" rx="4"/>
+    <g clip-path="url(#mr-jar-inside)">
+      {% for b in jar.balls %}
+      <g class="mr-ball" style="animation-delay: {{ b.delay }}ms">
+        <g transform="translate({{ b.x }} {{ b.y }}) rotate({{ b.turn }})">
+          <circle r="{{ b.r }}" style="fill: hsl({{ b.hue }} 70% 62%)"/>
+          <path d="M-7 -3 L-1 0 L4 -7 M-1 0 L1 7 M-1 0 L-7 5 M3 1 L8 -2"/>
+        </g>
+      </g>
+      {% endfor %}
+    </g>
+    <path class="mr-jar__glass" d="M42 50 Q36 52 36 64 V222 Q36 238 54 238 H166 Q184 238 184 222 V64 Q184 52 178 50 Z"/>
+    <path class="mr-jar__shine" d="M50 70 V200"/>
+    {% if not jar.count and jar.answered %}
+    <g class="mr-jar__sparkle"><path d="M110 120 l5 13 13 5 -13 5 -5 13 -5 -13 -13 -5 13 -5z"/><path d="M146 160 l3 7 7 3 -7 3 -3 7 -3 -7 -7 -3 7 -3z"/></g>
+    {% endif %}
+  </svg>
+
+  <div class="mr-jar__text">
+    <span class="mr-jar__kicker">{% trans "Xatolar idishi" %}</span>
+    {% if jar.count %}
+      <b class="mr-jar__count">{{ jar.count }} <small>{% trans "ta xato" %}</small></b>
+      <p>{% trans "Har bir noto‘g‘ri javob idishga g‘ijimlangan qog‘oz bo‘lib tushadi. Xato savolni to‘g‘ri yechsangiz — u idishdan chiqadi. Idishni bo‘shating!" %}</p>
+      {% if jar.overflow %}<p class="mr-jar__overflow">{% blocktrans with n=jar.overflow %}Idish to‘lib ketdi: yana {{ n }} ta xato sig‘madi.{% endblocktrans %}</p>{% endif %}
+      <form method="post" action="{% url 'start_marathon' %}">
+        {% csrf_token %}
+        <input type="hidden" name="size" value="0">
+        <input type="hidden" name="mode" value="mistakes">
+        <button type="submit" class="mr-btn mr-btn--warn"><i class="ti ti-recycle"></i> {% trans "Barcha xatolar ustida ishlash" %}</button>
+      </form>
+    {% elif jar.answered %}
+      <b class="mr-jar__count">{% trans "Idish bo‘sh!" %}</b>
+      <p>{% trans "Barcha xatolar tuzatildi. Shunday davom eting — yangi bo‘limlarni yeching." %}</p>
+    {% else %}
+      <b class="mr-jar__count">{% trans "Hali bo‘sh" %}</b>
+      <p>{% trans "Bo‘limlarni yechishni boshlang. Xato qilgan savollaringiz shu idishga yig‘iladi, keyin ular ustida alohida ishlaysiz." %}</p>
+    {% endif %}
+  </div>
+</section>
