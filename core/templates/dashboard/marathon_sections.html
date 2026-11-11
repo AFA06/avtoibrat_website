@@ -1,0 +1,61 @@
+{% extends "dashboard/base_panel.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Marafon" %} · {{ size_label }} - AvtoIbrat{% endblock %}
+{% block extra_css %}
+<link href="{% static 'dashboard/marathon.css' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block content %}
+<div class="mr">
+  <a class="mr-back" href="{% url 'marathon' %}"><i class="ti ti-arrow-left"></i> {% trans "Bo‘lim hajmini o‘zgartirish" %}</a>
+
+  <header class="mr-hero">
+    <span class="mr-hero__icon"><i class="ti ti-flag"></i></span>
+    <div>
+      <h1>{% trans "Marafon" %} · {{ size_label }}</h1>
+      <p>{% blocktrans with n=sections|length q=total_questions %}{{ q }} ta savol {{ n }} ta bo‘limga bo‘lingan. Bo‘limlarni ketma-ket yeching — savollar tartibi o‘zgarmaydi.{% endblocktrans %}</p>
+    </div>
+    <dl class="mr-kpis">
+      <div><dt>{% trans "Bo‘limlar" %}</dt><dd>{{ sections|length }}</dd></div>
+      <div><dt>{% trans "Yakunlangan" %}</dt><dd>{{ done_count }}<small>/{{ sections|length }}</small></dd></div>
+    </dl>
+  </header>
+
+  <ol class="mr-sections">
+    {% for s in sections %}
+    <li class="mr-sec is-{{ s.state }}">
+      <div class="mr-sec__top">
+        <span class="mr-sec__num">{{ s.number }}<small>-{% trans "bo‘lim" %}</small></span>
+        <span class="mr-sec__badge">
+          {% if s.state == "done" %}<i class="ti ti-circle-check"></i> {{ s.percent }}%
+          {% elif s.state == "active" %}<i class="ti ti-player-play"></i> {% trans "Davom etmoqda" %}
+          {% elif s.session %}<i class="ti ti-player-pause"></i> {% trans "To‘xtatilgan" %}
+          {% else %}{% trans "Yangi" %}{% endif %}
+        </span>
+      </div>
+      <span class="mr-sec__range">{% blocktrans with a=s.first b=s.last %}{{ a }}–{{ b }}-savollar{% endblocktrans %}</span>
+      <span class="mr-sec__meta">{% blocktrans with n=s.total %}{{ n }} ta savol{% endblocktrans %} · {{ s.time }}</span>
+
+      <div class="mr-sec__progress">
+        <div class="mr-bar" title="{% blocktrans with a=s.answered n=s.total %}{{ a }} / {{ n }} javob berilgan{% endblocktrans %}"><i style="width: {{ s.progress|default:0 }}%"></i></div>
+        <span>{% if s.session %}{{ s.correct }} {% trans "to‘g‘ri" %} · {{ s.answered }}/{{ s.total }}{% else %}0/{{ s.total }}{% endif %}</span>
+      </div>
+
+      {% if s.state == "active" %}
+      <a class="mr-btn mr-btn--block" href="{% url 'test_page' s.session.id %}">{% trans "Davom ettirish" %} <i class="ti ti-arrow-right"></i></a>
+      {% else %}
+      <form method="post" action="{% url 'start_marathon' %}">
+        {% csrf_token %}
+        <input type="hidden" name="size" value="{{ size }}">
+        <input type="hidden" name="section" value="{{ s.number }}">
+        <button type="submit" class="mr-btn mr-btn--block{% if s.session %} mr-btn--ghost{% endif %}">
+          {% if s.session %}<i class="ti ti-refresh"></i> {% trans "Qayta yechish" %}{% else %}<i class="ti ti-player-play"></i> {% trans "Boshlash" %}{% endif %}
+        </button>
+      </form>
+      {% endif %}
+    </li>
+    {% endfor %}
+  </ol>
+</div>
+{% endblock %}

@@ -930,6 +930,9 @@ def _result_context(session):
             reverse("start_mavzu_test", args=[session.topic_id]) + f"?mode={topic_tests.restart_mode(session)}"
             if session.topic_id else reverse("mavzulashtirilgan")
         )
+    elif session.source == "marafon" and session.marathon_size is not None:
+        # Back to this size's sections, where the student picks the same or the next section.
+        restart_url = reverse("marathon_sections", args=[session.marathon_size])
     elif restart_url_name in RESTART_WITHOUT_CATEGORY:
         restart_url = reverse(restart_url_name)
     else:

@@ -31,81 +31,126 @@ class MarathonFixture(TestCase):
 
 
 class MarathonLogicTests(MarathonFixture):
-    def test_each_question_gets_a_minute_like_the_real_exam(self):
-        self.assertEqual([marathon.time_limit_minutes(s) for s in marathon.SIZES], [100, 300, 500, 700, 1000])
+    """POOL = 120 questions: size 50 makes sections of 50, 50 and 20."""
+
+    def test_sizes_start_at_50_and_include_all_questions(self):
+        self.assertEqual(marathon.SIZES, (50, 300, 500, 700, marathon.ALL))
 
     def test_duration_label(self):
         self.assertEqual(marathon.duration_label(100), "1 soat 40 daqiqa")
         self.assertEqual(marathon.duration_label(300), "5 soat")
         self.assertEqual(marathon.duration_label(45), "45 daqiqa")
 
-    def test_ranges_above_the_question_bank_are_disabled(self):
-        enabled = {o["size"]: o["enabled"] for o in marathon.size_options(self.POOL)}
-        self.assertEqual(enabled, {100: True, 300: False, 500: False, 700: False, 1000: False})
+    def test_sizes_above_the_question_bank_are_disabled(self):
+        options = {o["size"]: (o["enabled"], o["sections"]) for o in marathon.size_options(self.POOL)}
+        self.assertEqual(options[50], (True, 3))
+        self.assertEqual(options[300], (False, 1))
+        self.assertEqual(options[marathon.ALL], (True, 1))
 
     def test_pool_ignores_inactive_categories(self):
         self.assertEqual(marathon.question_pool().count(), self.POOL)
 
-    def test_start_builds_unique_questions_with_matching_time_limit(self):
-        session = marathon.start(self.user, 100)
-        self.assertEqual(len(set(session.question_order)), 100)
-        self.assertEqual(session.questions.count(), 100)
-        self.assertEqual((session.source, session.test_kind), ("marafon", "shablon"))
-        self.assertEqual(session.time_limit_seconds, 100 * 60)
+    def test_sections_keep_the_order_questions_were_added_in(self):
+        ids = [q.id for q in self.questions]
+        self.assertEqual(marathon.section_ids(50, 1), ids[:50])
+        self.assertEqual(marathon.section_ids(50, 2), ids[50:100])
+        self.assertEqual(marathon.section_ids(50, 3), ids[100:])
+        self.assertEqual(marathon.section_ids(50, 4), [])
+        self.assertEqual(marathon.section_ids(marathon.ALL, 1), ids)
 
-    def test_start_rejects_unknown_or_too_big_sizes(self):
-        for size in (50, 300):
+    def test_start_is_not_random(self):
+        first = marathon.start(self.user, 50, 2)
+        second = marathon.start(self.user, 50, 2)
+        self.assertEqual(first.question_order, second.question_order)
+        self.assertEqual(first.question_order, [q.id for q in self.questions[50:100]])
+
+    def test_new_questions_land_in_the_last_section(self):
+        new = Question.objects.create(test_turi=self.questions[0].test_turi, kategoriya=self.category,
+                                      matn_uzb="new", matn_uz_kr="q", matn_rus="q")
+        self.assertEqual(marathon.section_ids(50, 3)[-1], new.id)
+
+    def test_start_records_the_section_and_its_time_budget(self):
+        session = marathon.start(self.user, 50, 3)
+        self.assertEqual((session.marathon_size, session.marathon_section), (50, 3))
+        self.assertEqual(len(session.question_order), 20)
+        self.assertEqual(session.time_limit_seconds, 20 * 60)
+        self.assertEqual((session.source, session.test_kind), ("marafon", "shablon"))
+
+    def test_start_rejects_unknown_sizes_and_sections(self):
+        for size, number in ((100, 1), (50, 0), (50, 4), (300, 1)):
             with self.assertRaises(ValueError):
-                marathon.start(self.user, size)
+                marathon.start(self.user, size, number)
         self.assertFalse(TestSession.objects.exists())
 
     def test_starting_again_finishes_the_previous_marathon(self):
-        first = marathon.start(self.user, 100)
-        second = marathon.start(self.user, 100)
+        first = marathon.start(self.user, 50, 1)
+        second = marathon.start(self.user, 50, 2)
         first.refresh_from_db()
         self.assertIsNotNone(first.finished_at)
         self.assertEqual(marathon.active_session(self.user), second)
 
     def test_expired_marathon_is_not_resumable(self):
-        session = marathon.start(self.user, 100)
-        TestSession.objects.filter(pk=session.pk).update(started_at=timezone.now() - timedelta(minutes=101))
+        session = marathon.start(self.user, 50, 1)
+        TestSession.objects.filter(pk=session.pk).update(started_at=timezone.now() - timedelta(minutes=51))
         self.assertIsNone(marathon.active_session(self.user))
+
+    def test_section_progress_comes_from_the_latest_attempt(self):
+        old = marathon.start(self.user, 50, 1)
+        UserAnswer.objects.create(session=old, question_id=old.question_order[0], is_correct=False)
+        latest = marathon.start(self.user, 50, 1)
+        for qid in latest.question_order[:10]:
+            UserAnswer.objects.create(session=latest, question_id=qid, is_correct=True)
+        rows = marathon.sections(self.user, 50)
+        self.assertEqual([r["total"] for r in rows], [50, 50, 20])
+        self.assertEqual((rows[0]["state"], rows[0]["answered"], rows[0]["correct"], rows[0]["percent"]), ("active", 10, 10, 20))
+        self.assertEqual(rows[1]["state"], "new")
+        TestSession.objects.filter(pk=latest.pk).update(finished_at=timezone.now())
+        self.assertEqual(marathon.sections(self.user, 50)[0]["state"], "done")
 
 
 class MarathonViewTests(MarathonFixture):
-    def test_page_lists_ranges_and_shows_resume_card(self):
+    def test_page_lists_sizes_and_shows_resume_card(self):
         response = self.client.get(reverse("marathon"))
         self.assertEqual(response.status_code, 200)
         self.assertIsNone(response.context["active"])
-        session = marathon.start(self.user, 100)
+        self.assertContains(response, reverse("marathon_sections", args=[50]))
+        session = marathon.start(self.user, 50, 1)
         UserAnswer.objects.create(session=session, question_id=session.question_order[0], is_correct=True)
         response = self.client.get(reverse("marathon"))
         self.assertEqual((response.context["active"], response.context["active_answered"]), (session, 1))
 
+    def test_sections_page_lists_every_section(self):
+        response = self.client.get(reverse("marathon_sections", args=[50]))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual([s["number"] for s in response.context["sections"]], [1, 2, 3])
+        self.assertContains(response, "101–120")
+        self.assertEqual(self.client.get(reverse("marathon_sections", args=[100])).status_code, 404)
+
     def test_start_redirects_into_the_exam(self):
-        response = self.client.post(reverse("start_marathon"), {"size": "100"})
+        response = self.client.post(reverse("start_marathon"), {"size": "50", "section": "2"})
         session = TestSession.objects.get()
         self.assertRedirects(response, reverse("test_page", args=[session.id]))
+        self.assertEqual(session.marathon_section, 2)
 
-    def test_start_with_too_many_questions_shows_an_error(self):
-        response = self.client.post(reverse("start_marathon"), {"size": "1000"}, follow=True)
+    def test_start_with_a_missing_section_shows_an_error(self):
+        response = self.client.post(reverse("start_marathon"), {"size": "50", "section": "9"}, follow=True)
         self.assertRedirects(response, reverse("marathon"))
         self.assertFalse(TestSession.objects.exists())
 
     def test_start_requires_post_and_login(self):
         self.assertEqual(self.client.get(reverse("start_marathon")).status_code, 405)
         self.client.logout()
-        self.assertEqual(self.client.post(reverse("start_marathon"), {"size": "100"}).status_code, 302)
+        self.assertEqual(self.client.post(reverse("start_marathon"), {"size": "50", "section": "1"}).status_code, 302)
 
     def test_exam_page_uses_the_marathon_time_budget(self):
-        session = marathon.start(self.user, 100)
+        session = marathon.start(self.user, 50, 1)
         response = self.client.get(reverse("test_page", args=[session.id]))
         self.assertEqual(response.status_code, 200)
-        self.assertGreater(response.context["remaining_seconds"], 99 * 60)
-        self.assertEqual(len(response.context["questions_data"]), 100)
+        self.assertGreater(response.context["remaining_seconds"], 49 * 60)
+        self.assertEqual(len(response.context["questions_data"]), 50)
 
     def test_answers_are_accepted_beyond_the_category_time(self):
-        session = marathon.start(self.user, 100)
+        session = marathon.start(self.user, 50, 1)
         TestSession.objects.filter(pk=session.pk).update(started_at=timezone.now() - timedelta(minutes=30))
         question = Question.objects.get(pk=session.question_order[0])
         answer = question.javoblar.first()
@@ -114,12 +159,12 @@ class MarathonViewTests(MarathonFixture):
         })
         self.assertEqual(response.status_code, 200)
 
-    def test_result_page_restart_leads_back_to_the_picker(self):
-        session = marathon.start(self.user, 100)
+    def test_result_page_restart_leads_back_to_the_sections(self):
+        session = marathon.start(self.user, 50, 1)
         response = self.client.post(reverse("finish_test", args=[session.id]), follow=True)
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.context["restart_url"], reverse("marathon"))
-        self.assertEqual(len(response.context["cells"]), 100)
+        self.assertEqual(response.context["restart_url"], reverse("marathon_sections", args=[50]))
+        self.assertEqual(len(response.context["cells"]), 50)
 
 
 class MarathonMixTests(TestCase):
