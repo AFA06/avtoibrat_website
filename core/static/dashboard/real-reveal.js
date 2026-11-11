@@ -261,17 +261,21 @@
         </svg>
         <div class="rv-verdict glitch" data-text="${esc(t.fail_word)}">${esc(t.fail_word)}</div>
         <div class="rv-hope">
-          <h2 class="rv-title">${fill(t.fail_title)}</h2>
-          <p class="rv-sub">${esc(t.fail_sub)}</p>
-          <div class="rv-compare">
-            <div><small>${esc(t.allowed)}</small><b>${d.allowed}</b></div>
-            <div class="is-bad"><small>${esc(t.made)}</small><b>${d.wrong}</b></div>
-            <div><small>${esc(t.correct)}</small><b>${d.correct}/${d.total}</b></div>
-          </div>
-          <p class="rv-hint"><i class="ti ti-bulb"></i> ${esc(t.hope)}</p>
-          <div class="rv-actions">
-            <a class="rv-btn rv-btn--ghost" href="#" data-close>${esc(t.see)}</a>
-            <a class="rv-btn rv-btn--go" href="${esc(d.restart)}"><i class="ti ti-refresh"></i> ${esc(t.retry)}</a>
+          <div class="rv-final">
+            <h2 class="rv-title">${fill(t.fail_title)}</h2>
+            <p class="rv-sub">${esc(t.fail_sub)}</p>
+            <div class="rv-compare">
+              <div><small>${esc(t.allowed)}</small><b>${d.allowed}</b></div>
+              <div class="is-bad"><small>${esc(t.made)}</small><b>${d.wrong}</b></div>
+              <div><small>${esc(t.correct)}</small><b>${d.correct}/${d.total}</b></div>
+              <div><small>${esc(t.time)}</small><b>${esc(d.time)}</b></div>
+            </div>
+            <div class="rv-final__cells">${d.cells.map((c, i) => `<span data-s="${c}">${i + 1}</span>`).join("")}</div>
+            <div class="rv-final__review" data-review></div>
+            <div class="rv-actions">
+              <a class="rv-btn rv-btn--ghost" href="${esc(d.list_url)}"><i class="ti ti-arrow-left"></i> ${esc(t.list)}</a>
+              <a class="rv-btn rv-btn--go" href="${esc(d.restart)}"><i class="ti ti-refresh"></i> ${esc(t.retry)}</a>
+            </div>
           </div>
         </div>
       </section>
@@ -281,6 +285,24 @@
     canvas = root.querySelector(".rv-canvas");
     g = canvas.getContext("2d");
     sizeCanvas();
+    // A failed exam ends on one screen: the page's mistakes review moves into the final card.
+    const review = document.querySelector(".result-card .rw");
+    if (review && !d.passed) root.querySelector("[data-review]").appendChild(review);
+  }
+
+  // Failed exam: the final screen over the road (the car drives on), without replaying the story.
+  function showFinal() {
+    token++;
+    if (!root.querySelector(".rv-fail")) build();
+    root.hidden = false;
+    root.className = "rv is-live is-fail is-hope is-final";
+    root.dataset.live = "1";
+    document.body.style.overflow = "hidden";
+    root.querySelector(".rv-tally").hidden = true;
+    root.querySelector(".rv-fail").hidden = false;
+    root.querySelector(".rv-road").className = "rv-road is-scene is-driving is-slow is-leaving";
+    root.querySelector("[data-skip]")?.remove();
+    store.set(seenKey, "1");
   }
 
   // ---------- Story ----------
@@ -386,7 +408,9 @@
       await wait(3000);
       clearInterval(puff);
       if (!alive()) return;
-      root.classList.add("is-hope");
+      root.classList.add("is-hope", "is-final");
+      root.querySelector("[data-skip]")?.remove();
+      store.set(seenKey, "1");
       road.classList.remove("is-crashed");
       road.classList.add("is-driving", "is-slow", "is-leaving");
       sounds.restart();
@@ -431,10 +455,13 @@
     document.getElementById("rv-replay")?.focus();
   }
 
+  // Skip / Esc: a pass closes to the result page; a fail jumps to its final screen, which is the result.
+  const finish = () => (d.passed ? close() : showFinal());
+
   root.addEventListener("click", (event) => {
     if (event.target.closest("[data-close], [data-skip]")) {
       event.preventDefault();
-      close();
+      finish();
     }
     const mute = event.target.closest("[data-mute]");
     if (mute) {
@@ -444,9 +471,12 @@
       mute.setAttribute("aria-label", muted ? t.unmute : t.mute);
     }
   });
-  document.addEventListener("keydown", (event) => { if (event.key === "Escape" && !root.hidden) close(); });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !root.hidden && !root.classList.contains("is-final")) finish();
+  });
   window.addEventListener("resize", () => { if (canvas) sizeCanvas(); });
   document.getElementById("rv-replay")?.addEventListener("click", play);
 
-  if (!reduced && store.get(seenKey) !== "1") play();
+  if (!d.passed && (reduced || store.get(seenKey) === "1")) showFinal();
+  else if (!reduced && store.get(seenKey) !== "1") play();
 })();

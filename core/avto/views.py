@@ -964,6 +964,7 @@ def _result_context(session):
             "time": f"{minutes:02d}:{seconds:02d}",
             "cells": [cell["status"] for cell in cells],
             "restart": restart_url,
+            "list_url": reverse("real_imtihon"),
             "t": {
                 "counting": str(_("Natija hisoblanmoqda…")),
                 "pass_word": str(_("TOPSHIRILDI")),
@@ -981,6 +982,7 @@ def _result_context(session):
                 "made": str(_("Sizning xatolaringiz")),
                 "hope": str(_("Xatolarni ko‘rib chiqing va qayta urinib ko‘ring — siz buni uddalaysiz!")),
                 "see": str(_("Natijani ko‘rish")),
+                "list": str(_("Real imtihon")),
                 "retry": str(_("Qayta urinish")),
                 "skip": str(_("O‘tkazib yuborish")),
                 "mute": str(_("Ovozni o‘chirish")),
