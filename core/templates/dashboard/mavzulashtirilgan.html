@@ -43,27 +43,35 @@
 
   {% for group in groups %}
   <section class="tp-group" data-group="{{ group.slug }}">
-    <h2 class="tp-group__title">
+    <header class="tp-group__head">
       <span class="tp-group__icon"><i class="ti {{ group.icon }}" aria-hidden="true"></i></span>
-      {{ group.name }}
-      <small>{% blocktrans with n=group.total %}{{ n }} ta savol{% endblocktrans %}</small>
-    </h2>
+      <div class="tp-group__title">
+        <h2>{{ group.name }}</h2>
+        <small>{% blocktrans with n=group.topics|length %}{{ n }} ta mavzu{% endblocktrans %} · {% blocktrans with n=group.total %}{{ n }} ta savol{% endblocktrans %}</small>
+      </div>
+      <div class="tp-group__progress" aria-label="{% blocktrans with p=group.percent %}{{ p }}% o‘zlashtirildi{% endblocktrans %}">
+        <span class="tp-bar"><i style="width: {{ group.percent }}%"></i></span>
+        <b>{{ group.percent }}%</b>
+      </div>
+    </header>
     <div class="tp-grid">
       {% for topic in group.topics %}
-      <button type="button" class="tp-card{% if topic.percent == 100 %} is-done{% endif %}" style="--i: {{ forloop.counter0 }}"
+      <button type="button" class="tp-card{% if topic.percent == 100 %} is-done{% endif %}"
               data-name="{{ topic.name }}" data-total="{{ topic.total }}" data-learned="{{ topic.learned }}" data-mistakes="{{ topic.mistakes }}"
               data-url="{% url 'start_mavzu_test' topic.id %}">
-        <span class="tp-card__num">{{ topic.number }}</span>
-        <span class="tp-card__name">{{ topic.name }}</span>
-        <span class="tp-card__meta">
-          <span>{% blocktrans with n=topic.total %}{{ n }} ta savol{% endblocktrans %}</span>
-          {% if topic.mistakes %}<span class="tp-card__mistakes">{% blocktrans with n=topic.mistakes %}{{ n }} ta xato{% endblocktrans %}</span>{% endif %}
-          {% if topic.percent == 100 %}<span class="tp-card__done"><i class="ti ti-circle-check" aria-hidden="true"></i>{% trans "O‘zlashtirildi" %}</span>{% endif %}
+        <span class="tp-card__num">{% if topic.percent == 100 %}<i class="ti ti-check" aria-hidden="true"></i>{% else %}{{ topic.number }}{% endif %}</span>
+        <span class="tp-card__body">
+          <span class="tp-card__name">{{ topic.name }}</span>
+          <span class="tp-card__meta">
+            <span>{% blocktrans with n=topic.total %}{{ n }} ta savol{% endblocktrans %}</span>
+            {% if topic.mistakes %}<span class="tp-card__mistakes">{% blocktrans with n=topic.mistakes %}{{ n }} ta xato{% endblocktrans %}</span>{% endif %}
+          </span>
         </span>
         <span class="tp-card__progress">
           <span class="tp-bar"><i style="width: {{ topic.percent }}%"></i></span>
           <b>{{ topic.percent }}%</b>
         </span>
+        <i class="ti ti-chevron-right tp-card__go" aria-hidden="true"></i>
       </button>
       {% endfor %}
     </div>

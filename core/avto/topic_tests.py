@@ -64,12 +64,16 @@ def page_groups(user):
                 "percent": round(learned * 100 / len(ids)),
             })
         if topics:
+            total = sum(t["total"] for t in topics)
+            learned = sum(t["learned"] for t in topics)
             groups.append({
                 "slug": group.slug,
                 "icon": group.icon,
                 "name": group.name(),
                 "topics": topics,
-                "total": sum(t["total"] for t in topics),
+                "total": total,
+                "learned": learned,
+                "percent": round(learned * 100 / total) if total else 0,
             })
     return groups
 

@@ -22,13 +22,18 @@
     </label>
   </header>
 
+  <div class="cs-layout">
+  <aside class="cs-side">
+  <span class="cs-side__label">{% trans "Boʻlimlar" %}</span>
   <nav class="cs-nav" id="cs-nav" aria-label="{% trans 'Boʻlimlar' %}">
     <button type="button" class="cs-chip cs-chip--pins" data-target="cs-pins"><i class="fas fa-star"></i><span>{% trans "Belgilanganlar" %}</span><b id="cs-pin-count">0</b></button>
     {% for section in sections %}
     <button type="button" class="cs-chip cs-s{{ section.hue }}" data-target="cs-{{ section.id }}"><i class="ti ti-{{ section.icon }}"></i><span>{{ section.title }}</span></button>
     {% endfor %}
   </nav>
+  </aside>
 
+  <div class="cs-main">
   <section class="cs-pins" id="cs-pins" aria-live="polite">
     <h2><i class="fas fa-star"></i>{% trans "Belgilanganlar" %}</h2>
     <p class="cs-pins__empty">{% trans "Hozircha hech narsa belgilanmagan. Kartadagi yulduzchani bosing — u shu yerda tez topiladi." %}</p>
@@ -76,6 +81,8 @@
 
   <p class="cs-empty" id="cs-empty" hidden>{% trans "Hech narsa topilmadi. Boshqa soʻz bilan urinib koʻring." %}</p>
   <p class="cs-source">{% trans "Manba: Yoʻl harakati qoidalari (Vazirlar Mahkamasining 2022-yil 12-apreldagi 172-son qarori). Aniq holatda rasmiy matnga qarang." %}</p>
+  </div>
+  </div>
 
   <button type="button" class="cs-top" id="cs-top" aria-label="{% trans 'Yuqoriga' %}" hidden><i class="ti ti-arrow-up"></i></button>
 </div>
