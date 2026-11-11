@@ -1,0 +1,16 @@
+{# Ranked table below the podium. Needs: rest, me_outside/me, viewer_id; flags: admin, removable (+group) #}
+<section class="lb-list{% if removable %} lb-list--removable{% endif %}">
+  {% if rest or me_outside %}
+  <div class="lb-thead" aria-hidden="true">
+    <span>#</span><span>Talaba</span>
+    <span class="lb-num lb-stat">Faol kunlar</span><span class="lb-num lb-stat">Aniqlik</span>
+    <span class="lb-num lb-stat">Yechilgan</span><span class="lb-num lb-stat">Real imtihon</span>
+    <span class="lb-num">Ball</span>{% if removable %}<span></span>{% endif %}
+  </div>
+  {% endif %}
+  {% for r in rest %}{% include "leaderboard/_row.html" %}{% endfor %}
+  {% if me_outside %}<div class="lb-gap">⋯</div>{% with r=me %}{% include "leaderboard/_row.html" %}{% endwith %}{% endif %}
+  {% if not podium and not rest %}
+    <div class="lb-empty"><i class="fas fa-trophy"></i><p>Reytingda hali hech kim yo‘q. Test yechishni boshlang!</p></div>
+  {% endif %}
+</section>

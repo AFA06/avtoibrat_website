@@ -17,21 +17,6 @@
     <span class="lb-pill"><i class="fas fa-user-graduate"></i> <b>{{ overall_size }}</b> {% trans "talaba" %}</span>
   </header>
 
-  <section class="lb-me">
-    <div class="lb-me__who">
-      <span class="lb-av lb-av--big" style="--h: {{ my_overall_rank.hue|default:150 }}">{{ user.initial }}</span>
-      <div>
-        <b>{{ user.get_full_name|default:user.username }}</b>
-        <span>{% if user.group %}{{ user.group.name }} · {{ user.group.category }}{% else %}{% trans "Guruh biriktirilmagan" %}{% endif %}</span>
-      </div>
-    </div>
-    <div class="lb-me__stats">
-      <div><span>{% trans "Guruhda" %}</span><b>{% if my_group_rank %}#{{ my_group_rank.rank }}<small>/{{ group_size }}</small>{% else %}—{% endif %}</b></div>
-      <div><span>{% trans "Barcha talabalar orasida" %}</span><b>{% if my_overall_rank %}#{{ my_overall_rank.rank }}<small>/{{ overall_size }}</small>{% else %}—{% endif %}</b></div>
-      <div><span>{% trans "Ball" %}</span><b>{{ my_overall_rank.points|default:0 }}</b></div>
-    </div>
-  </section>
-
   <form class="lb-bar" method="get">
     <input type="hidden" name="scope" value="{{ scope }}">
     <label class="lb-search"><i class="fas fa-search"></i><input type="search" name="q" value="{{ query }}" placeholder="{% trans 'Qidirish…' %}" autocomplete="off"></label>
@@ -50,7 +35,25 @@
     </select>
   </form>
 
-  {% include "leaderboard/_board.html" with viewer_id=user.pk %}
+  <div class="lb-top{% if not podium %} lb-top--solo{% endif %}">
+    <section class="lb-me">
+      <div class="lb-me__who">
+        <span class="lb-av lb-av--big" style="--h: {{ my_overall_rank.hue|default:150 }}">{{ user.initial }}</span>
+        <div>
+          <b>{{ user.get_full_name|default:user.username }}</b>
+          <span>{% if user.group %}{{ user.group.name }} · {{ user.group.category }}{% else %}{% trans "Guruh biriktirilmagan" %}{% endif %}</span>
+        </div>
+      </div>
+      <div class="lb-me__stats">
+        <div><span>{% trans "Guruhda" %}</span><b>{% if my_group_rank %}#{{ my_group_rank.rank }}<small>/{{ group_size }}</small>{% else %}—{% endif %}</b></div>
+        <div><span>{% trans "Barcha talabalar orasida" %}</span><b>{% if my_overall_rank %}#{{ my_overall_rank.rank }}<small>/{{ overall_size }}</small>{% else %}—{% endif %}</b></div>
+        <div><span>{% trans "Ball" %}</span><b>{{ my_overall_rank.points|default:0 }}</b></div>
+      </div>
+    </section>
+    {% include "leaderboard/_podium.html" with viewer_id=user.pk %}
+  </div>
+
+  {% include "leaderboard/_list.html" with viewer_id=user.pk %}
   {% include "leaderboard/_rules.html" %}
 </div>
 {% endblock %}
