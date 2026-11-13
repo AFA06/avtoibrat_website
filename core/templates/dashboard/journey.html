@@ -107,12 +107,7 @@
   </nav>
 
   <section class="jr-scene" data-season="{{ journey.active_key }}" aria-live="polite">
-    <div class="jr-sky" aria-hidden="true">
-      <i class="jr-sky__layer jr-sky--spring"></i><i class="jr-sky__layer jr-sky--summer"></i>
-      <i class="jr-sky__layer jr-sky--autumn"></i><i class="jr-sky__layer jr-sky--winter"></i>
-      <i class="jr-sky__layer jr-sky--final"></i>
-    </div>
-    <svg class="jr-topo" aria-hidden="true"></svg>
+    <div class="jr-map"></div>
     <canvas class="jr-particles" aria-hidden="true"></canvas>
     <div class="jr-vignette" aria-hidden="true"></div>
 
@@ -123,19 +118,21 @@
         <p></p>
       </div>
       <div class="jr-hud__chips">
-        <span class="jr-chip"><i class="ti ti-flag"></i><b class="jr-hud__cleared">0</b></span>
+        <span class="jr-chip" title="{% trans 'Balandlik' %}"><i class="ti ti-trending-up"></i><b class="jr-hud__alt">0</b><small>{% trans "m" %}</small></span>
+        <span class="jr-chip"><i class="ti ti-flag-3"></i><b class="jr-hud__left">0</b><small>{% trans "bilet qoldi" %}</small></span>
         <span class="jr-chip"><i class="ti ti-star"></i><b class="jr-hud__stars">0</b></span>
       </div>
     </header>
 
-    <div class="jr-map"></div>
+    <aside class="jr-rail" aria-hidden="true"></aside>
 
-    <div class="jr-lock" hidden>
-      <span class="jr-lock__icon"><i class="ti ti-lock"></i></span>
-      <p class="jr-lock__text"></p>
+    <div class="jr-controls">
+      <button type="button" class="jr-ctrl" data-jr-view="all"><i class="ti ti-arrows-maximize"></i><span>{% trans "Butun yo‘l" %}</span></button>
+      <button type="button" class="jr-ctrl" data-jr-view="car"><i class="ti ti-current-location"></i><span>{% trans "Mashinaga" %}</span></button>
     </div>
 
     <div class="jr-final" hidden>
+      <button type="button" class="jr-final__close" data-jr-close-final aria-label="{% trans 'Yo‘lga qaytish' %}"><i class="ti ti-arrow-back-up"></i><span>{% trans "Yo‘lga qaytish" %}</span></button>
       {% if final.certified %}
       <article class="jr-cert" id="jr-cert">
         <div class="jr-cert__frame">
@@ -222,7 +219,7 @@
     <article>
       <span class="jr-rules__num">03</span>
       <h3>{% trans "Fasllar" %}</h3>
-      <p>{% trans "Bahor, Yoz, Kuz va Qish — har biri 15 biletdan. Fasldagi barcha bosqichlar o‘tilganda keyingi fasl ochiladi." %}</p>
+      <p>{% trans "Bahor, Yoz, Kuz va Qish — tog‘ yo‘lining to‘rt qismi, har biri 15 biletdan. Fasl yakunlanganda keyingi faslga to‘siq ochiladi, cho‘qqida esa marra." %}</p>
     </article>
     <article>
       <span class="jr-rules__num">04</span>

@@ -38,6 +38,9 @@ def _texts():
         "certified": _("Siz imtihonga tayyorsiz!"),
         "certified_sub": _("Barcha fasllar va ketma-ket ikki real imtihon topshirildi."),
         "see_cert": _("Sertifikatni ko‘rish"),
+        "m": _("m"),
+        "start_label": _("Start"),
+        "passed": _("o‘tildi"),
     }
 
 

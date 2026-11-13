@@ -1878,3 +1878,24 @@ msgstr "Қайта кўриш"
 
 msgid "Kamaytirilgan harakat yoqilgan. Bosqichlar quyida statik ko‘rsatilgan."
 msgstr "Камайтирилган ҳаракат ёқилган. Босқичлар қуйида статик кўрсатилган."
+
+msgid "Balandlik"
+msgstr "Баландлик"
+
+msgid "bilet qoldi"
+msgstr "билет қолди"
+
+msgid "Butun yo‘l"
+msgstr "Бутун йўл"
+
+msgid "Mashinaga"
+msgstr "Машинага"
+
+msgid "Start"
+msgstr "Старт"
+
+msgid "o‘tildi"
+msgstr "ўтилди"
+
+msgid "Bahor, Yoz, Kuz va Qish — tog‘ yo‘lining to‘rt qismi, har biri 15 biletdan. Fasl yakunlanganda keyingi faslga to‘siq ochiladi, cho‘qqida esa marra."
+msgstr "Баҳор, Ёз, Куз ва Қиш — тоғ йўлининг тўрт қисми, ҳар бири 15 билетдан. Фасл якунланганда кейинги фаслга тўсиқ очилади, чўққида эса марра."

@@ -1885,3 +1885,24 @@ msgstr "Повторить"
 
 msgid "Kamaytirilgan harakat yoqilgan. Bosqichlar quyida statik ko‘rsatilgan."
 msgstr "Включено уменьшение движения. Этапы ниже показаны статически."
+
+msgid "Balandlik"
+msgstr "Высота"
+
+msgid "bilet qoldi"
+msgstr "билетов осталось"
+
+msgid "Butun yo‘l"
+msgstr "Весь путь"
+
+msgid "Mashinaga"
+msgstr "К машине"
+
+msgid "Start"
+msgstr "Старт"
+
+msgid "o‘tildi"
+msgstr "пройдено"
+
+msgid "Bahor, Yoz, Kuz va Qish — tog‘ yo‘lining to‘rt qismi, har biri 15 biletdan. Fasl yakunlanganda keyingi faslga to‘siq ochiladi, cho‘qqida esa marra."
+msgstr "Весна, Лето, Осень и Зима — четыре участка горной дороги, по 15 билетов. Когда сезон завершён, шлагбаум на следующий сезон открывается, а на вершине — финиш."
