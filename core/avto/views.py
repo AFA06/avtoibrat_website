@@ -494,20 +494,14 @@ def mavzulashtirilgan(request):
 @login_required
 def ohshash_savollar(request):
     """Groups of look-alike questions; each row shows the result of its last finished attempt."""
+    categories = list(TestCategory.objects.filter(aktiv=True, show_in_ohshash=True).order_by("tartib"))
+    latest = _latest_run_counts(request.user, categories, source="ohshash")
     groups = []
-    for cat in TestCategory.objects.filter(aktiv=True, show_in_ohshash=True).order_by("tartib"):
+    for cat in categories:
         total = cat.question_count
-        last = (
-            TestSession.objects
-            .filter(user=request.user, category=cat, test_kind="shablon", source="ohshash", finished_at__isnull=False)
-            .order_by("-finished_at")
-            .first()
-        )
-        group = {"id": cat.id, "nomi": cat.nomi, "total": total, "started": last is not None}
-        if last:
-            answers = UserAnswer.objects.filter(session=last)
-            correct = answers.filter(is_correct=True).count()
-            wrong = answers.filter(is_correct=False, selected_answer__isnull=False).count()
+        group = {"id": cat.id, "nomi": cat.nomi, "total": total, "started": cat.id in latest}
+        if cat.id in latest:
+            correct, wrong = latest[cat.id]
             group.update(
                 correct=correct,
                 wrong=wrong,
@@ -581,46 +575,44 @@ def start_saqlangan_test(request):
 
 
 
+def _latest_run_counts(user, categories, **filters):
+    """{category id: (correct, wrong)} of the user's latest finished practice run in each category.
+
+    Two queries whatever the number of categories (one per category before: slow over the network).
+    """
+    latest = {}
+    for session_id, category_id in (
+        TestSession.objects
+        .filter(user=user, category__in=categories, test_kind="shablon", finished_at__isnull=False, **filters)
+        .order_by("-finished_at")
+        .values_list("id", "category_id")
+    ):
+        latest.setdefault(category_id, session_id)
+    counts = {
+        row["session_id"]: (row["correct"], row["wrong"])
+        for row in UserAnswer.objects.filter(session_id__in=latest.values()).values("session_id").annotate(
+            correct=Count("id", filter=Q(is_correct=True)),
+            wrong=Count("id", filter=Q(is_correct=False, selected_answer__isnull=False)),
+        )
+    }
+    return {category_id: counts.get(session_id, (0, 0)) for category_id, session_id in latest.items()}
+
+
 @login_required
 def shablon_test(request):
-    categories_qs = TestCategory.objects.filter(
-        aktiv=True,
-        show_in_shablon=True
-    )
+    categories = list(TestCategory.objects.filter(aktiv=True, show_in_shablon=True))
+
+    latest = _latest_run_counts(request.user, categories)
 
     kategoriyalar = []
-
-    for cat in categories_qs:
-        last_session = (
-            TestSession.objects
-            .filter(
-                user=request.user,
-                category=cat,
-                test_kind="shablon",
-                finished_at__isnull=False
-            )
-            .order_by("-finished_at")
-            .first()
-        )
-
-        has_started = last_session is not None
-
+    for cat in categories:
+        has_started = cat.id in latest
         if has_started:
-            correct = UserAnswer.objects.filter(
-                session=last_session,
-                is_correct=True
-            ).count()
-            wrong = UserAnswer.objects.filter(
-                session=last_session,
-                is_correct=False,
-                selected_answer__isnull=False
-            ).count()
-            answered = correct + wrong
-            empty = max(cat.question_count - answered, 0)
+            correct, wrong = latest[cat.id]
+            empty = max(cat.question_count - correct - wrong, 0)
             percent = round(correct * 100 / cat.question_count) if cat.question_count else 0
         else:
             correct = wrong = empty = percent = None
-
         kategoriyalar.append({
             "id": cat.id,
             "nomi": cat.nomi,
