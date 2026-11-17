@@ -1,0 +1,2486 @@
+[
+ {
+  "category": "ogohlantiruvchi-belgilar",
+  "number": "1.1",
+  "image": "1.1.webp",
+  "title_kr": "Шлагбаумли темир йўл кесишмаси",
+  "description_kr": "Бу белгилар темир йўл кесишмалари олдида ўрнатилиб, биринчи белги ўрнатилган кесишма шлагбаум, темир йўл симофори билан жиҳозланган бўлиб, ҳаракатланишни темир йўл назоратчиси назорат қилади",
+  "title": "Shlagbaumli temir yoʻl kesishmasi",
+  "description": "Bu belgilar temir yoʻl kesishmalari oldida oʻrnatilib, birinchi belgi oʻrnatilgan kesishma shlagbaum, temir yoʻl simofori bilan jihozlangan boʻlib, harakatlanishni temir yoʻl nazoratchisi nazorat qiladi"
+ },
+ {
+  "category": "ogohlantiruvchi-belgilar",
+  "number": "1.2",
+  "image": "1.2.webp",
+  "title_kr": "Шлагбаумсиз темир йўл кесишмаси",
+  "description_kr": "Ушбу белги ўрнатилган кесишма назоратчисиз бўлиб, темир йўлни хавфсизликни таъминлаган ҳолда кесиб ўтиш ҳайдовчининг ўзига ҳавола этилади.",
+  "title": "Shlagbaumsiz temir yoʻl kesishmasi",
+  "description": "Ushbu belgi oʻrnatilgan kesishma nazoratchisiz boʻlib, temir yoʻlni xavfsizlikni taʼminlagan holda kesib oʻtish haydovchining oʻziga havola etiladi."
+ },
+ {
+  "category": "ogohlantiruvchi-belgilar",
+  "number": "1.3.1",
+  "image": "1.3.1.webp",
+  "title_kr": "Бир изли темир йўл",
+  "description_kr": "Бу белгилар бевосита шлагбаумсиз темир йўл кесишмаси олдида ўрнатилади.",
+  "title": "Bir izli temir yoʻl",
+  "description": "Bu belgilar bevosita shlagbaumsiz temir yoʻl kesishmasi oldida oʻrnatiladi."
+ },
+ {
+  "category": "ogohlantiruvchi-belgilar",
+  "number": "1.3.2",
+  "image": "1.3.2.webp",
+  "title_kr": "Кўп изли темир йўл",
+  "description_kr": "1.3.2 белгисида биринчи издан ташқари иккинчи ва ундан кейинги излардан ҳам поезд йўқлигига ишонч ҳосил қилган ҳолда кесишмадан ўтиш мумкин.",
+  "title": "Koʻp izli temir yoʻl",
+  "description": "1.3.2 belgisida birinchi izdan tashqari ikkinchi va undan keyingi izlardan ham poyezd yoʻqligiga ishonch hosil qilgan holda kesishmadan oʻtish mumkin."
+ },
+ {
+  "category": "ogohlantiruvchi-belgilar",
+  "number": "1.4.1",
+  "image": "1.4.1.webp",
+  "title_kr": "Темир йўл кесишмасига яқинлашув",
+  "description_kr": "Йўлнинг ўнг томонига ўрнатиладиган, учта қия қизил чизиқли белги — кесишмагача бўлган масофанинг бошланиши (1.1 ёки 1.2 белгиси билан бирга ўрнатилади).\n\nБу белгилар аҳоли яшамайдиган жойларда ўрнатилиб, ҳайдовчини темир йўл кесишмасига яқинлашаётганлиги ҳақида қўшимча равишда огоҳлантиради. 1.4.1-1.4.3 белгилари йўлнинг ўнг томонига, 1.4.4-1.4.6 белгилари йўлнинг чап томонига ўрнатилади.",
+  "title": "Temir yoʻl kesishmasiga yaqinlashuv",
+  "description": "Yoʻlning oʻng tomoniga oʻrnatiladigan, uchta qiya qizil chiziqli belgi — kesishmagacha boʻlgan masofaning boshlanishi (1.1 yoki 1.2 belgisi bilan birga oʻrnatiladi).\n\nBu belgilar aholi yashamaydigan joylarda oʻrnatilib, haydovchini temir yoʻl kesishmasiga yaqinlashayotganligi haqida qoʻshimcha ravishda ogohlantiradi. 1.4.1-1.4.3 belgilari yoʻlning oʻng tomoniga, 1.4.4-1.4.6 belgilari yoʻlning chap tomoniga oʻrnatiladi."
+ },
+ {
+  "category": "ogohlantiruvchi-belgilar",
+  "number": "1.4.2",
+  "image": "1.4.2.webp",
+  "title_kr": "Темир йўл кесишмасига яқинлашув",
+  "description_kr": "Йўлнинг ўнг томонига ўрнатиладиган, иккита қия қизил чизиқли белги — кесишмагача бўлган масофанинг ўртаси.\n\nБу белгилар аҳоли яшамайдиган жойларда ўрнатилиб, ҳайдовчини темир йўл кесишмасига яқинлашаётганлиги ҳақида қўшимча равишда огоҳлантиради. 1.4.1-1.4.3 белгилари йўлнинг ўнг томонига, 1.4.4-1.4.6 белгилари йўлнинг чап томонига ўрнатилади.",
+  "title": "Temir yoʻl kesishmasiga yaqinlashuv",
+  "description": "Yoʻlning oʻng tomoniga oʻrnatiladigan, ikkita qiya qizil chiziqli belgi — kesishmagacha boʻlgan masofaning oʻrtasi.\n\nBu belgilar aholi yashamaydigan joylarda oʻrnatilib, haydovchini temir yoʻl kesishmasiga yaqinlashayotganligi haqida qoʻshimcha ravishda ogohlantiradi. 1.4.1-1.4.3 belgilari yoʻlning oʻng tomoniga, 1.4.4-1.4.6 belgilari yoʻlning chap tomoniga oʻrnatiladi."
+ },
+ {
+  "category": "ogohlantiruvchi-belgilar",
+  "number": "1.4.3",
+  "image": "1.4.3.webp",
+  "title_kr": "Темир йўл кесишмасига яқинлашув",
+  "description_kr": "Йўлнинг ўнг томонига ўрнатиладиган, битта қия қизил чизиқли белги — кесишмага энг яқин белги (1.1 ёки 1.2 белгиси билан бирга ўрнатилади).\n\nБу белгилар аҳоли яшамайдиган жойларда ўрнатилиб, ҳайдовчини темир йўл кесишмасига яқинлашаётганлиги ҳақида қўшимча равишда огоҳлантиради. 1.4.1-1.4.3 белгилари йўлнинг ўнг томонига, 1.4.4-1.4.6 белгилари йўлнинг чап томонига ўрнатилади.",
+  "title": "Temir yoʻl kesishmasiga yaqinlashuv",
+  "description": "Yoʻlning oʻng tomoniga oʻrnatiladigan, bitta qiya qizil chiziqli belgi — kesishmaga eng yaqin belgi (1.1 yoki 1.2 belgisi bilan birga oʻrnatiladi).\n\nBu belgilar aholi yashamaydigan joylarda oʻrnatilib, haydovchini temir yoʻl kesishmasiga yaqinlashayotganligi haqida qoʻshimcha ravishda ogohlantiradi. 1.4.1-1.4.3 belgilari yoʻlning oʻng tomoniga, 1.4.4-1.4.6 belgilari yoʻlning chap tomoniga oʻrnatiladi."
+ },
+ {
+  "category": "ogohlantiruvchi-belgilar",
+  "number": "1.4.4",
+  "image": "1.4.4.webp",
+  "title_kr": "Темир йўл кесишмасига яқинлашув",
+  "description_kr": "Йўлнинг чап томонига ўрнатиладиган, учта қия қизил чизиқли белги — кесишмагача бўлган масофанинг бошланиши (1.1 ёки 1.2 белгиси билан бирга ўрнатилади).\n\nБу белгилар аҳоли яшамайдиган жойларда ўрнатилиб, ҳайдовчини темир йўл кесишмасига яқинлашаётганлиги ҳақида қўшимча равишда огоҳлантиради. 1.4.1-1.4.3 белгилари йўлнинг ўнг томонига, 1.4.4-1.4.6 белгилари йўлнинг чап томонига ўрнатилади.",
+  "title": "Temir yoʻl kesishmasiga yaqinlashuv",
+  "description": "Yoʻlning chap tomoniga oʻrnatiladigan, uchta qiya qizil chiziqli belgi — kesishmagacha boʻlgan masofaning boshlanishi (1.1 yoki 1.2 belgisi bilan birga oʻrnatiladi).\n\nBu belgilar aholi yashamaydigan joylarda oʻrnatilib, haydovchini temir yoʻl kesishmasiga yaqinlashayotganligi haqida qoʻshimcha ravishda ogohlantiradi. 1.4.1-1.4.3 belgilari yoʻlning oʻng tomoniga, 1.4.4-1.4.6 belgilari yoʻlning chap tomoniga oʻrnatiladi."
+ },
+ {
+  "category": "ogohlantiruvchi-belgilar",
+  "number": "1.4.5",
+  "image": "1.4.5.webp",
+  "title_kr": "Темир йўл кесишмасига яқинлашув",
+  "description_kr": "Йўлнинг чап томонига ўрнатиладиган, иккита қия қизил чизиқли белги — кесишмагача бўлган масофанинг ўртаси.\n\nБу белгилар аҳоли яшамайдиган жойларда ўрнатилиб, ҳайдовчини темир йўл кесишмасига яқинлашаётганлиги ҳақида қўшимча равишда огоҳлантиради. 1.4.1-1.4.3 белгилари йўлнинг ўнг томонига, 1.4.4-1.4.6 белгилари йўлнинг чап томонига ўрнатилади.",
+  "title": "Temir yoʻl kesishmasiga yaqinlashuv",
+  "description": "Yoʻlning chap tomoniga oʻrnatiladigan, ikkita qiya qizil chiziqli belgi — kesishmagacha boʻlgan masofaning oʻrtasi.\n\nBu belgilar aholi yashamaydigan joylarda oʻrnatilib, haydovchini temir yoʻl kesishmasiga yaqinlashayotganligi haqida qoʻshimcha ravishda ogohlantiradi. 1.4.1-1.4.3 belgilari yoʻlning oʻng tomoniga, 1.4.4-1.4.6 belgilari yoʻlning chap tomoniga oʻrnatiladi."
+ },
+ {
+  "category": "ogohlantiruvchi-belgilar",
+  "number": "1.4.6",
+  "image": "1.4.6.webp",
+  "title_kr": "Темир йўл кесишмасига яқинлашув",
+  "description_kr": "Йўлнинг чап томонига ўрнатиладиган, битта қия қизил чизиқли белги — кесишмага энг яқин белги (1.1 ёки 1.2 белгиси билан бирга ўрнатилади).\n\nБу белгилар аҳоли яшамайдиган жойларда ўрнатилиб, ҳайдовчини темир йўл кесишмасига яқинлашаётганлиги ҳақида қўшимча равишда огоҳлантиради. 1.4.1-1.4.3 белгилари йўлнинг ўнг томонига, 1.4.4-1.4.6 белгилари йўлнинг чап томонига ўрнатилади.",
+  "title": "Temir yoʻl kesishmasiga yaqinlashuv",
+  "description": "Yoʻlning chap tomoniga oʻrnatiladigan, bitta qiya qizil chiziqli belgi — kesishmaga eng yaqin belgi (1.1 yoki 1.2 belgisi bilan birga oʻrnatiladi).\n\nBu belgilar aholi yashamaydigan joylarda oʻrnatilib, haydovchini temir yoʻl kesishmasiga yaqinlashayotganligi haqida qoʻshimcha ravishda ogohlantiradi. 1.4.1-1.4.3 belgilari yoʻlning oʻng tomoniga, 1.4.4-1.4.6 belgilari yoʻlning chap tomoniga oʻrnatiladi."
+ },
+ {
+  "category": "ogohlantiruvchi-belgilar",
+  "number": "1.5",
+  "image": "1.5.webp",
+  "title_kr": "Трамвай йўли билан кесишув",
+  "description_kr": "Йўлнинг бурилиши ёки ундаги дўнглик туфайли йўлни кесиб ўтадиган трамвай изи кўринмаса (чорраҳадан ташқари), ундай жойларга ушбу йўл белгиси ўрнатилади. Кесишмада трамвай имтиёзга эга бўлади.",
+  "title": "Tramvay yoʻli bilan kesishuv",
+  "description": "Yoʻlning burilishi yoki undagi doʻnglik tufayli yoʻlni kesib oʻtadigan tramvay izi koʻrinmasa (chorrahadan tashqari), unday joylarga ushbu yoʻl belgisi oʻrnatiladi. Kesishmada tramvay imtiyozga ega boʻladi."
+ },
+ {
+  "category": "ogohlantiruvchi-belgilar",
+  "number": "1.6",
+  "image": "1.6.webp",
+  "title_kr": "Тенг аҳамиятли йўллар кесишуви",
+  "description_kr": "Бу белги, усти қандай қоплама (асфальт, бетон, тош) бўлишидан қатъи назар, тенг аҳамиятли йўллар кесишган жойлар олдида ўрнатилиб, имтиёз ўнг томондан келаётган транспорт воситасига берилади.",
+  "title": "Teng ahamiyatli yoʻllar kesishuvi",
+  "description": "Bu belgi, usti qanday qoplama (asfalt, beton, tosh) boʻlishidan qatʼi nazar, teng ahamiyatli yoʻllar kesishgan joylar oldida oʻrnatilib, imtiyoz oʻng tomondan kelayotgan transport vositasiga beriladi."
+ },
+ {
+  "category": "ogohlantiruvchi-belgilar",
+  "number": "1.7",
+  "image": "1.7.webp",
+  "title_kr": "Айланма ҳаракатланиш билан кесишув",
+  "description_kr": "Айланма ҳаракатланиш жорий этилган майдон йўл шароити (бурилиш, дўнглик) туфайли ҳаракатланиш хавфсизлигини таъминловчи масофадан кўринмаса, у ҳолда ўша хавфсизликни таъминловчи масофада 1.7 йўл белгиси ўрнатилади. Кўриш масофаси етарли бўлса, 1.7 йўл белгисини ўрнатиш шарт эмас, чунки айланма ҳаракатланиш жорий этилган майдон олдида буюрувчи 4.3 йўл белгиси ўрнатилади.",
+  "title": "Aylanma harakatlanish bilan kesishuv",
+  "description": "Aylanma harakatlanish joriy etilgan maydon yoʻl sharoiti (burilish, doʻnglik) tufayli harakatlanish xavfsizligini taʼminlovchi masofadan koʻrinmasa, u holda oʻsha xavfsizlikni taʼminlovchi masofada 1.7 yoʻl belgisi oʻrnatiladi. Koʻrish masofasi yetarli boʻlsa, 1.7 yoʻl belgisini oʻrnatish shart emas, chunki aylanma harakatlanish joriy etilgan maydon oldida buyuruvchi 4.3 yoʻl belgisi oʻrnatiladi."
+ },
+ {
+  "category": "ogohlantiruvchi-belgilar",
+  "number": "1.8",
+  "image": "1.8.webp",
+  "title_kr": "Светофор билан тартибга солиш",
+  "description_kr": "Ҳаракатланишни светофор тартибга соладиган чорраҳа ва пиёдалар ўтиш жойи йўл шароити туфайли ҳаракатланиш хавфсизлигини таъминловчи масофадан кўринмаса, у ҳолда ўша хавфсизликни таъминловчи масофада 1.8 йўл белгиси ўрнатилади. Светофор хавфсизликни таъминловчи масофадан кўринса, 1.8 йўл белгиси ўрнатилмайди.",
+  "title": "Svetofor bilan tartibga solish",
+  "description": "Harakatlanishni svetofor tartibga soladigan chorraha va piyodalar oʻtish joyi yoʻl sharoiti tufayli harakatlanish xavfsizligini taʼminlovchi masofadan koʻrinmasa, u holda oʻsha xavfsizlikni taʼminlovchi masofada 1.8 yoʻl belgisi oʻrnatiladi. Svetofor xavfsizlikni taʼminlovchi masofadan koʻrinsa, 1.8 yoʻl belgisi oʻrnatilmaydi."
+ },
+ {
+  "category": "ogohlantiruvchi-belgilar",
+  "number": "1.9",
+  "image": "1.9.webp",
+  "title_kr": "Кўтарма кўприк",
+  "description_kr": "Бу белги кўтарма кўприк ёки солда кесиб ўтиш жойлари олдида ўрнатилиб, йўлнинг кўприк ёки сол олдида узилиб қолиши мумкинлиги ҳақида огоҳлантиради.",
+  "title": "Koʻtarma koʻprik",
+  "description": "Bu belgi koʻtarma koʻprik yoki solda kesib oʻtish joylari oldida oʻrnatilib, yoʻlning koʻprik yoki sol oldida uzilib qolishi mumkinligi haqida ogohlantiradi."
+ },
+ {
+  "category": "ogohlantiruvchi-belgilar",
+  "number": "1.10",
+  "image": "1.10.webp",
+  "title_kr": "Соҳилга чиқиш",
+  "description_kr": "Бу белги дарё ёки сув ҳавзаси қирғоқларига чиқишда ўрнатилиб, ҳайдовчидан тезликни камайтириш ва эътиборни оширишни талаб қилади. Ҳайдовчининг эҳтиётсизлиги ушбу йўл белгисида кўрсатилган ҳолга олиб келиши мумкин.",
+  "title": "Sohilga chiqish",
+  "description": "Bu belgi daryo yoki suv havzasi qirgʻoqlariga chiqishda oʻrnatilib, haydovchidan tezlikni kamaytirish va eʼtiborni oshirishni talab qiladi. Haydovchining ehtiyotsizligi ushbu yoʻl belgisida koʻrsatilgan holga olib kelishi mumkin."
+ },
+ {
+  "category": "ogohlantiruvchi-belgilar",
+  "number": "1.11.1",
+  "image": "1.11.1.webp",
+  "title_kr": "Хавфли бурилиш (ўнгга)",
+  "description_kr": "Ўнгга хавфли бурилиш.\n\nБу белгилар кичик радиусли бурилиш ёки кўриниши чегараланган бурилишлар олдида ўрнатилиб, хавфли бурилиш ўнг ёки чап томонда эканлиги ҳақида огоҳлантиради. Транспорт воситаларини бундай бурилишларда юқори тезликда ҳайдаш уларнинг рўпарадаги тасмаларга чиқиб кетишига ёки ағанаб кетишига олиб келиши мумкин.",
+  "title": "Xavfli burilish (oʻngga)",
+  "description": "Oʻngga xavfli burilish.\n\nBu belgilar kichik radiusli burilish yoki koʻrinishi chegaralangan burilishlar oldida oʻrnatilib, xavfli burilish oʻng yoki chap tomonda ekanligi haqida ogohlantiradi. Transport vositalarini bunday burilishlarda yuqori tezlikda haydash ularning roʻparadagi tasmalarga chiqib ketishiga yoki agʻanab ketishiga olib kelishi mumkin."
+ },
+ {
+  "category": "ogohlantiruvchi-belgilar",
+  "number": "1.11.2",
+  "image": "1.11.2.webp",
+  "title_kr": "Хавфли бурилиш (чапга)",
+  "description_kr": "Чапга хавфли бурилиш.\n\nБу белгилар кичик радиусли бурилиш ёки кўриниши чегараланган бурилишлар олдида ўрнатилиб, хавфли бурилиш ўнг ёки чап томонда эканлиги ҳақида огоҳлантиради. Транспорт воситаларини бундай бурилишларда юқори тезликда ҳайдаш уларнинг рўпарадаги тасмаларга чиқиб кетишига ёки ағанаб кетишига олиб келиши мумкин.",
+  "title": "Xavfli burilish (chapga)",
+  "description": "Chapga xavfli burilish.\n\nBu belgilar kichik radiusli burilish yoki koʻrinishi chegaralangan burilishlar oldida oʻrnatilib, xavfli burilish oʻng yoki chap tomonda ekanligi haqida ogohlantiradi. Transport vositalarini bunday burilishlarda yuqori tezlikda haydash ularning roʻparadagi tasmalarga chiqib ketishiga yoki agʻanab ketishiga olib kelishi mumkin."
+ },
+ {
+  "category": "ogohlantiruvchi-belgilar",
+  "number": "1.12.1",
+  "image": "1.12.1.webp",
+  "title_kr": "Хавфли бурилишлар (биринчиси ўнгга)",
+  "description_kr": "Биринчи бурилиши ўнгга бўлган хавфли бурилишлар.\n\nБу белгилар йўлнинг икки қисмли кичик радиусли ёки кўриниши чекланган бурилиш жойи яқинида ўрнатилади. Кичик радиусли ёки чекланган бурилиш икки қисмдан кўп бўлса, 1.12.1, 1.12.2 йўл белгилари 7.2.1 «Таъсир оралиғи» қўшимча ахборот белгиси билан қўлланилади. Ҳайдовчи йўлнинг бундай қисмларидан тезликни камайтириб, эҳтиёт чораларини кўриб ўтиши керак.",
+  "title": "Xavfli burilishlar (birinchisi oʻngga)",
+  "description": "Birinchi burilishi oʻngga boʻlgan xavfli burilishlar.\n\nBu belgilar yoʻlning ikki qismli kichik radiusli yoki koʻrinishi cheklangan burilish joyi yaqinida oʻrnatiladi. Kichik radiusli yoki cheklangan burilish ikki qismdan koʻp boʻlsa, 1.12.1, 1.12.2 yoʻl belgilari 7.2.1 «Taʼsir oraligʻi» qoʻshimcha axborot belgisi bilan qoʻllaniladi. Haydovchi yoʻlning bunday qismlaridan tezlikni kamaytirib, ehtiyot choralarini koʻrib oʻtishi kerak."
+ },
+ {
+  "category": "ogohlantiruvchi-belgilar",
+  "number": "1.12.2",
+  "image": "1.12.2.webp",
+  "title_kr": "Хавфли бурилишлар (биринчиси чапга)",
+  "description_kr": "Биринчи бурилиши чапга бўлган хавфли бурилишлар.\n\nБу белгилар йўлнинг икки қисмли кичик радиусли ёки кўриниши чекланган бурилиш жойи яқинида ўрнатилади. Кичик радиусли ёки чекланган бурилиш икки қисмдан кўп бўлса, 1.12.1, 1.12.2 йўл белгилари 7.2.1 «Таъсир оралиғи» қўшимча ахборот белгиси билан қўлланилади. Ҳайдовчи йўлнинг бундай қисмларидан тезликни камайтириб, эҳтиёт чораларини кўриб ўтиши керак.",
+  "title": "Xavfli burilishlar (birinchisi chapga)",
+  "description": "Birinchi burilishi chapga boʻlgan xavfli burilishlar.\n\nBu belgilar yoʻlning ikki qismli kichik radiusli yoki koʻrinishi cheklangan burilish joyi yaqinida oʻrnatiladi. Kichik radiusli yoki cheklangan burilish ikki qismdan koʻp boʻlsa, 1.12.1, 1.12.2 yoʻl belgilari 7.2.1 «Taʼsir oraligʻi» qoʻshimcha axborot belgisi bilan qoʻllaniladi. Haydovchi yoʻlning bunday qismlaridan tezlikni kamaytirib, ehtiyot choralarini koʻrib oʻtishi kerak."
+ },
+ {
+  "category": "ogohlantiruvchi-belgilar",
+  "number": "1.13",
+  "image": "1.13.webp",
+  "title_kr": "Тик нишаблик",
+  "description_kr": "Бу белги пастлик, нишаблик олдида ўрнатилиб, ичидаги рақам нишабликнинг 100 м узунликка тўғри келадиган пасайишини фоиз ҳисобида кўрсатади. Пастлик чўзилиб кетган бўлса, у ҳолда ушбу белги 7.2.1 «Таъсир оралиғи» қўшимча ахборот белгиси билан қўлланилади. Нишаблик томон ҳаракатланаётган ҳайдовчи йўлнинг тор қисмларида рўпарадан тепалик томон ҳаракатланаётган ҳайдовчига йўл бериши лозим.",
+  "title": "Tik nishablik",
+  "description": "Bu belgi pastlik, nishablik oldida oʻrnatilib, ichidagi raqam nishablikning 100 m uzunlikka toʻgʻri keladigan pasayishini foiz hisobida koʻrsatadi. Pastlik choʻzilib ketgan boʻlsa, u holda ushbu belgi 7.2.1 «Taʼsir oraligʻi» qoʻshimcha axborot belgisi bilan qoʻllaniladi. Nishablik tomon harakatlanayotgan haydovchi yoʻlning tor qismlarida roʻparadan tepalik tomon harakatlanayotgan haydovchiga yoʻl berishi lozim."
+ },
+ {
+  "category": "ogohlantiruvchi-belgilar",
+  "number": "1.14",
+  "image": "1.14.webp",
+  "title_kr": "Тик баландлик",
+  "description_kr": "Бу белги тик баландликлар олдида ўрнатилади ва ҳайдовчини транспорт воситасининг динамик хусусиятлари, юкли ёки юксизлигига қараб, керакли узатмага улаш, баландликка тўхтамасдан чиқиш кераклигидан огоҳлантиради. Акс ҳолда автомобиль тўхтаб қолиб, ўз оғирлиги билан орқага кетиши мумкин. Нишаблик ва баландлик кетма-кет келадиган бўлса, юқоридаги белгилар 50-100 м масофада эмас, балки бевосита нишаблик ва баландлик олдида ўрнатилади.",
+  "title": "Tik balandlik",
+  "description": "Bu belgi tik balandliklar oldida oʻrnatiladi va haydovchini transport vositasining dinamik xususiyatlari, yukli yoki yuksizligiga qarab, kerakli uzatmaga ulash, balandlikka toʻxtamasdan chiqish kerakligidan ogohlantiradi. Aks holda avtomobil toʻxtab qolib, oʻz ogʻirligi bilan orqaga ketishi mumkin. Nishablik va balandlik ketma-ket keladigan boʻlsa, yuqoridagi belgilar 50-100 m masofada emas, balki bevosita nishablik va balandlik oldida oʻrnatiladi."
+ },
+ {
+  "category": "ogohlantiruvchi-belgilar",
+  "number": "1.15",
+  "image": "1.15.webp",
+  "title_kr": "Сирпанчиқ йўл",
+  "description_kr": "Йўлнинг устки ўтиш қисми маълум сабабларга кўра (лой, қаватма-қават ҳўл барглар, музлаганлик оқибатида) сирпанчиқ бўлиб қолса, бундай қисм олдида 1.15 йўл белгиси ўрнатилади. Ҳайдовчи йўлнинг бундай қисмларида тезликни камайтириши, кескин тўхтамаслиги, кескин бурилмаслиги лозим, акс ҳолда транспорт воситаси сирпаниб кетади ва уни бошқариш қийин кечиб, бошқарувдан чиқиб кетади.",
+  "title": "Sirpanchiq yoʻl",
+  "description": "Yoʻlning ustki oʻtish qismi maʼlum sabablarga koʻra (loy, qavatma-qavat hoʻl barglar, muzlaganlik oqibatida) sirpanchiq boʻlib qolsa, bunday qism oldida 1.15 yoʻl belgisi oʻrnatiladi. Haydovchi yoʻlning bunday qismlarida tezlikni kamaytirishi, keskin toʻxtamasligi, keskin burilmasligi lozim, aks holda transport vositasi sirpanib ketadi va uni boshqarish qiyin kechib, boshqaruvdan chiqib ketadi."
+ },
+ {
+  "category": "ogohlantiruvchi-belgilar",
+  "number": "1.16",
+  "image": "1.16.webp",
+  "title_kr": "Нотекис йўл",
+  "description_kr": "Йўлнинг тўлқинсимон бўртма жойлари, кўприк уламаларининг нотекис қисмлари олдида ушбу йўл белгиси ўрнатилади ва транспорт воситасининг тезлиги кескин оширилса ёки у кескин тўхтатилса, турғунликни йўқотиб, ағаниб кетиши мумкинлиги ҳақида огоҳлантиради.",
+  "title": "Notekis yoʻl",
+  "description": "Yoʻlning toʻlqinsimon boʻrtma joylari, koʻprik ulamalarining notekis qismlari oldida ushbu yoʻl belgisi oʻrnatiladi va transport vositasining tezligi keskin oshirilsa yoki u keskin toʻxtatilsa, turgʻunlikni yoʻqotib, agʻanib ketishi mumkinligi haqida ogohlantiradi."
+ },
+ {
+  "category": "ogohlantiruvchi-belgilar",
+  "number": "1.17",
+  "image": "1.17.webp",
+  "title_kr": "Тош отилиши хавфи",
+  "description_kr": "Мукаммал қопламали йўл қисмида транспорт воситаси ғилдираги остидан шағал, тош ва шунга ўхшашларнинг отилиб чиқиш эҳтимоли. Бу белги йўлнинг таъмирлаш ишлари олиб борилаётган жойларида ғилдирак билан босилган тош, шағал ва шунга ўхшаш нарсаларнинг отилиб чиқиш эҳтимоли борлигидан огоҳлантиради. Йўлнинг бундай қисмларида ҳайдовчи тезликни камайтириб, оралиқ масофани тош отилиш хавфсизлиги мавжуд масофагача узайтириши лозим.",
+  "title": "Tosh otilishi xavfi",
+  "description": "Mukammal qoplamali yoʻl qismida transport vositasi gʻildiragi ostidan shagʻal, tosh va shunga oʻxshashlarning otilib chiqish ehtimoli. Bu belgi yoʻlning taʼmirlash ishlari olib borilayotgan joylarida gʻildirak bilan bosilgan tosh, shagʻal va shunga oʻxshash narsalarning otilib chiqish ehtimoli borligidan ogohlantiradi. Yoʻlning bunday qismlarida haydovchi tezlikni kamaytirib, oraliq masofani tosh otilish xavfsizligi mavjud masofagacha uzaytirishi lozim."
+ },
+ {
+  "category": "ogohlantiruvchi-belgilar",
+  "number": "1.18.1",
+  "image": "1.18.1.webp",
+  "title_kr": "Йўлнинг торайиши (икки томондан)",
+  "description_kr": "Йўлнинг икки томондан торайиши ҳақида огоҳлантиради. Белги йўлнинг торайиш қисми олдида ўрнатилади.",
+  "title": "Yoʻlning torayishi (ikki tomondan)",
+  "description": "Yoʻlning ikki tomondan torayishi haqida ogohlantiradi. Belgi yoʻlning torayish qismi oldida oʻrnatiladi."
+ },
+ {
+  "category": "ogohlantiruvchi-belgilar",
+  "number": "1.18.2",
+  "image": "1.18.2.webp",
+  "title_kr": "Йўлнинг торайиши (ўнг томондан)",
+  "description_kr": "Йўлнинг ўнг томондан торайиши ҳақида огоҳлантиради. Белги йўлнинг торайиш қисми олдида ўрнатилади.",
+  "title": "Yoʻlning torayishi (oʻng tomondan)",
+  "description": "Yoʻlning oʻng tomondan torayishi haqida ogohlantiradi. Belgi yoʻlning torayish qismi oldida oʻrnatiladi."
+ },
+ {
+  "category": "ogohlantiruvchi-belgilar",
+  "number": "1.18.3",
+  "image": "1.18.3.webp",
+  "title_kr": "Йўлнинг торайиши (чап томондан)",
+  "description_kr": "Йўлнинг чап томондан торайиши ҳақида огоҳлантиради. Белги йўлнинг торайиш қисми олдида ўрнатилади.",
+  "title": "Yoʻlning torayishi (chap tomondan)",
+  "description": "Yoʻlning chap tomondan torayishi haqida ogohlantiradi. Belgi yoʻlning torayish qismi oldida oʻrnatiladi."
+ },
+ {
+  "category": "ogohlantiruvchi-belgilar",
+  "number": "1.19",
+  "image": "1.19.webp",
+  "title_kr": "Икки томонлама ҳаракатланиш",
+  "description_kr": "Бу белги йўлнинг бир томонлама ҳаракатланиш қисми тугаб, қарама-қарши ҳаракатланиш қисми бошланиши олдида ўрнатилади.",
+  "title": "Ikki tomonlama harakatlanish",
+  "description": "Bu belgi yoʻlning bir tomonlama harakatlanish qismi tugab, qarama-qarshi harakatlanish qismi boshlanishi oldida oʻrnatiladi."
+ },
+ {
+  "category": "ogohlantiruvchi-belgilar",
+  "number": "1.20",
+  "image": "1.20.webp",
+  "title_kr": "Пиёдалар ўтиш жойи",
+  "description_kr": "5.16.1, 5.16.2 белгилари ва (ёки) 1.14.1-1.14.3 чизиқлари билан белгиланган пиёдалар ўтиш жойи. Бу белги ҳайдовчини светофор билан бошқарилмайдиган пиёдалар ўтиш жойига яқинлашаётганлиги ҳақида огоҳлантиради.",
+  "title": "Piyodalar oʻtish joyi",
+  "description": "5.16.1, 5.16.2 belgilari va (yoki) 1.14.1-1.14.3 chiziqlari bilan belgilangan piyodalar oʻtish joyi. Bu belgi haydovchini svetofor bilan boshqarilmaydigan piyodalar oʻtish joyiga yaqinlashayotganligi haqida ogohlantiradi."
+ },
+ {
+  "category": "ogohlantiruvchi-belgilar",
+  "number": "1.21",
+  "image": "1.21.webp",
+  "title_kr": "Болалар",
+  "description_kr": "Бу белги ҳайдовчини болалар муассасасига (боғча, мактаб, интернат ва шу каби жойларга) яқинлашаётганлигини ва йўлнинг бу қисмидан ҳар дақиқада болалар чиқиб қолиши мумкинлиги ҳақида огоҳлантиради. Белги аҳоли яшамайдиган жойларда такрорланади.",
+  "title": "Bolalar",
+  "description": "Bu belgi haydovchini bolalar muassasasiga (bogʻcha, maktab, internat va shu kabi joylarga) yaqinlashayotganligini va yoʻlning bu qismidan har daqiqada bolalar chiqib qolishi mumkinligi haqida ogohlantiradi. Belgi aholi yashamaydigan joylarda takrorlanadi."
+ },
+ {
+  "category": "ogohlantiruvchi-belgilar",
+  "number": "1.22",
+  "image": "1.22.webp",
+  "title_kr": "Велосипед йўлкаси билан кесишув",
+  "description_kr": "Бу белги велосипед йўлкаси билан кесишув (чорраҳа эмас) жойлари яқинида ўрнатилади. Бундай кесишувларда имтиёз ҳайдовчи тарафида бўлса ҳам, тезликни камайтириб, эътиборни ошириш лозим.",
+  "title": "Velosiped yoʻlkasi bilan kesishuv",
+  "description": "Bu belgi velosiped yoʻlkasi bilan kesishuv (chorraha emas) joylari yaqinida oʻrnatiladi. Bunday kesishuvlarda imtiyoz haydovchi tarafida boʻlsa ham, tezlikni kamaytirib, eʼtiborni oshirish lozim."
+ },
+ {
+  "category": "ogohlantiruvchi-belgilar",
+  "number": "1.23",
+  "image": "1.23.webp",
+  "title_kr": "Таъмирлаш ишлари",
+  "description_kr": "Бу белги йўлнинг таъмирлаш ишлари олиб борилаётган қисмлари яқинида ўрнатилиб, ҳайдовчини эҳтиёт бўлиб ўтиши кераклиги тўғрисида огоҳлантиради. Йўлнинг бундай қисмлари қоронғи пайтларда хавфли ҳисобланади.",
+  "title": "Taʼmirlash ishlari",
+  "description": "Bu belgi yoʻlning taʼmirlash ishlari olib borilayotgan qismlari yaqinida oʻrnatilib, haydovchini ehtiyot boʻlib oʻtishi kerakligi toʻgʻrisida ogohlantiradi. Yoʻlning bunday qismlari qorongʻi paytlarda xavfli hisoblanadi."
+ },
+ {
+  "category": "ogohlantiruvchi-belgilar",
+  "number": "1.24",
+  "image": "1.24.webp",
+  "title_kr": "Мол ҳайдаб ўтиш",
+  "description_kr": "Бу белги мол боқиладиган яйлов ёқалаб ўтадиган йўлларда, фермалар яқинида, мол ҳайдаб ўтиладиган жойларда ўрнатилиб, йўлга моллар подаси чиқиб қолиши мумкинлигидан огоҳлантиради.",
+  "title": "Mol haydab oʻtish",
+  "description": "Bu belgi mol boqiladigan yaylov yoqalab oʻtadigan yoʻllarda, fermalar yaqinida, mol haydab oʻtiladigan joylarda oʻrnatilib, yoʻlga mollar podasi chiqib qolishi mumkinligidan ogohlantiradi."
+ },
+ {
+  "category": "ogohlantiruvchi-belgilar",
+  "number": "1.25.1",
+  "image": "1.25.1.webp",
+  "title_kr": "Ёввойи ҳайвонлар",
+  "description_kr": "Бу белги йўлнинг ўрмон хўжалиги, қўриқхона ва шунга ўхшаш жойлардан ўтадиган қисмларида ўрнатилиб, йўлга ёввойи ҳайвонлар чиқиб қолиши мумкинлиги ҳақида огоҳлантиради.",
+  "title": "Yovvoyi hayvonlar",
+  "description": "Bu belgi yoʻlning oʻrmon xoʻjaligi, qoʻriqxona va shunga oʻxshash joylardan oʻtadigan qismlarida oʻrnatilib, yoʻlga yovvoyi hayvonlar chiqib qolishi mumkinligi haqida ogohlantiradi."
+ },
+ {
+  "category": "ogohlantiruvchi-belgilar",
+  "number": "1.25.2",
+  "image": "1.25.2.webp",
+  "title_kr": "Пастлаб учувчи қушлар",
+  "description_kr": "Қушлар парвозининг ҳаво йўлаги худудида ўрнатиладиган йўл белгиси.",
+  "title": "Pastlab uchuvchi qushlar",
+  "description": "Qushlar parvozining havo yoʻlagi xududida oʻrnatiladigan yoʻl belgisi."
+ },
+ {
+  "category": "ogohlantiruvchi-belgilar",
+  "number": "1.25.3",
+  "image": "1.25.3.webp",
+  "title_kr": "Кемирувчи ва судралиб юрувчи ҳайвонлар белгиси",
+  "description_kr": "Бу белги ўрмонлар ва қўриқхоналар яқинида ўрнатилади.",
+  "title": "Kemiruvchi va sudralib yuruvchi hayvonlar belgisi",
+  "description": "Bu belgi oʻrmonlar va qoʻriqxonalar yaqinida oʻrnatiladi."
+ },
+ {
+  "category": "ogohlantiruvchi-belgilar",
+  "number": "1.26",
+  "image": "1.26.webp",
+  "title_kr": "Тошлар тушиши",
+  "description_kr": "Муз, қор ёки сел келиб, тоғ кўчиши мумкин бўлган тоғли йўл қисмларига «Тошлар тушиши» белгиси ўрнатилиб, хавф-хатар фақат қатнов қисмларидагина эмас, балки тепа тоғ тарафдан ҳам бўлиши мумкинлиги ҳақида огоҳлантиради.",
+  "title": "Toshlar tushishi",
+  "description": "Muz, qor yoki sel kelib, togʻ koʻchishi mumkin boʻlgan togʻli yoʻl qismlariga «Toshlar tushishi» belgisi oʻrnatilib, xavf-xatar faqat qatnov qismlaridagina emas, balki tepa togʻ tarafdan ham boʻlishi mumkinligi haqida ogohlantiradi."
+ },
+ {
+  "category": "ogohlantiruvchi-belgilar",
+  "number": "1.27",
+  "image": "1.27.webp",
+  "title_kr": "Ёнлама шамол",
+  "description_kr": "«Ёнлама шамол» йўл белгиси кучли шамол автомобиль, мототсиклни бошқаришга салбий таъсир этиб, йўл фожиасини келтириб чиқариши мумкин бўлган (тоғ даралари, жарлик, сув ҳавзалари) жойларга ўрнатилади. Айниқса, йўлнинг устки қисми музлаб, сирпанчиқ бўлган пайтлари ёнлама шамол автомототранспортни бошқаришга салбий таъсир этиши мумкин.",
+  "title": "Yonlama shamol",
+  "description": "«Yonlama shamol» yoʻl belgisi kuchli shamol avtomobil, mototsiklni boshqarishga salbiy taʼsir etib, yoʻl fojiasini keltirib chiqarishi mumkin boʻlgan (togʻ daralari, jarlik, suv havzalari) joylarga oʻrnatiladi. Ayniqsa, yoʻlning ustki qismi muzlab, sirpanchiq boʻlgan paytlari yonlama shamol avtomototransportni boshqarishga salbiy taʼsir etishi mumkin."
+ },
+ {
+  "category": "ogohlantiruvchi-belgilar",
+  "number": "1.28",
+  "image": "1.28.webp",
+  "title_kr": "Пастлаб учувчи самолётлар",
+  "description_kr": "Аэропорт яқинидан ўтувчи йўлларнинг самолётлар пастлаб учувчи қисмларига «Пастлаб учувчи самолётлар» йўл белгиси ўрнатилиб, қисқа муддатли қаттиқ шовқинлар бўлиб туриши ҳақида огоҳлантиради.",
+  "title": "Pastlab uchuvchi samolyotlar",
+  "description": "Aeroport yaqinidan oʻtuvchi yoʻllarning samolyotlar pastlab uchuvchi qismlariga «Pastlab uchuvchi samolyotlar» yoʻl belgisi oʻrnatilib, qisqa muddatli qattiq shovqinlar boʻlib turishi haqida ogohlantiradi."
+ },
+ {
+  "category": "ogohlantiruvchi-belgilar",
+  "number": "1.29",
+  "image": "1.29.webp",
+  "title_kr": "Туннель",
+  "description_kr": "Қайрилиш, бурилиш ёки бошқа тўсиқлар орқали туннелга кираверишда унинг пештоқи кўриниши чекланган ёки сунъий равишда ёритилмаган бўлса, олдида «Туннель» йўл белгиси ўрнатилади.",
+  "title": "Tunnel",
+  "description": "Qayrilish, burilish yoki boshqa toʻsiqlar orqali tunnelga kiraverishda uning peshtoqi koʻrinishi cheklangan yoki sunʼiy ravishda yoritilmagan boʻlsa, oldida «Tunnel» yoʻl belgisi oʻrnatiladi."
+ },
+ {
+  "category": "ogohlantiruvchi-belgilar",
+  "number": "1.30",
+  "image": "1.30.webp",
+  "title_kr": "Бошқа хавф-хатарлар",
+  "description_kr": "Йўлнинг огоҳлантирувчи белгиларида кўзда тутилмаган хавф-хатарлар бўлган йўл қисми (тез-тез туман бўлиб турадиган жойлар, жарликлар, тутун бўлиб, йўлнинг кўриниши чекланган қисмлари) олдида «Бошқа хавф-хатарлар» йўл белгиси ўрнатилади.",
+  "title": "Boshqa xavf-xatarlar",
+  "description": "Yoʻlning ogohlantiruvchi belgilarida koʻzda tutilmagan xavf-xatarlar boʻlgan yoʻl qismi (tez-tez tuman boʻlib turadigan joylar, jarliklar, tutun boʻlib, yoʻlning koʻrinishi cheklangan qismlari) oldida «Boshqa xavf-xatarlar» yoʻl belgisi oʻrnatiladi."
+ },
+ {
+  "category": "ogohlantiruvchi-belgilar",
+  "number": "1.31",
+  "image": "1.31.webp",
+  "title_kr": "Сунъий йўл нотекислиги",
+  "description_kr": "Йўлнинг сунъий нотекислик ўрнатилган қисмига яқинлашаётганлиги тўғрисида огоҳлантиради. Транспорт воситасининг ҳаракатланиш тезлигини мажбурий тарзда камайтириш учун қўлланилади.",
+  "title": "Sunʼiy yoʻl notekisligi",
+  "description": "Yoʻlning sunʼiy notekislik oʻrnatilgan qismiga yaqinlashayotganligi toʻgʻrisida ogohlantiradi. Transport vositasining harakatlanish tezligini majburiy tarzda kamaytirish uchun qoʻllaniladi."
+ },
+ {
+  "category": "ogohlantiruvchi-belgilar",
+  "number": "1.31.1",
+  "image": "1.31.1.webp",
+  "title_kr": "Бурилишнинг йўналиши (ўнгга)",
+  "description_kr": "Кичик радиусли бурилишда ўнгга ҳаракатланиш йўналишини кўрсатади.\n\nЙўлнинг хавфли бурилиш қисмларига «Бурилишнинг йўналиши» белгиси ўрнатилади. Бу белгилар уч хил бўлиб ,бурилишнинг ўнгга, чапга ва бир вақтнинг ўзида ўнг ва чапга йўналтирилганлигини кўрсатади.",
+  "title": "Burilishning yoʻnalishi (oʻngga)",
+  "description": "Kichik radiusli burilishda oʻngga harakatlanish yoʻnalishini koʻrsatadi.\n\nYoʻlning xavfli burilish qismlariga «Burilishning yoʻnalishi» belgisi oʻrnatiladi. Bu belgilar uch xil boʻlib ,burilishning oʻngga, chapga va bir vaqtning oʻzida oʻng va chapga yoʻnaltirilganligini koʻrsatadi."
+ },
+ {
+  "category": "ogohlantiruvchi-belgilar",
+  "number": "1.31.2",
+  "image": "1.31.2.webp",
+  "title_kr": "Бурилишнинг йўналиши (чапга)",
+  "description_kr": "Кичик радиусли бурилишда чапга ҳаракатланиш йўналишини кўрсатади.\n\nЙўлнинг хавфли бурилиш қисмларига «Бурилишнинг йўналиши» белгиси ўрнатилади. Бу белгилар уч хил бўлиб ,бурилишнинг ўнгга, чапга ва бир вақтнинг ўзида ўнг ва чапга йўналтирилганлигини кўрсатади.",
+  "title": "Burilishning yoʻnalishi (chapga)",
+  "description": "Kichik radiusli burilishda chapga harakatlanish yoʻnalishini koʻrsatadi.\n\nYoʻlning xavfli burilish qismlariga «Burilishning yoʻnalishi» belgisi oʻrnatiladi. Bu belgilar uch xil boʻlib ,burilishning oʻngga, chapga va bir vaqtning oʻzida oʻng va chapga yoʻnaltirilganligini koʻrsatadi."
+ },
+ {
+  "category": "ogohlantiruvchi-belgilar",
+  "number": "1.31.3",
+  "image": "1.31.3.webp",
+  "title_kr": "Бурилиш йўналишлари",
+  "description_kr": "«Т» симон чорраҳада ёки йўл айрилишларида ҳаракатланиш йўналишини, йўлнинг таъмирланаётган қисмини айланиб ўтиш йўналишини билдиради.",
+  "title": "Burilish yoʻnalishlari",
+  "description": "«T» simon chorrahada yoki yoʻl ayrilishlarida harakatlanish yoʻnalishini, yoʻlning taʼmirlanayotgan qismini aylanib oʻtish yoʻnalishini bildiradi."
+ },
+ {
+  "category": "ogohlantiruvchi-belgilar",
+  "number": "1.32",
+  "image": "1.32.webp",
+  "title_kr": "Тирбандлик",
+  "description_kr": "Ушбу йўл белгиси вақтинчалик ёки тасвири ўзгарадиган ҳолатда тирбандлик ҳосил бўлган йўл ёки чорраҳага кириш олдидан йўлни ёки чорраҳани айланиб ўтиш имконияти бўлган жойга ўрнатилади.",
+  "title": "Tirbandlik",
+  "description": "Ushbu yoʻl belgisi vaqtinchalik yoki tasviri oʻzgaradigan holatda tirbandlik hosil boʻlgan yoʻl yoki chorrahaga kirish oldidan yoʻlni yoki chorrahani aylanib oʻtish imkoniyati boʻlgan joyga oʻrnatiladi."
+ },
+ {
+  "category": "ogohlantiruvchi-belgilar",
+  "number": "1.33",
+  "image": "1.33.webp",
+  "title_kr": "Қатнов қисми кесишмаси ҳудуди",
+  "description_kr": "1.30 ётиқ чизиғи билан белгиланган чорраҳага яқинлашаётганлигини англатиб, олдинда тирбандлик юзага келганлиги туфайли мажбурий тўхтаб, кўндаланг йўналишдаги транспорт воситаларининг ҳаракатланишига тўсқинлик туғдирадиган бўлса, чорраҳага кириш, агар тўхташ чизиғи ёки 5.33 («Стоп») йўл белгисидан ўтиб бўлган ҳайдовчига эса қатнов қисмлари кесишмасига киришни тақиқланишини билдиради.",
+  "title": "Qatnov qismi kesishmasi hududi",
+  "description": "1.30 yotiq chizigʻi bilan belgilangan chorrahaga yaqinlashayotganligini anglatib, oldinda tirbandlik yuzaga kelganligi tufayli majburiy toʻxtab, koʻndalang yoʻnalishdagi transport vositalarining harakatlanishiga toʻsqinlik tugʻdiradigan boʻlsa, chorrahaga kirish, agar toʻxtash chizigʻi yoki 5.33 («Stop») yoʻl belgisidan oʻtib boʻlgan haydovchiga esa qatnov qismlari kesishmasiga kirishni taqiqlanishini bildiradi."
+ },
+ {
+  "category": "ogohlantiruvchi-belgilar",
+  "number": "1.34",
+  "image": "1.34.webp",
+  "title_kr": "Диққат, бошқариладиган тўсиқ",
+  "description_kr": "Ушбу йўл белгиси бошқариладиган тўсувчи қурилмасига етмасдан ўрнатилади ва транспорт воситалари ҳайдовчиларини олдинда тўсувчи қурилма борлиги ҳақида огоҳлантиради.",
+  "title": "Diqqat, boshqariladigan toʻsiq",
+  "description": "Ushbu yoʻl belgisi boshqariladigan toʻsuvchi qurilmasiga yetmasdan oʻrnatiladi va transport vositalari haydovchilarini oldinda toʻsuvchi qurilma borligi haqida ogohlantiradi."
+ },
+ {
+  "category": "ogohlantiruvchi-belgilar",
+  "number": "1.35",
+  "image": "1.35.webp",
+  "title_kr": "Пиёдаларнинг йўл ёқасидан юриши мумкин бўлган ҳудуд",
+  "description_kr": "Пиёдалар йўл ёқасидан ёки қатнов қисмининг четидан юриши мумкин бўлган ҳудудга яқинлашаётганлик ҳақида огоҳлантиради. Ҳайдовчи тезликни пасайтириб, пиёдаларга нисбатан эътиборни ошириши лозим.\n\n1.1, 1.2, огоҳлантирувчи 1.5-1.32 белгилари аҳоли пунктларида хавфли жойдан 50-100 метр, аҳоли пунктларидан ташқарида эса 150-300 метр олдин ўрнатилади. Зарурият бўлганда, бу белгилар 7.1.1 қўшимча ахборот белгисида кўрсатилган бошқа масофада ҳам ўрнатилиши мумкин.",
+  "title": "Piyodalarning yoʻl yoqasidan yurishi mumkin boʻlgan hudud",
+  "description": "Piyodalar yoʻl yoqasidan yoki qatnov qismining chetidan yurishi mumkin boʻlgan hududga yaqinlashayotganlik haqida ogohlantiradi. Haydovchi tezlikni pasaytirib, piyodalarga nisbatan eʼtiborni oshirishi lozim.\n\n1.1, 1.2, ogohlantiruvchi 1.5-1.32 belgilari aholi punktlarida xavfli joydan 50-100 metr, aholi punktlaridan tashqarida esa 150-300 metr oldin oʻrnatiladi. Zaruriyat boʻlganda, bu belgilar 7.1.1 qoʻshimcha axborot belgisida koʻrsatilgan boshqa masofada ham oʻrnatilishi mumkin."
+ },
+ {
+  "category": "imtiyoz-belgilari",
+  "number": "2.1",
+  "image": "2.1.webp",
+  "title_kr": "Асосий йўл",
+  "description_kr": "Ҳаракатланиш тартибга солинмаган чорраҳаларда иккинчи даражали йўлда ҳаракатланаётган транспорт воситасидан олдин ўтиш ҳуқуқини беради. Белги йўлнинг бошланишида ўрнатилиб, ҳар бир чорраҳа олдида такрорланиши мумкин. Асосий йўл билан кесишадиган кўндаланг йўлларда чорраҳа олдида «Йўл беринг» ёки «Тўхтамасдан ҳаракатланиш тақиқланган» белгилари ўрнатилади. Агар чорраҳада асосий йўл ўз йўналишини ўзгартирса, у ҳолда ушбу белги остига қўшимча 7.13- «Асосий йўлнинг йўналиши» белгиси ўрнатилади.",
+  "title": "Asosiy yoʻl",
+  "description": "Harakatlanish tartibga solinmagan chorrahalarda ikkinchi darajali yoʻlda harakatlanayotgan transport vositasidan oldin oʻtish huquqini beradi. Belgi yoʻlning boshlanishida oʻrnatilib, har bir chorraha oldida takrorlanishi mumkin. Asosiy yoʻl bilan kesishadigan koʻndalang yoʻllarda chorraha oldida «Yoʻl bering» yoki «Toʻxtamasdan harakatlanish taqiqlangan» belgilari oʻrnatiladi. Agar chorrahada asosiy yoʻl oʻz yoʻnalishini oʻzgartirsa, u holda ushbu belgi ostiga qoʻshimcha 7.13- «Asosiy yoʻlning yoʻnalishi» belgisi oʻrnatiladi."
+ },
+ {
+  "category": "imtiyoz-belgilari",
+  "number": "2.2",
+  "image": "2.2.webp",
+  "title_kr": "Асосий йўлнинг охири",
+  "description_kr": "Асосий йўл имтиёзли белгиси «Йўл беринг» белгиси ўрнатилган жойда тугайди.",
+  "title": "Asosiy yoʻlning oxiri",
+  "description": "Asosiy yoʻl imtiyozli belgisi «Yoʻl bering» belgisi oʻrnatilgan joyda tugaydi."
+ },
+ {
+  "category": "imtiyoz-belgilari",
+  "number": "2.3.1",
+  "image": "2.3.1.webp",
+  "title_kr": "Иккинчи даражали йўл билан кесишув",
+  "description_kr": "Бу белги асосий йўлда ўрнатилиб, ҳайдовчига ҳаракатланиш тартибга солинмаган чорраҳада имтиёз беради. Аҳоли пунктларида чорраҳадан 50 - 100 м ва аҳоли пунктларидан ташқарида 150-300 м масофада ўрнатилади.",
+  "title": "Ikkinchi darajali yoʻl bilan kesishuv",
+  "description": "Bu belgi asosiy yoʻlda oʻrnatilib, haydovchiga harakatlanish tartibga solinmagan chorrahada imtiyoz beradi. Aholi punktlarida chorrahadan 50 - 100 m va aholi punktlaridan tashqarida 150-300 m masofada oʻrnatiladi."
+ },
+ {
+  "category": "imtiyoz-belgilari",
+  "number": "2.3.2",
+  "image": "2.3.2.webp",
+  "title_kr": "Иккинчи даражали йўл билан туташув (ўнгдан)",
+  "description_kr": "Иккинчи даражали йўл асосий йўлга ўнг томондан туташади. Бу белги асосий йўлда ўрнатилади ва 2.3.1 белгиси каби тартибга солинмаган чорраҳаларда ҳайдовчига имтиёз беради. Аҳоли пунктларида 50-100 м, аҳоли пунктларидан ташқарида 150-300 м масофада ўрнатилади.",
+  "title": "Ikkinchi darajali yoʻl bilan tutashuv (oʻngdan)",
+  "description": "Ikkinchi darajali yoʻl asosiy yoʻlga oʻng tomondan tutashadi. Bu belgi asosiy yoʻlda oʻrnatiladi va 2.3.1 belgisi kabi tartibga solinmagan chorrahalarda haydovchiga imtiyoz beradi. Aholi punktlarida 50-100 m, aholi punktlaridan tashqarida 150-300 m masofada oʻrnatiladi."
+ },
+ {
+  "category": "imtiyoz-belgilari",
+  "number": "2.3.3",
+  "image": "2.3.3.webp",
+  "title_kr": "Иккинчи даражали йўл билан туташув (чапдан)",
+  "description_kr": "Иккинчи даражали йўл асосий йўлга чап томондан туташади. Бу белги асосий йўлда ўрнатилади ва 2.3.1 белгиси каби тартибга солинмаган чорраҳаларда ҳайдовчига имтиёз беради. Аҳоли пунктларида 50-100 м, аҳоли пунктларидан ташқарида 150-300 м масофада ўрнатилади.",
+  "title": "Ikkinchi darajali yoʻl bilan tutashuv (chapdan)",
+  "description": "Ikkinchi darajali yoʻl asosiy yoʻlga chap tomondan tutashadi. Bu belgi asosiy yoʻlda oʻrnatiladi va 2.3.1 belgisi kabi tartibga solinmagan chorrahalarda haydovchiga imtiyoz beradi. Aholi punktlarida 50-100 m, aholi punktlaridan tashqarida 150-300 m masofada oʻrnatiladi."
+ },
+ {
+  "category": "imtiyoz-belgilari",
+  "number": "2.4",
+  "image": "2.4.webp",
+  "title_kr": "Йўл беринг",
+  "description_kr": "Бу белги ҳайдовчи кесиб ўтаётган йўлидаги транспорт воситасига йўл бериши кераклигини билдиради. Аҳоли пунктларидан ташқарида белги қайтарилиши мумкин. Асосий йўлда транспорт воситалари бўлмаса, иккинчи даражали йўлдан келаётган ҳайдовчи чорраҳадан тўхтамасдан ўтиб кетиши мумкин.\nҲайдовчи кесиб ўтилаётган йўлдан, 7.13 қўшимча белгиси бўлганда эса асосий йўлдан келаётган транспорт воситасига йўл бериши керак.",
+  "title": "Yoʻl bering",
+  "description": "Bu belgi haydovchi kesib oʻtayotgan yoʻlidagi transport vositasiga yoʻl berishi kerakligini bildiradi. Aholi punktlaridan tashqarida belgi qaytarilishi mumkin. Asosiy yoʻlda transport vositalari boʻlmasa, ikkinchi darajali yoʻldan kelayotgan haydovchi chorrahadan toʻxtamasdan oʻtib ketishi mumkin.\nHaydovchi kesib oʻtilayotgan yoʻldan, 7.13 qoʻshimcha belgisi boʻlganda esa asosiy yoʻldan kelayotgan transport vositasiga yoʻl berishi kerak."
+ },
+ {
+  "category": "imtiyoz-belgilari",
+  "number": "2.5",
+  "image": "2.5.webp",
+  "title_kr": "Тўхтамасдан ҳаракатланиш тақиқланган",
+  "description_kr": "Тўхташ чизиғи олдида, агар у бўлмаса, кесиб ўтиладиган қатнов қисмининг четида тўхтамасдан ҳаракатланиш тақиқланади. Ҳайдовчи кесиб ўтилаётган йўлдан, 7.13 қўшимча ахборот белгиси бўлганда эса асосий йўлдан ҳаракатланаётган транспорт воситаларига йўл бериши керак.\n\nАсосий йўлнинг йўналишидан қатъи назар, белги ҳайдовчига тартибга солинмаган чорраҳага тўхтамасдан кириб келишини тақиқлайди. Белги темир йўл кесишмаси ёки карантин масканидан олдин ўрнатилган бўлса, ҳайдовчи тўхташ чизиғи олдида, у бўлмаса, белги олдида тўхташи керак. Бу белги саккиз қиррали бўлиб, уни шакл орқали ажратиш ҳам мумкин.",
+  "title": "Toʻxtamasdan harakatlanish taqiqlangan",
+  "description": "Toʻxtash chizigʻi oldida, agar u boʻlmasa, kesib oʻtiladigan qatnov qismining chetida toʻxtamasdan harakatlanish taqiqlanadi. Haydovchi kesib oʻtilayotgan yoʻldan, 7.13 qoʻshimcha axborot belgisi boʻlganda esa asosiy yoʻldan harakatlanayotgan transport vositalariga yoʻl berishi kerak.\n\nAsosiy yoʻlning yoʻnalishidan qatʼi nazar, belgi haydovchiga tartibga solinmagan chorrahaga toʻxtamasdan kirib kelishini taqiqlaydi. Belgi temir yoʻl kesishmasi yoki karantin maskanidan oldin oʻrnatilgan boʻlsa, haydovchi toʻxtash chizigʻi oldida, u boʻlmasa, belgi oldida toʻxtashi kerak. Bu belgi sakkiz qirrali boʻlib, uni shakl orqali ajratish ham mumkin."
+ },
+ {
+  "category": "imtiyoz-belgilari",
+  "number": "2.6",
+  "image": "2.6.webp",
+  "title_kr": "Рўпарадан ҳаракатланишнинг устунлиги",
+  "description_kr": "Йўлнинг тор қисмларида (кўприк, туннель ва бошқа жойлар) қарама-қарши келувчи транспорт воситалари бир вақтда ўта олмайдиган ҳолатларда, рўпарадан келаётган транспорт воситасига йўл бериш керак. Қарама-қарши ҳаракатланишни қийинлаштирадиган ҳолларда йўлнинг тор қисмига кириш тақиқланади.",
+  "title": "Roʻparadan harakatlanishning ustunligi",
+  "description": "Yoʻlning tor qismlarida (koʻprik, tunnel va boshqa joylar) qarama-qarshi keluvchi transport vositalari bir vaqtda oʻta olmaydigan holatlarda, roʻparadan kelayotgan transport vositasiga yoʻl berish kerak. Qarama-qarshi harakatlanishni qiyinlashtiradigan hollarda yoʻlning tor qismiga kirish taqiqlanadi."
+ },
+ {
+  "category": "imtiyoz-belgilari",
+  "number": "2.7",
+  "image": "2.7.webp",
+  "title_kr": "Рўпарадаги ҳаракатланишга нисбатан имтиёз",
+  "description_kr": "Бу белги қарама-қарши келувчи транспорт воситалари бир вақтнинг ўзида ўта олмайдиган йўл қисмларида рўпарадан келаётган транспорт воситасидан олдин ўтиш ҳуқуқини беради.",
+  "title": "Roʻparadagi harakatlanishga nisbatan imtiyoz",
+  "description": "Bu belgi qarama-qarshi keluvchi transport vositalari bir vaqtning oʻzida oʻta olmaydigan yoʻl qismlarida roʻparadan kelayotgan transport vositasidan oldin oʻtish huquqini beradi."
+ },
+ {
+  "category": "taqiqlovchi-belgilar",
+  "number": "3.1",
+  "image": "3.1.webp",
+  "title_kr": "Кириш тақиқланган",
+  "description_kr": "Транспорт воситаларининг бир томонлама ҳаракатланишини жорий этишда йўлнинг бир тарафига ушбу белги ўрнатилади. Барча транспорт воситаларининг (йўналишли транспорт воситалари бундан мустасно) кириши тақиқланади.",
+  "title": "Kirish taqiqlangan",
+  "description": "Transport vositalarining bir tomonlama harakatlanishini joriy etishda yoʻlning bir tarafiga ushbu belgi oʻrnatiladi. Barcha transport vositalarining (yoʻnalishli transport vositalari bundan mustasno) kirishi taqiqlanadi."
+ },
+ {
+  "category": "taqiqlovchi-belgilar",
+  "number": "3.2",
+  "image": "3.2.webp",
+  "title_kr": "Ҳаракатланиш тақиқланган",
+  "description_kr": "Дам олиш уйлари, санаторийлар, касалхона ва умум фойдаланадиган ҳовлиларга кираверишда транспорт воситалари ҳаракатини чеклаш мақсадида ушбу йўл белгиси ўрнатилади. Бу белгининг йўналишли транспорт воситалари, ногиронлар ҳайдайдиган мотокажава, автомобиль, белги таъсир оралиғида яшовчи ёки ишловчи ёхуд уларга ва корхоналарга хизмат қилувчи транспорт воситаларига дахли йўқ. Бундай ҳолларда транспорт воситалари белгиланган жойга яқин чорраҳадан кириб ёки чиқиб кетишлари керак. Бу ерда иккита тақиқловчи белгидан бирининг (3.1) талаби устун бўлади.\n\n3.2-3.8 белгилари таъсир оралиғида жойлашган корхоналарга хизмат кўрсатувчи транспорт воситаларига, шунингдек, ушбу белгилар таъсир оралиғида яшовчи ёки ишловчи фуқароларга хизмат қилувчи ёки уларга тегишли бўлган транспорт воситаларига таъсир қилмайди.",
+  "title": "Harakatlanish taqiqlangan",
+  "description": "Dam olish uylari, sanatoriylar, kasalxona va umum foydalanadigan hovlilarga kiraverishda transport vositalari harakatini cheklash maqsadida ushbu yoʻl belgisi oʻrnatiladi. Bu belgining yoʻnalishli transport vositalari, nogironlar haydaydigan motokajava, avtomobil, belgi taʼsir oraligʻida yashovchi yoki ishlovchi yoxud ularga va korxonalarga xizmat qiluvchi transport vositalariga daxli yoʻq. Bunday hollarda transport vositalari belgilangan joyga yaqin chorrahadan kirib yoki chiqib ketishlari kerak. Bu yerda ikkita taqiqlovchi belgidan birining (3.1) talabi ustun boʻladi.\n\n3.2-3.8 belgilari taʼsir oraligʻida joylashgan korxonalarga xizmat koʻrsatuvchi transport vositalariga, shuningdek, ushbu belgilar taʼsir oraligʻida yashovchi yoki ishlovchi fuqarolarga xizmat qiluvchi yoki ularga tegishli boʻlgan transport vositalariga taʼsir qilmaydi."
+ },
+ {
+  "category": "taqiqlovchi-belgilar",
+  "number": "3.3",
+  "image": "3.3.webp",
+  "title_kr": "Механик транспорт воситаларининг ҳаракатланиши тақиқланган",
+  "description_kr": "Бу белги барча турдаги механик транспорт воситаларининг ҳаракатланишини тақиқлаб, от-арава, велосипедчилар ҳаракатига дахл қилмайди. Бу белги ҳам аввалги (3.2) белгига ўхшаб таъсир оралиғида яшовчи ва ишловчиларга, шунингдек, йўналишли транспорт воситаларига таъсир этмайди.\n\nмеханик транспорт воситаси — двигатель билан ҳаракатга келтириладиган транспорт воситаси. Бу атама барча трактор ва ўзи юрар мосламаларга ҳам тааллуқлидир",
+  "title": "Mexanik transport vositalarining harakatlanishi taqiqlangan",
+  "description": "Bu belgi barcha turdagi mexanik transport vositalarining harakatlanishini taqiqlab, ot-arava, velosipedchilar harakatiga daxl qilmaydi. Bu belgi ham avvalgi (3.2) belgiga oʻxshab taʼsir oraligʻida yashovchi va ishlovchilarga, shuningdek, yoʻnalishli transport vositalariga taʼsir etmaydi.\n\nmexanik transport vositasi — dvigatel bilan harakatga keltiriladigan transport vositasi. Bu atama barcha traktor va oʻzi yurar moslamalarga ham taalluqlidir"
+ },
+ {
+  "category": "taqiqlovchi-belgilar",
+  "number": "3.4",
+  "image": "3.4.webp",
+  "title_kr": "Юк автомобилларининг ҳаракатланиши тақиқланган",
+  "description_kr": "Белгида чекланган вазн кўрсатилмаган бўлса, бу белги тўла вазни 3,5 тоннадан юқори бўлган барча юк автомобилларининг, барча тракторларнинг, ўзиюрар машина ва механизмларнинг ҳаракатланишини тақиқлайди. Бу белги (3.2) белгисига ўхшаб таъсир оралиғида яшовчи ва ишловчиларга дахлдор эмас, шунингдек, бортларига қия оқ чизиқ тортилган ёки одамларни ташиётган юк автомобилларининг ҳаракатланишини тақиқламайди.",
+  "title": "Yuk avtomobillarining harakatlanishi taqiqlangan",
+  "description": "Belgida cheklangan vazn koʻrsatilmagan boʻlsa, bu belgi toʻla vazni 3,5 tonnadan yuqori boʻlgan barcha yuk avtomobillarining, barcha traktorlarning, oʻziyurar mashina va mexanizmlarning harakatlanishini taqiqlaydi. Bu belgi (3.2) belgisiga oʻxshab taʼsir oraligʻida yashovchi va ishlovchilarga daxldor emas, shuningdek, bortlariga qiya oq chiziq tortilgan yoki odamlarni tashiyotgan yuk avtomobillarining harakatlanishini taqiqlamaydi."
+ },
+ {
+  "category": "taqiqlovchi-belgilar",
+  "number": "3.5",
+  "image": "3.5.webp",
+  "title_kr": "Мототсикл ва электромототсикллар ҳаракатланиши тақиқланган",
+  "description_kr": "Бу белгининг автомобиль, автобус, велосипед, мопед, от-арава ҳаракатига, (3.2) белгисига ўхшаб таъсир оралиғида яшовчи ва ишловчиларга дахли йўқ.",
+  "title": "Mototsikl va elektromototsikllar harakatlanishi taqiqlangan",
+  "description": "Bu belgining avtomobil, avtobus, velosiped, moped, ot-arava harakatiga, (3.2) belgisiga oʻxshab taʼsir oraligʻida yashovchi va ishlovchilarga daxli yoʻq."
+ },
+ {
+  "category": "taqiqlovchi-belgilar",
+  "number": "3.5.1",
+  "image": "3.5.1.webp",
+  "title_kr": "Скутер ва мопедлар ҳаракатланиши тақиқланган",
+  "description_kr": "Скутер ва мопедларнинг ҳаракатланишини тақиқлайди. Бу белги 3.2 белгисига ўхшаб таъсир оралиғида яшовчи ва ишловчиларга дахлдор эмас.",
+  "title": "Skuter va mopedlar harakatlanishi taqiqlangan",
+  "description": "Skuter va mopedlarning harakatlanishini taqiqlaydi. Bu belgi 3.2 belgisiga oʻxshab taʼsir oraligʻida yashovchi va ishlovchilarga daxldor emas."
+ },
+ {
+  "category": "taqiqlovchi-belgilar",
+  "number": "3.6",
+  "image": "3.6.webp",
+  "title_kr": "Тракторлар ҳаракатланиши тақиқланган",
+  "description_kr": "Йўллардаги транспорт воситаларининг тезлигини ошириш мақсадида барча турдаги тракторлар, ўзиюрар машина ва механизмларнинг ҳаракатланиши тақиқланади. Бу белги ҳам 3.2 белгисига ўхшаб таъсир оралиғида яшовчи ва ишловчиларга дахлдор эмас.",
+  "title": "Traktorlar harakatlanishi taqiqlangan",
+  "description": "Yoʻllardagi transport vositalarining tezligini oshirish maqsadida barcha turdagi traktorlar, oʻziyurar mashina va mexanizmlarning harakatlanishi taqiqlanadi. Bu belgi ham 3.2 belgisiga oʻxshab taʼsir oraligʻida yashovchi va ishlovchilarga daxldor emas."
+ },
+ {
+  "category": "taqiqlovchi-belgilar",
+  "number": "3.7",
+  "image": "3.7.webp",
+  "title_kr": "Тиркама билан ҳаракатланиш тақиқланган",
+  "description_kr": "Бу белги автопоездларнинг ҳаракатланиши ва манёвр қилиши қийин бўлган тор кўчалар олдида ўрнатилиб, тиркамали, ярим тиркамали автомобиль ва тракторларнинг ҳамда барча турдаги транспорт воситаларининг шатакка олиб ҳаракатланишини тақиқлайди. Белгининг тиркамали енгил автомобилга ҳамда таъсир оралиғида яшовчилар ва ишловчиларга дахли йўқ.",
+  "title": "Tirkama bilan harakatlanish taqiqlangan",
+  "description": "Bu belgi avtopoyezdlarning harakatlanishi va manyovr qilishi qiyin boʻlgan tor koʻchalar oldida oʻrnatilib, tirkamali, yarim tirkamali avtomobil va traktorlarning hamda barcha turdagi transport vositalarining shatakka olib harakatlanishini taqiqlaydi. Belgining tirkamali yengil avtomobilga hamda taʼsir oraligʻida yashovchilar va ishlovchilarga daxli yoʻq."
+ },
+ {
+  "category": "taqiqlovchi-belgilar",
+  "number": "3.8",
+  "image": "3.8.webp",
+  "title_kr": "От-арава ҳаракатланиши тақиқланган",
+  "description_kr": "Механик транспорт воситаларининг ҳаракатини енгиллаштириш мақсадида баъзи йўлларда от-арава, от-чана, буғу-чана ҳаракати тақиқланади. Бу белги ҳам 3.2 белгисига ўхшаб таъсир оралиғида яшовчи ва ишловчиларга дахлдор эмас.\nОт-арава (чана), отлиқлар, юк ортилган ҳайвонларнинг ҳаракатланиши, шунингдек, мол (пода) ҳайдаб ўтиш тақиқланади.",
+  "title": "Ot-arava harakatlanishi taqiqlangan",
+  "description": "Mexanik transport vositalarining harakatini yengillashtirish maqsadida baʼzi yoʻllarda ot-arava, ot-chana, bugʻu-chana harakati taqiqlanadi. Bu belgi ham 3.2 belgisiga oʻxshab taʼsir oraligʻida yashovchi va ishlovchilarga daxldor emas.\nOt-arava (chana), otliqlar, yuk ortilgan hayvonlarning harakatlanishi, shuningdek, mol (poda) haydab oʻtish taqiqlanadi."
+ },
+ {
+  "category": "taqiqlovchi-belgilar",
+  "number": "3.9",
+  "image": "3.9.webp",
+  "title_kr": "Велосипедда ҳаракатланиш тақиқланган",
+  "description_kr": "Серқатнов йўлларда умумфойдаланадиган транспорт воситаларининг (автобус, троллейбус) бекатда тўхташига, бекатдан қўзғалишига велосипедчилар халал бермаслиги учун кўрсатилган белгига асосан, велосипедчилар ва мопедчиларнинг ҳаракатланиши тақиқланади.",
+  "title": "Velosipedda harakatlanish taqiqlangan",
+  "description": "Serqatnov yoʻllarda umumfoydalanadigan transport vositalarining (avtobus, trolleybus) bekatda toʻxtashiga, bekatdan qoʻzgʻalishiga velosipedchilar xalal bermasligi uchun koʻrsatilgan belgiga asosan, velosipedchilar va mopedchilarning harakatlanishi taqiqlanadi."
+ },
+ {
+  "category": "taqiqlovchi-belgilar",
+  "number": "3.10",
+  "image": "3.10.webp",
+  "title_kr": "Пиёдаларнинг ҳаракатланиши тақиқланган",
+  "description_kr": "Йўл хизматчилари ва таъмирловчи ишчиларга белгининг дахли йўқ. Бу белги метро станцияларида (экскалатордан тушиб-чиқиш, бир станциядан иккинчисига ўтиш жойларида) бир томонлама ҳаракатни жорий этиш учун ҳам ишлатилади.",
+  "title": "Piyodalarning harakatlanishi taqiqlangan",
+  "description": "Yoʻl xizmatchilari va taʼmirlovchi ishchilarga belgining daxli yoʻq. Bu belgi metro stansiyalarida (ekskalatordan tushib-chiqish, bir stansiyadan ikkinchisiga oʻtish joylarida) bir tomonlama harakatni joriy etish uchun ham ishlatiladi."
+ },
+ {
+  "category": "taqiqlovchi-belgilar",
+  "number": "3.11",
+  "image": "3.11.webp",
+  "title_kr": "Вазн чекланган",
+  "description_kr": "Кўтариш қобилияти чекланган кўприк ва эстакадаларда ҳақиқий вазнлар йиғиндиси кўприк олдида ўрнатилган белгида кўрсатилганидан юқори бўлган юк автомобилларининг, ярим тиркамали юк автомобилларининг ҳаракатланишини тақиқлайди.",
+  "title": "Vazn cheklangan",
+  "description": "Koʻtarish qobiliyati cheklangan koʻprik va estakadalarda haqiqiy vaznlar yigʻindisi koʻprik oldida oʻrnatilgan belgida koʻrsatilganidan yuqori boʻlgan yuk avtomobillarining, yarim tirkamali yuk avtomobillarining harakatlanishini taqiqlaydi."
+ },
+ {
+  "category": "taqiqlovchi-belgilar",
+  "number": "3.12",
+  "image": "3.12.webp",
+  "title_kr": "Ўққа тушадиган оғирлик чекланган",
+  "description_kr": "Қопламаси юпқа бўлган автомобиль йўлларига оғир юк машиналари зарар етказмаслиги учун битта ўққа тушадиган оғирлик йўл белгисида кўрсатилганидан юқори бўлса, бундай автомобилларнинг ҳаракатланиши тақиқланади. Шуни эслатиб ўтиш керакки, Қоидага кўра енгил автомобилларда оғирлик икки ўққа тенг равишда тақсимланади. Икки ўқли юк автомобилларида олдинги ўққа 1/3, орқа ўққа 2/3 оғирлик тушади. Уч ўқли автомобилларда оғирлик учала ўққа тенг тарқалади.",
+  "title": "Oʻqqa tushadigan ogʻirlik cheklangan",
+  "description": "Qoplamasi yupqa boʻlgan avtomobil yoʻllariga ogʻir yuk mashinalari zarar yetkazmasligi uchun bitta oʻqqa tushadigan ogʻirlik yoʻl belgisida koʻrsatilganidan yuqori boʻlsa, bunday avtomobillarning harakatlanishi taqiqlanadi. Shuni eslatib oʻtish kerakki, Qoidaga koʻra yengil avtomobillarda ogʻirlik ikki oʻqqa teng ravishda taqsimlanadi. Ikki oʻqli yuk avtomobillarida oldingi oʻqqa 1/3, orqa oʻqqa 2/3 ogʻirlik tushadi. Uch oʻqli avtomobillarda ogʻirlik uchala oʻqqa teng tarqaladi."
+ },
+ {
+  "category": "taqiqlovchi-belgilar",
+  "number": "3.13",
+  "image": "3.13.webp",
+  "title_kr": "Чекланган баландлик",
+  "description_kr": "Баландлиги чегараланган темир йўл кесишмалари, туннеллар, кўприк ва эстакадалар остидан ўтувчи йўлларда баланд ёки юки баланд бўлган юк автомобиллари кўрсатилган иншоотларга зарар етказмаслиги учун ушбу белги билан уларнинг ҳаракатланиши тақиқланади. Белги бўлмаган тақдирда, йўл ҳаракати қоидасига кўра, баландлик 4 м билан чекланади.\nГабарит баландлиги (юк билан ёки юксиз) белгида кўрсатилгандан ортиқ бўлган транспорт воситаларининг ҳаракатланиши тақиқланади.",
+  "title": "Cheklangan balandlik",
+  "description": "Balandligi chegaralangan temir yoʻl kesishmalari, tunnellar, koʻprik va estakadalar ostidan oʻtuvchi yoʻllarda baland yoki yuki baland boʻlgan yuk avtomobillari koʻrsatilgan inshootlarga zarar yetkazmasligi uchun ushbu belgi bilan ularning harakatlanishi taqiqlanadi. Belgi boʻlmagan taqdirda, yoʻl harakati qoidasiga koʻra, balandlik 4 m bilan cheklanadi.\nGabarit balandligi (yuk bilan yoki yuksiz) belgida koʻrsatilgandan ortiq boʻlgan transport vositalarining harakatlanishi taqiqlanadi."
+ },
+ {
+  "category": "taqiqlovchi-belgilar",
+  "number": "3.14",
+  "image": "3.14.webp",
+  "title_kr": "Чекланган кенглик",
+  "description_kr": "Энига тор бўлган туннель, кўприк ва эстакадалар олдида ушбу белги ўрнатилиб, белгида кўрсатилганидан энли юк автомобилининг (ёки узун автомобилнинг) иншоотларга зарар етказмаслиги учун уларнинг ҳаракатини тақиқлайди.",
+  "title": "Cheklangan kenglik",
+  "description": "Eniga tor boʻlgan tunnel, koʻprik va estakadalar oldida ushbu belgi oʻrnatilib, belgida koʻrsatilganidan enli yuk avtomobilining (yoki uzun avtomobilning) inshootlarga zarar yetkazmasligi uchun ularning harakatini taqiqlaydi."
+ },
+ {
+  "category": "taqiqlovchi-belgilar",
+  "number": "3.15",
+  "image": "3.15.webp",
+  "title_kr": "Чекланган узунлик",
+  "description_kr": "Кўп бурилишли узун тор кўчаларда узун юк автомобиллари тиқилиб қолмаслиги, ҳаракат иштирокчиларига халақит бермаслиги учун кўчанинг бундай қисми олдида ушбу белги ўрнатилади, у узун юк автомобиллари ҳаракатланишини тақиқлайди.",
+  "title": "Cheklangan uzunlik",
+  "description": "Koʻp burilishli uzun tor koʻchalarda uzun yuk avtomobillari tiqilib qolmasligi, harakat ishtirokchilariga xalaqit bermasligi uchun koʻchaning bunday qismi oldida ushbu belgi oʻrnatiladi, u uzun yuk avtomobillari harakatlanishini taqiqlaydi."
+ },
+ {
+  "category": "taqiqlovchi-belgilar",
+  "number": "3.16",
+  "image": "3.16.webp",
+  "title_kr": "Энг кам оралиқ",
+  "description_kr": "Ушбу белги музликлар, сирпанчиқ йўллар, тоғли йўллар, кўтариш қобилияти чекланган узун кўприклар олдида ўрнатилиб, энг кам оралиқ масофани чегаралайди.",
+  "title": "Eng kam oraliq",
+  "description": "Ushbu belgi muzliklar, sirpanchiq yoʻllar, togʻli yoʻllar, koʻtarish qobiliyati cheklangan uzun koʻpriklar oldida oʻrnatilib, eng kam oraliq masofani chegaralaydi."
+ },
+ {
+  "category": "taqiqlovchi-belgilar",
+  "number": "3.17.1",
+  "image": "3.17.1.webp",
+  "title_kr": "Божхона",
+  "description_kr": "Ушбу белги давлат тили ва инглиз тилида ёзилиб, божхонада керакли ҳужжатларни расмийлаштириш учун тўхтаб ўтишни талаб қилади.",
+  "title": "Bojxona",
+  "description": "Ushbu belgi davlat tili va ingliz tilida yozilib, bojxonada kerakli hujjatlarni rasmiylashtirish uchun toʻxtab oʻtishni talab qiladi."
+ },
+ {
+  "category": "taqiqlovchi-belgilar",
+  "number": "3.17.2",
+  "image": "3.17.2.webp",
+  "title_kr": "Хавф-хатар",
+  "description_kr": "Кўп талофатли йўл фожиаси ёки фалокат юз берганда (қор кўчиши, йўлни сув босиши, кўприкни сув олиб кетиши каби) шу йўл қисмларида ўрнатилиб, фалокатни бартараф этувчи хизматчиларнинг автомобилларидан ташқари, барча автомобиллар ҳаракатини тақиқлайди.",
+  "title": "Xavf-xatar",
+  "description": "Koʻp talofatli yoʻl fojiasi yoki falokat yuz berganda (qor koʻchishi, yoʻlni suv bosishi, koʻprikni suv olib ketishi kabi) shu yoʻl qismlarida oʻrnatilib, falokatni bartaraf etuvchi xizmatchilarning avtomobillaridan tashqari, barcha avtomobillar harakatini taqiqlaydi."
+ },
+ {
+  "category": "taqiqlovchi-belgilar",
+  "number": "3.17.3",
+  "image": "3.17.3.webp",
+  "title_kr": "Назорат жойи",
+  "description_kr": "Транспорт воситаларининг текшириб ўтказилиши мажбурий бўлган вақтинча ёки доимий назорат пунктларида ўрнатилади.\nУшбу йўл белгиси (2.5) йўл белгиси билан бирга ўрнатилиши мумкин.",
+  "title": "Nazorat joyi",
+  "description": "Transport vositalarining tekshirib oʻtkazilishi majburiy boʻlgan vaqtincha yoki doimiy nazorat punktlarida oʻrnatiladi.\nUshbu yoʻl belgisi (2.5) yoʻl belgisi bilan birga oʻrnatilishi mumkin."
+ },
+ {
+  "category": "taqiqlovchi-belgilar",
+  "number": "3.18.1",
+  "image": "3.18.1.webp",
+  "title_kr": "Ўнгга бурилиш тақиқланган",
+  "description_kr": "Бу белги йўл кесишмаси олдида ўрнатилиб, айнан шу кесишмага таъсир этади. Йўналишли транспорт воситаларига бунинг дахли йўқ.\n\n3.18.1 ва 3.18.2 белгилари қатнов қисмларининг қайси кесишмаси олдига ўрнатилса, шу кесишмага татбиқ этилади.",
+  "title": "Oʻngga burilish taqiqlangan",
+  "description": "Bu belgi yoʻl kesishmasi oldida oʻrnatilib, aynan shu kesishmaga taʼsir etadi. Yoʻnalishli transport vositalariga buning daxli yoʻq.\n\n3.18.1 va 3.18.2 belgilari qatnov qismlarining qaysi kesishmasi oldiga oʻrnatilsa, shu kesishmaga tatbiq etiladi."
+ },
+ {
+  "category": "taqiqlovchi-belgilar",
+  "number": "3.18.2",
+  "image": "3.18.2.webp",
+  "title_kr": "Чапга бурилиш тақиқланган",
+  "description_kr": "Чапга бурилишни тақиқлайди.\n\n«Чапга бурилиш тақиқланган» белгиси ўрнатилган жойдан орқага қайрилиш тақиқланмаган.\n\n3.18.1 ва 3.18.2 белгилари қатнов қисмларининг қайси кесишмаси олдига ўрнатилса, шу кесишмага татбиқ этилади.",
+  "title": "Chapga burilish taqiqlangan",
+  "description": "Chapga burilishni taqiqlaydi.\n\n«Chapga burilish taqiqlangan» belgisi oʻrnatilgan joydan orqaga qayrilish taqiqlanmagan.\n\n3.18.1 va 3.18.2 belgilari qatnov qismlarining qaysi kesishmasi oldiga oʻrnatilsa, shu kesishmaga tatbiq etiladi."
+ },
+ {
+  "category": "taqiqlovchi-belgilar",
+  "number": "3.19",
+  "image": "3.19.webp",
+  "title_kr": "Қайрилиш тақиқланган",
+  "description_kr": "Бу белги жамоат транспортидан ташқари барча транспорт воситаларининг орқага қайрилишини тақиқлайди. Белги ўрнатилган жойдан чапга бурилиш тақиқланмаган.",
+  "title": "Qayrilish taqiqlangan",
+  "description": "Bu belgi jamoat transportidan tashqari barcha transport vositalarining orqaga qayrilishini taqiqlaydi. Belgi oʻrnatilgan joydan chapga burilish taqiqlanmagan."
+ },
+ {
+  "category": "taqiqlovchi-belgilar",
+  "number": "3.20",
+  "image": "3.20.webp",
+  "title_kr": "Қувиб ўтиш тақиқланган",
+  "description_kr": "Бурилиш ёки дўнглик туфайли кўриниши чекланган серқатнов йўлларда, тор кўчаларда ҳаракат хавфсизлигини таъминлашда ушбу белги ўрнатилиб, барча турдаги транспорт воситаларига қувиб ўтишни тақиқлайди. Бу белги соатига 40 км дан кам тезликда, якка тартибда келаётган транспорт воситаларини қувиб ўтишга рухсат этади.\n3.20 белгиси яқинлашаётган биринчи кесишмага (чорраҳага) ёки «қувиб ўтиш тақиқланган ҳудуднинг охири» белгиси ўрнатилган жойгача таъсир этади.",
+  "title": "Quvib oʻtish taqiqlangan",
+  "description": "Burilish yoki doʻnglik tufayli koʻrinishi cheklangan serqatnov yoʻllarda, tor koʻchalarda harakat xavfsizligini taʼminlashda ushbu belgi oʻrnatilib, barcha turdagi transport vositalariga quvib oʻtishni taqiqlaydi. Bu belgi soatiga 40 km dan kam tezlikda, yakka tartibda kelayotgan transport vositalarini quvib oʻtishga ruxsat etadi.\n3.20 belgisi yaqinlashayotgan birinchi kesishmaga (chorrahaga) yoki «quvib oʻtish taqiqlangan hududning oxiri» belgisi oʻrnatilgan joygacha taʼsir etadi."
+ },
+ {
+  "category": "taqiqlovchi-belgilar",
+  "number": "3.21",
+  "image": "3.21.webp",
+  "title_kr": "Қувиб ўтиш тақиқланган ҳудуднинг охири",
+  "description_kr": "3.20 «Қувиб ўтиш тақиқланган» белгиси таъсир оралиғининг охирини билдиради. Ушбу белгидан кейин қувиб ўтиш Қоидаларнинг умумий талабларига мувофиқ амалга оширилади.",
+  "title": "Quvib oʻtish taqiqlangan hududning oxiri",
+  "description": "3.20 «Quvib oʻtish taqiqlangan» belgisi taʼsir oraligʻining oxirini bildiradi. Ushbu belgidan keyin quvib oʻtish Qoidalarning umumiy talablariga muvofiq amalga oshiriladi."
+ },
+ {
+  "category": "taqiqlovchi-belgilar",
+  "number": "3.22",
+  "image": "3.22.webp",
+  "title_kr": "Юк автомобилларида қувиб ўтиш тақиқланган",
+  "description_kr": "Бу белги тўла вазни 3,5 тоннадан юқори бўлган юк автомобиллари ва соатига 40 км дан кам тезликда, якка тартибда келаётган транспорт воситаларидан бошқа транспорт воситаларини қувиб ўтишни тақиқлайди. Бу белги яқинлашаётган биринчи кесишмагача ёки «Юк автомобилларида қувиб ўтиш тақиқланган ҳудуднинг охири» белгиси ўрнатилган жойгача таъсир этади.",
+  "title": "Yuk avtomobillarida quvib oʻtish taqiqlangan",
+  "description": "Bu belgi toʻla vazni 3,5 tonnadan yuqori boʻlgan yuk avtomobillari va soatiga 40 km dan kam tezlikda, yakka tartibda kelayotgan transport vositalaridan boshqa transport vositalarini quvib oʻtishni taqiqlaydi. Bu belgi yaqinlashayotgan birinchi kesishmagacha yoki «Yuk avtomobillarida quvib oʻtish taqiqlangan hududning oxiri» belgisi oʻrnatilgan joygacha taʼsir etadi."
+ },
+ {
+  "category": "taqiqlovchi-belgilar",
+  "number": "3.23",
+  "image": "3.23.webp",
+  "title_kr": "Юк автомобилларида қувиб ўтиш тақиқланган ҳудуднинг охири",
+  "description_kr": "3.22 «Юк автомобилларида қувиб ўтиш тақиқланган» белгиси таъсир оралиғининг охирини билдиради.",
+  "title": "Yuk avtomobillarida quvib oʻtish taqiqlangan hududning oxiri",
+  "description": "3.22 «Yuk avtomobillarida quvib oʻtish taqiqlangan» belgisi taʼsir oraligʻining oxirini bildiradi."
+ },
+ {
+  "category": "taqiqlovchi-belgilar",
+  "number": "3.24",
+  "image": "3.24.webp",
+  "title_kr": "Юқори тезлик чекланган",
+  "description_kr": "Йўлларнинг хавфли қисмларида ҳаракат хавфсизлигини таъминлаш учун ушбу белги ўрнатилиб, барча турдаги транспорт воситаларининг юқори тезлигини чеклайди. Бу белги яқинлашаётган биринчи кесишмагача ёки «Юқори тезлик чекланган ҳудуднинг охири» белгиси ўрнатилган жойгача таъсир этади.",
+  "title": "Yuqori tezlik cheklangan",
+  "description": "Yoʻllarning xavfli qismlarida harakat xavfsizligini taʼminlash uchun ushbu belgi oʻrnatilib, barcha turdagi transport vositalarining yuqori tezligini cheklaydi. Bu belgi yaqinlashayotgan birinchi kesishmagacha yoki «Yuqori tezlik cheklangan hududning oxiri» belgisi oʻrnatilgan joygacha taʼsir etadi."
+ },
+ {
+  "category": "taqiqlovchi-belgilar",
+  "number": "3.25",
+  "image": "3.25.webp",
+  "title_kr": "Юқори тезлик чекланган ҳудуднинг охири",
+  "description_kr": "3.24 «Юқори тезлик чекланган» белгиси таъсир оралиғининг охирини билдиради. Ушбу белгидан кейин Қоидаларда белгиланган умумий тезлик чегаралари амал қилади.",
+  "title": "Yuqori tezlik cheklangan hududning oxiri",
+  "description": "3.24 «Yuqori tezlik cheklangan» belgisi taʼsir oraligʻining oxirini bildiradi. Ushbu belgidan keyin Qoidalarda belgilangan umumiy tezlik chegaralari amal qiladi."
+ },
+ {
+  "category": "taqiqlovchi-belgilar",
+  "number": "3.26",
+  "image": "3.26.webp",
+  "title_kr": "Товуш мосламаларидан фойдаланиш тақиқланган",
+  "description_kr": "Дам олиш уйлари, касалхоналар, санаторийлар, болалар дам олиш оромгоҳлари олдида ортиқча шовқин солинмаслиги учун ўрнатилади, барча турдаги транспорт воситаларининг товуш мосламаларидан фойдаланишларини тақиқлайди.\nЙўл-транспорт ҳодисасининг олдини олиш мақсадида истисно тариқасида товуш мосламасидан фойдаланиш (товуш ишораси бериш) мумкин.",
+  "title": "Tovush moslamalaridan foydalanish taqiqlangan",
+  "description": "Dam olish uylari, kasalxonalar, sanatoriylar, bolalar dam olish oromgohlari oldida ortiqcha shovqin solinmasligi uchun oʻrnatiladi, barcha turdagi transport vositalarining tovush moslamalaridan foydalanishlarini taqiqlaydi.\nYoʻl-transport hodisasining oldini olish maqsadida istisno tariqasida tovush moslamasidan foydalanish (tovush ishorasi berish) mumkin."
+ },
+ {
+  "category": "taqiqlovchi-belgilar",
+  "number": "3.27",
+  "image": "3.27.webp",
+  "title_kr": "Тўхташ тақиқланган",
+  "description_kr": "Серқатнов йўлнинг тор қисмларида транспорт воситаларининг узлуксиз ҳаракатини юқори даражада таъминлаш учун ушбу белги ўрнатилиб, йўналишли транспорт воситаларидан бошқа барча транспорт воситаларининг тўхташини тақиқлайди. Ушбу белги йўналишли транспорт воситаларига таъсир этмайди.\n\n3.27 белгиси йўналишсиз енгил таксиларга йўловчиларни тушириш-чиқариш (юкларни ортиш-тушириш) вақтида таъсир қилмайди.",
+  "title": "Toʻxtash taqiqlangan",
+  "description": "Serqatnov yoʻlning tor qismlarida transport vositalarining uzluksiz harakatini yuqori darajada taʼminlash uchun ushbu belgi oʻrnatilib, yoʻnalishli transport vositalaridan boshqa barcha transport vositalarining toʻxtashini taqiqlaydi. Ushbu belgi yoʻnalishli transport vositalariga taʼsir etmaydi.\n\n3.27 belgisi yoʻnalishsiz yengil taksilarga yoʻlovchilarni tushirish-chiqarish (yuklarni ortish-tushirish) vaqtida taʼsir qilmaydi."
+ },
+ {
+  "category": "taqiqlovchi-belgilar",
+  "number": "3.28",
+  "image": "3.28.webp",
+  "title_kr": "Тўхтаб туриш тақиқланган",
+  "description_kr": "Йўлнинг етарли даражада кенг бўлмаган қисмларига ушбу белги ўрнатилиб, барча транспорт воситаларининг ўн дақиқадан ортиқ туришини тақиқлайди (таксометри ишлаб турган такси автомобили, ногиронлиги бўлган ҳайдовчиларга тегишли автомобиль ва мотокажава, юк ортилаётган ёки туширилаётган автомобиллар бундан мустасно).\n\n3.28-3.30 белгилари таксометри ишлаб турган таксиларга тааллуқли эмас.",
+  "title": "Toʻxtab turish taqiqlangan",
+  "description": "Yoʻlning yetarli darajada keng boʻlmagan qismlariga ushbu belgi oʻrnatilib, barcha transport vositalarining oʻn daqiqadan ortiq turishini taqiqlaydi (taksometri ishlab turgan taksi avtomobili, nogironligi boʻlgan haydovchilarga tegishli avtomobil va motokajava, yuk ortilayotgan yoki tushirilayotgan avtomobillar bundan mustasno).\n\n3.28-3.30 belgilari taksometri ishlab turgan taksilarga taalluqli emas."
+ },
+ {
+  "category": "taqiqlovchi-belgilar",
+  "number": "3.29",
+  "image": "3.29.webp",
+  "title_kr": "Ойнинг тоқ кунларида тўхтаб туриш тақиқланган",
+  "description_kr": "Ойнинг тоқ кунларида тўхтаб туриш тақиқланади.\n\nЙўлларнинг ўнг ва чап чеккаларини навбатма-навбат механизмларда супуриб тозалаб олиш ва шу каби ишларни амалга ошириш мақсадида ушбу белгилардан фойдаланилади. Бу белгиларнинг талаби 3.28(тўхтаб туриш тақиқланган) белгиси талаби билан бир хил.",
+  "title": "Oyning toq kunlarida toʻxtab turish taqiqlangan",
+  "description": "Oyning toq kunlarida toʻxtab turish taqiqlanadi.\n\nYoʻllarning oʻng va chap chekkalarini navbatma-navbat mexanizmlarda supurib tozalab olish va shu kabi ishlarni amalga oshirish maqsadida ushbu belgilardan foydalaniladi. Bu belgilarning talabi 3.28(toʻxtab turish taqiqlangan) belgisi talabi bilan bir xil."
+ },
+ {
+  "category": "taqiqlovchi-belgilar",
+  "number": "3.30",
+  "image": "3.30.webp",
+  "title_kr": "Ойнинг жуфт кунларида тўхтаб туриш тақиқланган",
+  "description_kr": "Ойнинг жуфт кунларида тўхтаб туриш тақиқланади.\n\nЙўлларнинг ўнг ва чап чеккаларини навбатма-навбат механизмларда супуриб тозалаб олиш ва шу каби ишларни амалга ошириш мақсадида ушбу белгилардан фойдаланилади. Бу белгиларнинг талаби 3.28(тўхтаб туриш тақиқланган) белгиси талаби билан бир хил.",
+  "title": "Oyning juft kunlarida toʻxtab turish taqiqlangan",
+  "description": "Oyning juft kunlarida toʻxtab turish taqiqlanadi.\n\nYoʻllarning oʻng va chap chekkalarini navbatma-navbat mexanizmlarda supurib tozalab olish va shu kabi ishlarni amalga oshirish maqsadida ushbu belgilardan foydalaniladi. Bu belgilarning talabi 3.28(toʻxtab turish taqiqlangan) belgisi talabi bilan bir xil."
+ },
+ {
+  "category": "taqiqlovchi-belgilar",
+  "number": "3.31",
+  "image": "3.31.webp",
+  "title_kr": "Барча чекловларнинг охири",
+  "description_kr": "Бу белги барча чекловларнинг охири деб номлансада, амалда 3.16, 3.20, 3.22, 3.24, 3.26-3.30 белгиларининг таъсир доирасини кесишмадан аввалроқ тугатиш учун ишлатилади.",
+  "title": "Barcha cheklovlarning oxiri",
+  "description": "Bu belgi barcha cheklovlarning oxiri deb nomlansada, amalda 3.16, 3.20, 3.22, 3.24, 3.26-3.30 belgilarining taʼsir doirasini kesishmadan avvalroq tugatish uchun ishlatiladi."
+ },
+ {
+  "category": "taqiqlovchi-belgilar",
+  "number": "3.32",
+  "image": "3.32.webp",
+  "title_kr": "Хавфли юк ташиётган транспорт воситасининг ҳаракати тақиқланган",
+  "description_kr": "«Хавфли юк» таниқлик белгиси билан жиҳозланган транспорт воситаларининг ҳаракатланишини тақиқлайди.",
+  "title": "Xavfli yuk tashiyotgan transport vositasining harakati taqiqlangan",
+  "description": "«Xavfli yuk» taniqlik belgisi bilan jihozlangan transport vositalarining harakatlanishini taqiqlaydi."
+ },
+ {
+  "category": "taqiqlovchi-belgilar",
+  "number": "3.33",
+  "image": "3.33.webp",
+  "title_kr": "Портловчи ва тез алангаланувчи юкни ташиётган транспорт воситасининг ҳаракати тақиқланган",
+  "description_kr": "Портловчи моддалар ва буюмлар, шунингдек, тез алангаланувчи бошқа хавфли юкларни ташиётган транспорт воситаларининг ҳаракатланишини тақиқлайди.",
+  "title": "Portlovchi va tez alangalanuvchi yukni tashiyotgan transport vositasining harakati taqiqlangan",
+  "description": "Portlovchi moddalar va buyumlar, shuningdek, tez alangalanuvchi boshqa xavfli yuklarni tashiyotgan transport vositalarining harakatlanishini taqiqlaydi."
+ },
+ {
+  "category": "taqiqlovchi-belgilar",
+  "number": "3.34",
+  "image": "3.34.webp",
+  "title_kr": "Индивидуал ҳаракатланиш воситаларини бошқариш тақиқланган",
+  "description_kr": "Индивидуал ҳаракатланиш воситаларини (электросамокат, моноғилдирак, гироскутер ва шунга ўхшаш воситаларни) бошқаришни тақиқлайди.",
+  "title": "Individual harakatlanish vositalarini boshqarish taqiqlangan",
+  "description": "Individual harakatlanish vositalarini (elektrosamokat, monogʻildirak, giroskuter va shunga oʻxshash vositalarni) boshqarishni taqiqlaydi."
+ },
+ {
+  "category": "buyuruvchi-belgilar",
+  "number": "4.1.1",
+  "image": "4.1.1.webp",
+  "title_kr": "Ҳаракатланиш тўғрига",
+  "description_kr": "Бу белги йўлнинг бошига ўрнатилса, таъсири шу йўл давомидаги биринчи кесишмагача амал қилади.Бу белги йўл бўйлаб ўнг томонда жойлашган ҳовлиларга бурилишни тақиқламайди.\n\n4.1.1-4.1.6 белгиларининг йўналишли транспорт воситаларига дахли йўқ. Уларнинг таъсири қатнов қисмининг қайси кесишмаси олдига ўрнатилса, шу кесишмага татбиқ этилади.",
+  "title": "Harakatlanish toʻgʻriga",
+  "description": "Bu belgi yoʻlning boshiga oʻrnatilsa, taʼsiri shu yoʻl davomidagi birinchi kesishmagacha amal qiladi.Bu belgi yoʻl boʻylab oʻng tomonda joylashgan hovlilarga burilishni taqiqlamaydi.\n\n4.1.1-4.1.6 belgilarining yoʻnalishli transport vositalariga daxli yoʻq. Ularning taʼsiri qatnov qismining qaysi kesishmasi oldiga oʻrnatilsa, shu kesishmaga tatbiq etiladi."
+ },
+ {
+  "category": "buyuruvchi-belgilar",
+  "number": "4.1.2",
+  "image": "4.1.2.webp",
+  "title_kr": "Ҳаракатланиш ўнгга",
+  "description_kr": "Фақат йўналтиргичлар кўрсатган томонга ҳаракатланишга рухсат этилади. Чапга бурилишга рухсат этувчи белгида қайрилишга ҳам рухсат этилади.",
+  "title": "Harakatlanish oʻngga",
+  "description": "Faqat yoʻnaltirgichlar koʻrsatgan tomonga harakatlanishga ruxsat etiladi. Chapga burilishga ruxsat etuvchi belgida qayrilishga ham ruxsat etiladi."
+ },
+ {
+  "category": "buyuruvchi-belgilar",
+  "number": "4.1.3",
+  "image": "4.1.3.webp",
+  "title_kr": "Ҳаракатланиш чапга",
+  "description_kr": "Фақат йўналтиргичлар кўрсатган томонга ҳаракатланишга рухсат этилади. Чапга бурилишга рухсат этувчи белгида қайрилишга ҳам рухсат этилади.",
+  "title": "Harakatlanish chapga",
+  "description": "Faqat yoʻnaltirgichlar koʻrsatgan tomonga harakatlanishga ruxsat etiladi. Chapga burilishga ruxsat etuvchi belgida qayrilishga ham ruxsat etiladi."
+ },
+ {
+  "category": "buyuruvchi-belgilar",
+  "number": "4.1.4",
+  "image": "4.1.4.webp",
+  "title_kr": "Ҳаракатланиш тўғрига ёки ўнгга",
+  "description_kr": "Фақат йўналтиргичлар кўрсатган томонга ҳаракатланишга рухсат этилади. Чапга бурилишга рухсат этувчи белгида қайрилишга ҳам рухсат этилади.",
+  "title": "Harakatlanish toʻgʻriga yoki oʻngga",
+  "description": "Faqat yoʻnaltirgichlar koʻrsatgan tomonga harakatlanishga ruxsat etiladi. Chapga burilishga ruxsat etuvchi belgida qayrilishga ham ruxsat etiladi."
+ },
+ {
+  "category": "buyuruvchi-belgilar",
+  "number": "4.1.5",
+  "image": "4.1.5.webp",
+  "title_kr": "Ҳаракатланиш тўғрига ёки чапга",
+  "description_kr": "Фақат йўналтиргичлар кўрсатган томонга ҳаракатланишга рухсат этилади. Чапга бурилишга рухсат этувчи белгида қайрилишга ҳам рухсат этилади.",
+  "title": "Harakatlanish toʻgʻriga yoki chapga",
+  "description": "Faqat yoʻnaltirgichlar koʻrsatgan tomonga harakatlanishga ruxsat etiladi. Chapga burilishga ruxsat etuvchi belgida qayrilishga ham ruxsat etiladi."
+ },
+ {
+  "category": "buyuruvchi-belgilar",
+  "number": "4.1.6",
+  "image": "4.1.6.webp",
+  "title_kr": "Ҳаракатланиш ўнгга ёки чапга",
+  "description_kr": "Фақат йўналтиргичлар кўрсатган томонга ҳаракатланишга рухсат этилади. Чапга бурилишга рухсат этувчи белгида қайрилишга ҳам рухсат этилади. (Муайян кесишмада талаб этилган ҳаракат йўналишига тегишли йўналтиргичнинг шакли туширилган 4.1.1-4.1.6 белгиларини қўллаш мумкин.)",
+  "title": "Harakatlanish oʻngga yoki chapga",
+  "description": "Faqat yoʻnaltirgichlar koʻrsatgan tomonga harakatlanishga ruxsat etiladi. Chapga burilishga ruxsat etuvchi belgida qayrilishga ham ruxsat etiladi. (Muayyan kesishmada talab etilgan harakat yoʻnalishiga tegishli yoʻnaltirgichning shakli tushirilgan 4.1.1-4.1.6 belgilarini qoʻllash mumkin.)"
+ },
+ {
+  "category": "buyuruvchi-belgilar",
+  "number": "4.2.1",
+  "image": "4.2.1.webp",
+  "title_kr": "Тўсиқни чапдан айланиб ўтиш",
+  "description_kr": "Тўсиқни фақат чап томондан айланиб ўтишга рухсат этилади.",
+  "title": "Toʻsiqni chapdan aylanib oʻtish",
+  "description": "Toʻsiqni faqat chap tomondan aylanib oʻtishga ruxsat etiladi."
+ },
+ {
+  "category": "buyuruvchi-belgilar",
+  "number": "4.2.2",
+  "image": "4.2.2.webp",
+  "title_kr": "Тўсиқни ўнгдан айланиб ўтиш",
+  "description_kr": "Тўсиқни фақат ўнг томондан айланиб ўтишга рухсат этилади.",
+  "title": "Toʻsiqni oʻngdan aylanib oʻtish",
+  "description": "Toʻsiqni faqat oʻng tomondan aylanib oʻtishga ruxsat etiladi."
+ },
+ {
+  "category": "buyuruvchi-belgilar",
+  "number": "4.2.3",
+  "image": "4.2.3.webp",
+  "title_kr": "Тўсиқни ўнгдан ёки чапдан айланиб ўтиш",
+  "description_kr": "Ҳар томонидан айланиб ўтиш рухсат этилади.\nЙўлдаги хавфсизлик майдончаларининг ажратиш тасмаларини, устунларни, таъмирлаш ишлари бўлаётган қисмларни айланиб ўтишда ушбу белгилар ўрнатилиб, қайси тарафдан айланиб ўтиш лозимлиги кўрсатилади.",
+  "title": "Toʻsiqni oʻngdan yoki chapdan aylanib oʻtish",
+  "description": "Har tomonidan aylanib oʻtish ruxsat etiladi.\nYoʻldagi xavfsizlik maydonchalarining ajratish tasmalarini, ustunlarni, taʼmirlash ishlari boʻlayotgan qismlarni aylanib oʻtishda ushbu belgilar oʻrnatilib, qaysi tarafdan aylanib oʻtish lozimligi koʻrsatiladi."
+ },
+ {
+  "category": "buyuruvchi-belgilar",
+  "number": "4.3",
+  "image": "4.3.webp",
+  "title_kr": "Айланма ҳаракатланиш",
+  "description_kr": "Бу белги майдонлар олдида ўрнатилиб, майдон ўртаси текис бўлса ҳам, уни тўғри кесиб ўтмасдан, соат стрелкасига тескари айланиб ўтиш кераклигини кўрсатади.",
+  "title": "Aylanma harakatlanish",
+  "description": "Bu belgi maydonlar oldida oʻrnatilib, maydon oʻrtasi tekis boʻlsa ham, uni toʻgʻri kesib oʻtmasdan, soat strelkasiga teskari aylanib oʻtish kerakligini koʻrsatadi."
+ },
+ {
+  "category": "buyuruvchi-belgilar",
+  "number": "4.4",
+  "image": "4.4.webp",
+  "title_kr": "Енгил автомобиллар ҳаракати",
+  "description_kr": "Бу белгида енгил автомобил ифодаланган бўлса ҳам, белги енгил автомобиллардан ташқари барча турдаги автобуслар, мототсикллар, мопедлар, скутерлар ва тўла вазни 3,5 тоннадан кам бўлган юк автомобилларининг ҳаракатланишига рухсат этиб, тўла вазни 3,5 тоннадан юқори бўлган юк автомобиллари ва тракторлар ҳаракатланишини тақиқлайди (белги таъсири оралиғида яшовчи барча турдаги транспорт воситалари эгалари ва ишловчилар бундан мустасно).\n\nБелгининг таъсир оралиғида яшовчи ва ишловчи фуқароларга тегишли, уларга ва корхоналарга хизмат кўрсатувчи транспорт воситаларига бу белги татбиқ этилмайди. Бундай ҳолларда транспорт воситалари белгиланган жойга энг яқин чорраҳадан кириб ёки чиқиб кетишлари керак.",
+  "title": "Yengil avtomobillar harakati",
+  "description": "Bu belgida yengil avtomobil ifodalangan boʻlsa ham, belgi yengil avtomobillardan tashqari barcha turdagi avtobuslar, mototsikllar, mopedlar, skuterlar va toʻla vazni 3,5 tonnadan kam boʻlgan yuk avtomobillarining harakatlanishiga ruxsat etib, toʻla vazni 3,5 tonnadan yuqori boʻlgan yuk avtomobillari va traktorlar harakatlanishini taqiqlaydi (belgi taʼsiri oraligʻida yashovchi barcha turdagi transport vositalari egalari va ishlovchilar bundan mustasno).\n\nBelgining taʼsir oraligʻida yashovchi va ishlovchi fuqarolarga tegishli, ularga va korxonalarga xizmat koʻrsatuvchi transport vositalariga bu belgi tatbiq etilmaydi. Bunday hollarda transport vositalari belgilangan joyga eng yaqin chorrahadan kirib yoki chiqib ketishlari kerak."
+ },
+ {
+  "category": "buyuruvchi-belgilar",
+  "number": "4.5",
+  "image": "4.5.webp",
+  "title_kr": "Велосипед йўлкаси",
+  "description_kr": "Фақат велосипед ва индивидуал ҳаракатланиш воситаларида ҳаракатланишга рухсат этилишини билдиради. Тротуар ёки пиёдалар йўлкаси бўлмаса, велосипед йўлкасидан пиёдалар ҳам юришлари мумкин.",
+  "title": "Velosiped yoʻlkasi",
+  "description": "Faqat velosiped va individual harakatlanish vositalarida harakatlanishga ruxsat etilishini bildiradi. Trotuar yoki piyodalar yoʻlkasi boʻlmasa, velosiped yoʻlkasidan piyodalar ham yurishlari mumkin."
+ },
+ {
+  "category": "buyuruvchi-belgilar",
+  "number": "4.6",
+  "image": "4.6.webp",
+  "title_kr": "Пиёдалар йўлкаси",
+  "description_kr": "Бу белги фақат пиёдаларнинг юришига рухсат этади. Баъзан бу белги (3.10 белги билан бирга) метро станциялари оралиғида пиёдаларнинг бир тарафлама ҳаракатини жорий этиш учун ҳам ишлатилади.",
+  "title": "Piyodalar yoʻlkasi",
+  "description": "Bu belgi faqat piyodalarning yurishiga ruxsat etadi. Baʼzan bu belgi (3.10 belgi bilan birga) metro stansiyalari oraligʻida piyodalarning bir taraflama harakatini joriy etish uchun ham ishlatiladi."
+ },
+ {
+  "category": "buyuruvchi-belgilar",
+  "number": "4.6.1",
+  "image": "4.6.1.webp",
+  "title_kr": "Пиёдалар, велосипедчилар ва индивидуал ҳаракатланиш воситаларининг биргаликдаги ҳаракати ташкил этилган йўлак",
+  "description_kr": "Пиёдалар, велосипедчилар ва индивидуал ҳаракатланиш воситаларидан фойдаланувчилар биргаликда ҳаракатланадиган йўлакни билдиради. Бундай йўлакда улар бир-бирига халақит бермасдан, эҳтиёткорлик билан ҳаракатланишлари керак.",
+  "title": "Piyodalar, velosipedchilar va individual harakatlanish vositalarining birgalikdagi harakati tashkil etilgan yoʻlak",
+  "description": "Piyodalar, velosipedchilar va individual harakatlanish vositalaridan foydalanuvchilar birgalikda harakatlanadigan yoʻlakni bildiradi. Bunday yoʻlakda ular bir-biriga xalaqit bermasdan, ehtiyotkorlik bilan harakatlanishlari kerak."
+ },
+ {
+  "category": "buyuruvchi-belgilar",
+  "number": "4.6.2",
+  "image": "4.6.2.webp",
+  "title_kr": "Пиёдалар, велосипедчилар ва индивидуал ҳаракатланиш воситаларининг биргаликдаги ҳаракати ташкил этилган йўлакнинг охири",
+  "description_kr": "4.6.1 белгиси билан белгиланган биргаликдаги ҳаракат йўлагининг охирини билдиради.",
+  "title": "Piyodalar, velosipedchilar va individual harakatlanish vositalarining birgalikdagi harakati tashkil etilgan yoʻlakning oxiri",
+  "description": "4.6.1 belgisi bilan belgilangan birgalikdagi harakat yoʻlagining oxirini bildiradi."
+ },
+ {
+  "category": "buyuruvchi-belgilar",
+  "number": "4.6.3",
+  "image": "4.6.3.webp",
+  "title_kr": "Пиёдалар, велосипедчилар ва индивидуал ҳаракатланиш воситаларининг ҳаракати алоҳида ташкил этилган йўлак",
+  "description_kr": "1.1, 1.25 ва 1.26 ётиқ йўл чизиғи ёрдамида, конструктив тарзда ёхуд бошқа усулда пиёдалар ва велосипедчиларнинг ҳаракати ажратилган пиёдалар ва велосипедчилар йўлаги.",
+  "title": "Piyodalar, velosipedchilar va individual harakatlanish vositalarining harakati alohida tashkil etilgan yoʻlak",
+  "description": "1.1, 1.25 va 1.26 yotiq yoʻl chizigʻi yordamida, konstruktiv tarzda yoxud boshqa usulda piyodalar va velosipedchilarning harakati ajratilgan piyodalar va velosipedchilar yoʻlagi."
+ },
+ {
+  "category": "buyuruvchi-belgilar",
+  "number": "4.6.4",
+  "image": "4.6.4.webp",
+  "title_kr": "Пиёдалар, велосипедчилар ва индивидуал ҳаракатланиш воситаларининг ҳаракати алоҳида ташкил этилган йўлакнинг охири",
+  "description_kr": "4.6.3 белгиси билан белгиланган, пиёдалар ва велосипедчилар ҳаракати алоҳида ташкил этилган йўлакнинг охирини билдиради.",
+  "title": "Piyodalar, velosipedchilar va individual harakatlanish vositalarining harakati alohida tashkil etilgan yoʻlakning oxiri",
+  "description": "4.6.3 belgisi bilan belgilangan, piyodalar va velosipedchilar harakati alohida tashkil etilgan yoʻlakning oxirini bildiradi."
+ },
+ {
+  "category": "buyuruvchi-belgilar",
+  "number": "4.6.5",
+  "image": "4.6.5.webp",
+  "title_kr": "Пиёдалар, велосипедчилар ва индивидуал ҳаракатланиш воситаларининг ҳаракати алоҳида ташкил этилган йўлак",
+  "description_kr": "4.6.3 белгисининг бир тури: пиёдалар ва велосипедчилар учун ажратилган қисмлар бошқа томонда жойлашган. Белгида тасвирланган тартибда пиёдалар ва велосипедчиларнинг ҳаракати алоҳида ташкил этилган йўлакни билдиради.",
+  "title": "Piyodalar, velosipedchilar va individual harakatlanish vositalarining harakati alohida tashkil etilgan yoʻlak",
+  "description": "4.6.3 belgisining bir turi: piyodalar va velosipedchilar uchun ajratilgan qismlar boshqa tomonda joylashgan. Belgida tasvirlangan tartibda piyodalar va velosipedchilarning harakati alohida tashkil etilgan yoʻlakni bildiradi."
+ },
+ {
+  "category": "buyuruvchi-belgilar",
+  "number": "4.6.6",
+  "image": "4.6.6.webp",
+  "title_kr": "Пиёдалар, велосипедчилар ва индивидуал ҳаракатланиш воситаларининг ҳаракати алоҳида ташкил этилган йўлакнинг охири",
+  "description_kr": "4.6.5 белгиси билан белгиланган, пиёдалар ва велосипедчилар ҳаракати алоҳида ташкил этилган йўлакнинг охирини билдиради.",
+  "title": "Piyodalar, velosipedchilar va individual harakatlanish vositalarining harakati alohida tashkil etilgan yoʻlakning oxiri",
+  "description": "4.6.5 belgisi bilan belgilangan, piyodalar va velosipedchilar harakati alohida tashkil etilgan yoʻlakning oxirini bildiradi."
+ },
+ {
+  "category": "buyuruvchi-belgilar",
+  "number": "4.7",
+  "image": "4.7.webp",
+  "title_kr": "Энг кам тезлик",
+  "description_kr": "Фақат белгида кўрсатилган ёки ундан юқори тезликда (км/соат) ҳаракатланишга рухсат этилишини билдиради.",
+  "title": "Eng kam tezlik",
+  "description": "Faqat belgida koʻrsatilgan yoki undan yuqori tezlikda (km/soat) harakatlanishga ruxsat etilishini bildiradi."
+ },
+ {
+  "category": "buyuruvchi-belgilar",
+  "number": "4.8",
+  "image": "4.8.webp",
+  "title_kr": "Энг кам тезлик белгиланган йўлнинг охири",
+  "description_kr": "4.7 «Энг кам тезлик» белгиси билан белгиланган энг кам тезлик талабининг охирини билдиради.",
+  "title": "Eng kam tezlik belgilangan yoʻlning oxiri",
+  "description": "4.7 «Eng kam tezlik» belgisi bilan belgilangan eng kam tezlik talabining oxirini bildiradi."
+ },
+ {
+  "category": "buyuruvchi-belgilar",
+  "number": "4.9.1",
+  "image": "4.9.1.webp",
+  "title_kr": "Хавфли юк ташиётган транспорт воситаларининг ҳаракат йўналиши (тўғрига)",
+  "description_kr": "«Хавфли юк» таниқлик белгиси билан жиҳозланган транспорт воситаларига фақат тўғрига ҳаракатланишга рухсат берилади.",
+  "title": "Xavfli yuk tashiyotgan transport vositalarining harakat yoʻnalishi (toʻgʻriga)",
+  "description": "«Xavfli yuk» taniqlik belgisi bilan jihozlangan transport vositalariga faqat toʻgʻriga harakatlanishga ruxsat beriladi."
+ },
+ {
+  "category": "buyuruvchi-belgilar",
+  "number": "4.9.2",
+  "image": "4.9.2.webp",
+  "title_kr": "Хавфли юк ташиётган транспорт воситаларининг ҳаракат йўналиши (ўнгга)",
+  "description_kr": "«Хавфли юк» таниқлик белгиси билан жиҳозланган транспорт воситаларига фақат ўнгга ҳаракатланишга рухсат берилади.",
+  "title": "Xavfli yuk tashiyotgan transport vositalarining harakat yoʻnalishi (oʻngga)",
+  "description": "«Xavfli yuk» taniqlik belgisi bilan jihozlangan transport vositalariga faqat oʻngga harakatlanishga ruxsat beriladi."
+ },
+ {
+  "category": "buyuruvchi-belgilar",
+  "number": "4.9.3",
+  "image": "4.9.3.webp",
+  "title_kr": "Хавфли юк ташиётган транспорт воситаларининг ҳаракат йўналиши (чапга)",
+  "description_kr": "«Хавфли юк» таниқлик белгиси билан жиҳозланган транспорт воситаларига фақат чапга ҳаракатланишга рухсат берилади.",
+  "title": "Xavfli yuk tashiyotgan transport vositalarining harakat yoʻnalishi (chapga)",
+  "description": "«Xavfli yuk» taniqlik belgisi bilan jihozlangan transport vositalariga faqat chapga harakatlanishga ruxsat beriladi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.1",
+  "image": "5.1.webp",
+  "title_kr": "Автомагистраль",
+  "description_kr": "Махсус тартиб (қоидалар) ўрнатилган ва транспорт воситаларининг тез, хавфсиз ҳаракатланишини таъминлайдиган-автомагистраль бошланишига ушбу белги ўрнатилади.",
+  "title": "Avtomagistral",
+  "description": "Maxsus tartib (qoidalar) oʻrnatilgan va transport vositalarining tez, xavfsiz harakatlanishini taʼminlaydigan-avtomagistral boshlanishiga ushbu belgi oʻrnatiladi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.2",
+  "image": "5.2.webp",
+  "title_kr": "Автомагистралнинг охири",
+  "description_kr": "Ушбу белги ўрнатилган жойдан бошлаб махсус тартиб талаблари бекор қилинади ва «Автомобиллар учун мўлжалланган йўл» тартиби кучга киради.",
+  "title": "Avtomagistralning oxiri",
+  "description": "Ushbu belgi oʻrnatilgan joydan boshlab maxsus tartib talablari bekor qilinadi va «Avtomobillar uchun moʻljallangan yoʻl» tartibi kuchga kiradi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.3",
+  "image": "5.3.webp",
+  "title_kr": "Автомобиллар учун мўлжалланган йўл",
+  "description_kr": "Фақат автомобиллар, автобус ҳамда мотосикллар, электромототсикллар, мопедлар ва скутерларнинг ҳаракатланиши учун мўлжалланган йўлни билдиради.",
+  "title": "Avtomobillar uchun moʻljallangan yoʻl",
+  "description": "Faqat avtomobillar, avtobus hamda motosikllar, elektromototsikllar, mopedlar va skuterlarning harakatlanishi uchun moʻljallangan yoʻlni bildiradi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.4",
+  "image": "5.4.webp",
+  "title_kr": "Автомобиллар учун мўлжалланган йўлнинг охири",
+  "description_kr": "Ушбу белги ўрнатилган жойдан бошлаб барча турдаги транспорт воситаларининг ҳаракатланишига рухсат этилади.",
+  "title": "Avtomobillar uchun moʻljallangan yoʻlning oxiri",
+  "description": "Ushbu belgi oʻrnatilgan joydan boshlab barcha turdagi transport vositalarining harakatlanishiga ruxsat etiladi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.5",
+  "image": "5.5.webp",
+  "title_kr": "Бир томонлама ҳаракатли йўл",
+  "description_kr": "Тор кўча ва йўлларда ҳаракат хавфсизлигини таъминлаш мақсадида транспорт воситаларининг ҳаракатини йўлнинг қатнов қисми бўйича бир томонлама жорий этиш учун ушбу йўл белгисидан фойдаланилади\nБу белги йўл бошида ўрнатилиб, ҳаракат давомида орқага қайрилишни тақиқлайди. Аҳоли яшайдиган жойларда бир томонлама ҳаракатланиш жорий этилган йўлларнинг чап тарафида тўхташ ва тўхтаб туришга рухсат этилади. Бир томонлама ҳаракатланиш жорий этилган йўлларда ҳовли ва йўлга туташ бошқа ҳудудларга бурилиш тақиқланмайди.",
+  "title": "Bir tomonlama harakatli yoʻl",
+  "description": "Tor koʻcha va yoʻllarda harakat xavfsizligini taʼminlash maqsadida transport vositalarining harakatini yoʻlning qatnov qismi boʻyicha bir tomonlama joriy etish uchun ushbu yoʻl belgisidan foydalaniladi\nBu belgi yoʻl boshida oʻrnatilib, harakat davomida orqaga qayrilishni taqiqlaydi. Aholi yashaydigan joylarda bir tomonlama harakatlanish joriy etilgan yoʻllarning chap tarafida toʻxtash va toʻxtab turishga ruxsat etiladi. Bir tomonlama harakatlanish joriy etilgan yoʻllarda hovli va yoʻlga tutash boshqa hududlarga burilish taqiqlanmaydi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.6",
+  "image": "5.6.webp",
+  "title_kr": "Бир томонлама ҳаракатли йўлнинг охири",
+  "description_kr": "Ушбу белги транспорт воситалари бир томонлама ҳаракатланадиган йўлнинг тугаганлигини билдиради.",
+  "title": "Bir tomonlama harakatli yoʻlning oxiri",
+  "description": "Ushbu belgi transport vositalari bir tomonlama harakatlanadigan yoʻlning tugaganligini bildiradi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.7.1",
+  "image": "5.7.1.webp",
+  "title_kr": "Бир томонлама ҳаракатли йўлга чиқиш",
+  "description_kr": "Ўнг томонга бир томонлама ҳаракатланиш жорий этилган йўлга чиқиш.\n\nУшбу белги чорраҳа олдида ўрнатилиб, ҳайдовчига кесишадиган йўлда белги йўналиши бўйича бир томонлама ҳаракатланиш жорий этилганини кўрсатади.",
+  "title": "Bir tomonlama harakatli yoʻlga chiqish",
+  "description": "Oʻng tomonga bir tomonlama harakatlanish joriy etilgan yoʻlga chiqish.\n\nUshbu belgi chorraha oldida oʻrnatilib, haydovchiga kesishadigan yoʻlda belgi yoʻnalishi boʻyicha bir tomonlama harakatlanish joriy etilganini koʻrsatadi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.7.2",
+  "image": "5.7.2.webp",
+  "title_kr": "Бир томонлама ҳаракатли йўлга чиқиш",
+  "description_kr": "Чап томонга бир томонлама ҳаракатланиш жорий этилган йўлга чиқиш.\n\nУшбу белги чорраҳа олдида ўрнатилиб, ҳайдовчига кесишадиган йўлда белги йўналиши бўйича бир томонлама ҳаракатланиш жорий этилганини кўрсатади.",
+  "title": "Bir tomonlama harakatli yoʻlga chiqish",
+  "description": "Chap tomonga bir tomonlama harakatlanish joriy etilgan yoʻlga chiqish.\n\nUshbu belgi chorraha oldida oʻrnatilib, haydovchiga kesishadigan yoʻlda belgi yoʻnalishi boʻyicha bir tomonlama harakatlanish joriy etilganini koʻrsatadi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.8.1",
+  "image": "5.8.1.webp",
+  "title_kr": "Тасмалар бўйича ҳаракат йўналиши",
+  "description_kr": "Ушбу белги чорраҳага яқин (чорраҳада) кўп тасмали кенг йўлларда ҳаракатланиш тартибини белгилайди. Ҳайдовчиларга тушуниш осон бўлиши учун бир белгида учтагача тасмадаги ҳаракатланишни ифодалаш мумкин.\nТасмалар сони учтадан ортиқ бўлса, яна белги киритиш лозим. Шуни таъкидлаш керакки, чапга бурилишга рухсат этилган жойдан орқага қайрилиш ҳам мумкин.\nТасмалар сони ҳар бири бўйича рухсат этилган ҳаракатланиш йўналиши.",
+  "title": "Tasmalar boʻyicha harakat yoʻnalishi",
+  "description": "Ushbu belgi chorrahaga yaqin (chorrahada) koʻp tasmali keng yoʻllarda harakatlanish tartibini belgilaydi. Haydovchilarga tushunish oson boʻlishi uchun bir belgida uchtagacha tasmadagi harakatlanishni ifodalash mumkin.\nTasmalar soni uchtadan ortiq boʻlsa, yana belgi kiritish lozim. Shuni taʼkidlash kerakki, chapga burilishga ruxsat etilgan joydan orqaga qayrilish ham mumkin.\nTasmalar soni har biri boʻyicha ruxsat etilgan harakatlanish yoʻnalishi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.8.2",
+  "image": "5.8.2.webp",
+  "title_kr": "Тасма бўйича ҳаракатланиш йўналиши",
+  "description_kr": "Ушбу белги аввалги 5.8.1 белгисининг бир тури бўлиб, ҳар бир тасмадаги ҳаракатланиш тартиби алоҳида белги билан кўрсатилади.\nЙўлнинг четки чап бўлагидан чапга бурилишга рухсат берувчи 5.8.1 ва 5.8.2 белгилари шу тасмадан қайрилишга ҳам рухсат беради.\n\nЧорраҳадан олдин ўрнатилган 5.8.1 ва 5.8.2 белгиларининг таъсири, агар шу туркумдаги бошқа белгилар ўрнатилмаган бўлса, бутун чорраҳага татбиқ этилади.",
+  "title": "Tasma boʻyicha harakatlanish yoʻnalishi",
+  "description": "Ushbu belgi avvalgi 5.8.1 belgisining bir turi boʻlib, har bir tasmadagi harakatlanish tartibi alohida belgi bilan koʻrsatiladi.\nYoʻlning chetki chap boʻlagidan chapga burilishga ruxsat beruvchi 5.8.1 va 5.8.2 belgilari shu tasmadan qayrilishga ham ruxsat beradi.\n\nChorrahadan oldin oʻrnatilgan 5.8.1 va 5.8.2 belgilarining taʼsiri, agar shu turkumdagi boshqa belgilar oʻrnatilmagan boʻlsa, butun chorrahaga tatbiq etiladi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.8.3",
+  "image": "5.8.3.webp",
+  "title_kr": "Тасманинг бошланиши",
+  "description_kr": "Йўлнинг баландликка кўтариладиган қисмларида оғир юк автомобиллари ва секин юрадиган транспортлар бошқа транспорт воситаларига халақит бермаслиги учун, уларга қўшимча тасма ажратилиб, тасма бошланиш жойига ушбу белги ўрнатилади, тасма охирига эса 5.8.5 - «Тасма охири» белгиси ўрнатилади.\n\nАгар қўшимча тасма олдига 4.7 «Энг кам тезлик» белгиси ўрнатилган бўлса, кўрсатилган ёки ундан каттароқ тезликда ҳаракатлана олмайдиган транспорт воситасининг ҳайдовчиси асосий тасмадан қўшимча тасмага қайта тизилиши керак.",
+  "title": "Tasmaning boshlanishi",
+  "description": "Yoʻlning balandlikka koʻtariladigan qismlarida ogʻir yuk avtomobillari va sekin yuradigan transportlar boshqa transport vositalariga xalaqit bermasligi uchun, ularga qoʻshimcha tasma ajratilib, tasma boshlanish joyiga ushbu belgi oʻrnatiladi, tasma oxiriga esa 5.8.5 - «Tasma oxiri» belgisi oʻrnatiladi.\n\nAgar qoʻshimcha tasma oldiga 4.7 «Eng kam tezlik» belgisi oʻrnatilgan boʻlsa, koʻrsatilgan yoki undan kattaroq tezlikda harakatlana olmaydigan transport vositasining haydovchisi asosiy tasmadan qoʻshimcha tasmaga qayta tizilishi kerak."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.8.4",
+  "image": "5.8.4.webp",
+  "title_kr": "Тасманинг бошланиши",
+  "description_kr": "Уч тасмали йўлларда ўрта тасмадан фойдаланишга рухсат этиладиган қисм олдида ушбу белги ўрнатилиб, бу тасма секин юрадиган транспорт воситаларидан ўзиб кетишга имкон беради.\nУч тасмали йўлларда ҳаракатланиш учун ўрта тасманинг бошланишини билдиради.",
+  "title": "Tasmaning boshlanishi",
+  "description": "Uch tasmali yoʻllarda oʻrta tasmadan foydalanishga ruxsat etiladigan qism oldida ushbu belgi oʻrnatilib, bu tasma sekin yuradigan transport vositalaridan oʻzib ketishga imkon beradi.\nUch tasmali yoʻllarda harakatlanish uchun oʻrta tasmaning boshlanishini bildiradi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.8.5",
+  "image": "5.8.5.webp",
+  "title_kr": "Тасма охири",
+  "description_kr": "Баландликка кўтарилиш ёки тўхташ қисмидаги қўшимча тасманинг охири.",
+  "title": "Tasma oxiri",
+  "description": "Balandlikka koʻtarilish yoki toʻxtash qismidagi qoʻshimcha tasmaning oxiri."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.8.6",
+  "image": "5.8.6.webp",
+  "title_kr": "Тасма охири",
+  "description_kr": "Уч тасмали йўлнинг фойдаланишга рухсат этилган ўрта тасма қисми тугаши олдида ушбу белги ўрнатилади.",
+  "title": "Tasma oxiri",
+  "description": "Uch tasmali yoʻlning foydalanishga ruxsat etilgan oʻrta tasma qismi tugashi oldida ushbu belgi oʻrnatiladi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.8.7",
+  "image": "5.8.7.webp",
+  "title_kr": "Тасмалар бўйича ҳаракатланиш йўналиши",
+  "description_kr": "Ушбу белгилар чорраҳа олдида ўрнатилиб, транспорт воситаларининг рўпара қатновларига мўлжалланган уч тасмали йўлларда ҳаракатланиш тартибини белгилайди. Бу белгилар бўлмаса, ҳайдовчи ўрта тасмани иккала тарафдан қувиб ўтишга мўлжалланган деб ўйлаши мумкин. Баъзи ҳолларда транспорт оқимининг тезлигини ошириш учун юк автомобилларининг ўрта тасма бўйича ҳаракатланиши тақиқланади. Юк автомобиллари чекка (ўнг) тасмадан ҳаракатланади.\n\nАгар 5.8.7 белгисида бирор транспорт воситасининг ҳаракатланишини тақиқловчи белги тасвирланган бўлса, унда бу транспорт воситасининг тегишли тасмада ҳаракатланиши тақиқланади. 5.8.7 ва 5.8.8 белгилари тўрт ва ундан ортиқ тасмали йўлларга ҳам татбиқ этилиши мумкин. Тасвири алмашадиган 5.8.7 ва 5.8.8 белгилари ёрдамида реверсив ҳаракат ташкил этилиши мумкин.",
+  "title": "Tasmalar boʻyicha harakatlanish yoʻnalishi",
+  "description": "Ushbu belgilar chorraha oldida oʻrnatilib, transport vositalarining roʻpara qatnovlariga moʻljallangan uch tasmali yoʻllarda harakatlanish tartibini belgilaydi. Bu belgilar boʻlmasa, haydovchi oʻrta tasmani ikkala tarafdan quvib oʻtishga moʻljallangan deb oʻylashi mumkin. Baʼzi hollarda transport oqimining tezligini oshirish uchun yuk avtomobillarining oʻrta tasma boʻyicha harakatlanishi taqiqlanadi. Yuk avtomobillari chekka (oʻng) tasmadan harakatlanadi.\n\nAgar 5.8.7 belgisida biror transport vositasining harakatlanishini taqiqlovchi belgi tasvirlangan boʻlsa, unda bu transport vositasining tegishli tasmada harakatlanishi taqiqlanadi. 5.8.7 va 5.8.8 belgilari toʻrt va undan ortiq tasmali yoʻllarga ham tatbiq etilishi mumkin. Tasviri almashadigan 5.8.7 va 5.8.8 belgilari yordamida reversiv harakat tashkil etilishi mumkin."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.8.8",
+  "image": "5.8.8.webp",
+  "title_kr": "Тасмалар бўйича ҳаракатланиш йўналиши",
+  "description_kr": "Ушбу белгилар чорраҳа олдида ўрнатилиб, транспорт воситаларининг рўпара қатновларига мўлжалланган уч тасмали йўлларда ҳаракатланиш тартибини белгилайди. Бу белгилар бўлмаса, ҳайдовчи ўрта тасмани иккала тарафдан қувиб ўтишга мўлжалланган деб ўйлаши мумкин. Баъзи ҳолларда транспорт оқимининг тезлигини ошириш учун юк автомобилларининг ўрта тасма бўйича ҳаракатланиши тақиқланади. Юк автомобиллари чекка (ўнг) тасмадан ҳаракатланади.\n\n5.8.7 ва 5.8.8 белгилари тўрт ва ундан ортиқ тасмали йўлларга ҳам татбиқ этилиши мумкин. Тасвири алмашадиган 5.8.7 ва 5.8.8 белгилари ёрдамида реверсив ҳаракат ташкил этилиши мумкин.",
+  "title": "Tasmalar boʻyicha harakatlanish yoʻnalishi",
+  "description": "Ushbu belgilar chorraha oldida oʻrnatilib, transport vositalarining roʻpara qatnovlariga moʻljallangan uch tasmali yoʻllarda harakatlanish tartibini belgilaydi. Bu belgilar boʻlmasa, haydovchi oʻrta tasmani ikkala tarafdan quvib oʻtishga moʻljallangan deb oʻylashi mumkin. Baʼzi hollarda transport oqimining tezligini oshirish uchun yuk avtomobillarining oʻrta tasma boʻyicha harakatlanishi taqiqlanadi. Yuk avtomobillari chekka (oʻng) tasmadan harakatlanadi.\n\n5.8.7 va 5.8.8 belgilari toʻrt va undan ortiq tasmali yoʻllarga ham tatbiq etilishi mumkin. Tasviri almashadigan 5.8.7 va 5.8.8 belgilari yordamida reversiv harakat tashkil etilishi mumkin."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.9",
+  "image": "5.9.webp",
+  "title_kr": "Йўналишли транспорт воситалари учун мўлжалланган тасма",
+  "description_kr": "Ушбу белги транспорт воситаларининг оқими бўйича йўналган, йўналишли транспорт воситалари учун мўлжалланган тасмани белгилашда ишлатилади. Ушбу тасма бошқаларидан сидирға чизиқ билан ажратилган бўлса, у ҳолда бу тасмага бошқа транспорт воситаларининг кириши тақиқланади.\n\nАгар тасма узуқ-узуқ чизиқлар билан чегараланган бўлса, у ҳолда йўловчи тушириш ёки олиш, ўнгга бурилиш учун тасмага кириш мумкин. Белги қайси тасма устида жойлашган бўлса, шу тасмага татбиқ этилади. Йўлнинг ўнг томонига ўрнатилган белгининг таъсири ўнг тасмага татбиқ этилади.",
+  "title": "Yoʻnalishli transport vositalari uchun moʻljallangan tasma",
+  "description": "Ushbu belgi transport vositalarining oqimi boʻyicha yoʻnalgan, yoʻnalishli transport vositalari uchun moʻljallangan tasmani belgilashda ishlatiladi. Ushbu tasma boshqalaridan sidirgʻa chiziq bilan ajratilgan boʻlsa, u holda bu tasmaga boshqa transport vositalarining kirishi taqiqlanadi.\n\nAgar tasma uzuq-uzuq chiziqlar bilan chegaralangan boʻlsa, u holda yoʻlovchi tushirish yoki olish, oʻngga burilish uchun tasmaga kirish mumkin. Belgi qaysi tasma ustida joylashgan boʻlsa, shu tasmaga tatbiq etiladi. Yoʻlning oʻng tomoniga oʻrnatilgan belgining taʼsiri oʻng tasmaga tatbiq etiladi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.10.1",
+  "image": "5.10.1.webp",
+  "title_kr": "Йўналишли транспорт воситалари учун алоҳида ажратилган тасмаси бор йўл",
+  "description_kr": "Ушбу белги бир томонлама ҳаракатланиш йўлининг четки чап тасмаси йўналишли транспорт воситаларига ажратилгани ҳақида ахборот беради.\nТасма бошқаларидан (узуқ-узуқ бўлмаган) сидирға чизиқ билан ажратилиб, унга бошқа транспорт воситаларининг кириши тақиқланади.",
+  "title": "Yoʻnalishli transport vositalari uchun alohida ajratilgan tasmasi bor yoʻl",
+  "description": "Ushbu belgi bir tomonlama harakatlanish yoʻlining chetki chap tasmasi yoʻnalishli transport vositalariga ajratilgani haqida axborot beradi.\nTasma boshqalaridan (uzuq-uzuq boʻlmagan) sidirgʻa chiziq bilan ajratilib, unga boshqa transport vositalarining kirishi taqiqlanadi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.10.2",
+  "image": "5.10.2.webp",
+  "title_kr": "Йўналишли транспорт воситалари учун алоҳида ажратилган тасмаси бор йўлга чиқиш",
+  "description_kr": "Ўнг томонга чиқиш.\n\nУшбу белгилар кесишадиган йўлда бир томонлама ҳаракатланиш жорий қилинганлигини билдириб, йўлнинг бир тасмаси йўналишли транспорт воситаларига ажратилган ва унинг бошқа транспорт воситаларининг ҳаракатланишига қарамақарши йўналишда эканлигидан ахборот беради.",
+  "title": "Yoʻnalishli transport vositalari uchun alohida ajratilgan tasmasi bor yoʻlga chiqish",
+  "description": "Oʻng tomonga chiqish.\n\nUshbu belgilar kesishadigan yoʻlda bir tomonlama harakatlanish joriy qilinganligini bildirib, yoʻlning bir tasmasi yoʻnalishli transport vositalariga ajratilgan va uning boshqa transport vositalarining harakatlanishiga qaramaqarshi yoʻnalishda ekanligidan axborot beradi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.10.3",
+  "image": "5.10.3.webp",
+  "title_kr": "Йўналишли транспорт воситалари учун алоҳида ажратилган тасмаси бор йўлга чиқиш",
+  "description_kr": "Чап томонга чиқиш.\n\nУшбу белгилар кесишадиган йўлда бир томонлама ҳаракатланиш жорий қилинганлигини билдириб, йўлнинг бир тасмаси йўналишли транспорт воситаларига ажратилган ва унинг бошқа транспорт воситаларининг ҳаракатланишига қарамақарши йўналишда эканлигидан ахборот беради.",
+  "title": "Yoʻnalishli transport vositalari uchun alohida ajratilgan tasmasi bor yoʻlga chiqish",
+  "description": "Chap tomonga chiqish.\n\nUshbu belgilar kesishadigan yoʻlda bir tomonlama harakatlanish joriy qilinganligini bildirib, yoʻlning bir tasmasi yoʻnalishli transport vositalariga ajratilgan va uning boshqa transport vositalarining harakatlanishiga qaramaqarshi yoʻnalishda ekanligidan axborot beradi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.10.4",
+  "image": "5.10.4.webp",
+  "title_kr": "Йўналишли транспорт воситалари учун алоҳида ажратилган тасмаси бор йўлнинг охири",
+  "description_kr": "Ушбу белги ўрнатилган жойдан бошлаб барча транспорт воситалари йўл қатнов қисмининг барча кенглиги бўйича ҳаракатланиши, тўхташи ва тўхтаб туриши мумкин.",
+  "title": "Yoʻnalishli transport vositalari uchun alohida ajratilgan tasmasi bor yoʻlning oxiri",
+  "description": "Ushbu belgi oʻrnatilgan joydan boshlab barcha transport vositalari yoʻl qatnov qismining barcha kengligi boʻyicha harakatlanishi, toʻxtashi va toʻxtab turishi mumkin."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.11.1",
+  "image": "5.11.1.webp",
+  "title_kr": "Қайрилиб олиш жойи",
+  "description_kr": "Транспорт воситаларининг қайрилиб олиш жойини билдиради. Бу жойда чапга бурилиш тақиқланади.",
+  "title": "Qayrilib olish joyi",
+  "description": "Transport vositalarining qayrilib olish joyini bildiradi. Bu joyda chapga burilish taqiqlanadi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.11.2",
+  "image": "5.11.2.webp",
+  "title_kr": "Қайрилиб олиш оралиғи",
+  "description_kr": "Ушбу белгилар қайрилиш жойи ва унинг оралиғини белгилаб, транспорт воситаларининг чапга бурилишини тақиқлайди.",
+  "title": "Qayrilib olish oraligʻi",
+  "description": "Ushbu belgilar qayrilish joyi va uning oraligʻini belgilab, transport vositalarining chapga burilishini taqiqlaydi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.12",
+  "image": "5.12.webp",
+  "title_kr": "Автобус ва (ёки) троллейбус тўхташ жойи",
+  "description_kr": "Автобус ва (ёки) троллейбус тўхташ жойини билдиради.\n\nУшбу белгилар ўзига хос транспорт воситаларининг тўхташ ва тўхтаб туриш жойларини кўрсатиб, белги ўрнатилган жойдан 15 метргача масофада бошқа транспорт воситаларининг тўхташи ва тўхтаб туришини тақиқлайди.",
+  "title": "Avtobus va (yoki) trolleybus toʻxtash joyi",
+  "description": "Avtobus va (yoki) trolleybus toʻxtash joyini bildiradi.\n\nUshbu belgilar oʻziga xos transport vositalarining toʻxtash va toʻxtab turish joylarini koʻrsatib, belgi oʻrnatilgan joydan 15 metrgacha masofada boshqa transport vositalarining toʻxtashi va toʻxtab turishini taqiqlaydi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.13",
+  "image": "5.13.webp",
+  "title_kr": "Трамвай тўхташ жойи",
+  "description_kr": "Трамвай тўхташ жойини билдиради.\n\nУшбу белгилар ўзига хос транспорт воситаларининг тўхташ ва тўхтаб туриш жойларини кўрсатиб, белги ўрнатилган жойдан 15 метргача масофада бошқа транспорт воситаларининг тўхташи ва тўхтаб туришини тақиқлайди.",
+  "title": "Tramvay toʻxtash joyi",
+  "description": "Tramvay toʻxtash joyini bildiradi.\n\nUshbu belgilar oʻziga xos transport vositalarining toʻxtash va toʻxtab turish joylarini koʻrsatib, belgi oʻrnatilgan joydan 15 metrgacha masofada boshqa transport vositalarining toʻxtashi va toʻxtab turishini taqiqlaydi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.14",
+  "image": "5.14.webp",
+  "title_kr": "Йўналишсиз таксилар тўхтаб туриш жойи",
+  "description_kr": "Йўналишсиз таксилар тўхтаб туриш жойини билдиради.\n\nУшбу белгилар ўзига хос транспорт воситаларининг тўхташ ва тўхтаб туриш жойларини кўрсатиб, белги ўрнатилган жойдан 15 метргача масофада бошқа транспорт воситаларининг тўхташи ва тўхтаб туришини тақиқлайди.",
+  "title": "Yoʻnalishsiz taksilar toʻxtab turish joyi",
+  "description": "Yoʻnalishsiz taksilar toʻxtab turish joyini bildiradi.\n\nUshbu belgilar oʻziga xos transport vositalarining toʻxtash va toʻxtab turish joylarini koʻrsatib, belgi oʻrnatilgan joydan 15 metrgacha masofada boshqa transport vositalarining toʻxtashi va toʻxtab turishini taqiqlaydi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.15",
+  "image": "5.15.webp",
+  "title_kr": "Тўхтаб туриш жойи",
+  "description_kr": "Транспорт воситаларининг қисқа ва узоқ муддатга тўхтаб туриш жойи.",
+  "title": "Toʻxtab turish joyi",
+  "description": "Transport vositalarining qisqa va uzoq muddatga toʻxtab turish joyi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.15.1",
+  "image": "5.15.1.webp",
+  "title_kr": "Пуллик тўхтаб туриш жойи",
+  "description_kr": "Тўхтаб туриш жойидан ҳақ тўлаб фойдаланилишини билдиради.",
+  "title": "Pullik toʻxtab turish joyi",
+  "description": "Toʻxtab turish joyidan haq toʻlab foydalanilishini bildiradi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.15.2",
+  "image": "5.15.2.webp",
+  "title_kr": "Ер усти автомобиль қўйиш жойи",
+  "description_kr": "Ер усти (кўп қаватли) автомобиль қўйиш жойини (паркинг) билдиради.",
+  "title": "Yer usti avtomobil qoʻyish joyi",
+  "description": "Yer usti (koʻp qavatli) avtomobil qoʻyish joyini (parking) bildiradi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.15.3",
+  "image": "5.15.3.webp",
+  "title_kr": "Ер ости автомобиль қўйиш жойи",
+  "description_kr": "Ер ости автомобиль қўйиш жойини (паркинг) билдиради.",
+  "title": "Yer osti avtomobil qoʻyish joyi",
+  "description": "Yer osti avtomobil qoʻyish joyini (parking) bildiradi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.15.4",
+  "image": "5.15.4.webp",
+  "title_kr": "Электр қувватлашли автомобиль қўйиш жойи",
+  "description_kr": "Электромобилларни қувватлантириш қурилмаси жиҳозланган тўхтаб туриш жойини билдиради.",
+  "title": "Elektr quvvatlashli avtomobil qoʻyish joyi",
+  "description": "Elektromobillarni quvvatlantirish qurilmasi jihozlangan toʻxtab turish joyini bildiradi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.16.1",
+  "image": "5.16.1.webp",
+  "title_kr": "Пиёдалар ўтиш жойи",
+  "description_kr": "Ушбу белгилар пиёдалар ўтиш жойини белгилаб, «Зебра» шаклидаги ётиқ чизиқ билан ёки уларсиз ишлатилиши мумкин. 5.16.1 белгиси йўлнинг чап тарафига ўрнатилиб, пиёдалар ўтиш жойининг олд чегарасини билдиради, 5.16.2 йўл белгиси аввалги белгининг аксини кўрсатади ва йўлнинг ўнг тарафига ўрнатилиб, пиёдалар ўтиш жойининг туташ чегарасини кўрсатади.",
+  "title": "Piyodalar oʻtish joyi",
+  "description": "Ushbu belgilar piyodalar oʻtish joyini belgilab, «Zebra» shaklidagi yotiq chiziq bilan yoki ularsiz ishlatilishi mumkin. 5.16.1 belgisi yoʻlning chap tarafiga oʻrnatilib, piyodalar oʻtish joyining old chegarasini bildiradi, 5.16.2 yoʻl belgisi avvalgi belgining aksini koʻrsatadi va yoʻlning oʻng tarafiga oʻrnatilib, piyodalar oʻtish joyining tutash chegarasini koʻrsatadi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.16.2",
+  "image": "5.16.2.webp",
+  "title_kr": "Пиёдалар ўтиш жойи",
+  "description_kr": "Ушбу белгилар пиёдалар ўтиш жойини белгилаб, «Зебра» шаклидаги ётиқ чизиқ билан ёки уларсиз ишлатилиши мумкин. 5.16.1 белгиси йўлнинг чап тарафига ўрнатилиб, пиёдалар ўтиш жойининг олд чегарасини билдиради, 5.16.2 йўл белгиси аввалги белгининг аксини кўрсатади ва йўлнинг ўнг тарафига ўрнатилиб, пиёдалар ўтиш жойининг туташ чегарасини кўрсатади.",
+  "title": "Piyodalar oʻtish joyi",
+  "description": "Ushbu belgilar piyodalar oʻtish joyini belgilab, «Zebra» shaklidagi yotiq chiziq bilan yoki ularsiz ishlatilishi mumkin. 5.16.1 belgisi yoʻlning chap tarafiga oʻrnatilib, piyodalar oʻtish joyining old chegarasini bildiradi, 5.16.2 yoʻl belgisi avvalgi belgining aksini koʻrsatadi va yoʻlning oʻng tarafiga oʻrnatilib, piyodalar oʻtish joyining tutash chegarasini koʻrsatadi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.17.1",
+  "image": "5.17.1.webp",
+  "title_kr": "Пиёдаларнинг ер остидан ўтиш жойи",
+  "description_kr": "Пиёдаларнинг ер остидан ўтиш жойини кўрсатади (кўпинча серқатнов кўчаларнинг остидан).",
+  "title": "Piyodalarning yer ostidan oʻtish joyi",
+  "description": "Piyodalarning yer ostidan oʻtish joyini koʻrsatadi (koʻpincha serqatnov koʻchalarning ostidan)."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.17.2",
+  "image": "5.17.2.webp",
+  "title_kr": "Пиёдаларнинг ер остидан ўтиш жойи",
+  "description_kr": "Пиёдаларнинг ер остидан ўтиш жойини кўрсатади (кўпинча серқатнов кўчаларнинг остидан).",
+  "title": "Piyodalarning yer ostidan oʻtish joyi",
+  "description": "Piyodalarning yer ostidan oʻtish joyini koʻrsatadi (koʻpincha serqatnov koʻchalarning ostidan)."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.17.3",
+  "image": "5.17.3.webp",
+  "title_kr": "Пиёдаларнинг ер устидан ўтиш жойи",
+  "description_kr": "Пиёдаларнинг ер устидан ўтиш жойини кўрсатади (кўпинча темир йўл ёки серқатнов йўллар устидаги кўприклар).",
+  "title": "Piyodalarning yer ustidan oʻtish joyi",
+  "description": "Piyodalarning yer ustidan oʻtish joyini koʻrsatadi (koʻpincha temir yoʻl yoki serqatnov yoʻllar ustidagi koʻpriklar)."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.17.4",
+  "image": "5.17.4.webp",
+  "title_kr": "Пиёдаларнинг ер устидан ўтиш жойи",
+  "description_kr": "Пиёдаларнинг ер устидан ўтиш жойини кўрсатади (кўпинча темир йўл ёки серқатнов йўллар устидаги кўприклар).",
+  "title": "Piyodalarning yer ustidan oʻtish joyi",
+  "description": "Piyodalarning yer ustidan oʻtish joyini koʻrsatadi (koʻpincha temir yoʻl yoki serqatnov yoʻllar ustidagi koʻpriklar)."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.18",
+  "image": "5.18.webp",
+  "title_kr": "Тавсия этилган тезлик",
+  "description_kr": "Ушбу белги йўлнинг шарт-шароитлари ёки обҳаво шароитларига қараб шу қисм учун маълум тезликни (белгида кўрсатилган) тавсия қилади. Белги биринчи чоррахагача таъсир қилади. Агар бу белги огохлантирувчи белги билан бирга қўлланилса, унинг таъсир оралиғи хавфли қисмнинг узунлиги билан аниқланади.",
+  "title": "Tavsiya etilgan tezlik",
+  "description": "Ushbu belgi yoʻlning shart-sharoitlari yoki obhavo sharoitlariga qarab shu qism uchun maʼlum tezlikni (belgida koʻrsatilgan) tavsiya qiladi. Belgi birinchi chorraxagacha taʼsir qiladi. Agar bu belgi ogoxlantiruvchi belgi bilan birga qoʻllanilsa, uning taʼsir oraligʻi xavfli qismning uzunligi bilan aniqlanadi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.19.1",
+  "image": "5.19.1.webp",
+  "title_kr": "Охири берк йўл",
+  "description_kr": "Охири берк йўл (тўғрида).\n\nУшбу белги йўлнинг давоми йўқ, охири берк эканлигини кўрсатиб, ҳаракатланишни тақиқламайди (кўчага киришни тақиқламайди).",
+  "title": "Oxiri berk yoʻl",
+  "description": "Oxiri berk yoʻl (toʻgʻrida).\n\nUshbu belgi yoʻlning davomi yoʻq, oxiri berk ekanligini koʻrsatib, harakatlanishni taqiqlamaydi (koʻchaga kirishni taqiqlamaydi)."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.19.2",
+  "image": "5.19.2.webp",
+  "title_kr": "Охири берк йўл",
+  "description_kr": "Ўнг томондаги йўлнинг охири берк.\n\nУшбу белги йўлнинг давоми йўқ, охири берк эканлигини кўрсатиб, ҳаракатланишни тақиқламайди (кўчага киришни тақиқламайди).",
+  "title": "Oxiri berk yoʻl",
+  "description": "Oʻng tomondagi yoʻlning oxiri berk.\n\nUshbu belgi yoʻlning davomi yoʻq, oxiri berk ekanligini koʻrsatib, harakatlanishni taqiqlamaydi (koʻchaga kirishni taqiqlamaydi)."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.19.3",
+  "image": "5.19.3.webp",
+  "title_kr": "Охири берк йўл",
+  "description_kr": "Чап томондаги йўлнинг охири берк.\n\nУшбу белги йўлнинг давоми йўқ, охири берк эканлигини кўрсатиб, ҳаракатланишни тақиқламайди (кўчага киришни тақиқламайди).",
+  "title": "Oxiri berk yoʻl",
+  "description": "Chap tomondagi yoʻlning oxiri berk.\n\nUshbu belgi yoʻlning davomi yoʻq, oxiri berk ekanligini koʻrsatib, harakatlanishni taqiqlamaydi (koʻchaga kirishni taqiqlamaydi)."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.20.1",
+  "image": "5.20.1.webp",
+  "title_kr": "Йўналишларнинг дастлабки кўрсаткичи",
+  "description_kr": "Белгида кўрсатилган аҳоли пункти ёки манзилга автомагистраль орқали бориладиган бўлса асоси яшил, оддий йўлларда асоси ҳаво ранг, шаҳар йўлларида асоси оқ белгилар билан ҳаракат йўналиши кўрсатилган бўлади. Белгида, белги ўрнатилган жойдан чорраҳагача бўлган масофа ёки йўналишлар бўйича, 3.12-3.15 тақиқловчи белгилардан бири ўрнатилган қисмни айланиб ўтиш кераклиги кўрсатилади. Белги шаҳар йўлларида 50-100 метр, шаҳардан ташқарида 150-300 метр масофада, автомагистралларда 300 метр ва ундан ортиқ масофаларда ўрнатилади.",
+  "title": "Yoʻnalishlarning dastlabki koʻrsatkichi",
+  "description": "Belgida koʻrsatilgan aholi punkti yoki manzilga avtomagistral orqali boriladigan boʻlsa asosi yashil, oddiy yoʻllarda asosi havo rang, shahar yoʻllarida asosi oq belgilar bilan harakat yoʻnalishi koʻrsatilgan boʻladi. Belgida, belgi oʻrnatilgan joydan chorrahagacha boʻlgan masofa yoki yoʻnalishlar boʻyicha, 3.12-3.15 taqiqlovchi belgilardan biri oʻrnatilgan qismni aylanib oʻtish kerakligi koʻrsatiladi. Belgi shahar yoʻllarida 50-100 metr, shahardan tashqarida 150-300 metr masofada, avtomagistrallarda 300 metr va undan ortiq masofalarda oʻrnatiladi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.20.2",
+  "image": "5.20.2.webp",
+  "title_kr": "Йўналишларнинг дастлабки кўрсаткичи",
+  "description_kr": "Белгида кўрсатилган аҳоли пункти ёки манзилга автомагистраль орқали бориладиган бўлса асоси яшил, оддий йўлларда асоси ҳаво ранг, шаҳар йўлларида асоси оқ белгилар билан ҳаракат йўналиши кўрсатилган бўлади. Белгида, белги ўрнатилган жойдан чорраҳагача бўлган масофа ёки йўналишлар бўйича, 3.12-3.15 тақиқловчи белгилардан бири ўрнатилган қисмни айланиб ўтиш кераклиги кўрсатилади. Белги шаҳар йўлларида 50-100 метр, шаҳардан ташқарида 150-300 метр масофада, автомагистралларда 300 метр ва ундан ортиқ масофаларда ўрнатилади.\n\n5.20.2 белгисининг 5.20.1 белгисидан фарқи шундаки, унда аҳоли яшайдиган жой ва бошқа манзилларга бориш йўналиши кўрсатилган.",
+  "title": "Yoʻnalishlarning dastlabki koʻrsatkichi",
+  "description": "Belgida koʻrsatilgan aholi punkti yoki manzilga avtomagistral orqali boriladigan boʻlsa asosi yashil, oddiy yoʻllarda asosi havo rang, shahar yoʻllarida asosi oq belgilar bilan harakat yoʻnalishi koʻrsatilgan boʻladi. Belgida, belgi oʻrnatilgan joydan chorrahagacha boʻlgan masofa yoki yoʻnalishlar boʻyicha, 3.12-3.15 taqiqlovchi belgilardan biri oʻrnatilgan qismni aylanib oʻtish kerakligi koʻrsatiladi. Belgi shahar yoʻllarida 50-100 metr, shahardan tashqarida 150-300 metr masofada, avtomagistrallarda 300 metr va undan ortiq masofalarda oʻrnatiladi.\n\n5.20.2 belgisining 5.20.1 belgisidan farqi shundaki, unda aholi yashaydigan joy va boshqa manzillarga borish yoʻnalishi koʻrsatilgan."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.20.3",
+  "image": "5.20.3.webp",
+  "title_kr": "Ҳаракатланиш чизмаси",
+  "description_kr": "Ушбу белги бирор йўналиш бўйича ҳаракатланиш тақиқланган мураккаб чорраҳаларда ҳаракатланиш тартибини кўрсатади. У чорраҳа олдида ўрнатилиб, айрим ҳаракатлар тақиқланган вақтда ҳаракатланиш йўналиши ёки серқатнов чорраҳада рухсат этилган ҳаракатланиш йўналишини кўрсатади.",
+  "title": "Harakatlanish chizmasi",
+  "description": "Ushbu belgi biror yoʻnalish boʻyicha harakatlanish taqiqlangan murakkab chorrahalarda harakatlanish tartibini koʻrsatadi. U chorraha oldida oʻrnatilib, ayrim harakatlar taqiqlangan vaqtda harakatlanish yoʻnalishi yoki serqatnov chorrahada ruxsat etilgan harakatlanish yoʻnalishini koʻrsatadi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.20.4",
+  "image": "5.20.4.webp",
+  "title_kr": "Йўлларнинг бир сатҳда кесишмайдиган қисмларида бурилиш ёки қайрилиб олиш йўналиш кўрсаткичи",
+  "description_kr": "Автомобиль йўлларнинг бир сатҳда кесишмайдиган қисмларида ер остидан ёки ер устидан транспорт воситаларининг бурилиш ва қайрилиб олиш йўналишини кўрсатиш учун қўлланилади.",
+  "title": "Yoʻllarning bir sathda kesishmaydigan qismlarida burilish yoki qayrilib olish yoʻnalish koʻrsatkichi",
+  "description": "Avtomobil yoʻllarning bir sathda kesishmaydigan qismlarida yer ostidan yoki yer ustidan transport vositalarining burilish va qayrilib olish yoʻnalishini koʻrsatish uchun qoʻllaniladi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.20.5",
+  "image": "5.20.5.webp",
+  "title_kr": "Хизмат кўрсатиш майдони",
+  "description_kr": "Белгида кўрсатилган масофада ёнилғи қуйиш шохобчаси, техник хизмат кўрсатиш жойи, овқатланиш ва дам олиш жойлари каби хизмат кўрсатиш объектлари жойлашган майдон борлигини билдиради.",
+  "title": "Xizmat koʻrsatish maydoni",
+  "description": "Belgida koʻrsatilgan masofada yonilgʻi quyish shoxobchasi, texnik xizmat koʻrsatish joyi, ovqatlanish va dam olish joylari kabi xizmat koʻrsatish obʼyektlari joylashgan maydon borligini bildiradi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.21.1",
+  "image": "5.21.1.webp",
+  "title_kr": "Йўналиш кўрсаткичи",
+  "description_kr": "Манзил томон бурилиш жойида ушбу белги ўрнатилиб, қанча километр масофа қолганини кўрсатади.",
+  "title": "Yoʻnalish koʻrsatkichi",
+  "description": "Manzil tomon burilish joyida ushbu belgi oʻrnatilib, qancha kilometr masofa qolganini koʻrsatadi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.21.2",
+  "image": "5.21.2.webp",
+  "title_kr": "Йўналишлар кўрсаткичи",
+  "description_kr": "Ушбу белги аввалги белгининг бир тури бўлиб, бир неча манзил томон ҳаракатланиш йўналишларини кўрсатади. Белгида манзиллар томон ҳаракатланиш йўналишлари кўрсатилган.\nБелгиларда манзилларгача бўлган масофа (км) кўрсатилиши, автомагистральлар, аэропортлар ва бошқа рамзий белгилар тасвирланган бўлиши мумкин.",
+  "title": "Yoʻnalishlar koʻrsatkichi",
+  "description": "Ushbu belgi avvalgi belgining bir turi boʻlib, bir necha manzil tomon harakatlanish yoʻnalishlarini koʻrsatadi. Belgida manzillar tomon harakatlanish yoʻnalishlari koʻrsatilgan.\nBelgilarda manzillargacha boʻlgan masofa (km) koʻrsatilishi, avtomagistrallar, aeroportlar va boshqa ramziy belgilar tasvirlangan boʻlishi mumkin."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.22",
+  "image": "5.22.webp",
+  "title_kr": "Аҳоли пунктининг бошланиши",
+  "description_kr": "Асоси оқ рангда, аҳоли пунктининг номланиши қора рангда ёзилган бундай белгилар юқори тезликни соатига 70 км билан чегаралаб, товуш мосламаларидан фойдаланишни тақиқлайди. Қоидаларнинг аҳоли пунктларида ҳаракатланиш тартибини белгиловчи талабларига амал қилинадиган жойларнинг номи ҳамда унинг бошланишини билидиради.",
+  "title": "Aholi punktining boshlanishi",
+  "description": "Asosi oq rangda, aholi punktining nomlanishi qora rangda yozilgan bunday belgilar yuqori tezlikni soatiga 70 km bilan chegaralab, tovush moslamalaridan foydalanishni taqiqlaydi. Qoidalarning aholi punktlarida harakatlanish tartibini belgilovchi talablariga amal qilinadigan joylarning nomi hamda uning boshlanishini bilidiradi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.23",
+  "image": "5.23.webp",
+  "title_kr": "Аҳоли пунктининг охири",
+  "description_kr": "Ушбу белги ўрнатилган жойдан бошлаб аввалги белги-5.22 киритган чегаралар бекор қилинади.\nҚоидаларнинг аҳоли пунктида ҳаракатланиш тартиби талаблари бекор қилинган жой.",
+  "title": "Aholi punktining oxiri",
+  "description": "Ushbu belgi oʻrnatilgan joydan boshlab avvalgi belgi-5.22 kiritgan chegaralar bekor qilinadi.\nQoidalarning aholi punktida harakatlanish tartibi talablari bekor qilingan joy."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.24",
+  "image": "5.24.webp",
+  "title_kr": "Аҳоли пунктининг бошланиши",
+  "description_kr": "Асоси ҳаво ранг, ёзуви оқ рангда ёзилган бундай белгилар ҳаракат тезлиги ва товуш мосламаларидан фойдаланишни чекламасдан, фақат белгида ёзилган географик жой номини билдиради. Ушбу белги ўрнатилган жойда аҳоли пунктларидаги йўлларда жорий этилган тартиб талаб этилмайди.\nҚоидаларнинг аҳоли пунктларида ҳаракатланиш тартибини белгиловчи талабларига амал қилинмайдиган жойнинг номи ҳамда унинг бошланишини билдиради.",
+  "title": "Aholi punktining boshlanishi",
+  "description": "Asosi havo rang, yozuvi oq rangda yozilgan bunday belgilar harakat tezligi va tovush moslamalaridan foydalanishni cheklamasdan, faqat belgida yozilgan geografik joy nomini bildiradi. Ushbu belgi oʻrnatilgan joyda aholi punktlaridagi yoʻllarda joriy etilgan tartib talab etilmaydi.\nQoidalarning aholi punktlarida harakatlanish tartibini belgilovchi talablariga amal qilinmaydigan joyning nomi hamda uning boshlanishini bildiradi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.25",
+  "image": "5.25.webp",
+  "title_kr": "Аҳоли пунктининг охири",
+  "description_kr": "Ушбу белги аввалги белгида кўрсатилган географик жойнинг охирини билдиради. 5.24 белгиси билан кўрсатилган аҳоли пунктининг бошланиши.",
+  "title": "Aholi punktining oxiri",
+  "description": "Ushbu belgi avvalgi belgida koʻrsatilgan geografik joyning oxirini bildiradi. 5.24 belgisi bilan koʻrsatilgan aholi punktining boshlanishi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.26",
+  "image": "5.26.webp",
+  "title_kr": "Манзил номи",
+  "description_kr": "Аҳоли пунктидаги кўчалар номи, аҳоли пунктларидан ташқаридаги дарё, кўл ва бошқа хушманзара жойларнинг номи ушбу белги билан кўрсатилади.",
+  "title": "Manzil nomi",
+  "description": "Aholi punktidagi koʻchalar nomi, aholi punktlaridan tashqaridagi daryo, koʻl va boshqa xushmanzara joylarning nomi ushbu belgi bilan koʻrsatiladi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.27",
+  "image": "5.27.webp",
+  "title_kr": "Масофалар кўрсаткичи",
+  "description_kr": "Ушбу белги шаҳарлардан чиқиб кетиш жойларига ўрнатилиб, йўналиш бўйича жойлашган аҳоли яшайдиган манзилгача бўлган масофани билдиради. Ҳаракатдаги ҳайдовчи ўқиб улгуриши учун битта белгида учтагача манзил номи ёзилиши мумкин. Йўналиш бўйича жойлашган аҳоли пунктигача бўлган масофа (км)ни билдиради.",
+  "title": "Masofalar koʻrsatkichi",
+  "description": "Ushbu belgi shaharlardan chiqib ketish joylariga oʻrnatilib, yoʻnalish boʻyicha joylashgan aholi yashaydigan manzilgacha boʻlgan masofani bildiradi. Harakatdagi haydovchi oʻqib ulgurishi uchun bitta belgida uchtagacha manzil nomi yozilishi mumkin. Yoʻnalish boʻyicha joylashgan aholi punktigacha boʻlgan masofa (km)ni bildiradi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.28",
+  "image": "5.28.webp",
+  "title_kr": "Километр белгиси",
+  "description_kr": "Ушбу белги йўл бошланганидан бошлаб, ҳар бир километрда ўрнатилади.",
+  "title": "Kilometr belgisi",
+  "description": "Ushbu belgi yoʻl boshlanganidan boshlab, har bir kilometrda oʻrnatiladi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.29.1",
+  "image": "5.29.1.webp",
+  "title_kr": "Йўл рақами",
+  "description_kr": "Йўлга (маршрутга) берилган рақамни кўрсатади. Ҳайдовчига автомобиль йўллари атласи бўйича йўлдан фойдаланишни осонлаштиради.",
+  "title": "Yoʻl raqami",
+  "description": "Yoʻlga (marshrutga) berilgan raqamni koʻrsatadi. Haydovchiga avtomobil yoʻllari atlasi boʻyicha yoʻldan foydalanishni osonlashtiradi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.29.2",
+  "image": "5.29.2.webp",
+  "title_kr": "Йўл рақами",
+  "description_kr": "Йўлнинг (маршрутнинг) рақами ва йўналишини кўрсатади. Ҳайдовчига автомобиль йўллари атласи бўйича йўлдан фойдаланишни осонлаштиради.",
+  "title": "Yoʻl raqami",
+  "description": "Yoʻlning (marshrutning) raqami va yoʻnalishini koʻrsatadi. Haydovchiga avtomobil yoʻllari atlasi boʻyicha yoʻldan foydalanishni osonlashtiradi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.30.1",
+  "image": "5.30.1.webp",
+  "title_kr": "Юк автомобиллари учун ҳаракатланиш йўналиши",
+  "description_kr": "Юк автомобиллари учун тавсия этилган йўналиш — тўғрига.\n\nУшбу белгилар чорраҳа олдида ўрнатилиб, юк автомобиллари ҳайдовчиларига энг қулай йўлни кўрсатади ва шу йўл бўйича ҳаракатланишни тавсия этади. Бошқа йўлларга бурилиш тақиқланмайди, лекин тез орада юк автомобиллари ҳаракатланишини тақиқлайдиган белгига чиқиши мумкин. Чорраҳаларда юк автомобиллари, тракторлар ва ўзиюрар мосламаларга бирор йўналишда ҳаракатланиш тақиқланган бўлса, бундай транспорт воситаларига тавсия этилган ҳаракатланиш йўналишларини кўрсатади.",
+  "title": "Yuk avtomobillari uchun harakatlanish yoʻnalishi",
+  "description": "Yuk avtomobillari uchun tavsiya etilgan yoʻnalish — toʻgʻriga.\n\nUshbu belgilar chorraha oldida oʻrnatilib, yuk avtomobillari haydovchilariga eng qulay yoʻlni koʻrsatadi va shu yoʻl boʻyicha harakatlanishni tavsiya etadi. Boshqa yoʻllarga burilish taqiqlanmaydi, lekin tez orada yuk avtomobillari harakatlanishini taqiqlaydigan belgiga chiqishi mumkin. Chorrahalarda yuk avtomobillari, traktorlar va oʻziyurar moslamalarga biror yoʻnalishda harakatlanish taqiqlangan boʻlsa, bunday transport vositalariga tavsiya etilgan harakatlanish yoʻnalishlarini koʻrsatadi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.30.2",
+  "image": "5.30.2.webp",
+  "title_kr": "Юк автомобиллари учун ҳаракатланиш йўналиши",
+  "description_kr": "Юк автомобиллари учун тавсия этилган йўналиш — ўнгга.\n\nУшбу белгилар чорраҳа олдида ўрнатилиб, юк автомобиллари ҳайдовчиларига энг қулай йўлни кўрсатади ва шу йўл бўйича ҳаракатланишни тавсия этади. Бошқа йўлларга бурилиш тақиқланмайди, лекин тез орада юк автомобиллари ҳаракатланишини тақиқлайдиган белгига чиқиши мумкин. Чорраҳаларда юк автомобиллари, тракторлар ва ўзиюрар мосламаларга бирор йўналишда ҳаракатланиш тақиқланган бўлса, бундай транспорт воситаларига тавсия этилган ҳаракатланиш йўналишларини кўрсатади.",
+  "title": "Yuk avtomobillari uchun harakatlanish yoʻnalishi",
+  "description": "Yuk avtomobillari uchun tavsiya etilgan yoʻnalish — oʻngga.\n\nUshbu belgilar chorraha oldida oʻrnatilib, yuk avtomobillari haydovchilariga eng qulay yoʻlni koʻrsatadi va shu yoʻl boʻyicha harakatlanishni tavsiya etadi. Boshqa yoʻllarga burilish taqiqlanmaydi, lekin tez orada yuk avtomobillari harakatlanishini taqiqlaydigan belgiga chiqishi mumkin. Chorrahalarda yuk avtomobillari, traktorlar va oʻziyurar moslamalarga biror yoʻnalishda harakatlanish taqiqlangan boʻlsa, bunday transport vositalariga tavsiya etilgan harakatlanish yoʻnalishlarini koʻrsatadi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.30.3",
+  "image": "5.30.3.webp",
+  "title_kr": "Юк автомобиллари учун ҳаракатланиш йўналиши",
+  "description_kr": "Юк автомобиллари учун тавсия этилган йўналиш — чапга.\n\nУшбу белгилар чорраҳа олдида ўрнатилиб, юк автомобиллари ҳайдовчиларига энг қулай йўлни кўрсатади ва шу йўл бўйича ҳаракатланишни тавсия этади. Бошқа йўлларга бурилиш тақиқланмайди, лекин тез орада юк автомобиллари ҳаракатланишини тақиқлайдиган белгига чиқиши мумкин. Чорраҳаларда юк автомобиллари, тракторлар ва ўзиюрар мосламаларга бирор йўналишда ҳаракатланиш тақиқланган бўлса, бундай транспорт воситаларига тавсия этилган ҳаракатланиш йўналишларини кўрсатади.",
+  "title": "Yuk avtomobillari uchun harakatlanish yoʻnalishi",
+  "description": "Yuk avtomobillari uchun tavsiya etilgan yoʻnalish — chapga.\n\nUshbu belgilar chorraha oldida oʻrnatilib, yuk avtomobillari haydovchilariga eng qulay yoʻlni koʻrsatadi va shu yoʻl boʻyicha harakatlanishni tavsiya etadi. Boshqa yoʻllarga burilish taqiqlanmaydi, lekin tez orada yuk avtomobillari harakatlanishini taqiqlaydigan belgiga chiqishi mumkin. Chorrahalarda yuk avtomobillari, traktorlar va oʻziyurar moslamalarga biror yoʻnalishda harakatlanish taqiqlangan boʻlsa, bunday transport vositalariga tavsiya etilgan harakatlanish yoʻnalishlarini koʻrsatadi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.31",
+  "image": "5.31.webp",
+  "title_kr": "Айланиб ўтиш тасвири",
+  "description_kr": "Асоси сариқ рангда бўлган ушбу белги вақтинчалик ёпиб қўйилган йўл қисмини айланиб ўтиш чизмасини кўрсатади. Белги аҳоли пунктида 50-100 м, аҳоли пунктидан ташқарида 150-300 м масофада, баъзи ҳолларда айланиб ўтиладиган йўлнинг олдида ўрнатилади.",
+  "title": "Aylanib oʻtish tasviri",
+  "description": "Asosi sariq rangda boʻlgan ushbu belgi vaqtinchalik yopib qoʻyilgan yoʻl qismini aylanib oʻtish chizmasini koʻrsatadi. Belgi aholi punktida 50-100 m, aholi punktidan tashqarida 150-300 m masofada, baʼzi hollarda aylanib oʻtiladigan yoʻlning oldida oʻrnatiladi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.32.1",
+  "image": "5.32.1.webp",
+  "title_kr": "Четлаб ўтиш йўналиши",
+  "description_kr": "Четлаб ўтиш йўналиши — тўғрига.\n\nАсоси сариқ рангда бўлган ушбу белги вақтинчалик қўйилган йўл қисмини четлаб ўтиш йўналишини кўрсатади. Бу белги аввалги белгига ўхшаб аҳоли пунктида 50-100 метр, аҳоли пунктидан ташқарида 150-300 метр масофада, баъзи ҳолларда айланиб ўтиладиган йўлнинг олдида ўрнатилади.",
+  "title": "Chetlab oʻtish yoʻnalishi",
+  "description": "Chetlab oʻtish yoʻnalishi — toʻgʻriga.\n\nAsosi sariq rangda boʻlgan ushbu belgi vaqtinchalik qoʻyilgan yoʻl qismini chetlab oʻtish yoʻnalishini koʻrsatadi. Bu belgi avvalgi belgiga oʻxshab aholi punktida 50-100 metr, aholi punktidan tashqarida 150-300 metr masofada, baʼzi hollarda aylanib oʻtiladigan yoʻlning oldida oʻrnatiladi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.32.2",
+  "image": "5.32.2.webp",
+  "title_kr": "Четлаб ўтиш йўналиши",
+  "description_kr": "Четлаб ўтиш йўналиши — ўнгга.\n\nАсоси сариқ рангда бўлган ушбу белги вақтинчалик қўйилган йўл қисмини четлаб ўтиш йўналишини кўрсатади. Бу белги аввалги белгига ўхшаб аҳоли пунктида 50-100 метр, аҳоли пунктидан ташқарида 150-300 метр масофада, баъзи ҳолларда айланиб ўтиладиган йўлнинг олдида ўрнатилади.",
+  "title": "Chetlab oʻtish yoʻnalishi",
+  "description": "Chetlab oʻtish yoʻnalishi — oʻngga.\n\nAsosi sariq rangda boʻlgan ushbu belgi vaqtinchalik qoʻyilgan yoʻl qismini chetlab oʻtish yoʻnalishini koʻrsatadi. Bu belgi avvalgi belgiga oʻxshab aholi punktida 50-100 metr, aholi punktidan tashqarida 150-300 metr masofada, baʼzi hollarda aylanib oʻtiladigan yoʻlning oldida oʻrnatiladi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.32.3",
+  "image": "5.32.3.webp",
+  "title_kr": "Четлаб ўтиш йўналиши",
+  "description_kr": "Четлаб ўтиш йўналиши — чапга.\n\nАсоси сариқ рангда бўлган ушбу белги вақтинчалик қўйилган йўл қисмини четлаб ўтиш йўналишини кўрсатади. Бу белги аввалги белгига ўхшаб аҳоли пунктида 50-100 метр, аҳоли пунктидан ташқарида 150-300 метр масофада, баъзи ҳолларда айланиб ўтиладиган йўлнинг олдида ўрнатилади.",
+  "title": "Chetlab oʻtish yoʻnalishi",
+  "description": "Chetlab oʻtish yoʻnalishi — chapga.\n\nAsosi sariq rangda boʻlgan ushbu belgi vaqtinchalik qoʻyilgan yoʻl qismini chetlab oʻtish yoʻnalishini koʻrsatadi. Bu belgi avvalgi belgiga oʻxshab aholi punktida 50-100 metr, aholi punktidan tashqarida 150-300 metr masofada, baʼzi hollarda aylanib oʻtiladigan yoʻlning oldida oʻrnatiladi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.33",
+  "image": "5.33.webp",
+  "title_kr": "Тўхташ чизиғи",
+  "description_kr": "Ушбу белги светофорга 5-20 метр етмасдан, баъзи ҳолларда светофор остида ўрнатилиб, светофорнинг фақатгина тақиқловчи ишорасида транспорт воситаларининг тўхташ жойини кўрсатади.",
+  "title": "Toʻxtash chizigʻi",
+  "description": "Ushbu belgi svetoforga 5-20 metr yetmasdan, baʼzi hollarda svetofor ostida oʻrnatilib, svetoforning faqatgina taqiqlovchi ishorasida transport vositalarining toʻxtash joyini koʻrsatadi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.34.1",
+  "image": "5.34.1.webp",
+  "title_kr": "Бошқа қатнов қисмига қайта тизилишнинг бошланғич кўрсаткичи",
+  "description_kr": "Ажратувчи бўлаги бўлган йўлда чап томондаги қатнов қисмига ўтиш.\n\nУшбу белги ажратувчи бўлакли йўлларда турли тадбирлар (халқ сайли, митинг, спорт йиғилишлари) сабабли вақтинчалик ёпиб қўйилган йўл қисмини айланиб ўтиш йўналишини ёки бошқа қатнов қисмига ўтиш йўналишини кўрсатади. Ажратувчи бўлаги бўлган йўлнинг ҳаракатланиш учун ёпиқ ҳудудини айланиб ўтиш ёки ўнг томондаги қатнов қисмига қайтиш учун ҳаракатланиш йўналишини билдиради.",
+  "title": "Boshqa qatnov qismiga qayta tizilishning boshlangʻich koʻrsatkichi",
+  "description": "Ajratuvchi boʻlagi boʻlgan yoʻlda chap tomondagi qatnov qismiga oʻtish.\n\nUshbu belgi ajratuvchi boʻlakli yoʻllarda turli tadbirlar (xalq sayli, miting, sport yigʻilishlari) sababli vaqtinchalik yopib qoʻyilgan yoʻl qismini aylanib oʻtish yoʻnalishini yoki boshqa qatnov qismiga oʻtish yoʻnalishini koʻrsatadi. Ajratuvchi boʻlagi boʻlgan yoʻlning harakatlanish uchun yopiq hududini aylanib oʻtish yoki oʻng tomondagi qatnov qismiga qaytish uchun harakatlanish yoʻnalishini bildiradi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.34.2",
+  "image": "5.34.2.webp",
+  "title_kr": "Бошқа қатнов қисмига қайта тизилишнинг бошланғич кўрсаткичи",
+  "description_kr": "Ажратувчи бўлаги бўлган йўлда ўнг томондаги қатнов қисмига қайтиш.\n\nУшбу белги ажратувчи бўлакли йўлларда турли тадбирлар (халқ сайли, митинг, спорт йиғилишлари) сабабли вақтинчалик ёпиб қўйилган йўл қисмини айланиб ўтиш йўналишини ёки бошқа қатнов қисмига ўтиш йўналишини кўрсатади. Ажратувчи бўлаги бўлган йўлнинг ҳаракатланиш учун ёпиқ ҳудудини айланиб ўтиш ёки ўнг томондаги қатнов қисмига қайтиш учун ҳаракатланиш йўналишини билдиради.",
+  "title": "Boshqa qatnov qismiga qayta tizilishning boshlangʻich koʻrsatkichi",
+  "description": "Ajratuvchi boʻlagi boʻlgan yoʻlda oʻng tomondagi qatnov qismiga qaytish.\n\nUshbu belgi ajratuvchi boʻlakli yoʻllarda turli tadbirlar (xalq sayli, miting, sport yigʻilishlari) sababli vaqtinchalik yopib qoʻyilgan yoʻl qismini aylanib oʻtish yoʻnalishini yoki boshqa qatnov qismiga oʻtish yoʻnalishini koʻrsatadi. Ajratuvchi boʻlagi boʻlgan yoʻlning harakatlanish uchun yopiq hududini aylanib oʻtish yoki oʻng tomondagi qatnov qismiga qaytish uchun harakatlanish yoʻnalishini bildiradi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.35",
+  "image": "5.35.webp",
+  "title_kr": "Реверсив ҳаракатланиш",
+  "description_kr": "Ушбу белги йўлнинг бошида ўрнатилиб, бир ёки бир неча тасмаларда ҳаракатланиш йўналишининг қарамақарши томонга ўзгариши мумкинлиги ҳақида ахборот беради.",
+  "title": "Reversiv harakatlanish",
+  "description": "Ushbu belgi yoʻlning boshida oʻrnatilib, bir yoki bir necha tasmalarda harakatlanish yoʻnalishining qaramaqarshi tomonga oʻzgarishi mumkinligi haqida axborot beradi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.36",
+  "image": "5.36.webp",
+  "title_kr": "Реверсив ҳаракатланишнинг охири",
+  "description_kr": "5.36 белгиси йўлнинг охирига ўрнатилиб, реверсив ҳаракатланишнинг охирини кўрсатади.",
+  "title": "Reversiv harakatlanishning oxiri",
+  "description": "5.36 belgisi yoʻlning oxiriga oʻrnatilib, reversiv harakatlanishning oxirini koʻrsatadi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.37",
+  "image": "5.37.webp",
+  "title_kr": "Реверсив ҳаракатланиш йўлига чиқиш",
+  "description_kr": "Ушбу белги чорраҳа олдида ўрнатилиб, кесишадиган йўлнинг бир ёки бир неча тасмаларида ҳаракатланиш йўналиши қарама-қарши томонга ўзгариши мумкинлиги ҳақида ахборот беради.",
+  "title": "Reversiv harakatlanish yoʻliga chiqish",
+  "description": "Ushbu belgi chorraha oldida oʻrnatilib, kesishadigan yoʻlning bir yoki bir necha tasmalarida harakatlanish yoʻnalishi qarama-qarshi tomonga oʻzgarishi mumkinligi haqida axborot beradi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.38",
+  "image": "5.38.webp",
+  "title_kr": "Турар жой даҳаси",
+  "description_kr": "Турар жой даҳаларида пиёдалар тротуардан ташқари қатнов қисмида ҳам ҳаракатланишлари мумкин. Бунда пиёдалар имтиёзга эга бўладилар. Ҳайдовчига двигателни ишлаб турган ҳолда тўхтаб туриш, механик транспорт воситасини бошқаришни ўргатиш ва тўла вазни 3,5 тоннадан ортиқ бўлган автомобилларнинг (махсус майдон бўлмаса) тўхтаб туриши тақиқланади.\nЙўл ҳаракати қоидаларининг турар жой даҳаларида ҳаракатланиш тартиби ўрнатилган йўлни билдиради.",
+  "title": "Turar joy dahasi",
+  "description": "Turar joy dahalarida piyodalar trotuardan tashqari qatnov qismida ham harakatlanishlari mumkin. Bunda piyodalar imtiyozga ega boʻladilar. Haydovchiga dvigatelni ishlab turgan holda toʻxtab turish, mexanik transport vositasini boshqarishni oʻrgatish va toʻla vazni 3,5 tonnadan ortiq boʻlgan avtomobillarning (maxsus maydon boʻlmasa) toʻxtab turishi taqiqlanadi.\nYoʻl harakati qoidalarining turar joy dahalarida harakatlanish tartibi oʻrnatilgan yoʻlni bildiradi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.39",
+  "image": "5.39.webp",
+  "title_kr": "Турар жой даҳасининг охири",
+  "description_kr": "5.38 «Турар жой даҳаси» белгиси билан белгиланган ҳудуднинг охирини билдиради. Ундан кейин Қоидаларнинг умумий талаблари амал қилади.",
+  "title": "Turar joy dahasining oxiri",
+  "description": "5.38 «Turar joy dahasi» belgisi bilan belgilangan hududning oxirini bildiradi. Undan keyin Qoidalarning umumiy talablari amal qiladi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.40",
+  "image": "5.40.webp",
+  "title_kr": "Фалокатли ҳолатлар учун кириш йўли",
+  "description_kr": "Тоғли йўлларда, довонда тик нишабдан тушиб келаётган транспорт воситаларининг тўхтатиш тизими ишламай қолса, тўхтатиш учун ажратилган йўлга киришини кўрсатади. Қоидалардаги 129-бандда кўрсатилган ҳолларда фойдаланиладиган йўлни билдиради.",
+  "title": "Falokatli holatlar uchun kirish yoʻli",
+  "description": "Togʻli yoʻllarda, dovonda tik nishabdan tushib kelayotgan transport vositalarining toʻxtatish tizimi ishlamay qolsa, toʻxtatish uchun ajratilgan yoʻlga kirishini koʻrsatadi. Qoidalardagi 129-bandda koʻrsatilgan hollarda foydalaniladigan yoʻlni bildiradi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.41",
+  "image": "5.41.webp",
+  "title_kr": "Фото ва видео қайд этиш",
+  "description_kr": "Бу белги йўлнинг қатнов қисмидаги ҳаракат иштирокчиларини олдинда фото ва видео камералари мавжудлиги ҳамда улар ҳаракатни қайд этиб бораётганлигидан хабардор қилади.",
+  "title": "Foto va video qayd etish",
+  "description": "Bu belgi yoʻlning qatnov qismidagi harakat ishtirokchilarini oldinda foto va video kameralari mavjudligi hamda ular harakatni qayd etib borayotganligidan xabardor qiladi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.42",
+  "image": "5.42.webp",
+  "title_kr": "Қизил чироқда ўнгга ҳаракатланиш",
+  "description_kr": "Транспорт светофори қизил чироғининг ўнг ёнига 5.42 йўл белгиси ўрнатилган бўлса, транспорт воситаларининг ҳайдовчилари светофорнинг тақиқловчи ишораси ёниб турганда, барча хавфсизлик чораларини кўрган ҳолда ўнгга бурилишлари мумкин. Бунда улар ҳаракат йўналиши бўйича ва бурилаётган кўчани кесиб ўтаётган пиёдаларга ҳамда бошқа транспорт воситаларига йўл беришлари шарт.",
+  "title": "Qizil chiroqda oʻngga harakatlanish",
+  "description": "Transport svetofori qizil chirogʻining oʻng yoniga 5.42 yoʻl belgisi oʻrnatilgan boʻlsa, transport vositalarining haydovchilari svetoforning taqiqlovchi ishorasi yonib turganda, barcha xavfsizlik choralarini koʻrgan holda oʻngga burilishlari mumkin. Bunda ular harakat yoʻnalishi boʻyicha va burilayotgan koʻchani kesib oʻtayotgan piyodalarga hamda boshqa transport vositalariga yoʻl berishlari shart."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.43",
+  "image": "5.43.webp",
+  "title_kr": "Радар",
+  "description_kr": "Йўлларда автомобиль ҳайдовчилари белгиланган тезликка риоя этиши радарлар ёрдамида назорат қилинаётганлигини билдирувчи йўл белгиси.\nУшбу йўл белгиси белгиланган ҳаракатланиш тезлиги стационар махсус техника воситалари ёрдамида назоратга олинган жойларга ўрнатилади.\nШунингдек, вилоят, туман, шаҳарлар бошланадиган жойлардаги кўча ва йўлларда ҳаракатланиш тезлиги мобиль радарлар ёрдамида назорат қилинаётганлиги тўғрисида ҳайдовчиларни огоҳлантириш мақсадида ўрнатилиши мумкин.",
+  "title": "Radar",
+  "description": "Yoʻllarda avtomobil haydovchilari belgilangan tezlikka rioya etishi radarlar yordamida nazorat qilinayotganligini bildiruvchi yoʻl belgisi.\nUshbu yoʻl belgisi belgilangan harakatlanish tezligi statsionar maxsus texnika vositalari yordamida nazoratga olingan joylarga oʻrnatiladi.\nShuningdek, viloyat, tuman, shaharlar boshlanadigan joylardagi koʻcha va yoʻllarda harakatlanish tezligi mobil radarlar yordamida nazorat qilinayotganligi toʻgʻrisida haydovchilarni ogohlantirish maqsadida oʻrnatilishi mumkin."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.44",
+  "image": "5.44.webp",
+  "title_kr": "Велосипедчилар ва индивидуал ҳаракатланиш воситалари учун тасма",
+  "description_kr": "Йўл белгиси қайси ҳаракат бўлаги устига ўрнатилган бўлса, ўша ҳаракат бўлагига таъсир қилади. Йўлнинг ўнг томонига ўрнатилган йўл белгиси ўнг тасмага таъсир қилади.",
+  "title": "Velosipedchilar va individual harakatlanish vositalari uchun tasma",
+  "description": "Yoʻl belgisi qaysi harakat boʻlagi ustiga oʻrnatilgan boʻlsa, oʻsha harakat boʻlagiga taʼsir qiladi. Yoʻlning oʻng tomoniga oʻrnatilgan yoʻl belgisi oʻng tasmaga taʼsir qiladi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.45",
+  "image": "5.45.webp",
+  "title_kr": "Велосипедчилар ва индивидуал ҳаракатланиш воситалари учун тасманинг охири",
+  "description_kr": "5.44 белгиси билан белгиланган велосипедчилар ва индивидуал ҳаракатланиш воситалари учун ажратилган тасманинг охирини билдиради.",
+  "title": "Velosipedchilar va individual harakatlanish vositalari uchun tasmaning oxiri",
+  "description": "5.44 belgisi bilan belgilangan velosipedchilar va individual harakatlanish vositalari uchun ajratilgan tasmaning oxirini bildiradi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.46",
+  "image": "5.46.webp",
+  "title_kr": "Мактаб",
+  "description_kr": "Мактаб ёки мактабгача таълим ташкилотлари олдида ўрнатилади.",
+  "title": "Maktab",
+  "description": "Maktab yoki maktabgacha taʼlim tashkilotlari oldida oʻrnatiladi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.47",
+  "image": "5.47.webp",
+  "title_kr": "Туризм объектлари йўналиш кўрсатгичи",
+  "description_kr": "Туризм объектлари жойлашган манзилларга ҳаракатланиш йўналишларини билдиради. Белгиларда манзилларгача бўлган масофа (км) кўрсатилиши, темир йўл вокзаллари, аэропортлар ва бошқа туризм объектлари рамзий белгилари тасвирланган бўлиши мумкин.",
+  "title": "Turizm obʼyektlari yoʻnalish koʻrsatgichi",
+  "description": "Turizm obʼyektlari joylashgan manzillarga harakatlanish yoʻnalishlarini bildiradi. Belgilarda manzillargacha boʻlgan masofa (km) koʻrsatilishi, temir yoʻl vokzallari, aeroportlar va boshqa turizm obʼyektlari ramziy belgilari tasvirlangan boʻlishi mumkin."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.47.1",
+  "image": "5.47.1.webp",
+  "title_kr": "Туризм объектлари",
+  "description_kr": "Туризм объектлари (масжид, меъморчилик ёдгорлиги, темир йўл вокзали, аэропорт ва бошқалар) жойлашган манзилни билдиради.",
+  "title": "Turizm obʼyektlari",
+  "description": "Turizm obʼyektlari (masjid, meʼmorchilik yodgorligi, temir yoʻl vokzali, aeroport va boshqalar) joylashgan manzilni bildiradi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.47.2",
+  "image": "5.47.2.webp",
+  "title_kr": "Туризм ахборот маркази",
+  "description_kr": "Туристлар учун ахборот маркази жойлашган манзилни билдиради.",
+  "title": "Turizm axborot markazi",
+  "description": "Turistlar uchun axborot markazi joylashgan manzilni bildiradi."
+ },
+ {
+  "category": "axborot-ishora-belgilari",
+  "number": "5.48",
+  "image": "5.48.webp",
+  "title_kr": "Баланд пиёдалар ўтиш жойи",
+  "description_kr": "Сунъий нотекислик шаклида кўтарилган (баланд) пиёдалар ўтиш жойини билдиради. Ҳайдовчи тезликни пасайтириши ва пиёдаларга йўл бериши керак.",
+  "title": "Baland piyodalar oʻtish joyi",
+  "description": "Sunʼiy notekislik shaklida koʻtarilgan (baland) piyodalar oʻtish joyini bildiradi. Haydovchi tezlikni pasaytirishi va piyodalarga yoʻl berishi kerak."
+ },
+ {
+  "category": "servis-belgilari",
+  "number": "6.1",
+  "image": "6.1.webp",
+  "title_kr": "Тиббий ёрдам кўрсатиш жойи",
+  "description_kr": "Биринчи тиббий ёрдам кўрсатиш жойини билдиради.",
+  "title": "Tibbiy yordam koʻrsatish joyi",
+  "description": "Birinchi tibbiy yordam koʻrsatish joyini bildiradi."
+ },
+ {
+  "category": "servis-belgilari",
+  "number": "6.2",
+  "image": "6.2.webp",
+  "title_kr": "Шифохона",
+  "description_kr": "Шифохона (касалхона) жойлашган жойни билдиради.",
+  "title": "Shifoxona",
+  "description": "Shifoxona (kasalxona) joylashgan joyni bildiradi."
+ },
+ {
+  "category": "servis-belgilari",
+  "number": "6.3",
+  "image": "6.3.webp",
+  "title_kr": "Автомобилларга ёнилғи қуйиш шохобчаси",
+  "description_kr": "Автомобилларга ёнилғи қуйиш шохобчасини билдиради.",
+  "title": "Avtomobillarga yonilgʻi quyish shoxobchasi",
+  "description": "Avtomobillarga yonilgʻi quyish shoxobchasini bildiradi."
+ },
+ {
+  "category": "servis-belgilari",
+  "number": "6.4",
+  "image": "6.4.webp",
+  "title_kr": "Автомобилларга техник хизмат кўрсатиш жойи",
+  "description_kr": "Автомобилларга техник хизмат кўрсатиш жойини билдиради.",
+  "title": "Avtomobillarga texnik xizmat koʻrsatish joyi",
+  "description": "Avtomobillarga texnik xizmat koʻrsatish joyini bildiradi."
+ },
+ {
+  "category": "servis-belgilari",
+  "number": "6.5",
+  "image": "6.5.webp",
+  "title_kr": "Автомобилларни ювиш жойи",
+  "description_kr": "Автомобилларни ювиш жойини билдиради.",
+  "title": "Avtomobillarni yuvish joyi",
+  "description": "Avtomobillarni yuvish joyini bildiradi."
+ },
+ {
+  "category": "servis-belgilari",
+  "number": "6.6",
+  "image": "6.6.webp",
+  "title_kr": "Телефон",
+  "description_kr": "Телефон жойлашган жойни билдиради.",
+  "title": "Telefon",
+  "description": "Telefon joylashgan joyni bildiradi."
+ },
+ {
+  "category": "servis-belgilari",
+  "number": "6.7",
+  "image": "6.7.webp",
+  "title_kr": "Ошхона",
+  "description_kr": "Овқатланиш жойини (ошхона, ресторан) билдиради.",
+  "title": "Oshxona",
+  "description": "Ovqatlanish joyini (oshxona, restoran) bildiradi."
+ },
+ {
+  "category": "servis-belgilari",
+  "number": "6.8",
+  "image": "6.8.webp",
+  "title_kr": "Ичимлик суви",
+  "description_kr": "Ичимлик суви манбаини билдиради.",
+  "title": "Ichimlik suvi",
+  "description": "Ichimlik suvi manbaini bildiradi."
+ },
+ {
+  "category": "servis-belgilari",
+  "number": "6.9",
+  "image": "6.9.webp",
+  "title_kr": "Меҳмонхона",
+  "description_kr": "Меҳмонхона ёки мотелни билдиради.",
+  "title": "Mehmonxona",
+  "description": "Mehmonxona yoki motelni bildiradi."
+ },
+ {
+  "category": "servis-belgilari",
+  "number": "6.10",
+  "image": "6.10.webp",
+  "title_kr": "Кемпинг",
+  "description_kr": "Кемпинг — чодир ёки автомобиль билан дам олиш учун мўлжалланган жойни билдиради.",
+  "title": "Kemping",
+  "description": "Kemping — chodir yoki avtomobil bilan dam olish uchun moʻljallangan joyni bildiradi."
+ },
+ {
+  "category": "servis-belgilari",
+  "number": "6.11",
+  "image": "6.11.webp",
+  "title_kr": "Дам олиш жойи",
+  "description_kr": "Дам олиш жойини билдиради.",
+  "title": "Dam olish joyi",
+  "description": "Dam olish joyini bildiradi."
+ },
+ {
+  "category": "servis-belgilari",
+  "number": "6.12",
+  "image": "6.12.webp",
+  "title_kr": "ЙПХ маскани",
+  "description_kr": "Йўл патруль хизмати (ЙПХ) масканини билдиради.",
+  "title": "YPX maskani",
+  "description": "Yoʻl patrul xizmati (YPX) maskanini bildiradi."
+ },
+ {
+  "category": "servis-belgilari",
+  "number": "6.13",
+  "image": "6.13.webp",
+  "title_kr": "Халқаро автоташувчиларнинг назорат пункти",
+  "description_kr": "Халқаро автомобиль ташувларини амалга оширувчи транспорт воситаларини назорат қилиш пунктини билдиради.",
+  "title": "Xalqaro avtotashuvchilarning nazorat punkti",
+  "description": "Xalqaro avtomobil tashuvlarini amalga oshiruvchi transport vositalarini nazorat qilish punktini bildiradi."
+ },
+ {
+  "category": "servis-belgilari",
+  "number": "6.14",
+  "image": "6.14.webp",
+  "title_kr": "Ҳожатхона",
+  "description_kr": "Ҳожатхона жойлашган жойни билдиради.",
+  "title": "Hojatxona",
+  "description": "Hojatxona joylashgan joyni bildiradi."
+ },
+ {
+  "category": "servis-belgilari",
+  "number": "6.15",
+  "image": "6.15.webp",
+  "title_kr": "Чиқинди йиғиш жойи",
+  "description_kr": "Чиқинди йиғиш жойини билдиради.",
+  "title": "Chiqindi yigʻish joyi",
+  "description": "Chiqindi yigʻish joyini bildiradi."
+ },
+ {
+  "category": "qoshimcha-axborot-belgilari",
+  "number": "7.1.1",
+  "image": "7.1.1.webp",
+  "title_kr": "Объектгача бўлган масофа",
+  "description_kr": "Ушбу белги: огоҳлантирувчи белгилар билан қўлланса, хавфли жойгача бўлган масофани;\n- имтиёз белгилари билан қўлланса, белгининг таъсири қанча масофадан кейин имтиёз ёки йўл бериш бошланишини;\n- тақиқловчи белгилар билан қўлланса, қанча масофадан кейин йўлнинг ҳаракатланиш тақиқланган қисми бошланишини;\n- ахборот-кўрсаткич белгилари билан қўлланса, чорраҳадан манзилгача бўлган масофани кўрсатади.",
+  "title": "Obʼyektgacha boʻlgan masofa",
+  "description": "Ushbu belgi: ogohlantiruvchi belgilar bilan qoʻllansa, xavfli joygacha boʻlgan masofani;\n- imtiyoz belgilari bilan qoʻllansa, belgining taʼsiri qancha masofadan keyin imtiyoz yoki yoʻl berish boshlanishini;\n- taqiqlovchi belgilar bilan qoʻllansa, qancha masofadan keyin yoʻlning harakatlanish taqiqlangan qismi boshlanishini;\n- axborot-koʻrsatkich belgilari bilan qoʻllansa, chorrahadan manzilgacha boʻlgan masofani koʻrsatadi."
+ },
+ {
+  "category": "qoshimcha-axborot-belgilari",
+  "number": "7.1.2",
+  "image": "7.1.2.webp",
+  "title_kr": "Объектгача бўлган масофа",
+  "description_kr": "Чорраҳа ёки кесишма олдида 2.5-«Тўхтамасдан ўтиш тақиқланади» белгиси ўрнатилган бўлса, 2.4-«Йўл беринг» белгиси ўрнатилган жойдан чорраҳа ёки кесишмагача бўлган масофани кўрсатади.",
+  "title": "Obʼyektgacha boʻlgan masofa",
+  "description": "Chorraha yoki kesishma oldida 2.5-«Toʻxtamasdan oʻtish taqiqlanadi» belgisi oʻrnatilgan boʻlsa, 2.4-«Yoʻl bering» belgisi oʻrnatilgan joydan chorraha yoki kesishmagacha boʻlgan masofani koʻrsatadi."
+ },
+ {
+  "category": "qoshimcha-axborot-belgilari",
+  "number": "7.1.3",
+  "image": "7.1.3.webp",
+  "title_kr": "Объектгача бўлган масофа",
+  "description_kr": "Ўнг томондаги объектгача бўлган масофа.\n\nУшбу белгилар чорраҳадан, кесишмадан манзилгача бўлган масофани кўрсатади.",
+  "title": "Obʼyektgacha boʻlgan masofa",
+  "description": "Oʻng tomondagi obʼyektgacha boʻlgan masofa.\n\nUshbu belgilar chorrahadan, kesishmadan manzilgacha boʻlgan masofani koʻrsatadi."
+ },
+ {
+  "category": "qoshimcha-axborot-belgilari",
+  "number": "7.1.4",
+  "image": "7.1.4.webp",
+  "title_kr": "Объектгача бўлган масофа",
+  "description_kr": "Чап томондаги объектгача бўлган масофа.\n\nУшбу белгилар чорраҳадан, кесишмадан манзилгача бўлган масофани кўрсатади.",
+  "title": "Obʼyektgacha boʻlgan masofa",
+  "description": "Chap tomondagi obʼyektgacha boʻlgan masofa.\n\nUshbu belgilar chorrahadan, kesishmadan manzilgacha boʻlgan masofani koʻrsatadi."
+ },
+ {
+  "category": "qoshimcha-axborot-belgilari",
+  "number": "7.2.1",
+  "image": "7.2.1.webp",
+  "title_kr": "Таъсир оралиғи",
+  "description_kr": "Ушбу белги: -огоҳлантирувчи белгилар билан қўлланса, йўлнинг хавфли қисми қанчагача давом этишини;\n-тақиқловчи белгилар билан қўлланса, уларнинг таъсир оралиғини;\n-ахборот-кўрсаткич белгилари билан қўлланса, 5.15, 5.18 белгиларининг таъсир оралиғини кўрсатади.",
+  "title": "Taʼsir oraligʻi",
+  "description": "Ushbu belgi: -ogohlantiruvchi belgilar bilan qoʻllansa, yoʻlning xavfli qismi qanchagacha davom etishini;\n-taqiqlovchi belgilar bilan qoʻllansa, ularning taʼsir oraligʻini;\n-axborot-koʻrsatkich belgilari bilan qoʻllansa, 5.15, 5.18 belgilarining taʼsir oraligʻini koʻrsatadi."
+ },
+ {
+  "category": "qoshimcha-axborot-belgilari",
+  "number": "7.2.2",
+  "image": "7.2.2.webp",
+  "title_kr": "Таъсир оралиғи",
+  "description_kr": "Тўхташ ёки тўхтаб туриш тақиқланган белгининг (3.27-3.30) таъсир оралиғини кўрсатади. Фақат тақиқловчи 3.27-3.30 белгилари билан қўлланилади.",
+  "title": "Taʼsir oraligʻi",
+  "description": "Toʻxtash yoki toʻxtab turish taqiqlangan belgining (3.27-3.30) taʼsir oraligʻini koʻrsatadi. Faqat taqiqlovchi 3.27-3.30 belgilari bilan qoʻllaniladi."
+ },
+ {
+  "category": "qoshimcha-axborot-belgilari",
+  "number": "7.2.3",
+  "image": "7.2.3.webp",
+  "title_kr": "Таъсир оралиғи",
+  "description_kr": "3.27-3.30 белгилари таъсир оралиғининг охирини кўрсатади.",
+  "title": "Taʼsir oraligʻi",
+  "description": "3.27-3.30 belgilari taʼsir oraligʻining oxirini koʻrsatadi."
+ },
+ {
+  "category": "qoshimcha-axborot-belgilari",
+  "number": "7.2.4",
+  "image": "7.2.4.webp",
+  "title_kr": "Таъсир оралиғи",
+  "description_kr": "Ҳайдовчиларга 3.27-3.30 белгилари таъсир оралиғида эканликлари ҳақида маълумот беради.",
+  "title": "Taʼsir oraligʻi",
+  "description": "Haydovchilarga 3.27-3.30 belgilari taʼsir oraligʻida ekanliklari haqida maʼlumot beradi."
+ },
+ {
+  "category": "qoshimcha-axborot-belgilari",
+  "number": "7.2.5",
+  "image": "7.2.5.webp",
+  "title_kr": "Таъсир оралиғи",
+  "description_kr": "Майдон, бинолар олди ва шунга ўхшаш жойлар четида тўхташ ва тўхтаб туриш тақиқланганда 3.27-3.30 белгиларининг таъсир оралиғи ва йўналишини (ўнгга) кўрсатади.",
+  "title": "Taʼsir oraligʻi",
+  "description": "Maydon, binolar oldi va shunga oʻxshash joylar chetida toʻxtash va toʻxtab turish taqiqlanganda 3.27-3.30 belgilarining taʼsir oraligʻi va yoʻnalishini (oʻngga) koʻrsatadi."
+ },
+ {
+  "category": "qoshimcha-axborot-belgilari",
+  "number": "7.2.6",
+  "image": "7.2.6.webp",
+  "title_kr": "Таъсир оралиғи",
+  "description_kr": "Майдон, бинолар олди ва шунга ўхшаш жойлар четида тўхташ ва тўхтаб туриш тақиқланганда 3.27-3.30 белгиларининг таъсир оралиғи ва йўналишини (чапга) кўрсатади.",
+  "title": "Taʼsir oraligʻi",
+  "description": "Maydon, binolar oldi va shunga oʻxshash joylar chetida toʻxtash va toʻxtab turish taqiqlanganda 3.27-3.30 belgilarining taʼsir oraligʻi va yoʻnalishini (chapga) koʻrsatadi."
+ },
+ {
+  "category": "qoshimcha-axborot-belgilari",
+  "number": "7.3.1",
+  "image": "7.3.1.webp",
+  "title_kr": "Таъсир йўналиши (ўнгга)",
+  "description_kr": "Асосий белгининг таъсири ўнг томонга йўналганлигини кўрсатади.\n\nУшбу белгилар чорраҳа олдида ўрнатилган тақиқловчи, буюрувчи ва ахборот-кўрсаткич белгилари билан қўлланилиб, уларнинг таъсир йўналишини кўрсатади.",
+  "title": "Taʼsir yoʻnalishi (oʻngga)",
+  "description": "Asosiy belgining taʼsiri oʻng tomonga yoʻnalganligini koʻrsatadi.\n\nUshbu belgilar chorraha oldida oʻrnatilgan taqiqlovchi, buyuruvchi va axborot-koʻrsatkich belgilari bilan qoʻllanilib, ularning taʼsir yoʻnalishini koʻrsatadi."
+ },
+ {
+  "category": "qoshimcha-axborot-belgilari",
+  "number": "7.3.2",
+  "image": "7.3.2.webp",
+  "title_kr": "Таъсир йўналиши (чапга)",
+  "description_kr": "Асосий белгининг таъсири чап томонга йўналганлигини кўрсатади.\n\nУшбу белгилар чорраҳа олдида ўрнатилган тақиқловчи, буюрувчи ва ахборот-кўрсаткич белгилари билан қўлланилиб, уларнинг таъсир йўналишини кўрсатади.",
+  "title": "Taʼsir yoʻnalishi (chapga)",
+  "description": "Asosiy belgining taʼsiri chap tomonga yoʻnalganligini koʻrsatadi.\n\nUshbu belgilar chorraha oldida oʻrnatilgan taqiqlovchi, buyuruvchi va axborot-koʻrsatkich belgilari bilan qoʻllanilib, ularning taʼsir yoʻnalishini koʻrsatadi."
+ },
+ {
+  "category": "qoshimcha-axborot-belgilari",
+  "number": "7.3.3",
+  "image": "7.3.3.webp",
+  "title_kr": "Таъсир йўналишлари (ўнгга ва чапга)",
+  "description_kr": "Асосий белгининг таъсири икки томонга (ўнгга ва чапга) йўналганлигини кўрсатади.\n\nУшбу белгилар чорраҳа олдида ўрнатилган тақиқловчи, буюрувчи ва ахборот-кўрсаткич белгилари билан қўлланилиб, уларнинг таъсир йўналишини кўрсатади.",
+  "title": "Taʼsir yoʻnalishlari (oʻngga va chapga)",
+  "description": "Asosiy belgining taʼsiri ikki tomonga (oʻngga va chapga) yoʻnalganligini koʻrsatadi.\n\nUshbu belgilar chorraha oldida oʻrnatilgan taqiqlovchi, buyuruvchi va axborot-koʻrsatkich belgilari bilan qoʻllanilib, ularning taʼsir yoʻnalishini koʻrsatadi."
+ },
+ {
+  "category": "qoshimcha-axborot-belgilari",
+  "number": "7.4.1",
+  "image": "7.4.1.webp",
+  "title_kr": "Транспорт воситасининг тури (юк автомобили)",
+  "description_kr": "Асосий белги билан бирга қўлланилиб, унинг таъсири фақат юк автомобилларига тааллуқли эканлигини кўрсатади. Юк автомобили сурати тасвирланган 7.4.1 белгиси тўла вазни 3,5 тоннадан юқори бўлган юк автомобилларига, шу жумладан, тиркамалиларига тегишли.",
+  "title": "Transport vositasining turi (yuk avtomobili)",
+  "description": "Asosiy belgi bilan birga qoʻllanilib, uning taʼsiri faqat yuk avtomobillariga taalluqli ekanligini koʻrsatadi. Yuk avtomobili surati tasvirlangan 7.4.1 belgisi toʻla vazni 3,5 tonnadan yuqori boʻlgan yuk avtomobillariga, shu jumladan, tirkamalilariga tegishli."
+ },
+ {
+  "category": "qoshimcha-axborot-belgilari",
+  "number": "7.4.2",
+  "image": "7.4.2.webp",
+  "title_kr": "Транспорт воситасининг тури (тиркамали транспорт воситаси)",
+  "description_kr": "Асосий белги билан бирга қўлланилиб, унинг таъсири фақат тиркамали транспорт воситаларига тааллуқли эканлигини кўрсатади.",
+  "title": "Transport vositasining turi (tirkamali transport vositasi)",
+  "description": "Asosiy belgi bilan birga qoʻllanilib, uning taʼsiri faqat tirkamali transport vositalariga taalluqli ekanligini koʻrsatadi."
+ },
+ {
+  "category": "qoshimcha-axborot-belgilari",
+  "number": "7.4.3",
+  "image": "7.4.3.webp",
+  "title_kr": "Транспорт воситасининг тури (енгил автомобиль)",
+  "description_kr": "Асосий белги билан бирга қўлланилиб, унинг таъсири фақат енгил автомобилларга тааллуқли эканлигини кўрсатади. Енгил автомобиль сурати тасвирланган 7.4.3 белгиси тўла вазни 3,5 тоннагача бўлган юк автомобилларига ҳам тааллуқли.",
+  "title": "Transport vositasining turi (yengil avtomobil)",
+  "description": "Asosiy belgi bilan birga qoʻllanilib, uning taʼsiri faqat yengil avtomobillarga taalluqli ekanligini koʻrsatadi. Yengil avtomobil surati tasvirlangan 7.4.3 belgisi toʻla vazni 3,5 tonnagacha boʻlgan yuk avtomobillariga ham taalluqli."
+ },
+ {
+  "category": "qoshimcha-axborot-belgilari",
+  "number": "7.4.4",
+  "image": "7.4.4.webp",
+  "title_kr": "Транспорт воситасининг тури (автобус)",
+  "description_kr": "Асосий белги билан бирга қўлланилиб, унинг таъсири фақат автобусларга тааллуқли эканлигини кўрсатади.",
+  "title": "Transport vositasining turi (avtobus)",
+  "description": "Asosiy belgi bilan birga qoʻllanilib, uning taʼsiri faqat avtobuslarga taalluqli ekanligini koʻrsatadi."
+ },
+ {
+  "category": "qoshimcha-axborot-belgilari",
+  "number": "7.4.5",
+  "image": "7.4.5.webp",
+  "title_kr": "Транспорт воситасининг тури (трактор)",
+  "description_kr": "Асосий белги билан бирга қўлланилиб, унинг таъсири фақат тракторларга тааллуқли эканлигини кўрсатади.",
+  "title": "Transport vositasining turi (traktor)",
+  "description": "Asosiy belgi bilan birga qoʻllanilib, uning taʼsiri faqat traktorlarga taalluqli ekanligini koʻrsatadi."
+ },
+ {
+  "category": "qoshimcha-axborot-belgilari",
+  "number": "7.4.6",
+  "image": "7.4.6.webp",
+  "title_kr": "Транспорт воситасининг тури (мототсикл)",
+  "description_kr": "Асосий белги билан бирга қўлланилиб, унинг таъсири фақат мототсиклларга тааллуқли эканлигини кўрсатади.",
+  "title": "Transport vositasining turi (mototsikl)",
+  "description": "Asosiy belgi bilan birga qoʻllanilib, uning taʼsiri faqat mototsikllarga taalluqli ekanligini koʻrsatadi."
+ },
+ {
+  "category": "qoshimcha-axborot-belgilari",
+  "number": "7.4.7",
+  "image": "7.4.7.webp",
+  "title_kr": "Транспорт воситасининг тури (велосипед)",
+  "description_kr": "Асосий белги билан бирга қўлланилиб, унинг таъсири фақат велосипедларга тааллуқли эканлигини кўрсатади.",
+  "title": "Transport vositasining turi (velosiped)",
+  "description": "Asosiy belgi bilan birga qoʻllanilib, uning taʼsiri faqat velosipedlarga taalluqli ekanligini koʻrsatadi."
+ },
+ {
+  "category": "qoshimcha-axborot-belgilari",
+  "number": "7.4.8",
+  "image": "7.4.8.webp",
+  "title_kr": "Транспорт воситасининг тури (хавфли юк ташувчи транспорт воситаси)",
+  "description_kr": "Асосий белги билан бирга қўлланилиб, унинг таъсири фақат «Хавфли юк» таниқлик белгиси бўлган транспорт воситаларига тааллуқли эканлигини кўрсатади.",
+  "title": "Transport vositasining turi (xavfli yuk tashuvchi transport vositasi)",
+  "description": "Asosiy belgi bilan birga qoʻllanilib, uning taʼsiri faqat «Xavfli yuk» taniqlik belgisi boʻlgan transport vositalariga taalluqli ekanligini koʻrsatadi."
+ },
+ {
+  "category": "qoshimcha-axborot-belgilari",
+  "number": "7.4.9",
+  "image": "7.4.9.webp",
+  "title_kr": "Транспорт воситасининг тури (электромобиль)",
+  "description_kr": "Асосий белги билан бирга қўлланилиб, унинг таъсири фақат электромобилларга тааллуқли эканлигини кўрсатади.",
+  "title": "Transport vositasining turi (elektromobil)",
+  "description": "Asosiy belgi bilan birga qoʻllanilib, uning taʼsiri faqat elektromobillarga taalluqli ekanligini koʻrsatadi."
+ },
+ {
+  "category": "qoshimcha-axborot-belgilari",
+  "number": "7.4.10",
+  "image": "7.4.10.webp",
+  "title_kr": "Транспорт воситасининг тури (йўналишсиз такси)",
+  "description_kr": "Асосий белги билан бирга қўлланилиб, унинг таъсири фақат йўналишсиз таксиларга тааллуқли эканлигини кўрсатади.",
+  "title": "Transport vositasining turi (yoʻnalishsiz taksi)",
+  "description": "Asosiy belgi bilan birga qoʻllanilib, uning taʼsiri faqat yoʻnalishsiz taksilarga taalluqli ekanligini koʻrsatadi."
+ },
+ {
+  "category": "qoshimcha-axborot-belgilari",
+  "number": "7.5.1",
+  "image": "7.5.1.webp",
+  "title_kr": "Шанба, якшанба ва байрам кунлари",
+  "description_kr": "Асосий белгининг таъсири шанба, якшанба ва байрам кунларига тегишли эканлигини кўрсатади.",
+  "title": "Shanba, yakshanba va bayram kunlari",
+  "description": "Asosiy belgining taʼsiri shanba, yakshanba va bayram kunlariga tegishli ekanligini koʻrsatadi."
+ },
+ {
+  "category": "qoshimcha-axborot-belgilari",
+  "number": "7.5.2",
+  "image": "7.5.2.webp",
+  "title_kr": "Иш кунлари",
+  "description_kr": "Асосий белгининг таъсири иш кунларига тегишли эканлигини кўрсатади.",
+  "title": "Ish kunlari",
+  "description": "Asosiy belgining taʼsiri ish kunlariga tegishli ekanligini koʻrsatadi."
+ },
+ {
+  "category": "qoshimcha-axborot-belgilari",
+  "number": "7.5.3",
+  "image": "7.5.3.webp",
+  "title_kr": "Ҳафта кунлари",
+  "description_kr": "Асосий белгининг таъсири ҳафтанинг белгида кўрсатилган кунларига тегишли эканлигини кўрсатади.",
+  "title": "Hafta kunlari",
+  "description": "Asosiy belgining taʼsiri haftaning belgida koʻrsatilgan kunlariga tegishli ekanligini koʻrsatadi."
+ },
+ {
+  "category": "qoshimcha-axborot-belgilari",
+  "number": "7.5.4",
+  "image": "7.5.4.webp",
+  "title_kr": "Амал қилиш вақти",
+  "description_kr": "Асосий белги билан қўлланилган ушбу белги асосий белги куннинг қайси вақтида амал қилишини кўрсатади.",
+  "title": "Amal qilish vaqti",
+  "description": "Asosiy belgi bilan qoʻllanilgan ushbu belgi asosiy belgi kunning qaysi vaqtida amal qilishini koʻrsatadi."
+ },
+ {
+  "category": "qoshimcha-axborot-belgilari",
+  "number": "7.5.5",
+  "image": "7.5.5.webp",
+  "title_kr": "Амал қилиш вақти",
+  "description_kr": "Асосий белгининг таъсири шанба, якшанба ва байрам кунлари белгида кўрсатилган соатларда амал қилишини кўрсатади.",
+  "title": "Amal qilish vaqti",
+  "description": "Asosiy belgining taʼsiri shanba, yakshanba va bayram kunlari belgida koʻrsatilgan soatlarda amal qilishini koʻrsatadi."
+ },
+ {
+  "category": "qoshimcha-axborot-belgilari",
+  "number": "7.5.6",
+  "image": "7.5.6.webp",
+  "title_kr": "Амал қилиш вақти",
+  "description_kr": "Асосий белгининг таъсири иш кунлари белгида кўрсатилган соатларда амал қилишини кўрсатади.",
+  "title": "Amal qilish vaqti",
+  "description": "Asosiy belgining taʼsiri ish kunlari belgida koʻrsatilgan soatlarda amal qilishini koʻrsatadi."
+ },
+ {
+  "category": "qoshimcha-axborot-belgilari",
+  "number": "7.5.7",
+  "image": "7.5.7.webp",
+  "title_kr": "Амал қилиш вақти",
+  "description_kr": "Асосий белгининг таъсири белгида кўрсатилган ҳафта куни ва соатларда амал қилишини кўрсатади.",
+  "title": "Amal qilish vaqti",
+  "description": "Asosiy belgining taʼsiri belgida koʻrsatilgan hafta kuni va soatlarda amal qilishini koʻrsatadi."
+ },
+ {
+  "category": "qoshimcha-axborot-belgilari",
+  "number": "7.6.1",
+  "image": "7.6.1.webp",
+  "title_kr": "Транспорт воситасини тўхтаб туриш жойига қўйиш усули",
+  "description_kr": "Барча турдаги транспорт воситаларини тўхтаб туриш учун йўлнинг қатнов қисмида, тротуар ёнига қўйиш усулини билдиради. «Тўхтаб туриш жойи» белгиси билан қўлланилади.",
+  "title": "Transport vositasini toʻxtab turish joyiga qoʻyish usuli",
+  "description": "Barcha turdagi transport vositalarini toʻxtab turish uchun yoʻlning qatnov qismida, trotuar yoniga qoʻyish usulini bildiradi. «Toʻxtab turish joyi» belgisi bilan qoʻllaniladi."
+ },
+ {
+  "category": "qoshimcha-axborot-belgilari",
+  "number": "7.6.2",
+  "image": "7.6.2.webp",
+  "title_kr": "Транспорт воситасини тўхтаб туриш жойига қўйиш усули",
+  "description_kr": "Енгил автомобиллар, мототсикллар, мопедлар ва скутерларни тротуар ёнидаги тўхтаб туриш жойига белгида тасвирланган усулда қўйиш тартибини билдиради. Ушбу белгилар «Тўхтаб туриш жойи» белгиси билан қўлланилади.",
+  "title": "Transport vositasini toʻxtab turish joyiga qoʻyish usuli",
+  "description": "Yengil avtomobillar, mototsikllar, mopedlar va skuterlarni trotuar yonidagi toʻxtab turish joyiga belgida tasvirlangan usulda qoʻyish tartibini bildiradi. Ushbu belgilar «Toʻxtab turish joyi» belgisi bilan qoʻllaniladi."
+ },
+ {
+  "category": "qoshimcha-axborot-belgilari",
+  "number": "7.6.3",
+  "image": "7.6.3.webp",
+  "title_kr": "Транспорт воситасини тўхтаб туриш жойига қўйиш усули",
+  "description_kr": "Енгил автомобиллар, мототсикллар, мопедлар ва скутерларни тротуар ёнидаги тўхтаб туриш жойига белгида тасвирланган усулда қўйиш тартибини билдиради. Ушбу белгилар «Тўхтаб туриш жойи» белгиси билан қўлланилади.",
+  "title": "Transport vositasini toʻxtab turish joyiga qoʻyish usuli",
+  "description": "Yengil avtomobillar, mototsikllar, mopedlar va skuterlarni trotuar yonidagi toʻxtab turish joyiga belgida tasvirlangan usulda qoʻyish tartibini bildiradi. Ushbu belgilar «Toʻxtab turish joyi» belgisi bilan qoʻllaniladi."
+ },
+ {
+  "category": "qoshimcha-axborot-belgilari",
+  "number": "7.6.4",
+  "image": "7.6.4.webp",
+  "title_kr": "Транспорт воситасини тўхтаб туриш жойига қўйиш усули",
+  "description_kr": "Енгил автомобиллар, мототсикллар, мопедлар ва скутерларни тротуар ёнидаги тўхтаб туриш жойига белгида тасвирланган усулда қўйиш тартибини билдиради. Ушбу белгилар «Тўхтаб туриш жойи» белгиси билан қўлланилади.",
+  "title": "Transport vositasini toʻxtab turish joyiga qoʻyish usuli",
+  "description": "Yengil avtomobillar, mototsikllar, mopedlar va skuterlarni trotuar yonidagi toʻxtab turish joyiga belgida tasvirlangan usulda qoʻyish tartibini bildiradi. Ushbu belgilar «Toʻxtab turish joyi» belgisi bilan qoʻllaniladi."
+ },
+ {
+  "category": "qoshimcha-axborot-belgilari",
+  "number": "7.6.5",
+  "image": "7.6.5.webp",
+  "title_kr": "Транспорт воситасини тўхтаб туриш жойига қўйиш усули",
+  "description_kr": "Енгил автомобиллар, мототсикллар, мопедлар ва скутерларни тротуар ёнидаги тўхтаб туриш жойига белгида тасвирланган усулда қўйиш тартибини билдиради. Ушбу белгилар «Тўхтаб туриш жойи» белгиси билан қўлланилади.",
+  "title": "Transport vositasini toʻxtab turish joyiga qoʻyish usuli",
+  "description": "Yengil avtomobillar, mototsikllar, mopedlar va skuterlarni trotuar yonidagi toʻxtab turish joyiga belgida tasvirlangan usulda qoʻyish tartibini bildiradi. Ushbu belgilar «Toʻxtab turish joyi» belgisi bilan qoʻllaniladi."
+ },
+ {
+  "category": "qoshimcha-axborot-belgilari",
+  "number": "7.6.6",
+  "image": "7.6.6.webp",
+  "title_kr": "Транспорт воситасини тўхтаб туриш жойига қўйиш усули",
+  "description_kr": "Енгил автомобиллар, мототсикллар, мопедлар ва скутерларни тротуар ёнидаги тўхтаб туриш жойига белгида тасвирланган усулда қўйиш тартибини билдиради. Ушбу белгилар «Тўхтаб туриш жойи» белгиси билан қўлланилади.",
+  "title": "Transport vositasini toʻxtab turish joyiga qoʻyish usuli",
+  "description": "Yengil avtomobillar, mototsikllar, mopedlar va skuterlarni trotuar yonidagi toʻxtab turish joyiga belgida tasvirlangan usulda qoʻyish tartibini bildiradi. Ushbu belgilar «Toʻxtab turish joyi» belgisi bilan qoʻllaniladi."
+ },
+ {
+  "category": "qoshimcha-axborot-belgilari",
+  "number": "7.6.7",
+  "image": "7.6.7.webp",
+  "title_kr": "Транспорт воситасини тўхтаб туриш жойига қўйиш усули",
+  "description_kr": "Енгил автомобиллар, мототсикллар, мопедлар ва скутерларни тротуар ёнидаги тўхтаб туриш жойига белгида тасвирланган усулда қўйиш тартибини билдиради. Ушбу белгилар «Тўхтаб туриш жойи» белгиси билан қўлланилади.",
+  "title": "Transport vositasini toʻxtab turish joyiga qoʻyish usuli",
+  "description": "Yengil avtomobillar, mototsikllar, mopedlar va skuterlarni trotuar yonidagi toʻxtab turish joyiga belgida tasvirlangan usulda qoʻyish tartibini bildiradi. Ushbu belgilar «Toʻxtab turish joyi» belgisi bilan qoʻllaniladi."
+ },
+ {
+  "category": "qoshimcha-axborot-belgilari",
+  "number": "7.6.8",
+  "image": "7.6.8.webp",
+  "title_kr": "Транспорт воситасини тўхтаб туриш жойига қўйиш усули",
+  "description_kr": "Енгил автомобиллар, мототсикллар, мопедлар ва скутерларни тротуар ёнидаги тўхтаб туриш жойига белгида тасвирланган усулда қўйиш тартибини билдиради. Ушбу белгилар «Тўхтаб туриш жойи» белгиси билан қўлланилади.",
+  "title": "Transport vositasini toʻxtab turish joyiga qoʻyish usuli",
+  "description": "Yengil avtomobillar, mototsikllar, mopedlar va skuterlarni trotuar yonidagi toʻxtab turish joyiga belgida tasvirlangan usulda qoʻyish tartibini bildiradi. Ushbu belgilar «Toʻxtab turish joyi» belgisi bilan qoʻllaniladi."
+ },
+ {
+  "category": "qoshimcha-axborot-belgilari",
+  "number": "7.6.9",
+  "image": "7.6.9.webp",
+  "title_kr": "Транспорт воситасини тўхтаб туриш жойига қўйиш усули",
+  "description_kr": "Енгил автомобиллар, мототсикллар, мопедлар ва скутерларни тротуар ёнидаги тўхтаб туриш жойига белгида тасвирланган усулда қўйиш тартибини билдиради. Ушбу белгилар «Тўхтаб туриш жойи» белгиси билан қўлланилади.",
+  "title": "Transport vositasini toʻxtab turish joyiga qoʻyish usuli",
+  "description": "Yengil avtomobillar, mototsikllar, mopedlar va skuterlarni trotuar yonidagi toʻxtab turish joyiga belgida tasvirlangan usulda qoʻyish tartibini bildiradi. Ushbu belgilar «Toʻxtab turish joyi» belgisi bilan qoʻllaniladi."
+ },
+ {
+  "category": "qoshimcha-axborot-belgilari",
+  "number": "7.7",
+  "image": "7.7.webp",
+  "title_kr": "Двигателни ишлатмасдан тўхтаб туриш жойи",
+  "description_kr": "Касалхоналар, санаторийлар, дам олиш уйлари, аҳоли зич яшайдиган ва шунга ўхшаш жойларда экологияни бузмаслик мақсадида «Тўхтаб туриш жойи» билан бирга 7.7 белгиси қўлланилиб, тўхтаб туриш жойида фақат двигатели ишламаётган транспорт воситаларининг тўхтаб туришига рухсат этилганини билдиради. 5.15 белгиси билан биргаликда қўлланганда тўхтаб туриш фақат двигатели ишламаётган транспорт воситаларигагина рухсат этилганини билдиради.",
+  "title": "Dvigatelni ishlatmasdan toʻxtab turish joyi",
+  "description": "Kasalxonalar, sanatoriylar, dam olish uylari, aholi zich yashaydigan va shunga oʻxshash joylarda ekologiyani buzmaslik maqsadida «Toʻxtab turish joyi» bilan birga 7.7 belgisi qoʻllanilib, toʻxtab turish joyida faqat dvigateli ishlamayotgan transport vositalarining toʻxtab turishiga ruxsat etilganini bildiradi. 5.15 belgisi bilan birgalikda qoʻllanganda toʻxtab turish faqat dvigateli ishlamayotgan transport vositalarigagina ruxsat etilganini bildiradi."
+ },
+ {
+  "category": "qoshimcha-axborot-belgilari",
+  "number": "7.8",
+  "image": "7.8.webp",
+  "title_kr": "Пуллик хизмат кўрсатиш жойи",
+  "description_kr": "«Тўхтаб туриш жойи» белгиси билан қўлланган ушбу белги тўхтаб туриш жойи пуллик эканини кўрсатади.",
+  "title": "Pullik xizmat koʻrsatish joyi",
+  "description": "«Toʻxtab turish joyi» belgisi bilan qoʻllangan ushbu belgi toʻxtab turish joyi pullik ekanini koʻrsatadi."
+ },
+ {
+  "category": "qoshimcha-axborot-belgilari",
+  "number": "7.9",
+  "image": "7.9.webp",
+  "title_kr": "Тўхтаб туриш муддати чекланган",
+  "description_kr": "Дўкон, бозор ва шунга ўхшаш жойларда харидорларнинг тўхтаб туриш жойидан фойдаланиш самарадорлигини ошириш учун «Тўхтаб туриш жойи» билан бирга қўлланган ушбу белги тўхтаб туриш муддатини чеклайди. 5.15 ёки 6.11 белгиси ўрна-тилган тўхтаб туриш жойида транспорт воситалари тўхтаб ту-ришининг энг кўп муддатини кўрсатади.",
+  "title": "Toʻxtab turish muddati cheklangan",
+  "description": "Doʻkon, bozor va shunga oʻxshash joylarda xaridorlarning toʻxtab turish joyidan foydalanish samaradorligini oshirish uchun «Toʻxtab turish joyi» bilan birga qoʻllangan ushbu belgi toʻxtab turish muddatini cheklaydi. 5.15 yoki 6.11 belgisi oʻrna-tilgan toʻxtab turish joyida transport vositalari toʻxtab tu-rishining eng koʻp muddatini koʻrsatadi."
+ },
+ {
+  "category": "qoshimcha-axborot-belgilari",
+  "number": "7.10",
+  "image": "7.10.webp",
+  "title_kr": "Автомобилларни кўрикдан ўтказиш жойи",
+  "description_kr": "Тўхтаб туриш (5.15) ёки дам олиш жойида (6.11) автомобилларга майда техник хизмат кўрсатиш учун эстакада ёки кўздан кечириш чуқурчаси бор эканини билдиради.",
+  "title": "Avtomobillarni koʻrikdan oʻtkazish joyi",
+  "description": "Toʻxtab turish (5.15) yoki dam olish joyida (6.11) avtomobillarga mayda texnik xizmat koʻrsatish uchun estakada yoki koʻzdan kechirish chuqurchasi bor ekanini bildiradi."
+ },
+ {
+  "category": "qoshimcha-axborot-belgilari",
+  "number": "7.11",
+  "image": "7.11.webp",
+  "title_kr": "Рухсат этилган тўла вазни чекланган",
+  "description_kr": "Ушбу белги баъзи тақиқловчи ёки буюрувчи белгилар билан қўлланиб, тўла вазни қўшимча ахборот белгисида кўрсатилган миқдордан ортиқ бўлган транспорт воситаларига тегишли эканини кўрсатади.",
+  "title": "Ruxsat etilgan toʻla vazni cheklangan",
+  "description": "Ushbu belgi baʼzi taqiqlovchi yoki buyuruvchi belgilar bilan qoʻllanib, toʻla vazni qoʻshimcha axborot belgisida koʻrsatilgan miqdordan ortiq boʻlgan transport vositalariga tegishli ekanini koʻrsatadi."
+ },
+ {
+  "category": "qoshimcha-axborot-belgilari",
+  "number": "7.12",
+  "image": "7.12.webp",
+  "title_kr": "Хавфли йўл ёқаси",
+  "description_kr": "«Таъмирлаш ишлари» белгиси билан қўлланган ушбу белги йўл ёқасида йўл ишлари олиб борилаётганини, йўлдан ташқарига чиқиш хавфли эканлигини кўрсатади.",
+  "title": "Xavfli yoʻl yoqasi",
+  "description": "«Taʼmirlash ishlari» belgisi bilan qoʻllangan ushbu belgi yoʻl yoqasida yoʻl ishlari olib borilayotganini, yoʻldan tashqariga chiqish xavfli ekanligini koʻrsatadi."
+ },
+ {
+  "category": "qoshimcha-axborot-belgilari",
+  "number": "7.13",
+  "image": "7.13.webp",
+  "title_kr": "Асосий йўлнинг йўналиши",
+  "description_kr": "Ушбу белги асосий йўл йўналиши ўзгарганда «Асосий йўл», «Йўл беринг», «Тўхтамасдан ҳаракатланиш тақиқланган» белгилари билан қўлланилади.",
+  "title": "Asosiy yoʻlning yoʻnalishi",
+  "description": "Ushbu belgi asosiy yoʻl yoʻnalishi oʻzgarganda «Asosiy yoʻl», «Yoʻl bering», «Toʻxtamasdan harakatlanish taqiqlangan» belgilari bilan qoʻllaniladi."
+ },
+ {
+  "category": "qoshimcha-axborot-belgilari",
+  "number": "7.14",
+  "image": "7.14.webp",
+  "title_kr": "Ҳаракатланиш тасмаси",
+  "description_kr": "Бу белги асосий белгилар ёки светофор билан бирга қўлланиб, уларнинг таъсири қўшимча ахборот белгиси кўрсатадиган тасмага тегишли эканлигини билдиради.",
+  "title": "Harakatlanish tasmasi",
+  "description": "Bu belgi asosiy belgilar yoki svetofor bilan birga qoʻllanib, ularning taʼsiri qoʻshimcha axborot belgisi koʻrsatadigan tasmaga tegishli ekanligini bildiradi."
+ },
+ {
+  "category": "qoshimcha-axborot-belgilari",
+  "number": "7.15",
+  "image": "7.15.webp",
+  "title_kr": "Кўзи ожиз пиёдалар",
+  "description_kr": "Ушбу белги 1.20, 5.16.1, 5.16.2 белгилари ҳамда светофор билан бирга қўлланиб, ҳайдовчига пиёдалар ўтиш жойидан кўзи ожизлар ўтиши мумкинлигини билдиради.",
+  "title": "Koʻzi ojiz piyodalar",
+  "description": "Ushbu belgi 1.20, 5.16.1, 5.16.2 belgilari hamda svetofor bilan birga qoʻllanib, haydovchiga piyodalar oʻtish joyidan koʻzi ojizlar oʻtishi mumkinligini bildiradi."
+ },
+ {
+  "category": "qoshimcha-axborot-belgilari",
+  "number": "7.16",
+  "image": "7.16.webp",
+  "title_kr": "Нам қоплама",
+  "description_kr": "Юқори тезликнинг чекланиши, энг кам оралиқнинг чекланиши сабабларини маълум қилиш учун асосий белгилар билан бирга 7.16 қўшимча ахборот белгиси қўлланилади. Белги қатнов қисмининг қопламаси нам бўлган вақтда таъсир этишини кўрсатади.",
+  "title": "Nam qoplama",
+  "description": "Yuqori tezlikning cheklanishi, eng kam oraliqning cheklanishi sabablarini maʼlum qilish uchun asosiy belgilar bilan birga 7.16 qoʻshimcha axborot belgisi qoʻllaniladi. Belgi qatnov qismining qoplamasi nam boʻlgan vaqtda taʼsir etishini koʻrsatadi."
+ },
+ {
+  "category": "qoshimcha-axborot-belgilari",
+  "number": "7.17",
+  "image": "7.17.webp",
+  "title_kr": "Ногиронлиги бўлган шахс",
+  "description_kr": "Асосий белгилар билан қўлланилган ушбу белги асосий белги фақат ногиронларга тегишли эканини билдиради. «Тўхтаб туриш жойи» белгиси 5.15 белгиси билан қўлланса, тўхтаб туриш жойи фақат ногиронларга тегишли автомобиль ёки мотокажавага тааллуқли бўлади. 5.15 белгиси билан қўлланилади. Тўхтаб туриш жойи (ёки унинг бир қисми) Қоидаларнинг 176-бандига мувофиқ, «Ногиронлиги бўлган шахс» таниқлик белгиси ўрнатилган транспорт воситалари учун ажратилганлигини кўрсатади.",
+  "title": "Nogironligi boʻlgan shaxs",
+  "description": "Asosiy belgilar bilan qoʻllanilgan ushbu belgi asosiy belgi faqat nogironlarga tegishli ekanini bildiradi. «Toʻxtab turish joyi» belgisi 5.15 belgisi bilan qoʻllansa, toʻxtab turish joyi faqat nogironlarga tegishli avtomobil yoki motokajavaga taalluqli boʻladi. 5.15 belgisi bilan qoʻllaniladi. Toʻxtab turish joyi (yoki uning bir qismi) Qoidalarning 176-bandiga muvofiq, «Nogironligi boʻlgan shaxs» taniqlik belgisi oʻrnatilgan transport vositalari uchun ajratilganligini koʻrsatadi."
+ },
+ {
+  "category": "qoshimcha-axborot-belgilari",
+  "number": "7.18",
+  "image": "7.18.webp",
+  "title_kr": "Ногиронлиги бўлган шахс мустасно",
+  "description_kr": "Тақиқловчи белгилар билан ўрнатилган ушбу белги тақиқловчи белгининг ногиронларга тегишли автомобиль ёки мотокажаваларга тааллуқли эмаслигини билдиради. Белгиларнинг таъсири, Қоидаларнинг 176-бандига мувофиқ, «Ногиронлиги бўлган шахс» таниқлик белгиси ўрнатилган транспорт воситаларига ва мотокажаваларга жорий этилмайди.",
+  "title": "Nogironligi boʻlgan shaxs mustasno",
+  "description": "Taqiqlovchi belgilar bilan oʻrnatilgan ushbu belgi taqiqlovchi belgining nogironlarga tegishli avtomobil yoki motokajavalarga taalluqli emasligini bildiradi. Belgilarning taʼsiri, Qoidalarning 176-bandiga muvofiq, «Nogironligi boʻlgan shaxs» taniqlik belgisi oʻrnatilgan transport vositalariga va motokajavalarga joriy etilmaydi."
+ },
+ {
+  "category": "qoshimcha-axborot-belgilari",
+  "number": "7.19",
+  "image": "7.19.webp",
+  "title_kr": "Фото ва видео қайд этиш",
+  "description_kr": "Йўл ҳаракати қатнашчиларининг ҳаракатлари махсус автоматлаштирилган фото ва видео қайд этиш техника воситалари орқали қайд этилаётганлигини билдиради. Огоҳлантирувчи, имтиёз, тақиқловчи, буюрувчи ва ахборот-кўрсаткич белгилари билан биргаликда қўлланилади.",
+  "title": "Foto va video qayd etish",
+  "description": "Yoʻl harakati qatnashchilarining harakatlari maxsus avtomatlashtirilgan foto va video qayd etish texnika vositalari orqali qayd etilayotganligini bildiradi. Ogohlantiruvchi, imtiyoz, taqiqlovchi, buyuruvchi va axborot-koʻrsatkich belgilari bilan birgalikda qoʻllaniladi."
+ },
+ {
+  "category": "qoshimcha-axborot-belgilari",
+  "number": "7.20",
+  "image": "7.20.webp",
+  "title_kr": "Хавфли юк тоифаси",
+  "description_kr": "Хавфли юк тоифасининг (тоифаларининг) рақамини кўрсатади.",
+  "title": "Xavfli yuk toifasi",
+  "description": "Xavfli yuk toifasining (toifalarining) raqamini koʻrsatadi."
+ },
+ {
+  "category": "qoshimcha-axborot-belgilari",
+  "number": "7.21",
+  "image": "7.21.webp",
+  "title_kr": "Эвакуатор ишламоқда",
+  "description_kr": "3.27-3.30 йўл белгилари таъсир оралиғида тўхтаган транспорт воситалари мажбурий эвакуация қилинишини кўрсатади.",
+  "title": "Evakuator ishlamoqda",
+  "description": "3.27-3.30 yoʻl belgilari taʼsir oraligʻida toʻxtagan transport vositalari majburiy evakuatsiya qilinishini koʻrsatadi."
+ },
+ {
+  "category": "qoshimcha-axborot-belgilari",
+  "number": "7.22.1",
+  "image": "7.22.1.webp",
+  "title_kr": "Тўсиқ",
+  "description_kr": "Ҳайдовчиларга тўсиқнинг узоқдан кўринишини таъминлаш мақсадида ўрнатилади. 4.2.1-4.2.3 йўл белгилари билан биргаликда ўрнатилади»",
+  "title": "Toʻsiq",
+  "description": "Haydovchilarga toʻsiqning uzoqdan koʻrinishini taʼminlash maqsadida oʻrnatiladi. 4.2.1-4.2.3 yoʻl belgilari bilan birgalikda oʻrnatiladi»"
+ },
+ {
+  "category": "qoshimcha-axborot-belgilari",
+  "number": "7.22.2",
+  "image": "7.22.2.webp",
+  "title_kr": "Тўсиқ",
+  "description_kr": "Ҳайдовчиларга тўсиқнинг узоқдан кўринишини таъминлаш мақсадида ўрнатилади. 4.2.1-4.2.3 йўл белгилари билан биргаликда ўрнатилади»",
+  "title": "Toʻsiq",
+  "description": "Haydovchilarga toʻsiqning uzoqdan koʻrinishini taʼminlash maqsadida oʻrnatiladi. 4.2.1-4.2.3 yoʻl belgilari bilan birgalikda oʻrnatiladi»"
+ },
+ {
+  "category": "qoshimcha-axborot-belgilari",
+  "number": "7.22.3",
+  "image": "7.22.3.webp",
+  "title_kr": "Тўсиқ",
+  "description_kr": "Ҳайдовчиларга тўсиқнинг узоқдан кўринишини таъминлаш мақсадида ўрнатилади. 4.2.1-4.2.3 йўл белгилари билан биргаликда ўрнатилади»",
+  "title": "Toʻsiq",
+  "description": "Haydovchilarga toʻsiqning uzoqdan koʻrinishini taʼminlash maqsadida oʻrnatiladi. 4.2.1-4.2.3 yoʻl belgilari bilan birgalikda oʻrnatiladi»"
+ }
+]

@@ -8,7 +8,7 @@
 {% block content %}
 <div class="rs-header rs-header--bar">
   <a class="rs-back" href="{% url 'road_signs' %}" aria-label="{% trans 'Orqaga' %}"><i class="ti ti-arrow-left"></i></a>
-  <h1 class="rs-header__title">{{ category.title }}</h1>
+  <h1 class="rs-header__title">{{ category.display_title }}</h1>
   <label class="rs-search">
     <i class="ti ti-search"></i>
     <input type="search" id="rsSearch" autocomplete="off"
@@ -21,12 +21,12 @@
 <div class="rs-grid" id="rsGrid">
   {% for sign in signs %}
   <article class="rs-card" data-index="{{ forloop.counter0 }}"
-           data-search="{{ sign.number }} {{ sign.title|lower }}">
+           data-search="{{ sign.number }} {{ sign.title|lower }} {{ sign.title_kr|lower }}">
     <button type="button" class="rs-card__media rs-zoom" data-index="{{ forloop.counter0 }}"
             aria-label="{% trans 'Kattalashtirish' %}">
-      <img src="{{ sign.image.url }}" alt="{{ sign.full_title }}" loading="lazy">
+      <img src="{{ sign.image.url }}" alt="{{ sign.display_full_title }}" loading="lazy">
     </button>
-    <h3 class="rs-card__title">{{ sign.full_title }}</h3>
+    <h3 class="rs-card__title">{{ sign.display_full_title }}</h3>
     <button type="button" class="rs-btn rs-open" data-index="{{ forloop.counter0 }}">{% trans "To'liq ko'rish" %}</button>
   </article>
   {% endfor %}

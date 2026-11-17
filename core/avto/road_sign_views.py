@@ -36,8 +36,8 @@ class CategoryForm(forms.ModelForm):
 
     class Meta:
         model = RoadSignCategory
-        fields = ("title", "image")
-        labels = {"title": "Bo‘lim nomi"}
+        fields = ("title", "title_kr", "image")
+        labels = {"title": "Bo‘lim nomi", "title_kr": "Bo‘lim nomi (kirill)"}
         widgets = {"title": forms.TextInput(attrs={"placeholder": "Masalan: Taqiqlovchi belgilar"})}
 
 
@@ -46,13 +46,16 @@ class SignForm(forms.ModelForm):
 
     class Meta:
         model = RoadSign
-        fields = ("category", "number", "title", "description", "image")
-        labels = {"category": "Bo‘lim", "number": "Raqami", "title": "Nomi", "description": "Tavsif"}
+        fields = ("category", "number", "title", "description", "title_kr", "description_kr", "image")
+        labels = {"category": "Bo‘lim", "number": "Raqami", "title": "Nomi", "description": "Tavsif",
+                  "title_kr": "Nomi (kirill)", "description_kr": "Tavsif (kirill)"}
         help_texts = {"number": "Masalan: 3.1 yoki 1.4.2. Belgilar shu raqam bo‘yicha tartiblanadi."}
         widgets = {
             "number": forms.TextInput(attrs={"placeholder": "3.1"}),
             "title": forms.TextInput(attrs={"placeholder": "Masalan: Kirish taqiqlangan"}),
             "description": forms.Textarea(attrs={"rows": 5, "placeholder": "Belgi nimani anglatishi va haydovchi nima qilishi kerak"}),
+            "title_kr": forms.TextInput(attrs={"placeholder": "Масалан: Кириш тақиқланган"}),
+            "description_kr": forms.Textarea(attrs={"rows": 5, "placeholder": "Ўзбек (кирилл) тилидаги тавсиф. Бўш қолса, лотинчаси кўрсатилади."}),
         }
 
     def __init__(self, *args, **kwargs):

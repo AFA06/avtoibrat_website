@@ -169,6 +169,7 @@ class ContactPerson(models.Model):
 
 class RoadSignCategory(models.Model):
     title = models.CharField(max_length=255)
+    title_kr = models.CharField("Nomi (Крил)", max_length=255, blank=True)
     slug = models.SlugField(unique=True)
     image = models.ImageField(upload_to="road_sign_categories/", blank=True, null=True)
     order = models.PositiveIntegerField(default=0)
@@ -179,6 +180,11 @@ class RoadSignCategory(models.Model):
 
     def __str__(self):
         return self.title
+
+    @property
+    def display_title(self):
+        """Title in the student's language: Cyrillic for uz-kr when filled, Latin otherwise."""
+        return self.title_kr if get_language() == "uz-kr" and self.title_kr else self.title
 
     @property
     def cover(self):
@@ -198,6 +204,8 @@ class RoadSign(models.Model):
     number = models.CharField(max_length=20, blank=True, help_text="e.g. 1.1 or 1.4.2")
     title = models.CharField(max_length=255)
     description = models.TextField(blank=True)
+    title_kr = models.CharField("Nomi (Крил)", max_length=255, blank=True)
+    description_kr = models.TextField("Tavsif (Крил)", blank=True)
     image = models.ImageField(upload_to="road_signs/")
     slug = models.SlugField(unique=True)
     order = models.PositiveIntegerField(default=0)
@@ -211,6 +219,22 @@ class RoadSign(models.Model):
     @property
     def full_title(self):
         return f"{self.number}. {self.title}" if self.number else self.title
+
+    def _cyrillic(self):
+        return get_language() == "uz-kr"
+
+    @property
+    def display_title(self):
+        """Title in the student's language: Cyrillic for uz-kr when filled, Latin otherwise."""
+        return self.title_kr if self._cyrillic() and self.title_kr else self.title
+
+    @property
+    def display_full_title(self):
+        return f"{self.number}. {self.display_title}" if self.number else self.display_title
+
+    @property
+    def display_description(self):
+        return self.description_kr if self._cyrillic() and self.description_kr else self.description
 
 
 class PdfMaterial(models.Model):

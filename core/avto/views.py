@@ -1109,9 +1109,9 @@ def road_signs_two(request, category_slug):
         "signs": signs,
         "signs_data": [
             {
-                "title": sign.full_title,
+                "title": sign.display_full_title,
                 "image": sign.image.url,
-                "description": sign.description,
+                "description": sign.display_description,
             }
             for sign in signs
         ],

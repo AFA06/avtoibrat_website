@@ -154,3 +154,44 @@ class AdminTests(RoadSignTestCase):
         self.assertFalse(RoadSign.objects.exists())
         self.client.post(reverse("signs:category_delete", args=[category.pk]))
         self.assertFalse(RoadSignCategory.objects.exists())
+
+
+class LanguageTests(RoadSignTestCase):
+    def test_cyrillic_page_shows_cyrillic_text_and_falls_back_to_latin(self):
+        from django.utils import translation
+        category = RoadSignCategory.objects.create(title="Taqiq", title_kr="Тақиқ", slug="taqiq")
+        sign = self.make_sign(category, "3.1", title="Kirish taqiqlangan")
+        sign.title_kr, sign.description, sign.description_kr = "Кириш тақиқланган", "Lotin", "Кирилл"
+        sign.save()
+        bare = self.make_sign(category, "3.2", title="Harakatlanish taqiqlangan")
+        with translation.override("uz-kr"):
+            self.assertEqual((category.display_title, sign.display_full_title, sign.display_description),
+                             ("Тақиқ", "3.1. Кириш тақиқланган", "Кирилл"))
+            self.assertEqual(bare.display_title, "Harakatlanish taqiqlangan")
+        with translation.override("uz"):
+            self.assertEqual((sign.display_title, sign.display_description), ("Kirish taqiqlangan", "Lotin"))
+
+
+@override_settings(MEDIA_ROOT=MEDIA)
+class OfficialImportTests(TestCase):
+    def test_official_signs_replace_the_demo_and_keep_teacher_edits(self):
+        from django.core.management import call_command
+        from io import StringIO
+        demo_cat = RoadSignCategory.objects.create(title="Ogohlantiruvchi belgilar", slug="ogohlantiruvchi-belgilar", order=1)
+        RoadSign.objects.create(category=demo_cat, number="1.1", title="Demo", slug="11-shlagbaumli-temir-yol-kesishmasi",
+                                image=SimpleUploadedFile("d.svg", SVG))
+        call_command("import_road_signs", "--official", stdout=StringIO())
+        counts = {c.slug: c.signs.count() for c in RoadSignCategory.objects.all()}
+        self.assertEqual(sum(counts.values()), 276)
+        self.assertEqual(counts["ogohlantiruvchi-belgilar"], 50)
+        self.assertEqual(counts["servis-belgilari"], 15)
+        stop = RoadSign.objects.get(number="2.5")
+        self.assertEqual((stop.category.slug, stop.title_kr), ("imtiyoz-belgilari", "Тўхтамасдан ҳаракатланиш тақиқланган"))
+        self.assertTrue(stop.description and stop.description_kr and stop.image)
+        stop.title = "O‘qituvchi tahriri"
+        stop.save()
+        RoadSign.objects.filter(number="1.1").update(title="O‘qituvchi tahriri")
+        call_command("import_road_signs", "--official", stdout=StringIO())
+        self.assertEqual(RoadSign.objects.count(), 276)
+        self.assertEqual(RoadSign.objects.get(number="2.5").title, "O‘qituvchi tahriri")
+        self.assertEqual(RoadSign.objects.get(number="1.1").title, "O‘qituvchi tahriri")

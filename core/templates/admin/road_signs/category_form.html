@@ -15,6 +15,7 @@
     <section class="sd-panel sd-card">
       <div class="sd-grid">
         {% include "admin/students/_field.html" with f=form.title %}
+        {% include "admin/students/_field.html" with f=form.title_kr %}
         {% include "admin/road_signs/_image_field.html" with f=form.image current=category.image %}
       </div>
     </section>
