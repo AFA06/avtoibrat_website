@@ -29,6 +29,9 @@ if _database_url:
     if DATABASES["default"].get("HOST") not in ("localhost", "127.0.0.1", ""):
         # Hosted Postgres (Neon) is reached over the internet: never without TLS.
         DATABASES["default"].setdefault("OPTIONS", {}).setdefault("sslmode", "require")
+    if "-pooler." in (DATABASES["default"].get("HOST") or ""):
+        # Neon's pooled endpoint is PgBouncer in transaction mode: no server-side cursors there.
+        DATABASES["default"]["DISABLE_SERVER_SIDE_CURSORS"] = True
 
 # Browsers remember to use HTTPS only (one year). Not for subdomains: onrender.com is shared.
 SECURE_HSTS_SECONDS = 60 * 60 * 24 * 365
