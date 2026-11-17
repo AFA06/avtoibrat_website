@@ -77,13 +77,15 @@ class Command(BaseCommand):
         self.stdout.write(f"{len(cats)} categories ready")
 
         if opts["official"]:
+            self.restored = 0
             with transaction.atomic():
                 # Demo signs carry drawn SVG artwork; real signs that reuse a demo slug are kept.
                 removed, _ = RoadSign.objects.filter(slug__in=DEMO_SLUGS, image__endswith=".svg").delete()
                 added = self._import(OFFICIAL, cats, keep_existing=True)
-            self.stdout.write(f"official signs: {added} added, {removed} demo signs removed")
+            self.stdout.write(f"official signs: {added} added, {self.restored} pictures restored, {removed} demo signs removed")
 
         if opts["folder"]:
+            self.restored = 0
             added = self._import(Path(opts["folder"]), cats, keep_existing=False)
             self.stdout.write(f"{added} signs imported")
 
@@ -98,7 +100,13 @@ class Command(BaseCommand):
             if not cat:
                 raise CommandError(f"Unknown category slug: {item['category']}")
             number = item.get("number", "")
-            if keep_existing and number and RoadSign.objects.filter(category=cat, number=number).exists():
+            existing = RoadSign.objects.filter(category=cat, number=number).first() if number else None
+            if keep_existing and existing:
+                # Keep the teacher's text; only bring back a picture whose file is gone (fresh disk on Render).
+                if not existing.image or not existing.image.storage.exists(existing.image.name):
+                    image = folder / item["image"]
+                    existing.image.save(image.name, ContentFile(image.read_bytes()), save=True)
+                    self.restored += 1
                 continue
             image = folder / item["image"]
             self._save(cat, item, image.name, image.read_bytes(), n)

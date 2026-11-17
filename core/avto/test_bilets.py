@@ -3,6 +3,7 @@ import tempfile
 from io import StringIO
 
 from django.contrib.staticfiles import finders
+from django.core.files.base import ContentFile
 from django.core.management import call_command
 from django.test import TestCase, override_settings
 from django.urls import reverse
@@ -206,6 +207,7 @@ class BiletPictureTests(TestCase):
 
     def test_rerun_keeps_a_teachers_picture_and_force_restores_the_original(self):
         question = self._question(1, 1)
+        question.rasm.storage.save("questions/images/teacher.png", ContentFile(b"teacher"))
         Question.objects.filter(pk=question.pk).update(rasm="questions/images/teacher.png")
         call_command("import_bilets", stdout=StringIO())
         question.refresh_from_db()
@@ -213,6 +215,14 @@ class BiletPictureTests(TestCase):
         call_command("import_bilets", force=True, stdout=StringIO())
         question.refresh_from_db()
         self.assertEqual(question.rasm.name, "questions/images/bilet-1-1.webp")
+
+    def test_rerun_restores_a_picture_whose_file_is_gone(self):
+        """Render: the database (Postgres) survives a deploy, the disk does not."""
+        question = Question.objects.exclude(rasm="").order_by("id").first()
+        question.rasm.storage.delete(question.rasm.name)
+        call_command("import_bilets", stdout=StringIO())
+        question.refresh_from_db()
+        self.assertTrue(question.rasm.storage.exists(question.rasm.name))
 
     def test_exam_page_sends_the_picture(self):
         user = User.objects.create_user(username="pic", password="x", unlimited=True)

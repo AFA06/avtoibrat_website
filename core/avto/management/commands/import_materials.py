@@ -25,7 +25,12 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         added = 0
         for title, name in MATERIALS:
-            if PdfMaterial.objects.filter(title=title).exists():
+            existing = PdfMaterial.objects.filter(title=title).first()
+            if existing:
+                # The row survives in Postgres but Render's disk is fresh after a deploy: restore the file.
+                if existing.file and not existing.file.storage.exists(existing.file.name):
+                    existing.file.save(name, ContentFile((SOURCE / name).read_bytes()))
+                    added += 1
                 continue
             PdfMaterial(title=title).file.save(name, ContentFile((SOURCE / name).read_bytes()))
             added += 1

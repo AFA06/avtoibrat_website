@@ -20,3 +20,7 @@ services:
         value: admin
       - key: ADMIN_PASSWORD
         generateValue: true
+      # Postgres connection string (Neon). Set in the dashboard; without it the site uses SQLite,
+      # which is wiped on every deploy.
+      - key: DATABASE_URL
+        sync: false

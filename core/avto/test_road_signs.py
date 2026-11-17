@@ -195,3 +195,26 @@ class OfficialImportTests(TestCase):
         self.assertEqual(RoadSign.objects.count(), 276)
         self.assertEqual(RoadSign.objects.get(number="2.5").title, "O‘qituvchi tahriri")
         self.assertEqual(RoadSign.objects.get(number="1.1").title, "O‘qituvchi tahriri")
+
+
+@override_settings(MEDIA_ROOT=MEDIA)
+class FreshDiskTests(TestCase):
+    """On Render the database survives a deploy (Postgres) but the disk does not."""
+
+    def test_imports_restore_missing_files_without_touching_texts(self):
+        from io import StringIO
+        from django.core.management import call_command
+        from .models import PdfMaterial
+        call_command("import_road_signs", "--official", stdout=StringIO())
+        call_command("import_materials", stdout=StringIO())
+        sign = RoadSign.objects.get(number="2.4")
+        sign.title = "O‘qituvchi nomi"
+        sign.save()
+        shutil.rmtree(MEDIA)  # what a fresh Render disk looks like
+        call_command("import_road_signs", "--official", stdout=StringIO())
+        call_command("import_materials", stdout=StringIO())
+        sign.refresh_from_db()
+        self.assertEqual(sign.title, "O‘qituvchi nomi")
+        self.assertTrue(all(s.image.storage.exists(s.image.name) for s in RoadSign.objects.all()))
+        self.assertTrue(all(m.file.storage.exists(m.file.name) for m in PdfMaterial.objects.all()))
+        self.assertEqual(RoadSign.objects.count(), 276)

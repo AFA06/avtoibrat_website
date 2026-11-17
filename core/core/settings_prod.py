@@ -18,3 +18,34 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
+
+# Database: Postgres when DATABASE_URL is set (Neon), otherwise the SQLite file. The SQLite file lives on
+# the instance's disk, which Render wipes on every deploy/restart, so real students need DATABASE_URL.
+_database_url = os.environ.get("DATABASE_URL")
+if _database_url:
+    import dj_database_url
+
+    DATABASES = {"default": dj_database_url.parse(_database_url, conn_max_age=60, conn_health_checks=True)}
+    if DATABASES["default"].get("HOST") not in ("localhost", "127.0.0.1", ""):
+        # Hosted Postgres (Neon) is reached over the internet: never without TLS.
+        DATABASES["default"].setdefault("OPTIONS", {}).setdefault("sslmode", "require")
+
+# Browsers remember to use HTTPS only (one year). Not for subdomains: onrender.com is shared.
+SECURE_HSTS_SECONDS = 60 * 60 * 24 * 365
+SILENCED_SYSTEM_CHECKS = [
+    "security.W008",  # Render itself redirects every http:// request to https://.
+    "security.W019",  # SAMEORIGIN on purpose: the Qo'llanma page shows its PDFs in an iframe.
+]
+
+# With DEBUG off Django prints no errors anywhere; send them to the Render log instead.
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {"plain": {"format": "{levelname} {asctime} {name}: {message}", "style": "{"}},
+    "handlers": {"console": {"class": "logging.StreamHandler", "formatter": "plain"}},
+    "root": {"handlers": ["console"], "level": "WARNING"},
+    "loggers": {
+        "django": {"handlers": ["console"], "level": "WARNING", "propagate": False},
+        "avto": {"handlers": ["console"], "level": "INFO", "propagate": False},
+    },
+}

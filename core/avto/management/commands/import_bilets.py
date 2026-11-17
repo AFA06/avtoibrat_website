@@ -111,7 +111,9 @@ def _attach_images(category, number, force):
     attached = 0
     for position, question in enumerate(questions, start=1):
         source = IMAGE_DIR / f"{number}-{position}.webp"
-        if not source.exists() or (question.rasm and not force):
+        # A picture that is set and still on disk is kept; one whose file vanished (fresh disk on
+        # Render, database kept in Postgres) is restored.
+        if not source.exists() or (question.rasm and question.rasm.storage.exists(question.rasm.name) and not force):
             continue
         name = f"questions/images/bilet-{number}-{position}.webp"
         storage = question.rasm.storage
