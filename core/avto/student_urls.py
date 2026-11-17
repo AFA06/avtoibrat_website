@@ -13,4 +13,5 @@ urlpatterns = [
     path("<int:pk>/extend/", views.student_extend, name="extend"),
     path("<int:pk>/reset-password/", views.student_reset_password, name="reset_password"),
     path("<int:pk>/delete/", views.student_delete, name="delete"),
+    path("<int:pk>/devices/<int:device_id>/remove/", views.student_remove_device, name="remove_device"),
 ]

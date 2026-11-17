@@ -198,3 +198,9 @@ a.sd-stat--link:hover { transform: translateY(-2px); box-shadow: 0 10px 24px -10
 .sd .sd-presets .sd-chip-btn { border: 0; cursor: pointer; }
 .sd-grid--times { grid-template-columns: repeat(2, minmax(160px, 260px)); margin: 18px 0 8px; }
 .sd-panel + .lb { margin-top: 18px; }
+
+/* Student devices (form page) */
+.sd-device { display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 10px 0; border-bottom: 1px solid rgba(127, 127, 127, .18); }
+.sd-device b { display: block; }
+.sd-device small, .sd-card h2 small { opacity: .65; font-weight: 400; }

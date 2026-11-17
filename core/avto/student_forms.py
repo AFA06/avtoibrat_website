@@ -53,7 +53,7 @@ class StudentForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ("first_name", "last_name", "phone", "group", "group_language", "birth_date")
+        fields = ("first_name", "last_name", "phone", "group", "group_language", "birth_date", "device_limit")
         widgets = {"birth_date": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d")}
 
     def __init__(self, *args, **kwargs):
@@ -66,6 +66,8 @@ class StudentForm(forms.ModelForm):
         self.fields["group"].queryset = StudyGroup.objects.select_related("branch", "teacher")
         self.fields["group"].empty_label = "— Guruhsiz —"
         self.fields["group"].label_from_instance = group_label
+        self.fields["device_limit"].required = False
+        self.fields["device_limit"].widget.attrs.update({"min": 1, "max": 30})
         if self.instance.pk:
             self.fields["group"].label = "Boshqa guruhga o‘tkazish"
             self.fields["group"].help_text = (
@@ -97,6 +99,10 @@ class StudentForm(forms.ModelForm):
 
     def clean_password(self):
         return self.cleaned_data["password"].strip()
+
+    def clean_device_limit(self):
+        # Left empty: keep what the student has (3 for a new one).
+        return self.cleaned_data.get("device_limit") or self.instance.device_limit or 3
 
     def save(self, commit=True):
         student = super().save(commit=False)

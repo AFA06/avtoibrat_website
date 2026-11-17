@@ -1,4 +1,3 @@
-import hashlib
 import re
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import get_language
@@ -245,12 +244,16 @@ class PdfMaterial(models.Model):
     def __str__(self):
         return self.title
 
+DEVICE_COOKIE = "avto_device"
+
+
+_DEVICE_ID = re.compile(r"^[A-Za-z0-9_-]{16,64}$")
+
+
 def get_device_id(request):
-    raw = (
-        request.META.get("HTTP_USER_AGENT", "") +
-        request.META.get("REMOTE_ADDR", "")
-    )
-    return hashlib.sha256(raw.encode()).hexdigest()
+    """The browser's own id from a long-lived cookie (see login_view), so changing networks keeps it."""
+    value = request.COOKIES.get(DEVICE_COOKIE, "")
+    return value if _DEVICE_ID.match(value) else ""
 
 
 passport_validator = RegexValidator(
@@ -350,8 +353,10 @@ class User(AbstractUser):
     unlimited = models.BooleanField(default=False)
 
     device_limit = models.PositiveSmallIntegerField(
-        default=30,
-        help_text="Nechta qurilmadan login qilish mumkin (1–30)"
+        "Qurilmalar soni",
+        default=3,
+        validators=[MinValueValidator(1), MaxValueValidator(30)],
+        help_text="Talaba nechta qurilmadan (telefon, kompyuter) kira oladi. Odatda 3.",
     )
 
     group_language = models.CharField(

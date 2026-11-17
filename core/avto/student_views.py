@@ -106,6 +106,7 @@ def student_edit(request, pk):
         return redirect("students:list")
     return render(request, "admin/students/form.html", _page(
         request, student.get_full_name(), form=form, student=student,
+        devices=student.devices.order_by("-last_used"),
     ))
 
 
@@ -153,6 +154,16 @@ def student_reset_password(request, pk):
     student.save(update_fields=["password", "initial_password"])
     messages.success(request, f"{student.get_full_name()} uchun yangi parol: {password}")
     return redirect(request.POST.get("next") or "students:list")
+
+
+@staff_member_required
+@require_POST
+def student_remove_device(request, pk, device_id):
+    """Forget one of the student's devices, freeing a place so they can sign in on a new one."""
+    student = get_object_or_404(_students(), pk=pk)
+    student.devices.filter(pk=device_id).delete()
+    messages.success(request, f"{student.get_full_name()}: qurilma o‘chirildi.")
+    return redirect("students:edit", pk=student.pk)
 
 
 @staff_member_required

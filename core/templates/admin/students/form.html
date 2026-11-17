@@ -1,5 +1,5 @@
 {% extends "admin/base.html" %}
-{% load static %}
+{% load static avto_extras %}
 
 {% block extrastyle %}<link rel="stylesheet" href="{% static 'admin/students.css' %}">{% endblock %}
 {% block page_content %}
@@ -49,6 +49,7 @@
         {% include "admin/students/_field.html" with f=form.group %}
         {% include "admin/students/_field.html" with f=form.group_language %}
         {% include "admin/students/_field.html" with f=form.account_expires_at %}
+        {% include "admin/students/_field.html" with f=form.device_limit %}
       </div>
     </section>
 
@@ -65,11 +66,33 @@
       </div>
     </section>
 
+    {% if student %}
+    <section class="sd-panel sd-card">
+      <h2>Qurilmalar <small>{{ devices|length }} / {{ student.device_limit }}</small></h2>
+      {% for d in devices %}
+      <div class="sd-device">
+        <div>
+          <b>{{ d.user_agent|device_name }}</b>
+          <small>Oxirgi kirish: {{ d.last_used|date:"d.m.Y H:i" }}</small>
+        </div>
+        <button type="submit" class="sd-btn sd-btn--ghost is-danger" form="remove-device-{{ d.pk }}"
+                title="O‘chirish" aria-label="O‘chirish"><i class="fas fa-trash"></i></button>
+      </div>
+      {% empty %}
+      <p class="sd-help">Talaba hali hech qaysi qurilmadan kirmagan.</p>
+      {% endfor %}
+      <p class="sd-help">Limit to‘lsa, talaba yangi qurilmadan kira olmaydi. Eski qurilmani o‘chirsangiz, joy bo‘shaydi.</p>
+    </section>
+    {% endif %}
+
     <div class="sd-submit">
       <button type="submit" class="sd-btn sd-btn--primary"><i class="fas fa-check"></i> Saqlash</button>
       <a class="sd-btn sd-btn--ghost" href="{% url 'students:list' %}">Bekor qilish</a>
     </div>
   </form>
+  {% for d in devices %}
+  <form id="remove-device-{{ d.pk }}" method="post" action="{% url 'students:remove_device' student.pk d.pk %}">{% csrf_token %}</form>
+  {% endfor %}
 </div></div>
 {% endblock %}
 

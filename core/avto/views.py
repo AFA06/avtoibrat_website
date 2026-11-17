@@ -1,3 +1,4 @@
+import secrets
 import json
 import mimetypes
 import os
@@ -25,7 +26,8 @@ from .models import (
     TeamMember, Story, ConsultRequest, Testimonial, FAQ,
     ContactMessage, PdfMaterial, RoadSignCategory, RoadSign,
     ContactPerson, TestSession, Question, TestCategory,
-    Answer, UserAnswer, SavedQuestion, UserDevice, StatisticsReset, Topic, get_device_id, normalize_phone
+    Answer, UserAnswer, SavedQuestion, UserDevice, StatisticsReset, Topic, get_device_id, normalize_phone,
+    DEVICE_COOKIE
 )
 
 from . import lockout
@@ -204,6 +206,29 @@ def _username_for_phone(phone):
     return usernames[0] if len(usernames) == 1 else None
 
 
+DEVICE_COOKIE_AGE = 2 * 365 * 24 * 3600
+
+
+def _register_device(request, user, device_id):
+    """Remember this browser for the student. False when it would exceed their device limit.
+
+    A device over the limit is not saved, so trying again cannot sneak it in. Staff are not limited.
+    """
+    device = user.devices.filter(device_id=device_id).first()
+    if device:
+        device.user_agent = request.META.get("HTTP_USER_AGENT", "")[:500]
+        device.save()
+        return True
+    if not (user.is_staff or user.is_superuser) and user.devices.count() >= user.device_limit:
+        return False
+    UserDevice.objects.create(
+        user=user, device_id=device_id,
+        user_agent=request.META.get("HTTP_USER_AGENT", "")[:500],
+        ip_address=request.META.get("REMOTE_ADDR") or "0.0.0.0",
+    )
+    return True
+
+
 def login_view(request):
     if request.method == "POST":
         role = request.POST.get("role")
@@ -235,28 +260,18 @@ def login_view(request):
             request.session.flush()
             return _login_redirect(role, expired=1)
 
-        device_id = get_device_id(request)
-
-        device, created = UserDevice.objects.get_or_create(
-            user=user,
-            device_id=device_id,
-            defaults={
-                "user_agent": request.META.get("HTTP_USER_AGENT", ""),
-                "ip_address": request.META.get("REMOTE_ADDR"),
-            }
-        )
-
-        if not created:
-            device.last_used = timezone.now()
-            device.save(update_fields=["last_used"])
-        else:
-            devices_count = user.devices.count()
-            if devices_count > user.device_limit:
-                return _login_redirect(role, device_limit=1)
+        device_id = get_device_id(request) or secrets.token_urlsafe(24)
+        if not _register_device(request, user, device_id):
+            return _login_redirect(role, device_limit=1)
 
         auth_login(request, user)
         legal.record_acceptance(user)
-        return redirect("admin:index" if role == "staff" else "dashboard")
+        response = redirect("admin:index" if role == "staff" else "dashboard")
+        response.set_cookie(
+            DEVICE_COOKIE, device_id, max_age=DEVICE_COOKIE_AGE, httponly=True,
+            secure=settings.SESSION_COOKIE_SECURE, samesite="Lax",
+        )
+        return response
 
     return render(request, "dashboard/login.html")
 
