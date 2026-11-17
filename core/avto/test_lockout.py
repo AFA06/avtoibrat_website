@@ -133,3 +133,31 @@ class LoginPageTests(LockoutTestCase):
         })
         self.assertFalse(LoginLock.objects.exists())
         self.assertIsNotNone(self.ok())
+
+
+class ExpiredAccountTests(LockoutTestCase):
+    """An expired student's account is stored with is_active=False after the first check."""
+
+    def post(self, password):
+        return self.client.post(reverse("login"), {
+            "role": "student", "username": PHONE, "password": password, legal.TERMS_FIELD: "1",
+        })
+
+    def expire(self):
+        User.objects.filter(pk=self.student.pk).update(unlimited=False, is_active=False)
+
+    def test_expired_student_with_right_password_is_told_the_access_ended(self):
+        self.expire()
+        self.assertIn("expired=1", self.post("right-pass").url)
+
+    def test_expired_student_is_never_locked_for_the_right_password(self):
+        self.expire()
+        for _ in range(6):
+            self.post("right-pass")
+        self.assertEqual(lockout.locked_for("ali"), 0)
+
+    def test_expired_student_with_wrong_password_still_counts(self):
+        self.expire()
+        for _ in range(3):
+            self.assertIn("error=invalid", self.post("wrong").url)
+        self.assertIn("error=locked", self.post("wrong").url)

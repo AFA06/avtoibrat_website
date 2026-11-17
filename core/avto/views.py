@@ -15,6 +15,7 @@ from django.http import JsonResponse, FileResponse, Http404, HttpResponse, HttpR
 from django.contrib.auth import get_user_model
 from django.views.decorators.clickjacking import xframe_options_sameorigin
 from django.views.decorators.http import require_POST, require_http_methods
+from django.db import IntegrityError, transaction
 from django.db.models import Count, Q, Sum, F, ExpressionWrapper, DurationField
 
 from .leaderboard import PERIODS, build as build_leaderboard
@@ -221,6 +222,8 @@ def login_view(request):
             password=request.POST.get("password"),
         ) if username else None
 
+        if not user and getattr(request, "inactive_account", False):
+            return _login_redirect(role, expired=1)
         if not user and username and lockout.locked_for(username):
             return _login_redirect(role, error="locked", minutes=lockout.minutes_left(username))
         if not user or (role == "staff" and not user.is_staff):
@@ -305,6 +308,7 @@ def _format_duration(seconds):
 
 def _student_stats(user):
     """Everything the student dashboard shows, computed from finished sessions."""
+    real_exam.close_expired([user.pk])
     today = timezone.localdate()
     sessions = list(
         TestSession.objects
@@ -867,13 +871,19 @@ def submit_answer(request):
     if UserAnswer.objects.filter(session=session, question=question).exists():
         return JsonResponse({"error": "already_answered"}, status=409)
 
-    user_answer = UserAnswer.objects.create(
-        session=session,
-        question=question,
-        selected_answer=answer,
-        is_correct=answer.togri,
-        answered_at=timezone.now(),
-    )
+    try:
+        # A double tap or a retried request can race past the check above; the unique
+        # (session, question) constraint keeps one answer and the other gets the same reply.
+        with transaction.atomic():
+            user_answer = UserAnswer.objects.create(
+                session=session,
+                question=question,
+                selected_answer=answer,
+                is_correct=answer.togri,
+                answered_at=timezone.now(),
+            )
+    except IntegrityError:
+        return JsonResponse({"error": "already_answered"}, status=409)
 
     exam_failed = False
     if session.test_kind == "real" and not user_answer.is_correct:

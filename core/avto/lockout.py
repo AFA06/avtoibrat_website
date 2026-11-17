@@ -88,7 +88,17 @@ class LockoutBackend(ModelBackend):
         user = super().authenticate(request, username=username, password=password, **kwargs)
         if user is not None:
             clear(username)
+        elif request is not None and username and password is not None and self._right_password_but_inactive(username, password):
+            # Expired or blocked account with the correct password: not a guess, so it is not counted,
+            # and the login page tells the student their access ended instead of "wrong password".
+            request.inactive_account = True
         return user
+
+    def _right_password_but_inactive(self, username, password):
+        from django.contrib.auth import get_user_model
+
+        account = get_user_model()._default_manager.filter(**{self._username_field(): username}).first()
+        return bool(account and not self.user_can_authenticate(account) and account.check_password(password))
 
     @staticmethod
     def _username_field():
@@ -99,4 +109,6 @@ class LockoutBackend(ModelBackend):
 
 @receiver(user_login_failed)
 def _count_failure(sender, credentials, request=None, **kwargs):
+    if getattr(request, "inactive_account", False):
+        return
     record_failure(credentials.get("username"))

@@ -219,6 +219,7 @@ def collect(students, days=DEFAULT_DAYS):
     """Activity for every student over the last `days` days, using a handful of bulk queries."""
     students = list(students)
     ids = [s.pk for s in students]
+    real_exam.close_expired(ids)
     since = _window_start(days)
     today = timezone.localdate()
 

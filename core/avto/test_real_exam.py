@@ -97,3 +97,50 @@ class RealExamTests(TestCase):
             self.answer_wrong(session, qid)
         response = self.client.get(reverse("real_imtihon"))
         self.assertContains(response, "Topshirilmadi")
+
+
+class AbandonedExamTests(RealExamTests):
+    """A student who closes the tab mid-exam must not make the attempt disappear."""
+
+    def answer(self, session, index, right):
+        question = Question.objects.get(id=session.question_order[index])
+        answer = question.javoblar.get(togri=right)
+        return self.client.post(reverse("submit_answer"), {
+            "session_id": session.id, "question_id": question.id, "answer_id": answer.id,
+        })
+
+    def age(self, session, minutes):
+        from datetime import timedelta
+        TestSession.objects.filter(pk=session.pk).update(started_at=session.started_at - timedelta(minutes=minutes))
+
+    def test_abandoned_exam_counts_as_failed_once_its_time_is_up(self):
+        _, session = self.start(20)
+        self.answer(session, 0, right=True)
+        self.answer(session, 1, right=False)
+        self.age(session, 21)
+        history = real_exam.history(self.user)
+        self.assertEqual(len(history), 1)
+        self.assertFalse(history[0]["passed"])
+        session.refresh_from_db()
+        self.assertEqual(session.finished_at, session.started_at + __import__("datetime").timedelta(minutes=20))
+
+    def test_exam_still_running_is_left_alone(self):
+        _, session = self.start(20)
+        self.age(session, 10)
+        real_exam.history(self.user)
+        session.refresh_from_db()
+        self.assertIsNone(session.finished_at)
+
+    def test_teacher_monitoring_sees_the_abandoned_exam_as_failed(self):
+        from . import monitoring
+        _, session = self.start(20)
+        self.answer(session, 0, right=False)
+        self.age(session, 30)
+        activity = monitoring.collect([self.user])[self.user.pk]
+        exam = next(s for s in activity.sessions if s.kind == "real")
+        self.assertEqual(exam.result, "failed")
+
+    def test_answering_the_same_question_twice_is_refused_cleanly(self):
+        _, session = self.start(20)
+        self.assertEqual(self.answer(session, 0, right=True).status_code, 200)
+        self.assertEqual(self.answer(session, 0, right=False).status_code, 409)

@@ -80,6 +80,7 @@ def _stage(bilet, runs, number):
 
 def _real_exams(user):
     """Finished real exams, oldest first, with whether each one was passed."""
+    real_exam.close_expired([user.pk])
     sessions = list(
         TestSession.objects.filter(user=user, test_kind="real", finished_at__isnull=False)
         .order_by("finished_at").values("id", "question_order", "finished_at")

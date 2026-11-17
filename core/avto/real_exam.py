@@ -26,6 +26,25 @@ def passed(size, wrong, answered):
     return size > 0 and answered >= size and wrong < max_mistakes(size)
 
 
+def close_expired(user_ids):
+    """Finish real exams whose time ran out while nobody was on the page (tab closed, exam abandoned).
+
+    Without this an abandoned exam stays «unfinished» forever and never shows as failed — neither in
+    the student's history nor in the teacher's monitoring. It ends at the moment its time ran out;
+    unanswered questions make it a fail. Real exams cannot be paused, so start + limit is exact.
+    """
+    from datetime import timedelta
+
+    now = timezone.now()
+    open_exams = TestSession.objects.filter(
+        user_id__in=user_ids, test_kind="real", finished_at__isnull=True, started_at__isnull=False,
+    ).select_related("category")
+    for session in open_exams:
+        deadline = session.started_at + timedelta(seconds=session.time_limit_seconds)
+        if deadline <= now:
+            TestSession.objects.filter(pk=session.pk, finished_at__isnull=True).update(finished_at=deadline)
+
+
 def options():
     available = marathon.question_pool().count()
     return [
@@ -43,6 +62,7 @@ def start(user, size):
     """Open a real exam of `size` questions spread over all topics. Raises ValueError if it cannot."""
     if size not in SIZES:
         raise ValueError("unknown size")
+    close_expired([user.pk])
     question_ids = marathon.pick_question_ids(size, spread_over="mavzu_id")
     if len(question_ids) < size:
         raise ValueError("not enough questions")
@@ -58,6 +78,7 @@ def start(user, size):
 
 
 def history(user):
+    close_expired([user.pk])
     sessions = TestSession.objects.filter(
         user=user, test_kind="real", finished_at__isnull=False
     ).order_by("-finished_at")[:HISTORY_LIMIT]
