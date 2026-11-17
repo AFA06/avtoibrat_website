@@ -1,0 +1,59 @@
+# Nightly backup of the production database (Neon Postgres).
+#
+# The repository is public, so the dump is encrypted before it leaves the runner: without
+# BACKUP_PASSPHRASE the file is useless. Copies are kept for 30 days as workflow artifacts.
+#
+# Needs two repository secrets (Settings → Secrets and variables → Actions):
+#   DATABASE_URL       the Neon connection string (same as on Render)
+#   BACKUP_PASSPHRASE  a long password; keep a copy somewhere safe, it is needed to restore
+#
+# Restore: see "Restoring a backup" in README.md.
+name: Database backup
+
+on:
+  schedule:
+    - cron: "0 21 * * *"   # 02:00 in Tashkent
+  workflow_dispatch: {}     # «Run workflow» button for a backup on demand
+
+permissions:
+  contents: read
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check secrets
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          BACKUP_PASSPHRASE: ${{ secrets.BACKUP_PASSPHRASE }}
+        run: |
+          if [ -z "$DATABASE_URL" ] || [ -z "$BACKUP_PASSPHRASE" ]; then
+            echo "::error::Set DATABASE_URL and BACKUP_PASSPHRASE in the repository secrets."
+            exit 1
+          fi
+
+      - name: Dump and encrypt
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          BACKUP_PASSPHRASE: ${{ secrets.BACKUP_PASSPHRASE }}
+        run: |
+          set -euo pipefail
+          name="avtoibrat-$(date -u +%Y-%m-%d).dump"
+          # pg_dump must be at least the server's major version (Neon runs Postgres 18).
+          docker run --rm -e DATABASE_URL postgres:18 \
+            pg_dump --format=custom --no-owner --no-privileges "$DATABASE_URL" > "$name"
+          test -s "$name"
+          gpg --batch --yes --pinentry-mode loopback --passphrase "$BACKUP_PASSPHRASE" \
+            --symmetric --cipher-algo AES256 --output "$name.gpg" "$name"
+          rm "$name"
+          echo "BACKUP_FILE=$name.gpg" >> "$GITHUB_ENV"
+          ls -lh "$name.gpg"
+
+      - name: Keep for 30 days
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.BACKUP_FILE }}
+          path: ${{ env.BACKUP_FILE }}
+          retention-days: 30
+          if-no-files-found: error

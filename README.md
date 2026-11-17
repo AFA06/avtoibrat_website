@@ -141,3 +141,24 @@ How it is measured
 - *Entries* come from `LoginEvent`, written on every student sign-in (`avto/signals.py`). History starts from the day this feature was deployed.
 - If a student presses «clear statistics», their sessions are deleted as before, but a `StatisticsReset` row is written and the student page shows a warning, so a teacher can see that history was wiped.
 - Only students (not staff) are monitored; all queries are bulk (`collect()`), not per-student loops.
+
+## Database backups
+
+A GitHub Action (`.github/workflows/backup.yml`) copies the production database every night at
+02:00 (Tashkent), encrypts it with `BACKUP_PASSPHRASE` and keeps it for 30 days under
+**Actions → Database backup → a run → Artifacts**. «Run workflow» on that page makes a backup on demand.
+
+It needs two repository secrets (**Settings → Secrets and variables → Actions → New repository secret**):
+
+- `DATABASE_URL` — the Neon connection string, the same value as on Render
+- `BACKUP_PASSPHRASE` — a long password. Keep a copy somewhere safe: without it no backup can be opened.
+
+### Restoring a backup
+
+1. Download the artifact (a zip holding `avtoibrat-YYYY-MM-DD.dump.gpg`) and unzip it.
+2. Decrypt: `gpg --decrypt avtoibrat-YYYY-MM-DD.dump.gpg > backup.dump` (asks for the passphrase).
+3. In Neon, create a new branch or an empty database and restore into it:
+   `pg_restore --no-owner --no-privileges -d "<connection string of the new database>" backup.dump`
+4. Point Render's `DATABASE_URL` at it (Render redeploys by itself).
+
+Restoring into a new database, never over the live one, keeps today's data in case the wrong day was picked.
