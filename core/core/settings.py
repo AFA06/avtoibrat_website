@@ -132,6 +132,9 @@ USE_TZ = True
 
 AUTH_USER_MODEL = "avto.User"
 
+# Normal password check plus the wrong-password lock (avto/lockout.py).
+AUTHENTICATION_BACKENDS = ["avto.lockout.LockoutBackend"]
+
 LOGIN_URL = "login"
 
 SCHOOL_CONTACT_PHONE = "+998 94 627 41 11"

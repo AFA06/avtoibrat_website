@@ -1906,3 +1906,6 @@ msgstr "пройдено"
 
 msgid "Bahor, Yoz, Kuz va Qish — tog‘ yo‘lining to‘rt qismi, har biri 15 biletdan. Fasl yakunlanganda keyingi faslga to‘siq ochiladi, cho‘qqida esa marra."
 msgstr "Весна, Лето, Осень и Зима — четыре участка горной дороги, по 15 билетов. Когда сезон завершён, шлагбаум на следующий сезон открывается, а на вершине — финиш."
+
+msgid "Parol ko‘p marta noto‘g‘ri kiritildi. Xavfsizlik uchun hisob vaqtincha bloklandi: %(minutes)s daqiqadan keyin qayta urinib ko‘ring."
+msgstr "Пароль введён неверно слишком много раз. В целях безопасности аккаунт временно заблокирован: попробуйте снова через %(minutes)s мин."

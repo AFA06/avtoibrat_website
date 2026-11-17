@@ -63,6 +63,11 @@
                         {% trans "Login yoki parol noto‘g‘ri !" %}
                     </div>
                 {% endif %}
+                {% if request.GET.error == "locked" %}
+                    <div class="login-alert login-alert--danger" role="alert">
+                        {% blocktrans with minutes=request.GET.minutes|default:"5" %}Parol ko‘p marta noto‘g‘ri kiritildi. Xavfsizlik uchun hisob vaqtincha bloklandi: {{ minutes }} daqiqadan keyin qayta urinib ko‘ring.{% endblocktrans %}
+                    </div>
+                {% endif %}
                 {% if request.GET.error == "terms" %}
                     <div class="login-alert login-alert--warning" role="alert">
                         {% trans "Kirish uchun foydalanish shartlarini qabul qiling." %}

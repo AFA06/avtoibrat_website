@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from .models import (
     TestCategory, TestType, Question, Answer, TestSession, UserAnswer, SavedQuestion,
     TeamMember, Story, ConsultRequest, Testimonial, FAQ, ContactMessage, ContactPerson,
-    RoadSignCategory, RoadSign, PdfMaterial, Branch, StudyGroup, Topic, TopicGroup
+    RoadSignCategory, RoadSign, PdfMaterial, Branch, StudyGroup, Topic, TopicGroup, LoginLock
 )
 from django.db.models import Count
 
@@ -176,3 +176,29 @@ class StudyGroupAdmin(admin.ModelAdmin):
     list_display = ("name", "category", "branch", "teacher")
     list_filter = ("category", "branch")
     search_fields = ("name", "teacher__username", "teacher__first_name", "teacher__last_name")
+
+
+@admin.register(LoginLock)
+class LoginLockAdmin(admin.ModelAdmin):
+    """Accounts locked after wrong passwords. Delete a row (or use the action) to let the student in now."""
+    list_display = ("username", "status", "level", "last_failure")
+    search_fields = ("username",)
+    readonly_fields = ("username", "failures", "level", "last_failure", "locked_until")
+    actions = ["unlock"]
+
+    def has_add_permission(self, request):
+        return False
+
+    @admin.display(description="Holati")
+    def status(self, obj):
+        from django.utils import timezone
+        if obj.locked_until and obj.locked_until > timezone.now():
+            minutes = int((obj.locked_until - timezone.now()).total_seconds() // 60) + 1
+            return f"Bloklangan ({minutes} daqiqa qoldi)"
+        return f"Ochiq ({obj.failures} ta xato urinish)"
+
+    @admin.action(description="Blokdan chiqarish")
+    def unlock(self, request, queryset):
+        count = queryset.count()
+        queryset.delete()
+        self.message_user(request, f"{count} ta hisob blokdan chiqarildi.")

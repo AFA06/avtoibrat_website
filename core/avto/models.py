@@ -827,6 +827,22 @@ class LoginEvent(models.Model):
         ordering = ["-at"]
 
 
+class LoginLock(models.Model):
+    """Wrong-password counter and lock for one account (see avto/lockout.py). Deleting the row unlocks."""
+    username = models.CharField(max_length=150, unique=True)
+    failures = models.PositiveSmallIntegerField(default=0)
+    level = models.PositiveSmallIntegerField(default=0, help_text="How many locks in a row; each next one is longer.")
+    last_failure = models.DateTimeField(null=True, blank=True)
+    locked_until = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        verbose_name = "Bloklangan kirish"
+        verbose_name_plural = "Bloklangan kirishlar"
+
+    def __str__(self):
+        return self.username
+
+
 class StatisticsReset(models.Model):
     """Written when a student clears their statistics, so the teacher can see that history was wiped."""
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="statistics_resets")

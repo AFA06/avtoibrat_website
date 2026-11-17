@@ -27,6 +27,7 @@ from .models import (
     Answer, UserAnswer, SavedQuestion, UserDevice, StatisticsReset, Topic, get_device_id, normalize_phone
 )
 
+from . import lockout
 from .road_signs import ordered_categories, sorted_signs
 from . import journey, legal, review, topic_tests
 from .marathon import MINUTES_PER_QUESTION
@@ -220,6 +221,8 @@ def login_view(request):
             password=request.POST.get("password"),
         ) if username else None
 
+        if not user and username and lockout.locked_for(username):
+            return _login_redirect(role, error="locked", minutes=lockout.minutes_left(username))
         if not user or (role == "staff" and not user.is_staff):
             return _login_redirect(role, error="invalid")
 

@@ -1899,3 +1899,6 @@ msgstr "ўтилди"
 
 msgid "Bahor, Yoz, Kuz va Qish — tog‘ yo‘lining to‘rt qismi, har biri 15 biletdan. Fasl yakunlanganda keyingi faslga to‘siq ochiladi, cho‘qqida esa marra."
 msgstr "Баҳор, Ёз, Куз ва Қиш — тоғ йўлининг тўрт қисми, ҳар бири 15 билетдан. Фасл якунланганда кейинги фаслга тўсиқ очилади, чўққида эса марра."
+
+msgid "Parol ko‘p marta noto‘g‘ri kiritildi. Xavfsizlik uchun hisob vaqtincha bloklandi: %(minutes)s daqiqadan keyin qayta urinib ko‘ring."
+msgstr "Парол кўп марта нотўғри киритилди. Хавфсизлик учун ҳисоб вақтинча блокланди: %(minutes)s дақиқадан кейин қайта уриниб кўринг."
