@@ -21,7 +21,7 @@ from django.urls import path, include
 from django.conf.urls.i18n import i18n_patterns
 
 from avto.group_views import leaderboard as admin_leaderboard
-from avto.views import set_site_language
+from avto.views import admin_login, set_site_language
 
 
 urlpatterns = [
@@ -35,6 +35,7 @@ urlpatterns = [
     path('admin/questions/', include('avto.question_urls')),
     path('admin/groups/', include('avto.group_urls')),
     path('admin/leaderboard/', admin_leaderboard, name='admin_leaderboard'),
+    path('admin/login/', admin_login),
     path('admin/', admin.site.urls),
 ]
 

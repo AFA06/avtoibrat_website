@@ -6,8 +6,7 @@ without failures forgets earlier locks.
 
 Locks are per account, never per IP: students share school computers behind one address, and an IP
 lock would shut out a whole classroom. While an account is locked even the right password is refused,
-so guessing cannot continue. The lock lives in the authentication backend, so the student/staff form
-and Django's /admin/login/ are both covered.
+so guessing cannot continue. The shared authentication backend applies the lock to student and staff sign-ins.
 """
 from datetime import timedelta
 import math

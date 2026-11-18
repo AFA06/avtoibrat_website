@@ -116,12 +116,12 @@ class LoginPageTests(LockoutTestCase):
         page = self.client.get(locked.url)
         self.assertContains(page, "5 daqiqadan keyin")
 
-    def test_django_admin_login_is_locked_too(self):
+    def test_staff_login_is_locked_too(self):
         User.objects.create_user(username="boss", password="right-pass", is_staff=True, is_superuser=True)
-        url = reverse("admin:login")
         for _ in range(4):
-            self.client.post(url, {"username": "boss", "password": "wrong"})
-        self.client.post(url, {"username": "boss", "password": "right-pass"})
+            self.post("wrong", role="staff", username="boss")
+        response = self.post("right-pass", role="staff", username="boss")
+        self.assertIn("error=locked", response.url)
         self.assertFalse(self.client.session.get("_auth_user_id"))
 
     def test_admin_can_unlock_from_the_list(self):

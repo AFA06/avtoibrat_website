@@ -243,6 +243,29 @@ class LoginTests(TestCase):
         response = self.post("ustoz", role="staff")
         self.assertRedirects(response, reverse("admin:index"), fetch_redirect_response=False)
 
+    def test_admin_bookmark_opens_the_shared_staff_login(self):
+        self.assertRedirects(self.client.get(reverse("admin:login")), f"{self.url}?role=staff")
+        response = self.client.post(reverse("admin:login"), {"username": "ustoz", "password": "pass12345"})
+        self.assertEqual(response.status_code, 405)
+        self.assertNotIn("_auth_user_id", self.client.session)
+
+    def test_staff_login_returns_to_the_requested_admin_page(self):
+        target = reverse("students:list")
+        response = self.client.get(target, follow=True)
+        self.assertContains(response, f'name="next" value="{target}"')
+        credentials = {"role": "staff", "username": "ustoz", "accept_terms": "1", "next": target}
+        failed = self.client.post(self.url, {**credentials, "password": "wrong"})
+        self.assertContains(self.client.get(failed.url), f'name="next" value="{target}"')
+        response = self.client.post(self.url, {**credentials, "password": "pass12345"})
+        self.assertRedirects(response, target, fetch_redirect_response=False)
+
+    def test_staff_login_rejects_an_external_redirect(self):
+        response = self.client.post(self.url, {
+            "role": "staff", "username": "ustoz", "password": "pass12345",
+            "accept_terms": "1", "next": "https://example.com/admin/",
+        })
+        self.assertRedirects(response, reverse("admin:index"), fetch_redirect_response=False)
+
     def test_staff_profile_rejects_student_account(self):
         response = self.post("talaba1", role="staff")
         self.assertIn("error=invalid", response["Location"])

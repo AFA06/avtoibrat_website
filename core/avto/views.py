@@ -8,14 +8,16 @@ from urllib.parse import urlencode
 from django.conf import settings
 from django.urls import reverse
 from django.utils import timezone
+from django.utils.http import url_has_allowed_host_and_scheme
 from django.utils.translation import gettext_lazy as _
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login as auth_login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, FileResponse, Http404, HttpResponse, HttpResponseRedirect
 from django.contrib.auth import get_user_model
+from django.views.decorators.cache import never_cache
 from django.views.decorators.clickjacking import xframe_options_sameorigin
-from django.views.decorators.http import require_POST, require_http_methods
+from django.views.decorators.http import require_POST, require_http_methods, require_safe
 from django.db import IntegrityError, transaction
 from django.db.models import Count, Q, Sum, F, ExpressionWrapper, DurationField
 
@@ -188,9 +190,31 @@ def team(request):
 LOGIN_ROLES = ("student", "staff")
 
 
-def _login_redirect(role, **params):
+def _staff_login_next(request):
+    source = request.POST if request.method == "POST" else request.GET
+    target = source.get("next", "")
+    if (
+        target.startswith(reverse("admin:index"))
+        and target.split("?", 1)[0] != reverse("admin:login")
+        and url_has_allowed_host_and_scheme(target, allowed_hosts=set())
+    ):
+        return target
+    return None
+
+
+def _login_redirect(request, role, **params):
     params["role"] = role
+    if role == "staff" and (target := _staff_login_next(request)):
+        params["next"] = target
     return redirect(f"{reverse('login')}?{urlencode(params)}")
+
+
+@never_cache
+@require_safe
+def admin_login(request):
+    if request.user.is_active and request.user.is_staff:
+        return redirect(_staff_login_next(request) or "admin:index")
+    return _login_redirect(request, "staff")
 
 
 def _username_for_phone(phone):
@@ -229,6 +253,7 @@ def _register_device(request, user, device_id):
     return True
 
 
+@never_cache
 def login_view(request):
     if request.method == "POST":
         role = request.POST.get("role")
@@ -237,7 +262,7 @@ def login_view(request):
 
         # Signing in means agreeing to the terms of use: the box on the form must be ticked.
         if not legal.accepted(request.POST):
-            return _login_redirect(role, error="terms")
+            return _login_redirect(request, role, error="terms")
 
         identifier = request.POST.get("username", "").strip()
         username = _username_for_phone(identifier) if role == "student" else identifier
@@ -248,25 +273,26 @@ def login_view(request):
         ) if username else None
 
         if not user and getattr(request, "inactive_account", False):
-            return _login_redirect(role, expired=1)
+            return _login_redirect(request, role, expired=1)
         if not user and username and lockout.locked_for(username):
-            return _login_redirect(role, error="locked", minutes=lockout.minutes_left(username))
+            return _login_redirect(request, role, error="locked", minutes=lockout.minutes_left(username))
         if not user or (role == "staff" and not user.is_staff):
-            return _login_redirect(role, error="invalid")
+            return _login_redirect(request, role, error="invalid")
 
         user.sync_active_status()
         if not user.is_active:
             logout(request)
             request.session.flush()
-            return _login_redirect(role, expired=1)
+            return _login_redirect(request, role, expired=1)
 
         device_id = get_device_id(request) or secrets.token_urlsafe(24)
         if not _register_device(request, user, device_id):
-            return _login_redirect(role, device_limit=1)
+            return _login_redirect(request, role, device_limit=1)
 
         auth_login(request, user)
         legal.record_acceptance(user)
-        response = redirect("admin:index" if role == "staff" else "dashboard")
+        destination = (_staff_login_next(request) or "admin:index") if role == "staff" else "dashboard"
+        response = redirect(destination)
         response.set_cookie(
             DEVICE_COOKIE, device_id, max_age=DEVICE_COOKIE_AGE, httponly=True,
             secure=settings.SESSION_COOKIE_SECURE, samesite="Lax",

@@ -82,6 +82,7 @@
                 <form method="post" action="{% url 'login' %}" class="login-form" id="login-form">
                     {% csrf_token %}
                     <input type="hidden" name="role" id="role-input" value="">
+                    {% if request.GET.next %}<input type="hidden" name="next" value="{{ request.GET.next }}">{% endif %}
 
                     <div class="login-field login-phone" data-role-field="student">
                         <span class="login-cc" aria-hidden="true">+998</span>
