@@ -34,4 +34,48 @@
     label.textContent = value;
     labels.appendChild(label);
   }
+
+  const page = document.querySelector(".result-page--real");
+  if (!page || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  const gauge = page.querySelector(".result-gauge");
+  const needle = gauge.querySelector(".result-gauge__needle");
+  const number = gauge.querySelector(".result-gauge__number");
+  const caption = gauge.querySelector(".result-gauge__label");
+  const score = Number(gauge.getAttribute("aria-valuenow"));
+  const resultCaption = caption.textContent;
+  const sweepDuration = 650;
+  const countDuration = 1100;
+  const start = performance.now();
+
+  function pointNeedle(percent) {
+    needle.setAttribute("transform", `rotate(${percent * 1.8} ${centerX} ${centerY})`);
+  }
+
+  function animate(now) {
+    const elapsed = Math.max(0, now - start);
+    if (elapsed < sweepDuration) {
+      // Sweep the dial before counting so a zero score still has a visible animation.
+      pointNeedle(Math.sin(Math.PI * elapsed / sweepDuration) * 100);
+    } else {
+      const progress = Math.min(1, (elapsed - sweepDuration) / countDuration);
+      const displayed = score * (1 - (1 - progress) ** 3);
+      pointNeedle(displayed);
+      number.textContent = Math.round(displayed);
+      if (progress === 1) {
+        caption.textContent = resultCaption;
+        gauge.removeAttribute("aria-busy");
+        page.classList.replace("result-page--counting", "result-page--revealed");
+        return;
+      }
+    }
+    requestAnimationFrame(animate);
+  }
+
+  page.classList.add("result-page--counting");
+  gauge.setAttribute("aria-busy", "true");
+  caption.textContent = caption.dataset.countingLabel;
+  number.textContent = "0";
+  pointNeedle(0);
+  requestAnimationFrame(animate);
 })();

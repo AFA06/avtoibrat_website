@@ -29,6 +29,16 @@
 
 .result-page--real .result-gauge__dial { height: auto; }
 
+.result-page--counting .result-summary { grid-template-columns: minmax(0, 1fr); }
+.result-page--counting :is(.real-verdict, .result-stats, .result-grid, .rw, .result-actions) { display: none; }
+.result-page--revealed :is(.real-verdict, .result-stats, .result-grid, .rw, .result-actions) {
+  animation: result-details-in .3s ease-out both;
+}
+
+@keyframes result-details-in {
+  from { opacity: 0; transform: translateY(6px); }
+}
+
 .result-gauge__scale {
   fill: none;
   stroke: url(#result-score-gradient);
@@ -125,5 +135,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .result-page--revealed :is(.real-verdict, .result-stats, .result-grid, .rw, .result-actions),
   .result-road__car, .result-road__wheel, .result-road__line { animation: none; }
 }

@@ -154,6 +154,7 @@ class RealResultPageTests(TestCase):
         self.assertContains(response, 'class="real-certificate"')
         self.assertContains(response, 'class="real-certificate__name">Ali')
         self.assertContains(response, 'class="result-gauge__scale"')
+        self.assertContains(response, 'data-counting-label=')
         self.assertContains(response, 'transform="rotate(180 110 112)"')
         self.assertContains(response, 'class="result-road__car"')
         self.assertNotContains(response, 'id="reveal-data"')
@@ -174,6 +175,7 @@ class RealResultPageTests(TestCase):
         session.save()
         response = self.client.get(reverse("test_result", args=[session.pk]))
         self.assertContains(response, 'class="result-gauge__fill"')
+        self.assertNotContains(response, 'data-counting-label=')
         self.assertNotContains(response, 'class="result-road__car"')
 
 

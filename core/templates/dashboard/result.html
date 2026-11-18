@@ -58,8 +58,8 @@
             {% endif %}
             <circle class="result-gauge__hub" cx="110" cy="112" r="7" />
           </svg>
-          <strong class="result-gauge__value">{{ score_percent }}<span>%</span></strong>
-          <span class="result-gauge__label">{% trans "Natija" %}</span>
+          <strong class="result-gauge__value"><span class="result-gauge__number">{{ score_percent }}</span><span class="result-gauge__unit">%</span></strong>
+          <span class="result-gauge__label"{% if real_result %} data-counting-label="{% trans 'Natija hisoblanmoqda…' %}"{% endif %}>{% trans "Natija" %}</span>
         </div>
         <script src="{% static 'dashboard/result-gauge.js' %}"></script>
         {% if real_result %}{% include "dashboard/_real_result_verdict.html" %}{% endif %}

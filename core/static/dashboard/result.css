@@ -115,7 +115,7 @@ body {
 .result-gauge__needle { fill: none; stroke: #e6e9f0; stroke-width: 4; stroke-linecap: round; }
 .result-gauge__hub { fill: #3a6ff0; stroke: #e6e9f0; stroke-width: 3; }
 .result-gauge__value { font-size: 34px; line-height: 1; }
-.result-gauge__value span { font-size: 20px; color: var(--result-text-dim); }
+.result-gauge__unit { font-size: 20px; color: var(--result-text-dim); }
 .result-gauge__label { margin-top: 5px; color: var(--result-text-dim); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
 @media (prefers-reduced-motion: reduce) {
   .result-gauge__fill { animation: none; stroke-dasharray: var(--score) 100; }
