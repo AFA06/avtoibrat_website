@@ -239,6 +239,18 @@ msgstr "Быстрая связь"
 msgid "Chiqish"
 msgstr "Выйти"
 
+msgid "Yangi parol tanlang"
+msgstr "Выберите новый пароль"
+
+msgid "Davom etish uchun vaqtinchalik parolingizni almashtiring."
+msgstr "Чтобы продолжить, смените временный пароль."
+
+msgid "Vaqtinchalik paroldan boshqa parol tanlang."
+msgstr "Выберите пароль, отличный от временного."
+
+msgid "Saqlash"
+msgstr "Сохранить"
+
 #: templates/dashboard/contact-list.html:199
 msgid "Muammolar bo'yicha tezkor bog'lanish"
 msgstr "Быстрая связь по вопросам"

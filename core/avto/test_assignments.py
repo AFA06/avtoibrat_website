@@ -80,7 +80,8 @@ class ProgressTests(AssignmentFixture):
 
 class AdminPagesTests(AssignmentFixture):
     def setUp(self):
-        self.client.force_login(self.teacher)
+        self.owner = User.objects.create_superuser(username="owner", password="x")
+        self.client.force_login(self.owner)
 
     def test_pages_render(self):
         task = self.express_task()
@@ -120,7 +121,7 @@ class AdminPagesTests(AssignmentFixture):
         task = Assignment.objects.get()
         self.assertRedirects(response, reverse("assignments:detail", args=[task.pk]))
         self.assertIsNone(task.group)
-        self.assertEqual(task.created_by, self.teacher)
+        self.assertEqual(task.created_by, self.owner)
 
     def test_group_task_needs_a_group(self):
         response = self.client.post(reverse("assignments:create"), {
@@ -140,6 +141,21 @@ class AdminPagesTests(AssignmentFixture):
         task = self.express_task()
         self.client.post(reverse("assignments:delete", args=[task.pk]))
         self.assertFalse(Assignment.objects.exists())
+
+    def test_teacher_can_assign_only_their_groups(self):
+        self.group.teacher = self.teacher
+        self.group.save(update_fields=["teacher"])
+        other_group = StudyGroup.objects.create(name="Other", category="B", branch=self.branch)
+        other_task = Assignment.objects.create(title="Other", audience="group", group=other_group)
+        self.client.force_login(self.teacher)
+        self.assertEqual(self.client.post(reverse("assignments:delete", args=[other_task.pk])).status_code, 404)
+        data = {"title": "My group", "audience": "group", "group": self.group.pk, "tests_per_day": 10}
+        data["start_date"] = self.today.isoformat()
+        response = self.client.post(reverse("assignments:create"), {**data, "audience": "express"})
+        self.assertIn("audience", response.context["form"].errors)
+        response = self.client.post(reverse("assignments:create"), {**data, "group": other_group.pk})
+        self.assertIn("group", response.context["form"].errors)
+        self.assertEqual(self.client.post(reverse("assignments:create"), data).status_code, 302)
 
 
 class StudentTasksTests(AssignmentFixture):

@@ -8,7 +8,8 @@ from django.views.decorators.http import require_POST
 
 from .models import User, normalize_phone
 from .student_forms import MIN_PASSWORD_LENGTH, PHONE_DIGITS, generate_password
-from .student_views import _page
+from . import lockout
+from .student_views import _page, _temporary_credentials
 
 
 def superuser_required(view):
@@ -29,7 +30,7 @@ def _teachers():
 
 class TeacherForm(forms.ModelForm):
     phone = forms.CharField(label="Telefon raqami", max_length=12, required=False)
-    password = forms.CharField(label="Parol", min_length=MIN_PASSWORD_LENGTH, max_length=64)
+    password = forms.CharField(label="Vaqtinchalik parol", min_length=MIN_PASSWORD_LENGTH, max_length=64, required=False)
 
     class Meta:
         model = User
@@ -43,7 +44,6 @@ class TeacherForm(forms.ModelForm):
         self.instance.is_staff = True  # so model validation treats this as staff (phone optional)
         if self.instance.pk:
             self.initial["phone"] = self.instance.phone_display
-            self.initial["password"] = self.instance.initial_password
 
     def clean_phone(self):
         digits = normalize_phone(self.cleaned_data["phone"])
@@ -55,10 +55,18 @@ class TeacherForm(forms.ModelForm):
         teacher = super().save(commit=False)
         teacher.is_staff = True
         teacher.unlimited = True
-        teacher.initial_password = self.cleaned_data["password"].strip()
-        teacher.set_password(teacher.initial_password)
+        self.temporary_password = self.cleaned_data["password"] or (generate_password() if teacher._state.adding else "")
+        if self.temporary_password:
+            teacher.set_password(self.temporary_password)
+            teacher.must_change_password = True
         if commit:
-            teacher.save()
+            if teacher._state.adding:
+                teacher.save()
+            else:
+                fields = self._meta.fields
+                if self.temporary_password:
+                    fields += ("password", "must_change_password")
+                teacher.save(update_fields=fields)
         return teacher
 
 
@@ -82,7 +90,10 @@ def teacher_form(request, pk=None):
     form = TeacherForm(request.POST or None, instance=teacher)
     if request.method == "POST" and form.is_valid():
         saved = form.save()
-        messages.success(request, f"{saved.get_full_name()} saqlandi. Login: {saved.username}, parol: {saved.initial_password}")
+        if form.temporary_password:
+            lockout.clear(saved.username)
+            return _temporary_credentials(request, saved.username, form.temporary_password, "teachers:list")
+        messages.success(request, f"{saved.get_full_name()} saqlandi.")
         return redirect("teachers:list")
     return render(request, "admin/teachers/form.html", _page(
         request, teacher.get_full_name() if teacher else "Yangi o‘qituvchi", form=form, teacher=teacher,

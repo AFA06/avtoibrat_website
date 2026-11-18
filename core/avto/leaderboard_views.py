@@ -16,7 +16,7 @@ def _rank_of(rows, user):
 @login_required
 def student_leaderboard(request):
     user = request.user
-    everyone = User.objects.filter(is_staff=False, is_superuser=False).select_related("group")
+    everyone = User.objects.filter(is_staff=False, is_superuser=False, archived_at__isnull=True).select_related("group")
     has_group = bool(user.group_id)
 
     scope = request.GET.get("scope") or ("group" if has_group else "all")

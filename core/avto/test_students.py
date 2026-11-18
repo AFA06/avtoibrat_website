@@ -1,10 +1,10 @@
-from datetime import date, timedelta
+from datetime import timedelta
 
 from django.test import TestCase
 from django.utils import timezone
 from django.urls import reverse
 
-from .models import User
+from .models import Branch, StudyGroup, TestCategory, TestSession, User
 from .student_forms import generate_password
 
 FORM = {
@@ -14,37 +14,46 @@ FORM = {
 
 
 class PasswordGeneratorTests(TestCase):
-    def test_name_and_birth_year(self):
-        self.assertEqual(generate_password("Abdurashid", date(2006, 5, 1)), "Abdu2006")
-
-    def test_cyrillic_name_is_transliterated(self):
-        self.assertEqual(generate_password("Абдурашид", date(2006, 5, 1)), "Abdu2006")
-
-    def test_random_variant_has_four_digits(self):
-        password = generate_password("Abdurashid", date(2006, 5, 1), randomize=True)
-        self.assertRegex(password, r"^Abdu\d{4}$")
+    def test_generated_passwords_use_random_tokens(self):
+        passwords = {generate_password() for _ in range(5)}
+        self.assertEqual(len(passwords), 5)
+        self.assertTrue(all(len(password) >= 20 for password in passwords))
 
 
 class StudentSectionTests(TestCase):
     def setUp(self):
         self.teacher = User.objects.create_user(username="teacher", password="x", is_staff=True, unlimited=True)
         self.client.force_login(self.teacher)
+        branch = Branch.objects.create(school_name="Avto", name="Main")
+        self.group = StudyGroup.objects.create(name="52", category="B", branch=branch, teacher=self.teacher)
 
     def create(self, **extra):
-        return self.client.post(reverse("students:create"), {**FORM, **extra})
+        return self.client.post(reverse("students:create"), {**FORM, "group": self.group.pk, **extra})
 
     def test_requires_staff(self):
         self.client.logout()
         self.assertEqual(self.client.get(reverse("students:list")).status_code, 302)
 
-    def test_create_student_logs_in_with_phone_and_password(self):
-        self.assertRedirects(self.create(), reverse("students:list"))
+    def test_temporary_password_must_be_replaced_before_access(self):
+        issued = self.create()
+        self.assertContains(issued, "Abdu2006")
+        self.assertIn("no-store", issued.headers["Cache-Control"])
         student = User.objects.get(phone="999999999")
-        self.assertEqual((student.username, student.initial_password), ("999999999", "Abdu2006"))
-        self.assertTrue(student.unlimited and not student.is_staff)
+        self.assertEqual(student.username, "999999999")
+        self.assertTrue(student.unlimited and not student.is_staff and student.must_change_password)
         self.assertTrue(student.check_password("Abdu2006"))
-        response = self.client.post(reverse("login"), {"role": "student", "username": "99-999-99-99", "password": "Abdu2006", "accept_terms": "1"})
+        self.assertNotContains(self.client.get(reverse("students:list")), "Abdu2006")
+        credentials = {"role": "student", "username": "99-999-99-99", "password": "Abdu2006", "accept_terms": "1"}
+        change = reverse("change_temporary_password")
+        self.assertRedirects(self.client.post(reverse("login"), credentials), change, fetch_redirect_response=False)
+        self.assertRedirects(self.client.get(reverse("dashboard")), change, fetch_redirect_response=False)
+        permanent = "my-new-permanent-password"
+        response = self.client.post(change, {"new_password1": permanent, "new_password2": permanent})
         self.assertRedirects(response, reverse("dashboard"), fetch_redirect_response=False)
+        student.refresh_from_db()
+        self.assertFalse(student.must_change_password or student.check_password("Abdu2006"))
+        self.assertTrue(student.check_password(permanent))
+        self.assertEqual(self.client.get(reverse("dashboard")).status_code, 200)
 
     def test_phone_must_be_nine_digits_and_unique(self):
         self.assertEqual(self.create(phone="99-999-99").status_code, 200)
@@ -65,13 +74,15 @@ class StudentSectionTests(TestCase):
         student.refresh_from_db()
         self.assertTrue(student.is_active and not student.is_blocked)
 
-    def test_reset_password_changes_visible_and_real_password(self):
+    def test_reset_password_replaces_the_hash_and_displays_once(self):
         self.create()
         student = User.objects.get(phone="999999999")
-        self.client.post(reverse("students:reset_password", args=[student.pk]))
+        response = self.client.post(reverse("students:reset_password", args=[student.pk]))
+        password = response.context["temporary_password"]
         student.refresh_from_db()
-        self.assertNotEqual(student.initial_password, "Abdu2006")
-        self.assertTrue(student.check_password(student.initial_password))
+        self.assertFalse(student.check_password("Abdu2006"))
+        self.assertTrue(student.must_change_password and student.check_password(password))
+        self.assertNotContains(self.client.get(reverse("students:list")), password)
 
     def test_search_by_name_and_phone(self):
         self.create()
@@ -81,11 +92,25 @@ class StudentSectionTests(TestCase):
         by_phone = self.client.get(reverse("students:list"), {"q": "90-123"})
         self.assertEqual(by_phone.context["page"][0].first_name, "Ali")
 
-    def test_delete_student(self):
+    def test_archive_preserves_student_history_and_can_be_restored(self):
         self.create()
         student = User.objects.get(phone="999999999")
-        self.client.post(reverse("students:delete", args=[student.pk]))
-        self.assertFalse(User.objects.filter(pk=student.pk).exists())
+        category = TestCategory.objects.create(nomi="Bilet")
+        attempt = TestSession.objects.create(user=student, category=category, test_kind="shablon")
+        archive = reverse("students:archive", args=[student.pk])
+        self.assertEqual(self.client.post(archive).status_code, 403)
+        self.client.force_login(User.objects.create_superuser(username="owner", password="x"))
+        self.client.post(archive)
+        student.refresh_from_db()
+        self.assertEqual(student.access_state, "archived")
+        self.assertFalse(student.is_active)
+        self.assertTrue(TestSession.objects.filter(pk=attempt.pk).exists())
+        self.assertNotIn(student, self.client.get(reverse("students:list")).context["page"])
+        archive_page = self.client.get(reverse("students:list"), {"status": "archived"})
+        self.assertIn(student, archive_page.context["page"])
+        self.client.post(reverse("students:restore", args=[student.pk]))
+        student.refresh_from_db()
+        self.assertTrue(student.is_active)
 
     def test_staff_cannot_be_edited_here(self):
         self.assertEqual(self.client.get(reverse("students:edit", args=[self.teacher.pk])).status_code, 404)
@@ -93,8 +118,7 @@ class StudentSectionTests(TestCase):
 
 class AccessWindowTests(TestCase):
     def setUp(self):
-        self.teacher = User.objects.create_user(username="teacher", password="x", is_staff=True, unlimited=True)
-        self.client.force_login(self.teacher)
+        self.client.force_login(User.objects.create_superuser(username="owner", password="x"))
         now = timezone.now()
         self.open = self.student("open", unlimited=True)
         self.running = self.student("running", account_started_at=now - timedelta(days=5), account_expires_at=now + timedelta(days=5))

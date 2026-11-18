@@ -17,7 +17,7 @@ MODES = ("quick", "all", "mistakes")
 
 
 def question_pool(topic):
-    return Question.objects.filter(Q(mavzu=topic) | Q(extra_topics=topic), kategoriya__aktiv=True).distinct()
+    return Question.objects.filter(Q(mavzu=topic) | Q(extra_topics=topic), kategoriya__aktiv=True, is_archived=False).distinct()
 
 
 def latest_results(user):
@@ -36,7 +36,7 @@ def page_groups(user):
     """The topic groups with their topics and the student's progress in each; empty groups are left out."""
     results = latest_results(user)
     by_topic = {}
-    live = Question.objects.filter(kategoriya__aktiv=True)
+    live = Question.objects.filter(kategoriya__aktiv=True, is_archived=False)
     pairs = list(live.filter(mavzu__isnull=False).values_list("id", "mavzu_id"))
     pairs += list(live.filter(extra_topics__isnull=False).values_list("id", "extra_topics"))
     for question_id, topic_id in pairs:

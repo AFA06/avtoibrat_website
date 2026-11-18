@@ -53,7 +53,7 @@ Static file URLs are automatically suffixed with the file's modification time (`
 
 ## Login and roles
 
-- **Students** log in with their phone number (any format, with or without `+998`) and password. The login form fixes `+998` and masks the rest as `99-999-99-99`. Teachers manage students in **Admin → Talabalar** (`/admin/students/`, `avto/student_views.py`): create/edit, search, group filter, auto-generated passwords (name + birth year, e.g. `Abdu2006`), visible passwords (`User.initial_password`), reset, block/unblock (`User.is_blocked`) and delete. Students cannot change their password.
+- **Students** log in with their phone number and password. Teachers can create and manage students in their assigned groups under **Admin → Talabalar**. Administrators can also archive and restore accounts. On creation or reset, share the temporary password shown on the confirmation page. The account holder must replace it before using the platform.
 - **Staff** (instructors, teachers, admins) log in with their username and password, and are sent to the Django admin. The staff profile on the login page only accepts accounts with `is_staff=True`.
 - The login page (`templates/dashboard/login.html`) is a two-step flow: pick a profile (Student/Staff), then enter credentials. `Parolni unutdingizmi?` links to `forgotlogin.html`, which lists the active contacts from `ContactPerson` (admin panel) for the student to call — there is no self-service password reset.
 - A student's exam/question language (`User.group_language`: uz / uz-kr / ru) is independent of the site's UI language switcher — set per student in the admin to match the group they study in.
@@ -114,9 +114,9 @@ python manage.py compilemessages
 
 ## Admin workflow (Students → Teachers → Groups)
 
-1. **O‘qituvchilar** (`/admin/teachers/`, superusers only): create a teacher (login + generated password). Teachers are staff accounts and log in via the «Xodim» profile.
-2. **Talabalar** (`/admin/students/`): create a student (phone login + generated password). A group can be chosen right away or left empty.
-3. **Guruhlar** (`/admin/groups/`): create a group (name, category, branch, **teacher picked from the list**, and a **lesson schedule**: click the day chips — or the `Toq kunlar Du-Chor-Ju` / `Juft kunlar Se-Pay-Shan` presets — and pick a start time; the end time fills itself in as start + 2 h. Stored as `lesson_days` / `lesson_start` / `lesson_end`; `StudyGroup.lesson_time` renders «Du-Chor-Ju · 19:00–21:00»). Open the group → **Talaba qo‘shish** lists existing students (search, multi-select; students already in another group are moved). The ✕ button removes a student from the group.
+1. **O‘qituvchilar** (`/admin/teachers/`, superusers only): create a teacher and share their username and temporary password. Teachers log in through the **Xodim** profile.
+2. **Talabalar** (`/admin/students/`): create a student with a phone login and temporary password. Teachers must choose one of their assigned groups. Administrators can leave the group empty.
+3. **Guruhlar** (`/admin/groups/`): administrators create groups, assign teachers, configure lesson schedules and move students between groups. Teachers see only their assigned groups and related monitoring data.
 4. **Changing a student's group**: open the student → «Boshqa guruhga o‘tkazish» → pick the new group → save. The group, teacher and lesson time on the student's profile update automatically; no remove/re-add.
 5. **Access window (when a student can log in):** a new student is *open-ended* — active until the teacher ends it, because nobody knows in advance when they will pass the exam. Instead of guessing a date, use the student's ⋮ menu → **Kirish muddati**: `+2 hafta`, `+1 oy`, `+2 oy` (added on top of the current end date, or from today if it already expired) or `Muddatsiz qilish`. When the date passes the student can no longer log in; extending reopens the account instantly. **Bloklash** is a separate manual switch that overrides everything. Status labels and filters share one rule (`User.access_state`), so they can never disagree; students with no end date are open-ended (migration `0014`). The Talabalar filters are exact: *Faol* (not blocked, not expired), *Muddati tugagan*, *Bloklangan*.
 6. The student's `/profile/` shows group, teacher, lesson time, branch and category.

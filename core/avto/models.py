@@ -380,12 +380,8 @@ class User(AbstractUser):
         default=False,
         help_text="O‘qituvchi tomonidan o‘chirilgan hisob: muddatidan qat’i nazar kira olmaydi.",
     )
-    initial_password = models.CharField(
-        "Talaba paroli",
-        max_length=64,
-        blank=True,
-        help_text="Faqat xodimlarga ko‘rinadi — talaba parolni unutsa, o‘qituvchi shu yerdan aytadi.",
-    )
+    must_change_password = models.BooleanField(default=False, db_default=False)
+    archived_at = models.DateTimeField(null=True, blank=True)
     is_express = models.BooleanField(
         "Express kursida",
         default=False,
@@ -451,13 +447,15 @@ class User(AbstractUser):
     def has_active_account(self):
         if self.is_superuser:
             return True
-        if self.is_blocked:
+        if self.is_blocked or self.archived_at:
             return False
         return self.unlimited or self.vaqt_boyicha_faolmi()
 
     @property
     def access_state(self):
         """The one rule behind every status label/filter: blocked, expired or active."""
+        if self.archived_at:
+            return "archived"
         if self.is_blocked and not self.is_superuser:
             return "blocked"
         return "active" if self.has_active_account() else "expired"
@@ -575,6 +573,7 @@ class TestType(models.Model):
 class Question(models.Model):
     test_turi = models.ForeignKey(TestType, on_delete=models.CASCADE)
     kategoriya = models.ForeignKey(TestCategory, on_delete=models.CASCADE)
+    is_archived = models.BooleanField(default=False, db_default=False)
     mavzu = models.ForeignKey(
         Topic, verbose_name="Mavzu", null=True, blank=True,
         on_delete=models.SET_NULL, related_name="questions",
@@ -909,7 +908,7 @@ class Assignment(models.Model):
 
     def students(self):
         """The students this task is for."""
-        students = User.objects.filter(is_staff=False, is_superuser=False)
+        students = User.objects.filter(is_staff=False, is_superuser=False, archived_at__isnull=True)
         if self.audience == "express":
             return students.filter(is_express=True)
         return students.filter(group_id=self.group_id)

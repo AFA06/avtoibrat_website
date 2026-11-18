@@ -8,7 +8,8 @@ from django.views.decorators.http import require_POST
 
 from .leaderboard import PERIODS, SORTS, build, split_podium
 from .models import StudyGroup, User
-from .student_views import _page, _students
+from .admin_access import groups_for, school_admin_required, students_for
+from .student_views import _page
 
 
 def _time_choices(first=7, last=22):
@@ -60,9 +61,9 @@ class GroupForm(forms.ModelForm):
         return group
 
 
-def _summaries(groups):
+def _summaries(groups, students):
     """Per-group student count, average accuracy, total points and current leader."""
-    ranked = build(_students())
+    ranked = build(students)
     by_group = {}
     for row in ranked:
         by_group.setdefault(row.student.group_id, []).append(row)
@@ -79,7 +80,7 @@ def _summaries(groups):
 def group_list(request):
     query = request.GET.get("q", "").strip()
     category = request.GET.get("category", "")
-    groups = StudyGroup.objects.select_related("branch", "teacher").annotate(
+    groups = groups_for(request.user).select_related("branch", "teacher").annotate(
         student_count=Count("students", filter=Q(students__is_staff=False)),
     )
     if query:
@@ -89,16 +90,16 @@ def group_list(request):
         groups = groups.filter(category=category)
     return render(request, "admin/groups/list.html", _page(
         request, "Guruhlar",
-        groups=_summaries(list(groups.order_by("name"))),
+        groups=_summaries(list(groups.order_by("name")), students_for(request.user)),
         query=query, category=category, categories=StudyGroup.CATEGORY_CHOICES,
-        total=StudyGroup.objects.count(),
-        ungrouped=_students().filter(group__isnull=True).count(),
+        total=groups_for(request.user).count(),
+        ungrouped=students_for(request.user).filter(group__isnull=True).count(),
     ))
 
 
-@staff_member_required
+@school_admin_required
 def group_form(request, pk=None):
-    group = get_object_or_404(StudyGroup, pk=pk) if pk else None
+    group = get_object_or_404(groups_for(request.user), pk=pk) if pk else None
     form = GroupForm(request.POST or None, instance=group)
     if request.method == "POST" and form.is_valid():
         saved = form.save()
@@ -112,10 +113,10 @@ def group_form(request, pk=None):
 
 @staff_member_required
 def group_detail(request, pk):
-    group = get_object_or_404(StudyGroup.objects.select_related("branch", "teacher"), pk=pk)
+    group = get_object_or_404(groups_for(request.user).select_related("branch", "teacher"), pk=pk)
     period = request.GET.get("period", "all")
     sort = request.GET.get("sort", "points")
-    rows = build(_students().filter(group=group), period, sort)
+    rows = build(students_for(request.user).filter(group=group), period, sort)
     podium, rest = split_podium(rows)
     accuracies = [r.accuracy for r in rows if r.accuracy is not None]
     return render(request, "admin/groups/detail.html", _page(
@@ -123,17 +124,18 @@ def group_detail(request, pk):
         group=group, rows=rows, podium=podium, rest=rest, period=period, sort=sort,
         periods=PERIODS, sorts=SORTS, period_label=PERIODS.get(period, PERIODS['all'])[0].lower(),
         accuracy_avg=round(sum(accuracies) / len(accuracies)) if accuracies else None,
-        candidates=_students().exclude(group=group).order_by(F("group").asc(nulls_first=True), "first_name"),
+        candidates=(students_for(request.user).exclude(group=group).order_by(F("group").asc(nulls_first=True), "first_name")
+                    if request.user.is_superuser else []),
         solved_total=sum(r.solved for r in rows),
         active_count=sum(1 for r in rows if r.tests),
     ))
 
 
-@staff_member_required
+@school_admin_required
 @require_POST
 def group_add_students(request, pk):
-    group = get_object_or_404(StudyGroup, pk=pk)
-    moved = _students().filter(pk__in=request.POST.getlist("students")).update(group=group)
+    group = get_object_or_404(groups_for(request.user), pk=pk)
+    moved = students_for(request.user).filter(pk__in=request.POST.getlist("students")).update(group=group)
     if moved:
         messages.success(request, f"{moved} ta talaba «{group.name}» guruhiga qo‘shildi.")
     else:
@@ -141,19 +143,19 @@ def group_add_students(request, pk):
     return redirect("groups:detail", pk=group.pk)
 
 
-@staff_member_required
+@school_admin_required
 @require_POST
 def group_remove_student(request, pk, student_id):
-    group = get_object_or_404(StudyGroup, pk=pk)
-    _students().filter(pk=student_id, group=group).update(group=None)
+    group = get_object_or_404(groups_for(request.user), pk=pk)
+    students_for(request.user).filter(pk=student_id, group=group).update(group=None)
     messages.success(request, "Talaba guruhdan chiqarildi.")
     return redirect("groups:detail", pk=group.pk)
 
 
-@staff_member_required
+@school_admin_required
 @require_POST
 def group_delete(request, pk):
-    group = get_object_or_404(StudyGroup, pk=pk)
+    group = get_object_or_404(groups_for(request.user), pk=pk)
     name = group.name
     group.delete()
     messages.success(request, f"«{name}» guruhi o‘chirildi. Talabalar guruhsiz qoldi.")
@@ -167,7 +169,7 @@ def leaderboard(request):
     sort = request.GET.get("sort", "points")
     query = request.GET.get("q", "").strip()
 
-    students = _students()
+    students = students_for(request.user)
     if group_id.isdigit():
         students = students.filter(group_id=group_id)
     rows = build(students, period, sort)
@@ -177,5 +179,5 @@ def leaderboard(request):
     return render(request, "admin/groups/leaderboard.html", _page(
         request, "Reyting",
         rows=rows, podium=podium, rest=rest, group_id=group_id, period=period, sort=sort, query=query,
-        groups=StudyGroup.objects.select_related("branch"), periods=PERIODS, sorts=SORTS,
+        groups=groups_for(request.user).select_related("branch"), periods=PERIODS, sorts=SORTS,
     ))

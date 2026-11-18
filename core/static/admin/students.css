@@ -66,14 +66,10 @@ a.sd-stat--link:hover { transform: translateY(-2px); box-shadow: 0 10px 24px -10
 .sd-person b { display: block; font-weight: 600; }
 .sd-person small { color: var(--sd-muted); }
 .sd-avatar { flex: none; width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%; background: var(--sd-green-bg); color: var(--sd-green); font-weight: 700; }
-.sd-mono, .sd-pass code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; white-space: nowrap; }
+.sd-mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; white-space: nowrap; }
 .sd-muted { color: var(--sd-muted); }
 .sd-group { font-weight: 600; }
 .sd-tag { display: inline-block; padding: 1px 8px; border-radius: 6px; background: var(--sd-soft); border: 1px solid var(--sd-line); color: var(--sd-muted); font-size: 12px; font-weight: 600; }
-.sd-pass { display: inline-flex; align-items: center; gap: 2px; padding: 3px 4px 3px 10px; border: 1px solid var(--sd-line); border-radius: 8px; }
-.sd-pass code { color: inherit; background: none; padding: 0; margin-right: 4px; }
-.sd-pass button { width: 28px; height: 28px; border: 0; border-radius: 6px; background: transparent; color: var(--sd-muted); cursor: pointer; }
-.sd-pass button:hover { background: var(--sd-soft); color: var(--sd-text); }
 .sd-status { display: inline-flex; align-items: center; gap: 6px; padding: 2px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; }
 .sd-status::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
 .sd-status.is-green { background: var(--sd-green-bg); color: var(--sd-green); }

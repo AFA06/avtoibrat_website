@@ -7,7 +7,8 @@ from django.utils import timezone
 from django.views.decorators.http import require_POST
 
 from .assignments import progress, summary
-from .models import Assignment, StudyGroup
+from .admin_access import assignments_for, groups_for
+from .models import Assignment
 from .student_views import _page
 
 
@@ -22,13 +23,16 @@ class AssignmentForm(forms.ModelForm):
             "title": forms.TextInput(attrs={"placeholder": "Masalan: Kunlik 25 ta test"}),
         }
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, staff, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["group"].queryset = StudyGroup.objects.select_related("branch")
+        self.fields["group"].queryset = groups_for(staff).select_related("branch")
         self.fields["group"].empty_label = "— Guruhni tanlang —"
         self.fields["group"].label_from_instance = lambda g: f"{g.name} · {g.category}"
         self.fields["group"].required = False
-        self.fields["audience"].widget = forms.RadioSelect(choices=Assignment.AUDIENCE_CHOICES)
+        if not staff.is_superuser:
+            self.fields["audience"].choices = [("group", "Guruh")]
+            self.initial["audience"] = "group"
+        self.fields["audience"].widget = forms.RadioSelect(choices=self.fields["audience"].choices)
 
 
 def _with_summary(assignment, today):
@@ -41,7 +45,7 @@ def _with_summary(assignment, today):
 @staff_member_required
 def assignment_list(request):
     today = timezone.localdate()
-    assignments = [_with_summary(a, today) for a in Assignment.objects.select_related("group")]
+    assignments = [_with_summary(a, today) for a in assignments_for(request.user).select_related("group")]
     return render(request, "admin/assignments/list.html", _page(
         request, "Vazifalar", assignments=assignments,
         running_count=sum(1 for a in assignments if a.running),
@@ -50,8 +54,8 @@ def assignment_list(request):
 
 @staff_member_required
 def assignment_form(request, pk=None):
-    assignment = get_object_or_404(Assignment, pk=pk) if pk else None
-    form = AssignmentForm(request.POST or None, instance=assignment)
+    assignment = get_object_or_404(assignments_for(request.user), pk=pk) if pk else None
+    form = AssignmentForm(request.POST or None, instance=assignment, staff=request.user)
     if request.method == "POST" and form.is_valid():
         saved = form.save(commit=False)
         saved.created_by = saved.created_by or request.user
@@ -65,7 +69,7 @@ def assignment_form(request, pk=None):
 
 @staff_member_required
 def assignment_detail(request, pk):
-    assignment = get_object_or_404(Assignment.objects.select_related("group"), pk=pk)
+    assignment = get_object_or_404(assignments_for(request.user).select_related("group"), pk=pk)
     today = timezone.localdate()
     rows = progress(assignment, today=today)
     return render(request, "admin/assignments/detail.html", _page(
@@ -77,7 +81,7 @@ def assignment_detail(request, pk):
 @staff_member_required
 @require_POST
 def assignment_delete(request, pk):
-    assignment = get_object_or_404(Assignment, pk=pk)
+    assignment = get_object_or_404(assignments_for(request.user), pk=pk)
     title = assignment.title
     assignment.delete()
     messages.success(request, f"«{title}» vazifasi o‘chirildi.")

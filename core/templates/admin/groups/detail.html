@@ -12,12 +12,15 @@
       <h1>{{ group.name }} <span class="sd-tag">{{ group.category }}</span></h1>
       <p>{{ group.branch }} · {% if group.lesson_time %}{{ group.lesson_time }} · {% endif %}O‘qituvchi: {% if group.teacher %}{{ group.teacher.get_full_name|default:group.teacher.username }}{% else %}biriktirilmagan{% endif %}</p>
     </div>
+    {% if request.user.is_superuser %}
     <div class="sd-head__actions">
       <a class="sd-btn sd-btn--ghost" href="{% url 'groups:edit' group.pk %}"><i class="fas fa-pen"></i> Tahrirlash</a>
       <button type="button" class="sd-btn sd-btn--primary" data-toggle-panel="add-students"><i class="fas fa-user-plus"></i> Talaba qo‘shish</button>
     </div>
+    {% endif %}
   </header>
 
+  {% if request.user.is_superuser %}
   <section class="sd-panel sd-card" id="add-students" hidden>
     <h2>Mavjud talabalarni guruhga qo‘shish</h2>
     <form method="post" action="{% url 'groups:add_students' group.pk %}">
@@ -38,6 +41,8 @@
     </form>
   </section>
 
+  {% endif %}
+
   <section class="sd-stats sd-stats--4">
     <div class="sd-stat"><i class="fas fa-user-graduate sd-ico sd-ico--blue"></i><div><span>Talabalar</span><b>{{ rows|length }}</b></div></div>
     <div class="sd-stat"><i class="fas fa-bolt sd-ico sd-ico--green"></i><div><span>Faol ({{ period_label }})</span><b>{{ active_count }}</b></div></div>
@@ -53,7 +58,7 @@
     </form>
     </section>
   <div class="lb lb--admin">
-    {% include "leaderboard/_board.html" with admin=True removable=True %}
+    {% include "leaderboard/_board.html" with admin=True removable=request.user.is_superuser %}
     {% include "leaderboard/_rules.html" %}
   </div>
 </div></div>

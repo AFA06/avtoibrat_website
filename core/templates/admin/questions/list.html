@@ -64,7 +64,7 @@
                   <input type="file" name="rasm" accept="image/*" data-quick-picture>
                 </label>
               </form>
-              <a href="{% url 'questions:edit' q.pk %}"><span>{{ q.shown_text|highlight:query }}{% if q.audio_uzb or q.audio_rus %} <i class="fas fa-volume-up qs-voice-ico" title="Ovozli tushuntirish bor"></i>{% endif %}</span></a>
+              <a href="{% url 'questions:edit' q.pk %}"><span>{{ q.shown_text|highlight:query }}{% if q.is_archived %} <small class="sd-tag">Arxiv</small>{% endif %}{% if q.audio_uzb or q.audio_rus %} <i class="fas fa-volume-up qs-voice-ico" title="Ovozli tushuntirish bor"></i>{% endif %}</span></a>
             </div>
             {% if q.matching_answers %}
             <ul class="qs-hits">

@@ -69,7 +69,7 @@ class OrderingTests(RoadSignTestCase):
 
 class AdminTests(RoadSignTestCase):
     def setUp(self):
-        self.client.force_login(self.teacher)
+        self.client.force_login(User.objects.create_superuser(username="owner", password="x"))
 
     def test_pages_render(self):
         category = RoadSignCategory.objects.create(title="Taqiq", slug="taqiq")

@@ -9,7 +9,6 @@ from io import BytesIO
 from django import forms
 from django.core.files.base import ContentFile
 from django.contrib import messages
-from django.contrib.admin.views.decorators import staff_member_required
 from django.core.paginator import Paginator
 from django.db import transaction
 from django.db.models import Count, Q
@@ -21,6 +20,7 @@ from django.views.decorators.http import require_POST
 from PIL import Image
 
 from .models import Answer, Question, TestCategory, TestType, Topic, TopicGroup
+from .admin_access import school_admin_required
 from .student_views import _page
 from .views import serve_audio
 
@@ -55,7 +55,7 @@ def _with_numbers(questions):
     return questions
 
 
-@staff_member_required
+@school_admin_required
 def question_list(request):
     query = request.GET.get("q", "").strip()
     bilet_id = request.GET.get("bilet", "")
@@ -244,7 +244,7 @@ def _save_answers(question, uz_rows, ru_rows):
     question.javoblar.exclude(pk__in=kept).delete()
 
 
-@staff_member_required
+@school_admin_required
 def question_form(request, pk=None):
     question = get_object_or_404(Question.objects.prefetch_related("javoblar"), pk=pk) if pk else None
     initial = {}
@@ -300,7 +300,7 @@ class PictureForm(forms.ModelForm):
         fields = ("rasm",)
 
 
-@staff_member_required
+@school_admin_required
 @require_POST
 def question_picture(request, pk):
     """Change (or remove) only the picture; the texts, answers and topics stay untouched."""
@@ -321,7 +321,7 @@ def question_picture(request, pk):
     return redirect(target)
 
 
-@staff_member_required
+@school_admin_required
 def question_audio(request, pk, language):
     """Lets a teacher listen to the stored explanation while editing (students use a gated view)."""
     question = get_object_or_404(Question, pk=pk)
@@ -332,7 +332,7 @@ def question_audio(request, pk, language):
         return serve_audio(request, handle)
 
 
-@staff_member_required
+@school_admin_required
 @require_POST
 def question_audio_delete(request, pk, language):
     """Delete the stored explanation at once (file and field), so a new one can be recorded."""
@@ -343,10 +343,21 @@ def question_audio_delete(request, pk, language):
     return JsonResponse({"ok": True})
 
 
-@staff_member_required
+@school_admin_required
 @require_POST
-def question_delete(request, pk):
+def question_archive(request, pk):
     question = get_object_or_404(Question, pk=pk)
-    question.delete()
-    messages.success(request, "Savol o‘chirildi.")
+    question.is_archived = True
+    question.save(update_fields=["is_archived"])
+    messages.success(request, "Savol arxivlandi.")
+    return redirect("questions:list")
+
+
+@school_admin_required
+@require_POST
+def question_restore(request, pk):
+    question = get_object_or_404(Question, pk=pk)
+    question.is_archived = False
+    question.save(update_fields=["is_archived"])
+    messages.success(request, "Savol arxivdan qaytarildi.")
     return redirect("questions:list")

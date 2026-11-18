@@ -11,8 +11,10 @@ from django.utils import timezone
 from django.utils.http import url_has_allowed_host_and_scheme
 from django.utils.translation import gettext_lazy as _
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth import authenticate, login as auth_login, logout
+from django.contrib.auth import authenticate, login as auth_login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import SetPasswordForm
+from django.contrib.auth.hashers import check_password
 from django.http import JsonResponse, FileResponse, Http404, HttpResponse, HttpResponseRedirect
 from django.contrib.auth import get_user_model
 from django.views.decorators.cache import never_cache
@@ -292,6 +294,9 @@ def login_view(request):
         auth_login(request, user)
         legal.record_acceptance(user)
         destination = (_staff_login_next(request) or "admin:index") if role == "staff" else "dashboard"
+        if user.must_change_password:
+            request.session["post_password_change"] = destination
+            destination = "change_temporary_password"
         response = redirect(destination)
         response.set_cookie(
             DEVICE_COOKIE, device_id, max_age=DEVICE_COOKIE_AGE, httponly=True,
@@ -300,6 +305,33 @@ def login_view(request):
         return response
 
     return render(request, "dashboard/login.html")
+
+
+@never_cache
+@login_required
+def change_temporary_password(request):
+    user = request.user
+    default_destination = "admin:index" if user.is_staff else "dashboard"
+    if not user.must_change_password:
+        return redirect(default_destination)
+
+    form = SetPasswordForm(user, request.POST if request.method == "POST" else None)
+    if request.method == "POST" and form.is_valid():
+        old_hash = user.password
+        if check_password(form.cleaned_data["new_password1"], old_hash):
+            form.add_error("new_password1", _("Vaqtinchalik paroldan boshqa parol tanlang."))
+        else:
+            form.save(commit=False)
+            updated = User.objects.filter(pk=user.pk, password=old_hash, must_change_password=True).update(
+                password=user.password, must_change_password=False,
+            )
+            if not updated:
+                logout(request)
+                return redirect("login")
+            update_session_auth_hash(request, user)
+            return redirect(request.session.pop("post_password_change", default_destination))
+
+    return render(request, "dashboard/change_temporary_password.html", {"form": form})
 
 
 def forgot_login(request):
@@ -461,7 +493,7 @@ def _student_stats(user):
         "total_time": _format_duration(seconds_total),
         "today_time": _format_duration(seconds_today),
         "streak": streak,
-        "saved_count": SavedQuestion.objects.filter(user=user).count(),
+        "saved_count": SavedQuestion.objects.filter(user=user, question__is_archived=False).count(),
         "recent": recent,
         "weak": weak,
         "week_days": week_days,
@@ -552,7 +584,7 @@ SAVED_TEST_SIZE = 20
 def saqlangan(request):
     saved = (
         SavedQuestion.objects
-        .filter(user=request.user)
+        .filter(user=request.user, question__is_archived=False)
         .select_related("question", "question__kategoriya")
     )
 
@@ -579,7 +611,7 @@ def start_saqlangan_test(request):
     """Practice test built only from the student's saved questions (max 20, random order)."""
     question_ids = list(
         SavedQuestion.objects
-        .filter(user=request.user)
+        .filter(user=request.user, question__is_archived=False)
         .order_by("?")
         .values_list("question_id", flat=True)[:SAVED_TEST_SIZE]
     )
@@ -704,19 +736,22 @@ def clear_topic_statistics(request):
 
 def _create_test_session(user, category, test_kind, source="shablon"):
     """Create a session with a fixed, randomly-picked, ordered question set."""
+    question_ids = list(
+        Question.objects
+        .filter(kategoriya=category, is_archived=False)
+        .order_by("?")
+        .values_list("id", flat=True)[:category.question_count]
+    )
+
+    if not question_ids:
+        return None
+
     session = TestSession.objects.create(
         user=user,
         category=category,
         test_kind=test_kind,
         source=source,
         started_at=timezone.now(),
-    )
-
-    question_ids = list(
-        Question.objects
-        .filter(kategoriya=category)
-        .order_by("?")
-        .values_list("id", flat=True)[:category.question_count]
     )
 
     session.questions.set(question_ids)
@@ -735,6 +770,8 @@ def start_shablon_test(request, category_id):
         show_in_shablon=True
     )
     session = _create_test_session(request.user, category, "shablon", "shablon")
+    if session is None:
+        return redirect("journey" if request.GET.get("from") == "journey" else "shablon_test")
     if request.GET.get("from") == "journey":
         # The result of a bilet started on the season road is shown on the road itself.
         request.session[journey.RUN_KEY] = session.id
@@ -760,6 +797,8 @@ def start_ohshash_test(request, category_id):
         show_in_ohshash=True
     )
     session = _create_test_session(request.user, category, "shablon", "ohshash")
+    if session is None:
+        return redirect("ohshash_savollar")
     return redirect("test_page", session_id=session.id)
 
 

@@ -19,7 +19,7 @@ SOURCE = "marafon"
 
 
 def question_pool():
-    return Question.objects.filter(kategoriya__aktiv=True)
+    return Question.objects.filter(kategoriya__aktiv=True, is_archived=False)
 
 
 def ordered_ids():

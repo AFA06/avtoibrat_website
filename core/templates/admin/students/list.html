@@ -39,40 +39,40 @@
         <button name="status" value="active" class="{% if status == 'active' %}is-on{% endif %}">Faol</button>
         <button name="status" value="expired" class="{% if status == 'expired' %}is-on{% endif %}">Muddati tugagan</button>
         <button name="status" value="blocked" class="{% if status == 'blocked' %}is-on{% endif %}">Bloklangan</button>
+        {% if request.user.is_superuser %}<button name="status" value="archived" class="{% if status == 'archived' %}is-on{% endif %}">Arxiv</button>{% endif %}
       </div>
     </form>
 
     <table class="sd-table">
       <thead>
-        <tr><th>Talaba</th><th>Login (telefon)</th><th>Guruh</th><th>Parol</th><th>Holat</th><th></th></tr>
+        <tr><th>Talaba</th><th>Login (telefon)</th><th>Guruh</th><th>Holat</th><th></th></tr>
       </thead>
       <tbody>
       {% for s in page %}
         <tr class="{% if s.is_blocked %}is-blocked{% endif %}">
           <td>
-            <a class="sd-person" href="{% url 'students:edit' s.pk %}">
+            {% if s.archived_at %}<span class="sd-person">{% else %}<a class="sd-person" href="{% url 'students:edit' s.pk %}">{% endif %}
               <span class="sd-avatar">{{ s.initial }}</span>
               <span><b>{{ s.get_full_name|default:s.username }}</b>{% if s.birth_date %}<small>{{ s.birth_date|date:"d.m.Y" }}</small>{% endif %}</span>
-            </a>
+            {% if s.archived_at %}</span>{% else %}</a>{% endif %}
           </td>
           <td class="sd-mono">{% if s.phone %}+998 {{ s.phone_display }}{% else %}<span class="sd-muted">—</span>{% endif %}</td>
           <td>{% if s.group %}<b class="sd-group">{{ s.group.name }}</b> <span class="sd-tag">{{ s.group.category }}</span>{% else %}<span class="sd-muted">Biriktirilmagan</span>{% endif %}</td>
           <td>
-            {% if s.initial_password %}
-            <span class="sd-pass">
-              <code data-password="{{ s.initial_password }}">••••••••</code>
-              <button type="button" data-reveal title="Ko‘rsatish"><i class="fas fa-eye"></i></button>
-              <button type="button" data-copy title="Nusxalash"><i class="far fa-copy"></i></button>
-            </span>
-            {% else %}<span class="sd-muted">Belgilanmagan</span>{% endif %}
-          </td>
-          <td>
-            {% if s.access_state == "blocked" %}<span class="sd-status is-red">Bloklangan</span>
+            {% if s.archived_at %}<span class="sd-status">Arxivlangan</span>
+              {% elif s.access_state == "blocked" %}<span class="sd-status is-red">Bloklangan</span>
               {% elif s.access_state == "expired" %}<span class="sd-status is-amber">Muddati tugagan</span>
               {% else %}<span class="sd-status is-green">Faol</span>{% endif %}
               {% if s.unlimited %}<small class="sd-muted d-block">Muddatsiz</small>{% elif s.account_expires_at %}<small class="sd-muted d-block">{{ s.account_expires_at|date:"d.m.Y" }} gacha</small>{% else %}<small class="sd-muted d-block">Muddat belgilanmagan</small>{% endif %}
           </td>
           <td class="sd-row-actions">
+            {% if s.archived_at %}
+              {% if request.user.is_superuser %}
+              <form method="post" action="{% url 'students:restore' s.pk %}">
+                {% csrf_token %}<button type="submit" class="sd-btn sd-btn--ghost"><i class="fas fa-undo"></i> Arxivdan qaytarish</button>
+              </form>
+              {% endif %}
+            {% else %}
             <a class="sd-btn sd-btn--ghost" href="{% url 'students:edit' s.pk %}">Tahrirlash</a>
             <div class="sd-dd">
               <button type="button" class="sd-kebab" data-menu aria-label="Yana"><i class="fas fa-ellipsis-v"></i></button>
@@ -93,16 +93,19 @@
                   {% csrf_token %}<input type="hidden" name="next" value="{{ request.get_full_path }}">
                   <button ><i class="fas {% if s.is_blocked %}fa-user-check{% else %}fa-user-slash{% endif %}"></i> {% if s.is_blocked %}Faollashtirish{% else %}Bloklash{% endif %}</button>
                 </form>
+                {% if request.user.is_superuser %}
                 <hr>
-                <form method="post" action="{% url 'students:delete' s.pk %}" data-confirm="{{ s.get_full_name|default:s.username }} butunlay o‘chirilsinmi? Barcha natijalari ham yo‘qoladi.">
-                  {% csrf_token %}<button class="is-danger"><i class="fas fa-trash"></i> O‘chirish</button>
+                <form method="post" action="{% url 'students:archive' s.pk %}" data-confirm="{{ s.get_full_name|default:s.username }} arxivlansinmi? Hisob yopiladi, natijalari saqlanadi.">
+                  {% csrf_token %}<button><i class="fas fa-archive"></i> Arxivlash</button>
                 </form>
+                {% endif %}
               </div>
             </div>
+            {% endif %}
           </td>
         </tr>
       {% empty %}
-        <tr><td colspan="6" class="sd-empty">
+        <tr><td colspan="5" class="sd-empty">
           <i class="fas fa-user-graduate"></i>
           {% if query or group_id or status %}<p>Qidiruv bo‘yicha hech narsa topilmadi.</p>
           {% else %}<p>Hali talabalar yo‘q.</p><a class="sd-btn sd-btn--primary" href="{% url 'students:create' %}">Birinchi talabani qo‘shing</a>{% endif %}

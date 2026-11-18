@@ -1,8 +1,8 @@
 from django.test import TestCase
 from django.urls import reverse
 
-from . import topic_tests
-from .models import Answer, Question, TestCategory, TestType, Topic, TopicGroup, User
+from . import marathon, topic_tests
+from .models import Answer, Question, SavedQuestion, TestCategory, TestSession, TestType, Topic, TopicGroup, User, UserAnswer
 
 
 class QuestionAdminTests(TestCase):
@@ -118,9 +118,24 @@ class QuestionAdminTests(TestCase):
         self.assertEqual([r["uz"] for r in response.context["uz_rows"][:2]], ["A1", "A2"])
         self.assertEqual([r["ru"] for r in response.context["ru_rows"][:2]], ["Р1", "Р2"])
 
-    def test_delete(self):
-        self.client.post(reverse("questions:delete", args=[self.question.pk]))
-        self.assertFalse(Question.objects.filter(pk=self.question.pk).exists())
+    def test_archive_excludes_question_from_new_tests_and_keeps_old_answers(self):
+        session = TestSession.objects.create(
+            user=self.student, category=self.bilet, test_kind="shablon", question_order=[self.question.pk],
+        )
+        answer = UserAnswer.objects.create(session=session, question=self.question, selected_answer=self.answers[0])
+        SavedQuestion.objects.create(user=self.student, question=self.question)
+        self.client.post(reverse("questions:archive", args=[self.question.pk]))
+        self.question.refresh_from_db()
+        self.assertTrue(self.question.is_archived)
+        self.assertTrue(UserAnswer.objects.filter(pk=answer.pk).exists())
+        self.assertFalse(topic_tests.question_pool(self.topic).exists())
+        self.assertFalse(marathon.question_pool().filter(pk=self.question.pk).exists())
+        self.assertEqual(self.client.post(reverse("admin:avto_question_delete", args=[self.question.pk])).status_code, 403)
+        self.client.force_login(self.student)
+        self.assertRedirects(self.client.get(reverse("start_saqlangan_test")), reverse("saqlangan"))
+        self.client.force_login(self.teacher)
+        self.client.post(reverse("questions:restore", args=[self.question.pk]))
+        self.assertTrue(topic_tests.question_pool(self.topic).filter(pk=self.question.pk).exists())
 
 
 class QuestionPictureTests(TestCase):

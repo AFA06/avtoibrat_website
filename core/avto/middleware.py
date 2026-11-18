@@ -1,7 +1,7 @@
 # avto/middleware.py
 from django.shortcuts import redirect
 from django.contrib.auth import logout
-from django.http import HttpResponseForbidden
+from django.urls import reverse
 
 
 class AccountExpirationMiddleware:
@@ -22,12 +22,8 @@ class AccountExpirationMiddleware:
         if user.is_authenticated:
             user.sync_active_status()
 
-            # ✅ FAQAT SUPERUSER ISTISNO
-            if user.is_superuser:
-                return self.get_response(request)
-
             # ❌ VAQTI TUGAGAN
-            if not user.is_active:
+            if not user.is_superuser and not user.is_active:
                 logout(request)
                 request.session.flush()
 
@@ -36,5 +32,10 @@ class AccountExpirationMiddleware:
                     return redirect("/admin/login/")
 
                 return redirect("/")
+
+            if user.must_change_password:
+                password_path = reverse("change_temporary_password")
+                if request.path not in (password_path, reverse("logout"), reverse("admin:logout")):
+                    return redirect(password_path)
 
         return self.get_response(request)

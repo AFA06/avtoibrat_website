@@ -9,6 +9,7 @@ from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
 
+from .models import User
 from .student_forms import StudentForm
 
 
@@ -26,12 +27,12 @@ class StudentLoginTests(TestCase):
             f"/{language}/login/", {"role": "student", "username": phone, "password": password, "accept_terms": "1"}, follow=True,
         )
 
-    def test_student_created_in_admin_can_log_in_under_every_language(self):
+    def test_student_created_in_admin_is_prompted_to_change_password_in_every_language(self):
         self.create_student()
         for language in ("uz", "ru", "uz-kr"):
             self.client.logout()
             response = self.login(language)
-            self.assertEqual(response.redirect_chain[-1][0].split("?")[0].rstrip("/").split("/")[-1], "dashboard", language)
+            self.assertEqual(response.redirect_chain[-1][0], f"/{language}/change-temporary-password/")
             self.assertEqual(response.status_code, 200, language)
 
     def test_wrong_password_is_rejected(self):
@@ -73,3 +74,12 @@ class SeedDemoTests(TestCase):
             "role": "student", "username": "99-999-99-99", "password": "demo-pass-1", "accept_terms": "1",
         })
         self.assertRedirects(response, reverse("dashboard"), fetch_redirect_response=False)
+
+
+class SeedAdminTests(TestCase):
+    def test_deploy_does_not_reset_an_existing_admins_password(self):
+        user = User.objects.create_superuser(username="boss", password="existing-password")
+        with mock.patch.dict(os.environ, {"ADMIN_USERNAME": "boss", "ADMIN_PASSWORD": "seed-password"}):
+            call_command("seed_admin", stdout=StringIO())
+        user.refresh_from_db()
+        self.assertTrue(user.check_password("existing-password"))

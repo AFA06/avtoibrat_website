@@ -3,8 +3,9 @@ from django.contrib import admin
 from django.db.models import Q
 from django.utils import timezone
 
+from .admin_access import groups_for, students_for
 from .models import (
-    ConsultRequest, ContactMessage, Question, StudyGroup, TestSession, User, UserAnswer,
+    ConsultRequest, ContactMessage, Question, TestSession, User, UserAnswer,
 )
 
 EXPIRING_DAYS = 7
@@ -12,8 +13,7 @@ CHART_DAYS = 7
 RECENT_LIMIT = 5
 
 
-def _student_stats(now):
-    students = User.objects.filter(is_staff=False)
+def _student_stats(now, students):
     live = Q(unlimited=True) | Q(account_started_at__lte=now, account_expires_at__gt=now)
     expiring = students.filter(
         unlimited=False,
@@ -29,11 +29,11 @@ def _student_stats(now):
     }
 
 
-def _activity_chart(today):
+def _activity_chart(today, finished_tests):
     """Finished tests per day for the last CHART_DAYS days, with bar heights in percent."""
     since = today - timezone.timedelta(days=CHART_DAYS - 1)
     counts = {}
-    for finished in TestSession.objects.filter(finished_at__date__gte=since).values_list("finished_at", flat=True):
+    for finished in finished_tests.filter(finished_at__date__gte=since).values_list("finished_at", flat=True):
         day = timezone.localtime(finished).date()
         counts[day] = counts.get(day, 0) + 1
     days = [since + timezone.timedelta(days=i) for i in range(CHART_DAYS)]
@@ -44,24 +44,30 @@ def _activity_chart(today):
     ]
 
 
-def dashboard_context():
+def dashboard_context(staff):
     now = timezone.now()
-    finished = TestSession.objects.filter(finished_at__isnull=False)
-    answers = UserAnswer.objects.all()
+    students = students_for(staff)
+    sessions = TestSession.objects.filter(user__in=students)
+    finished = sessions.filter(finished_at__isnull=False)
+    answers = UserAnswer.objects.filter(session__in=sessions)
     total_answers = answers.count()
     correct = answers.filter(is_correct=True).count()
+    show_messages = staff.has_perm("avto.view_contactmessage") or staff.has_perm("avto.change_contactmessage")
+    show_consults = staff.has_perm("avto.view_consultrequest") or staff.has_perm("avto.change_consultrequest")
     return {
-        "students": _student_stats(now),
-        "staff_count": User.objects.filter(is_staff=True).count(),
-        "group_count": StudyGroup.objects.count(),
+        "students": _student_stats(now, students.filter(archived_at__isnull=True)),
+        "staff_count": User.objects.filter(is_staff=True).count() if staff.is_superuser else None,
+        "group_count": groups_for(staff).count(),
         "question_count": Question.objects.count(),
         "tests_total": finished.count(),
         "tests_today": finished.filter(finished_at__date=timezone.localdate()).count(),
         "real_exams": finished.filter(test_kind="real").count(),
         "accuracy": round(correct * 100 / total_answers) if total_answers else None,
-        "chart": _activity_chart(timezone.localdate()),
-        "messages": ContactMessage.objects.all()[:RECENT_LIMIT],
-        "consults": ConsultRequest.objects.order_by("-created_at")[:RECENT_LIMIT],
+        "chart": _activity_chart(timezone.localdate(), finished),
+        "show_messages": show_messages,
+        "show_consults": show_consults,
+        "contact_messages": ContactMessage.objects.all()[:RECENT_LIMIT] if show_messages else [],
+        "consults": ConsultRequest.objects.order_by("-created_at")[:RECENT_LIMIT] if show_consults else [],
         "recent_tests": finished.select_related("user", "category").order_by("-finished_at")[:RECENT_LIMIT],
     }
 
@@ -71,6 +77,6 @@ def install():
     original_index = admin.site.index
 
     def index(request, extra_context=None):
-        return original_index(request, {**dashboard_context(), **(extra_context or {})})
+        return original_index(request, {**dashboard_context(request.user), **(extra_context or {})})
 
     admin.site.index = index

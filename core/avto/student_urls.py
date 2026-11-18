@@ -12,6 +12,7 @@ urlpatterns = [
     path("<int:pk>/toggle/", views.student_toggle, name="toggle"),
     path("<int:pk>/extend/", views.student_extend, name="extend"),
     path("<int:pk>/reset-password/", views.student_reset_password, name="reset_password"),
-    path("<int:pk>/delete/", views.student_delete, name="delete"),
+    path("<int:pk>/archive/", views.student_archive, name="archive"),
+    path("<int:pk>/restore/", views.student_restore, name="restore"),
     path("<int:pk>/devices/<int:device_id>/remove/", views.student_remove_device, name="remove_device"),
 ]

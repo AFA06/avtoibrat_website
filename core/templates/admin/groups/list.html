@@ -11,7 +11,9 @@
       <h1>Guruhlar</h1>
       <p>Guruh yarating, talabalarni kuzating va reytingni ko‘ring.</p>
     </div>
+    {% if request.user.is_superuser %}
     <a class="sd-btn sd-btn--primary" href="{% url 'groups:create' %}"><i class="fas fa-plus"></i> Yangi guruh</a>
+    {% endif %}
   </header>
 
   <section class="sd-stats">
@@ -47,6 +49,7 @@
           <td>{% if g.leader %}<span class="sd-leader"><i class="fas fa-crown"></i> {{ g.leader.student.get_full_name|default:g.leader.student.username }} <small>{{ g.leader.points }} ball</small></span>{% else %}<span class="sd-muted">—</span>{% endif %}</td>
           <td class="sd-row-actions">
             <a class="sd-btn sd-btn--ghost" href="{% url 'groups:detail' g.pk %}">Ochish</a>
+            {% if request.user.is_superuser %}
             <div class="sd-dd">
               <button type="button" class="sd-kebab" data-menu aria-label="Yana"><i class="fas fa-ellipsis-v"></i></button>
               <div class="sd-menu">
@@ -57,11 +60,12 @@
                 </form>
               </div>
             </div>
+            {% endif %}
           </td>
         </tr>
       {% empty %}
         <tr><td colspan="6" class="sd-empty"><i class="fas fa-users"></i>
-          {% if query or category %}<p>Hech narsa topilmadi.</p>{% else %}<p>Hali guruhlar yo‘q.</p><a class="sd-btn sd-btn--primary" href="{% url 'groups:create' %}">Birinchi guruhni yarating</a>{% endif %}
+          {% if query or category %}<p>Hech narsa topilmadi.</p>{% else %}<p>Hali guruhlar yo‘q.</p>{% if request.user.is_superuser %}<a class="sd-btn sd-btn--primary" href="{% url 'groups:create' %}">Birinchi guruhni yarating</a>{% endif %}{% endif %}
         </td></tr>
       {% endfor %}
       </tbody>

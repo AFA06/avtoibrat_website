@@ -1,4 +1,4 @@
-"""Create (or reset) the admin account used on the hosted site.
+"""Create the initial admin account used on the hosted site.
 
     ADMIN_USERNAME=admin ADMIN_PASSWORD=... python manage.py seed_admin
 """
@@ -9,16 +9,16 @@ from django.core.management.base import BaseCommand, CommandError
 
 
 class Command(BaseCommand):
-    help = "Create or update the superuser from ADMIN_USERNAME / ADMIN_PASSWORD environment variables."
+    help = "Create the initial superuser from ADMIN_USERNAME / ADMIN_PASSWORD environment variables."
 
     def handle(self, *args, **options):
         username = os.environ.get("ADMIN_USERNAME", "admin")
+        User = get_user_model()
+        if User.objects.filter(username=username).exists():
+            self.stdout.write("Initial admin already exists.")
+            return
         password = os.environ.get("ADMIN_PASSWORD")
         if not password:
             raise CommandError("Set ADMIN_PASSWORD first.")
-        User = get_user_model()
-        user, _ = User.objects.get_or_create(username=username)
-        user.is_staff = user.is_superuser = user.is_active = True
-        user.set_password(password)
-        user.save()
+        User.objects.create_superuser(username=username, password=password)
         self.stdout.write(f"admin ready (username {username})")

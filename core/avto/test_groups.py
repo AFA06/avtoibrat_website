@@ -6,7 +6,7 @@ from django.utils import timezone
 
 from .leaderboard import EXAM_BONUS, build
 from .models import (
-    Answer, Branch, Question, StudyGroup, TestCategory, TestSession, TestType, User, UserAnswer,
+    Answer, Branch, ContactMessage, Question, StudyGroup, TestCategory, TestSession, TestType, User, UserAnswer,
 )
 
 
@@ -17,6 +17,9 @@ class LeaderboardFixture(TestCase):
         cls.group = StudyGroup.objects.create(name="52", category="B", branch=cls.branch)
         cls.other = StudyGroup.objects.create(name="53", category="B", branch=cls.branch)
         cls.teacher = User.objects.create_user(username="t", password="x", is_staff=True, unlimited=True)
+        cls.group.teacher = cls.teacher
+        cls.group.save(update_fields=["teacher"])
+        cls.owner = User.objects.create_superuser(username="owner", password="x")
         cls.ali = cls.student("ali", "Ali", cls.group)
         cls.vali = cls.student("vali", "Vali", cls.group)
         cls.zero = cls.student("zero", "Zero", cls.group)
@@ -87,10 +90,12 @@ class GroupPagesTests(LeaderboardFixture):
         self.assertEqual(len(detail.context["rows"]), 3)
 
     def test_admin_leaderboard_filters_by_group(self):
+        self.client.force_login(self.owner)
         response = self.client.get(reverse("admin_leaderboard"), {"group": self.other.pk})
         self.assertEqual([r.student.username for r in response.context["rows"]], ["far"])
 
     def test_create_and_delete_group_keeps_students(self):
+        self.client.force_login(self.owner)
         response = self.client.post(reverse("groups:create"), {
             "name": "60", "category": "A", "branch": self.branch.pk, "teacher": self.teacher.pk,
         })
@@ -103,6 +108,37 @@ class GroupPagesTests(LeaderboardFixture):
     def test_staff_only(self):
         self.client.logout()
         self.assertEqual(self.client.get(reverse("groups:list")).status_code, 302)
+
+    def test_teacher_scope_covers_pages_and_actions(self):
+        other_attempt = self.finish(self.far, [True])
+        targets = (
+            reverse("students:edit", args=[self.far.pk]),
+            reverse("monitoring:student", args=[self.far.pk]),
+            reverse("monitoring:session", args=[other_attempt.pk]),
+            reverse("groups:detail", args=[self.other.pk]),
+        )
+        for url in targets:
+            self.assertEqual(self.client.get(url).status_code, 404, url)
+        self.assertEqual(self.client.post(reverse("students:reset_password", args=[self.far.pk])).status_code, 404)
+        self.assertEqual(self.client.post(reverse("groups:delete", args=[self.group.pk])).status_code, 403)
+        self.assertEqual(self.client.get(reverse("monitoring:student", args=[self.ali.pk])).status_code, 200)
+        old_group = self.ali.group_id
+        response = self.client.post(reverse("students:edit", args=[self.ali.pk]), {
+            "first_name": "Ali", "last_name": "Test", "phone": "90-111-22-33", "group": self.other.pk,
+            "group_language": "uz",
+        })
+        self.assertIn("group", response.context["form"].errors)
+        self.ali.refresh_from_db()
+        self.assertEqual(self.ali.group_id, old_group)
+
+    def test_dashboard_respects_contact_inbox_permission(self):
+        ContactMessage.objects.create(name="Contact fixture", phone="900112233", subject="Hello", message="Test")
+        self.finish(self.far, [True])
+        response = self.client.get(reverse("admin:index"))
+        self.assertNotContains(response, "Contact fixture")
+        self.assertNotContains(response, "Far Test")
+        self.client.force_login(self.owner)
+        self.assertContains(self.client.get(reverse("admin:index")), "Contact fixture")
 
 
 class StudentLeaderboardTests(LeaderboardFixture):
@@ -160,7 +196,7 @@ class StudentLeaderboardTests(LeaderboardFixture):
 
     def test_admin_podium_ignores_name_sort_and_shows_without_points(self):
         self.finish(self.ali, [True])
-        self.client.force_login(self.teacher)
+        self.client.force_login(self.owner)
         response = self.client.get(reverse("admin_leaderboard"), {"sort": "name"})
         podium = response.context["podium"]
         self.assertEqual(podium[0].student.username, "ali")  # best rank leads even when listed by name
@@ -170,7 +206,7 @@ class StudentLeaderboardTests(LeaderboardFixture):
 
 class GroupMembershipTests(LeaderboardFixture):
     def setUp(self):
-        self.client.force_login(self.teacher)
+        self.client.force_login(self.owner)
 
     def test_add_existing_students_moves_them_between_groups(self):
         self.client.post(reverse("groups:add_students", args=[self.other.pk]), {"students": [self.ali.pk, self.zero.pk]})
@@ -186,16 +222,15 @@ class GroupMembershipTests(LeaderboardFixture):
         self.assertIsNone(self.ali.group)
 
     def test_changing_group_on_student_form_updates_profile(self):
-        self.client.force_login(self.teacher)
         self.group.teacher, self.group.lesson_days = self.teacher, "135"
         self.group.lesson_start, self.group.lesson_end = time(19), time(21)
         self.group.save()
         response = self.client.post(reverse("students:edit", args=[self.far.pk]), {
             "first_name": "Far", "last_name": "Test", "phone": "90-111-22-33", "group": self.group.pk,
-            "group_language": "uz", "password": "Far12345",
+            "group_language": "uz",
         })
         self.assertEqual(response.status_code, 302, getattr(response, "context", None) and response.context["form"].errors)
-        self.far.refresh_from_db()  # the password was reset by the form
+        self.far.refresh_from_db()
         self.client.force_login(self.far)
         profile = self.client.get(reverse("profile"))
         self.assertContains(profile, "Du-Chor-Ju · 19:00–21:00")
@@ -205,9 +240,10 @@ class TeacherPagesTests(LeaderboardFixture):
     def test_admin_creates_teacher_who_can_be_assigned_and_log_in(self):
         admin = User.objects.create_superuser(username="boss", password="x")
         self.client.force_login(admin)
-        self.client.post(reverse("teachers:create"), {
+        credentials = self.client.post(reverse("teachers:create"), {
             "first_name": "Ibrat", "last_name": "Karimov", "username": "ibrat", "phone": "", "password": "Ibra1980",
         })
+        self.assertContains(credentials, "Ibra1980")
         teacher = User.objects.get(username="ibrat")
         self.assertTrue(teacher.is_staff and teacher.unlimited and teacher.check_password("Ibra1980"))
         self.client.post(reverse("groups:edit", args=[self.group.pk]), {
@@ -216,6 +252,17 @@ class TeacherPagesTests(LeaderboardFixture):
         })
         self.group.refresh_from_db()
         self.assertEqual((self.group.teacher, self.group.lesson_time), (teacher, "Se-Pay-Shan · 10:00–12:00"))
+        self.client.logout()
+        target = reverse("groups:detail", args=[self.group.pk])
+        response = self.client.post(reverse("login"), {
+            "role": "staff", "username": teacher.username, "password": "Ibra1980", "accept_terms": "1", "next": target,
+        })
+        change_url = reverse("change_temporary_password")
+        self.assertRedirects(response, change_url, fetch_redirect_response=False)
+        self.assertRedirects(self.client.get(target), change_url, fetch_redirect_response=False)
+        password = "my-new-teacher-password"
+        response = self.client.post(change_url, {"new_password1": password, "new_password2": password})
+        self.assertRedirects(response, target)
 
     def test_teachers_cannot_manage_teachers(self):
         self.client.force_login(self.teacher)
@@ -224,7 +271,7 @@ class TeacherPagesTests(LeaderboardFixture):
 
 class LessonScheduleTests(LeaderboardFixture):
     def post(self, **extra):
-        self.client.force_login(self.teacher)
+        self.client.force_login(self.owner)
         data = {"name": "70", "category": "B", "branch": self.branch.pk, "teacher": "", **extra}
         return self.client.post(reverse("groups:create"), data)
 

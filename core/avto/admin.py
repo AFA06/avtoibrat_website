@@ -8,6 +8,8 @@ from .models import (
 )
 from django.db.models import Count
 
+from .admin_access import groups_for, students_for
+
 class AnswerInline(admin.TabularInline):
     model = Answer
     extra = 4
@@ -18,17 +20,20 @@ class AnswerInline(admin.TabularInline):
 @admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):
     list_display = ("matn_uzb", "kategoriya", "mavzu", "test_turi")
-    list_filter = ("kategoriya", "mavzu__group", "mavzu", "test_turi")
+    list_filter = ("is_archived", "kategoriya", "mavzu__group", "mavzu", "test_turi")
     list_select_related = ("kategoriya", "mavzu", "test_turi")
     search_fields = ("matn_uzb", "matn_uz_kr", "matn_rus")
     inlines = [AnswerInline]
     filter_horizontal = ("extra_topics",)
+    readonly_fields = ("is_archived",)
 
     fieldsets = (
-        (_("Asosiy ma’lumotlar"), {"fields": ("test_turi", "kategoriya", "mavzu", "extra_topics", "matn_uzb","matn_uz_kr", "matn_rus")}),
+        (_("Asosiy ma’lumotlar"), {"fields": ("test_turi", "kategoriya", "mavzu", "extra_topics", "matn_uzb","matn_uz_kr", "matn_rus", "is_archived")}),
         (_("Media fayllar"), {"fields": ("rasm", "audio_uzb", "audio_rus", "video")}),
     )
 
+    def has_delete_permission(self, request, obj=None):
+        return False
 
 
 @admin.register(TestCategory)
@@ -41,6 +46,12 @@ class TestCategoryAdmin(admin.ModelAdmin):
         (_("Ko‘rinish"), {"fields": ("show_in_shablon", "show_in_ohshash")}),
         (_("Parametrlar"), {"fields": ("question_count", "duration_minutes")}),
     )
+
+    def has_delete_permission(self, request, obj=None):
+        return (
+            obj is not None and not obj.question_set.exists() and not obj.testsession_set.exists()
+            and super().has_delete_permission(request, obj)
+        )
 
 
 class TopicInline(admin.TabularInline):
@@ -76,20 +87,40 @@ class TestTypeAdmin(admin.ModelAdmin):
     list_display = ("nomi", "vaqt_daqiqa", "savollar_soni")
     search_fields = ("nomi",)
 
+    def has_delete_permission(self, request, obj=None):
+        return obj is not None and not obj.question_set.exists() and super().has_delete_permission(request, obj)
+
+
+class ExamHistoryAdmin(admin.ModelAdmin):
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
 
 @admin.register(TestSession)
-class TestSessionAdmin(admin.ModelAdmin):
+class TestSessionAdmin(ExamHistoryAdmin):
     list_display = ("user", "category", "test_kind", "source", "started_at", "finished_at")
     list_filter = ("test_kind", "source")
     search_fields = ("user__username", "category__nomi")
     filter_horizontal = ("questions",)
 
+    def get_queryset(self, request):
+        return super().get_queryset(request).filter(user__in=students_for(request.user))
+
 
 @admin.register(UserAnswer)
-class UserAnswerAdmin(admin.ModelAdmin):
+class UserAnswerAdmin(ExamHistoryAdmin):
     list_display = ("session", "question", "selected_answer", "is_correct")
     list_filter = ("is_correct",)
-    search_fields = ("question__matn", "selected_answer__matn")
+    search_fields = ("question__matn_uzb", "question__matn_uz_kr", "question__matn_rus")
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).filter(session__user__in=students_for(request.user))
 
 
 @admin.register(SavedQuestion)
@@ -97,6 +128,18 @@ class SavedQuestionAdmin(admin.ModelAdmin):
     list_display = ("user", "question", "created_at")
     list_filter = ("created_at",)
     search_fields = ("user__username", "question__matn")
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).filter(user__in=students_for(request.user))
+
+    def has_add_permission(self, request):
+        return request.user.is_superuser and super().has_add_permission(request)
+
+    def has_change_permission(self, request, obj=None):
+        return request.user.is_superuser and super().has_change_permission(request, obj)
+
+    def has_delete_permission(self, request, obj=None):
+        return request.user.is_superuser and super().has_delete_permission(request, obj)
 
 @admin.register(TeamMember)
 class TeamMemberAdmin(admin.ModelAdmin):
@@ -176,6 +219,18 @@ class StudyGroupAdmin(admin.ModelAdmin):
     list_display = ("name", "category", "branch", "teacher")
     list_filter = ("category", "branch")
     search_fields = ("name", "teacher__username", "teacher__first_name", "teacher__last_name")
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).filter(pk__in=groups_for(request.user))
+
+    def has_add_permission(self, request):
+        return request.user.is_superuser and super().has_add_permission(request)
+
+    def has_change_permission(self, request, obj=None):
+        return request.user.is_superuser and super().has_change_permission(request, obj)
+
+    def has_delete_permission(self, request, obj=None):
+        return request.user.is_superuser and super().has_delete_permission(request, obj)
 
 
 @admin.register(LoginLock)

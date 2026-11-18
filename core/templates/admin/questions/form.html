@@ -116,10 +116,15 @@
     </div>
   </form>
 
-  {% if question %}
-  <form method="post" action="{% url 'questions:delete' question.pk %}" class="as-danger" data-confirm="Bu savol butunlay o‘chirilsinmi? Talabalarning shu savolga javoblari ham yo‘qoladi, bilet ichidagi savol raqamlari o‘zgaradi.">
+  {% if question.is_archived %}
+  <form method="post" action="{% url 'questions:restore' question.pk %}" class="as-danger">
     {% csrf_token %}
-    <button class="sd-btn sd-btn--ghost is-danger"><i class="fas fa-trash"></i> Savolni o‘chirish</button>
+    <button class="sd-btn sd-btn--ghost"><i class="fas fa-undo"></i> Arxivdan qaytarish</button>
+  </form>
+  {% elif question %}
+  <form method="post" action="{% url 'questions:archive' question.pk %}" class="as-danger" data-confirm="Bu savol arxivlansinmi? Javoblar tarixi saqlanadi.">
+    {% csrf_token %}
+    <button class="sd-btn sd-btn--ghost"><i class="fas fa-archive"></i> Savolni arxivlash</button>
   </form>
   {% endif %}
 </div></div>

@@ -10,28 +10,11 @@ from .models import StudyGroup, User, normalize_phone
 
 PHONE_DIGITS = 9
 MIN_PASSWORD_LENGTH = 6
-NAME_PART_LENGTH = 4
-
-_CYRILLIC_TO_LATIN = {
-    "а": "a", "б": "b", "в": "v", "г": "g", "д": "d", "е": "e", "ё": "yo", "ж": "j", "з": "z",
-    "и": "i", "й": "y", "к": "k", "л": "l", "м": "m", "н": "n", "о": "o", "п": "p", "р": "r",
-    "с": "s", "т": "t", "у": "u", "ф": "f", "х": "x", "ц": "s", "ч": "ch", "ш": "sh", "щ": "sh",
-    "ъ": "", "ы": "i", "ь": "", "э": "e", "ю": "yu", "я": "ya", "ў": "o", "қ": "q", "ғ": "g",
-    "ҳ": "h",
-}
 
 
-def generate_password(first_name="", birth_date=None, *, randomize=False):
-    """Short memorable password: first letters of the name + birth year (Abdu2006).
-
-    Falls back to four random digits when the year is unknown or `randomize` is set,
-    so the teacher can always get a different suggestion.
-    """
-    latin = "".join(_CYRILLIC_TO_LATIN.get(c, c) for c in (first_name or "").strip().lower())
-    letters = re.sub(r"[^a-z]", "", latin)[:NAME_PART_LENGTH].capitalize() or "Talaba"
-    if birth_date and not randomize:
-        return f"{letters}{birth_date.year}"
-    return f"{letters}{secrets.randbelow(9000) + 1000}"
+def generate_password():
+    """Generate an unpredictable temporary password."""
+    return secrets.token_urlsafe(15)
 
 
 def group_label(group):
@@ -43,7 +26,7 @@ def group_label(group):
 
 class StudentForm(forms.ModelForm):
     phone = forms.CharField(label="Telefon raqami", max_length=12)
-    password = forms.CharField(label="Parol", min_length=MIN_PASSWORD_LENGTH, max_length=64)
+    password = forms.CharField(label="Vaqtinchalik parol", min_length=MIN_PASSWORD_LENGTH, max_length=64, required=False)
     account_expires_at = forms.DateField(
         label="Kirish muddati (gacha)",
         required=False,
@@ -56,14 +39,15 @@ class StudentForm(forms.ModelForm):
         fields = ("first_name", "last_name", "phone", "group", "group_language", "birth_date", "device_limit")
         widgets = {"birth_date": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d")}
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, groups=None, require_group=False, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["first_name"].label = "Ism"
         self.fields["last_name"].label = "Familiya"
         self.fields["group"].label = "O‘quv guruhi"
         self.fields["first_name"].required = True
         self.fields["last_name"].required = True
-        self.fields["group"].queryset = StudyGroup.objects.select_related("branch", "teacher")
+        self.fields["group"].queryset = (groups if groups is not None else StudyGroup.objects.all()).select_related("branch", "teacher")
+        self.fields["group"].required = require_group
         self.fields["group"].empty_label = "— Guruhsiz —"
         self.fields["group"].label_from_instance = group_label
         self.fields["device_limit"].required = False
@@ -75,7 +59,6 @@ class StudentForm(forms.ModelForm):
             )
         if self.instance.pk:
             self.initial["phone"] = self.instance.phone_display
-            self.initial["password"] = self.instance.initial_password
             if not self.instance.unlimited and self.instance.account_expires_at:
                 self.initial["account_expires_at"] = timezone.localtime(self.instance.account_expires_at).date()
 
@@ -97,9 +80,6 @@ class StudentForm(forms.ModelForm):
         """Editing keeps an already-expired date as is; only a newly typed past date is rejected."""
         return self.initial.get("account_expires_at")
 
-    def clean_password(self):
-        return self.cleaned_data["password"].strip()
-
     def clean_device_limit(self):
         # Left empty: keep what the student has (3 for a new one).
         return self.cleaned_data.get("device_limit") or self.instance.device_limit or 3
@@ -108,8 +88,10 @@ class StudentForm(forms.ModelForm):
         student = super().save(commit=False)
         student.username = student.phone
         student.is_staff = False
-        student.initial_password = self.cleaned_data["password"]
-        student.set_password(student.initial_password)
+        self.temporary_password = self.cleaned_data["password"] or (generate_password() if student._state.adding else "")
+        if self.temporary_password:
+            student.set_password(self.temporary_password)
+            student.must_change_password = True
 
         expires = self.cleaned_data["account_expires_at"]
         student.unlimited = expires is None
@@ -120,6 +102,12 @@ class StudentForm(forms.ModelForm):
         else:
             student.account_expires_at = None
         if commit:
-            student.save()
+            if student._state.adding:
+                student.save()
+            else:
+                fields = (*self._meta.fields, "username", "unlimited", "account_expires_at", "account_started_at")
+                if self.temporary_password:
+                    fields += ("password", "must_change_password")
+                student.save(update_fields=fields)
             student.sync_active_status()
         return student

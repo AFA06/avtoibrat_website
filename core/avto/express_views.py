@@ -1,6 +1,5 @@
 """Admin panel: the Express course roster (/admin/express/) and how its students do on the daily task."""
 from django.contrib import messages
-from django.contrib.admin.views.decorators import staff_member_required
 from django.db.models import F, Max
 from django.shortcuts import redirect, render
 from django.utils import timezone
@@ -8,7 +7,8 @@ from django.views.decorators.http import require_POST
 
 from .assignments import finished_per_day
 from .models import Assignment, TestSession
-from .student_views import _page, _students
+from .admin_access import school_admin_required, students_for
+from .student_views import _page
 
 
 def daily_target(today):
@@ -21,9 +21,9 @@ def daily_target(today):
     return max(targets, default=None)
 
 
-def _roster(today, target):
+def _roster(staff, today, target):
     """Express students with today's finished-test count and their last finished test."""
-    students = list(_students().filter(is_express=True).order_by("first_name", "last_name"))
+    students = list(students_for(staff).filter(is_express=True, archived_at__isnull=True).order_by("first_name", "last_name"))
     counts = finished_per_day([s.pk for s in students], today, today)
     last_finished = dict(
         TestSession.objects.filter(user__in=students, finished_at__isnull=False)
@@ -37,24 +37,26 @@ def _roster(today, target):
     return students
 
 
-@staff_member_required
+@school_admin_required
 def express_list(request):
     today = timezone.localdate()
     target = daily_target(today)
-    roster = _roster(today, target)
+    roster = _roster(request.user, today, target)
     return render(request, "admin/express/list.html", _page(
         request, "Express",
         roster=roster,
         target=target,
         done_count=sum(1 for s in roster if s.done),
-        candidates=_students().filter(is_express=False).order_by(F("group").asc(nulls_first=True), "first_name"),
+        candidates=students_for(request.user).filter(is_express=False, archived_at__isnull=True).order_by(F("group").asc(nulls_first=True), "first_name"),
     ))
 
 
-@staff_member_required
+@school_admin_required
 @require_POST
 def express_add(request):
-    added = _students().filter(pk__in=request.POST.getlist("students"), is_express=False).update(is_express=True)
+    added = students_for(request.user).filter(
+        pk__in=request.POST.getlist("students"), is_express=False, archived_at__isnull=True,
+    ).update(is_express=True)
     if added:
         messages.success(request, f"{added} ta talaba Express kursiga qo‘shildi.")
     else:
@@ -62,10 +64,10 @@ def express_add(request):
     return redirect("express:list")
 
 
-@staff_member_required
+@school_admin_required
 @require_POST
 def express_remove(request, pk):
-    removed = _students().filter(pk=pk, is_express=True).update(is_express=False)
+    removed = students_for(request.user).filter(pk=pk, is_express=True).update(is_express=False)
     if removed:
         messages.success(request, "Talaba Express kursidan chiqarildi.")
     return redirect("express:list")

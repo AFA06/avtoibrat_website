@@ -11,5 +11,6 @@ urlpatterns = [
     path("<int:pk>/picture/", views.question_picture, name="picture"),
     path("<int:pk>/audio/<str:language>/", views.question_audio, name="audio"),
     path("<int:pk>/audio/<str:language>/delete/", views.question_audio_delete, name="audio_delete"),
-    path("<int:pk>/delete/", views.question_delete, name="delete"),
+    path("<int:pk>/archive/", views.question_archive, name="archive"),
+    path("<int:pk>/restore/", views.question_restore, name="restore"),
 ]

@@ -1,7 +1,6 @@
 """Admin panel: «Belgilar» — teachers add road-sign categories and signs (/admin/road-signs/)."""
 from django import forms
 from django.contrib import messages
-from django.contrib.admin.views.decorators import staff_member_required
 from django.db.models import Count
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
@@ -10,6 +9,7 @@ from django.views.decorators.http import require_POST
 
 from .models import RoadSign, RoadSignCategory
 from .road_signs import next_order, ordered_categories, sorted_signs, unique_slug
+from .admin_access import school_admin_required
 from .student_views import _page
 
 IMAGE_TYPES = (".png", ".jpg", ".jpeg", ".gif", ".webp", ".svg")
@@ -70,7 +70,7 @@ class SignForm(forms.ModelForm):
         return self.cleaned_data["number"].strip()
 
 
-@staff_member_required
+@school_admin_required
 def overview(request):
     categories = ordered_categories().annotate(sign_count=Count("signs"))
     return render(request, "admin/road_signs/list.html", _page(
@@ -79,7 +79,7 @@ def overview(request):
     ))
 
 
-@staff_member_required
+@school_admin_required
 def category_detail(request, pk):
     category = get_object_or_404(RoadSignCategory, pk=pk)
     return render(request, "admin/road_signs/category.html", _page(
@@ -87,7 +87,7 @@ def category_detail(request, pk):
     ))
 
 
-@staff_member_required
+@school_admin_required
 def category_form(request, pk=None):
     category = get_object_or_404(RoadSignCategory, pk=pk) if pk else None
     form = CategoryForm(request.POST or None, request.FILES or None, instance=category)
@@ -104,7 +104,7 @@ def category_form(request, pk=None):
     ))
 
 
-@staff_member_required
+@school_admin_required
 @require_POST
 def category_move(request, pk, direction):
     """Swap this category with its neighbour so the teacher controls the order students see."""
@@ -122,7 +122,7 @@ def category_move(request, pk, direction):
     return redirect("signs:list")
 
 
-@staff_member_required
+@school_admin_required
 @require_POST
 def category_delete(request, pk):
     category = get_object_or_404(RoadSignCategory, pk=pk)
@@ -132,7 +132,7 @@ def category_delete(request, pk):
     return redirect("signs:list")
 
 
-@staff_member_required
+@school_admin_required
 def sign_form(request, pk=None):
     sign = get_object_or_404(RoadSign.objects.select_related("category"), pk=pk) if pk else None
     initial = {"category": request.GET.get("category")} if not sign else None
@@ -153,7 +153,7 @@ def sign_form(request, pk=None):
     ))
 
 
-@staff_member_required
+@school_admin_required
 @require_POST
 def sign_delete(request, pk):
     sign = get_object_or_404(RoadSign, pk=pk)

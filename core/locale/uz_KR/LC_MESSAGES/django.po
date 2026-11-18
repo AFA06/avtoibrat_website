@@ -236,6 +236,18 @@ msgstr "Тезкор боғланиш"
 msgid "Chiqish"
 msgstr "Чиқиш"
 
+msgid "Yangi parol tanlang"
+msgstr "Янги парол танланг"
+
+msgid "Davom etish uchun vaqtinchalik parolingizni almashtiring."
+msgstr "Давом этиш учун вақтинчалик паролингизни алмаштиринг."
+
+msgid "Vaqtinchalik paroldan boshqa parol tanlang."
+msgstr "Вақтинчалик паролдан бошқа парол танланг."
+
+msgid "Saqlash"
+msgstr "Сақлаш"
+
 #: templates/dashboard/contact-list.html:199
 msgid "Muammolar bo'yicha tezkor bog'lanish"
 msgstr "Муаммолар бўйича тезкор боғланиш"
