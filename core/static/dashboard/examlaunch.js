@@ -79,6 +79,9 @@
     frame.title = "AvtoIbrat — Test";
     frame.setAttribute("allow", "fullscreen");
     frame.style.cssText = "width:100%;height:100%;border:0;display:block;";
+    frame.addEventListener("load", () => {
+      frame.toggleAttribute("data-exam-theme-toggle", Boolean(frame.contentDocument?.getElementById("examThemeToggle")));
+    });
     layer.appendChild(frame);
     document.body.appendChild(layer);
     // The test has its own question-language switch; hide the panel's site-language menu meanwhile.
