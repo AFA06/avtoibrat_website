@@ -22,13 +22,14 @@ def question_pool(topic):
 
 def latest_results(user):
     """{question_id: True/False} — whether the student's latest answer to each question was correct."""
-    answers = (
-        UserAnswer.objects
-        .filter(session__user=user, selected_answer__isnull=False)
-        .order_by("id")
-        .values_list("question_id", "is_correct")
-    )
-    return dict(answers)
+    answers = UserAnswer.objects.filter(session__user=user, selected_answer__isnull=False)
+    reset_at = user.statistics_resets.filter(topic_only=True).values_list("at", flat=True).first()
+    if reset_at:
+        answers = answers.filter(
+            Q(answered_at__gt=reset_at)
+            | Q(answered_at__isnull=True, session__started_at__gt=reset_at)
+        )
+    return dict(answers.order_by("id").values_list("question_id", "is_correct"))
 
 
 def page_groups(user):
@@ -61,6 +62,7 @@ def page_groups(user):
                 "total": len(ids),
                 "learned": learned,
                 "mistakes": mistakes,
+                "attempted": learned + mistakes,
                 "percent": round(learned * 100 / len(ids)),
             })
         if topics:
@@ -73,6 +75,7 @@ def page_groups(user):
                 "topics": topics,
                 "total": total,
                 "learned": learned,
+                "attempted": sum(t["attempted"] for t in topics),
                 "percent": round(learned * 100 / total) if total else 0,
             })
     return groups
@@ -85,6 +88,7 @@ def summary(groups):
         "topics": sum(len(g["topics"]) for g in groups),
         "total": total,
         "learned": learned,
+        "attempted": sum(g["attempted"] for g in groups),
         "percent": round(learned * 100 / total) if total else 0,
     }
 

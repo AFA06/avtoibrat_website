@@ -170,11 +170,13 @@ class MarathonViewTests(MarathonFixture):
         })
         self.assertEqual(response.status_code, 200)
 
-    def test_result_page_restart_leads_back_to_the_sections(self):
+    def test_result_page_buttons_lead_back_to_the_sections(self):
         session = marathon.start(self.user, 50, 1)
         response = self.client.post(reverse("finish_test", args=[session.id]), follow=True)
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.context["restart_url"], reverse("marathon_sections", args=[50]))
+        sections_url = reverse("marathon_sections", args=[50])
+        self.assertEqual(response.context["restart_url"], sections_url)
+        self.assertContains(response, f'href="{sections_url}" class="result-btn result-btn--primary ')
         self.assertEqual(len(response.context["cells"]), 50)
 
 

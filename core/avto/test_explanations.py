@@ -132,8 +132,8 @@ class VoiceExplanationTests(TestCase):
         self.assertTrue(self.question.audio_uzb)
 
 
-class RevealDataTests(TestCase):
-    def test_a_finished_real_exam_carries_the_reveal_data(self):
+class RealResultPageTests(TestCase):
+    def test_result_shows_the_gauge_road_and_verdict_without_a_popup(self):
         student = User.objects.create_user(username="s", password="x", first_name="Ali", unlimited=True)
         kind = TestType.objects.create(nomi="B", vaqt_daqiqa=25, savollar_soni=20)
         category = TestCategory.objects.create(nomi="Bilet 1")
@@ -150,13 +150,31 @@ class RevealDataTests(TestCase):
             UserAnswer.objects.create(session=session, question=q, selected_answer=right, is_correct=True)
         self.client.force_login(student)
         response = self.client.get(reverse("test_result", args=[session.pk]))
-        reveal = response.context["reveal"]
-        self.assertTrue(reveal["passed"])
-        self.assertEqual((reveal["name"], reveal["correct"], reveal["allowed"]), ("Ali", 20, 2))
-        self.assertContains(response, 'id="reveal-data"')
+        self.assertTrue(response.context["real_result"]["passed"])
+        self.assertContains(response, 'class="real-certificate"')
+        self.assertContains(response, 'class="real-certificate__name">Ali')
+        self.assertContains(response, 'class="result-gauge__scale"')
+        self.assertContains(response, 'transform="rotate(180 110 112)"')
+        self.assertContains(response, 'class="result-road__car"')
+        self.assertNotContains(response, 'id="reveal-data"')
+        self.assertNotContains(response, 'id="rv-replay"')
+
+        UserAnswer.objects.filter(session=session, question=questions[-1]).delete()
+        wrong = Answer.objects.create(question=questions[0], matn_uzb="wrong", togri=False)
+        UserAnswer.objects.filter(session=session, question=questions[0]).update(selected_answer=wrong, is_correct=False)
+        response = self.client.get(reverse("test_result", args=[session.pk]))
+        self.assertFalse(response.context["real_result"]["passed"])
+        self.assertContains(response, "real-verdict--fail")
+        self.assertContains(response, 'class="result-gauge__scale"')
+        self.assertContains(response, 'class="result-road__car"')
+        self.assertContains(response, '<details class="rw">')
+        self.assertNotContains(response, 'class="real-certificate"')
+
         session.test_kind = "shablon"
         session.save()
-        self.assertNotContains(self.client.get(reverse("test_result", args=[session.pk])), 'id="reveal-data"')
+        response = self.client.get(reverse("test_result", args=[session.pk]))
+        self.assertContains(response, 'class="result-gauge__fill"')
+        self.assertNotContains(response, 'class="result-road__car"')
 
 
 class StudyMaterialsTests(TestCase):

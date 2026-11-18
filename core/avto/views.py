@@ -495,13 +495,13 @@ def mavzulashtirilgan(request):
 def ohshash_savollar(request):
     """Groups of look-alike questions; each row shows the result of its last finished attempt."""
     categories = list(TestCategory.objects.filter(aktiv=True, show_in_ohshash=True).order_by("tartib"))
-    latest = _latest_run_counts(request.user, categories, source="ohshash")
+    latest = _latest_practice_runs(request.user, categories, source="ohshash")
     groups = []
     for cat in categories:
         total = cat.question_count
         group = {"id": cat.id, "nomi": cat.nomi, "total": total, "started": cat.id in latest}
         if cat.id in latest:
-            correct, wrong = latest[cat.id]
+            _, (correct, wrong) = latest[cat.id]
             group.update(
                 correct=correct,
                 wrong=wrong,
@@ -575,44 +575,52 @@ def start_saqlangan_test(request):
 
 
 
-def _latest_run_counts(user, categories, **filters):
-    """{category id: (correct, wrong)} of the user's latest finished practice run in each category.
-
-    Two queries whatever the number of categories (one per category before: slow over the network).
-    """
+def _latest_practice_runs(user, categories, **filters):
+    """Map each category ID to its latest finished session and answer counts."""
     latest = {}
-    for session_id, category_id in (
+    for session in (
         TestSession.objects
         .filter(user=user, category__in=categories, test_kind="shablon", finished_at__isnull=False, **filters)
-        .order_by("-finished_at")
-        .values_list("id", "category_id")
+        .order_by("-finished_at", "-id")
+        .only("category_id", "started_at", "finished_at", "paused_at", "paused_seconds")
     ):
-        latest.setdefault(category_id, session_id)
+        latest.setdefault(session.category_id, session)
+    session_ids = [session.id for session in latest.values()]
     counts = {
         row["session_id"]: (row["correct"], row["wrong"])
-        for row in UserAnswer.objects.filter(session_id__in=latest.values()).values("session_id").annotate(
+        for row in UserAnswer.objects.filter(session_id__in=session_ids).values("session_id").annotate(
             correct=Count("id", filter=Q(is_correct=True)),
             wrong=Count("id", filter=Q(is_correct=False, selected_answer__isnull=False)),
         )
     }
-    return {category_id: counts.get(session_id, (0, 0)) for category_id, session_id in latest.items()}
+    return {
+        category_id: (session, counts.get(session.id, (0, 0)))
+        for category_id, session in latest.items()
+    }
+
+
+def _finished_duration_display(session):
+    elapsed = session.elapsed_seconds(session.finished_at) if session.finished_at else 0
+    minutes, seconds = divmod(elapsed, 60)
+    return f"{minutes:02d}:{seconds:02d}"
 
 
 @login_required
 def shablon_test(request):
     categories = list(TestCategory.objects.filter(aktiv=True, show_in_shablon=True))
 
-    latest = _latest_run_counts(request.user, categories)
+    latest = _latest_practice_runs(request.user, categories)
 
     kategoriyalar = []
     for cat in categories:
         has_started = cat.id in latest
         if has_started:
-            correct, wrong = latest[cat.id]
+            session, (correct, wrong) = latest[cat.id]
             empty = max(cat.question_count - correct - wrong, 0)
             percent = round(correct * 100 / cat.question_count) if cat.question_count else 0
+            duration_display = _finished_duration_display(session)
         else:
-            correct = wrong = empty = percent = None
+            correct = wrong = empty = percent = duration_display = None
         kategoriyalar.append({
             "id": cat.id,
             "nomi": cat.nomi,
@@ -621,6 +629,7 @@ def shablon_test(request):
             "wrong": wrong,
             "empty": empty,
             "percent": percent,
+            "duration_display": duration_display,
         })
 
     return render(request, "dashboard/shablon-test.html", {
@@ -650,6 +659,21 @@ def clear_real_statistics(request):
     answers.delete()
     sessions.delete()
     return JsonResponse({"success": True})
+
+
+@login_required
+@require_POST
+@transaction.atomic
+def clear_topic_statistics(request):
+    sessions = TestSession.objects.filter(user=request.user, source=topic_tests.SOURCE)
+    StatisticsReset.objects.create(
+        user=request.user,
+        tests=sessions.count(),
+        answers=UserAnswer.objects.filter(session__in=sessions).count(),
+        topic_only=True,
+    )
+    sessions.delete()
+    return redirect("mavzulashtirilgan")
 
 
 def _create_test_session(user, category, test_kind, source="shablon"):
@@ -806,9 +830,12 @@ def test_page(request, session_id):
         for ua in user_answers
     }
 
+    size = len(session.question_order)
+    passing_correct = size - real_exam.max_mistakes(size) + 1 if session.test_kind == "real" and size else 0
     return render(request, "exam/exam.html", {
         "session": session,
         "practice": session.test_kind == "shablon",
+        "passing_correct": passing_correct,
         "remaining_seconds": remaining,
         "questions_data": questions_data,
         "answered_data": answered_data,
@@ -934,11 +961,7 @@ def _result_context(session):
     answered = correct + wrong
     empty = max(total - answered, 0)
     score_percent = round((correct / total) * 100) if total else 0
-
-    duration_seconds = 0
-    if session.started_at and session.finished_at:
-        duration_seconds = session.elapsed_seconds(session.finished_at)  # pauses don't count
-    minutes, seconds = divmod(max(duration_seconds, 0), 60)
+    duration_display = _finished_duration_display(session)
 
     status_map = {
         ua.question_id: ("correct" if ua.is_correct else "wrong")
@@ -956,6 +979,7 @@ def _result_context(session):
         (session.test_kind, session.source), "shablon_test"
     )
     list_label = LIST_LABELS.get(list_url_name, LIST_LABELS["shablon_test"])
+    list_url = reverse(list_url_name)
     if session.test_kind == "real":
         restart_url = reverse("start_real_exam", args=[len(session.question_order) or real_exam.SIZES[0]])
     elif session.source == topic_tests.SOURCE:
@@ -966,49 +990,23 @@ def _result_context(session):
     elif session.source == "marafon" and session.marathon_size:
         # Back to this size's sections, where the student picks the same or the next section.
         restart_url = reverse("marathon_sections", args=[session.marathon_size])
+        list_url = restart_url
     elif restart_url_name in RESTART_WITHOUT_CATEGORY:
         restart_url = reverse(restart_url_name)
     else:
         restart_url = reverse(restart_url_name, args=[session.category_id])
 
-    reveal = None
+    real_result = None
+    mistakes = []
     if session.test_kind == "real" and session.finished_at:
         size = len(session.question_order)
         user = session.user
-        reveal = {
-            "id": session.id,
+        real_result = {
             "passed": real_exam.passed(size, wrong, answered),
             "name": user.first_name or user.get_full_name() or user.username,
-            "correct": correct, "wrong": wrong, "total": total, "percent": score_percent,
             "allowed": real_exam.max_mistakes(size) - 1,
-            "time": f"{minutes:02d}:{seconds:02d}",
-            "cells": [cell["status"] for cell in cells],
-            "restart": restart_url,
-            "list_url": reverse("real_imtihon"),
-            "t": {
-                "counting": str(_("Natija hisoblanmoqda…")),
-                "pass_word": str(_("TOPSHIRILDI")),
-                "fail_word": str(_("TOPSHIRILMADI")),
-                "pass_title": str(_("Tabriklaymiz, %(name)s!")),
-                "pass_sub": str(_("Real imtihonni muvaffaqiyatli topshirdingiz. Yo‘l ochiq!")),
-                "cert": str(_("IMTIHON SERTIFIKATI")),
-                "correct": str(_("to‘g‘ri")),
-                "wrong": str(_("xato")),
-                "of": str(_("dan")),
-                "time": str(_("vaqt")),
-                "fail_title": str(_("Bu hali oxiri emas, %(name)s")),
-                "fail_sub": str(_("Dvigatel o‘chdi, lekin yo‘l davom etadi. Har bir xato — keyingi safar bilish kerak bo‘lgan narsa.")),
-                "allowed": str(_("Ruxsat etilgan xato")),
-                "made": str(_("Sizning xatolaringiz")),
-                "hope": str(_("Xatolarni ko‘rib chiqing va qayta urinib ko‘ring — siz buni uddalaysiz!")),
-                "see": str(_("Natijani ko‘rish")),
-                "list": str(_("Real imtihon")),
-                "retry": str(_("Qayta urinish")),
-                "skip": str(_("O‘tkazib yuborish")),
-                "mute": str(_("Ovozni o‘chirish")),
-                "unmute": str(_("Ovozni yoqish")),
-            },
         }
+        mistakes = review.mistakes(session, _content_language(user))
 
     journey_stage = None
     is_bilet_run = session.test_kind == "shablon" and session.source in ("shablon", "ohshash") and not session.topic_id
@@ -1016,12 +1014,8 @@ def _result_context(session):
         stars = journey.stars_for(correct, total)
         journey_stage = {"stars": stars, "marks": "★" * stars}
 
-    mistakes = []
-    if session.test_kind == "real" and session.finished_at:
-        mistakes = review.mistakes(session, _content_language(session.user))
-
     return {
-        "reveal": reveal,
+        "real_result": real_result,
         "mistakes": mistakes,
         "journey_stage": journey_stage,
         "has_session": True,
@@ -1032,10 +1026,10 @@ def _result_context(session):
         "wrong": wrong,
         "empty": empty,
         "score_percent": score_percent,
-        "duration_display": f"{minutes:02d}:{seconds:02d}",
+        "duration_display": duration_display,
         "cells": cells,
         "restart_url": restart_url,
-        "list_url_name": list_url_name,
+        "list_url": list_url,
         "list_label": list_label,
     }
 

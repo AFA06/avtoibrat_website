@@ -13,18 +13,23 @@
       <h1>{% trans "Mavzulashtirilgan testlar" %}</h1>
       <p>{% trans "Imtihon savollari yo‘l harakati qoidalari mavzulari bo‘yicha saralangan. Mavzuni tanlang va faqat shu mavzu savollarini yeching." %}</p>
     </div>
-    {% if summary.total %}
-    <div class="tp-hero__progress" style="--p: {{ summary.percent }}">
-      <div class="tp-ring" role="img" aria-label="{% blocktrans with p=summary.percent %}{{ p }}% o‘zlashtirildi{% endblocktrans %}">
-        <b>{{ summary.percent }}%</b>
+    <div class="tp-hero__aside">
+      <button type="button" class="tp-reset" id="tp-reset-open" aria-haspopup="dialog">
+        <i class="ti ti-trash" aria-hidden="true"></i>{% trans "Statistikani tozalash" %}
+      </button>
+      {% if summary.attempted %}
+      <div class="tp-hero__progress" style="--p: {{ summary.percent }}">
+        <div class="tp-ring" role="img" aria-label="{% blocktrans with p=summary.percent %}{{ p }}% o‘zlashtirildi{% endblocktrans %}">
+          <b>{{ summary.percent }}%</b>
+        </div>
+        <div>
+          <b>{{ summary.learned }} / {{ summary.total }}</b>
+          <span>{% trans "savol o‘zlashtirildi" %}</span>
+          <small>{% blocktrans with n=summary.topics %}{{ n }} ta mavzu{% endblocktrans %}</small>
+        </div>
       </div>
-      <div>
-        <b>{{ summary.learned }} / {{ summary.total }}</b>
-        <span>{% trans "savol o‘zlashtirildi" %}</span>
-        <small>{% blocktrans with n=summary.topics %}{{ n }} ta mavzu{% endblocktrans %}</small>
-      </div>
+      {% endif %}
     </div>
-    {% endif %}
   </header>
 
   {% if groups %}
@@ -33,11 +38,19 @@
       <i class="ti ti-search" aria-hidden="true"></i>
       <input type="search" id="tp-search" placeholder="{% trans 'Mavzuni qidiring…' %}" autocomplete="off" aria-label="{% trans 'Mavzuni qidiring' %}">
     </label>
-    <div class="tp-chips" role="tablist" aria-label="{% trans 'Bo‘limlar' %}">
-      <button type="button" class="tp-chip is-active" data-filter="" role="tab" aria-selected="true">{% trans "Barchasi" %}</button>
-      {% for group in groups %}
-      <button type="button" class="tp-chip" data-filter="{{ group.slug }}" role="tab" aria-selected="false"><i class="ti {{ group.icon }}" aria-hidden="true"></i>{{ group.name }}</button>
-      {% endfor %}
+    <div class="tp-filter-strip">
+      <button type="button" class="tp-filter-arrow" data-scroll-filters="-1" aria-controls="tp-filters" aria-label="{% trans 'Oldingi bo‘limlar' %}" hidden>
+        <i class="ti ti-chevron-left" aria-hidden="true"></i>
+      </button>
+      <div class="tp-chips" id="tp-filters" role="tablist" aria-label="{% trans 'Bo‘limlar' %}">
+        <button type="button" class="tp-chip is-active" data-filter="" role="tab" aria-selected="true">{% trans "Barchasi" %}</button>
+        {% for group in groups %}
+        <button type="button" class="tp-chip" data-filter="{{ group.slug }}" role="tab" aria-selected="false"><i class="ti {{ group.icon }}" aria-hidden="true"></i>{{ group.name }}</button>
+        {% endfor %}
+      </div>
+      <button type="button" class="tp-filter-arrow" data-scroll-filters="1" aria-controls="tp-filters" aria-label="{% trans 'Keyingi bo‘limlar' %}" hidden>
+        <i class="ti ti-chevron-right" aria-hidden="true"></i>
+      </button>
     </div>
   </div>
 
@@ -49,10 +62,12 @@
         <h2>{{ group.name }}</h2>
         <small>{% blocktrans with n=group.topics|length %}{{ n }} ta mavzu{% endblocktrans %} · {% blocktrans with n=group.total %}{{ n }} ta savol{% endblocktrans %}</small>
       </div>
+      {% if group.attempted %}
       <div class="tp-group__progress" aria-label="{% blocktrans with p=group.percent %}{{ p }}% o‘zlashtirildi{% endblocktrans %}">
         <span class="tp-bar"><i style="width: {{ group.percent }}%"></i></span>
         <b>{{ group.percent }}%</b>
       </div>
+      {% endif %}
     </header>
     <div class="tp-grid">
       {% for topic in group.topics %}
@@ -67,10 +82,12 @@
             {% if topic.mistakes %}<span class="tp-card__mistakes">{% blocktrans with n=topic.mistakes %}{{ n }} ta xato{% endblocktrans %}</span>{% endif %}
           </span>
         </span>
+        {% if topic.attempted %}
         <span class="tp-card__progress">
           <span class="tp-bar"><i style="width: {{ topic.percent }}%"></i></span>
           <b>{{ topic.percent }}%</b>
         </span>
+        {% endif %}
         <i class="ti ti-chevron-right tp-card__go" aria-hidden="true"></i>
       </button>
       {% endfor %}
@@ -83,6 +100,18 @@
   <p class="tp-empty"><i class="ti ti-mood-empty" aria-hidden="true"></i>{% trans "Hozircha mavzular qo‘shilmagan." %}</p>
   {% endif %}
 </div>
+
+<dialog class="tp-sheet is-open tp-reset-dialog" id="tp-reset-dialog" aria-labelledby="tp-reset-title">
+  <form class="tp-sheet__panel" method="post" action="{% url 'clear_topic_statistics' %}">
+    {% csrf_token %}
+    <h3 id="tp-reset-title">{% trans "Statistikani tozalaysizmi?" %}</h3>
+    <p>{% trans "Mavzulashtirilgan testlar natijalari va o‘zlashtirish statistikasi tozalanadi." %}</p>
+    <div class="tp-reset-dialog__actions">
+      <button type="submit" class="tp-reset" formmethod="dialog" autofocus>{% trans "Bekor qilish" %}</button>
+      <button type="submit" class="tp-reset tp-reset--danger">{% trans "Tozalash" %}</button>
+    </div>
+  </form>
+</dialog>
 
 <dialog class="tp-sheet" id="tp-sheet" aria-labelledby="tp-sheet-title">
   <div class="tp-sheet__panel">

@@ -556,6 +556,12 @@ msgstr "Тўлиқ экран"
 msgid "Yakunlash"
 msgstr "Якунлаш"
 
+msgid "Tungi rejim"
+msgstr "Тунги режим"
+
+msgid "Kunduzgi rejim"
+msgstr "Кундузги режим"
+
 #: templates/exam/exam.html:46
 msgid "Oldingi"
 msgstr "Олдинги"
@@ -832,11 +838,17 @@ msgstr "Сўнгги имтиҳонлар"
 msgid "Topshirildi"
 msgstr "Топширилди"
 
+msgid "Oʻtish bali yigʻildi"
+msgstr "Ўтиш бали йиғилди"
+
 msgid "Topshirilmadi"
 msgstr "Топширилмади"
 
 msgid "Imtihonni boshlaysizmi?"
 msgstr "Имтиҳонни бошлайсизми?"
+
+msgid "Keyingi safar soʻramang"
+msgstr "Кейинги сафар сўраманг"
 
 msgid "<b data-size></b> ta savol, <b data-minutes></b> daqiqa. <b data-allowed></b> tagacha xatoga ruxsat beriladi."
 msgstr "<b data-size></b> та савол, <b data-minutes></b> дақиқа. <b data-allowed></b> тагача хатога рухсат берилади."
@@ -1044,6 +1056,15 @@ msgstr "Имтиҳон натижаси"
 
 msgid "Statistikani tozalaysizmi?"
 msgstr "Статистикани тозалайсизми?"
+
+msgid "Mavzulashtirilgan testlar natijalari va o‘zlashtirish statistikasi tozalanadi."
+msgstr "Мавзулаштирилган тестлар натижалари ва ўзлаштириш статистикаси тозаланади."
+
+msgid "Oldingi bo‘limlar"
+msgstr "Олдинги бўлимлар"
+
+msgid "Keyingi bo‘limlar"
+msgstr "Кейинги бўлимлар"
 
 msgid "Barcha real imtihon natijalaringiz o‘chiriladi. Buni qaytarib bo‘lmaydi."
 msgstr "Барча реал имтиҳон натижаларингиз ўчирилади. Буни қайтариб бўлмайди."

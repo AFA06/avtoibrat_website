@@ -18,6 +18,18 @@
 .tp-hero__text { flex: 1 1 420px; }
 .tp-hero h1 { margin: 0; font-size: 26px; font-weight: 800; letter-spacing: -.02em; color: var(--tp-ink); }
 .tp-hero p { margin: 6px 0 0; max-width: 680px; color: var(--tp-muted); line-height: 1.5; }
+.tp-hero__aside { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 12px; }
+.tp-reset {
+  display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+  min-height: 38px; padding: 8px 12px; border: 1px solid var(--ai-line, #e6eaf2); border-radius: 10px;
+  background: var(--ai-surface, #fff); color: var(--ai-ink, #0f172a); font-size: 13px; font-weight: 600; cursor: pointer;
+}
+.tp-reset:hover { background: var(--ai-bg, #f3f5f9); }
+#tp-reset-open { color: var(--tp-danger); }
+.tp-reset--danger { background: #b91c1c; color: #fff; border-color: transparent; }
+.tp-reset--danger:hover { background: #991b1b; }
+.tp-reset-dialog p { color: var(--ai-ink-2, #475569); }
+.tp-reset-dialog__actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; margin-top: 20px; }
 .tp-hero__progress { display: flex; align-items: center; gap: 16px; padding: 12px 20px 12px 12px; border: 1px solid var(--tp-line); border-radius: 16px; background: var(--tp-surface); }
 .tp-hero__progress b, .tp-hero__progress span, .tp-hero__progress small { display: block; }
 .tp-hero__progress > div:last-child b { font-size: 20px; font-variant-numeric: tabular-nums; }
@@ -45,6 +57,15 @@
 }
 .tp-search input::placeholder { color: var(--tp-faint); }
 .tp-search input:focus { outline: 0; border-color: var(--tp-brand); box-shadow: 0 0 0 3px var(--tp-brand-soft); }
+.tp-filter-strip { display: flex; flex: 1; align-items: center; gap: 6px; min-width: 0; }
+.tp-filter-arrow {
+  flex: none; display: grid; place-items: center; width: 36px; height: 36px;
+  border: 1px solid var(--tp-line); border-radius: 10px; background: var(--tp-surface);
+  color: var(--tp-ink); font-size: 18px; cursor: pointer;
+}
+.tp-filter-arrow:not(:disabled):hover { background: var(--tp-brand-soft); color: var(--tp-brand); }
+.tp-filter-arrow:disabled { opacity: .4; cursor: default; }
+.tp-filter-arrow:focus-visible, .tp-reset:focus-visible { outline: 2px solid var(--ai-brand, #0f9d6e); outline-offset: 2px; }
 .tp-chips { display: flex; flex: 1; min-width: 0; gap: 4px; overflow-x: auto; scrollbar-width: none; }
 .tp-chips::-webkit-scrollbar { display: none; }
 .tp-chip {
@@ -74,6 +95,7 @@
   width: 100%; min-height: 68px; padding: 12px 18px; border: 0; background: var(--tp-surface);
   color: var(--tp-ink); text-align: left; cursor: pointer; transition: background .15s;
 }
+.tp-card:where(:not(:has(.tp-card__progress))) { grid-template-columns: 36px minmax(0, 1fr) 18px; }
 .tp-card:last-child:nth-child(odd) { grid-column: 1 / -1; } /* no empty cell after an odd count */
 .tp-card:hover { background: var(--tp-soft); }
 .tp-card:focus-visible { outline: 2px solid var(--tp-brand); outline-offset: -2px; }
@@ -86,7 +108,7 @@
 .tp-card__progress { display: flex; align-items: center; gap: 10px; }
 .tp-card__progress b { min-width: 36px; text-align: right; font-size: 13px; font-variant-numeric: tabular-nums; color: var(--tp-muted); }
 .tp-card.is-done .tp-card__progress b { color: var(--tp-brand); }
-.tp-card__go { color: var(--tp-faint); font-size: 16px; transition: transform .15s, color .15s; }
+.tp-card__go { grid-column: -2; color: var(--tp-faint); font-size: 16px; transition: transform .15s, color .15s; }
 .tp-card:hover .tp-card__go { color: var(--tp-brand); transform: translateX(2px); }
 .tp-bar { position: relative; flex: 1; height: 6px; overflow: hidden; border-radius: 99px; background: var(--tp-line); }
 .tp-bar i { position: absolute; inset: 0 auto 0 0; border-radius: inherit; background: var(--tp-brand); }

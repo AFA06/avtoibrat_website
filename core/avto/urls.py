@@ -37,6 +37,7 @@ urlpatterns = [
 
 
     path('mavzulashtirilgan/', mavzulashtirilgan, name="mavzulashtirilgan"),
+    path('mavzulashtirilgan/clear-statistics/', clear_topic_statistics, name="clear_topic_statistics"),
     path('ohshash_savollar/', ohshash_savollar, name="ohshash_savollar"),
 
     path(

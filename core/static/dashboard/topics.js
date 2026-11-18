@@ -9,6 +9,34 @@
   const groups = Array.from(document.querySelectorAll(".tp-group"));
   const cards = Array.from(document.querySelectorAll(".tp-card"));
   const chips = Array.from(document.querySelectorAll(".tp-chip"));
+  const filterStrip = document.querySelector(".tp-filter-strip");
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const scrollBehavior = reduceMotion ? "auto" : "smooth";
+
+  if (filterStrip) {
+    const filters = document.getElementById("tp-filters");
+    const [previous, next] = filterStrip.querySelectorAll("[data-scroll-filters]");
+    function updateArrows() {
+      previous.hidden = next.hidden = filters.scrollWidth - filterStrip.clientWidth <= 1;
+      previous.disabled = filters.scrollLeft <= 1;
+      next.disabled = filters.scrollWidth - filters.clientWidth - filters.scrollLeft <= 1;
+    }
+    for (const arrow of [previous, next]) {
+      arrow.addEventListener("click", () => {
+        filters.scrollBy({ left: Number(arrow.dataset.scrollFilters) * filters.clientWidth * 0.8, behavior: scrollBehavior });
+      });
+    }
+    filters.addEventListener("scroll", updateArrows, { passive: true });
+    new ResizeObserver(updateArrows).observe(filterStrip);
+    document.fonts.ready.then(updateArrows);
+    updateArrows();
+  }
+
+  const resetDialog = document.getElementById("tp-reset-dialog");
+  document.getElementById("tp-reset-open").addEventListener("click", () => resetDialog.showModal());
+  resetDialog.addEventListener("click", (event) => {
+    if (event.target === resetDialog) resetDialog.close();
+  });
 
   // ---------- Filtering ----------
   // Apostrophes come in many shapes in Uzbek text (o‘, o', oʻ); compare without them.
@@ -59,14 +87,13 @@
         c.classList.toggle("is-active", on);
         c.setAttribute("aria-selected", on ? "true" : "false");
       });
-      chip.scrollIntoView({ block: "nearest", inline: "center", behavior: "smooth" });
+      chip.scrollIntoView({ block: "nearest", inline: "center", behavior: scrollBehavior });
       applyFilter();
     });
   });
 
   // ---------- Start sheet ----------
   if (!sheet) return;
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const modes = Object.fromEntries(
     Array.from(sheet.querySelectorAll(".tp-mode")).map((link) => [link.dataset.mode, link])
   );

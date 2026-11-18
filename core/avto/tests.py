@@ -1,4 +1,5 @@
 import os
+from datetime import timedelta
 
 from django.contrib.auth import get_user_model
 from django.contrib.staticfiles import finders
@@ -520,6 +521,12 @@ class ExamModeTests(TestCase):
         html = self.exam_html("start_shablon_test")
         self.assertLess(html.index('id="examOptions"'), html.index('id="examImageBox"'))
 
+    def test_shablon_has_a_theme_toggle_beside_the_language_switcher(self):
+        html = self.exam_html("start_shablon_test")
+        self.assertLess(html.index('id="examLang"'), html.index('id="examThemeToggle"'))
+        self.assertLess(html.index('id="examThemeToggle"'), html.index('id="saveBtn"'))
+        self.assertNotIn('id="examThemeToggle"', self.exam_html("real"))
+
     def test_practice_has_no_answer_confirmation(self):
         html = self.exam_html("start_shablon_test")
         self.assertNotIn('id="answerModal"', html)
@@ -531,6 +538,9 @@ class ExamModeTests(TestCase):
         self.assertIn('class="exam--real exam--intro"', html)  # a fresh exam opens with its entrance
         self.assertIn("practice: false", html)
         self.assertIn('id="answerModal"', html)
+        self.assertIn('<button type="button" class="exam-confirm__option" id="answerModalSelection">', html)
+        self.assertIn('id="answerConfirmBtn"', html)
+        self.assertNotIn('id="answerModalQuestion"', html)
         self.assertNotIn('id="textUpBtn"', html)
         self.assertLess(html.index('id="examOptions"'), html.index('id="examImageBox"'))
 
@@ -584,11 +594,14 @@ class PracticeListProgressBarTests(TestCase):
         response = self.client.get(reverse("shablon_test"))
         self.assertContains(response, "Hali boshlanmagan")
         self.assertNotContains(response, "topic-progress-track")
+        self.assertNotContains(response, "topic-duration")
 
     def test_started_category_shows_proportional_bar_segments(self):
+        finished_at = timezone.now()
         session = TestSession.objects.create(
             user=self.user, category=self.category, test_kind="shablon",
-            started_at=timezone.now(), finished_at=timezone.now(),
+            started_at=finished_at - timedelta(minutes=3, seconds=25),
+            finished_at=finished_at, paused_seconds=60,
         )
         session.questions.set(self.questions)
         UserAnswer.objects.create(
@@ -605,6 +618,7 @@ class PracticeListProgressBarTests(TestCase):
         self.assertIn('topic-progress-seg--correct" style="flex-grow:1"', html)
         self.assertIn('topic-progress-seg--wrong" style="flex-grow:1"', html)
         self.assertIn('topic-progress-seg--skipped" style="flex-grow:2"', html)
+        self.assertContains(response, "02:25")
         self.assertNotContains(response, "Hali boshlanmagan")
 
     def test_bar_follows_site_language(self):

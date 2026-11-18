@@ -854,6 +854,7 @@ class StatisticsReset(models.Model):
     at = models.DateTimeField(default=timezone.now)
     tests = models.PositiveIntegerField(default=0)
     answers = models.PositiveIntegerField(default=0)
+    topic_only = models.BooleanField(default=False)
 
     class Meta:
         ordering = ["-at"]

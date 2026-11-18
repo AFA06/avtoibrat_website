@@ -23,17 +23,42 @@
   align-items: stretch;
   width: 100%;
   gap: 12px;
-  position: relative;
 }
 
-.topic-percent {
+.topic-card-meta {
   position: absolute;
-  top: -14px;
-  right: 0;
-  font-size: 13px;
+  inset: 14px 14px auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.topic-card-meta + .topic-card-body {
+  padding-top: 36px;
+}
+
+.topic-card-meta .topic-percent {
+  position: static;
   font-weight: 700;
-  color: #96a0b5;
   font-variant-numeric: tabular-nums;
+}
+
+.topic-card .topic-card-meta .topic-duration {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: var(--ai-brand-50);
+  color: var(--ai-brand-600);
+  font-size: 14px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.topic-duration i {
+  color: inherit;
 }
 
 .topic-progress {

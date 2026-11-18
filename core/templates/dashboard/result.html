@@ -9,12 +9,12 @@
     <link rel="shortcut icon" href="{% static 'assets_dashboard/images/favicon.png' %}">
     <link href="{% static 'assets_dashboard/css/icons.min.css' %}" rel="stylesheet" type="text/css" />
     <link href="{% static 'dashboard/result.css' %}" rel="stylesheet" type="text/css" />
-    {% if reveal %}<link href="{% static 'dashboard/real-reveal.css' %}" rel="stylesheet" type="text/css" />{% endif %}
+    {% if real_result %}<link href="{% static 'dashboard/real-result.css' %}" rel="stylesheet" type="text/css" />{% endif %}
     {% if mistakes %}<link href="{% static 'dashboard/review.css' %}" rel="stylesheet" type="text/css" />{% endif %}
 </head>
 <body>
 
-<div class="result-page">
+<main class="result-page{% if real_result %} result-page--real{% endif %}">
   <div class="result-card">
     <div class="result-card__brand">
       <img src="{% static 'assets/images/logo-white.png' %}" alt="AvtoIbrat">
@@ -30,29 +30,40 @@
         <div class="result-time" aria-label="{{ duration_display }}"><i class="ti ti-clock" aria-hidden="true"></i><strong>{{ duration_display }}</strong></div>
       </div>
 
-      <div class="result-gauge" role="meter" aria-label="{% trans 'Test natijasi' %}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ score_percent }}" style="--score: {{ score_percent }}">
-        <svg class="result-gauge__dial" viewBox="0 0 220 130" aria-hidden="true">
-          <defs>
-            <linearGradient id="result-score-gradient" x1="0" y1="0.5" x2="1" y2="0.5">
-              <stop offset="0%" stop-color="#ff665f" />
-              <stop offset="52%" stop-color="#f6bd4b" />
-              <stop offset="100%" stop-color="#4fd497" />
-            </linearGradient>
-          </defs>
-          <path class="result-gauge__rim" d="M 20 112 A 90 90 0 0 1 200 112" />
-          <path class="result-gauge__track" pathLength="100" d="M 20 112 A 90 90 0 0 1 200 112" />
-          <g class="result-gauge__ticks" aria-hidden="true"></g>
-          <g class="result-gauge__labels" aria-hidden="true"></g>
-          <path class="result-gauge__fill" pathLength="100" d="M 20 112 A 90 90 0 0 1 200 112" />
-          <path class="result-gauge__needle" d="M110 112 L35 112" transform="rotate(0 110 112)">
-            <animateTransform attributeName="transform" type="rotate" from="0 110 112" to="{% widthratio score_percent 100 180 %} 110 112" dur="1s" fill="freeze" />
-          </path>
-          <circle class="result-gauge__hub" cx="110" cy="112" r="7" />
-        </svg>
-        <strong class="result-gauge__value">{{ score_percent }}<span>%</span></strong>
-        <span class="result-gauge__label">{% trans "Natija" %}</span>
+      <div class="result-summary">
+        <div class="result-gauge" role="meter" aria-label="{% trans 'Test natijasi' %}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ score_percent }}" style="--score: {{ score_percent }}">
+          <svg class="result-gauge__dial" viewBox="0 0 220 130" aria-hidden="true">
+            <defs>
+              <linearGradient id="result-score-gradient" x1="0" y1="0.5" x2="1" y2="0.5">
+                <stop offset="0%" stop-color="#ff665f" />
+                <stop offset="52%" stop-color="#f6bd4b" />
+                <stop offset="100%" stop-color="#4fd497" />
+              </linearGradient>
+            </defs>
+            <path class="result-gauge__rim" d="M 20 112 A 90 90 0 0 1 200 112" />
+            {% if real_result %}
+            <path class="result-gauge__scale" d="M 20 112 A 90 90 0 0 1 200 112" />
+            {% else %}
+            <path class="result-gauge__track" pathLength="100" d="M 20 112 A 90 90 0 0 1 200 112" />
+            {% endif %}
+            <g class="result-gauge__ticks" aria-hidden="true"></g>
+            <g class="result-gauge__labels" aria-hidden="true"></g>
+            {% if real_result %}
+            <path class="result-gauge__needle" d="M110 112 L25 112" transform="rotate({% widthratio score_percent 100 180 %} 110 112)" />
+            {% else %}
+            <path class="result-gauge__fill" pathLength="100" d="M 20 112 A 90 90 0 0 1 200 112" />
+            <path class="result-gauge__needle" d="M110 112 L35 112" transform="rotate(0 110 112)">
+              <animateTransform attributeName="transform" type="rotate" from="0 110 112" to="{% widthratio score_percent 100 180 %} 110 112" dur="1s" fill="freeze" />
+            </path>
+            {% endif %}
+            <circle class="result-gauge__hub" cx="110" cy="112" r="7" />
+          </svg>
+          <strong class="result-gauge__value">{{ score_percent }}<span>%</span></strong>
+          <span class="result-gauge__label">{% trans "Natija" %}</span>
+        </div>
+        <script src="{% static 'dashboard/result-gauge.js' %}"></script>
+        {% if real_result %}{% include "dashboard/_real_result_verdict.html" %}{% endif %}
       </div>
-      <script src="{% static 'dashboard/result-gauge.js' %}"></script>
 
       <div class="result-stats">
         <div class="result-stat">
@@ -86,26 +97,18 @@
       {% include "dashboard/_review.html" %}
 
       <div class="result-actions" aria-label="{% trans 'Test amallari' %}">
-        {% if reveal %}
-        <button type="button" class="result-btn result-btn--ghost" id="rv-replay"><i class="ti ti-player-play"></i> {% trans "Natijani qayta ko‘rsatish" %}</button>
-        {% endif %}
         <a href="{{ restart_url }}" class="result-btn result-btn--ghost result-btn--action" title="{% trans 'Testni qayta boshlash' %}" aria-label="{% trans 'Testni qayta boshlash' %}">
           <i class="ti ti-refresh" aria-hidden="true"></i>
           <span>{% trans "Qayta boshlash" %}</span>
         </a>
-        <a href="{% url list_url_name %}" class="result-btn result-btn--primary result-btn--action" title="{{ list_label }}" aria-label="{{ list_label }}">
+        <a href="{{ list_url }}" class="result-btn result-btn--primary result-btn--action" title="{{ list_label }}" aria-label="{{ list_label }}">
           <i class="ti ti-logout" aria-hidden="true"></i>
           <span>{{ list_label }}</span>
         </a>
       </div>
     {% endif %}
   </div>
-</div>
-
-{% if reveal %}
-<div id="reveal" class="rv" hidden role="dialog" aria-modal="true" aria-label="{% trans 'Imtihon natijasi' %}"></div>
-{{ reveal|json_script:"reveal-data" }}
-<script src="{% static 'dashboard/real-reveal.js' %}"></script>
-{% endif %}
+  {% if real_result %}{% include "dashboard/_real_result_road.html" %}{% endif %}
+</main>
 </body>
 </html>

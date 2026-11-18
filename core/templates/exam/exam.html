@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load l10n %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}" data-protect="strict">
@@ -42,6 +43,14 @@
       <button type="button" class="exam-lang__btn" data-lang="{{ code }}" aria-pressed="false">{% if code == 'uz-kr' %}ЎЗ{% else %}{{ code|upper }}{% endif %}</button>
       {% endfor %}
     </div>
+    {% if practice and session.source == "shablon" %}
+    <button type="button" class="exam-iconbtn exam-theme-toggle" id="examThemeToggle"
+            aria-label="{% trans 'Tungi rejim' %}" aria-pressed="false"
+            data-to-dark="{% trans 'Tungi rejim' %}" data-to-light="{% trans 'Kunduzgi rejim' %}">
+      <i class="ti ti-moon" aria-hidden="true"></i>
+      <i class="ti ti-sun" aria-hidden="true"></i>
+    </button>
+    {% endif %}
     <button type="button" class="exam-iconbtn exam-savebtn" id="saveBtn"
             title="{% trans 'Savolni saqlash' %} (S)" aria-pressed="false">
       <span class="exam-keyhint">S</span>
@@ -68,7 +77,15 @@
   </div>
 </header>
 
-<div class="exam-question-bar">
+<div class="exam-question-bar" id="examQuestionBar">
+  {% if passing_correct %}
+  <div role="status">
+    <span class="exam-pass-status" id="examPassStatus" hidden>
+      <i class="fas fa-check-circle" aria-hidden="true"></i>
+      {% trans "Oʻtish bali yigʻildi" %}
+    </span>
+  </div>
+  {% endif %}
   <span id="examQuestionText"></span>
 </div>
 
@@ -91,7 +108,7 @@
 {% endif %}
 </main>
 
-<nav class="exam-navigator">
+<nav class="exam-navigator{% if not practice and questions_data|length == 50 %} exam-navigator--two-rows{% endif %}">
   {% if practice %}
   <button type="button" class="exam-navarrow" id="prevBtn" aria-label="{% trans 'Oldingi' %}">
     <i class="fas fa-chevron-left"></i>
@@ -109,8 +126,10 @@
 <div class="exam-modal" id="answerModal">
   <div class="exam-modal__card exam-confirm" role="dialog" aria-modal="true" aria-labelledby="answerModalTitle">
     <h3 class="exam-confirm__title" id="answerModalTitle">{% trans "Javobni tasdiqlang" %}</h3>
-    <p class="exam-confirm__question"><span class="exam-confirm__number" id="answerModalNumber"></span><span id="answerModalQuestion"></span></p>
-    <div class="exam-confirm__options" id="answerModalOptions"></div>
+    <button type="button" class="exam-confirm__option" id="answerModalSelection">
+      <span class="exam-option__key" id="answerModalKey"></span>
+      <span class="exam-option__text" id="answerModalText"></span>
+    </button>
     <div class="exam-modal__actions">
       <button type="button" class="exam-btn exam-btn--ghost" id="answerCancelBtn">{% trans "Bekor qilish" %}</button>
       <button type="button" class="exam-btn exam-btn--primary" id="answerConfirmBtn">{% trans "Tasdiqlash" %}</button>
@@ -171,6 +190,7 @@
     explanationUrl: "{% url 'question_explanation' 0 %}",
     logoUrl: "{% static 'assets/images/logo-white.png' %}",
     practice: {{ practice|yesno:"true,false" }},
+    passingCorrect: {{ passing_correct|default:0|unlocalize }},
     pauseUrl: {% if session.can_pause %}"{% url 'pause_test' session.id %}"{% else %}null{% endif %},
     startPaused: {{ session.is_paused|yesno:"true,false" }},
     animationStrings: {

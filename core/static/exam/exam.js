@@ -13,16 +13,18 @@
     timerValue: document.getElementById("examTimerValue"),
     fullscreenBtn: document.getElementById("fullscreenBtn"),
     finishBtn: document.getElementById("finishBtn"),
+    questionBar: document.getElementById("examQuestionBar"),
     questionText: document.getElementById("examQuestionText"),
+    passStatus: document.getElementById("examPassStatus"),
     imageBox: document.getElementById("examImageBox"),
     optionsBox: document.getElementById("examOptions"),
     navGrid: document.getElementById("examNavGrid"),
     prevBtn: document.getElementById("prevBtn"),
     nextBtn: document.getElementById("nextBtn"),
     answerModal: document.getElementById("answerModal"),
-    answerModalNumber: document.getElementById("answerModalNumber"),
-    answerModalQuestion: document.getElementById("answerModalQuestion"),
-    answerModalOptions: document.getElementById("answerModalOptions"),
+    answerModalSelection: document.getElementById("answerModalSelection"),
+    answerModalKey: document.getElementById("answerModalKey"),
+    answerModalText: document.getElementById("answerModalText"),
     answerCancelBtn: document.getElementById("answerCancelBtn"),
     answerConfirmBtn: document.getElementById("answerConfirmBtn"),
     finishModal: document.getElementById("finishModal"),
@@ -339,10 +341,17 @@
 
   function renderNav() {
     if (navCells.length !== questions.length) buildNav();
+    const passReady = config.passingCorrect > 0 &&
+      Object.values(answered).filter((result) => result.is_correct).length >= config.passingCorrect;
+    els.questionBar.classList.toggle(
+      "exam-question-bar--pass-ready", passReady && !answered[questions[currentIndex].id]
+    );
+    if (els.passStatus) els.passStatus.hidden = !passReady;
     navCells.forEach((cell, index) => {
       const result = answered[questions[index].id];
       cell.classList.toggle("exam-navcell--correct", Boolean(result && result.is_correct));
       cell.classList.toggle("exam-navcell--wrong", Boolean(result && !result.is_correct));
+      cell.classList.toggle("exam-navcell--pass-ready", passReady && !result);
       cell.classList.toggle("exam-navcell--current", index === currentIndex);
     });
     keepCurrentCellVisible();
@@ -352,11 +361,17 @@
   function keepCurrentCellVisible() {
     const nav = els.navGrid.closest(".exam-navigator");
     const cell = navCells[currentIndex];
-    if (!nav || !cell || nav.scrollHeight <= nav.clientHeight) return;
+    if (!nav || !cell) return;
+    const scrollsVertically = nav.scrollHeight > nav.clientHeight;
+    const scrollsHorizontally = nav.scrollWidth > nav.clientWidth;
+    if (!scrollsVertically && !scrollsHorizontally) return;
     const navBox = nav.getBoundingClientRect();
     const cellBox = cell.getBoundingClientRect();
-    if (cellBox.top < navBox.top || cellBox.bottom > navBox.bottom) {
+    if (scrollsVertically && (cellBox.top < navBox.top || cellBox.bottom > navBox.bottom)) {
       nav.scrollTop += cellBox.top - navBox.top - (nav.clientHeight - cellBox.height) / 2;
+    }
+    if (scrollsHorizontally && (cellBox.left < navBox.left || cellBox.right > navBox.left + nav.clientWidth)) {
+      nav.scrollLeft += cellBox.left - navBox.left - (nav.clientWidth - cellBox.width) / 2;
     }
   }
 
@@ -367,35 +382,16 @@
   }
 
   function selectOption(question, answer) {
+    if (submitting) return;
     if (practice) {
       submitAnswer(question, answer);
       return;
     }
     pendingSelection = { question, answer };
-    renderConfirm();
+    els.answerModalKey.textContent = `F${orderInLanguage(question).indexOf(answer.id) + 1}`;
+    els.answerModalText.textContent = linkedText(question, answer);
     openModal(els.answerModal);
-  }
-
-  // Keep confirmation focused on the question and the selected answer only.
-  function renderConfirm() {
-    const { answer } = pendingSelection;
-    els.answerModalNumber.textContent = String(currentIndex + 1);
-    els.answerModalQuestion.textContent = els.questionText.textContent;
-    els.answerModalOptions.textContent = "";
-    els.optionsBox.querySelectorAll(".exam-option").forEach((option) => {
-      if (option.dataset.answerId !== String(answer.id)) return;
-      const row = option.cloneNode(true);
-      row.className = "exam-confirm__option is-selected";
-      row.setAttribute("aria-selected", "true");
-      els.answerModalOptions.appendChild(row);
-    });
-  }
-
-  function changeSelection(question, answerId) {
-    const answer = contentOf(question).answers.find((a) => String(a.id) === String(answerId));
-    if (!answer) return;
-    pendingSelection = { question, answer };
-    renderConfirm();
+    els.answerModalSelection.focus();
   }
 
   function confirmSelection() {
@@ -404,6 +400,11 @@
     pendingSelection = null;
     closeModal(els.answerModal);
     submitAnswer(question, answer);
+  }
+
+  function cancelSelection() {
+    pendingSelection = null;
+    closeModal(els.answerModal);
   }
 
   function submitAnswer(question, answer) {
@@ -620,11 +621,12 @@
   }
 
   if (!practice) {
-    els.answerCancelBtn.addEventListener("click", () => {
-      pendingSelection = null;
-      closeModal(els.answerModal);
+    els.answerCancelBtn.addEventListener("click", cancelSelection);
+    els.answerModal.addEventListener("click", (e) => {
+      if (e.target === els.answerModal) cancelSelection();
     });
     els.answerConfirmBtn.addEventListener("click", confirmSelection);
+    els.answerModalSelection.addEventListener("click", confirmSelection);
   }
 
   els.finishCancelBtn.addEventListener("click", () => closeModal(els.finishModal));
@@ -645,11 +647,11 @@
     }
 
     if (isModalOpen(els.answerModal)) {
-      if (e.key === "Enter") { e.preventDefault(); confirmSelection(); }
-      if (e.key === "Escape") { e.preventDefault(); pendingSelection = null; closeModal(els.answerModal); }
-      const key = /^F(\d+)$/.exec(e.key);
-      const row = key && els.answerModalOptions.children[parseInt(key[1], 10) - 1];
-      if (row) { e.preventDefault(); row.click(); }
+      if (e.key === "Enter" && !els.answerModal.contains(e.target)) {
+        e.preventDefault();
+        confirmSelection();
+      }
+      if (e.key === "Escape") { e.preventDefault(); cancelSelection(); }
       return;
     }
 
@@ -819,7 +821,7 @@
       try { localStorage.setItem(LANGUAGE_STORAGE_KEY, next); } catch (e) { /* storage unavailable: the choice just is not remembered */ }
       document.documentElement.lang = next === "uz-kr" ? "uz-Cyrl" : next;
       paint();
-      if (pendingSelection) { pendingSelection = null; closeModal(els.answerModal); }
+      if (pendingSelection) cancelSelection();
 
       // Fade the question out, swap its language, fade back in.
       clearTimeout(swapTimer);

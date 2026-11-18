@@ -73,6 +73,28 @@
 .rx-confirm__icon { display: inline-grid; place-items: center; width: 52px; height: 52px; border-radius: 16px; background: var(--ai-brand-50, #e8f7f1); color: var(--ai-brand, #0f9d6e); font-size: 26px; }
 .rx-confirm h3 { margin: 14px 0 6px; font-size: 19px; font-weight: 700; }
 .rx-confirm p { margin: 0 0 20px; color: var(--ai-ink-2, #475569); }
+.rx-confirm__remember {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  padding: 10px 12px;
+  border: 1px solid var(--ai-line, #e6eaf2);
+  border-radius: 10px;
+  color: var(--ai-ink, #0f172a);
+  font-size: 14px;
+  text-align: left;
+  cursor: pointer;
+}
+.rx-confirm__remember:hover { background: var(--ai-brand-50, #e8f7f1); }
+.rx-confirm__remember input {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--ai-brand, #0f9d6e);
+  cursor: pointer;
+}
 .rx-confirm__buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
 @keyframes rx-rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }

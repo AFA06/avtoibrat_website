@@ -1,0 +1,22 @@
+{% load i18n %}
+<section class="real-verdict {% if real_result.passed %}real-verdict--pass{% else %}real-verdict--fail{% endif %}">
+  <div class="real-verdict__badge">
+    {% if real_result.passed %}
+    <i class="ti ti-circle-check" aria-hidden="true"></i> {% trans "Topshirildi" %}
+    {% else %}
+    <i class="ti ti-circle-x" aria-hidden="true"></i> {% trans "Topshirilmadi" %}
+    {% endif %}
+  </div>
+  {% if real_result.passed %}
+  <div class="real-certificate">
+    <i class="ti ti-award" aria-hidden="true"></i>
+    <div>
+      <h2>{% trans "IMTIHON SERTIFIKATI" %}</h2>
+      <p class="real-certificate__name">{{ real_result.name }}</p>
+    </div>
+  </div>
+  {% else %}
+  <h2>{% blocktrans with name=real_result.name %}Bu hali oxiri emas, {{ name }}{% endblocktrans %}</h2>
+  <p>{% trans "Ruxsat etilgan xato" %} <strong>{{ real_result.allowed }}</strong></p>
+  {% endif %}
+</section>

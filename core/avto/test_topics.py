@@ -93,6 +93,29 @@ class TopicTestsTests(TestCase):
         self.assertContains(response, "Asosiy manyovrlar")
         self.assertNotContains(response, "Harakatlanish tezligi")
         self.assertContains(response, reverse("start_mavzu_test", args=[self.topic.id]))
+        self.assertContains(response, "data-scroll-filters")
+        self.assertNotContains(response, "tp-card__progress")
+
+    def test_zero_percent_is_shown_after_an_incorrect_answer(self):
+        self.answer(self.questions[0], correct=False)
+        response = self.client.get(reverse("mavzulashtirilgan"))
+        self.assertContains(response, "tp-card__progress")
+        self.assertContains(response, "<b>0%</b>")
+
+    def test_reset_clears_topic_progress_and_keeps_other_test_history(self):
+        self.answer(self.questions[0], correct=True)
+        _, topic_session = self.start("all")
+        reset_url = reverse("clear_topic_statistics")
+        self.assertEqual(self.client.get(reset_url).status_code, 405)
+        response = self.client.post(reset_url, follow=True)
+        self.assertRedirects(response, reverse("mavzulashtirilgan"))
+        self.assertFalse(TestSession.objects.filter(pk=topic_session.pk).exists())
+        self.assertEqual(UserAnswer.objects.filter(session__user=self.user).count(), 1)
+        self.assertEqual(topic_tests.latest_results(self.user), {})
+        self.assertNotContains(response, "tp-card__progress")
+
+        self.answer(self.questions[1], correct=True)
+        self.assertEqual(topic_tests.latest_results(self.user), {self.questions[1].pk: True})
 
     def test_page_shows_topic_names_in_the_site_language(self):
         response = self.client.get("/ru/mavzulashtirilgan/")

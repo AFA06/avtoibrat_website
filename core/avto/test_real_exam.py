@@ -33,9 +33,13 @@ class RealExamTests(TestCase):
         self.assertContains(response, reverse("start_real_exam", args=[20]))
         self.assertContains(response, reverse("start_real_exam", args=[50]))
         self.assertNotContains(response, "Bilet 1")
+        self.assertContains(response, '<input type="checkbox" data-skip-confirmation>')
 
     def test_exam_draws_random_questions_evenly_from_every_topic(self):
-        _, session = self.start(20)
+        response, session = self.start(20)
+        exam_page = self.client.get(response.url)
+        self.assertContains(exam_page, "passingCorrect: 18,")
+        self.assertNotContains(exam_page, "exam-navigator--two-rows")
         self.assertEqual(len(set(session.question_order)), 20)
         topics = list(Question.objects.filter(id__in=session.question_order).values_list("mavzu_id", flat=True))
         self.assertEqual(sorted(topics.count(t.id) for t in self.topics), [4] * 5)
@@ -44,6 +48,10 @@ class RealExamTests(TestCase):
     def test_each_exam_gets_new_questions(self):
         orders = {tuple(self.start(50)[1].question_order) for _ in range(3)}
         self.assertGreater(len(orders), 1)
+        session = TestSession.objects.latest("id")
+        response = self.client.get(reverse("test_page", args=[session.id]))
+        self.assertContains(response, "passingCorrect: 46,")
+        self.assertContains(response, "exam-navigator--two-rows")
 
     def test_unknown_size_or_too_few_questions_go_back_to_the_page(self):
         for size in (30, 100):

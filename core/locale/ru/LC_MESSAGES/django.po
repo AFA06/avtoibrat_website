@@ -557,6 +557,12 @@ msgstr "Полный экран"
 msgid "Yakunlash"
 msgstr "Завершить"
 
+msgid "Tungi rejim"
+msgstr "Тёмная тема"
+
+msgid "Kunduzgi rejim"
+msgstr "Светлая тема"
+
 #: templates/exam/exam.html:46
 msgid "Oldingi"
 msgstr "Предыдущий"
@@ -835,11 +841,17 @@ msgstr "Последние экзамены"
 msgid "Topshirildi"
 msgstr "Сдан"
 
+msgid "Oʻtish bali yigʻildi"
+msgstr "Проходной балл набран"
+
 msgid "Topshirilmadi"
 msgstr "Не сдан"
 
 msgid "Imtihonni boshlaysizmi?"
 msgstr "Начать экзамен?"
+
+msgid "Keyingi safar soʻramang"
+msgstr "Больше не спрашивать"
 
 msgid "<b data-size></b> ta savol, <b data-minutes></b> daqiqa. <b data-allowed></b> tagacha xatoga ruxsat beriladi."
 msgstr "<b data-size></b> вопросов, <b data-minutes></b> мин. Допускается ошибок: до <b data-allowed></b>."
@@ -1051,6 +1063,15 @@ msgstr "Результат экзамена"
 
 msgid "Statistikani tozalaysizmi?"
 msgstr "Очистить статистику?"
+
+msgid "Mavzulashtirilgan testlar natijalari va o‘zlashtirish statistikasi tozalanadi."
+msgstr "Результаты тематических тестов и статистика освоения тем будут сброшены."
+
+msgid "Oldingi bo‘limlar"
+msgstr "Предыдущие разделы"
+
+msgid "Keyingi bo‘limlar"
+msgstr "Следующие разделы"
 
 msgid "Barcha real imtihon natijalaringiz o‘chiriladi. Buni qaytarib bo‘lmaydi."
 msgstr "Все результаты реальных экзаменов будут удалены. Это нельзя отменить."

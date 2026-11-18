@@ -63,11 +63,15 @@
   {% endif %}
 </div>
 
-<dialog class="rx-confirm" id="rx-confirm" aria-labelledby="rx-confirm-title">
+<dialog class="rx-confirm" id="rx-confirm" data-student="{{ user.pk|stringformat:'s' }}" aria-labelledby="rx-confirm-title">
   <div class="rx-confirm__panel">
     <span class="rx-confirm__icon"><i class="ti ti-award"></i></span>
     <h3 id="rx-confirm-title">{% trans "Imtihonni boshlaysizmi?" %}</h3>
     <p>{% blocktrans %}<b data-size></b> ta savol, <b data-minutes></b> daqiqa. <b data-allowed></b> tagacha xatoga ruxsat beriladi.{% endblocktrans %}</p>
+    <label class="rx-confirm__remember">
+      <input type="checkbox" data-skip-confirmation>
+      <span>{% trans "Keyingi safar soʻramang" %}</span>
+    </label>
     <div class="rx-confirm__buttons">
       <button type="button" class="rx-btn rx-btn--ghost" data-close>{% trans "Orqaga" %}</button>
       <a class="rx-btn" data-go href="#"><i class="ti ti-player-play" aria-hidden="true"></i>{% trans "Boshlash" %}</a>

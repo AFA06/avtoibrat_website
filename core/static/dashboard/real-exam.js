@@ -27,12 +27,22 @@
   const dialog = document.getElementById("rx-confirm");
   if (!dialog) return;
   const go = dialog.querySelector("[data-go]");
+  const skipConfirmation = dialog.querySelector("[data-skip-confirmation]");
+  const preferenceKey = `avtoibrat.realExam.skipConfirmation.${dialog.dataset.student}`;
+
+  function shouldSkipConfirmation() {
+    try {
+      return localStorage.getItem(preferenceKey) === "1";
+    } catch {
+      return false;
+    }
+  }
 
   function open(button) {
     ["size", "minutes", "allowed"].forEach((key) => {
       dialog.querySelector(`[data-${key}]`).textContent = button.dataset[key];
     });
-    go.href = button.dataset.start;
+    skipConfirmation.checked = false;
     dialog.showModal();
     requestAnimationFrame(() => dialog.classList.add("is-open"));
   }
@@ -42,7 +52,17 @@
     setTimeout(() => dialog.open && !dialog.classList.contains("is-open") && dialog.close(), 250);
   }
 
-  document.querySelectorAll("[data-start]").forEach((button) => button.addEventListener("click", () => open(button)));
+  document.querySelectorAll("[data-start]").forEach((button) => {
+    button.addEventListener("click", () => {
+      if (go.dataset.busy) return;
+      go.href = button.dataset.start;
+      if (shouldSkipConfirmation()) {
+        go.click();
+      } else {
+        open(button);
+      }
+    });
+  });
   dialog.querySelector("[data-close]").addEventListener("click", close);
   dialog.addEventListener("cancel", (event) => {
     event.preventDefault();
@@ -52,8 +72,18 @@
     if (event.target === dialog) close();
   });
   go.addEventListener("click", (event) => {
-    if (go.dataset.busy) event.preventDefault();
+    if (go.dataset.busy) {
+      event.preventDefault();
+      return;
+    }
     go.dataset.busy = "1";
+    if (dialog.open && skipConfirmation.checked) {
+      try {
+        localStorage.setItem(preferenceKey, "1");
+      } catch {
+        // Start the exam even if browser storage is unavailable.
+      }
+    }
   });
   window.addEventListener("pageshow", (event) => {
     if (event.persisted) {
