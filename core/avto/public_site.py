@@ -1,9 +1,9 @@
-"""The public home page's «sign me up» form.
+"""Forms on the public site: «sign me up» on the home page and «write to us» on the contact page.
 
 Spam guards, all database-based so they hold across Gunicorn workers:
 - a hidden «website» field people never see; a bot that fills it is told «sent» and nothing is saved;
-- the same phone number is saved at most once a day (a repeat still shows «sent», the school already has it);
-- at most MAX_PER_HOUR requests are saved per hour in total, so a flood cannot fill the database.
+- the same phone number is saved at most once a day per form (a repeat still shows «sent»);
+- at most MAX_PER_HOUR messages are saved per hour per form, so a flood cannot fill the database.
 """
 import re
 from datetime import timedelta
@@ -11,11 +11,18 @@ from datetime import timedelta
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
-from .models import ConsultRequest
+from .models import ConsultRequest, ContactMessage
 
 HONEYPOT = "website"
 MAX_PER_HOUR = 40
 CATEGORIES = ("A", "B", "BC", "C", "D")
+CONTACT_TOPICS = (
+    ("course", _("Kursga yozilish")),
+    ("platform", _("Onlayn platforma")),
+    ("other", _("Boshqa savol")),
+)
+# Saved in Uzbek whatever the visitor's language, so the admin list reads the same for everyone.
+CONTACT_SUBJECTS = {"course": "Kursga yozilish", "platform": "Onlayn platforma", "other": "Boshqa savol"}
 
 
 def normalize_phone(raw):
@@ -28,16 +35,18 @@ def normalize_phone(raw):
     return "+" + digits
 
 
-def handle_consult_form(post):
-    """Validate and save a request. Returns (ok, errors, values); ok=True means show «sent»."""
+def _check(post, model, extra_fields):
+    """Shared validation. Returns (ok, errors, values, phone); ok without errors and phone=None means «pretend sent»."""
     values = {
         "name": (post.get("name") or "").strip()[:100],
         "phone": (post.get("phone") or "").strip()[:30],
-        "category": (post.get("category") or "").strip(),
         "message": (post.get("message") or "").strip()[:1000],
     }
+    for field, allowed in extra_fields.items():
+        value = (post.get(field) or "").strip()
+        values[field] = value if value in allowed else ""
     if post.get(HONEYPOT):
-        return True, {}, values
+        return True, {}, values, None
 
     errors = {}
     if len(values["name"]) < 2:
@@ -45,18 +54,33 @@ def handle_consult_form(post):
     phone = normalize_phone(values["phone"])
     if not phone:
         errors["phone"] = _("Telefon raqamni to‘liq yozing, masalan +998 90 123 45 67")
-    if values["category"] not in CATEGORIES:
-        values["category"] = ""
     if errors:
-        return False, errors, values
+        return False, errors, values, None
 
     now = timezone.now()
-    if ConsultRequest.objects.filter(phone=phone, created_at__gte=now - timedelta(days=1)).exists():
-        return True, {}, values
-    if ConsultRequest.objects.filter(created_at__gte=now - timedelta(hours=1)).count() >= MAX_PER_HOUR:
-        return False, {"form": _("Hozir so‘rovlar juda ko‘p. Iltimos, bizga qo‘ng‘iroq qiling.")}, values
+    if model.objects.filter(phone=phone, created_at__gte=now - timedelta(days=1)).exists():
+        return True, {}, values, None
+    if model.objects.filter(created_at__gte=now - timedelta(hours=1)).count() >= MAX_PER_HOUR:
+        return False, {"form": _("Hozir so‘rovlar juda ko‘p. Iltimos, bizga qo‘ng‘iroq qiling.")}, values, None
+    return True, {}, values, phone
 
-    ConsultRequest.objects.create(
-        first_name=values["name"], phone=phone, category=values["category"], message=values["message"],
-    )
-    return True, {}, values
+
+def handle_consult_form(post):
+    """Home page sign-up. Returns (ok, errors, values); ok=True means show «sent»."""
+    ok, errors, values, phone = _check(post, ConsultRequest, {"category": CATEGORIES})
+    if ok and phone:
+        ConsultRequest.objects.create(
+            first_name=values["name"], phone=phone, category=values["category"], message=values["message"],
+        )
+    return ok, errors, values
+
+
+def handle_contact_form(post):
+    """Contact page message. Returns (ok, errors, values); ok=True means show «sent»."""
+    ok, errors, values, phone = _check(post, ContactMessage, {"topic": CONTACT_SUBJECTS})
+    if ok and phone:
+        ContactMessage.objects.create(
+            name=values["name"], phone=phone, subject=CONTACT_SUBJECTS[values["topic"] or "other"],
+            message=values["message"],
+        )
+    return ok, errors, values

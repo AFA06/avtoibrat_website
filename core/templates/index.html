@@ -5,68 +5,69 @@
 
 {% block content %}
 
-{# ---------- Hero ---------- #}
-<section class="st-hero">
-    <div class="st-wrap st-hero__grid">
-        <div class="st-hero__text">
-            <p class="st-kicker">
-                <i class="ti ti-map-pin"></i>{% trans "Toshkent · haydovchilik maktabi" %}
-                {% if school.is_demo %}<span class="st-demo" title="{% trans 'Admin paneldagi «Maktab ma’lumotlari» bo‘limida almashtiring' %}">{% trans "namuna" %}</span>{% endif %}
+<section class="asphalt asphalt--lane hero">
+    <div class="wrap hero__grid">
+        <div>
+            <p class="hero__where">
+                <i class="ti ti-map-pin"></i>{% trans "Toshkentdagi haydovchilik maktabi" %}
+                {% if school.is_demo %}<span class="demo-tag" title="{% trans 'Admin paneldagi «Maktab ma’lumotlari» bo‘limida almashtiring' %}">{% trans "namuna" %}</span>{% endif %}
             </p>
             <h1>{% if school %}{{ school.l_headline }}{% else %}{% trans "Ishonchli haydovchi bo‘lishni biz bilan boshlang" %}{% endif %}</h1>
-            {% if school %}<p class="st-lead">{{ school.l_intro }}</p>{% endif %}
-            <div class="st-hero__cta">
-                <a class="st-btn st-btn--lg" href="#apply">{% trans "Kursga yozilish" %}<i class="ti ti-arrow-right"></i></a>
-                <a class="st-btn st-btn--lg st-btn--ghost" href="{% url 'login' %}"><i class="ti ti-device-laptop"></i>{% trans "Imtihon platformasi" %}</a>
+            {% if school %}<p class="hero__lede">{{ school.l_intro }}</p>{% endif %}
+            <div class="hero__actions">
+                <a class="btn btn--mark" href="#apply">{% trans "Kursga yozilish" %}</a>
+                <a class="btn btn--line" href="{% url 'login' %}">{% trans "Kabinetga kirish" %}</a>
             </div>
-            {% if school %}
-            <dl class="st-stats">
-                <div><dt>{% trans "yillik tajriba" %}</dt><dd>{{ school.years_experience }}+</dd></div>
-                <div><dt>{% trans "bitiruvchi" %}</dt><dd>{{ school.graduates|som }}+</dd></div>
-                <div><dt>{% trans "birinchi urinishda topshiradi" %}</dt><dd>{{ school.pass_rate }}%</dd></div>
-            </dl>
-            {% endif %}
         </div>
 
-        <div class="st-hero__media">
-            <img src="{% static school.photo|default:'site/demo/instructor.jpg' %}" alt="{% if school %}{{ school.instructor_name }}{% else %}AvtoIbrat{% endif %}" width="900" height="866">
-            <div class="st-float st-float--score" aria-hidden="true">
-                <span class="st-float__icon"><i class="ti ti-certificate"></i></span>
-                <span><b>20 / 20</b><small>{% trans "Real imtihon · o‘tdi" %}</small></span>
-            </div>
-            <div class="st-float st-float--signs" aria-hidden="true">
-                <span class="st-float__icon st-float__icon--blue"><i class="ti ti-road-sign"></i></span>
-                <span><b>276</b><small>{% trans "yo‘l belgisi" %}</small></span>
-            </div>
+        {% if school %}
+        <div class="hero__card">
+            <article class="licence" aria-label="{% trans 'Instruktor haqida' %}">
+                <div class="licence__strip"><b>AvtoIbrat</b><span>{% trans "Instruktor guvohnomasi" %}</span></div>
+                <div class="licence__body">
+                    <img class="licence__photo" src="{% static school.photo %}" alt="{{ school.instructor_name }}" width="138" height="172">
+                    <dl class="licence__fields">
+                        <div class="licence__name"><dt>1.</dt><dd><strong>{{ school.instructor_name }}</strong></dd></div>
+                        <div><dt>2.</dt><dd><small>{% trans "Lavozim" %}</small><strong>{% trans "Haydovchilik instruktori" %}</strong></dd></div>
+                        <div><dt>3.</dt><dd><small>{% trans "Tajriba" %}</small><strong>{{ school.years_experience }} {% trans "yil" %}</strong></dd></div>
+                        <div><dt>4.</dt><dd><small>{% trans "Bitiruvchilar" %}</small><strong>{{ school.graduates|som }}+</strong></dd></div>
+                        <div><dt>5.</dt><dd><small>{% trans "Birinchi urinishda topshirganlar" %}</small><strong>{{ school.pass_rate }}%</strong></dd></div>
+                    </dl>
+                </div>
+                <dl class="licence__cats">
+                    <dt>9.</dt>
+                    <dd>{% for cat in categories %}<span class="{% if cat in taught %}is-on{% endif %}">{{ cat }}</span>{% endfor %}</dd>
+                </dl>
+            </article>
         </div>
+        {% endif %}
     </div>
 </section>
 
-{# ---------- How it works ---------- #}
-<section class="st-section" aria-labelledby="steps-title">
-    <div class="st-wrap">
-        <header class="st-head">
-            <p class="st-eyebrow">{% trans "Qanday o‘qiymiz" %}</p>
-            <h2 id="steps-title">{% trans "Yozilishdan guvohnomagacha — to‘rt qadam" %}</h2>
-        </header>
-        <ol class="st-steps">
+<section class="sec" aria-labelledby="route-title">
+    <div class="wrap">
+        <div class="sec__head">
+            <h2 id="route-title">{% trans "Guvohnomagacha yo‘l" %}</h2>
+            <p>{% trans "Yozilgan kundan imtihongacha nima bo‘lishini oldindan bilasiz. Har bosqichda instruktor yoningizda." %}</p>
+        </div>
+        <ol class="route">
             <li>
-                <span class="st-steps__icon"><i class="ti ti-clipboard-check"></i></span>
+                <span class="route__stop">1</span>
                 <h3>{% trans "Yozilasiz" %}</h3>
                 <p>{% trans "Ariza qoldirasiz, administrator qo‘ng‘iroq qilib guruh va vaqtni kelishadi." %}</p>
             </li>
             <li>
-                <span class="st-steps__icon"><i class="ti ti-book"></i></span>
+                <span class="route__stop">2</span>
                 <h3>{% trans "Nazariya" %}</h3>
                 <p>{% trans "Darsda yo‘l qoidalarini o‘rganasiz, uyda esa platformada rasmiy savollar bilan mashq qilasiz." %}</p>
             </li>
             <li>
-                <span class="st-steps__icon"><i class="ti ti-steering-wheel"></i></span>
+                <span class="route__stop">3</span>
                 <h3>{% trans "Amaliy haydash" %}</h3>
                 <p>{% trans "Instruktor bilan o‘quv avtomobilida — maydonchadan shahar ko‘chalarigacha." %}</p>
             </li>
             <li>
-                <span class="st-steps__icon"><i class="ti ti-certificate"></i></span>
+                <span class="route__stop"><i class="ti ti-flag" aria-hidden="true"></i><span class="hp">4</span></span>
                 <h3>{% trans "Imtihon" %}</h3>
                 <p>{% trans "Real imtihon rejimida tayyor ekaningizni ko‘rib, imtihonga ishonch bilan borasiz." %}</p>
             </li>
@@ -74,69 +75,29 @@
     </div>
 </section>
 
-{# ---------- Exam platform ---------- #}
-<section class="st-section st-band" id="platform" aria-labelledby="platform-title">
-    <div class="st-wrap st-platform">
-        <div class="st-platform__text">
-            <p class="st-eyebrow">{% trans "O‘quvchilar uchun" %}</p>
-            <h2 id="platform-title">{% trans "Onlayn imtihon platformasi — uyda ham, o‘quv xonasida ham" %}</h2>
-            <p class="st-lead">{% trans "Har bir o‘quvchi shaxsiy kabinet oladi. Savollar rasmiy biletlardan, javob variantlari har safar aralashadi — yodlab emas, tushunib o‘rganasiz." %}</p>
-            <ul class="st-features">
-                <li><i class="ti ti-certificate"></i><span><b>{% trans "Real imtihon" %}</b>{% trans "20 savol, 20 daqiqa — haqiqiy imtihon kabi." %}</span></li>
-                <li><i class="ti ti-infinity"></i><span><b>{% trans "Marafon" %}</b>{% trans "Barcha savollar bo‘limlarga bo‘lingan, xatolar alohida qayta ishlanadi." %}</span></li>
-                <li><i class="ti ti-road-sign"></i><span><b>{% trans "Yo‘l belgilari" %}</b>{% trans "276 ta rasmiy belgi rasmi va izohi bilan." %}</span></li>
-                <li><i class="ti ti-chart-bar"></i><span><b>{% trans "Natijalar" %}</b>{% trans "Instruktor har bir o‘quvchining tayyorgarligini ko‘rib boradi." %}</span></li>
-            </ul>
-            <a class="st-btn" href="{% url 'login' %}"><i class="ti ti-login"></i>{% trans "Platformaga kirish" %}</a>
-        </div>
-
-        <div class="st-mock" aria-hidden="true">
-            <div class="st-mock__bar">
-                <span class="st-mock__dots"><i></i><i></i><i></i></span>
-                <span class="st-mock__title">{% trans "Real imtihon" %}</span>
-                <span class="st-mock__timer"><i class="ti ti-clock"></i>14:32</span>
-            </div>
-            <div class="st-mock__body">
-                <div class="st-mock__img"><i class="ti ti-road-sign"></i></div>
-                <div class="st-mock__q">
-                    <p>{% trans "Ushbu belgi nimani bildiradi?" %}</p>
-                    <span class="st-mock__opt"><kbd>F1</kbd>{% trans "Kirish taqiqlangan" %}</span>
-                    <span class="st-mock__opt is-right"><kbd>F2</kbd>{% trans "Asosiy yo‘l" %}<i class="ti ti-check"></i></span>
-                    <span class="st-mock__opt"><kbd>F3</kbd>{% trans "Yo‘l bering" %}</span>
-                </div>
-            </div>
-            <div class="st-mock__nav">
-                {% for i in "12345678901234567890" %}<span class="{% if forloop.counter < 7 %}is-done{% elif forloop.counter == 7 %}is-now{% endif %}{% if forloop.counter == 4 %} is-bad{% endif %}">{{ forloop.counter }}</span>{% endfor %}
-            </div>
-        </div>
-    </div>
-</section>
-
-{# ---------- Courses and prices ---------- #}
 {% if courses %}
-<section class="st-section" id="courses" aria-labelledby="courses-title">
-    <div class="st-wrap">
-        <header class="st-head">
-            <p class="st-eyebrow">{% trans "Kurslar va narxlar" %}</p>
-            <h2 id="courses-title">{% trans "O‘zingizga mos toifani tanlang" %}</h2>
+<section class="sec" id="courses" aria-labelledby="courses-title">
+    <div class="wrap">
+        <div class="sec__head">
+            <h2 id="courses-title">{% trans "Toifalar va narxlar" %}</h2>
             <p>{% trans "Narxga nazariy va amaliy darslar hamda imtihon platformasiga kirish kiradi. To‘lovni qismlarga bo‘lish mumkin." %}</p>
-        </header>
-        <div class="st-courses">
+        </div>
+        <div class="cats">
             {% for course in courses %}
-            <article class="st-course{% if course.is_popular %} is-popular{% endif %}">
-                {% if course.is_popular %}<span class="st-course__tag">{% trans "Ko‘p tanlanadi" %}</span>{% endif %}
-                <div class="st-course__head">
-                    <span class="st-course__cat">{{ course.category }}</span>
-                    <div>
-                        <h3>{{ course.l_title }}</h3>
-                        <p><i class="ti ti-calendar"></i>{{ course.l_duration }}</p>
-                    </div>
+            <article class="cat{% if course.is_popular %} is-popular{% endif %}">
+                <div class="cat__badge" aria-hidden="true">
+                    <b>{{ course.category }}</b>
+                    <i class="ti {% if course.category == 'A' %}ti-motorbike{% elif course.category == 'B' %}ti-car{% elif course.category == 'D' %}ti-bus{% else %}ti-truck{% endif %}"></i>
                 </div>
-                <p class="st-course__price"><b>{{ course.price|som }}</b> {% trans "so‘m" %}</p>
-                <ul>
-                    {% for feature in course.feature_list %}<li><i class="ti ti-circle-check"></i>{{ feature }}</li>{% endfor %}
+                <div class="cat__name">
+                    <h3>{{ course.l_title }}{% if course.is_popular %}<span class="cat__tag">{% trans "Ko‘p tanlanadi" %}</span>{% endif %}</h3>
+                    <p>{% blocktrans with cat=course.category duration=course.l_duration %}{{ cat }} toifa, {{ duration }}{% endblocktrans %}</p>
+                </div>
+                <ul class="cat__incl">
+                    {% for feature in course.feature_list %}<li><i class="ti ti-check" aria-hidden="true"></i>{{ feature }}</li>{% endfor %}
                 </ul>
-                <a class="st-btn {% if not course.is_popular %}st-btn--ghost{% endif %}" href="#apply" data-category="{{ course.category }}">{% trans "Yozilish" %}</a>
+                <p class="cat__price"><b>{{ course.price|som }}</b><small>{% trans "so‘m" %}</small></p>
+                <a class="btn btn--quiet" href="#apply" data-category="{{ course.category }}">{% trans "Yozilish" %}</a>
             </article>
             {% endfor %}
         </div>
@@ -144,17 +105,48 @@
 </section>
 {% endif %}
 
-{# ---------- Team ---------- #}
+<section class="asphalt platform" id="platform" aria-labelledby="platform-title">
+    <div class="wrap platform__grid">
+        <div>
+            <h2 id="platform-title">{% trans "Imtihonga uyda ham tayyorlanasiz" %}</h2>
+            <p class="platform__lede">{% trans "Har bir o‘quvchi shaxsiy kabinet oladi. Savollar rasmiy biletlardan, javob variantlari har safar aralashadi — yodlab emas, tushunib o‘rganasiz." %}</p>
+            <ul class="platform__list">
+                <li><b>{% trans "Real imtihon" %}</b><span>{% trans "20 savol, 20 daqiqa — haqiqiy imtihon kabi." %}</span></li>
+                <li><b>{% trans "Marafon" %}</b><span>{% trans "Barcha savollar bo‘limlarga bo‘lingan, xatolar alohida qayta ishlanadi." %}</span></li>
+                <li><b>{% trans "Yo‘l belgilari" %}</b><span>{% trans "276 ta rasmiy belgi rasmi va izohi bilan." %}</span></li>
+                <li><b>{% trans "Natijalar" %}</b><span>{% trans "Instruktor har bir o‘quvchining tayyorgarligini ko‘rib boradi." %}</span></li>
+            </ul>
+            <a class="btn btn--mark" href="{% url 'login' %}">{% trans "Kabinetga kirish" %}</a>
+        </div>
+
+        <figure class="exam" aria-hidden="true" style="margin:0">
+            <div class="exam__bar"><b>{% trans "Real imtihon" %}</b><span>{% trans "7-savol" %}</span><span class="exam__timer">14:32</span></div>
+            <div class="exam__body">
+                <div class="exam__img"><span class="exam__sign"></span></div>
+                <div class="exam__q">
+                    <p>{% trans "Ushbu belgi nimani bildiradi?" %}</p>
+                    <span class="exam__opt"><kbd>F1</kbd>{% trans "Yo‘l bering" %}</span>
+                    <span class="exam__opt is-right"><kbd>F2</kbd>{% trans "Asosiy yo‘l" %}</span>
+                    <span class="exam__opt"><kbd>F3</kbd>{% trans "Asosiy yo‘lning oxiri" %}</span>
+                </div>
+            </div>
+            <div class="exam__cells">
+                {% for i in "12345678901234567890" %}<span class="{% if forloop.counter == 4 %}bad{% elif forloop.counter < 7 %}ok{% elif forloop.counter == 7 %}now{% endif %}">{{ forloop.counter }}</span>{% endfor %}
+            </div>
+        </figure>
+    </div>
+</section>
+
 {% if team_members %}
-<section class="st-section st-section--tint" aria-labelledby="team-title">
-    <div class="st-wrap">
-        <header class="st-head">
-            <p class="st-eyebrow">{% trans "Jamoa" %}</p>
+<section class="sec" aria-labelledby="team-title">
+    <div class="wrap">
+        <div class="sec__head">
             <h2 id="team-title">{% trans "Sizga kim o‘rgatadi" %}</h2>
-        </header>
-        <div class="st-team">
+            <p><a class="link" href="{% url 'team' %}">{% trans "Barcha instruktorlar" %}</a></p>
+        </div>
+        <div class="team">
             {% for member in team_members %}
-            <article class="st-person">
+            <article class="person">
                 <img src="{{ member.image.url }}" alt="{{ member.full_name }}" loading="lazy" width="360" height="300">
                 <h3>{{ member.full_name }}</h3>
                 <p>{{ member.position }}</p>
@@ -165,17 +157,13 @@
 </section>
 {% endif %}
 
-{# ---------- Testimonials ---------- #}
 {% if testimonials %}
-<section class="st-section" aria-labelledby="reviews-title">
-    <div class="st-wrap">
-        <header class="st-head">
-            <p class="st-eyebrow">{% trans "Fikrlar" %}</p>
-            <h2 id="reviews-title">{% trans "Bitiruvchilarimiz nima deydi" %}</h2>
-        </header>
-        <div class="st-reviews">
+<section class="sec" aria-labelledby="reviews-title">
+    <div class="wrap">
+        <div class="sec__head"><h2 id="reviews-title">{% trans "Bitiruvchilarimiz nima deydi" %}</h2></div>
+        <div class="reviews">
             {% for review in testimonials %}
-            <figure class="st-review">
+            <figure class="review">
                 <blockquote>{{ review.text }}</blockquote>
                 <figcaption>
                     <img src="{{ review.image.url }}" alt="" loading="lazy" width="44" height="44">
@@ -188,21 +176,19 @@
 </section>
 {% endif %}
 
-{# ---------- FAQ ---------- #}
 {% if faqs %}
-<section class="st-section st-section--tint" id="faq" aria-labelledby="faq-title">
-    <div class="st-wrap st-faq">
-        <header class="st-head st-head--left">
-            <p class="st-eyebrow">{% trans "Savollar" %}</p>
-            <h2 id="faq-title">{% trans "Ko‘p beriladigan savollar" %}</h2>
+<section class="sec" id="faq" aria-labelledby="faq-title">
+    <div class="wrap faq">
+        <div class="faq__aside">
+            <h2 id="faq-title">{% trans "Ko‘p so‘raladi" %}</h2>
             <p>{% trans "Javob topa olmadingizmi? Qo‘ng‘iroq qiling yoki ariza qoldiring." %}</p>
-            <a class="st-link" href="{% url 'faq' %}">{% trans "Barcha savollar" %}<i class="ti ti-arrow-right"></i></a>
-        </header>
-        <div class="st-faq__list">
+            <a class="link" href="{% url 'faq' %}">{% trans "Barcha savollar" %}</a>
+        </div>
+        <div class="qa">
             {% for item in faqs %}
-            <details{% if forloop.first %} open{% endif %}>
-                <summary>{{ item.question }}<i class="ti ti-chevron-down"></i></summary>
-                <p>{{ item.answer|linebreaksbr }}</p>
+            <details>
+                <summary>{{ item.question }}</summary>
+                <div>{{ item.answer|linebreaksbr }}</div>
             </details>
             {% endfor %}
         </div>
@@ -210,63 +196,55 @@
 </section>
 {% endif %}
 
-{# ---------- Sign-up form and contacts ---------- #}
-<section class="st-section" id="apply" aria-labelledby="apply-title">
-    <div class="st-wrap st-apply">
-        <div class="st-card st-form-card">
+<section class="sec" id="apply" aria-labelledby="apply-title">
+    <div class="wrap apply">
+        <div class="apply__intro">
             <h2 id="apply-title">{% trans "Kursga yozilish" %}</h2>
-            <p class="st-muted">{% trans "Ma’lumotlaringizni qoldiring — administrator qo‘ng‘iroq qilib, guruh va to‘lovni tushuntiradi." %}</p>
-
-            {% for message in messages %}
-            <div class="st-alert st-alert--ok" role="status"><i class="ti ti-circle-check"></i>{{ message }}</div>
-            {% endfor %}
-            {% if form_errors.form %}<div class="st-alert st-alert--err" role="alert">{{ form_errors.form }}</div>{% endif %}
-
-            <form method="post" action="{% url 'home' %}#apply" class="st-form" novalidate>
-                {% csrf_token %}
-                <div class="st-hp" aria-hidden="true">
-                    <label for="f-website">Website</label>
-                    <input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off">
-                </div>
-                <div class="st-field{% if form_errors.name %} has-error{% endif %}">
-                    <label for="f-name">{% trans "Ism" %}</label>
-                    <input id="f-name" name="name" type="text" autocomplete="name" maxlength="100" required value="{{ form_values.name }}">
-                    {% if form_errors.name %}<small>{{ form_errors.name }}</small>{% endif %}
-                </div>
-                <div class="st-field{% if form_errors.phone %} has-error{% endif %}">
-                    <label for="f-phone">{% trans "Telefon" %}</label>
-                    <input id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+998 90 123 45 67" maxlength="30" required value="{{ form_values.phone }}">
-                    {% if form_errors.phone %}<small>{{ form_errors.phone }}</small>{% endif %}
-                </div>
-                <div class="st-field">
-                    <label for="f-category">{% trans "Toifa" %}</label>
-                    <select id="f-category" name="category">
-                        <option value="">{% trans "Hali bilmayman" %}</option>
-                        {% for cat in categories %}<option value="{{ cat }}"{% if form_values.category == cat %} selected{% endif %}>{{ cat }}</option>{% endfor %}
-                    </select>
-                </div>
-                <div class="st-field st-field--wide">
-                    <label for="f-message">{% trans "Izoh" %} <span class="st-muted">({% trans "ixtiyoriy" %})</span></label>
-                    <textarea id="f-message" name="message" rows="3" maxlength="1000">{{ form_values.message }}</textarea>
-                </div>
-                <button type="submit" class="st-btn st-btn--lg st-field--wide">{% trans "Yuborish" %}<i class="ti ti-send"></i></button>
-            </form>
+            <p>{% trans "Ma’lumotlaringizni qoldiring — administrator qo‘ng‘iroq qilib, guruh va to‘lovni tushuntiradi." %}</p>
+            {% if school %}
+            <ul class="reach">
+                <li><small>{% trans "Telefon" %}</small><a class="reach__phone" href="{{ school.phone_href }}">{{ school.phone }}</a></li>
+                <li><small>{% trans "Manzil" %}</small><span>{% if school.map_url %}<a href="{{ school.map_url }}" target="_blank" rel="noopener">{{ school.l_address }}</a>{% else %}{{ school.l_address }}{% endif %}</span></li>
+                <li><small>{% trans "Ish vaqti" %}</small><span>{{ school.l_hours }}</span></li>
+            </ul>
+            <div class="social">
+                {% if school.telegram %}<a class="btn btn--quiet" href="{{ school.telegram }}" target="_blank" rel="noopener"><i class="ti ti-brand-telegram"></i>Telegram</a>{% endif %}
+                {% if school.instagram %}<a class="btn btn--quiet" href="{{ school.instagram }}" target="_blank" rel="noopener"><i class="ti ti-brand-instagram"></i>Instagram</a>{% endif %}
+            </div>
+            {% endif %}
         </div>
 
-        {% if school %}
-        <aside class="st-card st-contact" id="contact" aria-labelledby="contact-title">
-            <h2 id="contact-title">{% trans "Aloqa" %}</h2>
-            <ul>
-                <li><i class="ti ti-phone"></i><span><small>{% trans "Telefon" %}</small><a href="{{ school.phone_href }}">{{ school.phone }}</a></span></li>
-                <li><i class="ti ti-map-pin"></i><span><small>{% trans "Manzil" %}</small>{% if school.map_url %}<a href="{{ school.map_url }}" target="_blank" rel="noopener">{{ school.l_address }}</a>{% else %}{{ school.l_address }}{% endif %}</span></li>
-                <li><i class="ti ti-clock"></i><span><small>{% trans "Ish vaqti" %}</small>{{ school.l_hours }}</span></li>
-            </ul>
-            <div class="st-social">
-                {% if school.telegram %}<a href="{{ school.telegram }}" target="_blank" rel="noopener"><i class="ti ti-brand-telegram"></i>Telegram</a>{% endif %}
-                {% if school.instagram %}<a href="{{ school.instagram }}" target="_blank" rel="noopener"><i class="ti ti-brand-instagram"></i>Instagram</a>{% endif %}
-            </div>
-        </aside>
-        {% endif %}
+        <div class="form-card">
+            <h3>{% trans "Ariza" %}</h3>
+            {% for message in messages %}<div class="alert alert--ok" role="status"><i class="ti ti-circle-check"></i><span>{{ message }}</span></div>{% endfor %}
+            {% if form_errors.form %}<div class="alert alert--err" role="alert">{{ form_errors.form }}</div>{% endif %}
+            <form method="post" action="{% url 'home' %}#apply" class="form" novalidate>
+                {% csrf_token %}
+                <div class="hp" aria-hidden="true"><label for="f-website">Website</label><input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+                <div class="field{% if form_errors.name %} has-error{% endif %}">
+                    <label for="f-name">{% trans "Ismingiz" %}</label>
+                    <input id="f-name" name="name" type="text" autocomplete="name" maxlength="100" required value="{{ form_values.name }}"{% if form_errors.name %} aria-invalid="true" aria-describedby="e-name"{% endif %}>
+                    {% if form_errors.name %}<small id="e-name">{{ form_errors.name }}</small>{% endif %}
+                </div>
+                <div class="field{% if form_errors.phone %} has-error{% endif %}">
+                    <label for="f-phone">{% trans "Telefon" %}</label>
+                    <input id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+998 90 123 45 67" maxlength="30" required value="{{ form_values.phone }}"{% if form_errors.phone %} aria-invalid="true" aria-describedby="e-phone"{% endif %}>
+                    {% if form_errors.phone %}<small id="e-phone">{{ form_errors.phone }}</small>{% endif %}
+                </div>
+                <fieldset class="field field--wide">
+                    <legend>{% trans "Qaysi toifa?" %}</legend>
+                    <div class="chips cat-chips">
+                        {% for cat in categories %}<label><input type="radio" name="category" value="{{ cat }}"{% if form_values.category == cat %} checked{% endif %}><span>{{ cat }}</span></label>{% endfor %}
+                        <label><input type="radio" name="category" value=""{% if not form_values.category %} checked{% endif %}><span class="chips__none">{% trans "Hali bilmayman" %}</span></label>
+                    </div>
+                </fieldset>
+                <div class="field field--wide">
+                    <label for="f-message">{% trans "Izoh" %} <span>({% trans "ixtiyoriy" %})</span></label>
+                    <textarea id="f-message" name="message" rows="3" maxlength="1000" placeholder="{% trans 'Masalan: kechki guruh kerak' %}">{{ form_values.message }}</textarea>
+                </div>
+                <button type="submit" class="btn btn--ink">{% trans "Ariza yuborish" %}</button>
+            </form>
+        </div>
     </div>
 </section>
 

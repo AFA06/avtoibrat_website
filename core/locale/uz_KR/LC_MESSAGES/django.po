@@ -2231,3 +2231,216 @@ msgstr "Ҳозир сўровлар жуда кўп. Илтимос, бизга 
 #: public site
 msgid "Rahmat! So‘rovingiz qabul qilindi — tez orada sizga qo‘ng‘iroq qilamiz."
 msgstr "Раҳмат! Сўровингиз қабул қилинди — тез орада сизга қўнғироқ қиламиз."
+
+#: public site
+msgid "Toshkentdagi haydovchilik maktabi"
+msgstr "Тошкентдаги ҳайдовчилик мактаби"
+
+#: public site
+msgid "Kabinetga kirish"
+msgstr "Кабинетга кириш"
+
+#: public site
+msgid "Instruktor haqida"
+msgstr "Инструктор ҳақида"
+
+#: public site
+msgid "Instruktor guvohnomasi"
+msgstr "Инструктор гувоҳномаси"
+
+#: public site
+msgid "Lavozim"
+msgstr "Лавозим"
+
+#: public site
+msgid "Haydovchilik instruktori"
+msgstr "Ҳайдовчилик инструктори"
+
+#: public site
+msgid "Tajriba"
+msgstr "Тажриба"
+
+#: public site
+msgid "Bitiruvchilar"
+msgstr "Битирувчилар"
+
+#: public site
+msgid "Birinchi urinishda topshirganlar"
+msgstr "Биринчи уринишда топширганлар"
+
+#: public site
+msgid "Guvohnomagacha yo‘l"
+msgstr "Гувоҳномагача йўл"
+
+#: public site
+msgid "Yozilgan kundan imtihongacha nima bo‘lishini oldindan bilasiz. Har bosqichda instruktor yoningizda."
+msgstr "Ёзилган кундан имтиҳонгача нима бўлишини олдиндан биласиз. Ҳар босқичда инструктор ёнингизда."
+
+#: public site
+msgid "Toifalar va narxlar"
+msgstr "Тоифалар ва нархлар"
+
+#: public site
+#, python-format
+msgid "%(cat)s toifa, %(duration)s"
+msgstr "%(cat)s тоифа, %(duration)s"
+
+#: public site
+msgid "Imtihonga uyda ham tayyorlanasiz"
+msgstr "Имтиҳонга уйда ҳам тайёрланасиз"
+
+#: public site
+msgid "7-savol"
+msgstr "7-савол"
+
+#: public site
+msgid "Asosiy yo‘lning oxiri"
+msgstr "Асосий йўлнинг охири"
+
+#: public site
+msgid "Barcha instruktorlar"
+msgstr "Барча инструкторлар"
+
+#: public site
+msgid "Ko‘p so‘raladi"
+msgstr "Кўп сўралади"
+
+#: public site
+msgid "Ariza"
+msgstr "Ариза"
+
+#: public site
+msgid "Ismingiz"
+msgstr "Исмингиз"
+
+#: public site
+msgid "Qaysi toifa?"
+msgstr "Қайси тоифа?"
+
+#: public site
+msgid "Masalan: kechki guruh kerak"
+msgstr "Масалан: кечки гуруҳ керак"
+
+#: public site
+msgid "Ariza yuborish"
+msgstr "Ариза юбориш"
+
+#: public site
+msgid "bosh sahifa"
+msgstr "бош саҳифа"
+
+#: public site
+msgid "Instruktorlar"
+msgstr "Инструкторлар"
+
+#: public site
+msgid "Kabinet"
+msgstr "Кабинет"
+
+#: public site
+msgid "Toshkentdagi haydovchilik maktabi. O‘quvchilarimiz rasmiy imtihon savollari bilan onlayn mashq qiladi."
+msgstr "Тошкентдаги ҳайдовчилик мактаби. Ўқувчиларимиз расмий имтиҳон саволлари билан онлайн машқ қилади."
+
+#: public site
+msgid "Maktab"
+msgstr "Мактаб"
+
+#: public site
+msgid "O‘quvchilarga"
+msgstr "Ўқувчиларга"
+
+#: public site
+msgid "Bog‘lanish"
+msgstr "Боғланиш"
+
+#: public site
+msgid "Qo‘ng‘iroq qiling yoki yozing"
+msgstr "Қўнғироқ қилинг ёки ёзинг"
+
+#: public site
+msgid "Kurslar, narxlar va onlayn platforma bo‘yicha savollarga ish vaqtida javob beramiz."
+msgstr "Курслар, нархлар ва онлайн платформа бўйича саволларга иш вақтида жавоб берамиз."
+
+#: public site
+msgid "Kimga murojaat qilish mumkin"
+msgstr "Кимга мурожаат қилиш мумкин"
+
+#: public site
+msgid "Bizga yozing"
+msgstr "Бизга ёзинг"
+
+#: public site
+msgid "Xabar"
+msgstr "Хабар"
+
+#: public site
+msgid "Xabarni yuborish"
+msgstr "Хабарни юбориш"
+
+#: public site
+msgid "Nazariya va amaliy darslarni tajribali instruktorlar olib boradi. Har bir o‘quvchining natijasini platformada kuzatib boramiz."
+msgstr "Назария ва амалий дарсларни тажрибали инструкторлар олиб боради. Ҳар бир ўқувчининг натижасини платформада кузатиб борамиз."
+
+#: public site
+msgid "Maktab asoschisi, haydovchilik instruktori"
+msgstr "Мактаб асосчиси, ҳайдовчилик инструктори"
+
+#: public site
+msgid "Birinchi darsga yoziling"
+msgstr "Биринчи дарсга ёзилинг"
+
+#: public site
+msgid "Ko‘p so‘raladigan savollar"
+msgstr "Кўп сўраладиган саволлар"
+
+#: public site
+msgid "O‘qish, to‘lov, amaliy darslar va onlayn platforma haqida."
+msgstr "Ўқиш, тўлов, амалий дарслар ва онлайн платформа ҳақида."
+
+#: public site
+msgid "Javob topmadingizmi?"
+msgstr "Жавоб топмадингизми?"
+
+#: public site
+msgid "Qo‘ng‘iroq qiling — ish vaqtida darhol javob beramiz. Yoki savolingizni yozib qoldiring."
+msgstr "Қўнғироқ қилинг — иш вақтида дарҳол жавоб берамиз. Ёки саволингизни ёзиб қолдиринг."
+
+#: public site
+msgid "Savol yozish"
+msgstr "Савол ёзиш"
+
+#: public site
+msgid "Savollar tez orada qo‘shiladi."
+msgstr "Саволлар тез орада қўшилади."
+
+#: public site
+msgid "Sahifa topilmadi"
+msgstr "Саҳифа топилмади"
+
+#: public site
+msgid "Berk ko‘cha belgisi"
+msgstr "Берк кўча белгиси"
+
+#: public site
+msgid "Bu yo‘l berk"
+msgstr "Бу йўл берк"
+
+#: public site
+msgid "Bunday sahifa yo‘q yoki manzil o‘zgargan. Bosh sahifaga qayting yoki kabinetingizga kiring."
+msgstr "Бундай саҳифа йўқ ёки манзил ўзгарган. Бош саҳифага қайтинг ёки кабинетингизга киринг."
+
+#: public site
+msgid "Bosh sahifaga"
+msgstr "Бош саҳифага"
+
+#: public site
+msgid "Onlayn platforma"
+msgstr "Онлайн платформа"
+
+#: public site
+msgid "Boshqa savol"
+msgstr "Бошқа савол"
+
+#: public site
+msgid "Rahmat! Xabaringiz yuborildi — tez orada javob beramiz."
+msgstr "Раҳмат! Хабарингиз юборилди — тез орада жавоб берамиз."

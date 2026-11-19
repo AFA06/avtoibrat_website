@@ -76,3 +76,58 @@ class ConsultFormTests(TestCase):
         self.assertEqual(normalize_phone("901234567"), "+998901234567")
         self.assertIsNone(normalize_phone("+7 900 123 45 67"))
         self.assertIsNone(normalize_phone(""))
+
+
+class InnerPagesTests(TestCase):
+    def test_every_public_page_uses_the_new_design(self):
+        for url in ("/uz/", "/uz/contact/", "/uz/team/", "/uz/faq/", "/ru/contact/", "/uz-kr/faq/"):
+            html = self.client.get(url).content.decode()
+            self.assertIn("site/site.css", html, url)
+            self.assertNotIn("tonatheme", html, url)
+            self.assertNotIn("assets/css/style.css", html, url)
+
+    def test_current_page_is_marked_in_the_menu(self):
+        self.assertContains(self.client.get("/uz/faq/"), 'aria-current="page"')
+
+    def test_faq_page_lists_active_questions(self):
+        from .models import FAQ
+        FAQ.objects.create(question="Yashirin savol?", answer="-", is_active=False)
+        html = self.client.get("/uz/faq/").content.decode()
+        self.assertIn(FAQ.objects.filter(is_active=True).first().question, html)
+        self.assertNotIn("Yashirin savol?", html)
+
+    def test_unknown_page_is_a_dead_end_404(self):
+        with self.settings(DEBUG=False):
+            response = self.client.get("/uz/bunday-sahifa-yoq/")
+        self.assertEqual(response.status_code, 404)
+        self.assertContains(response, "Bu yo‘l berk", status_code=404)
+
+
+class ContactFormTests(TestCase):
+    def post(self, **data):
+        return self.client.post(reverse("contact"), {"name": "Vali", "phone": "+998 93 111 22 33", **data})
+
+    def test_message_is_saved_with_an_uzbek_subject(self):
+        from .models import ContactMessage
+        response = self.client.post("/ru/contact/", {"name": "Vali", "phone": "+998 93 111 22 33",
+                                                     "topic": "platform", "message": "Parolni unutdim"})
+        self.assertEqual(response.status_code, 302)
+        message = ContactMessage.objects.get()
+        self.assertEqual((message.phone, message.subject), ("+998931112233", "Onlayn platforma"))
+
+    def test_unknown_topic_falls_back_to_other(self):
+        from .models import ContactMessage
+        self.post(topic="hack")
+        self.assertEqual(ContactMessage.objects.get().subject, "Boshqa savol")
+
+    def test_errors_are_shown_and_nothing_saved(self):
+        from .models import ContactMessage
+        response = self.post(name="", phone="1")
+        self.assertEqual(response.status_code, 400)
+        self.assertContains(response, "Ismingizni yozing", status_code=400)
+        self.assertFalse(ContactMessage.objects.exists())
+
+    def test_honeypot(self):
+        from .models import ContactMessage
+        self.post(website="x")
+        self.assertFalse(ContactMessage.objects.exists())

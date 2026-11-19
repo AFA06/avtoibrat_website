@@ -36,7 +36,7 @@ from .models import (
 )
 
 from . import lockout
-from .public_site import CATEGORIES, handle_consult_form
+from .public_site import CATEGORIES, CONTACT_TOPICS, handle_consult_form, handle_contact_form
 from .road_signs import ordered_categories, sorted_signs
 from . import journey, legal, review, topic_tests
 from .marathon import MINUTES_PER_QUESTION
@@ -121,9 +121,11 @@ def index(request):
             messages.success(request, _("Rahmat! So‘rovingiz qabul qilindi — tez orada sizga qo‘ng‘iroq qilamiz."))
             return redirect(reverse("home") + "#apply")
 
+    courses = list(Course.objects.filter(is_active=True))
     return render(request, "index.html", {
         "school": SchoolProfile.current(),
-        "courses": Course.objects.filter(is_active=True),
+        "courses": courses,
+        "taught": {course.category for course in courses},
         "team_members": TeamMember.objects.all()[:4],
         "testimonials": Testimonial.objects.all()[:3],
         "faqs": FAQ.objects.filter(is_active=True)[:5],
@@ -162,32 +164,40 @@ def guide(request):
     return _legal_page(request, "guide")
 
 
-def error(request):
-    return render(request, "404.html")
+def error(request, exception=None):
+    """«Dead end» page: the 404 handler, also reachable at /error/."""
+    return render(request, "404.html", {"school": SchoolProfile.current()}, status=404)
 
 
 def contact(request):
+    """Contact page: how to reach the school, the people to call, and a «write to us» form."""
+    form_errors, form_values = {}, {}
     if request.method == "POST":
-        ContactMessage.objects.create(
-            name=request.POST.get("form_name"),
-            phone=request.POST.get("phone"),
-            subject=request.POST.get("form_subject"),
-            message=request.POST.get("form_message"),
-        )
-        return redirect("contact")
+        ok, form_errors, form_values = handle_contact_form(request.POST)
+        if ok:
+            messages.success(request, _("Rahmat! Xabaringiz yuborildi — tez orada javob beramiz."))
+            return redirect(reverse("contact") + "#write")
 
-    return render(request, "contact.html")
+    return render(request, "contact.html", {
+        "school": SchoolProfile.current(),
+        "contacts": ContactPerson.objects.filter(is_active=True),
+        "topics": CONTACT_TOPICS,
+        "form_errors": form_errors,
+        "form_values": form_values,
+    }, status=400 if form_errors else 200)
 
 
 def faq(request):
     return render(request, "faq.html", {
-        "faqs": FAQ.objects.filter(is_active=True)
+        "school": SchoolProfile.current(),
+        "faqs": FAQ.objects.filter(is_active=True),
     })
 
 
 def team(request):
     return render(request, "team.html", {
-        "team_members": TeamMember.objects.all()
+        "school": SchoolProfile.current(),
+        "team_members": TeamMember.objects.all(),
     })
 
 
