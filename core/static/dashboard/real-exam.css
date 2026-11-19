@@ -3,12 +3,12 @@
   --rx-surface: var(--ai-surface, #fff); --rx-soft: var(--ai-bg, #f3f5f9); --rx-line: var(--ai-line, #e6eaf2);
   --rx-ink: var(--ai-ink, #0f172a); --rx-muted: var(--ai-ink-2, #475569); --rx-brand: var(--ai-brand, #0f9d6e);
   --rx-brand-soft: var(--ai-brand-50, #e8f7f1); --rx-danger: var(--ai-danger, #e5484d); --rx-ease: var(--ai-ease, ease);
-  max-width: 900px; margin: 0 auto; padding: 8px 0 48px; color: var(--rx-ink);
+  width: 100%; padding: 8px 0 48px; color: var(--rx-ink);
 }
 .rx-head h1 { margin: 0; font-size: 26px; font-weight: 700; letter-spacing: -.02em; }
 .rx-head p { margin: 6px 0 22px; max-width: 640px; color: var(--rx-muted); }
 
-.rx-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+.rx-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 16px; }
 .rx-option {
   display: flex; flex-direction: column; gap: 18px; padding: 24px; border: 1px solid var(--rx-line); border-radius: 20px;
   background: linear-gradient(160deg, var(--rx-brand-soft), var(--rx-surface) 55%); box-shadow: var(--ai-shadow-sm, none);
@@ -34,12 +34,12 @@
 .rx-btn:hover { filter: brightness(.94); }
 .rx-btn:active { transform: scale(.98); }
 .rx-btn:focus-visible { outline: 2px solid var(--ai-brand, #0f9d6e); outline-offset: 2px; }
-.rx-option .rx-btn { margin-top: auto; width: 100%; }
+.rx-option .rx-btn { align-self: flex-start; margin-top: auto; max-width: 100%; }
 .rx-btn--ghost { background: var(--ai-bg, #f3f5f9); color: var(--ai-ink, #0f172a) !important; }
 
 .rx-btn--danger { background: #dc2626; }
 .rx-confirm__icon--danger { background: #fee2e2; color: #dc2626; }
-.rx-history__head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
+.rx-history__head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
 .rx-history__head h2 { margin: 0; }
 .rx-clear { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border: 1px solid #fecaca; border-radius: 10px; background: #fff5f5; color: #dc2626; font-size: 13.5px; font-weight: 600; cursor: pointer; transition: background .2s; }
 .rx-clear:hover { background: #fee2e2; }
@@ -103,6 +103,7 @@
   .rx-head h1 { font-size: 22px; }
   .rx-option { padding: 20px; }
   .rx-option__size b { font-size: 46px; }
+  .rx-option .rx-btn { width: 100%; }
 }
 @media (prefers-reduced-motion: reduce) {
   .rx-option, .rx-confirm__panel, .rx-btn { animation: none !important; transition: none !important; }

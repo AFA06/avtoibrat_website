@@ -138,6 +138,7 @@ AUTHENTICATION_BACKENDS = ["avto.lockout.LockoutBackend"]
 LOGIN_URL = "login"
 
 SCHOOL_CONTACT_PHONE = "+998 94 627 41 11"
+SCHOOL_SUPPORT_TELEGRAM_URL = os.environ.get("SCHOOL_SUPPORT_TELEGRAM_URL", "").strip()
 
 SESSION_COOKIE_NAME = "site_sessionid"
 

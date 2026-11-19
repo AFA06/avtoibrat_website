@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.staticfiles import finders
 from django.templatetags.static import static
 from django.core.exceptions import ValidationError
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.urls import reverse
 from django.utils import translation
 from django.utils import timezone
@@ -442,6 +442,31 @@ class ForgotLoginTests(TestCase):
 
     def test_login_page_links_here(self):
         self.assertContains(self.client.get(reverse("login")), f'data-base-url="{self.url}"')
+
+
+class SupportPageTests(TestCase):
+    def setUp(self):
+        student = User.objects.create_user(username="support-student", unlimited=True)
+        self.client.force_login(student)
+        self.url = reverse("contact_list")
+
+    @override_settings(SCHOOL_SUPPORT_TELEGRAM_URL="", SCHOOL_CONTACT_PHONE="+998 94 627 41 11")
+    def test_school_phone_replaces_legacy_contact(self):
+        ContactPerson.objects.create(
+            full_name="Legacy Developer", position="Developer", city="Toshkent",
+            phone="+998 90 111 22 33", telegram="https://t.me/legacy_developer",
+        )
+        response = self.client.get(self.url)
+        self.assertContains(response, 'href="tel:+998946274111"')
+        self.assertContains(response, static("assets/images/logo.png"))
+        self.assertContains(response, static("assets/images/logo-white.png"))
+        self.assertNotContains(response, "Legacy Developer")
+        self.assertNotContains(response, "https://t.me/legacy_developer")
+        self.assertNotContains(response, "support-panel__action--telegram")
+
+    @override_settings(SCHOOL_SUPPORT_TELEGRAM_URL="https://t.me/example_school_support")
+    def test_configured_telegram_link_is_shown(self):
+        self.assertContains(self.client.get(self.url), 'href="https://t.me/example_school_support"')
 
 
 class SidebarTests(TestCase):

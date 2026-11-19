@@ -1,12 +1,17 @@
 #!/usr/bin/env bash
-# Render build step: install, collect static files, migrate, load the exam bilets.
-set -o errexit
+# Install, collect static files, migrate, and load bundled exam content.
+set -euo pipefail
+cd -- "$(dirname -- "${BASH_SOURCE[0]}")"
 
-pip install -r ../requirements.txt
+python -m pip install -r ../requirements.txt
 python manage.py collectstatic --noinput
 python manage.py migrate --noinput
 python manage.py import_bilets
 python manage.py import_road_signs --official
 python manage.py import_materials
-python manage.py seed_demo
-python manage.py seed_admin
+if [[ -n "${DEMO_PASSWORD:-}" ]]; then
+    python manage.py seed_demo
+fi
+if [[ -n "${ADMIN_PASSWORD:-}" ]]; then
+    python manage.py seed_admin
+fi

@@ -502,9 +502,9 @@ def _student_stats(user):
 
 
 def contact_list(request):
-    contacts = ContactPerson.objects.filter(is_active=True)
     return render(request, "dashboard/contact-list.html", {
-        "contacts": contacts
+        "school_phone": settings.SCHOOL_CONTACT_PHONE,
+        "support_telegram_url": settings.SCHOOL_SUPPORT_TELEGRAM_URL,
     })
 
 

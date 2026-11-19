@@ -1,0 +1,110 @@
+.support-page {
+  padding: 8px 0 48px;
+  color: var(--ai-ink);
+}
+
+.support-page h1 {
+  margin: 0 0 20px;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -.02em;
+}
+
+.support-panel {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: clamp(18px, 3vw, 32px);
+  border: 1px solid var(--ai-line);
+  border-radius: 20px;
+  background: linear-gradient(135deg, var(--ai-brand-50), var(--ai-surface) 55%);
+}
+
+.support-panel__identity,
+.support-panel__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.support-panel__identity {
+  gap: 16px;
+}
+
+.support-panel__brand {
+  display: grid;
+  place-items: center;
+  padding: 14px;
+  border: 1px solid var(--ai-line);
+  border-radius: 14px;
+  background: var(--ai-surface);
+}
+
+.support-panel__brand img {
+  width: 132px;
+  max-width: 100%;
+  height: auto;
+}
+
+.support-panel__logo--dark,
+[data-theme="dark"] .support-panel__logo--light {
+  display: none;
+}
+
+[data-theme="dark"] .support-panel__logo--dark {
+  display: block;
+}
+
+.support-panel h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.support-panel__action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 1px solid var(--ai-line);
+  border-radius: 12px;
+  background: var(--ai-surface);
+  color: var(--ai-ink);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.support-panel__action i {
+  font-size: 18px;
+}
+
+.support-panel__action--telegram {
+  border-color: transparent;
+  background: var(--ai-brand-50);
+  color: var(--ai-brand);
+}
+
+.support-panel__action:hover {
+  border-color: var(--ai-brand);
+  color: var(--ai-brand);
+}
+
+.support-panel__action:focus-visible {
+  outline: 2px solid var(--ai-brand);
+  outline-offset: 2px;
+}
+
+@media (max-width: 575px) {
+  .support-panel__actions {
+    width: 100%;
+  }
+
+  .support-panel__action {
+    flex: 1 1 100%;
+  }
+}

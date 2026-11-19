@@ -1,22 +1,8 @@
 {% load i18n %}
 <ul class="navbar-nav tab-pane active" id="Main" role="tabpanel">
-    <li class="menu-label mt-0 text-primary font-12 fw-semibold"><span>{% trans "Asosiy" %}</span><br><span class="font-10 text-secondary fw-normal">{% trans "Natijalar va reyting" %}</span></li>
+    <li class="menu-label mt-0 text-primary font-12 fw-semibold"><span>{% trans "Asosiy" %}</span></li>
     <li class="nav-item">
         <a class="nav-link" href="{% url 'dashboard' %}"><i class="ti ti-home menu-icon"></i><span>{% trans "Bosh sahifa" %}</span></a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{% url 'journey' %}"><i class="ti ti-route menu-icon"></i><span>{% trans "Imtihonga yo‘l" %}</span></a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{% url 'leaderboard' %}"><i class="ti ti-trophy menu-icon"></i><span>{% trans "Reyting" %}</span></a>
-    </li>
-
-    <li class="menu-label text-primary font-12 fw-semibold"><span>{% trans "O‘quv materiallar" %}</span><br><span class="font-10 text-secondary fw-normal">{% trans "Belgilar va qo‘llanmalar" %}</span></li>
-    <li class="nav-item">
-        <a class="nav-link" href="{% url 'road_signs' %}"><i class="ti ti-road-sign menu-icon"></i><span>{% trans "Yo’l belgilari" %}</span></a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{% url 'cheatsheet' %}"><i class="ti ti-bolt menu-icon"></i><span>{% trans "Shpargalka" %}</span></a>
     </li>
 
     <li class="menu-label text-primary font-12 fw-semibold"><span>{% trans "Testlar" %}</span><br><span class="font-10 text-secondary fw-normal">{% trans "Mashq qilish uchun" %}</span></li>
@@ -27,13 +13,13 @@
         <a class="nav-link" href="{% url 'mavzulashtirilgan' %}"><i class="ti ti-inbox menu-icon"></i><span>{% trans "Mavzulashtirilgan testlar" %}</span></a>
     </li>
     <li class="nav-item">
+        <a class="nav-link" href="{% url 'marathon' %}"><i class="ti ti-flag menu-icon"></i><span>{% trans "Marafon" %}</span></a>
+    </li>
+    <li class="nav-item">
         <a class="nav-link" href="{% url 'ohshash_savollar' %}"><i class="ti ti-refresh menu-icon"></i><span>{% trans "O‘xshash savollar" %}</span></a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="{% url 'saqlangan' %}"><i class="ti ti-bookmark menu-icon"></i><span>{% trans "Saqlangan testlar" %}</span></a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{% url 'marathon' %}"><i class="ti ti-flag menu-icon"></i><span>{% trans "Marafon" %}</span></a>
     </li>
 
     <li class="menu-label text-primary font-12 fw-semibold"><span>{% trans "Imtihon" %}</span><br><span class="font-10 text-secondary fw-normal">{% trans "O‘zingizni sinab ko‘ring" %}</span></li>
@@ -44,6 +30,22 @@
     <li class="menu-label text-primary font-12 fw-semibold"><span>{% trans "Uy vazifasi" %}</span><br><span class="font-10 text-secondary fw-normal">{% trans "O‘qituvchi topshiriqlari" %}</span></li>
     <li class="nav-item">
         <a class="nav-link" href="{% url 'tasks' %}"><i class="ti ti-clipboard-check menu-icon"></i><span>{% trans "Vazifalar" %}</span></a>
+    </li>
+
+    <li class="menu-label text-primary font-12 fw-semibold"><span>{% trans "O‘quv materiallar" %}</span><br><span class="font-10 text-secondary fw-normal">{% trans "Belgilar va qo‘llanmalar" %}</span></li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'road_signs' %}"><i class="ti ti-road-sign menu-icon"></i><span>{% trans "Yo’l belgilari" %}</span></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'cheatsheet' %}"><i class="ti ti-bolt menu-icon"></i><span>{% trans "Shpargalka" %}</span></a>
+    </li>
+
+    <li class="menu-label text-primary font-12 fw-semibold"><span>{% trans "Natijalar va reyting" %}</span></li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'journey' %}"><i class="ti ti-route menu-icon"></i><span>{% trans "Imtihonga yo‘l" %}</span></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'leaderboard' %}"><i class="ti ti-trophy menu-icon"></i><span>{% trans "Reyting" %}</span></a>
     </li>
 
     <li class="menu-label text-primary font-12 fw-semibold"><span>{% trans "Yordam" %}</span><br><span class="font-10 text-secondary fw-normal">{% trans "Yo‘riqnoma, shartlar va aloqa" %}</span></li>

@@ -51,11 +51,34 @@ Site: http://127.0.0.1:8000/uz/ · Admin: http://127.0.0.1:8000/admin/
 
 Static file URLs are automatically suffixed with the file's modification time (`avto.storage.VersionedStaticFilesStorage`), so editing a CSS/JS file and reloading always gets the new version — the dev server sends no cache headers, so without this a browser can keep an old cached copy indefinitely.
 
+## Deploy on a Linux VPS
+
+Run Django with Gunicorn behind an HTTPS reverse proxy such as Nginx. Keep the application, PostgreSQL, and persistent upload directories in the chosen region. Set these variables in the service or deployment environment:
+
+| Variable | Example or purpose |
+| --- | --- |
+| `DJANGO_SETTINGS_MODULE` | `core.settings_prod` |
+| `DJANGO_ALLOWED_HOSTS` | `avtoibrat.uz,www.avtoibrat.uz` |
+| `DJANGO_CSRF_TRUSTED_ORIGINS` | `https://avtoibrat.uz,https://www.avtoibrat.uz` |
+| `SECRET_KEY` | Private Django signing key |
+| `DATABASE_URL` | Private PostgreSQL connection URL |
+| `AVTO_MEDIA_ROOT` | `/var/lib/avtoibrat/media` |
+| `AVTO_PRIVATE_MEDIA_ROOT` | `/var/lib/avtoibrat/private_media` |
+
+Use Python 3.12 or newer and install FFmpeg for audio uploads. Create both upload directories with write access for the service account. Keep the private directory outside the public one and let Django serve its files through the existing permission checks.
+
+From the repository root, run `./core/build.sh` in the production virtual environment. It installs dependencies, collects static assets, runs migrations, and imports bundled exam content. For a new database, set `ADMIN_USERNAME` and `ADMIN_PASSWORD` during the initial build or create the admin with `python manage.py createsuperuser`. The demo account is seeded only when `DEMO_PASSWORD` is set.
+
+Run `gunicorn core.wsgi:application --bind 127.0.0.1:8000` from the `core/` directory under a service manager such as systemd. Have the reverse proxy forward the original hostname and overwrite `X-Forwarded-Proto` with its own request scheme. Forward public requests to Gunicorn, or serve `/media/` from the public upload directory through Nginx. Keep Gunicorn on loopback and PostgreSQL on a private listener.
+
+For a host migration, restore the PostgreSQL dump into the destination database and copy both upload directories before running the build and switching DNS. Test staff sign-in and password changes, a complete student exam, and protected audio playback on the destination first. Schedule encrypted off-server backups of the database and both upload directories. If PostgreSQL is reachable only from the VPS, run the backup job there and send its encrypted output to separate storage.
+
 ## Login and roles
 
 - **Students** log in with their phone number and password. Teachers can create and manage students in their assigned groups under **Admin → Talabalar**. Administrators can also archive and restore accounts. On creation or reset, share the temporary password shown on the confirmation page. The account holder must replace it before using the platform.
 - **Staff** (instructors, teachers, admins) log in with their username and password, and are sent to the Django admin. The staff profile on the login page only accepts accounts with `is_staff=True`.
 - The login page (`templates/dashboard/login.html`) is a two-step flow: pick a profile (Student/Staff), then enter credentials. `Parolni unutdingizmi?` links to `forgotlogin.html`, which lists the active contacts from `ContactPerson` (admin panel) for the student to call — there is no self-service password reset.
+- The student support page uses `SCHOOL_CONTACT_PHONE`. Set the optional `SCHOOL_SUPPORT_TELEGRAM_URL` environment variable to the school administrator's Telegram link to show a direct-message button.
 - A student's exam/question language (`User.group_language`: uz / uz-kr / ru) is independent of the site's UI language switcher — set per student in the admin to match the group they study in.
 
 ## Student profile
@@ -157,8 +180,8 @@ It needs two repository secrets (**Settings → Secrets and variables → Action
 
 1. Download the artifact (a zip holding `avtoibrat-YYYY-MM-DD.dump.gpg`) and unzip it.
 2. Decrypt: `gpg --decrypt avtoibrat-YYYY-MM-DD.dump.gpg > backup.dump` (asks for the passphrase).
-3. In Neon, create a new branch or an empty database and restore into it:
+3. Create an empty PostgreSQL database or a separate database branch and restore into it:
    `pg_restore --no-owner --no-privileges -d "<connection string of the new database>" backup.dump`
-4. Point Render's `DATABASE_URL` at it (Render redeploys by itself).
+4. Point the application service's `DATABASE_URL` at the restored database and restart or redeploy the service.
 
 Restoring into a new database, never over the live one, keeps today's data in case the wrong day was picked.
