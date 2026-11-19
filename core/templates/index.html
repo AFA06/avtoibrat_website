@@ -1,774 +1,273 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "site/base.html" %}
+{% load i18n static avto_extras %}
 
-<!-- Mirrored from html.tonatheme.com/2021/drivega/by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 04 Oct 2025 21:34:04 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
-<head>
-    {% load static %}
-    <meta charset="utf-8">
-    <title>AvtoIbrat - Haydovchilik va yo‘l harakati bo‘yicha bilimlar maktabi!</title>
-    <!-- Stylesheets -->
-    <link href="{% static 'assets/css/bootstrap.css' %}" rel="stylesheet">
-    <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
-    <!-- Responsive File -->
-    <link href="{% static 'assets/css/responsive.css' %}" rel="stylesheet">
-    <!-- Color File -->
-    <link href="{% static 'assets/css/color.css' %}" rel="stylesheet">
+{% block title %}AvtoIbrat — {% trans "haydovchilik maktabi" %}{% endblock %}
 
-    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+{% block content %}
 
-    <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}" type="image/x-icon">
-    <link rel="icon" href="{% static 'assets/images/favicon.png' %}" type="image/x-icon">
+{# ---------- Hero ---------- #}
+<section class="st-hero">
+    <div class="st-wrap st-hero__grid">
+        <div class="st-hero__text">
+            <p class="st-kicker">
+                <i class="ti ti-map-pin"></i>{% trans "Toshkent · haydovchilik maktabi" %}
+                {% if school.is_demo %}<span class="st-demo" title="{% trans 'Admin paneldagi «Maktab ma’lumotlari» bo‘limida almashtiring' %}">{% trans "namuna" %}</span>{% endif %}
+            </p>
+            <h1>{% if school %}{{ school.l_headline }}{% else %}{% trans "Ishonchli haydovchi bo‘lishni biz bilan boshlang" %}{% endif %}</h1>
+            {% if school %}<p class="st-lead">{{ school.l_intro }}</p>{% endif %}
+            <div class="st-hero__cta">
+                <a class="st-btn st-btn--lg" href="#apply">{% trans "Kursga yozilish" %}<i class="ti ti-arrow-right"></i></a>
+                <a class="st-btn st-btn--lg st-btn--ghost" href="{% url 'login' %}"><i class="ti ti-device-laptop"></i>{% trans "Imtihon platformasi" %}</a>
+            </div>
+            {% if school %}
+            <dl class="st-stats">
+                <div><dt>{% trans "yillik tajriba" %}</dt><dd>{{ school.years_experience }}+</dd></div>
+                <div><dt>{% trans "bitiruvchi" %}</dt><dd>{{ school.graduates|som }}+</dd></div>
+                <div><dt>{% trans "birinchi urinishda topshiradi" %}</dt><dd>{{ school.pass_rate }}%</dd></div>
+            </dl>
+            {% endif %}
+        </div>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-    <!-- Responsive -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
-    <!--[if lt IE 9]><script src="{% static 'js/respond.js' %}"></script><![endif]-->
-</head>
-<body>
-
-<div class="page-wrapper">
-    <!-- Preloader -->
-    <div class="loader-wrap">
-        <div class="preloader"><div class="preloader-close"></div></div>
-        <div class="layer layer-one"><span class="overlay"></span></div>
-        <div class="layer layer-two"><span class="overlay"></span></div>        
-        <div class="layer layer-three"><span class="overlay"></span></div>        
+        <div class="st-hero__media">
+            <img src="{% static school.photo|default:'site/demo/instructor.jpg' %}" alt="{% if school %}{{ school.instructor_name }}{% else %}AvtoIbrat{% endif %}" width="900" height="866">
+            <div class="st-float st-float--score" aria-hidden="true">
+                <span class="st-float__icon"><i class="ti ti-certificate"></i></span>
+                <span><b>20 / 20</b><small>{% trans "Real imtihon · o‘tdi" %}</small></span>
+            </div>
+            <div class="st-float st-float--signs" aria-hidden="true">
+                <span class="st-float__icon st-float__icon--blue"><i class="ti ti-road-sign"></i></span>
+                <span><b>276</b><small>{% trans "yo‘l belgisi" %}</small></span>
+            </div>
+        </div>
     </div>
+</section>
 
-    <!-- Main Header -->
-    <header class="main-header header-style-one">
-
-        <!-- Header Top -->
-        <div class="header-top">
-            <div class="auto-container">
-                <div class="inner-container">
-                    <div class="left-column">
-                        <ul class="contact-info">
-                            <li><a href="https://yandex.uz/maps/-/CLFZyEiw" target="_blank"><i class="fa fa-location-dot" style="color: #24a88e;"></i>G'alabaning 40 yilligi massivi</a></li>
-                            <li><i class="fa-solid fa-clock" style="color: #24a88e;"></i>DUSH - SHAN : 9:00 dan 7:00 gacha</li>
-                            <li><a href="tel:+998998083616"><i class="fa-solid fa-phone-volume" style="color: #24a88e;"></i>+998 99 808 36 16</a></li>
-                        </ul>
-                    </div>
-                    <div class="right-column">
-                        <ul class="social-icon">
-                            <li><a href="https://t.me/fattokhovv" target="_blank"><i class="fab fa-telegram-plane"></i></a></li>
-                            <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-                            <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Header Upper -->
-        <div class="header-upper">
-            <div class="auto-container">
-                <div class="inner-container">
-                    <!--Logo-->
-                    <div class="logo-box">
-                        <div class="logo"><a href="{% url 'home' %}"><img src="{% static 'assets/images/logo.png' %}" alt=""></a></div>
-                    </div>
-                    <div class="right-column">
-                        <!--Nav Box-->
-                        <div class="nav-outer">
-                            <!--Mobile Navigation Toggler-->
-                            <div class="mobile-nav-toggler"><img src="{% static 'assets/images/icons/icon-bar.png' %}" alt=""></div>
-
-                            <!-- Main Menu -->
-                            <nav class="main-menu navbar-expand-md navbar-light">
-                                <div class="collapse navbar-collapse show clearfix" id="navbarSupportedContent">
-                                    <ul class="navigation">
-                                        <li class="dropdown"><a href="{% url 'home' %}">Asosiy</a></li>
-                                        <li class="dropdown"><a href="{% url 'faq' %}">Savollar</a></li>
-                                        <li class="dropdown"><a href="{% url 'team' %}">Jamoamiz</a></li>
-                                        <li><a href="{% url 'contact' %}">Bog'lanish</a></li>
-                                    </ul>
-                                </div>
-                            </nav>
-                        </div>
-                        <div class="navbar-right">
-                            <div class="navbar-right">
-                                <a href="/login" class="theme-btn login-btn">Akauntga kirish</a>
-                            </div>
-                        </div>
-                    </div>                        
-                </div>
-            </div>
-        </div>
-        <!--End Header Upper-->
-
-        <!-- Sticky Header  -->
-        <div class="sticky-header">
-            <div class="header-upper">
-                <div class="auto-container">
-                    <div class="inner-container">
-                        <!--Logo-->
-                        <div class="logo-box">
-                            <div class="logo"><a href="{% url 'home' %}"><img src="{% static 'assets/images/logo.png' %}" alt=""></a></div>
-                        </div>
-                        <div class="right-column">
-                            <!--Nav Box-->
-                            <div class="nav-outer">
-                                <!--Mobile Navigation Toggler-->
-                                <div class="mobile-nav-toggler"><img src="{% static 'assets/images/icons/icon-bar.png' %}" alt=""></div>
-    
-                                <!-- Main Menu -->
-                                <nav class="main-menu navbar-expand-md navbar-light">
-                                </nav>
-                            </div>
-                            <div class="navbar-right">
-                                <div class="navbar-right">
-                                    <a href="/login" class="theme-btn login-btn">Akauntga kirish</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div><!-- End Sticky Menu -->
-
-        <!-- Mobile Menu  -->
-        <div class="mobile-menu">
-            <div class="menu-backdrop"></div>
-            <div class="close-btn"><span class="icon flaticon-remove"></span></div>
-            
-            <nav class="menu-box">
-                <div class="nav-logo"><a href="{% url 'home' %}"><img src="{% static 'assets/images/logo-2.png' %}" alt="" title=""></a></div>
-                <div class="menu-outer"><!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header--></div>
-				<!--Social Links-->
-            </nav>
-        </div><!-- End Mobile Menu -->
-
-        <div class="nav-overlay">
-            <div class="cursor"></div>
-            <div class="cursor-follower"></div>
-        </div>
-    </header>
-    <!-- End Main Header -->
-
-    <!-- Bnner Section -->
-    <section class="banner-section">
-        <div class="swiper-container banner-slider">
-            <div class="swiper-wrapper">
-                <!-- Slide Item -->
-                <div class="swiper-slide" style="background-image: url({% static 'assets/images/main-slider/image-1.jpg' %});">
-                    <div class="content-outer">
-                        <div class="content-box justify-content-center">
-                            <div class="inner text-center">
-                                <h1>Sizni tajribali haydovchiga<br> aylantirishga yordam beramiz</h1>
-                                <div class="text">Biz bilan professional haydovchiga aylaning <br>
-                                    tajriba orttiring va ishonch bilan haydang.
-                                    </div>
-                                <div class="link-box">
-                                    <a href="{% url 'login' %}" class="theme-btn btn-style-one"><span>Akauntga kirish</span></a>
-                                    <a href="{% url 'home' %}" class="theme-btn btn-style-one style-two"><span>Ro'yhatdan o'tish</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Slide Item -->
-                <div class="swiper-slide" style="background-image: url({% static 'assets/images/main-slider/image-2.jpg' %});">
-                    <div class="content-outer">
-                        <div class="content-box">
-                            <div class="inner">
-                                <h1>Ko‘nikmalarga moslashtirilgan <br> individual haydash dasturlari</h1>
-                                <div class="text">Har bir o‘quvchi uchun shaxsiy o‘quv dasturi <br>
-                                    har bir haydovchi uchun individual yondashuv.
-                                    </div>
-                                <div class="link-box">
-                                    <a href="{% url 'home' %}" class="theme-btn btn-style-one"><span>Akauntga kirish</span></a>
-                                    <a href="{% url 'home' %}" class="theme-btn btn-style-one style-two"><span>Ro'yhatdan o'tish</span></a>
-                                </div>
-                            </div>                             
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="banner-slider-nav">
-            <div class="banner-slider-control banner-slider-button-prev"><span><i class="flaticon-left-arrow"></i></span></div>
-            <div class="banner-slider-control banner-slider-button-next"><span><i class="flaticon-left-arrow"></i></span> </div>
-        </div>
-    </section>
-    <!-- End Bnner Section -->
-
-    <!-- Services section -->
-    <section class="services-section">
-        <div class="auto-container">
-            <div class="row no-gutters">
-                <div class="service-block-one col-lg-3 col-md-6">
-                    <div class="inner-box">
-                        <div class="icon">
-                            <img src="{% static 'assets/images/icons/icon-3.png' %}" alt="">
-                            <div class="hover-icon"><img src="{% static 'assets/images/icons/icon-3.png' %}" alt=""></div>
-                        </div>
-                        <div class="lower-content">
-                            <h4>Xavfsiz haydash <br> asoslarini o‘rganing</h4>
-                            <div class="text">Xavfsiz haydashni o‘rganing, ishonch bilan yo‘lga chiqing.</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="service-block-one col-lg-3 col-md-6">
-                    <div class="inner-box active">
-                        <div class="icon">
-                            <img src="{% static 'assets/images/icons/icon-4.png' %}" alt="">
-                            <div class="hover-icon"><img src="{% static 'assets/images/icons/icon-4.png' %}" alt=""></div>
-                        </div>
-                        <div class="lower-content">
-                            <h4>Zamonaviy platforma <br> qulay o'quv xonalari</h4>
-                            <div class="text">Zamonaviy texnologiyalar orqali istalgan joydan o‘qing.</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="service-block-one col-lg-3 col-md-6">
-                    <div class="inner-box">
-                        <div class="icon">
-                            <img src="{% static 'assets/images/icons/icon-5.png' %}" alt="">
-                            <div class="hover-icon"><img src="{% static 'assets/images/icons/icon-5.png' %}" alt=""></div>
-                        </div>
-                        <div class="lower-content">
-                            <h4>Platformadan <br> foydalanish</h4>
-                            <div class="text">O‘rganish uchun zarur barcha materiallar bepul taqdim etiladi.</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="service-block-one col-lg-3 col-md-6">
-                    <div class="inner-box">
-                        <div class="icon">
-                            <img src="{% static 'assets/images/icons/icon-6.png' %}" alt="">
-                            <div class="hover-icon"><img src="{% static 'assets/images/icons/icon-6.png' %}" alt=""></div>
-                        </div>
-                        <div class="lower-content">
-                            <h4>Litsenziyalangan<br> kafolat</h4>
-                            <div class="text">Ishonchli xizmat — barcha hujjatlar rasmiy.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Driving Courses section -->
-    <section class="driving-courses-section">
-        <div class="sec-bg" style="background-image: url({% static 'assets/images/background/bg-2.jpg' %});"></div>
-        <div class="auto-container">
-            <div class="top-content row m-0 justify-content-between align-items-center">
-                <div class="sec-title light">
-                    <div class="sub-title">O‘qituvchilar sizga muvaffaqiyatga erishishda yordam beradi </div>
-                    <h2>Bizning mutahasislarimiz</h2>
-                </div>
-            </div>
-            <!--Project Tabs-->
-            <div class="project-tab">
-                    
-                <div class="outer-box">
-                    <!--Tabs Content-->  
-                    <div class="p-tabs-content">
-                        
-                        <!--Project Tab-->
-                        <div class="p-tab active-tab" id="p-tab-2">
-                            <div class="row row-10">
-                                <div class="theme_carousel owl-theme owl-carousel" data-options='{"loop": true, "margin": 0, "autoheight":true, "lazyload":true, "nav": true, "dots": true, "autoplay": true, "autoplayTimeout": 6000, "smartSpeed": 1000, "responsive":{ "0" :{ "items": "1" }, "600" :{ "items" : "1" }, "768" :{ "items" : "2" } , "992":{ "items" : "3" }, "1200":{ "items" : "3" }}}'>
-
-                                    {% for member in team_members %}
-                                    {% if forloop.counter <= 6 %}
-                                        <div class="col-lg-12 course-block">
-                                            <div class="inner-box">
-                                                <div class="image">
-                                                    <img src="{{ member.image.url }}" alt="{{ member.full_name }}">
-                                                </div>
-
-                                                <div class="lower-content">
-                                                    <h4>{{ member.full_name }}</h4>
-                                                    <div class="text">{{ member.position }}</div>
-
-                                                    <div class="link-btn">
-                                                        {% if member.telegram %}
-                                                        <a href="{{ member.telegram }}" target="_blank" style="font-size:30px;">
-                                                            <i class="fab fa-telegram-plane"></i>
-                                                        </a>
-                                                        {% endif %}
-
-                                                        {% if member.instagram %}
-                                                        <a href="{{ member.instagram }}" target="_blank" style="font-size:30px;">
-                                                            <i class="fab fa-instagram"></i>
-                                                        </a>
-                                                        {% endif %}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    {% endif %}
-                                    {% endfor %}
-
-                                </div>
-                            </div>
-                        </div>
-                        
-                    </div>                    
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-    <div class="theme_carousel owl-theme owl-carousel"
-         data-options='{
-            "loop": true,
-            "margin": 10,
-            "nav": true,
-            "dots": false,
-            "autoplay": true,
-            "smartSpeed": 800,
-            "responsive":{
-                "0":{"items":2},
-                "600":{"items":3},
-                "992":{"items":4}
-            }
-         }'>
-
-        {% for story in stories %}
-        <div class="story-item" data-video="{{ story.video.url }}">
-            <div class="story-box">
-                <video class="story-video" muted playsinline preload="metadata">
-                    <source src="{{ story.video.url }}" type="video/mp4">
-                </video>
-                <div class="play-btn"><i class="fas fa-play"></i></div>
-            </div>
-        </div>
-        {% endfor %}
-
+{# ---------- How it works ---------- #}
+<section class="st-section" aria-labelledby="steps-title">
+    <div class="st-wrap">
+        <header class="st-head">
+            <p class="st-eyebrow">{% trans "Qanday o‘qiymiz" %}</p>
+            <h2 id="steps-title">{% trans "Yozilishdan guvohnomagacha — to‘rt qadam" %}</h2>
+        </header>
+        <ol class="st-steps">
+            <li>
+                <span class="st-steps__icon"><i class="ti ti-clipboard-check"></i></span>
+                <h3>{% trans "Yozilasiz" %}</h3>
+                <p>{% trans "Ariza qoldirasiz, administrator qo‘ng‘iroq qilib guruh va vaqtni kelishadi." %}</p>
+            </li>
+            <li>
+                <span class="st-steps__icon"><i class="ti ti-book"></i></span>
+                <h3>{% trans "Nazariya" %}</h3>
+                <p>{% trans "Darsda yo‘l qoidalarini o‘rganasiz, uyda esa platformada rasmiy savollar bilan mashq qilasiz." %}</p>
+            </li>
+            <li>
+                <span class="st-steps__icon"><i class="ti ti-steering-wheel"></i></span>
+                <h3>{% trans "Amaliy haydash" %}</h3>
+                <p>{% trans "Instruktor bilan o‘quv avtomobilida — maydonchadan shahar ko‘chalarigacha." %}</p>
+            </li>
+            <li>
+                <span class="st-steps__icon"><i class="ti ti-certificate"></i></span>
+                <h3>{% trans "Imtihon" %}</h3>
+                <p>{% trans "Real imtihon rejimida tayyor ekaningizni ko‘rib, imtihonga ishonch bilan borasiz." %}</p>
+            </li>
+        </ol>
     </div>
+</section>
 
-    <!-- VIDEO MODAL -->
-    <div id="videoModal" class="video-modal">
-        <video id="modalVideo" controls playsinline></video>
-    </div>
+{# ---------- Exam platform ---------- #}
+<section class="st-section st-band" id="platform" aria-labelledby="platform-title">
+    <div class="st-wrap st-platform">
+        <div class="st-platform__text">
+            <p class="st-eyebrow">{% trans "O‘quvchilar uchun" %}</p>
+            <h2 id="platform-title">{% trans "Onlayn imtihon platformasi — uyda ham, o‘quv xonasida ham" %}</h2>
+            <p class="st-lead">{% trans "Har bir o‘quvchi shaxsiy kabinet oladi. Savollar rasmiy biletlardan, javob variantlari har safar aralashadi — yodlab emas, tushunib o‘rganasiz." %}</p>
+            <ul class="st-features">
+                <li><i class="ti ti-certificate"></i><span><b>{% trans "Real imtihon" %}</b>{% trans "20 savol, 20 daqiqa — haqiqiy imtihon kabi." %}</span></li>
+                <li><i class="ti ti-infinity"></i><span><b>{% trans "Marafon" %}</b>{% trans "Barcha savollar bo‘limlarga bo‘lingan, xatolar alohida qayta ishlanadi." %}</span></li>
+                <li><i class="ti ti-road-sign"></i><span><b>{% trans "Yo‘l belgilari" %}</b>{% trans "276 ta rasmiy belgi rasmi va izohi bilan." %}</span></li>
+                <li><i class="ti ti-chart-bar"></i><span><b>{% trans "Natijalar" %}</b>{% trans "Instruktor har bir o‘quvchining tayyorgarligini ko‘rib boradi." %}</span></li>
+            </ul>
+            <a class="st-btn" href="{% url 'login' %}"><i class="ti ti-login"></i>{% trans "Platformaga kirish" %}</a>
+        </div>
 
-    
-    <!-- Driving info section -->
-    <section class="driving-info-section">
-        <div class="traffic-cone" data-parallax='{"y": 30}'><img src="{% static 'assets/images/resource/image-8.jpg' %}" alt=""></div>
-        <div class="auto-container">
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="image-block">
-                        <div class="image" data-parallax='{"x": 50}'><img src="{% static 'assets/images/resource/image-7.jpg' %}" alt=""></div>
-                    </div>
+        <div class="st-mock" aria-hidden="true">
+            <div class="st-mock__bar">
+                <span class="st-mock__dots"><i></i><i></i><i></i></span>
+                <span class="st-mock__title">{% trans "Real imtihon" %}</span>
+                <span class="st-mock__timer"><i class="ti ti-clock"></i>14:32</span>
+            </div>
+            <div class="st-mock__body">
+                <div class="st-mock__img"><i class="ti ti-road-sign"></i></div>
+                <div class="st-mock__q">
+                    <p>{% trans "Ushbu belgi nimani bildiradi?" %}</p>
+                    <span class="st-mock__opt"><kbd>F1</kbd>{% trans "Kirish taqiqlangan" %}</span>
+                    <span class="st-mock__opt is-right"><kbd>F2</kbd>{% trans "Asosiy yo‘l" %}<i class="ti ti-check"></i></span>
+                    <span class="st-mock__opt"><kbd>F3</kbd>{% trans "Yo‘l bering" %}</span>
                 </div>
-                <div class="col-lg-6">
-                    <div class="content-block">
-                        <div class="sec-title mb-20">
-                            <div class="sub-title">Haydashning ko'plab afzalliklari</div>
-                            <h2>Xavfsiz haydash kundalik <br> hayotda qulaylik manbai</h2>
-                        </div>
-                        <div class="text mb-30">Haydash sizga erkinlik, qulaylik va ishonch bag‘ishlaydi. Harakatda mustaqil bo‘lishni, xavfsiz va mas’uliyatli haydovchi bo‘lishni o‘rganing.</div>
-                        <div class="icon-box">
-                            <div class="icon"><img src="{% static 'assets/images/icons/icon-7.png' %}" alt=""></div>
-                            <div class="content">
-                                <h4>Tajribali o‘qituvchilardan o‘rganing</h4>
-                                <div class="text">Ustozlarimiz yillik tajribaga ega, ular sizga xavfsiz va ishonchli haydash sirlarini o‘rgatadi.</div>
-                            </div>
-                        </div>
-                        <div class="icon-box">
-                            <div class="icon"><img src="{% static 'assets/images/icons/icon-8.png' %}" alt=""></div>
-                            <div class="content">
-                                <h4>Xavfsiz haydashning barcha jihatlarini qamrab olamiz</h4>
-                                <div class="text">Darslarimizda yo‘l qoidalari, amaliy mashg‘ulotlar va xavfsiz haydash bo‘yicha to‘liq bilimlar beriladi.</div>
-                            </div>
-                        </div>
-                        <div class="link-btn"><a href="{% url 'home' %}" class="theme-btn btn-style-one style-three"><span>Haydovchilik kursimizga qo'shiling</span></a></div>
-                    </div>
-                </div>
+            </div>
+            <div class="st-mock__nav">
+                {% for i in "12345678901234567890" %}<span class="{% if forloop.counter < 7 %}is-done{% elif forloop.counter == 7 %}is-now{% endif %}{% if forloop.counter == 4 %} is-bad{% endif %}">{{ forloop.counter }}</span>{% endfor %}
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Funfacts Section -->
-    <section class="funfacts-section">
-        <div class="auto-container">
-
-            <div class="row">
-            {% for item in counters %}
-            <div class="column counter-column col-lg-4 col-md-6">
-                <div class="inner wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1500ms">
-
-                    <div class="icon-outer">
-                        {% if forloop.counter == 1 %}
-                            <div class="icon">
-                                <img src="{% static 'assets/images/icons/icon-9.png' %}" alt="">
-                            </div>
-                            <div class="hover-icon">
-                                <img src="{% static 'assets/images/icons/icon-9.png' %}" alt="">
-                            </div>
-
-                        {% elif forloop.counter == 2 %}
-                            <div class="icon">
-                                <img src="{% static 'assets/images/icons/icon-10.png' %}" alt="">
-                            </div>
-                            <div class="hover-icon">
-                                <img src="{% static 'assets/images/icons/icon-10.png' %}" alt="">
-                            </div>
-
-                        {% elif forloop.counter == 3 %}
-                            <div class="icon">
-                                <img src="{% static 'assets/images/icons/icon-11.png' %}" alt="">
-                            </div>
-                            <div class="hover-icon">
-                                <img src="{% static 'assets/images/icons/icon-11.png' %}" alt="">
-                            </div>
-                        {% endif %}
+{# ---------- Courses and prices ---------- #}
+{% if courses %}
+<section class="st-section" id="courses" aria-labelledby="courses-title">
+    <div class="st-wrap">
+        <header class="st-head">
+            <p class="st-eyebrow">{% trans "Kurslar va narxlar" %}</p>
+            <h2 id="courses-title">{% trans "O‘zingizga mos toifani tanlang" %}</h2>
+            <p>{% trans "Narxga nazariy va amaliy darslar hamda imtihon platformasiga kirish kiradi. To‘lovni qismlarga bo‘lish mumkin." %}</p>
+        </header>
+        <div class="st-courses">
+            {% for course in courses %}
+            <article class="st-course{% if course.is_popular %} is-popular{% endif %}">
+                {% if course.is_popular %}<span class="st-course__tag">{% trans "Ko‘p tanlanadi" %}</span>{% endif %}
+                <div class="st-course__head">
+                    <span class="st-course__cat">{{ course.category }}</span>
+                    <div>
+                        <h3>{{ course.l_title }}</h3>
+                        <p><i class="ti ti-calendar"></i>{{ course.l_duration }}</p>
                     </div>
-
-                    <div class="content">
-                        <div class="count-outer count-box">
-                            <span class="count-text"
-                                  data-speed="3000"
-                                  data-stop="{{ item.value }}">0</span>
-                            <span>{{ item.get_suffix }}</span>
-                        </div>
-
-                        <div class="text">
-                            {{ item.title|linebreaksbr }}
-                        </div>
-                    </div>
-
                 </div>
-            </div>
+                <p class="st-course__price"><b>{{ course.price|som }}</b> {% trans "so‘m" %}</p>
+                <ul>
+                    {% for feature in course.feature_list %}<li><i class="ti ti-circle-check"></i>{{ feature }}</li>{% endfor %}
+                </ul>
+                <a class="st-btn {% if not course.is_popular %}st-btn--ghost{% endif %}" href="#apply" data-category="{{ course.category }}">{% trans "Yozilish" %}</a>
+            </article>
             {% endfor %}
         </div>
+    </div>
+</section>
+{% endif %}
 
+{# ---------- Team ---------- #}
+{% if team_members %}
+<section class="st-section st-section--tint" aria-labelledby="team-title">
+    <div class="st-wrap">
+        <header class="st-head">
+            <p class="st-eyebrow">{% trans "Jamoa" %}</p>
+            <h2 id="team-title">{% trans "Sizga kim o‘rgatadi" %}</h2>
+        </header>
+        <div class="st-team">
+            {% for member in team_members %}
+            <article class="st-person">
+                <img src="{{ member.image.url }}" alt="{{ member.full_name }}" loading="lazy" width="360" height="300">
+                <h3>{{ member.full_name }}</h3>
+                <p>{{ member.position }}</p>
+            </article>
+            {% endfor %}
         </div>
-    </section>
+    </div>
+</section>
+{% endif %}
 
-    <!-- Info form section -->
-    <section class="info-form-section" style="background-image: url({% static 'assets/images/background/bg-2.jpg' %});">
-        <div class="signal-image-one" data-parallax='{"x": -30}'><img src="{% static 'assets/images/resource/image-1.png' %}" alt=""></div>
-        <div class="signal-image-two" data-parallax='{"x": 30}'><img src="{% static 'assets/images/resource/image-2.png' %}" alt=""></div>
-        <div class="auto-container">
-            <div class="row align-items-center">
-                <div class="col-lg-6">
-                    <div class="content-block">
-                        <div class="sec-title light mb-30">
-                            <div class="sub-title">Bugunoq darslarimizga yoziling</div>
-                            <h2>Hoziroq darslarga <br> yoziling va ilim oling</h2>
-                        </div>
-                        <div class="text mb-30">Bugun ro‘yxatdan o‘ting va haydashni o‘rganishni boshlang — qulay, tez va samarali tarzda. </div>
-                        <ul class="list">
-                            <li>Darslar va kurslar haftaning 7 kuni davomida</li>
-                            <li>Bandlik uchun maxsus dam olish kunlari dars</li>
-                            <li>Moslashuvchanlik, ishonchlilik va sabr bilan xizmat ko‘rsatish</li>
-                            <li>Yo‘l imtihoniga tayyorgarlik — 98% muvaffaqiyat darajasi bilan</li>
-                            <li>Haydovchilik maktabi tomonidan tasdiqlangan onlayn ro‘yxatdan o‘tish</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-
-                    <div class="consult-form">
-                        <h3>Darsga qatnashish uchun, shunchaki formani to'ldiring</h3>
-                        <div class="text">Bir necha soniyada ro‘yxatdan o‘ting va haydash darslarini oson tarzda bron qiling.</div>
-                        <form method="post" action="{% url 'home' %}">
-                            {% csrf_token %}
-                            <div class="row">
-
-                                <div class="form-group col-md-6">
-                                    <input name="first_name" placeholder="Ism" type="text" required>
-                                </div>
-
-                                <div class="form-group col-md-6">
-                                    <input name="last_name" placeholder="Familya" type="text" required>
-                                </div>
-
-                                <div class="form-group col-md-6">
-                                    <input name="phone" placeholder="Telefon raqam" type="text" required>
-                                </div>
-
-                                <div class="form-group col-md-12">
-                                    <textarea name="message" placeholder="Fikringiz haqida qisqa izoh"></textarea>
-                                </div>
-
-                                <div class="form-group col-md-12">
-                                    <button type="submit" class="theme-btn btn-style-one">
-                                        <span>Yuborish</span>
-                                    </button>
-                                </div>
-
-                            </div>
-                        </form>
-
-                    </div>
-
-                </div>
-            </div>
+{# ---------- Testimonials ---------- #}
+{% if testimonials %}
+<section class="st-section" aria-labelledby="reviews-title">
+    <div class="st-wrap">
+        <header class="st-head">
+            <p class="st-eyebrow">{% trans "Fikrlar" %}</p>
+            <h2 id="reviews-title">{% trans "Bitiruvchilarimiz nima deydi" %}</h2>
+        </header>
+        <div class="st-reviews">
+            {% for review in testimonials %}
+            <figure class="st-review">
+                <blockquote>{{ review.text }}</blockquote>
+                <figcaption>
+                    <img src="{{ review.image.url }}" alt="" loading="lazy" width="44" height="44">
+                    <span><b>{{ review.full_name }}</b><small>{{ review.location }}</small></span>
+                </figcaption>
+            </figure>
+            {% endfor %}
         </div>
-    </section>
+    </div>
+</section>
+{% endif %}
 
-    <!-- Working Process section -->
-    <section class="working-process-section">
-        <div class="background-icon"><img src="{% static 'assets/images/icons/icon-12.png' %}" alt=""></div>
-        <div class="auto-container">
-            <div class="top-content">
-                <div class="sec-title text-center mb-30">
-                    <div class="sub-title">Biz bilan haydashni o‘rganish oson</div>
-                    <h2>Drive qanday ishlayd</h2>
-                </div>
-                <div class="text text-center">Drivega sizni sertifikatlangan instruktorlar va bosqichma-bosqich tuzilgan mashg‘ulotlar bilan bog‘laydi, <br> bu esa yo‘lda ishonch bilan haydashni o‘rganishingizga yordam beradi. </div>
-            </div>
-            <div class="wrapper-box">
-                <div class="row">
-                    <div class="col-lg-4 col-md-6 process-block">
-                        <div class="inner-box">
-                            <div class="count">01</div>
-                            <div class="content">
-                                <div>
-                                    <h4>Sizga mos <br> kursni tanlang</h4>
-                                    <div class="text">Sizga qulay bo‘lgan paketni <br> tanlang va orzudagi haydovchilik <br> yo‘lingizni bugunoq boshlang!</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 process-block active">
-                        <div class="inner-box">
-                            <div class="count">02</div>
-                            <div class="content">
-                                <div>
-                                    <h4>O‘qishni tajribali <br> instruktorlarimiz bilan boshlang</h4>
-                                    <div class="text">Amaliy mashg‘ulotlar, qulay <br> dars jadvali va shaxsiy yondashuv <br> barchasi siz uchun!</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 process-block">
-                        <div class="inner-box">
-                            <div class="count">03</div>
-                            <div class="content">
-                                <div>
-                                    <h4>Yo‘l sinovidan o‘ting <br> va guvohnoma oling</h4>
-                                    <div class="text">Drivega sizni nafaqat haydashga, <br> balki imtihondan ishonch bilan <br> o‘tishga ham tayyorlaydi.</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+{# ---------- FAQ ---------- #}
+{% if faqs %}
+<section class="st-section st-section--tint" id="faq" aria-labelledby="faq-title">
+    <div class="st-wrap st-faq">
+        <header class="st-head st-head--left">
+            <p class="st-eyebrow">{% trans "Savollar" %}</p>
+            <h2 id="faq-title">{% trans "Ko‘p beriladigan savollar" %}</h2>
+            <p>{% trans "Javob topa olmadingizmi? Qo‘ng‘iroq qiling yoki ariza qoldiring." %}</p>
+            <a class="st-link" href="{% url 'faq' %}">{% trans "Barcha savollar" %}<i class="ti ti-arrow-right"></i></a>
+        </header>
+        <div class="st-faq__list">
+            {% for item in faqs %}
+            <details{% if forloop.first %} open{% endif %}>
+                <summary>{{ item.question }}<i class="ti ti-chevron-down"></i></summary>
+                <p>{{ item.answer|linebreaksbr }}</p>
+            </details>
+            {% endfor %}
         </div>
-    </section>
-    
-    <!-- CTA section -->
-    <section class="cta-section" style="background-image: url({% static 'assets/images/background/bg-4.jpg' %});">
-        <div class="auto-container">
-            <h5>Bizning ustunligimiz haqida</h5>
-            <h2>Biz har bir o‘quvchiga eng yaxshi yo‘l-yo‘riq va ko‘rsatmalarni beramiz, shuning uchun <br> ham biz ishonchli va xavfsiz haydovchilarni tayyorlaymiz. </h2>
-            <div class="link-box">
-                <a href="#" class="theme-btn btn-style-one"><span>Ro‘yxatdan o‘ting</span></a>
-                <a href="#" class="theme-btn btn-style-one style-two"><span>Kursga yoziling</span></a>
-            </div>
-        </div>
-    </section>
+    </div>
+</section>
+{% endif %}
 
-    <!-- Testimonials section -->
-    <section class="testimonials-section">
-        <div class="sec-bg" style="background-image: url({% static 'assets/images/background/bg-5.jpg' %});"></div>
-        <div class="auto-container">
-            <div class="top-content">
-                <div class="sec-title text-center mb-30">
-                    <div class="sub-title">Biz haqimizda mijozlar fikri</div>
-                    <h2>Mijozlar tavsiyalari, minnatdorchiliklari</h2>
+{# ---------- Sign-up form and contacts ---------- #}
+<section class="st-section" id="apply" aria-labelledby="apply-title">
+    <div class="st-wrap st-apply">
+        <div class="st-card st-form-card">
+            <h2 id="apply-title">{% trans "Kursga yozilish" %}</h2>
+            <p class="st-muted">{% trans "Ma’lumotlaringizni qoldiring — administrator qo‘ng‘iroq qilib, guruh va to‘lovni tushuntiradi." %}</p>
+
+            {% for message in messages %}
+            <div class="st-alert st-alert--ok" role="status"><i class="ti ti-circle-check"></i>{{ message }}</div>
+            {% endfor %}
+            {% if form_errors.form %}<div class="st-alert st-alert--err" role="alert">{{ form_errors.form }}</div>{% endif %}
+
+            <form method="post" action="{% url 'home' %}#apply" class="st-form" novalidate>
+                {% csrf_token %}
+                <div class="st-hp" aria-hidden="true">
+                    <label for="f-website">Website</label>
+                    <input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off">
                 </div>
-                <div class="text">Bizning o‘quvchilarimiz haqiqiy natijalarga erishishmoqda.<br> Har bir darsda tajriba, ishonch va motivatsiya uyg‘onadi — shuning uchun ham ular yo‘lda o‘zini erkin va xavfsiz his qilishadi.</div>
-            </div>
-            <div class="row">
-                <div class="theme_carousel owl-theme owl-carousel" data-options='{"loop": true, "center": false, "margin": 0, "autoheight":true, "lazyload":true, "nav": true, "dots": true, "autoplay": true, "autoplayTimeout": 6000, "smartSpeed": 1000, "responsive":{ "0" :{ "items": "1" }, "600" :{ "items" : "1" }, "768" :{ "items" : "1" } , "992":{ "items" : "1" }, "1200":{ "items" : "2" }}}'>
-
-                    {% for item in testimonials %}
-                        <div class="col-lg-12 testimonial-block">
-                            <div class="inner-box">
-                                <div class="author-info">
-                                    <div class="thumb">
-                                        <img src="{{ item.image.url }}" alt="{{ item.full_name }}">
-                                    </div>
-                                    <h4>{{ item.full_name }}</h4>
-                                    <div class="location">{{ item.location }}</div>
-                                </div>
-
-                                <div class="content">
-                                    <div class="rating-info">
-                                        <h5>{{ item.title }}</h5>
-                                        <div class="rating">
-                                            {% for i in "12345"|slice:":item.rating"|make_list %}
-                                                <span class="fas fa-star"></span>
-                                            {% endfor %}
-                                        </div>
-                                    </div>
-
-                                    <div class="text">
-                                        {{ item.text|linebreaksbr }}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-
+                <div class="st-field{% if form_errors.name %} has-error{% endif %}">
+                    <label for="f-name">{% trans "Ism" %}</label>
+                    <input id="f-name" name="name" type="text" autocomplete="name" maxlength="100" required value="{{ form_values.name }}">
+                    {% if form_errors.name %}<small>{{ form_errors.name }}</small>{% endif %}
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <footer class="main-footer" style="background-image: url({% static 'assets/images/background/bg-1.jpg' %});">
-        <div class="auto-container">
-            <!--Widgets Section-->
-            <div class="widgets-section">
-                <div class="row clearfix">
-                    
-                    <!--Column-->
-                    <div class="column col-lg-3 col-md-6">
-                        <div class="widget about-widget">
-                            <div class="logo"><a href="{% url 'home' %}"><img src="{% static 'assets/images/logo-white.png' %}" alt=""></a></div>
-                            <div class="text">Haydovchilik va yo‘l harakati bo‘yicha bilimlar maktabi!</div>
-                            <ul class="social-links">
-                                <li><a href="#"><i class="fab fa-telegram-plane"></i></a></li>
-                                <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-                                <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!--Column-->
-                    <div class="column col-lg-3 col-md-6">
-                        <div class="widget newsletter-widget">
-                            <h3 class="widget-title">Bizni kuzatib boring</h3>
-                            <div class="widget-content">
-                                <div class="text">Eng so‘nggi yangiliklar va takliflardan xabardor bo‘ling.</div>
-                                    <div class="newsletter-form">
-                                        <form class="ajax-sub-form" method="post">
-                                            <div class="form-group">
-                                                <input type="tel" placeholder="Telefon raqamingiz..." id="subscription-phone" pattern="[0-9+ ]{9,15}" required>
-                                                <button type="submit" class="theme-btn">
-                                                    <i class="flaticon-long-right-arrow"></i><span></span>
-                                                </button>
-                                                <label class="subscription-label" for="subscription-phone"></label>
-                                            </div>
-                                        </form>
-                                    </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <!--Column-->
-                    <div class="column col-lg-3 col-md-6">
-                        <div class="widget links-widget">
-                            <h3 class="widget-title">Bizning kurslarimiz</h3>
-                            <div class="widget-content">
-                                <ul>
-                                    <li><a href="#.">To'g'ri haydashni o‘rganing</a></li>
-                                    <li><a href="#.">Kattalar uchun kurslar</a></li>
-                                    <li><a href="#.">O‘smirlar uchun darslar</a></li>
-                                    <li><a href="#.">Trassada haydash kursi</a></li>
-                                    <li><a href="#.">Xalqaro haydovchilar uchun</a></li>
-                                    <li><a href="#.">Avtomat uzatmadagi mashina darslari</a></li>
-                                </ul>                                        
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!--Column-->
-                    <div class="column col-lg-3 col-md-6">
-                        <div class="widget contact-widget">
-                            <h3 class="widget-title">Bog'lanish uchun</h3>
-                            <div class="widget-content">
-                                <ul class="contact-info">
-                                    <li>
-                                        <div class="icon"><span class="fas fa-flag"></span></div>
-                                        <div class="text">G'alabaning 40 yilligi massivi</div>
-                                    </li>
-                                    <li>
-                                        <div class="icon"><span class="fas fa-phone-volume"></span></div>
-                                        <div class="text">
-                                            Savollar uchun 24/7 <br>
-                                            <a href="tel:+998-94-627-41-11">+998-94-627-41-11</a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="icon"><span class="fas fa-clock"></span></div>
-                                        <div class="text">
-                                           DUSH - SHAN : 9:00 dan 7:00 gacha
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    
+                <div class="st-field{% if form_errors.phone %} has-error{% endif %}">
+                    <label for="f-phone">{% trans "Telefon" %}</label>
+                    <input id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+998 90 123 45 67" maxlength="30" required value="{{ form_values.phone }}">
+                    {% if form_errors.phone %}<small>{{ form_errors.phone }}</small>{% endif %}
                 </div>
-            </div>
-        </div>
-        <!-- Footer Bottom -->
-        <div class="footer-bottom">
-            <div class="auto-container">
-                <div class="wrapper-box">
-                    <div class="copyright">
-                        <div class="text">2025 AVTOIBRAT - Haydovchilik maktabi. Barcha huquqlar himoyalangan.</div>
-                    </div>
-                    <div class="footer-menu">
-                        <ul>
-                            <li><a target="_blank" href="https://t.me/sardoregamberdiyevuz/">Ishlab chiqgan</a></li>
-                            <li><a href="#.">Foydalanish shartlari</a></li>
-                        </ul>
-                    </div>
+                <div class="st-field">
+                    <label for="f-category">{% trans "Toifa" %}</label>
+                    <select id="f-category" name="category">
+                        <option value="">{% trans "Hali bilmayman" %}</option>
+                        {% for cat in categories %}<option value="{{ cat }}"{% if form_values.category == cat %} selected{% endif %}>{{ cat }}</option>{% endfor %}
+                    </select>
                 </div>
-            </div>
+                <div class="st-field st-field--wide">
+                    <label for="f-message">{% trans "Izoh" %} <span class="st-muted">({% trans "ixtiyoriy" %})</span></label>
+                    <textarea id="f-message" name="message" rows="3" maxlength="1000">{{ form_values.message }}</textarea>
+                </div>
+                <button type="submit" class="st-btn st-btn--lg st-field--wide">{% trans "Yuborish" %}<i class="ti ti-send"></i></button>
+            </form>
         </div>
-    </footer>
-	
-</div>
-<!--End pagewrapper-->
 
-<!--Scroll to top-->
-<div class="scroll-to-top scroll-to-target" data-target="html"><span class="flaticon-right-arrow-4"></span></div>
+        {% if school %}
+        <aside class="st-card st-contact" id="contact" aria-labelledby="contact-title">
+            <h2 id="contact-title">{% trans "Aloqa" %}</h2>
+            <ul>
+                <li><i class="ti ti-phone"></i><span><small>{% trans "Telefon" %}</small><a href="{{ school.phone_href }}">{{ school.phone }}</a></span></li>
+                <li><i class="ti ti-map-pin"></i><span><small>{% trans "Manzil" %}</small>{% if school.map_url %}<a href="{{ school.map_url }}" target="_blank" rel="noopener">{{ school.l_address }}</a>{% else %}{{ school.l_address }}{% endif %}</span></li>
+                <li><i class="ti ti-clock"></i><span><small>{% trans "Ish vaqti" %}</small>{{ school.l_hours }}</span></li>
+            </ul>
+            <div class="st-social">
+                {% if school.telegram %}<a href="{{ school.telegram }}" target="_blank" rel="noopener"><i class="ti ti-brand-telegram"></i>Telegram</a>{% endif %}
+                {% if school.instagram %}<a href="{{ school.instagram }}" target="_blank" rel="noopener"><i class="ti ti-brand-instagram"></i>Instagram</a>{% endif %}
+            </div>
+        </aside>
+        {% endif %}
+    </div>
+</section>
 
-<script src="{% static 'assets/js/jquery.js' %}"></script>
-<script src="{% static 'assets/js/popper.min.js' %}"></script>
-<script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
-<script src="{% static 'assets/js/bootstrap-select.min.js' %}"></script>
-<script src="{% static 'assets/js/jquery.fancybox.js' %}"></script>
-<script src="{% static 'assets/js/isotope.js' %}"></script>
-<script src="{% static 'assets/js/owl.js' %}"></script>
-<script src="{% static 'assets/js/appear.js' %}"></script>
-<script src="{% static 'assets/js/wow.js' %}"></script>
-<script src="{% static 'assets/js/lazyload.js' %}"></script>
-<script src="{% static 'assets/js/scrollbar.js' %}"></script>
-<script src="{% static 'assets/js/TweenMax.min.js' %}"></script>
-<script src="{% static 'assets/js/swiper.min.js' %}"></script>
-<script src="{% static 'assets/js/jquery.polyglot.language.switcher.js' %}"></script>
-<script src="{% static 'assets/js/jquery.ajaxchimp.min.js' %}"></script>
-<script src="{% static 'assets/js/parallax-scroll.js' %}"></script>
-
-<script src="{% static 'assets/js/script.js' %}"></script>
-
-
-</body>
-
-<!-- Mirrored from html.tonatheme.com/2021/drivega/ by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 04 Oct 2025 21:35:27 GMT -->
-</html>
-
-
-
-
-
-
-
-
-
-
-
-
-
+{% endblock %}

@@ -1,0 +1,84 @@
+{% load i18n static %}{% get_current_language as LANGUAGE_CODE %}<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}AvtoIbrat{% endblock %}</title>
+    <meta name="description" content="{% block description %}{% trans 'AvtoIbrat — Toshkentdagi haydovchilik maktabi va o‘quvchilar uchun onlayn imtihon platformasi.' %}{% endblock %}">
+    <link rel="shortcut icon" href="{% static 'assets_dashboard/images/favicon.png' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="{% static 'assets_dashboard/css/icons.min.css' %}" rel="stylesheet">
+    <link href="{% static 'site/site.css' %}" rel="stylesheet">
+    <script>(function(){try{var t=localStorage.getItem('avtoibrat.theme');if(t)document.documentElement.setAttribute('data-theme',t==='dark'?'dark':'light')}catch(e){}})()</script>
+</head>
+<body class="st">
+<a class="st-skip" href="#main">{% trans "Asosiy qismga o‘tish" %}</a>
+
+<header class="st-top" id="st-top">
+    <div class="st-top__inner">
+        <a class="st-brand" href="{% url 'home' %}" aria-label="AvtoIbrat">
+            <img class="st-brand__light" src="{% static 'assets/images/logo.png' %}" alt="AvtoIbrat">
+            <img class="st-brand__dark" src="{% static 'assets/images/logo-white.png' %}" alt="AvtoIbrat">
+        </a>
+
+        <nav class="st-nav" id="st-nav" aria-label="{% trans 'Asosiy menyu' %}">
+            <a href="{% url 'home' %}#courses">{% trans "Kurslar" %}</a>
+            <a href="{% url 'home' %}#platform">{% trans "Platforma" %}</a>
+            <a href="{% url 'home' %}#faq">{% trans "Savollar" %}</a>
+            <a href="{% url 'home' %}#contact">{% trans "Aloqa" %}</a>
+            <a class="st-nav__cta" href="{% url 'home' %}#apply">{% trans "Kursga yozilish" %}</a>
+        </nav>
+
+        <div class="st-top__actions">
+            <form action="{% url 'set_language' %}" method="post" class="st-lang">
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{{ request.path }}">
+                <button name="language" value="uz" class="{% if LANGUAGE_CODE == 'uz' %}is-active{% endif %}" title="O‘zbek (lotin)">UZ</button>
+                <button name="language" value="uz-kr" class="{% if LANGUAGE_CODE == 'uz-kr' %}is-active{% endif %}" title="Ўзбек (кирил)">ЎЗ</button>
+                <button name="language" value="ru" class="{% if LANGUAGE_CODE == 'ru' %}is-active{% endif %}" title="Русский">RU</button>
+            </form>
+            <button type="button" class="st-icon-btn" id="st-theme" aria-label="{% trans 'Yorug‘ yoki qorong‘i rejim' %}">
+                <i class="ti ti-moon st-theme__dark"></i><i class="ti ti-sun st-theme__light"></i>
+            </button>
+            {% if user.is_authenticated %}
+            <a class="st-btn st-btn--sm" href="{% if user.is_staff %}{% url 'admin:index' %}{% else %}{% url 'dashboard' %}{% endif %}"><i class="ti ti-home"></i><span>{% trans "Panel" %}</span></a>
+            {% else %}
+            <a class="st-btn st-btn--sm" href="{% url 'login' %}"><i class="ti ti-login"></i><span>{% trans "Kirish" %}</span></a>
+            {% endif %}
+            <button type="button" class="st-icon-btn st-menu-btn" id="st-menu" aria-controls="st-nav" aria-expanded="false" aria-label="{% trans 'Menyu' %}">
+                <i class="ti ti-menu-2"></i>
+            </button>
+        </div>
+    </div>
+</header>
+
+<main id="main">
+{% block content %}{% endblock %}
+</main>
+
+<footer class="st-foot">
+    <div class="st-wrap st-foot__inner">
+        <div class="st-foot__brand">
+            <img class="st-brand__light" src="{% static 'assets/images/logo.png' %}" alt="AvtoIbrat">
+            <img class="st-brand__dark" src="{% static 'assets/images/logo-white.png' %}" alt="AvtoIbrat">
+            <p>{% trans "Haydovchilik maktabi va onlayn imtihon platformasi." %}</p>
+        </div>
+        <nav class="st-foot__links" aria-label="{% trans 'Sayt' %}">
+            <a href="{% url 'home' %}#courses">{% trans "Kurslar" %}</a>
+            <a href="{% url 'faq' %}">{% trans "Savollar" %}</a>
+            <a href="{% url 'contact' %}">{% trans "Aloqa" %}</a>
+            <a href="{% url 'login' %}">{% trans "O‘quvchilar uchun kirish" %}</a>
+        </nav>
+        <nav class="st-foot__links" aria-label="{% trans 'Hujjatlar' %}">
+            <a href="{% url 'guide' %}">{% trans "Yo‘riqnoma" %}</a>
+            <a href="{% url 'terms' %}">{% trans "Foydalanish shartlari" %}</a>
+        </nav>
+    </div>
+    <div class="st-wrap st-foot__copy">&copy; {% now "Y" %} AvtoIbrat</div>
+</footer>
+
+<script src="{% static 'site/site.js' %}" defer></script>
+</body>
+</html>

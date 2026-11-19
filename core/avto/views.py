@@ -11,6 +11,7 @@ from django.utils import timezone
 from django.utils.http import url_has_allowed_host_and_scheme
 from django.utils.translation import gettext_lazy as _
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
 from django.contrib.auth import authenticate, login as auth_login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import SetPasswordForm
@@ -27,7 +28,7 @@ from .leaderboard import PERIODS, build as build_leaderboard
 from .animation_scenarios import scenario_for
 from . import real_exam
 from .models import (
-    TeamMember, Story, ConsultRequest, Testimonial, FAQ,
+    TeamMember, Testimonial, FAQ, SchoolProfile, Course,
     ContactMessage, PdfMaterial, RoadSignCategory, RoadSign,
     ContactPerson, TestSession, Question, TestCategory,
     Answer, UserAnswer, SavedQuestion, UserDevice, StatisticsReset, Topic, get_device_id, normalize_phone,
@@ -35,6 +36,7 @@ from .models import (
 )
 
 from . import lockout
+from .public_site import CATEGORIES, handle_consult_form
 from .road_signs import ordered_categories, sorted_signs
 from . import journey, legal, review, topic_tests
 from .marathon import MINUTES_PER_QUESTION
@@ -111,24 +113,24 @@ LIST_LABELS = {
 }
 
 def index(request):
-    team_members = TeamMember.objects.all()
-    stories = Story.objects.filter(is_active=True)[:7]
-    testimonials = Testimonial.objects.all()[:5]
-
+    """Public home page: the school, courses and prices, the exam platform and a sign-up form."""
+    form_errors, form_values = {}, {}
     if request.method == "POST":
-        ConsultRequest.objects.create(
-            first_name=request.POST.get("first_name"),
-            last_name=request.POST.get("last_name"),
-            phone=request.POST.get("phone"),
-            message=request.POST.get("message"),
-        )
-        return redirect("home")
+        ok, form_errors, form_values = handle_consult_form(request.POST)
+        if ok:
+            messages.success(request, _("Rahmat! So‘rovingiz qabul qilindi — tez orada sizga qo‘ng‘iroq qilamiz."))
+            return redirect(reverse("home") + "#apply")
 
     return render(request, "index.html", {
-        "team_members": team_members,
-        "stories": stories,
-        "testimonials": testimonials,
-    })
+        "school": SchoolProfile.current(),
+        "courses": Course.objects.filter(is_active=True),
+        "team_members": TeamMember.objects.all()[:4],
+        "testimonials": Testimonial.objects.all()[:3],
+        "faqs": FAQ.objects.filter(is_active=True)[:5],
+        "form_errors": form_errors,
+        "form_values": form_values,
+        "categories": CATEGORIES,
+    }, status=400 if form_errors else 200)
 
 
 LEGAL_PAGES = {

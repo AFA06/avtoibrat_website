@@ -1942,3 +1942,299 @@ msgstr "Весна, Лето, Осень и Зима — четыре участ
 
 msgid "Parol ko‘p marta noto‘g‘ri kiritildi. Xavfsizlik uchun hisob vaqtincha bloklandi: %(minutes)s daqiqadan keyin qayta urinib ko‘ring."
 msgstr "Пароль введён неверно слишком много раз. В целях безопасности аккаунт временно заблокирован: попробуйте снова через %(minutes)s мин."
+
+#: public site
+msgid "haydovchilik maktabi"
+msgstr "автошкола"
+
+#: public site
+msgid "Toshkent · haydovchilik maktabi"
+msgstr "Ташкент · автошкола"
+
+#: public site
+msgid "Admin paneldagi «Maktab ma’lumotlari» bo‘limida almashtiring"
+msgstr "Замените в админ-панели, раздел «Maktab ma’lumotlari»"
+
+#: public site
+msgid "namuna"
+msgstr "образец"
+
+#: public site
+msgid "Ishonchli haydovchi bo‘lishni biz bilan boshlang"
+msgstr "Станьте уверенным водителем вместе с нами"
+
+#: public site
+msgid "Kursga yozilish"
+msgstr "Записаться на курс"
+
+#: public site
+msgid "Imtihon platformasi"
+msgstr "Платформа экзамена"
+
+#: public site
+msgid "yillik tajriba"
+msgstr "лет опыта"
+
+#: public site
+msgid "bitiruvchi"
+msgstr "выпускников"
+
+#: public site
+msgid "birinchi urinishda topshiradi"
+msgstr "сдают с первой попытки"
+
+#: public site
+msgid "Real imtihon · o‘tdi"
+msgstr "Реальный экзамен · сдан"
+
+#: public site
+msgid "yo‘l belgisi"
+msgstr "дорожных знаков"
+
+#: public site
+msgid "Qanday o‘qiymiz"
+msgstr "Как проходит обучение"
+
+#: public site
+msgid "Yozilishdan guvohnomagacha — to‘rt qadam"
+msgstr "От записи до прав — четыре шага"
+
+#: public site
+msgid "Yozilasiz"
+msgstr "Запись"
+
+#: public site
+msgid "Ariza qoldirasiz, administrator qo‘ng‘iroq qilib guruh va vaqtni kelishadi."
+msgstr "Оставляете заявку — администратор перезвонит и согласует группу и время."
+
+#: public site
+msgid "Nazariya"
+msgstr "Теория"
+
+#: public site
+msgid "Darsda yo‘l qoidalarini o‘rganasiz, uyda esa platformada rasmiy savollar bilan mashq qilasiz."
+msgstr "На занятиях изучаете ПДД, а дома тренируетесь на платформе с официальными вопросами."
+
+#: public site
+msgid "Amaliy haydash"
+msgstr "Практическое вождение"
+
+#: public site
+msgid "Instruktor bilan o‘quv avtomobilida — maydonchadan shahar ko‘chalarigacha."
+msgstr "С инструктором на учебном автомобиле — от автодрома до городских улиц."
+
+#: public site
+msgid "Real imtihon rejimida tayyor ekaningizni ko‘rib, imtihonga ishonch bilan borasiz."
+msgstr "В режиме реального экзамена убеждаетесь, что готовы, и идёте на экзамен уверенно."
+
+#: public site
+msgid "O‘quvchilar uchun"
+msgstr "Для учеников"
+
+#: public site
+msgid "Onlayn imtihon platformasi — uyda ham, o‘quv xonasida ham"
+msgstr "Онлайн-платформа экзамена — и дома, и в учебном классе"
+
+#: public site
+msgid "Har bir o‘quvchi shaxsiy kabinet oladi. Savollar rasmiy biletlardan, javob variantlari har safar aralashadi — yodlab emas, tushunib o‘rganasiz."
+msgstr "Каждый ученик получает личный кабинет. Вопросы — из официальных билетов, варианты ответов каждый раз перемешиваются: вы учитесь понимать, а не запоминать."
+
+#: public site
+msgid "20 savol, 20 daqiqa — haqiqiy imtihon kabi."
+msgstr "20 вопросов за 20 минут — как на настоящем экзамене."
+
+#: public site
+msgid "Barcha savollar bo‘limlarga bo‘lingan, xatolar alohida qayta ishlanadi."
+msgstr "Все вопросы разбиты на разделы, ошибки отрабатываются отдельно."
+
+#: public site
+msgid "Yo‘l belgilari"
+msgstr "Дорожные знаки"
+
+#: public site
+msgid "276 ta rasmiy belgi rasmi va izohi bilan."
+msgstr "276 официальных знаков с изображением и описанием."
+
+#: public site
+msgid "Natijalar"
+msgstr "Результаты"
+
+#: public site
+msgid "Instruktor har bir o‘quvchining tayyorgarligini ko‘rib boradi."
+msgstr "Инструктор следит за подготовкой каждого ученика."
+
+#: public site
+msgid "Platformaga kirish"
+msgstr "Войти на платформу"
+
+#: public site
+msgid "Ushbu belgi nimani bildiradi?"
+msgstr "Что означает этот знак?"
+
+#: public site
+msgid "Kirish taqiqlangan"
+msgstr "Въезд запрещён"
+
+#: public site
+msgid "Asosiy yo‘l"
+msgstr "Главная дорога"
+
+#: public site
+msgid "Yo‘l bering"
+msgstr "Уступите дорогу"
+
+#: public site
+msgid "Kurslar va narxlar"
+msgstr "Курсы и цены"
+
+#: public site
+msgid "O‘zingizga mos toifani tanlang"
+msgstr "Выберите подходящую категорию"
+
+#: public site
+msgid "Narxga nazariy va amaliy darslar hamda imtihon platformasiga kirish kiradi. To‘lovni qismlarga bo‘lish mumkin."
+msgstr "В стоимость входят теория, практика и доступ к платформе экзамена. Оплату можно разделить на части."
+
+#: public site
+msgid "Ko‘p tanlanadi"
+msgstr "Популярный"
+
+#: public site
+msgid "so‘m"
+msgstr "сум"
+
+#: public site
+msgid "Yozilish"
+msgstr "Записаться"
+
+#: public site
+msgid "Jamoa"
+msgstr "Команда"
+
+#: public site
+msgid "Sizga kim o‘rgatadi"
+msgstr "Кто будет вас учить"
+
+#: public site
+msgid "Fikrlar"
+msgstr "Отзывы"
+
+#: public site
+msgid "Bitiruvchilarimiz nima deydi"
+msgstr "Что говорят наши выпускники"
+
+#: public site
+msgid "Savollar"
+msgstr "Вопросы"
+
+#: public site
+msgid "Ko‘p beriladigan savollar"
+msgstr "Частые вопросы"
+
+#: public site
+msgid "Javob topa olmadingizmi? Qo‘ng‘iroq qiling yoki ariza qoldiring."
+msgstr "Не нашли ответ? Позвоните или оставьте заявку."
+
+#: public site
+msgid "Barcha savollar"
+msgstr "Все вопросы"
+
+#: public site
+msgid "Ma’lumotlaringizni qoldiring — administrator qo‘ng‘iroq qilib, guruh va to‘lovni tushuntiradi."
+msgstr "Оставьте свои данные — администратор перезвонит и расскажет о группах и оплате."
+
+#: public site
+msgid "Ism"
+msgstr "Имя"
+
+#: public site
+msgid "Telefon"
+msgstr "Телефон"
+
+#: public site
+msgid "Toifa"
+msgstr "Категория"
+
+#: public site
+msgid "Hali bilmayman"
+msgstr "Пока не знаю"
+
+#: public site
+msgid "Izoh"
+msgstr "Комментарий"
+
+#: public site
+msgid "ixtiyoriy"
+msgstr "необязательно"
+
+#: public site
+msgid "Yuborish"
+msgstr "Отправить"
+
+#: public site
+msgid "Aloqa"
+msgstr "Контакты"
+
+#: public site
+msgid "Manzil"
+msgstr "Адрес"
+
+#: public site
+msgid "Ish vaqti"
+msgstr "Время работы"
+
+#: public site
+msgid "AvtoIbrat — Toshkentdagi haydovchilik maktabi va o‘quvchilar uchun onlayn imtihon platformasi."
+msgstr "AvtoIbrat — автошкола в Ташкенте и онлайн-платформа экзамена для учеников."
+
+#: public site
+msgid "Asosiy qismga o‘tish"
+msgstr "Перейти к содержанию"
+
+#: public site
+msgid "Asosiy menyu"
+msgstr "Главное меню"
+
+#: public site
+msgid "Kurslar"
+msgstr "Курсы"
+
+#: public site
+msgid "Platforma"
+msgstr "Платформа"
+
+#: public site
+msgid "Yorug‘ yoki qorong‘i rejim"
+msgstr "Светлая или тёмная тема"
+
+#: public site
+msgid "Panel"
+msgstr "Панель"
+
+#: public site
+msgid "Haydovchilik maktabi va onlayn imtihon platformasi."
+msgstr "Автошкола и онлайн-платформа экзамена."
+
+#: public site
+msgid "Sayt"
+msgstr "Сайт"
+
+#: public site
+msgid "O‘quvchilar uchun kirish"
+msgstr "Вход для учеников"
+
+#: public site
+msgid "Ismingizni yozing"
+msgstr "Укажите имя"
+
+#: public site
+msgid "Telefon raqamni to‘liq yozing, masalan +998 90 123 45 67"
+msgstr "Укажите номер полностью, например +998 90 123 45 67"
+
+#: public site
+msgid "Hozir so‘rovlar juda ko‘p. Iltimos, bizga qo‘ng‘iroq qiling."
+msgstr "Сейчас слишком много заявок. Пожалуйста, позвоните нам."
+
+#: public site
+msgid "Rahmat! So‘rovingiz qabul qilindi — tez orada sizga qo‘ng‘iroq qilamiz."
+msgstr "Спасибо! Заявка принята — мы скоро вам перезвоним."

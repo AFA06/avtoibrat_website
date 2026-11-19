@@ -73,14 +73,126 @@ class Story(models.Model):
 
 
 class ConsultRequest(models.Model):
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
-    phone = models.CharField(max_length=20)
-    message = models.TextField(blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
+    """A visitor's «sign me up» request from the public home page."""
+    first_name = models.CharField("Ism", max_length=100)
+    last_name = models.CharField("Familiya", max_length=100, blank=True)
+    phone = models.CharField("Telefon", max_length=20)
+    category = models.CharField("Toifa", max_length=2, blank=True)
+    message = models.TextField("Izoh", blank=True)
+    is_handled = models.BooleanField("Bog‘lanildi", default=False)
+    created_at = models.DateTimeField("Yuborilgan", auto_now_add=True)
+
+    class Meta:
+        ordering = ["-created_at"]
+        verbose_name = "Kursga yozilish so‘rovi"
+        verbose_name_plural = "Kursga yozilish so‘rovlari"
 
     def __str__(self):
-        return f"{self.first_name} {self.last_name}"
+        return f"{self.first_name} {self.last_name}".strip()
+
+
+def _localized(obj, field):
+    """The field in the visitor's language (uz-kr → *_kr, ru → *_ru), falling back to the Uzbek text."""
+    suffix = {"uz-kr": "_kr", "ru": "_ru"}.get(get_language() or "uz", "")
+    value = getattr(obj, field + suffix, "") if suffix else ""
+    return value or getattr(obj, field)
+
+
+class SchoolProfile(models.Model):
+    """Everything the public site says about the school; one row, edited in the admin."""
+    instructor_name = models.CharField("Instruktor ismi", max_length=120)
+    headline = models.CharField("Bosh sarlavha", max_length=160)
+    headline_kr = models.CharField("Bosh sarlavha (кирил)", max_length=160, blank=True)
+    headline_ru = models.CharField("Bosh sarlavha (рус)", max_length=160, blank=True)
+    intro = models.TextField("Qisqa tanishtiruv")
+    intro_kr = models.TextField("Qisqa tanishtiruv (кирил)", blank=True)
+    intro_ru = models.TextField("Qisqa tanishtiruv (рус)", blank=True)
+    photo = models.CharField(
+        "Instruktor rasmi (static yo‘li)", max_length=200, default="site/demo/instructor.jpg",
+        help_text="Rasm loyiha ichida turadi (static/…), chunki Renderda admin orqali yuklangan fayllar o‘chib ketadi.",
+    )
+    years_experience = models.PositiveIntegerField("Tajriba (yil)", default=0)
+    graduates = models.PositiveIntegerField("Bitiruvchilar soni", default=0)
+    pass_rate = models.PositiveIntegerField("Birinchi urinishda topshirish (%)", default=0,
+                                            validators=[MaxValueValidator(100)])
+    phone = models.CharField("Telefon", max_length=30)
+    telegram = models.URLField("Telegram", blank=True)
+    instagram = models.URLField("Instagram", blank=True)
+    address = models.CharField("Manzil", max_length=255)
+    address_kr = models.CharField("Manzil (кирил)", max_length=255, blank=True)
+    address_ru = models.CharField("Manzil (рус)", max_length=255, blank=True)
+    hours = models.CharField("Ish vaqti", max_length=120)
+    hours_kr = models.CharField("Ish vaqti (кирил)", max_length=120, blank=True)
+    hours_ru = models.CharField("Ish vaqti (рус)", max_length=120, blank=True)
+    map_url = models.URLField("Xarita havolasi", blank=True)
+    is_demo = models.BooleanField(
+        "Namuna ma’lumot", default=True,
+        help_text="Haqiqiy ma’lumot kiritilgach belgini olib tashlang — saytdagi «namuna» belgisi yo‘qoladi.",
+    )
+
+    class Meta:
+        verbose_name = "Maktab ma’lumotlari"
+        verbose_name_plural = "Maktab ma’lumotlari"
+
+    def __str__(self):
+        return self.instructor_name
+
+    @classmethod
+    def current(cls):
+        return cls.objects.order_by("pk").first()
+
+    @property
+    def phone_href(self):
+        return "tel:" + re.sub(r"[^\d+]", "", self.phone)
+
+    def l_headline(self):
+        return _localized(self, "headline")
+
+    def l_intro(self):
+        return _localized(self, "intro")
+
+    def l_address(self):
+        return _localized(self, "address")
+
+    def l_hours(self):
+        return _localized(self, "hours")
+
+
+class Course(models.Model):
+    """A course with its price, shown on the public home page."""
+    category = models.CharField("Toifa", max_length=2, choices=(
+        ("A", "A"), ("B", "B"), ("BC", "BC"), ("C", "C"), ("D", "D"),
+    ))
+    title = models.CharField("Nomi", max_length=120)
+    title_kr = models.CharField("Nomi (кирил)", max_length=120, blank=True)
+    title_ru = models.CharField("Nomi (рус)", max_length=120, blank=True)
+    price = models.PositiveIntegerField("Narxi (so‘m)")
+    duration = models.CharField("Davomiyligi", max_length=60)
+    duration_kr = models.CharField("Davomiyligi (кирил)", max_length=60, blank=True)
+    duration_ru = models.CharField("Davomiyligi (рус)", max_length=60, blank=True)
+    features = models.TextField("Nimalar kiradi", help_text="Har bir qatorda bitta band.")
+    features_kr = models.TextField("Nimalar kiradi (кирил)", blank=True)
+    features_ru = models.TextField("Nimalar kiradi (рус)", blank=True)
+    is_popular = models.BooleanField("Ko‘p tanlanadi", default=False)
+    is_active = models.BooleanField("Saytda ko‘rinadi", default=True)
+    order = models.PositiveIntegerField("Tartib", default=0)
+
+    class Meta:
+        ordering = ["order", "pk"]
+        verbose_name = "Kurs"
+        verbose_name_plural = "Kurslar va narxlar"
+
+    def __str__(self):
+        return f"{self.category} — {self.title}"
+
+    def l_title(self):
+        return _localized(self, "title")
+
+    def l_duration(self):
+        return _localized(self, "duration")
+
+    def feature_list(self):
+        return [line.strip() for line in _localized(self, "features").splitlines() if line.strip()]
 
 
 class Testimonial(models.Model):

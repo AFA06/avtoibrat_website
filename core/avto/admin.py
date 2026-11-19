@@ -3,7 +3,7 @@ from django.utils.translation import gettext_lazy as _
 
 from .models import (
     TestCategory, TestType, Question, Answer, TestSession, UserAnswer, SavedQuestion,
-    TeamMember, Story, ConsultRequest, Testimonial, FAQ, ContactMessage, ContactPerson,
+    TeamMember, Story, ConsultRequest, Testimonial, FAQ, ContactMessage, ContactPerson, SchoolProfile, Course,
     RoadSignCategory, RoadSign, PdfMaterial, Branch, StudyGroup, Topic, TopicGroup, LoginLock
 )
 from django.db.models import Count
@@ -155,8 +155,42 @@ class StoryAdmin(admin.ModelAdmin):
 
 @admin.register(ConsultRequest)
 class ConsultRequestAdmin(admin.ModelAdmin):
-    list_display = ("first_name", "last_name", "phone", "created_at")
+    list_display = ("first_name", "phone", "category", "created_at", "is_handled")
+    list_editable = ("is_handled",)
+    list_filter = ("is_handled", "category")
     search_fields = ("first_name", "last_name", "phone")
+
+
+@admin.register(SchoolProfile)
+class SchoolProfileAdmin(admin.ModelAdmin):
+    """One row: what the public home page says about the school."""
+    list_display = ("instructor_name", "phone", "is_demo")
+    fieldsets = (
+        ("Bosh qism", {"fields": ("instructor_name", "photo", "headline", "headline_kr", "headline_ru",
+                                  "intro", "intro_kr", "intro_ru")}),
+        ("Raqamlar", {"fields": ("years_experience", "graduates", "pass_rate")}),
+        ("Aloqa", {"fields": ("phone", "telegram", "instagram", "address", "address_kr", "address_ru",
+                              "hours", "hours_kr", "hours_ru", "map_url")}),
+        (None, {"fields": ("is_demo",)}),
+    )
+
+    def has_add_permission(self, request):
+        return not SchoolProfile.objects.exists() and super().has_add_permission(request)
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+
+@admin.register(Course)
+class CourseAdmin(admin.ModelAdmin):
+    list_display = ("category", "title", "price", "duration", "is_popular", "is_active", "order")
+    list_editable = ("price", "is_popular", "is_active", "order")
+    fieldsets = (
+        (None, {"fields": ("category", "price", "is_popular", "is_active", "order")}),
+        ("O‘zbekcha", {"fields": ("title", "duration", "features")}),
+        ("Ўзбекча (кирил)", {"fields": ("title_kr", "duration_kr", "features_kr")}),
+        ("Русский", {"fields": ("title_ru", "duration_ru", "features_ru")}),
+    )
 
 
 @admin.register(Testimonial)
