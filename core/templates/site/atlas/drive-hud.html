@@ -1,0 +1,43 @@
+{% load i18n %}
+<div class="drive-hud" hidden>
+  <div class="drive-links">
+    <a href="#courses">{% trans "Kurslar va narxlar" %}</a>
+    <a href="#apply">{% trans "Kursga yozilish" %}</a>
+  </div>
+  <div class="scene-copy">
+    <span class="scene-count" aria-hidden="true">01 / 06</span>
+    <div data-chapter="1"><h2>{% trans "Birinchi dars." %}</h2></div>
+    <div data-chapter="2"><h2>{% trans "Shahar ko‘chalari" %}</h2></div>
+    <div data-chapter="3"><h2>{% trans "Chorraha" %}</h2>
+      <details class="signal-note"><summary>2.1 · {% trans "Asosiy yo‘l" %}</summary><p>{% trans "Tartibga solinmagan chorrahada asosiy yo‘ldagi transport avval o‘tadi." %}</p></details>
+    </div>
+    <div data-chapter="4"><h2>{% trans "Ochiq" %} <em>{% trans "yo‘llarga." %}</em></h2></div>
+    <div data-chapter="5"><h2>{% trans "O‘quv maydoni" %}</h2>
+      <div class="training-links"><button type="button" class="game-launch">{% trans "Haydab ko‘rish" %} ↗</button><a href="#signs">{% trans "Yo‘l belgilari" %}</a><a href="#platform">{% trans "O‘quv mashqi" %}</a><a href="#courses">{% trans "Kurslar" %}</a></div>
+    </div>
+  </div>
+  <div class="drive-controls"><button type="button" class="drive-next" data-finish="{% trans 'Kurslar va narxlar' %} ↓">{% trans "Haydash uchun pastga suring" %} ↓</button>
+    <nav class="drive-cues" aria-label="{% trans 'O‘quv yo‘li' %}">
+      <button data-seek="0" aria-label="{% trans 'Birinchi dars.' %}">01</button>
+      <button data-seek=".15" aria-label="{% trans 'Amaliy haydash' %}">02</button>
+      <button data-seek=".29" aria-label="{% trans 'Shahar ko‘chalari' %}">03</button>
+      <button data-seek=".43" aria-label="{% trans 'Chorraha' %}">04</button>
+      <button data-seek=".69" aria-label="{% trans 'Ochiq' %} {% trans 'yo‘llarga.' %}">05</button>
+      <button data-seek=".96" aria-label="{% trans 'O‘quv maydoni' %}">06</button>
+    </nav>
+  </div>
+</div>
+<dialog class="drive-game" aria-labelledby="yard-title">
+  <div class="yard-bar">
+    <h2 id="yard-title">{% trans "O‘quv maydoni" %}</h2>
+    <button type="button" class="yard-reset">{% trans "Boshidan boshlash" %}</button>
+    <button type="button" class="yard-exit" autofocus>{% trans "Chiqish" %} ×</button>
+  </div>
+  <div class="yard-pedals">
+    <div><button data-drive="left" aria-label="{% trans 'Chapga' %}">←</button>
+      <button data-drive="right" aria-label="{% trans 'O‘ngga' %}">→</button></div>
+    <kbd>W A S D / ↑ ← ↓ →</kbd>
+    <div><button data-drive="back" aria-label="{% trans 'Orqaga' %}">↓</button>
+      <button data-drive="forward" aria-label="{% trans 'Oldinga' %}">↑</button></div>
+  </div>
+</dialog>

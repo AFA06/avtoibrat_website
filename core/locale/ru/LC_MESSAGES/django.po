@@ -2451,3 +2451,373 @@ msgstr "Другой вопрос"
 #: public site
 msgid "Rahmat! Xabaringiz yuborildi — tez orada javob beramiz."
 msgstr "Спасибо! Сообщение отправлено — скоро ответим."
+
+
+#. Public driving school redesign
+msgid "AMALIYOT"
+msgstr "ПРАКТИКА"
+
+
+#. Public driving school redesign
+msgid "ANIQ HARAKATLAR"
+msgstr "ТОЧНЫЕ ДВИЖЕНИЯ"
+
+
+#. Public driving school redesign
+msgid "AVTOIBRAT DIGITAL"
+msgstr "AVTOIBRAT DIGITAL"
+
+
+#. Public driving school redesign
+msgid "Avtomobilda haydashni o‘rganayotgan o‘quvchi"
+msgstr "Ученица за рулём учебного автомобиля"
+
+
+#. Public driving school redesign
+msgid "Bir qadam oldinni o‘ylang."
+msgstr "Думайте на шаг вперёд."
+
+
+#. Public driving school redesign
+msgid "Birinchi dars."
+msgstr "Первое занятие."
+
+
+#. Public driving school redesign
+msgid "Birinchi qadamni tashlang"
+msgstr "Сделайте первый шаг"
+
+
+#. Public driving school redesign
+msgid "Chorrahalar, svetoforlar va qatnov qatorlari. Har bir vaziyatga ongli yondashing."
+msgstr "Перекрёстки, светофоры и полосы движения. Учитесь осознанно действовать в каждой ситуации."
+
+
+#. Public driving school redesign
+msgid "Darsdan keyin ham birga"
+msgstr "На связи и после занятий"
+
+
+#. Public driving school redesign
+msgid "Faqat qoidalarni yodlash emas. Yo‘ldagi vaziyatni tushunish va to‘g‘ri qaror qilishni o‘rganing."
+msgstr "Учитесь понимать дорожную обстановку и принимать верные решения, а не просто запоминать правила."
+
+
+#. Public driving school redesign
+msgid "HAYDANG"
+msgstr "ВОДИТЕ"
+
+
+#. Public driving school redesign
+msgid "Haqiqiy haydash tajribasi"
+msgstr "Настоящий опыт вождения"
+
+
+#. Public driving school redesign
+msgid "Har bir burilishda"
+msgstr "С каждым поворотом"
+
+
+#. Public driving school redesign
+msgid "Har bir ishonchli haydovchi birinchi darsdan boshlagan."
+msgstr "Каждый уверенный водитель начинал с первого занятия."
+
+
+#. Public driving school redesign
+msgid "Haydash ko‘nikmalari"
+msgstr "Навыки вождения"
+
+
+#. Public driving school redesign
+msgid "Haydashni o‘rganish."
+msgstr "Учиться водить."
+
+
+#. Public driving school redesign
+msgid "ISHONCH BILAN"
+msgstr "С УВЕРЕННОСТЬЮ"
+
+
+#. Public driving school redesign
+msgid "Instruktor bilan avtomobilda amaliy haydash darsi"
+msgstr "Практическое занятие в автомобиле с инструктором"
+
+
+#. Public driving school redesign
+msgid "Ishonch bizdan."
+msgstr "Уверенность — от нас."
+
+
+#. Public driving school redesign
+msgid "Katta yo‘llar shu yerdan boshlanadi."
+msgstr "Большие дороги начинаются здесь."
+
+
+#. Public driving school redesign
+msgid "Maktab bilan tanishing"
+msgstr "Познакомиться со школой"
+
+
+#. Public driving school redesign
+msgid "Masofani baholash, orqaga yurish va avtomobilni to‘g‘ri joylashtirishni mashq qiling."
+msgstr "Тренируйтесь оценивать расстояние, двигаться задним ходом и правильно парковать автомобиль."
+
+
+#. Public driving school redesign
+msgid "Maydonchadagi ilk harakatlardan shahar chorrahalarigacha, bosqichma-bosqich."
+msgstr "Шаг за шагом: от первых манёвров на площадке до городских перекрёстков."
+
+
+#. Public driving school redesign
+msgid "Nazariya, amaliyot va mustaqil mashqlar — barchasi bir yo‘lda."
+msgstr "Теория, практика и самостоятельная подготовка — на одном пути."
+
+
+#. Public driving school redesign
+msgid "Nazariyadan haqiqiy yo‘llargacha"
+msgstr "От теории до настоящих дорог"
+
+
+#. Public driving school redesign
+msgid "Onlayn platforma bilan birga"
+msgstr "Вместе с онлайн-платформой"
+
+
+#. Public driving school redesign
+msgid "O‘RGANING"
+msgstr "УЧИТЕСЬ"
+
+
+#. Public driving school redesign
+msgid "O‘z joyingizni toping."
+msgstr "Найдите своё место."
+
+
+#. Public driving school redesign
+msgid "O‘z yo‘lingizni tanlang"
+msgstr "Выберите свой путь"
+
+
+#. Public driving school redesign
+msgid "O‘zingizga ishonish."
+msgstr "Верить в себя."
+
+
+#. Public driving school redesign
+msgid "RUL ORTIDAGI KO‘NIKMALAR"
+msgstr "НАВЫКИ ЗА РУЛЁМ"
+
+
+#. Public driving school redesign
+msgid "Rul sizda."
+msgstr "Руль в ваших руках."
+
+
+#. Public driving school redesign
+msgid "SHAHARDA HAYDASH"
+msgstr "ВОЖДЕНИЕ В ГОРОДЕ"
+
+
+#. Public driving school redesign
+msgid "SIZNING MAQSADINGIZ. SIZNING TOIFANGIZ."
+msgstr "ВАША ЦЕЛЬ. ВАША КАТЕГОРИЯ."
+
+
+#. Public driving school redesign
+msgid "Savol berishdan tortinmang. Harakatni tushunib, o‘z sur’atingizda mashq qiling."
+msgstr "Не стесняйтесь задавать вопросы. Разбирайтесь в манёврах и занимайтесь в своём темпе."
+
+
+#. Public driving school redesign
+msgid "Shahar ko‘chalari"
+msgstr "Городские улицы"
+
+
+#. Public driving school redesign
+msgid "Shaxsiy kabinetda test ishlang, xatolaringizni tahlil qiling va natijangizni kuzating."
+msgstr "Решайте тесты в личном кабинете, разбирайте ошибки и следите за результатами."
+
+
+#. Public driving school redesign
+msgid "Shunchaki guvohnoma emas. Hayot uchun ko‘nikma."
+msgstr "Не просто права. Навык на всю жизнь."
+
+
+#. Public driving school redesign
+msgid "Sinab ko‘ring: javobni tanlang."
+msgstr "Попробуйте: выберите ответ."
+
+
+#. Public driving school redesign
+msgid "Tezlik, oraliq masofa va piyodalar. Xavfni oldindan ko‘rish — muhim ko‘nikma."
+msgstr "Скорость, дистанция и пешеходы. Учитесь замечать опасность заранее."
+
+
+#. Public driving school redesign
+msgid "To‘g‘ri! Bu — asosiy yo‘l belgisi."
+msgstr "Верно! Это знак «Главная дорога»."
+
+
+#. Public driving school redesign
+msgid "To‘xtash va parkovka"
+msgstr "Остановка и парковка"
+
+
+#. Public driving school redesign
+msgid "XAVFSIZLIK BIRINCHI"
+msgstr "БЕЗОПАСНОСТЬ ПРЕЖДЕ ВСЕГО"
+
+
+#. Public driving school redesign
+msgid "Xavfsiz haydash"
+msgstr "Безопасное вождение"
+
+
+#. Public driving school redesign
+msgid "YO‘LGA BIRGA CHIQAMIZ"
+msgstr "В ДОРОГУ ВМЕСТЕ"
+
+
+#. Public driving school redesign
+msgid "Yana urinib ko‘ring. Sariq romb — asosiy yo‘l belgisi."
+msgstr "Попробуйте ещё раз. Жёлтый ромб — знак главной дороги."
+
+
+#. Public driving school redesign
+msgid "Yangi erkinlik."
+msgstr "Новая свобода."
+
+
+#. Public driving school redesign
+msgid "Yoningizda instruktor"
+msgstr "Инструктор рядом"
+
+
+#. Public driving school redesign
+msgid "Yo‘lni his qiling."
+msgstr "Почувствуйте дорогу."
+
+
+#. Public driving school redesign
+msgid "birinchi urinishda topshirganlar"
+msgstr "сдали с первой попытки"
+
+
+#. Public driving school redesign
+msgid "bitiruvchilar"
+msgstr "выпускников"
+
+
+#. Public driving school redesign
+msgid "ko‘proq ishonch."
+msgstr "больше уверенности."
+
+
+#. Public driving school redesign
+msgid "HAYDOVCHILIK MAKTABI"
+msgstr "АВТОШКОЛА"
+
+msgid "Ochiq"
+msgstr "Навстречу"
+
+msgid "yo‘llarga."
+msgstr "дороге."
+
+msgid "Imtiyoz belgilari"
+msgstr "Знаки приоритета"
+
+msgid "Tartibga solinmagan chorrahada asosiy yo‘ldagi transport avval o‘tadi."
+msgstr "На нерегулируемом перекрёстке преимущество у транспорта на главной дороге."
+
+msgid "Bu yerda asosiy yo‘lning imtiyozi tugaydi."
+msgstr "Здесь заканчивается преимущество главной дороги."
+
+msgid "Kesishayotgan yo‘ldagi transportga yo‘l bering."
+msgstr "Уступите транспорту на пересекаемой дороге."
+
+msgid "O‘quv yo‘li"
+msgstr "Этапы обучения"
+
+msgid "Bilimingizni"
+msgstr "Проверьте"
+
+msgid "sinab ko‘ring."
+msgstr "себя."
+
+msgid "Uchta belgi, uchta savol. Javobni tanlab, o‘zingizni tekshiring."
+msgstr "Три знака, три вопроса. Выберите ответ и проверьте себя."
+
+msgid "Keyingi savol"
+msgstr "Следующий вопрос"
+
+msgid "O‘quv mashqi"
+msgstr "Учебное задание"
+
+msgid "Sariq romb"
+msgstr "Жёлтый ромб"
+
+msgid "Qizil hoshiyali teskari uchburchak"
+msgstr "Перевёрнутый треугольник с красной каймой"
+
+msgid "Diagonal chiziqli sariq romb"
+msgstr "Жёлтый ромб с диагональными полосами"
+
+msgid "To‘g‘ri javob:"
+msgstr "Правильный ответ:"
+
+msgid "Rul ortida"
+msgstr "Чему вы научитесь"
+
+msgid "nimalarni o‘rganasiz?"
+msgstr "за рулём?"
+
+msgid "O‘qishni qachon boshlasam bo‘ladi?"
+msgstr "Когда можно начать обучение?"
+
+msgid "Yangi guruhlar har oy ochiladi. Ariza qoldiring — administrator eng yaqin guruh sanasini aytadi."
+msgstr "Новые группы открываются каждый месяц. Оставьте заявку, и администратор сообщит ближайшую дату."
+
+msgid "Onlayn imtihon platformasi nima?"
+msgstr "Как устроена онлайн-подготовка?"
+
+msgid "O‘quvchilarimiz rasmiy imtihon savollari bilan uyda va o‘quv xonasida mashq qiladi: real imtihon, marafon, mavzulashtirilgan testlar va yo‘l belgilari. Kirish ma’lumotlarini o‘qishga yozilgach olasiz."
+msgstr "Ученики занимаются дома и в классе: решают тематические тесты, проходят марафон, повторяют знаки и тренируются в режиме экзамена. Доступ выдаётся после записи."
+
+msgid "To‘lovni bo‘lib to‘lash mumkinmi?"
+msgstr "Можно ли платить частями?"
+
+msgid "Ha, kurs narxini ikki yoki uch qismga bo‘lib to‘lash mumkin. Batafsil ma’lumotni administrator beradi."
+msgstr "Да, стоимость курса можно разделить на два или три платежа. Подробности уточните у администратора."
+
+msgid "Amaliy darslar qaysi mashinada o‘tadi?"
+msgstr "На какой машине проходят занятия?"
+
+msgid "Amaliy darslar o‘quv avtomobilida, ikki pedalli tizim bilan, tajribali instruktor yonida o‘tadi."
+msgstr "На учебном автомобиле с дублирующими педалями. Рядом с учеником находится инструктор."
+
+msgid "Haydash uchun pastga suring"
+msgstr "Прокрутите, чтобы ехать"
+
+msgid "Chorraha"
+msgstr "Перекрёсток"
+
+msgid "O‘quv maydoni"
+msgstr "Автодром"
+
+msgid "Haydab ko‘rish"
+msgstr "Попробовать вождение"
+
+msgid "Boshidan boshlash"
+msgstr "Начать заново"
+
+msgid "Burilish"
+msgstr "Поворот"
+
+msgid "Oldinga"
+msgstr "Вперёд"
+
+msgid "Chapga"
+msgstr "Влево"
+
+msgid "O‘ngga"
+msgstr "Вправо"

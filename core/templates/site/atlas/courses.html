@@ -1,0 +1,7 @@
+{% load i18n static avto_extras %}
+{% if courses %}<section class="spread wrap" id="courses"><h2>{% trans "Toifalar va narxlar" %}</h2>
+{% if school.is_demo %}<small class="sample">{% trans "namuna" %}</small>{% endif %}
+<nav class="class-picker" aria-label="{% trans 'Kurslar' %}">{% for course in courses %}<a href="#class-{{ course.category }}">{{ course.category }}</a>{% endfor %}</nav>
+{% for course in courses %}<article class="class-stage" id="class-{{ course.category }}">
+<div class="vehicle-shot">{% if course.category == 'BC' %}<img src="{% static 'site/atlas/sedan.webp' %}" loading="lazy" alt="">{% endif %}<img loading="lazy" src="{% if course.category == 'A' %}{% static 'site/atlas/bike.webp' %}{% elif course.category == 'B' %}{% static 'site/atlas/sedan.webp' %}{% else %}{% static 'site/atlas/truck.webp' %}{% endif %}" alt=""><b>{{ course.category }}</b></div>
+<div class="class-details"><small>{{ course.l_duration }}</small><h3>{{ course.l_title }}</h3><ul>{% for feature in course.feature_list %}<li>{{ feature }}</li>{% endfor %}</ul><p><strong>{{ course.price|som }}</strong> {% trans "so‘m" %}</p><a class="btn btn--ink" href="#apply" data-category="{{ course.category }}">{% trans "Yozilish" %}</a></div></article>{% endfor %}</section>{% endif %}

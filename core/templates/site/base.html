@@ -5,22 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}AvtoIbrat{% endblock %}</title>
     <meta name="description" content="{% block description %}{% trans 'AvtoIbrat — Toshkentdagi haydovchilik maktabi va o‘quvchilar uchun onlayn imtihon platformasi.' %}{% endblock %}">
-    <meta name="theme-color" content="#2a2f36">
+    <meta name="theme-color" content="#161916">
     <link rel="shortcut icon" href="{% static 'assets_dashboard/images/favicon.png' %}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Unbounded:wght@500;600&display=swap" rel="stylesheet">
     <link href="{% static 'assets_dashboard/css/icons.min.css' %}" rel="stylesheet">
     <link href="{% static 'site/site.css' %}" rel="stylesheet">
+    <link href="{% static 'site/redesign.css' %}" rel="stylesheet">
+    <link href="{% static 'site/atlas/atlas.css' %}" rel="stylesheet">
     <script>(function(){try{var t=localStorage.getItem('avtoibrat.theme');if(t)document.documentElement.setAttribute('data-theme',t==='dark'?'dark':'light')}catch(e){}})()</script>
+<noscript><style>
+@media(max-width:960px){.atlas .top{position:relative}.atlas .top__inner{height:auto;min-height:70px;flex-wrap:wrap;padding-block:12px}.atlas .top__nav{position:static;order:3;width:100%;visibility:visible;opacity:1;transform:none;box-shadow:none;display:flex;flex-direction:row;flex-wrap:wrap;gap:14px;padding:0}.atlas .top__nav a{font-size:14px}.atlas .menu-btn,.atlas .top__nav-cta,.atlas #theme-toggle{display:none}}
+</style></noscript>
 </head>
-<body class="st">
+<body class="st atlas">
+<div class="reading-progress" aria-hidden="true"></div>
 <a class="st-skip" href="#main">{% trans "Asosiy qismga o‘tish" %}</a>
 
 <header class="top" id="top">
     <div class="wrap top__inner">
         <a class="top__brand" href="{% url 'home' %}" aria-label="AvtoIbrat — {% trans 'bosh sahifa' %}">
-            <img src="{% static 'assets/images/logo-white.png' %}" alt="AvtoIbrat" width="124" height="30">
+            <span class="brand-path" aria-hidden="true"></span><span class="atlas-word">Avtoibrat<span>.</span></span>
         </a>
 
         <nav class="top__nav" id="top-nav" aria-label="{% trans 'Asosiy menyu' %}">
@@ -32,20 +35,21 @@
         </nav>
 
         <div class="top__tools">
+            <details class="language-picker"><summary><i class="ti ti-world" aria-hidden="true"></i> {% if LANGUAGE_CODE == 'ru' %}RU{% elif LANGUAGE_CODE == 'uz-kr' %}ЎЗ{% else %}UZ{% endif %}</summary>
             <form action="{% url 'set_language' %}" method="post" class="lang">
                 {% csrf_token %}
                 <input type="hidden" name="next" value="{{ request.get_full_path }}">
                 <button name="language" value="uz" class="{% if LANGUAGE_CODE == 'uz' %}is-active{% endif %}" lang="uz" title="O‘zbekcha">UZ</button>
                 <button name="language" value="uz-kr" class="{% if LANGUAGE_CODE == 'uz-kr' %}is-active{% endif %}" lang="uz-Cyrl" title="Ўзбекча">ЎЗ</button>
                 <button name="language" value="ru" class="{% if LANGUAGE_CODE == 'ru' %}is-active{% endif %}" lang="ru" title="Русский">RU</button>
-            </form>
+            </form></details>
             <button type="button" class="icon-btn" id="theme-toggle" aria-label="{% trans 'Yorug‘ yoki qorong‘i rejim' %}">
                 <i class="ti ti-moon theme-dark"></i><i class="ti ti-sun theme-light"></i>
             </button>
             {% if user.is_authenticated %}
             <a class="btn btn--line btn--sm" href="{% if user.is_staff %}{% url 'admin:index' %}{% else %}{% url 'dashboard' %}{% endif %}"><i class="ti ti-home"></i><span>{% trans "Kabinet" %}</span></a>
             {% else %}
-            <a class="btn btn--line btn--sm" href="{% url 'login' %}"><i class="ti ti-login"></i><span>{% trans "Kirish" %}</span></a>
+            <a class="btn btn--line btn--sm" aria-label="{% trans 'Kirish' %}" href="{% url 'login' %}"><i class="ti ti-login"></i><span>{% trans "Kirish" %}</span></a>
             {% endif %}
             <button type="button" class="icon-btn menu-btn" id="menu-toggle" aria-controls="top-nav" aria-expanded="false" aria-label="{% trans 'Menyu' %}">
                 <i class="ti ti-menu-2"></i>
@@ -62,7 +66,7 @@
     <div class="wrap">
         <div class="foot__grid">
             <div class="foot__brand">
-                <img src="{% static 'assets/images/logo-white.png' %}" alt="AvtoIbrat" width="124" height="30">
+
                 <p>{% trans "Toshkentdagi haydovchilik maktabi. O‘quvchilarimiz rasmiy imtihon savollari bilan onlayn mashq qiladi." %}</p>
             </div>
             <div>
@@ -101,5 +105,6 @@
 </footer>
 
 <script src="{% static 'site/site.js' %}" defer></script>
+{% block motion %}{% endblock %}
 </body>
 </html>{% endwith %}

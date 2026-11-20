@@ -1,0 +1,51 @@
+.drive-view { position:absolute; inset:0; z-index:-1; pointer-events:none; }
+.drive-view canvas { width:100%; height:100%; display:block; }
+.pass.driving { height:calc(100svh - 72px); min-height:390px; }
+.driving .pass-layout { min-height:100%; height:100%; }
+.driving .pass-shade { background:linear-gradient(90deg,#101a1bd6 0%,#1422248a 30%,transparent 59%),linear-gradient(0deg,#11191db3,transparent 18%); }
+@media(max-width:700px){.pass.driving{height:calc(100svh - 62px)}.driving .pass-shade{background:linear-gradient(#142027d9,#14202783 33%,transparent 53%,transparent 78%,#142027c4)}}
+.drive-hud[hidden],.drive-hud [hidden]{display:none}
+.driving .pass-base{display:none}.drive-hud{position:absolute;inset:0;padding:clamp(18px,4vw,65px);pointer-events:none;color:#fffbef}
+.drive-hud :is(a,button,details){pointer-events:auto}
+.drive-links{position:absolute;right:4.5%;top:22px;display:flex;gap:3px}
+.drive-links a,.training-links a,.signal-note summary,.drive-hud button{font:600 14px/1.4 Atlas,Arial,sans-serif;color:#faf5e9;text-decoration:none;background:#1b2322ed;border:1px solid #ffffff44;border-radius:2px;min-height:42px;padding:10px 15px;cursor:pointer}
+.drive-links a:last-child{background:#f4efdf;color:#1c2524}
+.drive-controls{position:absolute;bottom:20px;left:5%;right:5%;display:flex;align-items:center;justify-content:space-between;gap:12px;border-top:1px solid #ffffff62;padding-top:14px}
+.drive-cues{display:flex;gap:2px}.drive-cues button{padding:9px;min-width:38px;font-variant-numeric:tabular-nums}.drive-cues [aria-current]{background:#ff754a;color:#141b17}
+.drive-next{background:transparent!important;border:0!important;text-align:left;padding-left:0!important}
+.scene-copy{position:absolute;left:5%;top:45%;transform:translateY(-45%);width:min(35%,510px)}
+.scene-copy h2{font-size:clamp(35px,4.8vw,84px);letter-spacing:-.06em;margin:12px 0 22px}
+.scene-count{font:600 14px monospace;letter-spacing:.12em;border-bottom:2px solid coral;padding:0 0 5px}
+.signal-note{max-width:36ch}.signal-note summary{display:list-item}.signal-note p{background:#212c29ed;padding:13px;font-size:15px;color:white}
+.training-links{display:flex;flex-wrap:wrap;gap:5px}.drive-hud a:hover,.drive-hud button:hover{border-color:white}
+.driving .pass-layout[hidden]{display:none}
+@media(max-width:700px){
+ .drive-links{top:12px;right:5%}.drive-links a{font-size:12px;padding:8px;min-height:36px}
+ .driving .pass-layout{padding-top:70px}.driving .pass h1{font-size:clamp(42px,11vw,70px);margin:9px 0}
+ .driving .pass-actions p{margin-bottom:10px;max-width:30ch;font-size:15px}
+ .driving .pass-actions .btn,.driving .pass-actions .quiet{min-height:40px}
+ .scene-copy{top:74px;transform:none;width:88%}.scene-copy h2{font-size:36px;margin-bottom:12px}
+ .drive-controls{display:grid;gap:0;padding-top:3px;bottom:12px}.drive-cues{display:grid;grid-template-columns:repeat(6,1fr)}
+ .drive-cues button{min-width:0;min-height:36px;padding:6px}.drive-hud .drive-next{min-height:30px;font-size:13px}
+}
+.yard-open { overflow:hidden; }
+.drive-game { position:fixed; inset:0; width:100vw; height:100dvh; max-width:none; max-height:none; margin:0; border:0; padding:0; background:#213334; color:#fff6e8; }
+.drive-game .drive-view { z-index:0; }
+.yard-bar,.yard-pedals { position:absolute; left:0; right:0; display:flex; align-items:center; gap:10px; padding:clamp(14px,3vw,42px); }
+.yard-bar { top:0; background:linear-gradient(#152021bf,transparent); }
+.yard-bar h2 { margin:0 auto 0 0; font-size:clamp(19px,3vw,38px); }
+.drive-game button { background:#202c2cf0; color:#fff5e7; border:1px solid #a9b1a9; min-height:46px; padding:8px 12px; font:inherit; cursor:pointer; }
+.drive-game button:active,.drive-game button:focus-visible { background:#fa7c4e; color:#152021; }
+.yard-pedals { bottom:0; justify-content:space-between; background:linear-gradient(transparent,#152021b3); }
+.yard-pedals button { min-width:52px; min-height:52px; font-size:25px; touch-action:none; user-select:none; }
+@media(max-width:700px){.yard-pedals kbd{display:none}.yard-bar{flex-wrap:wrap}.yard-bar button{font-size:13px}}
+@media(min-width:701px) and (max-width:900px) and (orientation:portrait){
+  .pass.driving .pass-layout {justify-content:flex-start; padding-top:80px}
+  .pass.driving h1 {font-size:clamp(54px,8vw,70px);margin:12px 0}
+  .pass.driving .pass-shade {background:linear-gradient(180deg,#172222d9,#17222270 35%,transparent 54%,transparent 76%,#172222a3)}
+  .pass.driving .scene-copy {top:82px;transform:none;width:80%}
+}
+@media(max-width:700px){
+  .drive-controls{grid-template-columns:minmax(0,1fr)}
+  .drive-cues button{min-height:44px}
+}

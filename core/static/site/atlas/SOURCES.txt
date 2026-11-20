@@ -1,0 +1,11 @@
+Editorial photographs, downloaded and served locally under https://unsplash.com/license
+pass.webp and pass-small.webp — Mateusz Suski, Stelvio Pass, https://unsplash.com/photos/oPz6pmooCyA
+bike.webp — Alessio D’Este, https://unsplash.com/photos/IN8ynLaKMyc
+truck.webp — Nishat Samadzai, https://unsplash.com/photos/neCb34TcLEg
+These images illustrate vehicle types and driving, not Avtoibrat staff or property.
+Sign graphics resized from the project's core/media/road_signs collection.
+Manrope variable Latin and Cyrillic subsets from @fontsource-variable/manrope. See Manrope-LICENSE.txt.
+GSAP and ScrollTrigger are vendored from npm gsap@3.13.0, dist/. License notices are in the distributed files. https://gsap.com/standard-license/
+No frontend build step is required. Django collectstatic publishes these files.
+summit.webp and summit-mobile.webp — closer desktop and phone crops of Mateusz Suski’s pass photograph above.
+sedan.webp — Brandon LeClaire, https://unsplash.com/photos/lYXpVfgb02E (Unsplash License).

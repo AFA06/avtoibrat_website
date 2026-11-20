@@ -1,0 +1,16 @@
+{
+  "name": "avtoibrat-road-film",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "car": "node build-car.mjs",
+    "build": "esbuild experience.js --bundle --format=esm --target=es2020 --minify --legal-comments=eof --outfile=../../core/static/site/drive/experience.js"
+  },
+  "dependencies": {
+    "three": "0.180.0"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.12",
+    "playwright": "1.65.1"
+  }
+}

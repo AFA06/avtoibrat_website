@@ -1,0 +1,14 @@
+{% load i18n static %}
+<section class="pass" aria-labelledby="pass-title">
+  <picture><source media="(max-width: 650px)" srcset="{% static 'site/atlas/summit-mobile.webp' %}"><img class="pass-photo" src="{% static 'site/atlas/summit.webp' %}" width="2000" height="1333" alt="" fetchpriority="high"></picture>
+  <div class="drive-view" data-car="{% static 'site/drive/fastback.glb' %}" aria-hidden="true"></div>
+  <div class="pass-shade"></div>
+  <div class="wrap pass-layout">
+    <div class="locator"><i></i>{% trans "Toshkentdagi haydovchilik maktabi" %}</div>
+    <h1 id="pass-title"><span><b>{% trans "Ochiq" %}</b></span><span><em>{% trans "yo‘llarga." %}</em></span></h1>
+    <div class="pass-actions"><p>{{ school.l_headline|default:_("Ishonchli haydovchi bo‘lishni biz bilan boshlang") }}</p>
+    <a class="btn primary" href="#apply">{% trans "Kursga yozilish" %}</a> <a class="quiet" href="#courses">{% trans "Kurslar" %}</a></div>
+    <div class="pass-base"><a href="#freedom"><i aria-hidden="true">↓</i> {% trans "Maktab bilan tanishing" %}</a><span>STELVIO PASS <b> / </b> IT</span></div>
+  </div>
+  {% include "site/atlas/drive-hud.html" %}
+</section>
