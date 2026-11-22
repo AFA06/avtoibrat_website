@@ -13,7 +13,7 @@
       <span class="sq-hero__icon"><i class="ti ti-copy"></i></span>
       <div>
         <h1>{% trans "O‘xshash savollar" %}</h1>
-        <p>{% trans "Bir-biriga juda o‘xshash, ko‘p chalkashtiriladigan savollar guruhlab berilgan. Farqini ko‘rib, xatoni oldini oling." %}</p>
+        <p>{% trans "Rasmi, savol uslubi yoki mavzusi bir-biriga o‘xshash, ko‘p chalkashtiriladigan savollar bitta to‘plamga yig‘ilgan va yonma-yon beriladi. Farqini ko‘rib, xatoni oldini oling." %}</p>
       </div>
     </div>
     <dl class="sq-kpis">
@@ -33,6 +33,7 @@
       <div class="sq-item__main">
         <h2>{{ g.nomi }}</h2>
         <span class="sq-item__meta">
+          <span class="sq-kind sq-kind--{{ g.kind }}"><i class="ti {{ g.kind_icon }}"></i>{{ g.kind_label }}</span>
           <i class="ti ti-list-numbers"></i> {% blocktrans count n=g.total %}{{ n }} ta savol{% plural %}{{ n }} ta savol{% endblocktrans %}
           {% if g.started %}
           <span class="sq-tally sq-tally--ok"><i class="ti ti-check"></i>{{ g.correct }}</span>

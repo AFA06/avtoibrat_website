@@ -62,3 +62,22 @@
   .sq-item__progress, .sq-item__start { grid-column: 1 / -1; }
   .sq-item__progress { grid-row: auto; }
 }
+
+/* why the set was grouped: pictures / question style / topic combo */
+.sq-kind {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  margin-right: 6px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 18px;
+  background: #eef2ff;
+  color: #3730a3;
+}
+.sq-kind--rasm { background: #ecfdf5; color: #047857; }
+.sq-kind--matn { background: #eff6ff; color: #1d4ed8; }
+.sq-kind--aralash { background: #fff7ed; color: #c2410c; }
+.sq-kind .ti { font-size: 14px; }

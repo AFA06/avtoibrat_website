@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from .models import (
     TestCategory, TestType, Question, Answer, TestSession, UserAnswer, SavedQuestion,
     TeamMember, Story, ConsultRequest, Testimonial, FAQ, ContactMessage, ContactPerson, SchoolProfile, Course,
-    RoadSignCategory, RoadSign, PdfMaterial, Branch, StudyGroup, Topic, TopicGroup, LoginLock
+    RoadSignCategory, RoadSign, PdfMaterial, Branch, StudyGroup, Topic, TopicGroup, LoginLock, SimilarGroup
 )
 from django.db.models import Count
 
@@ -58,6 +58,19 @@ class TopicInline(admin.TabularInline):
     model = Topic
     fields = ("tartib", "nomi_uzb", "nomi_uz_kr", "nomi_rus", "slug", "aktiv")
     extra = 0
+
+
+@admin.register(SimilarGroup)
+class SimilarGroupAdmin(admin.ModelAdmin):
+    list_display = ("__str__", "kind", "size", "aktiv")
+    list_filter = ("kind", "aktiv", "topic")
+    list_editable = ("aktiv",)
+    readonly_fields = ("question_order", "signature")
+    filter_horizontal = ("questions",)
+
+    @admin.display(description="Savollar")
+    def size(self, obj):
+        return len(obj.question_order)
 
 
 @admin.register(TopicGroup)

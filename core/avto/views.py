@@ -31,7 +31,7 @@ from .models import (
     TeamMember, Testimonial, FAQ, SchoolProfile, Course,
     ContactMessage, PdfMaterial, RoadSignCategory, RoadSign,
     ContactPerson, TestSession, Question, TestCategory,
-    Answer, UserAnswer, SavedQuestion, UserDevice, StatisticsReset, Topic, get_device_id, normalize_phone,
+    Answer, UserAnswer, SavedQuestion, UserDevice, StatisticsReset, Topic, SimilarGroup, get_device_id, normalize_phone,
     DEVICE_COOKIE
 )
 
@@ -563,15 +563,33 @@ def mavzulashtirilgan(request):
 
 @login_required
 def ohshash_savollar(request):
-    """Groups of look-alike questions; each row shows the result of its last finished attempt."""
-    categories = list(TestCategory.objects.filter(aktiv=True, show_in_ohshash=True).order_by("tartib"))
-    latest = _latest_practice_runs(request.user, categories, source="ohshash")
+    """Sets of look-alike questions (`avto.similar`); each row shows the result of its last finished attempt."""
+    sets = list(SimilarGroup.objects.filter(aktiv=True).select_related("topic"))
+    latest = {}
+    for session in (
+        TestSession.objects
+        .filter(user=request.user, similar_group__in=sets, finished_at__isnull=False)
+        .order_by("-finished_at", "-id")
+        .only("similar_group_id")
+    ):
+        latest.setdefault(session.similar_group_id, session.id)
+    counts = {
+        row["session_id"]: (row["correct"], row["wrong"])
+        for row in UserAnswer.objects.filter(session_id__in=latest.values()).values("session_id").annotate(
+            correct=Count("id", filter=Q(is_correct=True)),
+            wrong=Count("id", filter=Q(is_correct=False, selected_answer__isnull=False)),
+        )
+    }
+    kind_icons = {"rasm": "ti-photo", "matn": "ti-text-recognition", "aralash": "ti-stack-2"}
+    kind_labels = {"rasm": _("O‘xshash rasmlar"), "matn": _("O‘xshash savol uslubi"),
+                   "aralash": _("Mavzu bo‘yicha jamlanma")}
     groups = []
-    for cat in categories:
-        total = cat.question_count
-        group = {"id": cat.id, "nomi": cat.nomi, "total": total, "started": cat.id in latest}
-        if cat.id in latest:
-            _, (correct, wrong) = latest[cat.id]
+    for g in sets:
+        total = len(g.question_order)
+        group = {"id": g.id, "nomi": g.name(), "total": total, "started": g.id in latest,
+                 "kind": g.kind, "kind_icon": kind_icons[g.kind], "kind_label": kind_labels[g.kind]}
+        if g.id in latest:
+            correct, wrong = counts.get(latest[g.id], (0, 0))
             group.update(
                 correct=correct,
                 wrong=wrong,
@@ -801,16 +819,23 @@ def start_mavzu_test(request, topic_id):
 
 
 @login_required
-def start_ohshash_test(request, category_id):
-    category = get_object_or_404(
-        TestCategory,
-        id=category_id,
-        aktiv=True,
-        show_in_ohshash=True
-    )
-    session = _create_test_session(request.user, category, "shablon", "ohshash")
-    if session is None:
+def start_ohshash_test(request, group_id):
+    """Solve one set of look-alike questions, in the set's order (look-alikes side by side)."""
+    group = get_object_or_404(SimilarGroup, id=group_id, aktiv=True)
+    live = set(Question.objects.filter(id__in=group.question_order, is_archived=False, kategoriya__aktiv=True)
+               .values_list("id", flat=True))
+    question_ids = [qid for qid in group.question_order if qid in live]
+    if not question_ids:
         return redirect("ohshash_savollar")
+    first = Question.objects.only("kategoriya_id").get(id=question_ids[0])
+    session = TestSession.objects.create(
+        user=request.user, category_id=first.kategoriya_id, similar_group=group, test_kind="shablon",
+        source="ohshash", started_at=timezone.now(),
+        duration_minutes=len(question_ids) * MINUTES_PER_QUESTION,
+    )
+    session.questions.set(question_ids)
+    session.question_order = question_ids
+    session.save(update_fields=["question_order"])
     return redirect("test_page", session_id=session.id)
 
 
@@ -1064,6 +1089,9 @@ def _result_context(session):
             reverse("start_mavzu_test", args=[session.topic_id]) + f"?mode={topic_tests.restart_mode(session)}"
             if session.topic_id else reverse("mavzulashtirilgan")
         )
+    elif session.source == "ohshash":
+        restart_url = (reverse("start_ohshash_test", args=[session.similar_group_id])
+                       if session.similar_group_id else reverse("ohshash_savollar"))
     elif session.source == "marafon" and session.marathon_size:
         # Back to this size's sections, where the student picks the same or the next section.
         restart_url = reverse("marathon_sections", args=[session.marathon_size])
@@ -1086,7 +1114,8 @@ def _result_context(session):
         mistakes = review.mistakes(session, _content_language(user))
 
     journey_stage = None
-    is_bilet_run = session.test_kind == "shablon" and session.source in ("shablon", "ohshash") and not session.topic_id
+    is_bilet_run = (session.test_kind == "shablon" and session.source in ("shablon", "ohshash")
+                    and not session.topic_id and not session.similar_group_id)
     if is_bilet_run and session.finished_at and total >= session.category.question_count:
         stars = journey.stars_for(correct, total)
         journey_stage = {"stars": stars, "marks": "★" * stars}

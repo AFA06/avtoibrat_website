@@ -9,6 +9,7 @@ python manage.py migrate --noinput
 python manage.py import_bilets
 python manage.py import_road_signs --official
 python manage.py import_materials
+python manage.py build_similar_groups
 if [[ -n "${DEMO_PASSWORD:-}" ]]; then
     python manage.py seed_demo
 fi

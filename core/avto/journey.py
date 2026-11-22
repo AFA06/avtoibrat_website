@@ -50,7 +50,7 @@ def _bilet_runs(user, bilet_ids):
     """Every finished, full-length practice run of a bilet: (category_id, correct, size, finished_at)."""
     sessions = list(
         TestSession.objects
-        .filter(user=user, test_kind="shablon", source__in=("shablon", "ohshash"), topic__isnull=True,
+        .filter(user=user, test_kind="shablon", source__in=("shablon", "ohshash"), topic__isnull=True, similar_group__isnull=True,
                 category_id__in=bilet_ids, finished_at__isnull=False)
         .values("id", "category_id", "question_order", "finished_at")
     )

@@ -2821,3 +2821,18 @@ msgstr "Влево"
 
 msgid "O‘ngga"
 msgstr "Вправо"
+
+msgid "O‘xshash rasmlar"
+msgstr "Похожие картинки"
+
+msgid "O‘xshash savol uslubi"
+msgstr "Похожая формулировка"
+
+msgid "Mavzu bo‘yicha jamlanma"
+msgstr "Подборка по теме"
+
+msgid "Aralash savollar"
+msgstr "Смешанные вопросы"
+
+msgid "Rasmi, savol uslubi yoki mavzusi bir-biriga o‘xshash, ko‘p chalkashtiriladigan savollar bitta to‘plamga yig‘ilgan va yonma-yon beriladi. Farqini ko‘rib, xatoni oldini oling."
+msgstr "Вопросы с похожими картинками, формулировкой или темой, которые часто путают, собраны в наборы и идут рядом. Увидьте разницу — и не ошибайтесь."

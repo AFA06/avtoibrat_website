@@ -2814,3 +2814,18 @@ msgstr "Чапга"
 
 msgid "O‘ngga"
 msgstr "Ўнгга"
+
+msgid "O‘xshash rasmlar"
+msgstr "Ўхшаш расмлар"
+
+msgid "O‘xshash savol uslubi"
+msgstr "Ўхшаш савол услуби"
+
+msgid "Mavzu bo‘yicha jamlanma"
+msgstr "Мавзу бўйича жамланма"
+
+msgid "Aralash savollar"
+msgstr "Аралаш саволлар"
+
+msgid "Rasmi, savol uslubi yoki mavzusi bir-biriga o‘xshash, ko‘p chalkashtiriladigan savollar bitta to‘plamga yig‘ilgan va yonma-yon beriladi. Farqini ko‘rib, xatoni oldini oling."
+msgstr "Расми, савол услуби ёки мавзуси бир-бирига ўхшаш, кўп чалкаштириладиган саволлар битта тўпламга йиғилган ва ёнма-ён берилади. Фарқини кўриб, хатонинг олдини олинг."

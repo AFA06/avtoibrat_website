@@ -47,7 +47,7 @@ urlpatterns = [
             name='start_mavzu_test'
         ),
     path(
-        'ohshash/start/<int:category_id>/',
+        'ohshash/start/<int:group_id>/',
         start_ohshash_test,
         name='start_ohshash_test'
     ),

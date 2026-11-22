@@ -792,6 +792,40 @@ class Answer(models.Model):
         return self._text(lang) or self.matn_uzb or self.matn_uz_kr or self.matn_rus
 
 
+class SimilarGroup(models.Model):
+    """A set of look-alike questions for «O‘xshash savollar», built by `avto.similar` from the questions'
+    pictures (near-identical or same-style images), wording (same question style) and topic.
+    Rebuilt by `manage.py build_similar_groups`; a set whose questions did not change keeps its id,
+    so students keep their results."""
+
+    KIND = (
+        ("rasm", "O‘xshash rasmlar"),
+        ("matn", "O‘xshash savol uslubi"),
+        ("aralash", "Mavzu bo‘yicha jamlanma"),
+    )
+
+    topic = models.ForeignKey(Topic, null=True, blank=True, on_delete=models.SET_NULL, related_name="similar_groups")
+    kind = models.CharField(max_length=10, choices=KIND, default="aralash")
+    number = models.PositiveIntegerField("Tartib raqami", default=1)
+    aktiv = models.BooleanField(default=True)
+    questions = models.ManyToManyField(Question, related_name="similar_groups")
+    # Question ids in the order they are asked: look-alikes stand next to each other.
+    question_order = models.JSONField(default=list)
+    signature = models.CharField(max_length=64, unique=True)
+
+    class Meta:
+        ordering = ["number", "id"]
+        verbose_name = "O‘xshash savollar to‘plami"
+        verbose_name_plural = "O‘xshash savollar to‘plamlari"
+
+    def name(self, lang=None):
+        topic = self.topic.name(lang) if self.topic_id else _("Aralash savollar")
+        return f"{topic} · {self.number}"
+
+    def __str__(self):
+        return self.name("uz")
+
+
 class TestSession(models.Model):
     TEST_KIND = (
         ("shablon", "Shablon test"),
@@ -810,6 +844,9 @@ class TestSession(models.Model):
     category = models.ForeignKey(TestCategory, on_delete=models.CASCADE)
     # Set for topic tests, whose questions come from many bilets.
     topic = models.ForeignKey(Topic, null=True, blank=True, on_delete=models.SET_NULL)
+    # Set for «O‘xshash savollar» runs: the set of look-alike questions that was solved.
+    similar_group = models.ForeignKey("SimilarGroup", null=True, blank=True, on_delete=models.SET_NULL,
+                                      related_name="sessions")
     test_kind = models.CharField(max_length=20, choices=TEST_KIND)
     source = models.CharField(
         max_length=20,
@@ -844,6 +881,8 @@ class TestSession(models.Model):
         """What the student practised: the topic of a topic test, the size of a real exam, otherwise the bilet."""
         if self.topic_id:
             return self.topic.name()
+        if self.similar_group_id:
+            return self.similar_group.name()
         if self.test_kind == "real":
             return _("Real imtihon · %(n)s ta savol") % {"n": len(self.question_order)}
         if self.source == "marafon" and self.marathon_retry:

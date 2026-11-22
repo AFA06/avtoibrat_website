@@ -11,7 +11,7 @@ from django.utils import translation
 from django.utils import timezone
 
 from .views import _create_test_session
-from .models import Answer, Branch, ContactPerson, Question, StudyGroup, TestCategory, TestSession, TestType, Topic, TopicGroup, UserAnswer
+from .models import Answer, Branch, ContactPerson, Question, StudyGroup, SimilarGroup, TestCategory, TestSession, TestType, Topic, TopicGroup, UserAnswer
 
 User = get_user_model()
 
@@ -542,6 +542,10 @@ class ExamModeTests(TestCase):
             session = _create_test_session(self.user, self.category, "real")
             return self.client.get(reverse("test_page", args=[session.id])).content.decode()
         target = self.topic if start_url_name == "start_mavzu_test" else self.category
+        if start_url_name == "start_ohshash_test":
+            ids = list(Question.objects.filter(kategoriya=self.category).values_list("id", flat=True))
+            target = SimilarGroup.objects.create(topic=self.topic, signature="t", question_order=ids)
+            target.questions.set(ids)
         start = self.client.get(reverse(start_url_name, args=[target.id]))
         return self.client.get(start["Location"]).content.decode()
 
