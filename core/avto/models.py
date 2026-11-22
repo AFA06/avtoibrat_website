@@ -804,7 +804,7 @@ class SimilarGroup(models.Model):
         ("aralash", "Mavzu bo‘yicha jamlanma"),
     )
 
-    COLLECTIONS = (("signs", "Yo‘l belgilari"), ("situations", "Yo‘ldagi vaziyatlar"))
+    COLLECTIONS = (("signs", "Yo‘l belgilari"), ("images", "Bir xil rasmlar"), ("situations", "Yo‘ldagi vaziyatlar"))
     collection = models.CharField(max_length=16, choices=COLLECTIONS, blank=True, default="")
     topic = models.ForeignKey(Topic, null=True, blank=True, on_delete=models.SET_NULL, related_name="similar_groups")
     kind = models.CharField(max_length=10, choices=KIND, default="aralash")
@@ -822,7 +822,9 @@ class SimilarGroup(models.Model):
 
     def name(self, lang=None):
         if self.collection == "signs":
-            return _("O‘xshash yo‘l belgilari")
+            return _("Belgilar bo‘yicha o‘xshash savollar")
+        if self.collection == "images":
+            return _("Rasmlar bo‘yicha o‘xshash savollar")
         if self.collection == "situations":
             return _("O‘xshash yo‘l vaziyatlari")
         topic = self.topic.name(lang) if self.topic_id else _("Aralash savollar")

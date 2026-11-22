@@ -57,7 +57,7 @@ class SimilarPageTests(TestCase):
         similar.rebuild(self.items)
         group = SimilarGroup.objects.get()
         page = self.client.get(reverse("ohshash_savollar"))
-        self.assertContains(page, "O‘xshash yo‘l belgilari")
+        self.assertContains(page, "Belgilar bo‘yicha o‘xshash savollar")
         self.assertContains(page, "Faqat yo‘l belgilari")
 
         start = self.client.get(reverse("start_ohshash_test", args=[group.id]))
@@ -65,7 +65,7 @@ class SimilarPageTests(TestCase):
         self.assertEqual(start["Location"], reverse("test_page", args=[session.id]))
         self.assertEqual((session.similar_group_id, session.source), (group.id, "ohshash"))
         self.assertEqual(session.question_order, group.question_order)
-        self.assertEqual(session.title, "O‘xshash yo‘l belgilari")
+        self.assertEqual(session.title, "Belgilar bo‘yicha o‘xshash savollar")
 
         session.finished_at = timezone.now()
         session.save()
@@ -100,9 +100,10 @@ class SimilarPageTests(TestCase):
             scene_items.append(Item(q.id, q.matn_uzb, frozenset({topic.id}), topic.id,
                                     near(TRIANGLE, i * 8), section.id, "situations"))
         similar.rebuild(self.items + scene_items)
-        self.assertEqual(SimilarGroup.objects.filter(aktiv=True).count(), 2)
+        # Signs, situations, and the same scene picture again under «Rasmlar bo‘yicha».
+        self.assertEqual(SimilarGroup.objects.filter(aktiv=True).count(), 3)
         page = self.client.get(reverse("ohshash_savollar"))
-        self.assertContains(page, "O‘xshash yo‘l belgilari")
+        self.assertContains(page, "Belgilar bo‘yicha o‘xshash savollar")
         self.assertContains(page, "O‘xshash yo‘l vaziyatlari")
         group = SimilarGroup.objects.get(collection="situations", aktiv=True)
         self.client.get(reverse("start_ohshash_test", args=[group.id]))
@@ -128,7 +129,18 @@ class CollectionPlanTests(TestCase):
         ]
         result = similar.plan(items)
         self.assertEqual({g.collection: set(g.question_ids) for g in result.sets},
-                         {"signs": {1, 2}, "situations": {5, 6}})
+                         {"signs": {1, 2}, "situations": {5, 6}, "images": {5, 6, 7, 8}})
+
+    def test_same_picture_set_skips_signs_and_different_pictures(self):
+        items = [
+            Item(1, "Belgi nima", frozenset({1}), 1, RED_CIRCLE, 1, "signs"),
+            Item(2, "Belgi qayerda", frozenset({1}), 1, RED_CIRCLE, 1, "signs"),
+            Item(3, "Kim birinchi o‘tadi", frozenset({2}), 2, TRIANGLE, 2, "situations"),
+            Item(4, "Qaysi tezlikda yurish mumkin", frozenset({3}), 3, near(TRIANGLE, 6), 3, ""),
+            Item(5, "Boshqa rasmli savol", frozenset({2}), 2, RED_CIRCLE, 2, "situations"),
+        ]
+        images = [g for g in similar.plan(items).sets if g.collection == "images"]
+        self.assertEqual([set(g.question_ids) for g in images], [{3, 4}])
 
     def test_independent_matched_pairs_stay_adjacent_without_topic_padding(self):
         items = [Item(i, f"Savol {i}", frozenset({1}), 1, h, 1, "signs")

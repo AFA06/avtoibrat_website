@@ -564,7 +564,9 @@ def mavzulashtirilgan(request):
 @login_required
 def ohshash_savollar(request):
     """Sets of look-alike questions (`avto.similar`); each row shows the result of its last finished attempt."""
-    sets = list(SimilarGroup.objects.filter(aktiv=True, collection__in=("signs", "situations")).select_related("topic"))
+    order = {"signs": 0, "images": 1, "situations": 2}
+    sets = sorted(SimilarGroup.objects.filter(aktiv=True, collection__in=order).select_related("topic"),
+                  key=lambda g: (order[g.collection], g.number, g.id))
     latest = {}
     for session in (
         TestSession.objects
@@ -583,10 +585,15 @@ def ohshash_savollar(request):
     groups = []
     for g in sets:
         total = len(g.question_order)
-        signs = g.collection == "signs"
-        group = {"description": _("Rasmi o‘xshash yo‘l belgilarini va ular haqidagi savollarni farqlang.") if signs else _("Svetofor, tartibga soluvchi, chorraha va boshqa yo‘l vaziyatlaridagi farqlarni toping."),
-                 "examples": _("Faqat yo‘l belgilari") if signs else _("Svetofor · Tartibga soluvchi · Yo‘l vaziyatlari"),
-                 "icon": "ti-road-sign" if signs else "ti-route", "collection": g.collection,
+        text = {
+            "signs": (_("Rasmi o‘xshash yo‘l belgilarini va ular haqidagi savollarni farqlang."),
+                      _("Faqat yo‘l belgilari"), "ti-road-sign"),
+            "images": (_("Rasmi bir xil, lekin savoli boshqacha savollar — rasmga emas, savolga qarang."),
+                       _("Bir xil rasm · Boshqa savol"), "ti-photo"),
+            "situations": (_("Svetofor, tartibga soluvchi, chorraha va boshqa yo‘l vaziyatlaridagi farqlarni toping."),
+                           _("Svetofor · Tartibga soluvchi · Yo‘l vaziyatlari"), "ti-route"),
+        }[g.collection]
+        group = {"description": text[0], "examples": text[1], "icon": text[2], "collection": g.collection,
                  "id": g.id, "nomi": g.name(), "total": total, "started": g.id in latest,
                  "kind": g.kind}
         if g.id in latest:

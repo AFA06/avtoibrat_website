@@ -13,7 +13,7 @@ import math
 import re
 import unicodedata
 from collections import Counter, defaultdict
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 
 from django.db import transaction
 
@@ -141,7 +141,9 @@ class PlannedSet:
 
     @property
     def signature(self) -> str:
-        return hashlib.sha1(",".join(map(str, sorted(self.question_ids))).encode()).hexdigest()
+        ids = ",".join(map(str, sorted(self.question_ids)))
+        # «images» can hold the same questions as another set; older sets keep their original signature.
+        return hashlib.sha1((f"images:{ids}" if self.collection == "images" else ids).encode()).hexdigest()
 
 
 @dataclass
@@ -196,7 +198,7 @@ def _dominant_topic(ids: list[int], items: dict[int, Item]) -> int | None:
 
 
 def plan(items: list[Item]) -> Plan:
-    """Two tests, built only from verified matching pairs. Connected families
+    """Three tests, built only from verified matching pairs. Connected families
     stay together; never pad a family with unrelated questions from its topic."""
     result = Plan()
     eligible = [i for i in items if i.collection in ("signs", "situations")
@@ -241,7 +243,43 @@ def plan(items: list[Item]) -> Plan:
             order.extend(_ordered(family, by_id, sims))
         if order:
             result.sets.append(PlannedSet(order, None, "rasm" if category == "signs" else "aralash", category))
+    images = _same_picture_set(items)
+    if images:
+        result.sets.append(images)
     return result
+
+
+def _same_picture_set(items: list[Item]) -> PlannedSet | None:
+    """«Rasmlar bo‘yicha»: questions outside the road-sign topics that show the same picture but ask something different.
+    Only near-identical pictures link (resize, crop, watermark); exact repeats of a question are left out."""
+    pictured = [replace(i, collection="images") for i in items if i.image is not None and i.collection != "signs"]
+    duplicates = duplicate_ids(pictured)
+    live = [i for i in pictured if i.id not in duplicates]
+    by_id = {i.id: i for i in live}
+    parent = {i.id: i.id for i in live}
+
+    def root(q):
+        while parent[q] != q:
+            parent[q] = parent[parent[q]]
+            q = parent[q]
+        return q
+
+    matched = set()
+    for index, a in enumerate(live):
+        for b in live[index + 1:]:
+            d = distance(a.image, b.image)
+            if d is None or d > IMAGE_SAME:
+                continue
+            parent[root(b.id)] = root(a.id)
+            matched.update((a.id, b.id))
+    families = defaultdict(list)
+    for qid in sorted(matched):
+        families[root(qid)].append(qid)
+    sims = text_similarities(tfidf_vectors({q: words(by_id[q].text) for q in matched}), TEXT_WITH_IMAGE)
+    order = []
+    for family in sorted(families.values(), key=lambda ids: (_dominant_topic(ids, by_id) or 0, min(ids))):
+        order.extend(_ordered(family, by_id, sims))
+    return PlannedSet(order, None, "rasm", "images") if order else None
 
 
 # ------------------------------------------------------------------ database
