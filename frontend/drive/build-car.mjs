@@ -32,11 +32,17 @@ function material(original){
 }
 function geometry(o){const g=o.geometry.clone();g.applyMatrix4(new T.Matrix4().multiplyMatrices(normalize,o.matrixWorld));for(const name of Object.keys(g.attributes))if(!['position','normal'].includes(name))g.deleteAttribute(name);return g;}
 for(const root of wheelRoots){
- const bounds=new T.Box3().setFromObject(root).applyMatrix4(normalize),pivot=bounds.getCenter(new T.Vector3());
+ // The download has a baked toe angle on both left wheels. Remove it
+ // from the mesh before animation, so rotation about X cannot wobble the tyre.
+ const axle=new T.Vector3().setFromMatrixColumn(root.matrixWorld,0).transformDirection(normalize);
+ if(axle.x<0)axle.negate();
+ const straighten=new T.Quaternion().setFromUnitVectors(axle,new T.Vector3(1,0,0));
+ const tyre=root.getObjectByProperty('isMesh',true);
+ const bounds=new T.Box3().setFromObject(tyre).applyMatrix4(normalize),pivot=bounds.getCenter(new T.Vector3());
  const name=(pivot.z>0?'F':'R')+(pivot.x>0?'L':'R');
  const knuckle=new T.Group();knuckle.name='Knuckle_'+name;knuckle.position.copy(pivot);car.add(knuckle);
  const wheel=new T.Group();wheel.name='Wheel_'+name;knuckle.add(wheel);
- root.traverse(o=>{if(o.isMesh){const g=geometry(o);g.translate(-pivot.x,-pivot.y,-pivot.z);const mesh=new T.Mesh(mergeVertices(g),material(o.material));wheel.add(mesh)}});
+ root.traverse(o=>{if(o.isMesh){const g=geometry(o);g.translate(-pivot.x,-pivot.y,-pivot.z);g.applyQuaternion(straighten);const mesh=new T.Mesh(mergeVertices(g),material(o.material));wheel.add(mesh)}});
 }
 source.traverse(o=>{
  if(!o.isMesh)return;for(let p=o.parent;p;p=p.parent)if(wheelRoots.includes(p))return;
