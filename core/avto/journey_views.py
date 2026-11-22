@@ -68,5 +68,6 @@ def journey_result(request, session_id):
     )
     context = _result_context(session)
     context["mistakes"] = review.mistakes(session, _content_language(request.user))
+    context["review_open"] = False  # the road sheet keeps its compact, collapsible list
     context["restart_url"] += "?from=journey"
     return render(request, "dashboard/_journey_result.html", context)
