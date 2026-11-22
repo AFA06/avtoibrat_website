@@ -14,7 +14,7 @@ export function makePlayground(hero, layer, render, resize, signal) {
   function reset() {
     car.position.set(127,0,-61);
     car.yaw = Math.PI / 2;
-    car.steer = car.travel = speed = 0;
+    car.steer = car.travel = speed = 0;car.braking=false;
     held.clear();
     render(car);
   }
@@ -24,6 +24,7 @@ export function makePlayground(hero, layer, render, resize, signal) {
     last = time;
     const drive = Number(held.has('forward')) - Number(held.has('back'));
     speed = drive ? MathUtils.clamp(speed + drive*8*dt,-4,9) : MathUtils.damp(speed,0,2,dt);
+    car.braking=(drive<=0 && speed>.3) || (drive>=0 && speed<-.3);
     const oldSteer = car.steer;
     const turn = Number(held.has('left')) - Number(held.has('right'));
     car.steer = MathUtils.damp(car.steer,turn*.54,8,dt);
@@ -35,7 +36,7 @@ export function makePlayground(hero, layer, render, resize, signal) {
       Math.hypot(x-(118+Math.round((x-118)/3.7)*3.7),z+53)<1.35;
     if (x<113 || x>160 || z< -67 || z> -42 || nearCone) speed=0;
     else {car.position.set(x,0,z);car.yaw=yaw;car.travel+=distance}
-    if (dirty || Math.abs(distance)>.00001 || Math.abs(oldSteer-car.steer)>.0001) render(car);
+    if (dirty || Math.abs(car.steer)>.018 || Math.abs(distance)>.00001 || Math.abs(oldSteer-car.steer)>.0001) render(car);
     dirty=false;
     raf=requestAnimationFrame(tick);
   }

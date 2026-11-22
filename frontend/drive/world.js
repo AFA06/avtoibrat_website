@@ -37,10 +37,14 @@ export async function makeWorld(renderer,url){
  }
  const cool=new T.Color(0xb7d1d5),warm=new T.Color(0xead3b8),baseLight=new T.Color(0xffd4a4),day=new T.Color(0xfff3da);
  const scratch=new T.Vector3(),look=new T.Vector3();
- const lamps=car.getObjectByName('Coachwork').children.filter(o=>o.material.name==='Daylight strip');
+ const shell=car.getObjectByName('Coachwork');
+ const lamps=shell.children.filter(o=>o.name==='Headlamp');
+ const indicators=shell.children.filter(o=>o.name.startsWith('Indicator_'));
+ const brakes=shell.children.filter(o=>o.name==='Brake');
+ let indicator=null,blink=false;
  function renderCar(position,yaw,travel,steer){
   car.position.copy(position);car.position.y=.030;car.rotation.y=yaw;
-  wheels.forEach(o=>o.rotation.x=travel/.35);front.forEach(o=>o.rotation.y=steer);
+  wheels.forEach(o=>o.rotation.x=travel/.30);front.forEach(o=>o.rotation.y=steer);
   sun.target.position.copy(car.position);sun.position.copy(car.position).add(scratch.set(-16,24,9));
  }
  function pose(p,opening=1,manual=null){
@@ -48,6 +52,12 @@ export async function makeWorld(renderer,url){
   const turn=Math.atan2(f.t.z*next.x-f.t.x*next.z,f.t.dot(next));
   const steer=Math.atan(2.86*turn/(length*.004));
   renderCar(manual?manual.position:at(u,2.5),manual?manual.yaw:Math.atan2(f.t.x,f.t.z),manual?manual.travel:distance(u)-distance(.075),manual?manual.steer:steer);
+  const steering=manual?manual.steer:steer;
+  indicator=Math.abs(steering)>.018?(steering>0?'L':'R'):null;
+  blink=indicator!==null && Math.floor(performance.now()/420)%2===0;
+  indicators.forEach(o=>o.material.emissiveIntensity=blink && o.name==='Indicator_'+indicator?3:0);
+  const braking=manual?manual.braking:p>.37&&p<.48;
+  brakes.forEach(o=>o.material.emissiveIntensity=braking?2.4:.18);
   const change=smooth(p,.52,.80);dome.material.uniforms.dusk.value=change;scene.fog.color.copy(warm).lerp(cool,change);scene.fog.density=mix(.012,.0075,change);
   sun.color.copy(baseLight).lerp(day,change);sun.intensity=1.75+.65*opening;sky.intensity=1.05+.32*opening;
   lamps.forEach(o=>o.material.emissiveIntensity=.20+1.25*opening);
@@ -64,7 +74,7 @@ export async function makeWorld(renderer,url){
   }
   look.copy(car.position);look.addScaledVector(f.t,manual?0:(camera.aspect<1?.65:1.8)*(smooth(p,.29,.40)-smooth(p,.48,.57)));look.y+=.9;camera.lookAt(look);dome.position.copy(camera.position);
   renderer.render(scene,camera);
-  return {u,position:car.position.toArray(),camera:camera.position.toArray(),wheel:wheels[0].rotation.x,steer:front[0].rotation.y,...state};
+  return {u,position:car.position.toArray(),camera:camera.position.toArray(),wheel:wheels[0].rotation.x,steer:front[0].rotation.y,indicator,blink,braking,wheels:wheels.length,...state};
  }
  return {scene,camera,pose,dispose(){
    const geometries=new Set(),materials=new Set(),textures=new Set();

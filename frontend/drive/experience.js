@@ -15,7 +15,7 @@ async function start() {
   const layer = hero.querySelector('.drive-view');
   const canvas = document.createElement('canvas');
   const events = new AbortController();
-  let renderer, world, director, playground, observer, last;
+  let renderer, world, director, playground, observer, last, blinkTimer;
   let ready = false, disposed = false;
   function dispose() {
     if (disposed) return;
@@ -23,6 +23,7 @@ async function start() {
     ready = false;
     events.abort();
     observer?.disconnect();
+    clearInterval(blinkTimer);
     playground?.dispose();
     director?.dispose();
     world?.dispose();
@@ -81,6 +82,8 @@ async function start() {
       last={...world.pose(1,1,car),progress:director.state.progress};
     },resize,events.signal);
     ready = true;
+    // Only redraw a stationary story frame while a turn signal is active.
+    blinkTimer=setInterval(()=>{if(last?.indicator && !document.hidden && hero.getBoundingClientRect().bottom>0 && hero.getBoundingClientRect().top<innerHeight)director.frame()},120);
     hero.driveFrame = () => ({...last});
     observer = new ResizeObserver(resize);
     observer.observe(layer);
