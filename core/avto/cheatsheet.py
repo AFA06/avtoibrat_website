@@ -94,26 +94,6 @@ SECTIONS = [
         ],
     },
     {
-        "id": "imtihon", "icon": "percentage", "hue": 4, "kind": "numbers",
-        "title": _("Imtihon va foizlar"),
-        "lead": _("AvtoIbrat real imtihonida oʻtish uchun nechta xato mumkin."),
-        "groups": [
-            (_("20 savolli imtihon"), [
-                ("2", _("xato"), _("Ruxsat etilgan xatolar; 3-xatoda imtihon tugaydi")),
-                ("90%", "", _("Oʻtish uchun kamida 18 ta toʻgʻri javob")),
-                ("20", _("daqiqa"), _("Har savolga 1 daqiqa")),
-            ]),
-            (_("50 savolli imtihon"), [
-                ("4", _("xato"), _("Ruxsat etilgan xatolar; 5-xatoda imtihon tugaydi")),
-                ("92%", "", _("Oʻtish uchun kamida 46 ta toʻgʻri javob")),
-                ("50", _("daqiqa"), _("Har savolga 1 daqiqa")),
-            ]),
-            (_("Bilet (Imtihonga yoʻl)"), [
-                ("2", _("xato"), _("Bosqichni oʻtish uchun biletda koʻpi bilan 2 ta xato")),
-            ]),
-        ],
-    },
-    {
         "id": "quvib", "icon": "arrows-left-right", "hue": 5, "kind": "rules",
         "title": _("Quvib oʻtish"),
         "lead": _("Qayerda mumkin emas va qanday boshlanadi."),
@@ -150,23 +130,6 @@ SECTIONS = [
             ("no", _("Turar joy dahasida dvigatel yoqilgan holda turish")),
             ("no", _("Eshikni boshqalarga xalaqit beradigan yoki xavf tugʻdiradigan paytda ochish")),
             ("ok", _("Tashlab ketishdan oldin transport oʻz-oʻzidan yurib ketmasligini taʼminlang")),
-        ],
-    },
-    {
-        "id": "yol-berish", "icon": "git-fork", "hue": 7, "kind": "rules",
-        "title": _("Yoʻl berish"),
-        "lead": _("Navbat qoidalarda koʻrsatilmagan boʻlsa, oʻng tomondagiga yoʻl bering."),
-        "rules": [
-            ("ok", _("Yoʻllar kesishganda va navbat belgilanmagan boʻlsa — oʻng tomondan kelayotganga yoʻl bering")),
-            ("ok", _("Chorrahada burilayotganda kesayotgan yoʻldagi piyodaga va velosipedchiga yoʻl bering")),
-            ("ok", _("Aylanma chorrahada aylanada harakatlanayotgan transport ustun")),
-            ("ok", _("Qayta tizilishda bir vaqtda — oʻng tomondagiga yoʻl bering")),
-            ("ok", _("Yondosh hududdan yoʻlga chiqishda hammaga yoʻl bering")),
-            ("ok", _("Chorrahadan tashqarida chapga burilish yoki qayrilishda qarshidan kelayotganlarga yoʻl bering")),
-            ("ok", _("Tartibga solinmagan piyodalar oʻtish joyida tezlikni kamaytiring yoki toʻxtang")),
-            ("ok", _("Oq hassali koʻzi ojiz piyodani har doim oʻtkazing")),
-            ("ok", _("«Bolalar guruhini tashish» belgili, avariya ishorali transport toʻxtasa — sekinlashing, zarur boʻlsa toʻxtang")),
-            ("no", _("Tirbandlik boʻlsa chorrahaga kirmang: koʻndalang harakatga xalaqit berasiz")),
         ],
     },
     {
@@ -227,6 +190,43 @@ SECTIONS = [
             ("ok", _("Haydovchi va old oʻrindiqdagi yoʻlovchi harakatdan oldin xavfsizlik kamarini taqadi; mototsiklda — qadalgan shlem")),
             ("ok", _("Katta oʻlchamli yukda kechasi oldi — oq, orqasi — qizil chiroq yoki qaytargich")),
             ("no", _("Mast holatda yoki dori-darmon taʼsirida, charchoq va betoblikda boshqarish")),
+        ],
+    },
+    {
+        "id": "yol-berish", "icon": "git-fork", "hue": 7, "kind": "rules",
+        "title": _("Yoʻl berish"),
+        "lead": _("Navbat qoidalarda koʻrsatilmagan boʻlsa, oʻng tomondagiga yoʻl bering."),
+        "rules": [
+            ("ok", _("Yoʻllar kesishganda va navbat belgilanmagan boʻlsa — oʻng tomondan kelayotganga yoʻl bering")),
+            ("ok", _("Chorrahada burilayotganda kesayotgan yoʻldagi piyodaga va velosipedchiga yoʻl bering")),
+            ("ok", _("Aylanma chorrahada aylanada harakatlanayotgan transport ustun")),
+            ("ok", _("Qayta tizilishda bir vaqtda — oʻng tomondagiga yoʻl bering")),
+            ("ok", _("Yondosh hududdan yoʻlga chiqishda hammaga yoʻl bering")),
+            ("ok", _("Chorrahadan tashqarida chapga burilish yoki qayrilishda qarshidan kelayotganlarga yoʻl bering")),
+            ("ok", _("Tartibga solinmagan piyodalar oʻtish joyida tezlikni kamaytiring yoki toʻxtang")),
+            ("ok", _("Oq hassali koʻzi ojiz piyodani har doim oʻtkazing")),
+            ("ok", _("«Bolalar guruhini tashish» belgili, avariya ishorali transport toʻxtasa — sekinlashing, zarur boʻlsa toʻxtang")),
+            ("no", _("Tirbandlik boʻlsa chorrahaga kirmang: koʻndalang harakatga xalaqit berasiz")),
+        ],
+    },
+    {
+        "id": "imtihon", "icon": "percentage", "hue": 4, "kind": "numbers",
+        "title": _("Imtihon va foizlar"),
+        "lead": _("AvtoIbrat real imtihonida oʻtish uchun nechta xato mumkin."),
+        "groups": [
+            (_("20 savolli imtihon"), [
+                ("2", _("xato"), _("Ruxsat etilgan xatolar; 3-xatoda imtihon tugaydi")),
+                ("90%", "", _("Oʻtish uchun kamida 18 ta toʻgʻri javob")),
+                ("20", _("daqiqa"), _("Har savolga 1 daqiqa")),
+            ]),
+            (_("50 savolli imtihon"), [
+                ("4", _("xato"), _("Ruxsat etilgan xatolar; 5-xatoda imtihon tugaydi")),
+                ("92%", "", _("Oʻtish uchun kamida 46 ta toʻgʻri javob")),
+                ("50", _("daqiqa"), _("Har savolga 1 daqiqa")),
+            ]),
+            (_("Bilet (Imtihonga yoʻl)"), [
+                ("2", _("xato"), _("Bosqichni oʻtish uchun biletda koʻpi bilan 2 ta xato")),
+            ]),
         ],
     },
 ]
