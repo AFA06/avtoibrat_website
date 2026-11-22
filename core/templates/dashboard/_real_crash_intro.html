@@ -1,0 +1,33 @@
+{% load i18n static %}
+{% comment %}Real exam: a short intro before the result — the car drives, then crashes into a barrier (failed) or drives on (passed). Shown once per exam; click or Esc skips.{% endcomment %}
+<link href="{% static 'dashboard/real-crash.css' %}" rel="stylesheet" type="text/css" />
+<div class="rx {% if real_result.passed %}rx--pass{% else %}rx--fail{% endif %}" id="rx" data-id="{{ session.id }}" hidden>
+  <div class="rx-scene">
+    <div class="rx-road"><div class="rx-road__line"></div></div>
+    <div class="rx-skid"></div>
+    {% if not real_result.passed %}
+    <svg class="rx-barrier" viewBox="0 0 60 90" aria-hidden="true">
+      <rect x="6" y="40" width="8" height="50" fill="#64748b" /><rect x="46" y="40" width="8" height="50" fill="#64748b" />
+      <rect x="0" y="22" width="60" height="22" rx="3" fill="#fff" />
+      <path d="M8 22h10L6 44H0V36zM28 22h10L22 44H12zM48 22h10L42 44H32zM60 30v14h-8z" fill="#ef4444" />
+    </svg>
+    {% endif %}
+    <div class="rx-car-wrap">
+      <svg class="rx-car" viewBox="0 0 220 80" aria-hidden="true">
+        <path class="rx-car__body" fill="#14b8a6" d="M10 56 Q12 42 32 38 L58 36 Q74 14 100 14 L140 14 Q160 16 172 36 L200 42 Q212 46 210 58 L208 62 L12 62 Z" />
+        <path fill="#bae6fd" opacity=".85" d="M70 36 Q82 20 100 20 L124 20 L124 36 Z M130 20 L142 20 Q154 24 160 36 L130 36 Z" />
+        <path class="rx-crack" d="M140 22 L134 28 L142 30 L136 35 M134 28 L128 26" fill="none" stroke="#fff" stroke-width="1.6" />
+        <rect fill="#fde047" x="198" y="46" width="12" height="7" rx="3" />
+        <rect class="rx-brake" fill="#ef4444" x="9" y="44" width="9" height="8" rx="2" />
+        <g class="rx-wheel"><circle cx="56" cy="62" r="15" /><path d="M56 49v26M43 62h26M47 53l18 18M65 53L47 71" /></g>
+        <g class="rx-wheel"><circle cx="160" cy="62" r="15" /><path d="M160 49v26M147 62h26M151 53l18 18M169 53l-18 18" /></g>
+      </svg>
+      <span class="rx-smoke"></span><span class="rx-smoke"></span><span class="rx-smoke"></span>
+      <span class="rx-spark"></span><span class="rx-spark"></span><span class="rx-spark"></span><span class="rx-spark"></span>
+    </div>
+    <div class="rx-flash"></div>
+    <p class="rx-word">{% if real_result.passed %}{% trans "Topshirildi!" %}{% else %}{% trans "Topshirilmadi" %}{% endif %}</p>
+  </div>
+  <span class="rx-skip">{% trans "O‘tkazib yuborish" %} · Esc</span>
+</div>
+<script src="{% static 'dashboard/real-crash.js' %}"></script>
