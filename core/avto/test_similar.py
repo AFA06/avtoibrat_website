@@ -156,6 +156,17 @@ class CollectionPlanTests(TestCase):
         answers = [g for g in similar.plan(items).sets if g.collection == "answers"]
         self.assertEqual([set(g.question_ids) for g in answers], [{1, 2}])
 
+    def test_same_answers_set_leaves_out_questions_already_in_the_other_tests(self):
+        cars = ((("qizil", "avtomobil"), "", "", True), (("yashil", "avtomobil"), "", "", False))
+        items = [
+            Item(1, "Qaysi avtomobil birinchi o‘tadi", frozenset({1}), 1, TRIANGLE, 1, "situations", cars),
+            Item(2, "Qaysi avtomobil oxirgi o‘tadi", frozenset({1}), 1, TRIANGLE, 1, "situations", cars),
+            Item(3, "Qaysi avtomobil to‘xtaydi", frozenset({1}), 1, None, 1, "", cars),
+            Item(4, "Qaysi avtomobil burilmoqda", frozenset({1}), 1, None, 1, "", cars),
+        ]
+        sets = {g.collection: set(g.question_ids) for g in similar.plan(items).sets}
+        self.assertEqual((sets["images"], sets["answers"]), ({1, 2}, {3, 4}))
+
     def test_independent_matched_pairs_stay_adjacent_without_topic_padding(self):
         items = [Item(i, f"Savol {i}", frozenset({1}), 1, h, 1, "signs")
                  for i, h in [(1, RED_CIRCLE), (2, near(RED_CIRCLE, 8)),

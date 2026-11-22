@@ -244,9 +244,14 @@ def plan(items: list[Item]) -> Plan:
             order.extend(_ordered(family, by_id, sims))
         if order:
             result.sets.append(PlannedSet(order, None, "rasm" if category == "signs" else "aralash", category))
-    for extra in (_same_picture_set(items), _same_answers_set(items)):
-        if extra:
-            result.sets.append(extra)
+    images = _same_picture_set(items)
+    if images:
+        result.sets.append(images)
+    # A question already in the signs or the pictures test is not asked again under «Javoblar».
+    taken = {q for s in result.sets if s.collection in ("signs", "images") for q in s.question_ids}
+    answers = _same_answers_set([i for i in items if i.id not in taken])
+    if answers:
+        result.sets.append(answers)
     return result
 
 
