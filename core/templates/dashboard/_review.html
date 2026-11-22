@@ -1,7 +1,7 @@
 {% load i18n %}
 {% comment %}The mistakes of a finished test, one card per question: the student's answer, the right one and the teacher's voice explanation.{% endcomment %}
 {% if mistakes %}
-<details class="rw">
+<details class="rw"{% if review_open %} open{% endif %}>
   <summary class="rw-toggle">
     <i class="ti ti-checklist"></i>
     <span>{% trans "Xatolarni ko‘rib chiqish" %}</span>

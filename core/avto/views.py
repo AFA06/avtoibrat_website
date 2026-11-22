@@ -1113,6 +1113,9 @@ def _result_context(session):
             "allowed": real_exam.max_mistakes(size) - 1,
         }
         mistakes = review.mistakes(session, _content_language(user))
+    elif session.finished_at and session.source in ("shablon", "marafon"):
+        # Shablon and Marafon results also list the wrong answers below the score (skipped ones are left out).
+        mistakes = review.mistakes(session, _content_language(session.user))
 
     journey_stage = None
     is_bilet_run = (session.test_kind == "shablon" and session.source in ("shablon", "ohshash")
@@ -1124,6 +1127,7 @@ def _result_context(session):
     return {
         "real_result": real_result,
         "mistakes": mistakes,
+        "review_open": session.test_kind != "real" and session.source in ("shablon", "marafon"),
         "journey_stage": journey_stage,
         "has_session": True,
         "session": session,
