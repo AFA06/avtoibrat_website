@@ -43,13 +43,26 @@
     });
 
     pinsList.textContent = "";
-    pins.forEach((id) => {
-      const original = items.find((item) => item.dataset.id === id);
-      if (!original) return;
-      const copy = original.cloneNode(true);
-      copy.removeAttribute("data-item");
-      copy.classList.remove("cs-reveal", "is-in", "is-filtered");
-      pinsList.appendChild(copy);
+    // One box per topic, in the page's topic order, each card on its own row.
+    sections.forEach((section) => {
+      const starred = items.filter((item) => pins.includes(item.dataset.id) && section.contains(item));
+      if (!starred.length) return;
+      const group = document.createElement("div");
+      group.className = "cs-pin-group " + [...section.classList].filter((c) => /^cs-s\d/.test(c)).join(" ");
+      const head = document.createElement("h3");
+      head.className = "cs-pin-group__head";
+      head.append(section.querySelector(".cs-section__icon").cloneNode(true), section.querySelector(".cs-section__head h2").textContent);
+      const count = document.createElement("b");
+      count.textContent = String(starred.length);
+      head.appendChild(count);
+      group.appendChild(head);
+      starred.forEach((original) => {
+        const copy = original.cloneNode(true);
+        copy.removeAttribute("data-item");
+        copy.classList.remove("cs-reveal", "is-in", "is-filtered");
+        group.appendChild(copy);
+      });
+      pinsList.appendChild(group);
     });
     pinsBox.classList.toggle("has-items", pins.length > 0);
     pinCount.textContent = String(pins.length);
