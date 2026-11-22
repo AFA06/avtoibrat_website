@@ -35,7 +35,10 @@
 
   <div class="cs-main">
   <section class="cs-pins" id="cs-pins" aria-live="polite">
-    <h2><i class="fas fa-star"></i>{% trans "Belgilanganlar" %}</h2>
+    <div class="cs-pins__bar">
+      <h2><i class="fas fa-star"></i>{% trans "Belgilanganlar" %}</h2>
+      <button type="button" class="cs-pins__clear" id="cs-pins-clear" data-confirm="{% trans 'Ha, tozalash' %}"><i class="ti ti-trash"></i><span>{% trans "Hammasini tozalash" %}</span></button>
+    </div>
     <p class="cs-pins__empty">{% trans "Hozircha hech narsa belgilanmagan. Kartadagi yulduzchani bosing — u shu yerda tez topiladi." %}</p>
     <div class="cs-pins__list" id="cs-pins-list"></div>
   </section>

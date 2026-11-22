@@ -68,6 +68,28 @@
     pinCount.textContent = String(pins.length);
   }
 
+  // "Clear all" asks once inline (no browser dialog): first click arms it, second click clears.
+  const clearBtn = $("#cs-pins-clear");
+  if (clearBtn) {
+    const label = clearBtn.querySelector("span");
+    const idle = label.textContent;
+    let timer = null;
+    clearBtn.addEventListener("click", () => {
+      if (!clearBtn.classList.contains("is-armed")) {
+        clearBtn.classList.add("is-armed");
+        label.textContent = clearBtn.dataset.confirm;
+        timer = setTimeout(() => { clearBtn.classList.remove("is-armed"); label.textContent = idle; }, 4000);
+        return;
+      }
+      clearTimeout(timer);
+      clearBtn.classList.remove("is-armed");
+      label.textContent = idle;
+      pins = [];
+      writePins(pins);
+      renderPins();
+    });
+  }
+
   function togglePin(id, button) {
     pins = pins.includes(id) ? pins.filter((x) => x !== id) : pins.concat(id);
     writePins(pins);
