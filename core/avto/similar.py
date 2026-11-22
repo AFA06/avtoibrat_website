@@ -142,8 +142,9 @@ class PlannedSet:
     @property
     def signature(self) -> str:
         ids = ",".join(map(str, sorted(self.question_ids)))
-        # «images» can hold the same questions as another set; older sets keep their original signature.
-        return hashlib.sha1((f"images:{ids}" if self.collection == "images" else ids).encode()).hexdigest()
+        # «images» and «answers» can hold the same questions as another set; older sets keep their original signature.
+        tagged = self.collection in ("images", "answers")
+        return hashlib.sha1((f"{self.collection}:{ids}" if tagged else ids).encode()).hexdigest()
 
 
 @dataclass
@@ -243,10 +244,44 @@ def plan(items: list[Item]) -> Plan:
             order.extend(_ordered(family, by_id, sims))
         if order:
             result.sets.append(PlannedSet(order, None, "rasm" if category == "signs" else "aralash", category))
-    images = _same_picture_set(items)
-    if images:
-        result.sets.append(images)
+    for extra in (_same_picture_set(items), _same_answers_set(items)):
+        if extra:
+            result.sets.append(extra)
     return result
+
+
+_GENERIC_ANSWERS = {frozenset({("ha",), ("yoq",)})}
+
+
+def _answer_key(item: Item) -> frozenset | None:
+    """The question's answer options (Uzbek, normalized, order-free), or None for meaningless sets
+    such as «Ha / Yo‘q», «A / B / C» or bare numbers."""
+    key = frozenset(a[0] for a in item.answers if a[0])
+    if len(key) < 2 or key in _GENERIC_ANSWERS:
+        return None
+    if all(len(a) == 1 and (a[0].isdigit() or len(a[0]) == 1) for a in key):
+        return None
+    return key
+
+
+def _same_answers_set(items: list[Item]) -> PlannedSet | None:
+    """«Javoblar bo‘yicha»: different questions (with or without a picture) offering the same answer options."""
+    copies = [replace(i, collection="answers") for i in items]
+    duplicates = duplicate_ids(copies)
+    families = defaultdict(list)
+    for item in copies:
+        key = None if item.id in duplicates else _answer_key(item)
+        if key is not None:
+            families[key].append(item)
+    by_id = {i.id: i for i in copies}
+    order = []
+    for family in sorted(families.values(), key=lambda f: (_dominant_topic([i.id for i in f], by_id) or 0, min(i.id for i in f))):
+        if len({normalized_content(i.text) for i in family}) < 2:
+            continue
+        ids = [i.id for i in family]
+        sims = text_similarities(tfidf_vectors({q: words(by_id[q].text) for q in ids}), TEXT_WITH_IMAGE)
+        order.extend(_ordered(ids, by_id, sims))
+    return PlannedSet(order, None, "matn", "answers") if order else None
 
 
 def _same_picture_set(items: list[Item]) -> PlannedSet | None:

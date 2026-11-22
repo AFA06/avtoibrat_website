@@ -93,6 +93,7 @@
 .sq-kind { margin: 0; padding: 4px 10px; font-size: 13px; }
 [data-theme="dark"] .sq-kind--rasm { background: rgba(52, 211, 153, .12); color: #6fe3a1; }
 [data-theme="dark"] .sq-kind--aralash { background: rgba(124, 92, 255, .15); color: #c4b5fd; }
+[data-theme="dark"] .sq-kind--matn { background: rgba(96, 165, 250, .14); color: #93c5fd; }
 @media (max-width: 1200px) {
   .sq-item { grid-template-columns: 56px minmax(0, 1fr) 156px; gap: 16px; }
   .sq-item__progress { grid-column: 2; grid-row: 2; }

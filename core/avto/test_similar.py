@@ -104,7 +104,7 @@ class SimilarPageTests(TestCase):
         self.assertEqual(SimilarGroup.objects.filter(aktiv=True).count(), 3)
         page = self.client.get(reverse("ohshash_savollar"))
         self.assertContains(page, "Belgilar bo‘yicha o‘xshash savollar")
-        self.assertContains(page, "O‘xshash yo‘l vaziyatlari")
+        self.assertNotContains(page, "O‘xshash yo‘l vaziyatlari")  # built, but no longer offered on the page
         group = SimilarGroup.objects.get(collection="situations", aktiv=True)
         self.client.get(reverse("start_ohshash_test", args=[group.id]))
         session = TestSession.objects.get()
@@ -141,6 +141,20 @@ class CollectionPlanTests(TestCase):
         ]
         images = [g for g in similar.plan(items).sets if g.collection == "images"]
         self.assertEqual([set(g.question_ids) for g in images], [{3, 4}])
+
+    def test_same_answers_set_needs_matching_options_and_different_questions(self):
+        yes_no = ((("ha",), "", "", True), (("yoq",), "", "", False))
+        cars = ((("qizil", "avtomobil"), "", "", True), (("yashil", "avtomobil"), "", "", False))
+        cars_flipped = ((("qizil", "avtomobil"), "", "", False), (("yashil", "avtomobil"), "", "", True))
+        items = [
+            Item(1, "Qaysi avtomobil birinchi o‘tadi", frozenset({1}), 1, None, 1, "", cars),
+            Item(2, "Qaysi avtomobil oxirgi o‘tadi", frozenset({1}), 1, RED_CIRCLE, 1, "", cars_flipped),
+            Item(3, "Qaysi avtomobil to‘xtashi kerak", frozenset({2}), 2, None, 1, "", (cars[0],)),
+            Item(4, "Ruxsat etiladimi", frozenset({1}), 1, None, 1, "", yes_no),
+            Item(5, "Bu ham ruxsat etiladimi", frozenset({1}), 1, None, 1, "", yes_no),
+        ]
+        answers = [g for g in similar.plan(items).sets if g.collection == "answers"]
+        self.assertEqual([set(g.question_ids) for g in answers], [{1, 2}])
 
     def test_independent_matched_pairs_stay_adjacent_without_topic_padding(self):
         items = [Item(i, f"Savol {i}", frozenset({1}), 1, h, 1, "signs")

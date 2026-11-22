@@ -564,7 +564,8 @@ def mavzulashtirilgan(request):
 @login_required
 def ohshash_savollar(request):
     """Sets of look-alike questions (`avto.similar`); each row shows the result of its last finished attempt."""
-    order = {"signs": 0, "images": 1, "situations": 2}
+    # «situations» sets are still built (old results stay readable) but no longer offered.
+    order = {"signs": 0, "images": 1, "answers": 2}
     sets = sorted(SimilarGroup.objects.filter(aktiv=True, collection__in=order).select_related("topic"),
                   key=lambda g: (order[g.collection], g.number, g.id))
     latest = {}
@@ -590,6 +591,8 @@ def ohshash_savollar(request):
                       _("Faqat yo‘l belgilari"), "ti-road-sign"),
             "images": (_("Rasmi bir xil, lekin savoli boshqacha savollar — rasmga emas, savolga qarang."),
                        _("Bir xil rasm · Boshqa savol"), "ti-photo"),
+            "answers": (_("Savollar har xil, javob variantlari esa bir xil — qaysi savolga qaysi javob to‘g‘ri ekanini farqlang."),
+                        _("Bir xil javoblar · Boshqa savol"), "ti-list-check"),
             "situations": (_("Svetofor, tartibga soluvchi, chorraha va boshqa yo‘l vaziyatlaridagi farqlarni toping."),
                            _("Svetofor · Tartibga soluvchi · Yo‘l vaziyatlari"), "ti-route"),
         }[g.collection]
