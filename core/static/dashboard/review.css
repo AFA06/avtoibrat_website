@@ -32,6 +32,29 @@
 .rw-why span { display: flex; align-items: center; gap: 7px; font-size: 12.5px; font-weight: 700; color: #96a0b5; }
 .rw-why audio { width: 100%; height: 36px; }
 
+/* ---------- Shablon / Marafon: the mistakes as a large list below the result card ---------- */
+.result-page--review { flex-direction: column; justify-content: flex-start; gap: 32px; }
+.rw--wide { width: 100%; max-width: 1100px; margin: 0; }
+.rw-wide__title { display: flex; align-items: center; gap: 12px; margin: 0 0 18px; font-size: 26px; font-weight: 800; color: #fff; }
+.rw-wide__title i { font-size: 30px; color: #ff7a6e; }
+.rw-wide__title b { min-width: 34px; padding: 4px 11px; border-radius: 999px; text-align: center; font-size: 16px; color: #fff; background: #b7402f; }
+.rw--wide .rw-list { gap: 18px; margin: 0; }
+.rw--wide .rw-item { gap: 18px; padding: 24px; border-radius: 16px; }
+.rw--wide .rw-item__no { width: 44px; height: 44px; border-radius: 11px; font-size: 18px; }
+.rw--wide .rw-item__body { gap: 12px; }
+.rw--wide .rw-item__text { font-size: 21px; line-height: 1.5; }
+.rw--wide .rw-item__img { max-height: 380px; }
+.rw--wide .rw-answer { gap: 12px; padding: 14px 18px; border-radius: 12px; font-size: 19px; }
+.rw--wide .rw-answer > i { font-size: 24px; }
+.rw--wide .rw-answer small { font-size: 12.5px; margin-bottom: 3px; }
+.rw--wide .rw-why span { font-size: 14px; }
+@media (max-width: 640px) {
+  .rw-wide__title { font-size: 21px; }
+  .rw--wide .rw-item { padding: 16px; gap: 12px; }
+  .rw--wide .rw-item__text { font-size: 17px; }
+  .rw--wide .rw-answer { font-size: 16px; }
+}
+
 /* ---------- The result sheet on the season road ---------- */
 .rw-overlay {
   position: fixed; inset: 0; z-index: 1200; display: grid; place-items: center; padding: 18px; overflow-y: auto;

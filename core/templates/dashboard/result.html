@@ -14,7 +14,7 @@
 </head>
 <body>
 
-<main class="result-page{% if real_result %} result-page--real{% endif %}">
+<main class="result-page{% if real_result %} result-page--real{% endif %}{% if review_open and mistakes %} result-page--review{% endif %}">
   <div class="result-card">
     <div class="result-card__brand">
       <img src="{% static 'assets/images/logo-white.png' %}" alt="AvtoIbrat">
@@ -94,7 +94,7 @@
         {% endfor %}
       </div>
 
-      {% include "dashboard/_review.html" %}
+      {% if not review_open %}{% include "dashboard/_review.html" %}{% endif %}
 
       <div class="result-actions" aria-label="{% trans 'Test amallari' %}">
         <a href="{{ restart_url }}" class="result-btn result-btn--ghost result-btn--action" title="{% trans 'Testni qayta boshlash' %}" aria-label="{% trans 'Testni qayta boshlash' %}">
@@ -108,6 +108,7 @@
       </div>
     {% endif %}
   </div>
+  {% if review_open %}{% include "dashboard/_review.html" %}{% endif %}
   {% if real_result %}{% include "dashboard/_real_result_road.html" %}{% endif %}
 </main>
 </body>

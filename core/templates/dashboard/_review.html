@@ -1,13 +1,18 @@
 {% load i18n %}
 {% comment %}The mistakes of a finished test, one card per question: the student's answer, the right one and the teacher's voice explanation.{% endcomment %}
 {% if mistakes %}
-<details class="rw"{% if review_open %} open{% endif %}>
+{% if review_open %}
+<section class="rw rw--wide" aria-label="{% trans 'Xatolar' %}">
+  <h2 class="rw-wide__title"><i class="ti ti-checklist"></i>{% trans "Xatolaringiz va to‘g‘ri javoblar" %}<b>{{ mistakes|length }}</b></h2>
+{% else %}
+<details class="rw">
   <summary class="rw-toggle">
     <i class="ti ti-checklist"></i>
     <span>{% trans "Xatolarni ko‘rib chiqish" %}</span>
     <b>{{ mistakes|length }}</b>
     <i class="ti ti-chevron-down rw-toggle__arrow"></i>
   </summary>
+{% endif %}
   <ol class="rw-list">
     {% for item in mistakes %}
     <li class="rw-item">
@@ -27,5 +32,5 @@
     </li>
     {% endfor %}
   </ol>
-</details>
+{% if review_open %}</section>{% else %}</details>{% endif %}
 {% endif %}
