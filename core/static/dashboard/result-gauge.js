@@ -46,7 +46,7 @@
   const resultCaption = caption.textContent;
   const sweepDuration = 650;
   const countDuration = 1100;
-  const start = performance.now();
+  let start = performance.now();
 
   function pointNeedle(percent) {
     needle.setAttribute("transform", `rotate(${percent * 1.8} ${centerX} ${centerY})`);
@@ -77,5 +77,10 @@
   caption.textContent = caption.dataset.countingLabel;
   number.textContent = "0";
   pointNeedle(0);
-  requestAnimationFrame(animate);
+  // A real exam may first play the road intro (real-crash.js); count once the card is shown.
+  if (page.dataset.intro) {
+    document.addEventListener("rx:reveal", () => { start = performance.now(); requestAnimationFrame(animate); }, { once: true });
+  } else {
+    requestAnimationFrame(animate);
+  }
 })();

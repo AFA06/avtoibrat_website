@@ -14,7 +14,7 @@
 </head>
 <body>
 
-<main class="result-page{% if real_result %} result-page--real{% endif %}{% if review_open and mistakes %} result-page--review{% endif %}">
+<main class="result-page{% if real_result %} result-page--real{% endif %}{% if review_open and mistakes %} result-page--review{% endif %}"{% if real_result %} data-intro="1"{% endif %}>
   <div class="result-card">
     <div class="result-card__brand">
       <img src="{% static 'assets/images/logo-white.png' %}" alt="AvtoIbrat">

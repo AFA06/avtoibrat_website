@@ -1,70 +1,40 @@
-/* Real exam result intro (.rx-*): car drives, then crashes (failed) or drives on (passed). */
-.rx-lock, .rx-lock body { overflow: hidden; }
-.rx { position: fixed; inset: 0; z-index: 2000; display: grid; place-items: center; cursor: pointer;
-  background: radial-gradient(120% 90% at 50% 40%, #1b2333, #0b0f17 70%); transition: opacity .45s ease; }
-.rx.is-leaving { opacity: 0; }
-.rx-scene { position: relative; width: min(900px, 94vw); height: 320px; overflow: hidden; }
-.rx-road { position: absolute; left: 0; right: 0; bottom: 40px; height: 90px; background: #2a3140; border-top: 3px solid #3b4456; border-bottom: 3px solid #3b4456; }
-.rx-road__line { position: absolute; left: 0; right: 0; top: 50%; height: 6px; margin-top: -3px;
-  background: repeating-linear-gradient(90deg, #f8fafc 0 40px, transparent 40px 80px); }
-.is-playing .rx-road__line { animation: rx-lines .35s linear infinite; }
-.rx--fail.is-playing .rx-road__line { animation: rx-lines .35s linear 5, rx-lines 1s ease-out 1.75s 1 forwards; }
+/* Real exam result intro on the bottom road (.rx-*). The result card waits until the car has stopped. */
+.result-page--real .result-card { transition: opacity .6s ease, transform .6s cubic-bezier(.22,1,.36,1); }
+.rx-pending .result-card { opacity: 0; transform: translateY(24px); pointer-events: none; }
+.rx-pending { cursor: pointer; }
 
-.rx-car-wrap { position: absolute; left: 0; bottom: 70px; width: 220px; height: 80px; transform: translateX(-260px); }
-.rx-car { width: 100%; height: 100%; overflow: visible; }
-.rx-wheel { transform-box: fill-box; transform-origin: center; }
-.rx-wheel circle { fill: #0f172a; stroke: #e2e8f0; stroke-width: 3; }
-.rx-wheel path { fill: none; stroke: #94a3b8; stroke-width: 2; }
-.is-playing .rx-wheel { animation: rx-spin .3s linear infinite; }
-.rx-crack, .rx-smoke, .rx-spark, .rx-flash, .rx-skid, .rx-word { opacity: 0; }
+.rx-barrier, .rx-finish, .rx-fx, .rx-skid { position: absolute; left: 0; top: 0; pointer-events: none; }
+.rx-barrier { top: 14px; width: 40px; height: 50px; z-index: 2; }
+.rx-barrier svg { width: 100%; height: 100%; transform-origin: 50% 100%; }
+.rx-finish { top: 30px; width: 26px; height: 46px; background: repeating-conic-gradient(#f8fafc 0 25%, #0f172a 0 50%) 0 0 / 13px 13px; opacity: .85; }
 
-/* Passed: drive in, slow down, then speed away. */
-.rx--pass.is-playing .rx-car-wrap { animation: rx-pass 3.1s cubic-bezier(.45,.05,.4,1) forwards; }
-.rx--pass.is-playing .rx-word { color: #4fd497; animation: rx-word .5s ease 1.2s forwards; }
+/* Braking: brake lights, nose dips, skid marks grow behind the car. */
+.rx-braking .result-road__car rect[fill="#ef4444"], .rx-hit .result-road__car rect[fill="#ef4444"] { fill: #ff2d2d; filter: drop-shadow(0 0 6px #ff2d2d); }
+.rx-braking .result-road__car { rotate: 1.6deg; transform-origin: 80% 100%; transition: rotate .3s; }
+.rx-skid { top: 58px; left: calc(50% - 170px); width: 120px; height: 5px; opacity: 0; transform-origin: right;
+  background: repeating-linear-gradient(90deg, rgba(0,0,0,.65) 0 10px, rgba(0,0,0,.4) 10px 14px); border-radius: 3px; }
+.rx-braking .rx-skid, .rx-hit .rx-skid { opacity: 1; animation: rx-skid .9s ease-out both; }
 
-/* Failed: drive in, brake hard with skid marks, hit the barrier. */
-.rx-barrier { position: absolute; right: 8%; bottom: 72px; width: 60px; height: 90px; transform-origin: 50% 100%; }
-.rx--fail.is-playing .rx-car-wrap { animation: rx-drive 1.75s cubic-bezier(.3,.6,.6,1) forwards, rx-hit .5s ease-out 1.75s forwards; }
-.rx--fail.is-playing .rx-wheel { animation: rx-spin .3s linear 6; }
-.rx--fail.is-playing .rx-brake { animation: rx-brake .2s steps(2) 1.1s 4; }
-.rx--fail.is-playing .rx-skid { animation: rx-skid .65s ease-out 1.1s forwards; }
-.rx--fail.is-playing .rx-car__body { transform-origin: 100% 50%; animation: rx-crumple .2s ease-out 1.75s forwards; }
-.rx--fail.is-playing .rx-crack { animation: rx-show .1s 1.8s forwards; }
-.rx--fail.is-playing .rx-barrier { animation: rx-fall .7s cubic-bezier(.3,1.4,.6,1) 1.75s forwards; }
-.rx--fail.is-playing .rx-scene { animation: rx-shake .45s ease-out 1.75s; }
-.rx--fail.is-playing .rx-flash { animation: rx-flash .5s ease-out 1.75s; }
-.rx--fail.is-playing .rx-word { color: #ff7a6e; animation: rx-word .5s ease 2.2s forwards; }
-.rx-skid { position: absolute; bottom: 74px; left: 38%; width: 24%; height: 10px;
-  background: repeating-linear-gradient(90deg, rgba(0,0,0,.55) 0 14px, rgba(0,0,0,.35) 14px 20px); border-radius: 4px; transform-origin: left; }
-.rx-flash { position: absolute; inset: 0; background: radial-gradient(circle at 82% 70%, #fff7, transparent 45%); }
-.rx-smoke { position: absolute; right: -6px; top: 10px; width: 46px; height: 46px; border-radius: 50%; background: rgba(203,213,225,.55); filter: blur(6px); }
-.rx--fail.is-playing .rx-smoke { animation: rx-smoke 2s ease-out 1.85s forwards; }
-.rx--fail.is-playing .rx-smoke:nth-of-type(2) { animation-delay: 2.1s; right: 14px; }
-.rx--fail.is-playing .rx-smoke:nth-of-type(3) { animation-delay: 2.35s; right: -20px; }
-.rx-spark { position: absolute; right: -4px; top: 40px; width: 6px; height: 6px; border-radius: 50%; background: #fde047; box-shadow: 0 0 8px #fbbf24; }
-.rx--fail.is-playing .rx-spark { animation: rx-spark .6s ease-out 1.75s forwards; }
-.rx--fail.is-playing .rx-spark:nth-of-type(4) { --dx: 40px; --dy: -50px; }
-.rx--fail.is-playing .rx-spark:nth-of-type(5) { --dx: 60px; --dy: -20px; }
-.rx--fail.is-playing .rx-spark:nth-of-type(6) { --dx: 30px; --dy: -70px; }
-.rx--fail.is-playing .rx-spark:nth-of-type(7) { --dx: 70px; --dy: -45px; }
+/* Impact at the car's front bumper. */
+.rx-hit .result-road__car { animation: rx-jolt .5s ease-out both !important; }
+.rx-hit .rx-barrier svg { animation: rx-fall .7s cubic-bezier(.3,1.4,.6,1) both; }
+.rx-hit { animation: rx-shake .45s ease-out; }
+.rx-fx { left: calc(50% + 62px); top: 4px; width: 40px; height: 40px; }
+.rx-smoke { position: absolute; left: 0; top: 6px; width: 34px; height: 34px; border-radius: 50%; background: rgba(203,213,225,.55); filter: blur(5px); opacity: 0; }
+.rx-hit .rx-smoke { animation: rx-smoke 2.2s ease-out both; }
+.rx-hit .rx-smoke:nth-child(2) { animation-delay: .25s; left: -14px; }
+.rx-hit .rx-smoke:nth-child(3) { animation-delay: .5s; left: 10px; }
+.rx-spark { position: absolute; left: 14px; top: 26px; width: 5px; height: 5px; border-radius: 50%; background: #fde047; box-shadow: 0 0 8px #fbbf24; opacity: 0; }
+.rx-hit .rx-spark { animation: rx-spark .6s ease-out both; }
+.rx-hit .rx-spark:nth-child(4) { --dx: 30px; --dy: -34px; }
+.rx-hit .rx-spark:nth-child(5) { --dx: 44px; --dy: -12px; }
+.rx-hit .rx-spark:nth-child(6) { --dx: 18px; --dy: -46px; }
+.rx-hit .rx-spark:nth-child(7) { --dx: 50px; --dy: -28px; }
+.rx-resume .rx-smoke { animation: none; opacity: 0; transition: opacity .8s; }
 
-.rx-word { position: absolute; left: 0; right: 0; top: 34px; margin: 0; text-align: center; font: 800 44px/1.1 system-ui, sans-serif; letter-spacing: -.02em; }
-.rx-skip { position: absolute; bottom: 22px; right: 26px; color: #96a0b5; font: 600 13px system-ui, sans-serif; }
-
-@keyframes rx-lines { to { background-position-x: -80px; } }
-@keyframes rx-spin { to { transform: rotate(360deg); } }
-@keyframes rx-pass { 0% { transform: translateX(-260px); } 45% { transform: translateX(calc(50% + 160px)); } 60% { transform: translateX(calc(50% + 200px)); } 100% { transform: translateX(1100px); } }
-@keyframes rx-drive { from { transform: translateX(-260px); } to { transform: translateX(min(585px, calc(94vw - 275px))); } }
-@keyframes rx-hit { from { transform: translateX(min(585px, calc(94vw - 275px))); } 30% { transform: translateX(min(598px, calc(94vw - 262px))) rotate(-4deg); } to { transform: translateX(min(578px, calc(94vw - 282px))) rotate(-1deg); } }
-@keyframes rx-brake { 50% { filter: drop-shadow(0 0 6px #ef4444); } }
-@keyframes rx-skid { from { opacity: 0; transform: scaleX(0); } to { opacity: 1; transform: scaleX(1); } }
-@keyframes rx-crumple { to { transform: scaleX(.93); } }
-@keyframes rx-show { to { opacity: 1; } }
-@keyframes rx-fall { to { transform: rotate(68deg) translateX(10px); } }
-@keyframes rx-shake { 15% { transform: translate(-8px, 3px); } 30% { transform: translate(7px, -3px); } 50% { transform: translate(-4px, 2px); } 75% { transform: translate(2px, -1px); } }
-@keyframes rx-flash { 0% { opacity: 1; } 100% { opacity: 0; } }
-@keyframes rx-smoke { 0% { opacity: .8; transform: translate(0, 0) scale(.5); } 100% { opacity: 0; transform: translate(20px, -90px) scale(2.2); } }
-@keyframes rx-spark { 0% { opacity: 1; transform: none; } 100% { opacity: 0; transform: translate(var(--dx, 50px), var(--dy, -40px)); } }
-@keyframes rx-word { from { opacity: 0; transform: translateY(10px) scale(.95); } to { opacity: 1; transform: none; } }
-
-@media (max-width: 600px) { .rx-scene { height: 260px; } .rx-word { font-size: 32px; } .rx-car-wrap { width: 160px; height: 58px; } }
+@keyframes rx-skid { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes rx-jolt { 0% { transform: translateX(0); } 25% { transform: translateX(-10px) rotate(-3deg); } 60% { transform: translateX(-4px) rotate(1deg); } 100% { transform: none; } }
+@keyframes rx-fall { to { transform: rotate(78deg) translate(8px, -4px); } }
+@keyframes rx-shake { 15% { transform: translate(-6px, 2px); } 35% { transform: translate(5px, -2px); } 60% { transform: translate(-3px, 1px); } }
+@keyframes rx-smoke { 0% { opacity: .85; transform: scale(.5); } 100% { opacity: 0; transform: translate(14px, -70px) scale(2.2); } }
+@keyframes rx-spark { 0% { opacity: 1; transform: none; } 100% { opacity: 0; transform: translate(var(--dx, 30px), var(--dy, -30px)); } }
