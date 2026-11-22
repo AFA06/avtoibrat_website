@@ -59,7 +59,6 @@
     pins = pins.includes(id) ? pins.filter((x) => x !== id) : pins.concat(id);
     writePins(pins);
     renderPins();
-    if (pins.length) pinsBox.classList.add("is-open");
     if (button.isConnected) {
       button.classList.remove("is-pop");
       void button.offsetWidth;
@@ -94,7 +93,7 @@
     });
     emptyNote.hidden = shown > 0;
   }
-  search.addEventListener("input", applyFilter);
+  search.addEventListener("input", () => { showPinsView(false); applyFilter(); });
   search.addEventListener("keydown", (event) => {
     if (event.key === "Escape") { search.value = ""; applyFilter(); search.blur(); }
   });
@@ -117,13 +116,19 @@
     chip.addEventListener("click", () => {
       const target = document.getElementById(chip.dataset.target);
       if (!target) return;
-      if (chip.dataset.target === "cs-pins") pinsBox.classList.add("is-open");
+      const pinsView = chip.dataset.target === "cs-pins";
+      showPinsView(pinsView);
+      if (pinsView) { setActive("cs-pins"); window.scrollTo({ top: 0, behavior: prefersReduced ? "auto" : "smooth" }); return; }
       target.scrollIntoView({ behavior: prefersReduced ? "auto" : "smooth", block: "start" });
     });
   });
 
-  // The starred box is only shown once the student opens it (or has something in it).
-  const syncPinsBox = () => { if (pins.length) pinsBox.classList.add("is-open"); };
+  // Starred cards live on their own view: opened from the "Belgilanganlar" chip, never above the sections.
+  const main = pinsBox.parentElement;
+  function showPinsView(on) {
+    main.classList.toggle("is-pins-view", on);
+    pinsBox.classList.toggle("is-open", on);
+  }
 
   function setActive(id) {
     chips.forEach((chip) => {
@@ -144,7 +149,7 @@
       sections.forEach((section) => {
         if ((visible.get(section.id) || 0) > 0 && (best === null || sections.indexOf(section) < sections.indexOf(best))) best = section;
       });
-      if (best) setActive(best.id);
+      if (best && !main.classList.contains("is-pins-view")) setActive(best.id);
     }, { rootMargin: "-120px 0px -55% 0px", threshold: [0, 0.01] });
     sections.forEach((section) => spy.observe(section));
 
@@ -174,6 +179,5 @@
   toTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: prefersReduced ? "auto" : "smooth" }));
 
   renderPins();
-  syncPinsBox();
   onScroll();
 })();

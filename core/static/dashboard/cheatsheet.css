@@ -60,6 +60,7 @@
 
 /* ---------- Pinned strip ---------- */
 .cs-pins { display: none; margin-bottom: 28px; padding: 18px; border: 1px dashed color-mix(in srgb, #f5b301 55%, var(--ai-line)); border-radius: 18px; background: color-mix(in srgb, #f5b301 7%, var(--ai-surface)); scroll-margin-top: calc(var(--cs-sticky) + 72px); }
+.cs-main.is-pins-view > :not(.cs-pins) { display: none; }
 .cs-pins.is-open { display: block; animation: cs-rise .3s var(--ai-ease, ease) both; }
 .cs-pins h2 { display: flex; align-items: center; gap: 8px; margin: 0 0 12px; font-size: 16px; font-weight: 700; }
 .cs-pins h2 i { color: #e0a100; }
