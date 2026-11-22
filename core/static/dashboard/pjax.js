@@ -53,7 +53,10 @@
       if (same) { keep.add(same); return; }
       const copy = node.cloneNode(true);
       if (copy.tagName === "LINK") loading.push(new Promise((resolve) => { copy.onload = copy.onerror = resolve; setTimeout(resolve, 1500); }));
-      document.head.appendChild(copy);
+      // Keep the shared theme last, just as on a full page load. Appending
+      // page CSS after it can restore dark-only defaults in light mode.
+      const theme = document.head.querySelector('link[rel="stylesheet"][href*="dashboard/theme.css"]');
+      document.head.insertBefore(copy, theme);
     });
     await Promise.all(loading);
     old.forEach((node) => !keep.has(node) && node.remove());
