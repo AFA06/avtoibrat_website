@@ -564,7 +564,7 @@ def mavzulashtirilgan(request):
 @login_required
 def ohshash_savollar(request):
     """Sets of look-alike questions (`avto.similar`); each row shows the result of its last finished attempt."""
-    sets = list(SimilarGroup.objects.filter(aktiv=True).select_related("topic"))
+    sets = list(SimilarGroup.objects.filter(aktiv=True, collection__in=("signs", "situations")).select_related("topic"))
     latest = {}
     for session in (
         TestSession.objects
@@ -580,14 +580,15 @@ def ohshash_savollar(request):
             wrong=Count("id", filter=Q(is_correct=False, selected_answer__isnull=False)),
         )
     }
-    kind_icons = {"rasm": "ti-photo", "matn": "ti-text-recognition", "aralash": "ti-stack-2"}
-    kind_labels = {"rasm": _("O‘xshash rasmlar"), "matn": _("O‘xshash savol uslubi"),
-                   "aralash": _("Mavzu bo‘yicha jamlanma")}
     groups = []
     for g in sets:
         total = len(g.question_order)
-        group = {"id": g.id, "nomi": g.name(), "total": total, "started": g.id in latest,
-                 "kind": g.kind, "kind_icon": kind_icons[g.kind], "kind_label": kind_labels[g.kind]}
+        signs = g.collection == "signs"
+        group = {"description": _("Rasmi o‘xshash yo‘l belgilarini va ular haqidagi savollarni farqlang.") if signs else _("Svetofor, tartibga soluvchi, chorraha va boshqa yo‘l vaziyatlaridagi farqlarni toping."),
+                 "examples": _("Faqat yo‘l belgilari") if signs else _("Svetofor · Tartibga soluvchi · Yo‘l vaziyatlari"),
+                 "icon": "ti-road-sign" if signs else "ti-route", "collection": g.collection,
+                 "id": g.id, "nomi": g.name(), "total": total, "started": g.id in latest,
+                 "kind": g.kind}
         if g.id in latest:
             correct, wrong = counts.get(latest[g.id], (0, 0))
             group.update(
@@ -601,8 +602,8 @@ def ohshash_savollar(request):
     done = [g for g in groups if g["started"]]
     return render(request, "dashboard/ohshash-savollar.html", {
         "groups": groups,
+        "question_count": sum(g["total"] for g in groups),
         "done_count": len(done),
-        "mastered_count": sum(1 for g in done if g["percent"] == 100),
         "avg_percent": round(sum(g["percent"] for g in done) / len(done)) if done else None,
     })
 

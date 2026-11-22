@@ -1,25 +1,17 @@
-"""O‘xshash savollar: sets of look-alike questions that students often mix up.
+"""Two focused similarity tests: road signs and road situations.
 
-Two questions are linked when one of these holds:
-
-  1. the same picture: their images are near-identical (perceptual hash distance <= IMAGE_SAME);
-  2. a look-alike picture with similar wording: the images have the same shape and colours
-     (distance <= IMAGE_LOOKALIKE, e.g. two red prohibition circles) and the question texts are
-     similar (cosine >= TEXT_WITH_IMAGE);
-  3. the same question style in the same topic: the texts are clearly alike (cosine >= TEXT_STYLE),
-     both say something specific (at least MIN_WORDS words, so generic stems such as
-     «Bu yo‘l belgisi:» never link on their own), and they share a topic.
-
-Sets are built from the strongest links first and never grow past MAX_SET questions. Pairs that end
-up alone are combined per topic into a «jamlanma» set. Inside a set, each question is followed by the
-one most like it, so look-alikes stand side by side and the student has to spot the difference.
-Exact duplicates (the same question in several bilets) are asked only once.
+Only questions with a verified image/wording match are included. Sign questions
+require matching pictures. Situation matches share a topic; distinct pictures
+cannot be joined just because their question stems use the same words.
+Matched families remain adjacent, with exact duplicates asked once.
+Rebuilding retires old groups without deleting students' attempts.
 """
 from __future__ import annotations
 
 import hashlib
 import math
 import re
+import unicodedata
 from collections import Counter, defaultdict
 from dataclasses import dataclass, field
 
@@ -29,10 +21,7 @@ IMAGE_SAME = 20          # of 256 bits: the same picture (other size, crop, wate
 IMAGE_LOOKALIKE = 35     # same sign shape / colours / layout
 TEXT_WITH_IMAGE = 0.4
 TEXT_STYLE = 0.6
-DUPLICATE_TEXT = 0.98
 MIN_WORDS = 5
-MAX_SET = 20
-MIN_SET = 3
 HASH_SIZE = 16
 
 _WORD = re.compile(r"[a-z']{3,}|\d+")
@@ -67,6 +56,36 @@ def words(text: str) -> list[str]:
     for quote in ("‘", "ʻ", "’", "`", "ʼ"):
         text = text.replace(quote, "'")
     return _WORD.findall(text)
+
+
+def normalized_content(text: str) -> tuple[str, ...]:
+    """Ignore typography, while retaining short words, numbers and negation."""
+    text = unicodedata.normalize("NFKC", text or "").casefold()
+    for quote in ("‘", "ʻ", "’", "`", "ʼ", "'"):
+        text = text.replace(quote, "")
+    return tuple(re.findall(r"\d+(?:[.,]\d+)*|[^\W\d_]+|[<>≤≥=+%/−-]", text))
+
+
+def duplicate_ids(items: list[Item]) -> set[int]:
+    """Compare complete question + choices + correct answers, then the picture.
+    A resized/watermarked copy may hash differently; matching only five bits
+    missed those copies. Never discard a distinct answer or compare to a copy
+    already discarded (which would create unsafe transitive merges).
+    """
+    kept = defaultdict(list)
+    duplicates = set()
+    for item in sorted(items, key=lambda i: i.id):
+        key = (item.collection, normalized_content(item.text), tuple(sorted(item.answers)))
+        for other in kept[key]:
+            delta = distance(item.image, other.image)
+            same_picture = (item.image is None and other.image is None) or (
+                delta is not None and delta <= IMAGE_LOOKALIKE)
+            if same_picture:
+                duplicates.add(item.id)
+                break
+        else:
+            kept[key].append(item)
+    return duplicates
 
 
 def tfidf_vectors(docs: dict[int, list[str]]) -> dict[int, dict[str, float]]:
@@ -109,6 +128,8 @@ class Item:
     main_topic: int | None
     image: int | None = None
     section: int | None = None        # the topic's group (e.g. «Yo‘l belgilari»)
+    collection: str = ""
+    answers: tuple = ()  # Normalized answer texts and their correctness, independent of order.
 
 
 @dataclass
@@ -116,6 +137,7 @@ class PlannedSet:
     question_ids: list[int]
     topic_id: int | None
     kind: str                     # rasm | matn | aralash
+    collection: str = ""
 
     @property
     def signature(self) -> str:
@@ -174,110 +196,52 @@ def _dominant_topic(ids: list[int], items: dict[int, Item]) -> int | None:
 
 
 def plan(items: list[Item]) -> Plan:
+    """Two tests, built only from verified matching pairs. Connected families
+    stay together; never pad a family with unrelated questions from its topic."""
     result = Plan()
-    by_id = {i.id: i for i in items}
-    vectors = tfidf_vectors({i.id: words(i.text) for i in items})
-    sims = text_similarities(vectors, TEXT_WITH_IMAGE)
+    eligible = [i for i in items if i.collection in ("signs", "situations")
+                and (i.collection != "signs" or i.image is not None)]
+    by_id = {i.id: i for i in eligible}
+    sims = text_similarities(tfidf_vectors({i.id: words(i.text) for i in eligible}), TEXT_WITH_IMAGE)
+    duplicates = duplicate_ids(eligible)
+    result.duplicates = len(duplicates)
+    for category in ("signs", "situations"):
+        live = [i for i in eligible if i.collection == category and i.id not in duplicates]
+        parent = {i.id: i.id for i in live}
+        matched = set()
 
-    # exact duplicates: same text and same picture → keep the first one
-    duplicate_of = {}
-    for (a, b), s in sorted(sims.items()):
-        d = distance(by_id[a].image, by_id[b].image)
-        same_picture = d is not None and d <= 5 or (by_id[a].image is None and by_id[b].image is None)
-        if s >= DUPLICATE_TEXT and same_picture and b not in duplicate_of:
-            duplicate_of[b] = duplicate_of.get(a, a)
-    result.duplicates = len(duplicate_of)
-    live = [i for i in items if i.id not in duplicate_of]
-    ids = [i.id for i in live]
+        def root(q):
+            while parent[q] != q:
+                parent[q] = parent[parent[q]]
+                q = parent[q]
+            return q
 
-    edges = []
-    for x, a in enumerate(ids):
-        for b in ids[x + 1:]:
-            link = _link(by_id[a], by_id[b], sims.get((a, b), 0.0))
-            if link:
-                edges.append((link[0], a, b, link[1]))
-    edges.sort(key=lambda e: (-e[0], e[1], e[2]))
-
-    parent = {q: q for q in ids}
-    members = {q: [q] for q in ids}
-    reasons = {q: set() for q in ids}
-
-    def root(q):
-        while parent[q] != q:
-            parent[q] = parent[parent[q]]
-            q = parent[q]
-        return q
-
-    for _strength, a, b, reason in edges:
-        ra, rb = root(a), root(b)
-        if ra == rb or len(members[ra]) + len(members[rb]) > MAX_SET:
-            continue
-        if len(members[ra]) < len(members[rb]):
-            ra, rb = rb, ra
-        parent[rb] = ra
-        members[ra] += members.pop(rb)
-        reasons[ra] |= reasons.pop(rb) | {reason}
-        result.links[reason] += 1
-
-    clusters = [(sorted(m), reasons[r]) for r, m in members.items() if len(m) > 1]
-    big = [(m, r) for m, r in clusters if len(m) >= MIN_SET]
-    small = [m for m, r in clusters if len(m) < MIN_SET]
-
-    for m, r in big:
-        result.sets.append(PlannedSet(_ordered(m, by_id, sims), _dominant_topic(m, by_id),
-                                      "rasm" if "rasm" in r else "matn"))
-
-    # pairs left alone: one «jamlanma» per topic, at most MAX_SET questions each
-    per_topic = defaultdict(list)
-    for m in small:
-        per_topic[_dominant_topic(m, by_id)].append(m)
-    for topic, pairs in sorted(per_topic.items(), key=lambda kv: (kv[0] is None, kv[0] or 0)):
-        chunk: list[int] = []
-        for m in sorted(pairs):
-            if chunk and len(chunk) + len(m) > MAX_SET:
-                result.sets.append(PlannedSet(chunk, topic, "aralash"))
-                chunk = []
-            chunk += _ordered(m, by_id, sims)
-        if chunk:
-            result.sets.append(PlannedSet(chunk, topic, "aralash"))
-
-    _absorb_tiny_sets(result, by_id)
-    result.sets.sort(key=lambda s: (s.topic_id is None, s.topic_id or 0, {"rasm": 0, "matn": 1, "aralash": 2}[s.kind],
-                                    s.question_ids[0]))
+        for index, a in enumerate(live):
+            for b in live[index + 1:]:
+                # Similar-looking scenes from unrelated rules are misleading.
+                if category == "situations" and not a.topics & b.topics:
+                    continue
+                score = sims.get((min(a.id, b.id), max(a.id, b.id)), 0)
+                link = _link(a, b, score)
+                if not link or category == "signs" and link[1] != "rasm":
+                    continue
+                if category == "situations" and link[1] == "matn":
+                    if a.image is not None or b.image is not None:
+                        continue
+                    if min(len(words(a.text)), len(words(b.text))) < 8:
+                        continue
+                parent[root(b.id)] = root(a.id)
+                matched.update((a.id, b.id))
+                result.links[link[1]] += 1
+        families = defaultdict(list)
+        for qid in sorted(matched):
+            families[root(qid)].append(qid)
+        order = []
+        for family in sorted(families.values(), key=lambda ids: (_dominant_topic(ids, by_id) or 0, min(ids))):
+            order.extend(_ordered(family, by_id, sims))
+        if order:
+            result.sets.append(PlannedSet(order, None, "rasm" if category == "signs" else "aralash", category))
     return result
-
-
-def _absorb_tiny_sets(result: Plan, items: dict[int, Item]) -> None:
-    """A set of fewer than MIN_SET questions is too short for a test: add it to the smallest set of the
-    same topic that has room, else of the same section; otherwise join the other tiny sets of its section."""
-    def section(s):
-        return items[s.question_ids[0]].section
-
-    def home(tiny, same):
-        room = [s for s in result.sets if s is not tiny and len(s.question_ids) >= MIN_SET and same(s)
-                and len(s.question_ids) + len(tiny.question_ids) <= MAX_SET]
-        return min(room, key=lambda s: (len(s.question_ids), s.question_ids[0])) if room else None
-
-    for tiny in sorted([s for s in result.sets if len(s.question_ids) < MIN_SET], key=lambda s: s.question_ids[0]):
-        target = home(tiny, lambda s: s.topic_id == tiny.topic_id) or home(tiny, lambda s: section(s) == section(tiny))
-        if target is None:
-            continue
-        target.question_ids += tiny.question_ids
-        if target.kind != tiny.kind:
-            target.kind = "aralash"
-        result.sets.remove(tiny)
-
-    leftovers = defaultdict(list)
-    for tiny in [s for s in result.sets if len(s.question_ids) < MIN_SET]:
-        leftovers[section(tiny)].append(tiny)
-    for group in leftovers.values():
-        if len(group) < 2:
-            continue
-        merged = PlannedSet([q for s in group for q in s.question_ids][:MAX_SET],
-                            _dominant_topic([q for s in group for q in s.question_ids], items), "aralash")
-        for s in group:
-            result.sets.remove(s)
-        result.sets.append(merged)
 
 
 # ------------------------------------------------------------------ database
@@ -286,7 +250,7 @@ def load_items() -> list[Item]:
 
     items = []
     qs = (Question.objects.filter(is_archived=False, kategoriya__aktiv=True)
-          .select_related("mavzu").prefetch_related("extra_topics").order_by("id"))
+          .select_related("mavzu__group").prefetch_related("extra_topics", "javoblar").order_by("id"))
     for q in qs:
         image = None
         if q.rasm:
@@ -295,11 +259,20 @@ def load_items() -> list[Item]:
                     image = image_hash(f)
             except Exception:
                 image = None
-        topics = {t.id for t in q.extra_topics.all()}
-        if q.mavzu_id:
+        if image in (0, (1 << (HASH_SIZE * HASH_SIZE)) - 1):
+            image = None  # A blank picture is not evidence of similarity.
+        topics = {t.id for t in q.extra_topics.all() if t.aktiv}
+        if q.mavzu_id and q.mavzu.aktiv:
             topics.add(q.mavzu_id)
+        section_slug = q.mavzu.group.slug if q.mavzu_id and q.mavzu.aktiv else ""
+        collection = "signs" if section_slug == "yol-belgilari" else "situations" if section_slug in {
+            "chorrahalar", "ishoralar-va-chiziqlar", "asosiy-manyovrlar", "maxsus-vaziyatlar",
+            "umumiy-qoidalar", "tashish",
+        } else ""
+        answers = tuple(sorted((normalized_content(a.matn_uzb), normalized_content(a.matn_uz_kr),
+                                normalized_content(a.matn_rus), a.togri) for a in q.javoblar.all()))
         items.append(Item(q.id, q.matn_uzb, frozenset(topics), q.mavzu_id, image,
-                          q.mavzu.group_id if q.mavzu_id else None))
+                          q.mavzu.group_id if q.mavzu_id else None, collection, answers))
     return items
 
 
@@ -316,7 +289,7 @@ def rebuild(items: list[Item] | None = None) -> dict:
     for s in result.sets:
         numbers[s.topic_id] += 1
         group = SimilarGroup.objects.filter(signature=s.signature).first()
-        fields = dict(topic_id=s.topic_id, kind=s.kind, number=numbers[s.topic_id], aktiv=True,
+        fields = dict(collection=s.collection, topic_id=s.topic_id, kind=s.kind, number=numbers[s.topic_id], aktiv=True,
                       question_order=s.question_ids)
         if group is None:
             group = SimilarGroup.objects.create(signature=s.signature, **fields)

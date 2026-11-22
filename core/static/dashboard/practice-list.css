@@ -6,6 +6,44 @@
   --topic-skipped: #d9a441;
 }
 
+/* Responsive Shablon grid: five columns on a full desktop viewport. */
+.bilet-container {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 16px;
+}
+
+.bilet-container > .topic-card {
+  width: 100%;
+  min-width: 0;
+  height: 208px;
+  padding: 18px;
+}
+
+.bilet-container .topic-card-body {
+  display: grid;
+  grid-template-rows: 28px 64px;
+  align-content: center;
+  gap: 14px;
+  padding: 36px 0 0;
+}
+
+.bilet-container .topic-progress--empty { align-items: flex-start; }
+.bilet-container .topic-progress-legend { flex-wrap: wrap; gap: 6px; }
+
+@media (min-width: 480px) {
+  .bilet-container { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 768px) {
+  .bilet-container { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (min-width: 1100px) {
+  .bilet-container { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+@media (min-width: 1400px) {
+  .bilet-container { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+}
+
 .topic-card {
   background: var(--ai-surface) !important;
   border: 1px solid var(--ai-line) !important;

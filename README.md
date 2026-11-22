@@ -97,15 +97,13 @@ The student sidebar lives in one place, `templates/dashboard/_sidebar_nav.html`,
 
 ## O‘xshash savollar (similar questions)
 
-`/ohshash_savollar/` gives students sets of look-alike questions that are easy to mix up. The sets are built automatically by `avto/similar.py` (`python manage.py build_similar_groups`, run by `build.sh` on every deploy; safe to repeat). Two questions are linked when:
+`/ohshash_savollar/` offers two tests: **O‘xshash yo‘l belgilari** (road-sign questions with matching images) and **O‘xshash yo‘l vaziyatlari** (traffic signals, police signals, intersections and other road situations). `python manage.py build_similar_groups` rebuilds them from active questions and topics; `build.sh` runs it on deployment.
 
-1. **same picture**: their images are near-identical (256-bit perceptual hash, distance ≤ 20), whatever the wording;
-2. **look-alike picture**: same sign shape and colours (distance ≤ 35, e.g. two red prohibition circles) **and** similar wording (TF-IDF cosine ≥ 0.4);
-3. **same question style in the same topic**: clearly similar wording (cosine ≥ 0.6) with at least 5 words, so generic stems like «Bu yo‘l belgisi:» never link on their own.
+Every included question needs a matching partner. Images use a 256-bit difference hash: distance ≤ 20 links near-identical pictures; distance ≤ 35 additionally requires TF-IDF wording similarity ≥ 0.4. Situation pairs must share a topic. Wording alone (cosine ≥ 0.6, at least eight words) is accepted only when neither question has a picture, so generic wording cannot override different scenes. Blank/missing images cannot enter the road-sign test. Matched families stay together in a deterministic order; unrelated questions are never added to fill a test. Duplicate detection compares normalized full questions, every translated answer option and its correctness (ignoring option order), then the image. Resized/watermarked copies use the image distance limit of 35; different wording, numbers, choices, correct answers or dissimilar pictures remain separate. A discarded copy never acts as a match for discarding another question.
 
-Sets grow from the strongest links first, up to 20 questions. Leftover pairs are combined per topic into a «Mavzu bo‘yicha jamlanma» set, and a set shorter than 3 questions joins another set of the same topic or section. Inside a set, each question is followed by the one most like it, so look-alikes stand side by side. Exact duplicates (the same question in several bilets) are asked once. Each set is labelled on the page: O‘xshash rasmlar / O‘xshash savol uslubi / Mavzu bo‘yicha jamlanma.
+The road-sign test uses the `yol-belgilari` topic section. The situation test uses intersections, signals/markings, manoeuvres, special road situations, general rules and transport. Medical/technical sections are excluded. The grouping is a conservative automatic heuristic based on existing topic assignments, not manual verification of every pair.
 
-A set whose questions did not change keeps its id on rebuild, so students keep their results; sets that disappear are switched off (`aktiv=False`), never deleted. Admins can view, edit or switch off sets in **Admin → O‘xshash savollar to‘plamlari**. Set runs (`TestSession.similar_group`) are not counted as bilet runs on the season road.
+A collection whose questions did not change keeps its ID and results on rebuild. Replaced groups are switched off (`aktiv=False`), never deleted; previous attempts remain readable. `TestSession.similar_group` runs are not counted as bilet runs on the season road.
 
 ## Road signs
 
