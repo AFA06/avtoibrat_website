@@ -46,7 +46,7 @@
   const resultCaption = caption.textContent;
   const sweepDuration = 650;
   const countDuration = 1100;
-  let start = performance.now();
+  const start = performance.now();
 
   function pointNeedle(percent) {
     needle.setAttribute("transform", `rotate(${percent * 1.8} ${centerX} ${centerY})`);
@@ -77,9 +77,40 @@
   caption.textContent = caption.dataset.countingLabel;
   number.textContent = "0";
   pointNeedle(0);
-  // A real exam may first play the road intro (real-crash.js); count once the card is shown.
+  // A real exam may play the road intro (real-crash.js): the needle follows the car's speed, then the crash
+  // (or finish) drops it onto the real score. Without the intro the usual sweep-and-count runs.
   if (page.dataset.intro) {
-    document.addEventListener("rx:reveal", () => { start = performance.now(); requestAnimationFrame(animate); }, { once: true });
+    let current = 0;
+    let settled = false;
+    window.resultGauge = {
+      speed(percent) {
+        if (settled) return;
+        current = Math.max(0, Math.min(100, percent));
+        pointNeedle(current);
+        number.textContent = Math.round(current);
+      },
+      settle(crashed) {
+        if (settled) return;
+        settled = true;
+        const from = current;
+        const begin = performance.now();
+        const duration = crashed ? 1300 : 900;
+        (function drop(now) {
+          const p = Math.min(1, (now - begin) / duration);
+          // A crash makes the needle shudder as it falls; a finish eases in smoothly.
+          const shake = crashed ? Math.sin(p * Math.PI * 7) * 9 * (1 - p) : 0;
+          const value = from + (score - from) * (1 - (1 - p) ** 3) + shake;
+          pointNeedle(Math.max(0, Math.min(100, value)));
+          number.textContent = Math.round(Math.max(0, from + (score - from) * (1 - (1 - p) ** 3)));
+          if (p < 1) { requestAnimationFrame(drop); return; }
+          pointNeedle(score);
+          number.textContent = score;
+          caption.textContent = resultCaption;
+          gauge.removeAttribute("aria-busy");
+          page.classList.replace("result-page--counting", "result-page--revealed");
+        })(begin);
+      },
+    };
   } else {
     requestAnimationFrame(animate);
   }

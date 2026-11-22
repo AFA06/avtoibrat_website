@@ -1,7 +1,4 @@
 /* Real exam result intro on the bottom road (.rx-*). The result card waits until the car has stopped. */
-.result-page--real .result-card { transition: opacity .6s ease, transform .6s cubic-bezier(.22,1,.36,1); }
-.rx-pending .result-card { opacity: 0; transform: translateY(24px); pointer-events: none; }
-.rx-pending { cursor: pointer; }
 
 .rx-barrier, .rx-finish, .rx-fx, .rx-skid { position: absolute; left: 0; top: 0; pointer-events: none; }
 .rx-barrier { top: 14px; width: 40px; height: 50px; z-index: 2; }

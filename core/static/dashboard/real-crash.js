@@ -6,13 +6,14 @@
   const page = document.querySelector(".result-page--real");
   const road = page && page.querySelector(".result-road");
   const car = road && road.querySelector(".result-road__car");
-  const announce = () => document.dispatchEvent(new Event("rx:reveal"));   // starts the score gauge
-  if (!road || !car) { announce(); return; }
+  const gauge = () => window.resultGauge;   // set by result-gauge.js when the intro is expected
+  const settle = (crashed) => gauge() && gauge().settle(crashed);
+  if (!road || !car) { settle(false); return; }
   const passed = script.dataset.passed === "1";
   const key = "ai.crash." + script.dataset.id;
   let seen = null;
   try { seen = localStorage.getItem(key); } catch (e) { /* storage blocked: just play */ }
-  if (seen || window.matchMedia("(prefers-reduced-motion: reduce)").matches) { announce(); return; }
+  if (seen || window.matchMedia("(prefers-reduced-motion: reduce)").matches) { settle(false); return; }
   try { localStorage.setItem(key, "1"); } catch (e) { /* ignore */ }
 
   const ROAD_SPEED = 78 / 650;               // px per ms of the road lines at playbackRate 1
@@ -23,7 +24,7 @@
   const fx = el("rx-fx", '<i class="rx-smoke"></i><i class="rx-smoke"></i><i class="rx-smoke"></i><i class="rx-spark"></i><i class="rx-spark"></i><i class="rx-spark"></i><i class="rx-spark"></i>');
   const skid = el("rx-skid");
   road.append(skid, mark, fx);
-  page.classList.add("rx-pending", passed ? "rx-pass" : "rx-fail");
+  page.classList.add(passed ? "rx-pass" : "rx-fail");
 
   // Only the road's own animations (lines, wheels, bob) follow the speed.
   const moving = () => road.getAnimations({ subtree: true }).filter((a) => String(a.animationName || "").startsWith("result-"));
@@ -59,6 +60,8 @@
       rate = Math.max(1, TOP - (t - total) / 500);
     }
     setRate(rate);
+    // Speedometer: rises with the car (a failing run never gets far), drops again while braking.
+    if (stage === "drive" && gauge()) gauge().speed((rate - 1) / (TOP - 1) * (passed ? 95 : 70));
     x -= rate * ROAD_SPEED * dt;
     place();
     if (x < -120 && (stage === "resume" || stage === "cross") && rate === 1) return cleanup();
@@ -67,17 +70,11 @@
 
   let resumeAt = 0;
   function impact() {
-    if (passed) { setTimeout(reveal, 300); return; }
+    if (passed) { settle(false); return; }
     road.classList.remove("rx-braking");
     road.classList.add("rx-hit");
-    setTimeout(reveal, 900);
+    settle(true);
     setTimeout(() => { stage = "resume"; resumeAt = performance.now(); road.classList.add("rx-resume"); }, 2600);
-  }
-  function reveal() {
-    if (!page.classList.contains("rx-pending")) return;
-    announce();
-    page.classList.remove("rx-pending");
-    page.classList.add("rx-revealed");
   }
   function cleanup() {
     done = true;
@@ -87,9 +84,8 @@
     page.classList.remove("rx-pass", "rx-fail");
     document.removeEventListener("keydown", onKey);
   }
-  function skip() { reveal(); cleanup(); }
+  function skip() { settle(!passed); cleanup(); }
   function onKey(e) { if (e.key === "Escape") skip(); }
   document.addEventListener("keydown", onKey);
-  page.addEventListener("click", () => { if (page.classList.contains("rx-pending")) skip(); });
   requestAnimationFrame(frame);
 })();
