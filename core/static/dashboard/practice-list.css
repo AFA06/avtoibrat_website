@@ -7,8 +7,8 @@
 }
 
 .topic-card {
-  background: #141a26 !important;
-  border: 1px solid #2a3245 !important;
+  background: var(--ai-surface) !important;
+  border: 1px solid var(--ai-line) !important;
   transition: border-color 0.15s ease, transform 0.15s ease;
 }
 
@@ -124,21 +124,21 @@
 }
 
 .topic-progress-tag--correct {
-  background: rgba(47, 180, 106, 0.16);
-  border-color: rgba(47, 180, 106, 0.4);
-  color: #6fe3a1;
+  background: #e6f7ee;
+  border-color: #b7e6cb;
+  color: #167a48;
 }
 
 .topic-progress-tag--wrong {
-  background: rgba(229, 72, 77, 0.16);
-  border-color: rgba(229, 72, 77, 0.4);
-  color: #ff9a9d;
+  background: #fdecec;
+  border-color: #f6c2c4;
+  color: #c0292e;
 }
 
 .topic-progress-tag--skipped {
-  background: rgba(217, 164, 65, 0.16);
-  border-color: rgba(217, 164, 65, 0.4);
-  color: #f0c579;
+  background: #fdf3e0;
+  border-color: #f2d9a4;
+  color: #8a5708;
 }
 
 .topic-progress--empty {

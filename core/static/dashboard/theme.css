@@ -137,7 +137,7 @@ h1, h2, h3, h4, h5, h6 { color: var(--ai-ink); letter-spacing: -0.01em; }
 .topic-progress-track { background: #eef1f6 !important; border-color: var(--ai-line) !important; }
 .topic-progress-tag--correct { background: #e6f7ee; border-color: #b7e6cb; color: #167a48 !important; }
 .topic-progress-tag--wrong { background: #fdecec; border-color: #f6c2c4; color: #c0292e !important; }
-.topic-progress-tag--skipped { background: #fdf3e0; border-color: #f2d9a4; color: #a56a0c !important; }
+.topic-progress-tag--skipped { background: #fdf3e0; border-color: #f2d9a4; color: #8a5708 !important; }
 .topic-progress-tag i { color: inherit !important; }
 .topic-progress-placeholder { background: #f1f4f9 !important; border-color: var(--ai-line) !important; color: var(--ai-ink-2) !important; }
 
