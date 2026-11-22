@@ -24,8 +24,9 @@
 .mr-kpis dd { margin: 2px 0 0; font-size: 24px; font-weight: 800; font-variant-numeric: tabular-nums; }
 .mr-kpis small { color: var(--mr-muted); font-size: 14px; }
 
-.mr-back { display: inline-flex; align-items: center; gap: 6px; margin-bottom: 12px; color: var(--mr-muted) !important; font-weight: 600; text-decoration: none; }
-.mr-back:hover { color: var(--mr-brand) !important; }
+.mr-back { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 16px; padding: 10px 18px 10px 12px; border: 1px solid var(--mr-line); border-radius: 12px; background: var(--mr-surface); color: var(--mr-ink) !important; font-size: 16px; font-weight: 700; text-decoration: none; transition: border-color .15s, color .15s, transform .15s; }
+.mr-back i { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 9px; background: var(--mr-brand-soft); color: var(--mr-brand); font-size: 20px; }
+.mr-back:hover { border-color: var(--mr-brand); color: var(--mr-brand) !important; transform: translateX(-2px); }
 
 /* ---------- Resume banner ---------- */
 .mr-resume { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 18px; padding: 18px 22px; border: 1px solid var(--mr-line); border-radius: 16px; background: linear-gradient(135deg, var(--mr-brand-soft), var(--mr-surface) 70%); }
