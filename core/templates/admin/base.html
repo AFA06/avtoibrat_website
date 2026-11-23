@@ -1,12 +1,11 @@
 {% extends "admin/base.html" %}
-{% load i18n jazzmin %}
+{% load i18n %}
 
 {% comment %}
-  Sidebar override: Talabalar and Guruhlar are pinned on top, and the sidebar only opens/closes
-  with the hamburger button (sidebar-no-expand disables AdminLTE's expand-on-hover).
+  The school panel has an explicit navigation list. Supporting branch/topic forms
+  do not add sidebar sections. sidebar-no-expand disables expand-on-hover.
 {% endcomment %}
 {% block sidebar %}
-{% get_side_menu as side_menu_list %}
 <aside class="main-sidebar sidebar-no-expand elevation-4 {{ jazzmin_ui.sidebar_classes }}" id="jazzy-sidebar">
   <div class="sidebar">
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
@@ -76,16 +75,6 @@
           </a>
         </li>
 
-        {% for app in side_menu_list %}
-          <li class="nav-header">{{ app.name }}</li>
-          {% for model in app.models %}
-            <li class="nav-item">
-              <a href="{{ model.url }}" class="nav-link {% if model.url and model.url in request.path %}active{% endif %}">
-                <i class="nav-icon {{ model.icon }}"></i><p>{{ model.name }}</p>
-              </a>
-            </li>
-          {% endfor %}
-        {% endfor %}
       </ul>
     </nav>
   </div>

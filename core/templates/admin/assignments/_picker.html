@@ -1,0 +1,14 @@
+<div class="as-picker {% if field.errors %}has-error{% endif %}" data-picker>
+  <div class="as-picker__tools">
+    <label class="sd-search"><i class="fas fa-search" aria-hidden="true"></i><input type="search" data-picker-search placeholder="{{ search_label }}" aria-label="{{ search_label }}" autocomplete="off"></label>
+    <span class="as-picker__count" data-picker-count aria-live="polite">Tanlandi: 0</span>
+    <button type="button" class="sd-chip-btn" data-select-visible>Ko‘rinayotganlarni tanlash</button>
+    <button type="button" class="sd-chip-btn" data-clear-selection>Tanlovni tozalash</button>
+  </div>
+  {% for error in field.errors %}<p class="sd-error" role="alert">{{ error }}</p>{% endfor %}
+  <div class="as-picker__list">
+    {% for checkbox in field %}<label class="as-pick" data-choice>{{ checkbox.tag }}<span>{{ checkbox.choice_label }}</span></label>
+    {% empty %}<p class="sd-muted as-picker__empty">{{ empty_label }}</p>{% endfor %}
+    <p class="sd-muted as-picker__empty" data-no-matches hidden>Qidiruv bo‘yicha hech narsa topilmadi.</p>
+  </div>
+</div>

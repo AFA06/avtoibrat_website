@@ -130,7 +130,7 @@ class QuestionAdminTests(TestCase):
         self.assertTrue(UserAnswer.objects.filter(pk=answer.pk).exists())
         self.assertFalse(topic_tests.question_pool(self.topic).exists())
         self.assertFalse(marathon.question_pool().filter(pk=self.question.pk).exists())
-        self.assertEqual(self.client.post(reverse("admin:avto_question_delete", args=[self.question.pk])).status_code, 403)
+        self.assertEqual(self.client.post(f"/admin/avto/question/{self.question.pk}/delete/").status_code, 404)
         self.client.force_login(self.student)
         self.assertRedirects(self.client.get(reverse("start_saqlangan_test")), reverse("saqlangan"))
         self.client.force_login(self.teacher)

@@ -102,7 +102,7 @@ def pick_question_ids(user, topic, mode):
     return ids[:QUICK_SIZE] if mode == "quick" else ids
 
 
-def start(user, topic, mode):
+def start(user, topic, mode, assignment=None):
     """Open a practice session on the topic. Raises ValueError when the mode has no questions."""
     if mode not in MODES:
         mode = "quick"
@@ -113,6 +113,7 @@ def start(user, topic, mode):
     session = TestSession.objects.create(
         user=user, category=first.kategoriya, topic=topic, test_kind="shablon", source=SOURCE,
         started_at=timezone.now(), duration_minutes=len(question_ids) * MINUTES_PER_QUESTION,
+        assignment=assignment,
     )
     session.questions.set(question_ids)
     session.question_order = question_ids

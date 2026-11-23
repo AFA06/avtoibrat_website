@@ -3,6 +3,7 @@ from functools import wraps
 
 from django.contrib.admin.views.decorators import staff_member_required
 from django.core.exceptions import PermissionDenied
+from django.db.models import Q
 
 from .models import Assignment, StudyGroup, User
 
@@ -30,4 +31,7 @@ def students_for(staff):
 
 def assignments_for(staff):
     assignments = Assignment.objects.all()
-    return assignments if staff.is_superuser else assignments.filter(audience="group", group__teacher=staff)
+    return assignments if staff.is_superuser else assignments.filter(
+        Q(audience="group", group__teacher=staff)
+        | Q(audience="express", recipient_scope="selected", created_by=staff)
+    )

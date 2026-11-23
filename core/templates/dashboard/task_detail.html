@@ -1,0 +1,23 @@
+{% extends "dashboard/base_panel.html" %}
+{% load i18n static %}
+{% block title %}{{ assignment.title }} - AvtoIbrat{% endblock %}
+{% block extra_css %}<link href="{% static 'assets/css/fontawesome-all.css' %}" rel="stylesheet"><link href="{% static 'dashboard/tasks.css' %}" rel="stylesheet">{% endblock %}
+{% block content %}
+<div class="tk">
+  <a class="tk-back" href="{% url 'tasks' %}"><i class="fas fa-arrow-left" aria-hidden="true"></i> {% trans "Vazifalar" %}</a>
+  <header class="tk-head"><span class="tk-eyebrow">{{ assignment.get_content_type_display }}</span><h1>{{ assignment.title }}</h1><p>{% if assignment.note %}{{ assignment.note }}<br>{% endif %}{% if assignment.end_date %}{% trans "Topshirish muddati:" %} {{ assignment.end_date|date:"d.m.Y" }}{% else %}{% trans "Qat’iy topshirish muddati yo‘q" %}{% endif %}</p></header>
+  {% for message in messages %}<p class="tk-notice" role="status">{{ message }}</p>{% endfor %}
+  <section class="tk-card {% if progress.done_today %}is-done{% endif %}">
+    <div class="tk-card__top"><div><h2>{% trans "Sizga berilgan testlar" %}</h2><p>{% trans "Har bir testni oching va barcha savollarini yeching. Natija avtomatik saqlanadi." %}</p></div><span class="tk-badge">{% if progress.done_today %}<i class="fas fa-check-circle" aria-hidden="true"></i> {% trans "Bajarildi" %}{% else %}{{ progress.completed }} / {{ progress.target }}{% endif %}</span></div>
+    <div class="tk-progress" role="progressbar" aria-label="{% trans 'Vazifa bajarilishi' %}" aria-valuemin="0" aria-valuemax="{{ progress.target }}" aria-valuenow="{{ progress.completed }}"><i style="width: {{ progress.percent }}%"></i></div>
+    {% if not running %}<p class="tk-notice">{% trans "Bu vazifa uchun test boshlash muddati tugagan yoki hali boshlanmagan. Natijalaringizni ko‘rishingiz mumkin." %}</p>{% endif %}
+    <ol class="tk-items">
+      {% for item in items %}<li class="tk-item {% if item.completion %}is-complete{% endif %}">
+        <span class="tk-item__number">{% if item.completion %}<i class="fas fa-check" aria-hidden="true"></i>{% else %}{{ forloop.counter }}{% endif %}</span>
+        <div class="tk-item__body"><h3>{{ item.label }}</h3><p>{% if item.completion %}{% trans "Bajarildi" %} · {{ item.completion.correct }} / {{ item.completion.total }} {% trans "to‘g‘ri" %} · {{ item.completion.completed_at|date:"d.m.Y H:i" }}{% else %}{{ item.count }} {% trans "ta savol" %} · {% if item.ongoing %}{% trans "Boshlangan" %}{% else %}{% trans "Hali boshlanmagan" %}{% endif %}{% endif %}</p>{% if not item.available %}<small class="tk-unavailable">{% trans "Test hozir mavjud emas. O‘qituvchingizga murojaat qiling." %}</small>{% endif %}</div>
+        <div class="tk-item__actions">{% if item.completion.session_id %}<a class="tk-result-link" href="{% url 'test_result' item.completion.session_id %}">{% trans "Natija" %}</a>{% endif %}{% if running and item.available %}<form method="post" action="{% url 'start_task_item' assignment.pk item.id %}">{% csrf_token %}<button class="tk-btn {% if item.completion %}tk-btn--secondary{% endif %}" type="submit">{% if item.ongoing %}{% trans "Davom ettirish" %}{% elif item.completion %}{% trans "Qayta ishlash" %}{% else %}{% trans "Boshlash" %} <i class="fas fa-arrow-right" aria-hidden="true"></i>{% endif %}</button></form>{% endif %}</div>
+      </li>{% empty %}<li class="tk-empty">{% trans "O‘qituvchingiz bu vazifa testlarini yangilamoqda." %}</li>{% endfor %}
+    </ol>
+  </section>
+</div>
+{% endblock %}

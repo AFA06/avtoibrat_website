@@ -77,7 +77,7 @@ For a host migration, restore the PostgreSQL dump into the destination database 
 
 - **Students** log in with their phone number and password. Teachers can create and manage students in their assigned groups under **Admin → Talabalar**. Administrators can also archive and restore accounts. On creation or reset, share the temporary password shown on the confirmation page. The account holder must replace it before using the platform.
 - **Staff** (instructors, teachers, admins) log in with their username and password, and are sent to the Django admin. The staff profile on the login page only accepts accounts with `is_staff=True`.
-- The login page (`templates/dashboard/login.html`) is a two-step flow: pick a profile (Student/Staff), then enter credentials. `Parolni unutdingizmi?` links to `forgotlogin.html`, which lists the active contacts from `ContactPerson` (admin panel) for the student to call — there is no self-service password reset.
+- The login page (`templates/dashboard/login.html`) is a two-step flow: pick a profile (Student/Staff), then enter credentials. `Parolni unutdingizmi?` links to `forgotlogin.html`, which lists the stored active contacts from `ContactPerson` for the student to call — there is no self-service password reset.
 - The student support page uses `SCHOOL_CONTACT_PHONE`. Set the optional `SCHOOL_SUPPORT_TELEGRAM_URL` environment variable to the school administrator's Telegram link to show a direct-message button.
 - A student's exam/question language (`User.group_language`: uz / uz-kr / ru) is independent of the site's UI language switcher — set per student in the admin to match the group they study in.
 
@@ -147,12 +147,24 @@ python manage.py compilemessages
 
 ## Admin workflow (Students → Teachers → Groups)
 
+The admin sidebar contains only Dashboard, Talabalar, Guruhlar, Express, Vazifalar, Savollar, Belgilar, Monitoring, O‘qituvchilar and Reyting, with administrator-only sections hidden from teachers. The retired model-admin pages, global contact-message search and dashboard inbox have been removed. Branch and topic forms remain as helpers linked from Guruhlar and Savollar. Public-site content, study materials, exam history and login protection still use their existing models and data; this admin cleanup does not drop database tables.
+
 1. **O‘qituvchilar** (`/admin/teachers/`, superusers only): create a teacher and share their username and temporary password. Teachers log in through the **Xodim** profile.
 2. **Talabalar** (`/admin/students/`): create a student with a phone login and temporary password. Teachers must choose one of their assigned groups. Administrators can leave the group empty.
 3. **Guruhlar** (`/admin/groups/`): administrators create groups, assign teachers, configure lesson schedules and move students between groups. Teachers see only their assigned groups and related monitoring data.
 4. **Changing a student's group**: open the student → «Boshqa guruhga o‘tkazish» → pick the new group → save. The group, teacher and lesson time on the student's profile update automatically; no remove/re-add.
 5. **Access window (when a student can log in):** a new student is *open-ended* — active until the teacher ends it, because nobody knows in advance when they will pass the exam. Instead of guessing a date, use the student's ⋮ menu → **Kirish muddati**: `+2 hafta`, `+1 oy`, `+2 oy` (added on top of the current end date, or from today if it already expired) or `Muddatsiz qilish`. When the date passes the student can no longer log in; extending reopens the account instantly. **Bloklash** is a separate manual switch that overrides everything. Status labels and filters share one rule (`User.access_state`), so they can never disagree; students with no end date are open-ended (migration `0014`). The Talabalar filters are exact: *Faol* (not blocked, not expired), *Muddati tugagan*, *Bloklangan*.
 6. The student's `/profile/` shows group, teacher, lesson time, branch and category.
+
+## Assigning tests (Vazifalar)
+
+In **Admin → Vazifalar → Yangi vazifa**, choose the recipients, select **Biletlar** or **Mavzulashtirilgan testlar**, tick the exact tests and save. Search and select-all controls work on the filtered list. A title is optional; the form generates one when omitted. The start date and optional final submission date apply to the whole selection.
+
+- **Express:** all Express students or explicitly selected Express students. A teacher's choices include only Express students in their own groups; the teacher's “all” choice saves that bounded selection. An administrator's all-Express task also reaches students added to Express later.
+- **Guruh:** every current student in the chosen group, including Express members of that group. Teachers can choose only their own groups.
+- **Alohida talabalar:** explicitly selected students with neither a group nor Express membership. Administrators manage this audience. Moving a recipient into a group or Express removes their access to this individual task.
+
+Students open **Vazifalar** to see the exact assigned tests and open/resume each one directly. A topic assignment includes all its active questions. Finishing every question counts that test once; correctness is shown separately. Unrelated practice, unfinished attempts and repeats do not complete other assigned tests. Each assignment has its own attempts and completion records. Results return to the assignment, and completion survives practice-statistics resets. Removing a task preserves exam history. Existing daily-count tasks keep their original behavior and remain editable; use **Aniq bilet yoki mavzularga o‘tkazish** in their editor to convert them explicitly. New tasks require exact content selections.
 
 ## Groups & leaderboard
 

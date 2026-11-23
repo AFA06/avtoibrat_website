@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import *
 from .leaderboard_views import student_leaderboard
-from .task_views import student_tasks
+from .task_views import student_tasks, student_task_detail, start_task_item
 from .marathon_views import marathon_page, marathon_sections, start_marathon
 from .journey_views import journey_page, journey_result
 from .cheatsheet_views import cheatsheet_page
@@ -28,6 +28,8 @@ urlpatterns = [
     path('imtihonga-yol/natija/<int:session_id>/', journey_result, name="journey_result"),
     path('leaderboard/', student_leaderboard, name="leaderboard"),
     path('vazifalar/', student_tasks, name="tasks"),
+    path('vazifalar/<int:pk>/', student_task_detail, name="task_detail"),
+    path('vazifalar/<int:pk>/start/<int:item_id>/', start_task_item, name="start_task_item"),
     path('marafon/', marathon_page, name="marathon"),
     path('marafon/start/', start_marathon, name="start_marathon"),
     path('marafon/<int:size>/', marathon_sections, name="marathon_sections"),

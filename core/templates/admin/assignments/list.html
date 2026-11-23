@@ -9,7 +9,7 @@
   <header class="sd-head">
     <div>
       <h1>Vazifalar</h1>
-      <p>Talabalarga kunlik test vazifasi bering, masalan: Express kursi — har kuni 25 ta test.</p>
+      <p>Express, guruh yoki alohida talabalar uchun aniq biletlar va mavzularni belgilang.</p>
     </div>
     <a class="sd-btn sd-btn--primary" href="{% url 'assignments:create' %}"><i class="fas fa-plus"></i> Yangi vazifa</a>
   </header>
@@ -21,13 +21,13 @@
 
   <section class="sd-panel">
     <table class="sd-table">
-      <thead><tr><th>Vazifa</th><th>Kimlar uchun</th><th>Kunlik reja</th><th>Muddat</th><th>Bugun</th><th></th></tr></thead>
+      <thead><tr><th>Vazifa</th><th>Kimlar uchun</th><th>Berilgan testlar</th><th>Muddat</th><th>Bajarganlar</th><th></th></tr></thead>
       <tbody>
       {% for a in assignments %}
         <tr>
           <td><a class="as-title" href="{% url 'assignments:detail' a.pk %}"><b>{{ a.title }}</b>{% if a.note %}<small>{{ a.note|truncatechars:70 }}</small>{% endif %}</a></td>
-          <td>{% if a.audience == "express" %}<span class="as-badge"><i class="fas fa-bolt"></i> Express</span>{% else %}<b class="sd-group">{{ a.group.name }}</b> <span class="sd-tag">{{ a.group.category }}</span>{% endif %}</td>
-          <td><b>{{ a.tests_per_day }}</b> ta test / kun</td>
+          <td>{{ a.audience_label }}</td>
+          <td>{{ a.content_label }}{% if not a.is_selection %}<small class="sd-muted d-block">Avvalgi kunlik reja</small>{% endif %}</td>
           <td>
             {{ a.start_date|date:"d.m.Y" }} – {% if a.end_date %}{{ a.end_date|date:"d.m.Y" }}{% else %}muddatsiz{% endif %}
             {% if not a.is_active %}<small class="sd-muted d-block">O‘chirilgan</small>{% elif not a.running %}<small class="sd-muted d-block">Hozir faol emas</small>{% endif %}

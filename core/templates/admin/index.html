@@ -63,20 +63,6 @@
         </div>
       </div>
 
-      {% if show_messages or show_consults %}
-      <div class="card dash-card">
-        <div class="card-header"><h5 class="m-0">Yangi murojaatlar</h5>{% if show_messages %}<a class="small" href="{% url 'admin:avto_contactmessage_changelist' %}">Barchasi</a>{% endif %}</div>
-        <div class="card-body p-0">
-          <ul class="dash-list">
-            {% for m in contact_messages %}<li><b>{{ m.name }}</b> <span class="text-muted">{{ m.phone }}</span><br><small class="text-muted">{{ m.subject|truncatechars:48 }} · {{ m.created_at|date:"d.m H:i" }}</small></li>{% endfor %}
-            {% for c in consults %}<li><b>{{ c.first_name }} {{ c.last_name }}</b> <span class="text-muted">{{ c.phone }}</span><br><small class="text-muted">Maslahat so‘rovi · {{ c.created_at|date:"d.m H:i" }}</small></li>{% endfor %}
-            {% if not contact_messages and not consults %}<li class="text-muted">Murojaatlar yo‘q</li>{% endif %}
-          </ul>
-        </div>
-      </div>
-
-      {% endif %}
-
       <div class="card dash-card">
         <div class="card-header"><h5 class="m-0">Tizim</h5></div>
         <div class="card-body dash-facts">

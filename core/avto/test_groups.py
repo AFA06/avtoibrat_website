@@ -6,7 +6,7 @@ from django.utils import timezone
 
 from .leaderboard import EXAM_BONUS, build
 from .models import (
-    Answer, Branch, ContactMessage, Question, StudyGroup, TestCategory, TestSession, TestType, User, UserAnswer,
+    Answer, Branch, Question, StudyGroup, TestCategory, TestSession, TestType, User, UserAnswer,
 )
 
 
@@ -131,14 +131,21 @@ class GroupPagesTests(LeaderboardFixture):
         self.ali.refresh_from_db()
         self.assertEqual(self.ali.group_id, old_group)
 
-    def test_dashboard_respects_contact_inbox_permission(self):
-        ContactMessage.objects.create(name="Contact fixture", phone="900112233", subject="Hello", message="Test")
+    def test_dashboard_scopes_results_and_counts_to_the_teachers_students(self):
+        self.finish(self.ali, [True])
         self.finish(self.far, [True])
         response = self.client.get(reverse("admin:index"))
-        self.assertNotContains(response, "Contact fixture")
+        self.assertContains(response, "Ali Test")
         self.assertNotContains(response, "Far Test")
+        self.assertEqual(response.context["tests_total"], 1)
+        self.assertEqual(response.context["students"]["total"], 3)
+        self.assertEqual(response.context["group_count"], 1)
         self.client.force_login(self.owner)
-        self.assertContains(self.client.get(reverse("admin:index")), "Contact fixture")
+        response = self.client.get(reverse("admin:index"))
+        self.assertContains(response, "Far Test")
+        self.assertEqual(response.context["tests_total"], 2)
+        self.assertEqual(response.context["students"]["total"], 4)
+        self.assertEqual(response.context["group_count"], 2)
 
 
 class StudentLeaderboardTests(LeaderboardFixture):
@@ -237,6 +244,23 @@ class GroupMembershipTests(LeaderboardFixture):
 
 
 class TeacherPagesTests(LeaderboardFixture):
+    def test_edit_and_delete_teacher_preserves_students_and_groups(self):
+        self.client.force_login(self.owner)
+        self.assertRedirects(self.client.post(reverse("teachers:edit", args=[self.teacher.pk]), {
+            "first_name": "Updated", "last_name": "Teacher", "username": self.teacher.username,
+            "phone": "", "password": "",
+        }), reverse("teachers:list"))
+        self.teacher.refresh_from_db()
+        self.assertEqual(self.teacher.get_full_name(), "Updated Teacher")
+        self.assertTrue(self.teacher.is_staff and not self.teacher.is_superuser)
+        self.assertTrue(self.teacher.check_password("x"))
+        self.assertRedirects(self.client.post(reverse("teachers:delete", args=[self.teacher.pk])), reverse("teachers:list"))
+        self.assertFalse(User.objects.filter(pk=self.teacher.pk).exists())
+        self.group.refresh_from_db()
+        self.ali.refresh_from_db()
+        self.assertIsNone(self.group.teacher)
+        self.assertEqual(self.ali.group, self.group)
+
     def test_admin_creates_teacher_who_can_be_assigned_and_log_in(self):
         admin = User.objects.create_superuser(username="boss", password="x")
         self.client.force_login(admin)

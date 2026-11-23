@@ -858,6 +858,9 @@ class TestSession(models.Model):
     # Set for «O‘xshash savollar» runs: the set of look-alike questions that was solved.
     similar_group = models.ForeignKey("SimilarGroup", null=True, blank=True, on_delete=models.SET_NULL,
                                       related_name="sessions")
+    assignment = models.ForeignKey(
+        "Assignment", null=True, blank=True, on_delete=models.SET_NULL, related_name="sessions",
+    )
     test_kind = models.CharField(max_length=20, choices=TEST_KIND)
     source = models.CharField(
         max_length=20,
@@ -1022,11 +1025,14 @@ class StatisticsReset(models.Model):
 
 
 class Assignment(models.Model):
-    """A daily test task from a teacher: «solve N tests every day» for express students or one group."""
+    """An exact selection of bilets/topics, or a preserved legacy daily target."""
     AUDIENCE_CHOICES = (
         ("express", "Express kursi talabalari"),
         ("group", "Bitta guruh"),
+        ("individual", "Alohida talabalar"),
     )
+    CONTENT_CHOICES = (("daily", "Avvalgi kunlik reja"), ("bilet", "Biletlar"), ("topic", "Mavzulashtirilgan testlar"))
+    SCOPE_CHOICES = (("all", "Barcha Express talabalari"), ("selected", "Faqat tanlangan talabalar"))
 
     title = models.CharField("Vazifa nomi", max_length=120)
     note = models.TextField("Izoh", blank=True)
@@ -1035,6 +1041,11 @@ class Assignment(models.Model):
         StudyGroup, verbose_name="Guruh", null=True, blank=True,
         on_delete=models.CASCADE, related_name="assignments",
     )
+    recipient_scope = models.CharField(max_length=10, choices=SCOPE_CHOICES, default="all", db_default="all")
+    recipients = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name="assigned_tasks")
+    content_type = models.CharField("Test turi", max_length=10, choices=CONTENT_CHOICES, default="daily", db_default="daily")
+    bilets = models.ManyToManyField(TestCategory, blank=True, related_name="assigned_tasks")
+    topics = models.ManyToManyField(Topic, blank=True, related_name="assigned_tasks")
     tests_per_day = models.PositiveSmallIntegerField(
         "Kuniga testlar soni", default=25,
         validators=[MinValueValidator(1), MaxValueValidator(200)],
@@ -1060,11 +1071,11 @@ class Assignment(models.Model):
         super().clean()
         if self.audience == "group" and not self.group_id:
             raise ValidationError({"group": "Guruhni tanlang."})
-        if self.end_date and self.end_date < self.start_date:
+        if self.end_date and self.start_date and self.end_date < self.start_date:
             raise ValidationError({"end_date": "Tugash sanasi boshlanishdan oldin bo‘lishi mumkin emas."})
 
     def save(self, *args, **kwargs):
-        if self.audience == "express":
+        if self.audience != "group":
             self.group = None
         super().save(*args, **kwargs)
 
@@ -1072,12 +1083,56 @@ class Assignment(models.Model):
         """The students this task is for."""
         students = User.objects.filter(is_staff=False, is_superuser=False, archived_at__isnull=True)
         if self.audience == "express":
-            return students.filter(is_express=True)
-        return students.filter(group_id=self.group_id)
+            students = students.filter(is_express=True)
+            if self.recipient_scope == "selected":
+                students = students.filter(pk__in=self.recipients.values("pk"))
+                if self.created_by_id and not self.created_by.is_superuser:
+                    students = students.filter(group__teacher_id=self.created_by_id)
+            return students
+        if self.audience == "individual":
+            return students.filter(group__isnull=True, is_express=False, pk__in=self.recipients.values("pk"))
+        if self.audience == "group" and self.group_id:
+            return students.filter(group_id=self.group_id)
+        return students.none()
 
     def runs_on(self, day):
         return self.is_active and self.start_date <= day and (self.end_date is None or day <= self.end_date)
 
     @property
     def audience_label(self):
-        return "Express" if self.audience == "express" else f"Guruh {self.group.name}"
+        if self.audience == "express":
+            return "Express · tanlangan talabalar" if self.recipient_scope == "selected" else "Express · barcha talabalar"
+        if self.audience == "individual":
+            return "Alohida talabalar"
+        return f"Guruh {self.group.name}" if self.group_id else "Guruh"
+
+    @property
+    def is_selection(self):
+        return self.content_type in ("bilet", "topic")
+
+    @property
+    def content_label(self):
+        if self.content_type == "bilet":
+            return f"{self.bilets.count()} ta bilet"
+        if self.content_type == "topic":
+            return f"{self.topics.count()} ta mavzu"
+        return f"Kuniga {self.tests_per_day} ta test"
+
+
+class AssignmentCompletion(models.Model):
+    """Assignment progress survives a student's practice-statistics reset.
+
+    item_key identifies the selected bilet/topic. Its label and score are kept as
+    a snapshot even if the practice session or original content is later removed.
+    """
+    assignment = models.ForeignKey(Assignment, on_delete=models.CASCADE, related_name="completions")
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="task_completions")
+    item_key = models.CharField(max_length=40)
+    label = models.CharField(max_length=255)
+    session = models.ForeignKey(TestSession, null=True, blank=True, on_delete=models.SET_NULL)
+    correct = models.PositiveIntegerField(default=0)
+    total = models.PositiveIntegerField()
+    completed_at = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        constraints = [models.UniqueConstraint(fields=("assignment", "user", "item_key"), name="unique_assignment_completion")]

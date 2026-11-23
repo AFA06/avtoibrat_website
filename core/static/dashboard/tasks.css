@@ -34,3 +34,25 @@
   .tk-card__top { flex-direction: column; }
   .tk-numbers { flex-direction: column; gap: 4px; }
 }
+
+.tk-eyebrow { display: block; margin-bottom: 8px; color: var(--tk-brand); font-size: 11px; letter-spacing: .08em; font-weight: 700; text-transform: uppercase; }
+.tk-preview { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: 18px 0 0; padding: 0; }
+.tk-preview li { padding: 6px 10px; background: var(--tk-soft); border-radius: 8px; font-size: 13px; }
+.tk-preview i { color: var(--tk-brand); margin-right: 4px; }
+.tk-back { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 20px; color: var(--tk-muted); }
+.tk-notice { padding: 12px 16px; margin: 16px 0; border: 1px solid var(--tk-line); border-radius: 10px; background: var(--tk-soft); color: var(--tk-muted); }
+.tk-items { list-style: none; margin: 20px 0 0; padding: 0; }
+.tk-item { display: flex; align-items: center; gap: 16px; padding: 20px 0; border-bottom: 1px solid var(--tk-line); }
+.tk-item:last-child { border-bottom: 0; padding-bottom: 0; }
+.tk-item__number { flex: none; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 12px; background: var(--tk-soft); font-weight: 700; color: var(--tk-muted); }
+.tk-item.is-complete .tk-item__number { color: var(--tk-brand); background: var(--tk-brand-soft); }
+.tk-item__body { flex: 1; min-width: 0; }
+.tk-item h3 { margin: 0 0 5px; font-size: 16px; font-weight: 600; overflow-wrap: anywhere; }
+.tk-item p { margin: 0; color: var(--tk-muted); font-size: 13px; }
+.tk-item__actions { display: flex; gap: 12px; align-items: center; flex: none; }
+.tk-item__actions form { margin: 0; }
+.tk-btn { border: 0; cursor: pointer; font-size: 14px; font-family: inherit; }
+.tk-btn--secondary { background: var(--tk-brand-soft); color: var(--tk-brand) !important; }
+.tk-result-link { color: var(--tk-brand); font-size: 14px; font-weight: 600; }
+.tk-unavailable { display: block; color: var(--tk-amber); margin-top: 6px; }
+@media (max-width: 650px) { .tk-item { flex-wrap: wrap; gap: 12px; } .tk-item__body { flex-basis: calc(100% - 50px); } .tk-item__actions { padding-left: 48px; flex-wrap: wrap; } .tk-card { padding: 18px; } }

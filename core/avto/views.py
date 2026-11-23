@@ -775,7 +775,7 @@ def clear_topic_statistics(request):
     return redirect("mavzulashtirilgan")
 
 
-def _create_test_session(user, category, test_kind, source="shablon"):
+def _create_test_session(user, category, test_kind, source="shablon", assignment=None):
     """Create a session with a fixed, randomly-picked, ordered question set."""
     question_ids = list(
         Question.objects
@@ -792,6 +792,7 @@ def _create_test_session(user, category, test_kind, source="shablon"):
         category=category,
         test_kind=test_kind,
         source=source,
+        assignment=assignment,
         started_at=timezone.now(),
     )
 
@@ -898,6 +899,8 @@ def test_page(request, session_id):
     if remaining <= 0:
         session.finished_at = timezone.now()
         session.save(update_fields=["finished_at"])
+        from .assignments import record_completion
+        record_completion(session)
         return redirect("test_result", session_id=session.id)
 
     ordered_questions = _ordered_session_questions(session)
@@ -1052,12 +1055,16 @@ def submit_answer(request):
 
 @login_required
 @require_POST
+@transaction.atomic
 def finish_test(request, session_id):
     session = get_object_or_404(TestSession, id=session_id, user=request.user)
 
     if not session.finished_at:
         session.finished_at = timezone.now()
         session.save(update_fields=["finished_at"])
+
+    from .assignments import record_completion
+    record_completion(session)
 
     return redirect("test_result", session_id=session.id)
 
@@ -1111,6 +1118,11 @@ def _result_context(session):
         restart_url = reverse(restart_url_name)
     else:
         restart_url = reverse(restart_url_name, args=[session.category_id])
+
+    if session.assignment_id:
+        list_url = reverse("task_detail", args=[session.assignment_id])
+        list_label = _("Vazifaga qaytish")
+        restart_url = list_url
 
     real_result = None
     mistakes = []

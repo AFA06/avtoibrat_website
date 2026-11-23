@@ -124,15 +124,14 @@ class LoginPageTests(LockoutTestCase):
         self.assertIn("error=locked", response.url)
         self.assertFalse(self.client.session.get("_auth_user_id"))
 
-    def test_admin_can_unlock_from_the_list(self):
+    def test_admin_password_reset_clears_lock_through_student_management(self):
         boss = User.objects.create_user(username="boss", password="x", is_staff=True, is_superuser=True)
         self.wrong(4)
         self.client.force_login(boss)
-        self.client.post(reverse("admin:avto_loginlock_changelist"), {
-            "action": "unlock", "_selected_action": [LoginLock.objects.get().pk],
-        })
+        response = self.client.post(reverse("students:reset_password", args=[self.student.pk]))
+        self.assertEqual(response.status_code, 200)
         self.assertFalse(LoginLock.objects.exists())
-        self.assertIsNotNone(self.ok())
+        self.assertIsNotNone(authenticate(username="ali", password=response.context["temporary_password"]))
 
 
 class ExpiredAccountTests(LockoutTestCase):

@@ -4,9 +4,7 @@ from django.db.models import Q
 from django.utils import timezone
 
 from .admin_access import groups_for, students_for
-from .models import (
-    ConsultRequest, ContactMessage, Question, TestSession, User, UserAnswer,
-)
+from .models import Question, TestSession, User, UserAnswer
 
 EXPIRING_DAYS = 7
 CHART_DAYS = 7
@@ -52,8 +50,6 @@ def dashboard_context(staff):
     answers = UserAnswer.objects.filter(session__in=sessions)
     total_answers = answers.count()
     correct = answers.filter(is_correct=True).count()
-    show_messages = staff.has_perm("avto.view_contactmessage") or staff.has_perm("avto.change_contactmessage")
-    show_consults = staff.has_perm("avto.view_consultrequest") or staff.has_perm("avto.change_consultrequest")
     return {
         "students": _student_stats(now, students.filter(archived_at__isnull=True)),
         "staff_count": User.objects.filter(is_staff=True).count() if staff.is_superuser else None,
@@ -64,10 +60,6 @@ def dashboard_context(staff):
         "real_exams": finished.filter(test_kind="real").count(),
         "accuracy": round(correct * 100 / total_answers) if total_answers else None,
         "chart": _activity_chart(timezone.localdate(), finished),
-        "show_messages": show_messages,
-        "show_consults": show_consults,
-        "contact_messages": ContactMessage.objects.all()[:RECENT_LIMIT] if show_messages else [],
-        "consults": ConsultRequest.objects.order_by("-created_at")[:RECENT_LIMIT] if show_consults else [],
         "recent_tests": finished.select_related("user", "category").order_by("-finished_at")[:RECENT_LIMIT],
     }
 

@@ -97,10 +97,12 @@
       {% if not review_open %}{% include "dashboard/_review.html" %}{% endif %}
 
       <div class="result-actions" aria-label="{% trans 'Test amallari' %}">
+        {% if not session.assignment_id %}
         <a href="{{ restart_url }}" class="result-btn result-btn--ghost result-btn--action" title="{% trans 'Testni qayta boshlash' %}" aria-label="{% trans 'Testni qayta boshlash' %}">
           <i class="ti ti-refresh" aria-hidden="true"></i>
           <span>{% trans "Qayta boshlash" %}</span>
         </a>
+        {% endif %}
         <a href="{{ list_url }}" class="result-btn result-btn--primary result-btn--action" title="{{ list_label }}" aria-label="{{ list_label }}">
           <i class="ti ti-logout" aria-hidden="true"></i>
           <span>{{ list_label }}</span>

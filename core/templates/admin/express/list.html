@@ -9,7 +9,7 @@
   <header class="sd-head">
     <div>
       <h1><i class="fas fa-bolt"></i> Express</h1>
-      <p>Express kursi talabalari va ularning bugungi test natijalari.</p>
+      <p>Express kursi talabalari, ularga berilgan vazifalar va natijalar.</p>
     </div>
     <div class="sd-head__actions">
       <a class="sd-btn sd-btn--ghost" href="{% url 'assignments:list' %}"><i class="fas fa-tasks"></i> Vazifalar</a>
@@ -39,17 +39,17 @@
 
   <section class="sd-stats">
     <div class="sd-stat"><i class="fas fa-bolt sd-ico sd-ico--violet"></i><div><span>Express talabalari</span><b>{{ roster|length }}</b></div></div>
-    <div class="sd-stat"><i class="fas fa-check-circle sd-ico sd-ico--green"></i><div><span>Bugun vazifani bajargan</span><b>{% if target %}{{ done_count }}{% else %}—{% endif %}</b></div></div>
-    <div class="sd-stat"><i class="fas fa-bullseye sd-ico sd-ico--amber"></i><div><span>Kunlik reja</span><b>{% if target %}{{ target }} <small>ta test</small>{% else %}—{% endif %}</b></div></div>
+    <div class="sd-stat"><i class="fas fa-check-circle sd-ico sd-ico--green"></i><div><span>Barcha vazifalarini bajargan</span><b>{% if task_count %}{{ done_count }}{% else %}—{% endif %}</b></div></div>
+    <div class="sd-stat"><i class="fas fa-bullseye sd-ico sd-ico--amber"></i><div><span>Faol Express vazifalari</span><b>{{ task_count }}</b></div></div>
   </section>
 
-  {% if not target %}
+  {% if not task_count %}
   <p class="sd-flash sd-flash--error"><i class="fas fa-info-circle"></i><span>Hozir Express uchun faol vazifa yo‘q. <a href="{% url 'assignments:create' %}">Vazifa yarating</a> — shunda talabalar bajarganligi shu yerda ko‘rinadi.</span></p>
   {% endif %}
 
   <section class="sd-panel">
     <table class="sd-table">
-      <thead><tr><th>Talaba</th><th>Guruh</th><th>Bugun yechilgan testlar</th><th>Oxirgi test</th><th></th></tr></thead>
+      <thead><tr><th>Talaba</th><th>Guruh</th><th>Vazifalar bajarilishi</th><th>Oxirgi test</th><th></th></tr></thead>
       <tbody>
       {% for s in roster %}
         <tr>
@@ -63,7 +63,7 @@
           <td>
             <div class="as-progress {% if s.done %}is-done{% endif %}">
               <div class="as-bar"><i style="width: {{ s.percent }}%"></i></div>
-              <b>{{ s.today }}{% if target %} / {{ target }}{% endif %}</b>
+              <b>{% if s.assignment_total %}{{ s.assignment_done }} / {{ s.assignment_total }}{% else %}Vazifa yo‘q{% endif %}</b>
               {% if s.done %}<span class="sd-status is-green">Bajardi</span>{% endif %}
             </div>
           </td>
