@@ -2836,3 +2836,7 @@ msgstr "Смешанные вопросы"
 
 msgid "Rasmi, savol uslubi yoki mavzusi bir-biriga o‘xshash, ko‘p chalkashtiriladigan savollar bitta to‘plamga yig‘ilgan va yonma-yon beriladi. Farqini ko‘rib, xatoni oldini oling."
 msgstr "Вопросы с похожими картинками, формулировкой или темой, которые часто путают, собраны в наборы и идут рядом. Увидьте разницу — и не ошибайтесь."
+
+
+msgid "Dars konspektlari"
+msgstr "Конспекты уроков"

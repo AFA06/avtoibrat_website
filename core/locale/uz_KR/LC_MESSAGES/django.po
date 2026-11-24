@@ -2829,3 +2829,7 @@ msgstr "Аралаш саволлар"
 
 msgid "Rasmi, savol uslubi yoki mavzusi bir-biriga o‘xshash, ko‘p chalkashtiriladigan savollar bitta to‘plamga yig‘ilgan va yonma-yon beriladi. Farqini ko‘rib, xatoni oldini oling."
 msgstr "Расми, савол услуби ёки мавзуси бир-бирига ўхшаш, кўп чалкаштириладиган саволлар битта тўпламга йиғилган ва ёнма-ён берилади. Фарқини кўриб, хатонинг олдини олинг."
+
+
+msgid "Dars konspektlari"
+msgstr "Дарс конспектлари"

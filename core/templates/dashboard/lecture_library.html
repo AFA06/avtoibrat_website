@@ -1,0 +1,37 @@
+{% extends "dashboard/base_panel.html" %}
+{% load static %}
+{% block title %}{{ copy.title }} · AvtoIbrat{% endblock %}
+{% block extra_css %}<link href="{% static 'dashboard/lectures.css' %}" rel="stylesheet">{% endblock %}
+{% block content %}
+<div class="notes" id="notes-library" data-scope="{{ storage_scope }}">
+  <header class="notes-hero">
+    <div class="notes-hero__copy">
+      <span class="notes-eyebrow"><i class="ti ti-notebook" aria-hidden="true"></i> {{ copy.eyebrow }}</span>
+      <h1>{{ copy.title }}</h1>
+      <p>{{ copy.intro }}</p>
+      <div class="notes-stats"><span><b>7</b> {{ copy.topics }}</span><span><b>{{ total_slides }}</b> {{ copy.slides }}</span><span><i class="ti ti-photo" aria-hidden="true"></i> {{ copy.examples }}</span></div>
+    </div>
+    <div class="notes-hero__visual" aria-hidden="true"><img src="{% static 'site/atlas/sign-2.1.webp' %}" alt=""><img src="{% static 'site/atlas/sign-2.4.webp' %}" alt=""><span>AvtoIbrat<br><strong>{{ copy.read }}</strong></span></div>
+  </header>
+  <a class="notes-resume" id="notes-resume" hidden><span class="notes-resume__icon"><i class="ti ti-history" aria-hidden="true"></i></span><span><small>{{ copy.resume }}</small><strong id="notes-resume-title"></strong><span id="notes-resume-page"></span></span><span class="notes-button">{{ copy.read }}</span></a>
+  <section class="notes-library" aria-labelledby="notes-topics-title">
+    <div class="notes-library__bar"><h2 id="notes-topics-title">{{ copy.topics }}</h2><label class="notes-search"><i class="ti ti-search" aria-hidden="true"></i><span class="notes-sr">{{ copy.search }}</span><input type="search" id="notes-search" placeholder="{{ copy.search_hint }}" autocomplete="off"><button type="button" id="notes-clear" aria-label="{{ copy.clear }}" hidden><i class="ti ti-x" aria-hidden="true"></i></button></label></div>
+    <div class="notes-grid" id="notes-topics">
+    {% for topic in topics %}
+      <a class="notes-topic notes-topic--{{ topic.slug }}" href="{% url 'lecture_reader' topic.slug %}" data-topic="{{ topic.slug }}">
+        <div class="notes-topic__top"><span class="notes-topic__number">{{ topic.number|stringformat:'02d' }}</span><span>{{ topic.count }} {{ copy.slides }}</span></div>
+        <h3>{{ topic.title }}</h3><p>{{ topic.description }}</p>
+        <div class="notes-topic__preview"><img src="{% static topic.preview %}" alt="" loading="lazy" width="320" height="180"></div>
+        <div class="notes-topic__foot"><span>{{ copy.open }}</span><span class="notes-topic__progress" data-progress="{{ topic.slug }}"></span><i class="ti ti-book" aria-hidden="true"></i></div>
+      </a>
+    {% endfor %}
+    </div>
+    <div id="notes-results" class="notes-results" hidden><p id="notes-result-count" role="status"></p><div id="notes-result-list"></div></div>
+    <p class="notes-empty" id="notes-empty" role="status" hidden>{{ copy.empty }}</p>
+  </section>
+  {% if copy.language_note %}<p class="notes-footnote"><i class="ti ti-language" aria-hidden="true"></i> {{ copy.language_note }}</p>{% endif %}
+  <p class="notes-footnote">{{ copy.local }}</p>
+  {{ catalog|json_script:"notes-catalog" }}{{ copy|json_script:"notes-copy" }}
+</div>
+<script src="{% static 'dashboard/lectures.js' %}"></script>
+{% endblock %}

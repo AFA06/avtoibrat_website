@@ -5,6 +5,7 @@ from .task_views import student_tasks, student_task_detail, start_task_item
 from .marathon_views import marathon_page, marathon_sections, start_marathon
 from .journey_views import journey_page, journey_result
 from .cheatsheet_views import cheatsheet_page
+from .lecture_views import lecture_library, lecture_reader
 
 
 urlpatterns = [
@@ -35,6 +36,8 @@ urlpatterns = [
     path('marafon/<int:size>/', marathon_sections, name="marathon_sections"),
     path('contact_list/', contact_list, name="contact_list"),
     path('shpargalka/', cheatsheet_page, name="cheatsheet"),
+    path('konspekt/', lecture_library, name='lecture_library'),
+    path('konspekt/<slug:slug>/', lecture_reader, name='lecture_reader'),
     path('manular/', manular, name="manular"),
     path('manular/<int:pk>/korish/', manular_view, name="manular_view"),
 

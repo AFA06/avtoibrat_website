@@ -109,6 +109,16 @@ A collection whose questions did not change keeps its ID and results on rebuild.
 
 Students browse `/road_signs/`; teachers manage the content in **Admin → Belgilar** (`/admin/road-signs/`, `avto/road_sign_views.py`): add a category (cover picture optional), add signs to it (image PNG/JPG/GIF/WEBP/SVG, number, name, description) with «Saqlash va yana qo‘shish» for batches, and reorder categories with the arrows. Signs are shown sorted by number part by part (1.2 before 1.10, `avto/road_signs.py`); categories follow their `order`. Annotated queries ignore `Meta.ordering`, so category lists always use `ordered_categories()`.
 
+## Student lecture notes
+
+**O‘quv materiallar → Dars konspektlari** (`/uz/konspekt/`, `/ru/konspekt/`) contains the seven supplied road-sign lectures. Russian uses the Russian decks; both Uzbek interface modes use the original Uzbek Cyrillic decks. The existing Shpargalka remains available.
+
+Students can search all slide text (including Uzbek Latin searches against Cyrillic text), choose a topic, filter rules/examples, jump to a page, enlarge diagrams, open the slide text, and bookmark pages. Previous/next follows the selected filter. Reading position, viewed-page counts and bookmarks are stored per student and deck language in that browser; they are reading history, not test scores or proof of mastery. The site's language switch keeps the current page number. Embedded video is included; the original presentation's animations and unavailable external video files are not reproduced.
+
+Runtime content is in `core/avto/data/lectures/{uz,ru}.json`, with compressed images, thumbnails and embedded video in `core/static/lectures/`. Source filenames and SHA-256 hashes are recorded in each deck. The large original PowerPoint files stay outside Git.
+
+To rebuild, export all 14 decks as PDFs at their native slide dimensions, named `uz-1.pdf` … `uz-7.pdf` and `ru-1.pdf` … `ru-7.pdf`, then run `python scripts/build_lectures.py --slides 'Slides ' --pdfs /path/to/pdfs` with Pillow and Poppler installed. The script checks source/rendered page counts before writing the manifests. No converter is needed in production.
+
 ## Exam engine
 
 One template (`templates/exam/exam.html`) serves both practice tests (Shablon, Mavzulashtirilgan, O'xshash — `practice: true`) and the real exam (`practice: false`), with different layouts and behaviour:

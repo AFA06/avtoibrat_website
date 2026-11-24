@@ -584,3 +584,7 @@ msgstr "Chiqmoqchimisiz?"
 #: templates/test_panel/test-panel.html:836
 msgid "Davom ettirish"
 msgstr "Davom ettirish"
+
+
+msgid "Dars konspektlari"
+msgstr "Dars konspektlari"

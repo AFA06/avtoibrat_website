@@ -1,0 +1,41 @@
+{% extends "dashboard/base_panel.html" %}
+{% load static l10n %}
+{% block title %}{{ topic.title }} · {{ copy.title }} · AvtoIbrat{% endblock %}
+{% block extra_css %}<link href="{% static 'dashboard/lectures.css' %}" rel="stylesheet">{% endblock %}
+{% block content %}
+<div class="notes notes-reader" id="notes-reader" data-scope="{{ storage_scope }}" data-page="{{ page }}">
+  <header class="notes-reader__header">
+    <a href="{% url 'lecture_library' %}" class="notes-back"><i class="ti ti-layout-grid" aria-hidden="true"></i>{{ copy.back }}</a>
+    <div class="notes-reader__heading"><span class="notes-eyebrow">{{ copy.title }} · {{ topic.number|stringformat:'02d' }}</span><h1>{{ topic.title }}</h1><p>{{ topic.description }}</p></div>
+  </header>
+  <noscript><style>.notes-index>:not(.notes-index__head){display:block!important}.notes-index__list{max-height:280px}</style><p>{{ copy.noscript }}</p></noscript>
+  <div class="notes-reader__layout">
+    <aside class="notes-index" aria-label="{{ copy.contents }}">
+      <div class="notes-index__head"><h2>{{ copy.contents }}</h2><span>{{ topic.count }}</span></div>
+      <label class="notes-search"><i class="ti ti-search" aria-hidden="true"></i><span class="notes-sr">{{ copy.search }}</span><input type="search" id="reader-search" placeholder="{{ copy.search_hint }}" autocomplete="off"></label>
+      <div class="notes-filters" role="group" aria-label="{{ copy.contents }}"><button type="button" class="is-active" data-filter="all" aria-pressed="true">{{ copy.all }}</button><button type="button" data-filter="rule" aria-pressed="false">{{ copy.rules }}</button><button type="button" data-filter="example" aria-pressed="false">{{ copy.examples }}</button><button type="button" data-filter="saved" aria-pressed="false"><i class="ti ti-star" aria-hidden="true"></i>{{ copy.saved }}</button></div>
+      <p class="notes-index__count" id="reader-count" role="status">{{ topic.count }} {{ copy.slides }}</p>
+      <nav class="notes-index__list" id="reader-list" aria-label="{{ copy.contents }}">
+        {% for slide in topic.slides %}<a href="?slide={{ slide.number }}" class="notes-index__item{% if slide.number == page %} is-active{% endif %}" data-slide="{{ slide.number }}"{% if slide.number == page %} aria-current="page"{% endif %}><img src="{% static slide.thumbnail %}" alt="" loading="lazy" width="80" height="45"><span><small>{{ slide.number|stringformat:'02d' }} · {% if slide.kind == 'example' %}{{ copy.example }}{% else %}{{ copy.rule }}{% endif %}</small><strong>{{ slide.title|default:copy.page }}</strong></span><i class="ti ti-star notes-index__star" aria-hidden="true" hidden></i></a>{% endfor %}
+      </nav>
+      <p class="notes-empty" id="reader-empty" hidden>{{ copy.empty }}</p>
+      <p class="notes-index__note">{{ copy.local }}</p>
+    </aside>
+    <main class="notes-stage" id="reader-stage" aria-label="{{ topic.title }}">
+      <div class="notes-stage__bar"><span class="notes-kind" id="reader-kind">{% if current.kind == 'example' %}{{ copy.example }}{% else %}{{ copy.rule }}{% endif %}</span><span id="reader-position" role="status">{{ page }} / {{ topic.count }}</span><div class="notes-stage__actions"><button type="button" id="reader-save" class="notes-icon-button" aria-label="{{ copy.save }}" title="{{ copy.save }}" aria-pressed="false"><i class="ti ti-star" aria-hidden="true"></i></button><button type="button" id="reader-focus" class="notes-icon-button" aria-label="{{ copy.focus }}" title="{{ copy.focus }}" aria-pressed="false"><i class="ti ti-arrows-maximize" aria-hidden="true"></i></button></div></div>
+      <h2 id="reader-title">{{ current.title|default:copy.page }}</h2>
+      <div class="notes-slide" style="--slide-ratio:{{ topic.ratio|unlocalize }}"><button type="button" class="notes-slide__open" id="reader-enlarge" aria-label="{{ copy.enlarge }}"><img id="reader-image" src="{% static current.image %}" alt="{{ current.title|default:copy.page }}" width="1600" fetchpriority="high"><span><i class="ti ti-zoom-in" aria-hidden="true"></i> {{ copy.enlarge }}</span></button><div class="notes-slide__error" id="reader-image-error" role="status" hidden><p>{{ copy.image_error }}</p><button type="button" id="reader-retry">{{ copy.retry }}</button></div></div>
+      <section class="notes-video" id="reader-video-section" hidden><h3>{{ copy.video }}</h3><video id="reader-video" controls playsinline preload="none" aria-label="{{ copy.video }}"></video></section>
+      <div class="notes-pager"><a class="notes-button notes-button--quiet" id="reader-prev" href="?slide={{ page|add:'-1' }}" aria-label="{{ copy.prev }}">{{ copy.prev }}</a><label>{{ copy.page }} <input type="number" id="reader-page" min="1" max="{{ topic.count }}" value="{{ page }}" inputmode="numeric" aria-label="{{ copy.page }}"><span>/ {{ topic.count }}</span></label><a class="notes-button" id="reader-next" href="?slide={{ page|add:'1' }}" aria-label="{{ copy.next }}">{{ copy.next }}</a></div>
+      <p class="notes-end" id="reader-end"{% if page != topic.count %} hidden{% endif %}>{{ copy.end }} <a href="{% url 'lecture_library' %}">{{ copy.back }}</a></p>
+      <p class="notes-example-note" id="reader-example-note"{% if current.kind != 'example' %} hidden{% endif %}><i class="ti ti-bulb" aria-hidden="true"></i>{{ copy.source }}</p>
+      <details class="notes-text" id="reader-text"><summary>{{ copy.text }} <i class="ti ti-chevron-down" aria-hidden="true"></i></summary><div id="reader-paragraphs" lang="{% if lecture_language == 'ru' %}ru{% else %}uz-Cyrl{% endif %}">{% for paragraph in current.paragraphs %}<p>{{ paragraph }}</p>{% empty %}<p>{{ copy.no_text }}</p>{% endfor %}</div></details>
+      <p class="notes-keyboard">{{ copy.help }}</p>
+      {% if copy.language_note %}<p class="notes-footnote">{{ copy.language_note }}</p>{% endif %}
+    </main>
+  </div>
+  <dialog id="reader-zoom" class="notes-zoom" aria-label="{{ copy.enlarge }}"><div class="notes-zoom__toolbar"><strong id="zoom-title">{{ topic.title }}</strong><div><button type="button" id="zoom-out" aria-label="{{ copy.zoom_out }}">−</button><button type="button" id="zoom-reset" aria-label="{{ copy.reset_zoom }}">100%</button><button type="button" id="zoom-in" aria-label="{{ copy.zoom_in }}">+</button><button type="button" id="zoom-close" aria-label="{{ copy.close }}"><i class="ti ti-x" aria-hidden="true"></i></button></div></div><div class="notes-zoom__canvas" id="zoom-canvas"><img id="zoom-image" alt=""></div></dialog>
+  {{ deck|json_script:"notes-deck" }}{{ copy|json_script:"notes-copy" }}
+</div>
+<script src="{% static 'dashboard/lectures.js' %}"></script>
+{% endblock %}
