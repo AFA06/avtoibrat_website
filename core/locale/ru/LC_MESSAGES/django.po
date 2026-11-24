@@ -2840,3 +2840,6 @@ msgstr "Вопросы с похожими картинками, формули�
 
 msgid "Dars konspektlari"
 msgstr "Конспекты уроков"
+
+msgid "O‘qituvchi tanlagan aralash savollar jamlanmasi."
+msgstr "Сборник смешанных вопросов, выбранных преподавателем."

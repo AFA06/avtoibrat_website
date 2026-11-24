@@ -2833,3 +2833,6 @@ msgstr "Расми, савол услуби ёки мавзуси бир-бир�
 
 msgid "Dars konspektlari"
 msgstr "Дарс конспектлари"
+
+msgid "O‘qituvchi tanlagan aralash savollar jamlanmasi."
+msgstr "Ўқитувчи танлаган аралаш саволлар жамланмаси."

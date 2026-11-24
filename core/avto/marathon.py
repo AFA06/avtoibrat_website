@@ -1,8 +1,8 @@
 """Marathon: the whole question bank in a fixed order, cut into numbered sections.
 
 The student picks a section size (50, 300, …, or all questions at once) and then a section.
-Questions keep the order they were added in: section 1 starts with bilet 1, question 1, and
-questions added later land in the last section. Every question gets a minute, like the real exam.
+Questions follow the stored admin order. New questions append unless the administrator
+chooses an insertion position. Every question gets a minute, like the real exam.
 """
 import random
 from collections import defaultdict
@@ -10,6 +10,7 @@ from collections import defaultdict
 from django.utils import timezone
 
 from .models import Question, TestSession, UserAnswer
+from .question_placement import ordered
 
 ALL = 0  # «all questions at once»: a single section holding the whole bank
 SIZES = (50, 300, 500, 700, ALL)
@@ -19,12 +20,12 @@ SOURCE = "marafon"
 
 
 def question_pool():
-    return Question.objects.filter(kategoriya__aktiv=True, is_archived=False)
+    return Question.objects.filter(kategoriya__aktiv=True, is_archived=False, use_in_mixed=True)
 
 
 def ordered_ids():
-    """Every active question id in the fixed marathon order (the order they were added in)."""
-    return list(question_pool().order_by("id").values_list("id", flat=True))
+    """Every enabled question id in the current fixed marathon order."""
+    return list(ordered(question_pool()).values_list("id", flat=True))
 
 
 def time_limit_minutes(size):

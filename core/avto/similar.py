@@ -327,7 +327,7 @@ def load_items() -> list[Item]:
     from .models import Question
 
     items = []
-    qs = (Question.objects.filter(is_archived=False, kategoriya__aktiv=True)
+    qs = (Question.objects.filter(is_archived=False, kategoriya__aktiv=True, auto_similar=True)
           .select_related("mavzu__group").prefetch_related("extra_topics", "javoblar").order_by("id"))
     for q in qs:
         image = None
@@ -358,13 +358,19 @@ def load_items() -> list[Item]:
 def rebuild(items: list[Item] | None = None) -> dict:
     """Write the planned sets. A set with the same questions as before keeps its id (and the students'
     results); sets that no longer exist are switched off, never deleted, so old results stay readable."""
-    from .models import SimilarGroup
+    from .models import SimilarGroup, TestCategory
 
+    list(TestCategory.objects.select_for_update().order_by("pk").values_list("pk", flat=True))
     result = plan(load_items() if items is None else items)
     numbers = Counter()
     seen = set()
     created = updated = 0
+    overrides = SimilarGroup.objects.filter(is_manual=True).exclude(origin_signature="")
+    overridden = set(overrides.values_list("origin_signature", flat=True))
+    manual_scopes = set(overrides.values_list("collection", "topic_id"))
     for s in result.sets:
+        if s.signature in overridden or (s.collection, s.topic_id) in manual_scopes:
+            continue
         numbers[s.topic_id] += 1
         group = SimilarGroup.objects.filter(signature=s.signature).first()
         fields = dict(collection=s.collection, topic_id=s.topic_id, kind=s.kind, number=numbers[s.topic_id], aktiv=True,
@@ -379,7 +385,7 @@ def rebuild(items: list[Item] | None = None) -> dict:
             updated += 1
         group.questions.set(s.question_ids)
         seen.add(group.id)
-    retired = SimilarGroup.objects.filter(aktiv=True).exclude(id__in=seen).update(aktiv=False)
+    retired = SimilarGroup.objects.filter(aktiv=True, is_manual=False).exclude(id__in=seen).update(aktiv=False)
     return {
         "sets": len(result.sets),
         "questions": sum(len(s.question_ids) for s in result.sets),

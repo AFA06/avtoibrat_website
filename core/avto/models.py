@@ -683,6 +683,11 @@ class TestType(models.Model):
 
 
 class Question(models.Model):
+    placement_order = models.BigIntegerField(null=True, blank=True)
+    use_in_bilet = models.BooleanField("Bilet testlarida", default=True)
+    use_in_topics = models.BooleanField("Mavzulashtirilgan testlarda", default=True)
+    use_in_mixed = models.BooleanField("Aralash / real imtihon va marafonda", default=True)
+    auto_similar = models.BooleanField("O‘xshash savollarga avtomatik guruhlash", default=True)
     test_turi = models.ForeignKey(TestType, on_delete=models.CASCADE)
     kategoriya = models.ForeignKey(TestCategory, on_delete=models.CASCADE)
     is_archived = models.BooleanField(default=False, db_default=False)
@@ -804,7 +809,12 @@ class SimilarGroup(models.Model):
         ("aralash", "Mavzu bo‘yicha jamlanma"),
     )
 
-    COLLECTIONS = (("signs", "Yo‘l belgilari"), ("images", "Bir xil rasmlar"), ("answers", "Bir xil javoblar"),
+    is_manual = models.BooleanField(default=False)
+    origin_signature = models.CharField(max_length=64, blank=True)
+    manual_title = models.CharField(max_length=200, blank=True)
+    manual_title_ru = models.CharField(max_length=200, blank=True)
+
+    COLLECTIONS = (("mixed", "Aralash savollar"), ("signs", "Yo‘l belgilari"), ("images", "Bir xil rasmlar"), ("answers", "Bir xil javoblar"),
                    ("situations", "Yo‘ldagi vaziyatlar"))
     collection = models.CharField(max_length=16, choices=COLLECTIONS, blank=True, default="")
     topic = models.ForeignKey(Topic, null=True, blank=True, on_delete=models.SET_NULL, related_name="similar_groups")
@@ -822,6 +832,10 @@ class SimilarGroup(models.Model):
         verbose_name_plural = "O‘xshash savollar to‘plamlari"
 
     def name(self, lang=None):
+        if self.manual_title:
+            return (self.manual_title_ru or self.manual_title) if (lang or get_language()) == "ru" else self.manual_title
+        if self.collection == "mixed":
+            return _("Aralash savollar")
         if self.collection == "signs":
             return _("Belgilar bo‘yicha o‘xshash savollar")
         if self.collection == "images":
@@ -1139,3 +1153,13 @@ class AssignmentCompletion(models.Model):
 
 # Imported here so Django discovers lecture models alongside the existing models.
 from .lecture_models import LectureTopic, LecturePage, LectureUpload  # noqa: E402,F401
+
+
+class TopicQuestionOrder(models.Model):
+    """An explicit topic sequence, independent of the question's bilet position."""
+    topic = models.ForeignKey(Topic, on_delete=models.CASCADE, related_name='question_positions')
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='topic_positions')
+    position = models.PositiveIntegerField()
+
+    class Meta:
+        constraints = [models.UniqueConstraint(fields=('topic', 'question'), name='unique_topic_question_order')]

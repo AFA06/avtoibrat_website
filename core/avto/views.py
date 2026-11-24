@@ -565,7 +565,7 @@ def mavzulashtirilgan(request):
 def ohshash_savollar(request):
     """Sets of look-alike questions (`avto.similar`); each row shows the result of its last finished attempt."""
     # «situations» sets are still built (old results stay readable) but no longer offered.
-    order = {"signs": 0, "images": 1, "answers": 2}
+    order = {"signs": 0, "images": 1, "answers": 2, "mixed": 3}
     sets = sorted(SimilarGroup.objects.filter(aktiv=True, collection__in=order).select_related("topic"),
                   key=lambda g: (order[g.collection], g.number, g.id))
     latest = {}
@@ -587,6 +587,7 @@ def ohshash_savollar(request):
     for g in sets:
         total = len(g.question_order)
         text = {
+            "mixed": (_("O‘qituvchi tanlagan aralash savollar jamlanmasi."), _("Aralash savollar"), "ti-list-numbers"),
             "signs": (_("Rasmi o‘xshash yo‘l belgilarini va ular haqidagi savollarni farqlang."),
                       _("Faqat yo‘l belgilari"), "ti-road-sign"),
             "images": (_("Rasmi bir xil, lekin savoli boshqacha savollar — rasmga emas, savolga qarang."),
@@ -681,7 +682,7 @@ def _latest_practice_runs(user, categories, **filters):
         TestSession.objects
         .filter(user=user, category__in=categories, test_kind="shablon", finished_at__isnull=False, **filters)
         .order_by("-finished_at", "-id")
-        .only("category_id", "started_at", "finished_at", "paused_at", "paused_seconds")
+        .only("category_id", "started_at", "finished_at", "paused_at", "paused_seconds", "question_order")
     ):
         latest.setdefault(session.category_id, session)
     session_ids = [session.id for session in latest.values()]
@@ -715,8 +716,9 @@ def shablon_test(request):
         has_started = cat.id in latest
         if has_started:
             session, (correct, wrong) = latest[cat.id]
-            empty = max(cat.question_count - correct - wrong, 0)
-            percent = round(correct * 100 / cat.question_count) if cat.question_count else 0
+            attempted_size = len(session.question_order) or cat.question_count
+            empty = max(attempted_size - correct - wrong, 0)
+            percent = round(correct * 100 / attempted_size) if attempted_size else 0
             duration_display = _finished_duration_display(session)
         else:
             correct = wrong = empty = percent = duration_display = None
@@ -776,13 +778,9 @@ def clear_topic_statistics(request):
 
 
 def _create_test_session(user, category, test_kind, source="shablon", assignment=None):
-    """Create a session with a fixed, randomly-picked, ordered question set."""
-    question_ids = list(
-        Question.objects
-        .filter(kategoriya=category, is_archived=False)
-        .order_by("?")
-        .values_list("id", flat=True)[:category.question_count]
-    )
+    """Snapshot the current bilet order, respecting its configured question limit."""
+    from .question_placement import ordered
+    question_ids = list(ordered(Question.objects.filter(kategoriya=category, is_archived=False, use_in_bilet=True)).values_list("id", flat=True)[:category.question_count])
 
     if not question_ids:
         return None

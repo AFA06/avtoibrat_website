@@ -91,13 +91,21 @@ The left sidebar (`static/dashboard/sidebar.js` + `sidebar.css`, included via `b
 
 ## Marathon
 
-Students pick 100 / 300 / 500 / 700 / 1000 mixed, non-repeating questions at `/marafon/` (`avto/marathon.py`, `marathon_views.py`). The time budget is one minute per question, like the real exam (20 questions in 20 minutes), stored on `TestSession.duration_minutes`; the exam page, timer and answer grace period all read `TestSession.time_limit_seconds`. Questions are drawn evenly from every test (`pick_question_ids`: round-robin over all tests, then shuffled), so a marathon is never one test after another. A range bigger than the active question bank is shown but disabled. An unfinished marathon can be resumed from the same page; starting a new one finishes the old one. Sessions with more than 40 questions get the compact scrollable question grid (`exam--many` in `exam.css`).
+Students choose sections of 50 / 300 / 500 / 700 questions, or the whole enabled mixed bank, at `/marafon/` (`avto/marathon.py`, `marathon_views.py`). Sections follow the stored question order; the real exam samples randomly from this bank. Each question gets one minute. An unfinished marathon can be resumed; starting a new one finishes the previous one. Only questions enabled for mixed exams/marathon enter this pool.
 
 The student sidebar lives in one place, `templates/dashboard/_sidebar_nav.html`, included by every panel page.
 
+## Question placement and ordering
+
+In **Admin → Savollar**, each question has independent switches for bilet tests, topic tests, the mixed real-exam/marathon bank, and automatic similar-question grouping. A category is still retained as the question’s organizational parent; switching off bilet use excludes it from bilet tests. A main topic is required only when topic tests are enabled. Defaults preserve the existing question bank.
+
+Use **Shundan keyin qo‘shish** in the question list, or enter **Joylashuv raqami = 13** to insert between the current 12th and 13th questions. Choose whether the position is in the selected bilet or primary topic. Topic positions are stored independently, so editing them does not rearrange bilets. Blank position appends new questions and preserves ordinary edits. Bilet practice and full-topic mode follow the stored order; quick-topic and mixed exams remain random. When a bilet was using every available question, its question limit follows additions/removals. Existing attempt snapshots and historical score denominators are preserved.
+
+The editor can also select existing O‘xshash/aralash collections and their insertion position, or create a named mixed collection (Russian name optional). Membership changes create a new active collection version and retire the previous one; saved attempts retain the old group and question IDs/order. The automatic rebuild respects manually overridden collection/topic scopes and does not recreate or retire them. Manual mixed collections appear alongside similar-question tests. Automatic grouping is optional and still runs through `build_similar_groups`; explicit assignments take effect immediately.
+
 ## O‘xshash savollar (similar questions)
 
-`/ohshash_savollar/` offers two tests: **O‘xshash yo‘l belgilari** (road-sign questions with matching images) and **O‘xshash yo‘l vaziyatlari** (traffic signals, police signals, intersections and other road situations). `python manage.py build_similar_groups` rebuilds them from active questions and topics; `build.sh` runs it on deployment.
+`/ohshash_savollar/` offers collections for similar road signs, identical pictures, matching answer sets, and teacher-created mixed sets. Older situation collections remain available to historical attempts but are not listed. `python manage.py build_similar_groups` rebuilds automatic collections from enabled questions; `build.sh` runs it on deployment. Explicit manual assignments are protected from this rebuild.
 
 Every included question needs a matching partner. Images use a 256-bit difference hash: distance ≤ 20 links near-identical pictures; distance ≤ 35 additionally requires TF-IDF wording similarity ≥ 0.4. Situation pairs must share a topic. Wording alone (cosine ≥ 0.6, at least eight words) is accepted only when neither question has a picture, so generic wording cannot override different scenes. Blank/missing images cannot enter the road-sign test. Matched families stay together in a deterministic order; unrelated questions are never added to fill a test. Duplicate detection compares normalized full questions, every translated answer option and its correctness (ignoring option order), then the image. Resized/watermarked copies use the image distance limit of 35; different wording, numbers, choices, correct answers or dissimilar pictures remain separate. A discarded copy never acts as a match for discarding another question.
 
@@ -128,7 +136,7 @@ To rebuild, export all 14 decks as PDFs at their native slide dimensions, named 
 One template (`templates/exam/exam.html`) serves both practice tests (Shablon, Mavzulashtirilgan, O'xshash — `practice: true`) and the real exam (`practice: false`), with different layouts and behaviour:
 
 **Shared logic**
-- Each test session gets a fixed, randomly picked set of questions (`TestSession.question_order`); the count and time limit come from `TestCategory`.
+- Each test session keeps a fixed snapshot (`TestSession.question_order`). Bilet practice follows admin order; real/quick tests sample randomly. Category settings control bilet count/time.
 - When a student returns to an unanswered question, its options are reshuffled so every option moves to a different key — students must read the question instead of memorising positions.
 - Correct answers are never sent to the browser. `submit_answer` grades on the server and rejects late, duplicate, or out-of-session answers. Finishing a test is POST-only and idempotent.
 

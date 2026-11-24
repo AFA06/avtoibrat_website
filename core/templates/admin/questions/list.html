@@ -53,7 +53,7 @@
       <tbody>
       {% for q in page %}
         <tr>
-          <td class="qs-place"><b>{{ q.kategoriya.nomi }}</b><small>{{ q.number }}-savol</small></td>
+          <td class="qs-place"><b>{{ q.kategoriya.nomi }}</b><small>{% if q.number %}{{ q.number }}-savol{% else %}Bilet testida yo‘q{% endif %}{% if q.topic_number %} · Mavzuda {{ q.topic_number }}{% endif %}</small></td>
           <td>
             <div class="qs-text">
               <form class="qs-pic" method="post" action="{% url 'questions:picture' q.pk %}" enctype="multipart/form-data">
@@ -77,8 +77,8 @@
             {% for t in q.extra_topics.all %}<span class="sd-tag">{{ t.name }}</span>{% endfor %}
             {% if not q.mavzu and not q.extra_topics.all %}<span class="sd-status is-red">Mavzusiz</span>{% endif %}
           </td>
-          <td class="sd-mono">{{ q.javoblar.all|length }}</td>
-          <td class="sd-row-actions"><a class="sd-btn sd-btn--ghost" href="{% url 'questions:edit' q.pk %}">Tahrirlash</a></td>
+          <td class="sd-mono">{{ q.javoblar.all|length }}<div class="sd-help">{% if q.use_in_bilet %}Bilet · {% endif %}{% if q.use_in_topics %}Mavzu · {% endif %}{% if q.use_in_mixed %}Aralash · {% endif %}{% for group in q.similar_groups.all %}{% if group.aktiv %}{{ group.name }} · {% endif %}{% endfor %}</div></td>
+          <td class="sd-row-actions">{% if q.topic_number %}<a class="sd-btn sd-btn--ghost" href="{% url 'questions:create' %}?kategoriya={{ q.kategoriya_id }}&mavzu={{ topic_id }}&order_scope=topic&position={{ q.topic_number|add:'1' }}">Shundan keyin qo‘shish (mavzu)</a>{% elif q.number %}<a class="sd-btn sd-btn--ghost" href="{% url 'questions:create' %}?kategoriya={{ q.kategoriya_id }}&position={{ q.number|add:'1' }}">Shundan keyin qo‘shish (bilet)</a>{% endif %}<a class="sd-btn sd-btn--ghost" href="{% url 'questions:edit' q.pk %}">Tahrirlash</a></td>
         </tr>
       {% empty %}
         <tr><td colspan="5" class="sd-empty">

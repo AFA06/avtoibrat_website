@@ -222,16 +222,18 @@
   // --- Show how many questions the chosen bilet already has ---
   const bilet = document.getElementById("id_kategoriya");
   const note = document.getElementById("bilet-note");
-  const counts = JSON.parse(document.getElementById("bilet-counts").textContent);
+  const counts = JSON.parse(document.getElementById("bilet-counts")?.textContent || "{}");
+  const inBilet = document.getElementById("id_use_in_bilet");
   function showCount() {
     const total = counts[bilet.value] || 0;
     const editing = location.pathname.match(/\/questions\/\d+\/$/);
     note.textContent = `Bu biletda hozir ${total} ta savol bor.`;
     note.classList.toggle("qs-bilet-full", total >= 20 && !editing);
-    if (total >= 20 && !editing) note.textContent += " Standart bilet 20 ta savoldan iborat, yangisi uni 21 ta qiladi.";
+    if (total >= 20 && !editing && (!inBilet || inBilet.checked)) note.textContent += ` Yangi savol bilan ${total+1} ta bo‘ladi.`;
   }
   if (bilet && note) {
     bilet.addEventListener("change", showCount);
+    inBilet?.addEventListener("change", showCount);
     showCount();
   }
 })();

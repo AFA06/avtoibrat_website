@@ -7,15 +7,20 @@
   <a class="sd-back" href="{% url 'questions:list' %}"><i class="fas fa-arrow-left"></i> Savollar</a>
   <header class="sd-head"><div>
     <h1>{% if question %}Savolni tahrirlash{% else %}Yangi savol{% endif %}</h1>
-    <p>{% if question %}{{ question.kategoriya.nomi }}, {{ number }}-savol. {% endif %}Savol matni, javoblar, bilet va mavzularni to‘ldiring. Javoblar doim shu tartibda saqlanadi.</p>
+    <p>{% if question %}{{ question.kategoriya.nomi }}{% if number %}, {{ number }}-savol{% else %} · Bilet testida yo‘q{% endif %}. {% endif %}Savol matni, javoblar, bilet va mavzularni to‘ldiring. Javoblar doim shu tartibda saqlanadi.</p>
   </div></header>
 
   <form method="post" enctype="multipart/form-data" novalidate id="question-form">
-    {% csrf_token %}
+    {% csrf_token %}<input type="hidden" name="placement_controls" value="1">
     {% for e in form.non_field_errors %}<p class="sd-flash sd-flash--error">{{ e }}</p>{% endfor %}
 
     <section class="sd-panel sd-card">
       <h2>1. Qayerga tegishli</h2>
+      <p class="sd-help">Savol qaysi testlarda ko‘rinishini belgilang. Bilet va to‘liq mavzu testlari belgilangan tartibda; tezkor/aralash testlar tasodifiy beriladi. Bilet va mavzu savolni topish uchun ham ishlatiladi. Bir savol bir nechta joyda chiqishi mumkin.</p>
+      <div class="qs-checks">
+        {% for field in form %}{% if field.name == 'use_in_bilet' or field.name == 'use_in_topics' or field.name == 'use_in_mixed' or field.name == 'auto_similar' %}<label class="qs-check">{{ field }}<span>{{ field.label }}</span></label>{% endif %}{% endfor %}
+      </div>
+
       <div class="sd-grid">
         <div class="sd-field {% if form.kategoriya.errors %}has-error{% endif %}">
           <label for="{{ form.kategoriya.id_for_label }}">{{ form.kategoriya.label }} <em>*</em></label>
@@ -24,7 +29,7 @@
           {% for e in form.kategoriya.errors %}<p class="sd-error">{{ e }}</p>{% endfor %}
         </div>
         <div class="sd-field {% if form.mavzu.errors %}has-error{% endif %}">
-          <label for="{{ form.mavzu.id_for_label }}">{{ form.mavzu.label }} <em>*</em></label>
+          <label for="{{ form.mavzu.id_for_label }}">{{ form.mavzu.label }} (mavzulashtirilgan testlar uchun)</label>
           {{ form.mavzu }}
           {% for e in form.mavzu.errors %}<p class="sd-error">{{ e }}</p>{% endfor %}
           <p class="sd-help">{{ form.mavzu.help_text }} <a href="{% url 'admin:avto_topic_add' %}" target="_blank" rel="noopener">Yangi mavzu yaratish</a></p>
@@ -37,6 +42,19 @@
         <div class="qs-checks" data-topic-list>
           {% for box in form.extra_topics %}<label class="qs-check">{{ box.tag }}<span>{{ box.choice_label }}</span></label>{% endfor %}
         </div>
+      </div>
+      <div class="sd-grid">
+        {% include "admin/students/_field.html" with f=form.order_scope %}
+        {% include "admin/students/_field.html" with f=form.position %}
+      </div>
+      <h3>O‘xshash / aralash jamlanmalarga qo‘shish</h3>
+      <p class="sd-help">Kerakli jamlanmalarni belgilang. Qo‘ldagi tanlov avtomatik qayta guruhlashda yo‘qolmaydi. Eski urinishlar o‘z holida saqlanadi.</p>
+      <div class="qs-checks">{% for box in form.collections %}<label class="qs-check">{{ box.tag }}<span>{{ box.choice_label }}</span></label>{% empty %}<p>Hali jamlanma yo‘q. Quyida yangi aralash jamlanma yarating.</p>{% endfor %}</div>
+      {{ form.collections.errors }}
+      <div class="sd-grid">
+        {% include "admin/students/_field.html" with f=form.collection_position %}
+        {% include "admin/students/_field.html" with f=form.new_set_name %}
+        {% include "admin/students/_field.html" with f=form.new_set_name_ru %}
       </div>
     </section>
 

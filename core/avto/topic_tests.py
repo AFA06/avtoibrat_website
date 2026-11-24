@@ -10,6 +10,7 @@ from django.utils import timezone
 
 from .marathon import MINUTES_PER_QUESTION
 from .models import Question, TestSession, TopicGroup, UserAnswer
+from .question_placement import ordered_topic
 
 SOURCE = "mavzu"
 QUICK_SIZE = 20
@@ -17,7 +18,7 @@ MODES = ("quick", "all", "mistakes")
 
 
 def question_pool(topic):
-    return Question.objects.filter(Q(mavzu=topic) | Q(extra_topics=topic), kategoriya__aktiv=True, is_archived=False).distinct()
+    return Question.objects.filter(Q(mavzu=topic) | Q(extra_topics=topic), kategoriya__aktiv=True, is_archived=False, use_in_topics=True).distinct()
 
 
 def latest_results(user):
@@ -36,7 +37,7 @@ def page_groups(user):
     """The topic groups with their topics and the student's progress in each; empty groups are left out."""
     results = latest_results(user)
     by_topic = {}
-    live = Question.objects.filter(kategoriya__aktiv=True, is_archived=False)
+    live = Question.objects.filter(kategoriya__aktiv=True, is_archived=False, use_in_topics=True)
     pairs = list(live.filter(mavzu__isnull=False).values_list("id", "mavzu_id"))
     pairs += list(live.filter(extra_topics__isnull=False).values_list("id", "extra_topics"))
     for question_id, topic_id in pairs:
@@ -94,11 +95,12 @@ def summary(groups):
 
 
 def pick_question_ids(user, topic, mode):
-    ids = list(question_pool(topic).values_list("id", flat=True))
+    ids = list(ordered_topic(question_pool(topic), topic).values_list("id", flat=True))
     if mode == "mistakes":
         results = latest_results(user)
         ids = [qid for qid in ids if results.get(qid) is False]
-    random.shuffle(ids)
+    if mode == "quick":
+        random.shuffle(ids)
     return ids[:QUICK_SIZE] if mode == "quick" else ids
 
 

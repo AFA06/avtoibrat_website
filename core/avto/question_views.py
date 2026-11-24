@@ -19,10 +19,11 @@ from django.views.decorators.http import require_POST
 
 from PIL import Image
 
-from .models import Answer, Question, TestCategory, TestType, Topic, TopicGroup
+from .models import Answer, Question, TestCategory, TestType, Topic, TopicGroup, SimilarGroup
 from .admin_access import school_admin_required
 from .student_views import _page
 from .views import serve_audio
+from .question_placement import ordered, ordered_topic, place, assign_sets
 
 PAGE_SIZE = 25
 ANSWER_LIMIT = 8
@@ -30,7 +31,7 @@ BILET_QUESTION = re.compile(r"^(\d+)\s*[-–./]\s*(\d+)$")  # «10-12» = bilet 
 
 
 def _bilets():
-    return TestCategory.objects.annotate(total=Count("question")).order_by("tartib", "id")
+    return TestCategory.objects.annotate(total=Count("question", filter=Q(question__use_in_bilet=True, question__is_archived=False))).order_by("tartib", "id")
 
 
 def _topics():
@@ -47,7 +48,7 @@ def _topic_choices():
 
 def _with_numbers(questions):
     positions = {}
-    for question_id, bilet_id in Question.objects.order_by("kategoriya_id", "id").values_list("id", "kategoriya_id"):
+    for question_id, bilet_id in ordered(Question.objects.filter(use_in_bilet=True, is_archived=False)).values_list("id", "kategoriya_id"):
         positions.setdefault(bilet_id, []).append(question_id)
     place = {qid: n for ids in positions.values() for n, qid in enumerate(ids, start=1)}
     for question in questions:
@@ -62,12 +63,12 @@ def question_list(request):
     topic_id = request.GET.get("topic", "")
     picture = request.GET.get("picture", "")
 
-    questions = Question.objects.select_related("kategoriya", "mavzu").prefetch_related("extra_topics", "javoblar")
+    questions = Question.objects.select_related("kategoriya", "mavzu").prefetch_related("extra_topics", "javoblar", "similar_groups")
     if query:
         pair = BILET_QUESTION.match(query)
         if pair:
             bilet = TestCategory.objects.filter(nomi__iregex=rf"(^|\D){int(pair[1])}$").first()
-            ids = list(Question.objects.filter(kategoriya=bilet).order_by("id").values_list("id", flat=True)) if bilet else []
+            ids = list(ordered(Question.objects.filter(kategoriya=bilet, use_in_bilet=True, is_archived=False)).values_list("id", flat=True)) if bilet else []
             number = int(pair[2])
             questions = questions.filter(pk=ids[number - 1] if 0 < number <= len(ids) else 0)
         else:
@@ -83,8 +84,18 @@ def question_list(request):
     elif picture == "no":
         questions = questions.filter(Q(rasm="") | Q(rasm__isnull=True))
 
-    page = Paginator(questions.distinct().order_by("kategoriya__tartib", "kategoriya_id", "id"), PAGE_SIZE).get_page(request.GET.get("page"))
+    listing = ordered(questions.distinct())
+    if topic_id.isdigit():
+        listing = ordered_topic(questions.distinct(), topic_id)
+    else:
+        listing = listing.order_by("kategoriya__tartib", "kategoriya_id", "_placement_order", "pk")
+    page = Paginator(listing, PAGE_SIZE).get_page(request.GET.get("page"))
     _with_numbers(page.object_list)
+    if topic_id.isdigit():
+        ids = list(ordered_topic(Question.objects.filter(Q(mavzu_id=topic_id) | Q(extra_topics=topic_id), use_in_topics=True, is_archived=False).distinct(), topic_id).values_list("pk", flat=True))
+        positions = {pk: n for n, pk in enumerate(ids, 1)}
+        for item in page.object_list:
+            item.topic_number = positions.get(item.pk)
     _search_hits(page.object_list, query)
     return render(request, "admin/questions/list.html", _page(
         request, "Savollar", page=page, query=query, bilet_id=bilet_id, topic_id=topic_id, picture=picture,
@@ -149,10 +160,16 @@ class QuestionImageField(forms.ImageField):
 
 class QuestionForm(forms.ModelForm):
     rasm = QuestionImageField(label="Savol rasmi", required=False)
+    position = forms.IntegerField(label="Joylashuv raqami", min_value=1, required=False, help_text="12 va 13 orasiga qo‘shish uchun 13 yozing. Bo‘sh: yangi savol oxiriga, tahrirda avvalgi joyida qoladi.")
+    order_scope = forms.ChoiceField(label="Tartib qayerda?", choices=(("bilet", "Tanlangan bilet"), ("topic", "Asosiy mavzu")), required=False)
+    collections = forms.ModelMultipleChoiceField(label="O‘xshash / aralash jamlanmalar", queryset=SimilarGroup.objects.none(), required=False, widget=forms.CheckboxSelectMultiple)
+    collection_position = forms.IntegerField(label="Jamlanmadagi joylashuv raqami", min_value=1, required=False, help_text="Tanlangan har bir jamlanmaga shu raqamda kiritiladi. Bo‘sh: oxiriga; mavjud savol o‘z joyida qoladi.")
+    new_set_name = forms.CharField(label="Yangi aralash jamlanma nomi (ixtiyoriy)", max_length=200, required=False)
+    new_set_name_ru = forms.CharField(label="Yangi jamlanma nomi (ruscha, ixtiyoriy)", max_length=200, required=False)
 
     class Meta:
         model = Question
-        fields = ("kategoriya", "mavzu", "extra_topics", "matn_uzb", "matn_uz_kr", "matn_rus", "rasm", "audio_uzb")
+        fields = ("use_in_bilet", "use_in_topics", "use_in_mixed", "auto_similar", "kategoriya", "mavzu", "extra_topics", "matn_uzb", "matn_uz_kr", "matn_rus", "rasm", "audio_uzb")
         labels = {
             "kategoriya": "Bilet", "mavzu": "Asosiy mavzu", "extra_topics": "Qo‘shimcha mavzular",
             "matn_uzb": "Savol — o‘zbekcha (lotin)", "matn_uz_kr": "Савол — ўзбекча (кирилл)",
@@ -170,10 +187,23 @@ class QuestionForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
+        # Preserve old API callers; the new browser form sends an explicit marker.
+        if args and args[0] is not None and "placement_controls" not in args[0]:
+            data = args[0].copy()
+            instance = kwargs.get("instance")
+            if instance and instance.pk:
+                data.setlist("collections", list(instance.similar_groups.filter(aktiv=True, collection__in=("signs", "images", "answers", "mixed")).values_list("pk", flat=True)))
+            for key in ("use_in_bilet", "use_in_topics", "use_in_mixed", "auto_similar"):
+                if getattr(instance, key, True):
+                    data[key] = "on"
+            args = (data, *args[1:])
         super().__init__(*args, **kwargs)
+        self.fields["collections"].queryset = SimilarGroup.objects.filter(aktiv=True, collection__in=("signs", "images", "answers", "mixed"))
+        if self.instance.pk:
+            self.fields["collections"].initial = self.instance.similar_groups.filter(aktiv=True)
         self.fields["kategoriya"].queryset = TestCategory.objects.order_by("tartib", "id")
         self.fields["kategoriya"].empty_label = None
-        self.fields["mavzu"].required = True
+        self.fields["mavzu"].required = False
         self.fields["mavzu"].empty_label = "— mavzuni tanlang —"
         self.fields["mavzu"].choices = [("", "— mavzuni tanlang —")] + _topic_choices()
         self.fields["extra_topics"].queryset = _topics()
@@ -185,6 +215,33 @@ class QuestionForm(forms.ModelForm):
     def clean(self):
         data = super().clean()
         main = data.get("mavzu")
+        if data.get("use_in_topics") and not main:
+            self.add_error("mavzu", "Mavzulashtirilgan testlar uchun asosiy mavzuni tanlang.")
+        if not any(data.get(k) for k in ("use_in_bilet", "use_in_topics", "use_in_mixed", "auto_similar", "collections", "new_set_name")):
+            raise forms.ValidationError("Savol chiqadigan kamida bitta joyni tanlang.")
+        if data.get("position"):
+            scope = data.get("order_scope") or "bilet"
+            if scope == "topic" and (not main or not data.get("use_in_topics")):
+                self.add_error("position", "Mavzu tartibi uchun asosiy mavzu va mavzulashtirilgan testlarni tanlang.")
+            if scope == "bilet" and not data.get("use_in_bilet"):
+                self.add_error("position", "Bilet tartibi uchun «Bilet testlarida» ni tanlang.")
+        if data.get("position") and data.get("kategoriya"):
+            pool = Question.objects.exclude(pk=self.instance.pk).filter(is_archived=False)
+            if (data.get("order_scope") or "bilet") == "topic" and main:
+                pool = pool.filter(Q(mavzu=main) | Q(extra_topics=main), use_in_topics=True).distinct()
+            else:
+                pool = pool.filter(kategoriya=data["kategoriya"], use_in_bilet=True)
+            maximum = pool.count()+1
+            if data["position"] > maximum:
+                self.add_error("position", f"Joylashuv 1 dan {maximum} gacha bo‘lishi kerak.")
+        if data.get("collection_position"):
+            selected = data.get("collections")
+            if not selected and not data.get("new_set_name"):
+                self.add_error("collection_position", "Avval jamlanmani tanlang.")
+            for group in selected or []:
+                maximum = len([pk for pk in group.question_order if pk != self.instance.pk])+1
+                if data["collection_position"] > maximum:
+                    self.add_error("collection_position", f"{group.name()}: joylashuv 1–{maximum} oralig‘ida bo‘lishi kerak.")
         if main and main in data.get("extra_topics", []):
             data["extra_topics"] = [t for t in data["extra_topics"] if t != main]
         return data
@@ -247,9 +304,12 @@ def _save_answers(question, uz_rows, ru_rows):
 @school_admin_required
 def question_form(request, pk=None):
     question = get_object_or_404(Question.objects.prefetch_related("javoblar"), pk=pk) if pk else None
+    old_category = question.kategoriya_id if question else None
     initial = {}
     if not question:
-        initial = {k: request.GET[k] for k in ("kategoriya", "mavzu") if request.GET.get(k, "").isdigit()}
+        initial = {k: request.GET[k] for k in ("kategoriya", "mavzu", "position") if request.GET.get(k, "").isdigit()}
+    if request.GET.get("order_scope") in ("bilet", "topic"):
+        initial["order_scope"] = request.GET["order_scope"]
     form = QuestionForm(request.POST or None, request.FILES or None, instance=question, initial=initial)
 
     if request.method == "POST":
@@ -263,7 +323,15 @@ def question_form(request, pk=None):
             form.add_error(None, problem)
         if valid and not problems:
             with transaction.atomic():
+                list(TestCategory.objects.select_for_update().order_by("pk").values_list("pk", flat=True))
+                selected_sets = list(form.cleaned_data["collections"])
+                if SimilarGroup.objects.filter(pk__in=[g.pk for g in selected_sets], aktiv=True).count() != len(selected_sets):
+                    messages.error(request, "Jamlanma boshqa tahrirda o‘zgardi. Sahifani qayta ochib saqlang.")
+                    return redirect(request.path)
+                old_counts = {b.pk: (b.question_count, Question.objects.filter(kategoriya=b, use_in_bilet=True, is_archived=False).count()) for b in TestCategory.objects.filter(pk__in=[old_category, form.cleaned_data["kategoriya"].pk])}
                 saved = form.save(commit=False)
+                if old_category and old_category != saved.kategoriya_id:
+                    saved.placement_order = None
                 if request.POST.get("remove_picture") and not request.FILES.get("rasm"):
                     saved.rasm = None
                 if not saved.pk:
@@ -272,6 +340,13 @@ def question_form(request, pk=None):
                 saved.save()
                 form.save_m2m()
                 _save_answers(saved, uz_rows, ru_rows)
+                if question is None or form.cleaned_data["position"] is not None or old_category != saved.kategoriya_id:
+                    place(saved, form.cleaned_data["position"], form.cleaned_data.get("order_scope") or "bilet")
+                assign_sets(saved, selected_sets, form.cleaned_data["collection_position"], form.cleaned_data["new_set_name"], form.cleaned_data["new_set_name_ru"])
+                for bilet_id, (limit, previous) in old_counts.items():
+                    current = Question.objects.filter(kategoriya_id=bilet_id, use_in_bilet=True, is_archived=False).count()
+                    if limit == previous and current:
+                        TestCategory.objects.filter(pk=bilet_id).update(question_count=current)
             messages.success(request, "Savol saqlandi.")
             if request.POST.get("add_another"):
                 return redirect(f"{reverse('questions:create')}?kategoriya={saved.kategoriya_id}&mavzu={saved.mavzu_id}")
