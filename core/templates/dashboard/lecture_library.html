@@ -1,5 +1,5 @@
 {% extends "dashboard/base_panel.html" %}
-{% load static %}
+{% load static lecture_assets %}
 {% block title %}{{ copy.title }} · AvtoIbrat{% endblock %}
 {% block extra_css %}<link href="{% static 'dashboard/lectures.css' %}" rel="stylesheet">{% endblock %}
 {% block content %}
@@ -9,7 +9,7 @@
       <span class="notes-eyebrow"><i class="ti ti-notebook" aria-hidden="true"></i> {{ copy.eyebrow }}</span>
       <h1>{{ copy.title }}</h1>
       <p>{{ copy.intro }}</p>
-      <div class="notes-stats"><span><b>7</b> {{ copy.topics }}</span><span><b>{{ total_slides }}</b> {{ copy.slides }}</span><span><i class="ti ti-photo" aria-hidden="true"></i> {{ copy.examples }}</span></div>
+      <div class="notes-stats"><span><b>{{ topics|length }}</b> {{ copy.topics }}</span><span><b>{{ total_slides }}</b> {{ copy.slides }}</span><span><i class="ti ti-photo" aria-hidden="true"></i> {{ copy.examples }}</span></div>
     </div>
     <div class="notes-hero__visual" aria-hidden="true"><img src="{% static 'site/atlas/sign-2.1.webp' %}" alt=""><img src="{% static 'site/atlas/sign-2.4.webp' %}" alt=""><span>AvtoIbrat<br><strong>{{ copy.read }}</strong></span></div>
   </header>
@@ -21,7 +21,7 @@
       <a class="notes-topic notes-topic--{{ topic.slug }}" href="{% url 'lecture_reader' topic.slug %}" data-topic="{{ topic.slug }}">
         <div class="notes-topic__top"><span class="notes-topic__number">{{ topic.number|stringformat:'02d' }}</span><span>{{ topic.count }} {{ copy.slides }}</span></div>
         <h3>{{ topic.title }}</h3><p>{{ topic.description }}</p>
-        <div class="notes-topic__preview"><img src="{% static topic.preview %}" alt="" loading="lazy" width="320" height="180"></div>
+        <div class="notes-topic__preview"><img src="{{ topic.preview|lecture_url }}" alt="" loading="lazy" width="320" height="180"></div>
         <div class="notes-topic__foot"><span>{{ copy.open }}</span><span class="notes-topic__progress" data-progress="{{ topic.slug }}"></span><i class="ti ti-book" aria-hidden="true"></i></div>
       </a>
     {% endfor %}

@@ -18,20 +18,42 @@
     window.avtoNotesCleanup = null;
   };
   on(document, "pjax:load", () => { if (!root.isConnected && window.avtoNotesCleanup) window.avtoNotesCleanup(); });
+  const revisions = library ? JSON.parse(document.getElementById("notes-catalog").textContent) : [JSON.parse(document.getElementById("notes-deck").textContent)];
   const key = slug => `avtoibrat.notes.v1:${root.dataset.scope}:${slug}`;
   function read(slug, count, first = 1) {
     let value;
     try { value = JSON.parse(localStorage.getItem(key(slug)) || "{}"); } catch (_) { /* Storage may be unavailable. */ }
     value = value && typeof value === "object" ? value : {};
+    const topic = revisions.find(t => t.slug === slug);
+    const current = topic?.slides || [];
+    const position = id => current.findIndex(slide => slide.id === id) + 1;
+    // Upgrade ordinal bookmarks on first use; subsequent edits follow stable IDs.
+    if (Array.isArray(value.savedIds)) {
+      value.saved = value.savedIds.map(position).filter(Boolean);
+      value.seen = (Array.isArray(value.seenIds) ? value.seenIds : []).map(position).filter(Boolean);
+      value.page = position(value.pageId) || first;
+      value.absentSaved = value.savedIds.filter(id => !position(id));
+      value.absentSeen = (Array.isArray(value.seenIds) ? value.seenIds : []).filter(id => !position(id));
+    } else if ((topic?.revision || 1) > 1) {
+      value = {};
+    }
     const valid = n => Number.isInteger(n) && n > 0 && n <= count;
     return {
       page: valid(value.page) ? value.page : first,
       seen: Array.isArray(value.seen) ? [...new Set(value.seen.filter(valid))] : [],
       saved: Array.isArray(value.saved) ? [...new Set(value.saved.filter(valid))] : [],
       updated: Number.isFinite(value.updated) ? value.updated : 0,
+      absentSaved: Array.isArray(value.absentSaved) ? value.absentSaved.filter(Number.isInteger) : [], absentSeen: Array.isArray(value.absentSeen) ? value.absentSeen.filter(Number.isInteger) : [],
     };
   }
-  function write(slug, value) { try { localStorage.setItem(key(slug), JSON.stringify(value)); } catch (_) { /* Reading still works without storage. */ } }
+  function write(slug, value) {
+    const slides = revisions.find(t => t.slug === slug)?.slides || [];
+    const ids = numbers => numbers.map(n => slides[n - 1]?.id).filter(Number.isInteger);
+    const stored = { ...value, pageId: slides[value.page - 1]?.id,
+      savedIds: [...new Set([...value.absentSaved, ...ids(value.saved)])],
+      seenIds: [...new Set([...value.absentSeen, ...ids(value.seen)])] };
+    try { localStorage.setItem(key(slug), JSON.stringify(stored)); } catch (_) { /* Storage is optional. */ }
+  }
   const translit = { а:"a",б:"b",в:"v",г:"g",д:"d",е:"e",ё:"yo",ж:"j",з:"z",и:"i",й:"y",к:"k",л:"l",м:"m",н:"n",о:"o",п:"p",р:"r",с:"s",т:"t",у:"u",ф:"f",х:"x",ц:"ts",ч:"ch",ш:"sh",щ:"sh",ъ:"",ы:"i",ь:"",э:"e",ю:"yu",я:"ya",ў:"o",қ:"q",ғ:"g",ҳ:"h" };
   const fold = value => value.toLowerCase().normalize("NFKC").replace(/[а-яёўқғҳ]/g, c => translit[c] ?? c).replace(/[‘’ʻʼ'`ʹ]/g, "").replace(/\s+/g, " ").trim();
   const matches = (value, words) => words.every(word => value.includes(word));

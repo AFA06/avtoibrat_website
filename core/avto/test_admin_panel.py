@@ -22,10 +22,10 @@ class AdminPanelTests(TestCase):
         self.assertNotIn("nav-header", sidebar)
         return re.findall(r'<a href="([^"]+)" class="nav-link', sidebar)
 
-    def test_admin_has_only_the_ten_school_sections_on_every_list_page(self):
+    def test_admin_has_only_the_school_sections_on_every_list_page(self):
         sections = (
             "admin:index", "students:list", "groups:list", "express:list", "assignments:list",
-            "questions:list", "signs:list", "monitoring:overview", "teachers:list", "admin_leaderboard",
+            "questions:list", "lectures:list", "signs:list", "monitoring:overview", "teachers:list", "admin_leaderboard",
         )
         expected = [reverse(name) for name in sections]
         for url in expected:
@@ -41,7 +41,7 @@ class AdminPanelTests(TestCase):
         for url in expected:
             with self.subTest(url=url):
                 self.assertEqual(self.sidebar_links(self.client.get(url)), expected)
-        for name in ("express:list", "questions:list", "signs:list"):
+        for name in ("express:list", "questions:list", "signs:list", "lectures:list"):
             self.assertEqual(self.client.get(reverse(name)).status_code, 403)
 
     def test_retired_pages_cannot_be_opened_or_used_to_delete_data(self):

@@ -9,7 +9,7 @@ from django.utils import translation
 from .lectures import COPY, SLUGS, load_decks, topics_for
 
 
-class LectureAssetTests(SimpleTestCase):
+class LectureAssetTests(TestCase):
     def test_all_source_pages_have_real_web_assets(self):
         for lang, counts in (("uz", [93, 29, 110, 55, 145, 12, 80]), ("ru", [93, 29, 110, 55, 145, 13, 80])):
             decks = load_decks(lang)

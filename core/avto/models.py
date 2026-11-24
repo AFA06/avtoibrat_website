@@ -1136,3 +1136,6 @@ class AssignmentCompletion(models.Model):
 
     class Meta:
         constraints = [models.UniqueConstraint(fields=("assignment", "user", "item_key"), name="unique_assignment_completion")]
+
+# Imported here so Django discovers lecture models alongside the existing models.
+from .lecture_models import LectureTopic, LecturePage, LectureUpload  # noqa: E402,F401

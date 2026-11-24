@@ -24,13 +24,17 @@ from avto.group_views import leaderboard as admin_leaderboard
 from avto.views import admin_login, set_site_language
 
 
+from avto.lecture_views import lecture_asset
+
 urlpatterns = [
+    path("lecture-assets/<str:name>/", lecture_asset, name="lecture_asset"),
     path('i18n/setlang/', set_site_language, name='set_language'),
     path('admin/students/', include('avto.student_urls')),
     path('admin/monitoring/', include('avto.monitoring_urls')),
     path('admin/teachers/', include('avto.teacher_urls')),
     path('admin/express/', include('avto.express_urls')),
     path('admin/assignments/', include('avto.assignment_urls')),
+    path('admin/lectures/', include('avto.lecture_admin_urls')),
     path('admin/road-signs/', include('avto.road_sign_urls')),
     path('admin/questions/', include('avto.question_urls')),
     path('admin/groups/', include('avto.group_urls')),

@@ -41,10 +41,28 @@ def load_decks(code):
     return json.loads((Path(__file__).parent / "data" / "lectures" / f"{source}.json").read_text())
 
 
+def asset_url(name):
+    from .lecture_storage import LectureStorage
+    from django.templatetags.static import static
+    return LectureStorage().url(name[6:]) if name.startswith("media:") else static(name)
+
+
 def topics_for(code):
+    from django.db.models import Prefetch
+    from .lecture_models import LectureTopic, LecturePage
     code = language(code)
+    lang = "ru" if code == "ru" else "uz"
+    pages = LecturePage.objects.filter(language=lang, published=True, deleted=False)
     topics = []
-    for deck in load_decks("ru" if code == "ru" else "uz"):
-        i = deck["number"] - 1
-        topics.append({**deck, "title": TITLES[code][i], "description": DESCRIPTIONS[code][i], "count": len(deck["slides"]), "examples": sum(s["kind"] == "example" for s in deck["slides"]), "start_page": 3 if code == "ru" and deck["slug"] == "service" else 2, "preview": deck["slides"][2 if code == "ru" and deck["slug"] == "service" else 1]["thumbnail"]})
+    for topic in LectureTopic.objects.filter(published=True, deleted=False).prefetch_related(Prefetch("pages", queryset=pages, to_attr="visible_pages")):
+        visible = [p for p in topic.visible_pages if p.image_name]
+        if not visible or (lang == "ru" and not topic.title_ru):
+            continue
+        slides = [{"id": p.pk, "number": n, "title": p.title, "paragraphs": [line.strip() for line in p.text.splitlines() if line.strip()], "kind": p.kind, "image": p.image_name, "thumbnail": p.thumbnail_name, "video": p.video_name} for n, p in enumerate(visible, 1)]
+        suffix = {"ru": "_ru", "uz-kr": "_kr"}.get(code, "")
+        start = next((n for n, page in enumerate(visible, 1) if not page.is_cover), 1)
+        topics.append({"slug": topic.slug, "number": len(topics)+1, "title": getattr(topic, "title"+suffix) or topic.title,
+                       "description": getattr(topic, "description"+suffix) or topic.description,
+                       "slides": slides, "count": len(slides), "examples": sum(s["kind"] == "example" for s in slides),
+                       "source": next((d["source"] for d in load_decks(lang) if d["slug"] == topic.slug), ""), "ratio": 1.77778, "start_page": start, "preview": slides[start-1]["thumbnail"], "revision": topic.revision})
     return topics
