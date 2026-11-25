@@ -46,6 +46,10 @@ def validate_video_file(video):
 
 
 class TeamMember(models.Model):
+    role = models.CharField(
+        max_length=12, choices=(("teacher", "O‘qituvchi"), ("instructor", "Instruktor")),
+        default="instructor",
+    )
     full_name = models.CharField(max_length=150)
     position = models.CharField(max_length=255)
     image = models.ImageField(
@@ -203,6 +207,25 @@ class Testimonial(models.Model):
     image = models.ImageField(upload_to="testimonials/")
     rating = models.PositiveSmallIntegerField(default=5)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.full_name
+
+
+class GraduateAchievement(models.Model):
+    """Public, school-approved graduate stories; never expose student account data."""
+    full_name = models.CharField("Ism va familiya", max_length=150)
+    image = models.ImageField("Bitiruvchi rasmi", upload_to="graduates/")
+    category = models.CharField("Toifa", max_length=10)
+    achievement = models.CharField("Yutuq", max_length=180)
+    graduated_on = models.DateField("Bitirgan sana")
+    is_published = models.BooleanField("Saytda ko‘rsatish (bitiruvchi roziligi bilan)", default=False)
+    order = models.PositiveIntegerField("Tartib", default=0)
+
+    class Meta:
+        ordering = ["order", "-graduated_on", "-pk"]
+        verbose_name = "Bitiruvchi yutug‘i"
+        verbose_name_plural = "Bitiruvchilar yutuqlari"
 
     def __str__(self):
         return self.full_name

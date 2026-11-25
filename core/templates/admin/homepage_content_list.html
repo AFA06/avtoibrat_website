@@ -1,0 +1,10 @@
+{% extends "admin/change_list.html" %}
+{% block content %}
+<nav class="mb-4 d-flex flex-wrap" aria-label="Sayt kontenti" style="gap:12px">
+  {% if perms.avto.view_graduateachievement %}<a class="btn btn-outline-secondary" href="{% url 'admin:avto_graduateachievement_changelist' %}">Bitiruvchilar yutuqlari</a>{% endif %}
+  {% if perms.avto.view_teammember %}<a class="btn btn-outline-secondary" href="{% url 'admin:avto_teammember_changelist' %}">O‘qituvchilar va instruktorlar</a>{% endif %}
+  {% if perms.avto.view_testimonial %}<a class="btn btn-outline-secondary" href="{% url 'admin:avto_testimonial_changelist' %}">O‘quvchilar fikri</a>{% endif %}
+  <a class="btn btn-outline-secondary" href="{% url 'home' %}#graduates">Saytni ko‘rish</a>
+</nav>
+{{ block.super }}
+{% endblock %}

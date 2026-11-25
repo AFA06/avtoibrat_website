@@ -1,0 +1,13 @@
+{% load i18n %}
+<section class="graduate-section" id="graduates" aria-labelledby="graduates-title">
+  <div class="wrap">
+    <div class="chapter">{% trans "Yutuqlar devori" %}</div>
+    <div class="community-heading"><h2 id="graduates-title">{% trans "Kecha o‘quvchi." %}<br><em>{% trans "Bugun haydovchi." %}</em></h2><p>{% trans "Har bir bitiruvchining ortida mehnat, mashq va o‘ziga bo‘lgan ishonch bor. Bu yer — ularning yutuqlari uchun." %}</p></div>
+    {% if graduates %}
+    <div class="graduate-grid">{% for graduate in graduates %}<article class="graduate-card"><div class="graduate-portrait"><img src="{{ graduate.image.url }}" alt="{{ graduate.full_name }}" width="480" height="480" loading="lazy"><span class="graduate-category">{{ graduate.category }} · {% trans "toifa" %}</span></div><div class="graduate-details"><span class="graduate-date">{{ graduate.graduated_on|date:"m.Y" }}</span><h3>{{ graduate.full_name }}</h3><p><i class="ti ti-award" aria-hidden="true"></i>{{ graduate.achievement }}</p></div></article>{% endfor %}</div>
+    {% else %}
+    <div class="graduate-invite"><div class="achievement-emblem" aria-hidden="true"><div class="emblem-ring"><i class="ti ti-steering-wheel"></i></div><span>AVTOIBRAT</span><b>{% trans "Bilim. Amaliyot. Ishonch." %}</b></div><div><span class="faculty-label">{% trans "Keyingi yutuq — sizniki" %}</span><h3>{% trans "Bu devorda sizning ham hikoyangiz bo‘lsin." %}</h3><p>{% trans "Bitiruvchilarimizning suratlari va sertifikat yutuqlari shu yerda e’lon qilinadi. O‘z yo‘lingizni bugun boshlang." %}</p><a class="btn primary" href="#apply">{% trans "Birinchi qadamni qo‘yish" %}</a></div></div>
+    {% endif %}
+    <div class="graduate-footer"><i class="ti ti-certificate" aria-hidden="true"></i><p>{% trans "Sertifikat — bosib o‘tilgan yo‘l belgisi. Haqiqiy yutuq — xavfsiz va ishonchli haydash." %}</p></div>
+  </div>
+</section>

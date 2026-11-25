@@ -1,24 +1,6 @@
 (() => {
   const all = (selector, root = document) => [...root.querySelectorAll(selector)];
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
-  const courseLinks = all('.class-picker a');
-  function chooseCourse(link) {
-    courseLinks.forEach(item => {
-      const panel = document.getElementById(item.hash.slice(1));
-      panel.hidden = item !== link;
-      if (item === link) item.setAttribute('aria-current', 'true');
-      else item.removeAttribute('aria-current');
-      if (!panel.hidden && !reduced.matches) {
-        panel.animate([{clipPath:'inset(0 4% 0 0)', opacity:.75}, {clipPath:'inset(0)', opacity:1}], {duration:320});
-      }
-    });
-  }
-  courseLinks.forEach(link => link.addEventListener('click', event => {
-    event.preventDefault();
-    chooseCourse(link);
-  }));
-  if (courseLinks.length) chooseCourse(courseLinks.find(link => link.hash === location.hash) || courseLinks[0]);
-
   const quiz = document.querySelector('.quiz');
   const answers = all('[data-sign]', quiz);
   const sequence = ['2.1', '2.4', '2.2'];

@@ -1,7 +1,33 @@
 {% load i18n static avto_extras %}
-{% if courses %}<section class="spread wrap" id="courses"><h2>{% trans "Toifalar va narxlar" %}</h2>
-{% if school.is_demo %}<small class="sample">{% trans "namuna" %}</small>{% endif %}
-<nav class="class-picker" aria-label="{% trans 'Kurslar' %}">{% for course in courses %}<a href="#class-{{ course.category }}">{{ course.category }}</a>{% endfor %}</nav>
-{% for course in courses %}<article class="class-stage" id="class-{{ course.category }}">
-<div class="vehicle-shot">{% if course.category == 'BC' %}<img src="{% static 'site/atlas/sedan.webp' %}" loading="lazy" alt="">{% endif %}<img loading="lazy" src="{% if course.category == 'A' %}{% static 'site/atlas/bike.webp' %}{% elif course.category == 'B' %}{% static 'site/atlas/sedan.webp' %}{% else %}{% static 'site/atlas/truck.webp' %}{% endif %}" alt=""><b>{{ course.category }}</b></div>
-<div class="class-details"><small>{{ course.l_duration }}</small><h3>{{ course.l_title }}</h3><ul>{% for feature in course.feature_list %}<li>{{ feature }}</li>{% endfor %}</ul><p><strong>{{ course.price|som }}</strong> {% trans "so‘m" %}</p><a class="btn btn--ink" href="#apply" data-category="{{ course.category }}">{% trans "Yozilish" %}</a></div></article>{% endfor %}</section>{% endif %}
+{% if courses %}
+<link rel="stylesheet" href="{% static 'site/universe/universe.css' %}">
+<section class="driving-universe" id="courses" aria-labelledby="universe-title" data-assets="{% static 'site/universe/' %}">
+  <div class="universe-sticky">
+    <div class="universe-canvas" aria-hidden="true"></div>
+    <div class="universe-vignette" aria-hidden="true"></div>
+    <header class="universe-header">
+      <div><p class="universe-kicker">AVTOIBRAT <span>/</span> THE DRIVING UNIVERSE</p><h2 id="universe-title">{% trans "Toifalar va narxlar" %}</h2></div>
+      <span class="universe-coordinate" aria-hidden="true">TASHKENT<br>41°18′ N · 69°16′ E</span>
+    </header>
+    <nav class="universe-selector" aria-label="{% trans 'Kurslar' %}">
+      {% for course in courses %}<a href="#universe-{{ course.category }}" data-world="{{ course.category }}" aria-controls="universe-{{ course.category }}"{% if forloop.first %} aria-current="true"{% endif %}><span class="universe-selector__orbit" aria-hidden="true"></span><b>{{ course.category }}</b><small>{{ course.l_title }}</small></a>{% endfor %}
+    </nav>
+    <div class="universe-copy" aria-live="polite" aria-atomic="true">
+      {% for course in courses %}
+      <article id="universe-{{ course.category }}" class="universe-course" data-course="{{ course.category }}"{% if not forloop.first %} hidden{% endif %}>
+        <span class="universe-machine">{% if course.category == 'B' %}CHEVROLET MALIBU II{% elif course.category == 'A' %}DUCATI PANIGALE V4{% elif course.category == 'BC' %}MALIBU II × ISUZU ELF{% else %}ISUZU ELF{% endif %}</span>
+        <h3>{{ course.l_title }}</h3>
+        <div class="universe-course__details"><span class="universe-duration">{{ course.l_duration }}</span><ul>{% for feature in course.feature_list %}<li>{{ feature }}</li>{% endfor %}</ul></div>
+        <div class="universe-enroll"><p><strong>{{ course.price|som }}</strong> <span>{% trans "so‘m" %}</span></p><a href="#apply" data-category="{{ course.category }}">{% trans "Yozilish" %}<i class="ti ti-plus" aria-hidden="true"></i></a></div>
+      </article>
+      {% endfor %}
+    </div>
+    <div class="universe-footer"><span class="universe-model-note">{% if school.is_demo %}{% trans "namuna" %} · {% endif %}{% trans "Transport tasvirlari — illyustratsiya" %}</span><span class="universe-load" role="status">{% trans "Sahna yuklanmoqda" %}</span><button class="universe-motion" type="button" aria-pressed="false" aria-label="{% trans 'Animatsiyani to‘xtatish' %}"><i class="ti ti-player-pause" aria-hidden="true"></i></button></div>
+  <details class="universe-credits"><summary>{% trans "3D manbalar" %}</summary><p>Malibu: <a href="https://sketchfab.com/3d-models/fc07e847ec6c4dbaa02d53e1110a6dd7" target="_blank" rel="noopener">Ddiaz Design</a> · Isuzu Elf: <a href="https://sketchfab.com/3d-models/070bc8b65a224ca89a03bb6d67e22edc" target="_blank" rel="noopener">Romanov_13</a> · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a> (relit, resized; Isuzu: multi-angle renders). Motorcycle: <a href="https://sketchfab.com/3d-models/47f87e3d70f644289e34cbff91255d0c" target="_blank" rel="noopener">ROY</a> · CC BY 4.0 (multi-angle renders).</p></details>
+    <div class="universe-scroll-track" aria-hidden="true"><span></span></div>
+  </div>
+
+<noscript><style>.universe-sticky{height:auto;min-height:0;padding:200px 6vw 70px}.universe-copy{position:relative;inset:auto;width:auto}.universe-course[hidden]{display:block!important}.universe-course{margin-top:50px}.universe-selector{display:none}.universe-load,.universe-motion{display:none}</style></noscript>
+</section>
+<script type="module" src="{% static 'site/universe/universe.js' %}"></script>
+{% endif %}

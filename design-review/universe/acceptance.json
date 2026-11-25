@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "errors": [],
+  "checks": [
+    "camera transitions",
+    "scroll entrance",
+    "all mobile categories",
+    "no horizontal overflow",
+    "enrollment selection and POST",
+    "reduced motion",
+    "Russian translation"
+  ]
+}

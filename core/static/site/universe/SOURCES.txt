@@ -1,0 +1,27 @@
+THE DRIVING UNIVERSE — vehicle and renderer credits
+
+Chevrolet Malibu II / 2016 Chevrolet Malibu 2.0 T Premier
+Author: Ddiaz Design, https://sketchfab.com/ddiaz-design
+Original: https://sketchfab.com/3d-models/fc07e847ec6c4dbaa02d53e1110a6dd7
+License: Creative Commons Attribution 4.0, https://creativecommons.org/licenses/by/4.0/
+Public GLB distribution: https://gameuzb.uz/models/2016_chevrolet_malibu_2_0_t_premier.glb
+Changes: normalized to 4.92 m; studio lighting, glass adjustments, instance layout.
+
+Ducati Panigale V4
+Author: ROY, https://sketchfab.com/roy.3dartist
+Original: https://sketchfab.com/3d-models/47f87e3d70f644289e34cbff91255d0c
+License: Creative Commons Attribution 4.0, https://creativecommons.org/licenses/by/4.0/
+Technique: 24 transparent multi-angle renders made with the public Sketchfab Viewer API.
+Changes: camera angles, transparent crop, WEBP compression and perspective compositing.
+
+Isuzu Elf series
+Author: Romanov_13, https://sketchfab.com/Romanov13
+Original: https://sketchfab.com/3d-models/070bc8b65a224ca89a03bb6d67e22edc
+License: Creative Commons Attribution 4.0, https://creativecommons.org/licenses/by/4.0/
+Technique: 24 transparent multi-angle renders made with the public Sketchfab Viewer API.
+The publisher requires sign-in for mesh download, so the restricted mesh was not extracted.
+Changes: camera angles, transparent crop, WEBP compression and perspective compositing.
+These are renders of the credited model, not primitive approximations or a substitute vehicle.
+
+Three.js 0.180.0 and bundled examples: MIT (see THREE-LICENSE.txt).
+Draco decoder: Apache License 2.0 (see DRACO-LICENSE.txt).

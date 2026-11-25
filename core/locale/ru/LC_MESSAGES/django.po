@@ -2843,3 +2843,239 @@ msgstr "Конспекты уроков"
 
 msgid "O‘qituvchi tanlagan aralash savollar jamlanmasi."
 msgstr "Сборник смешанных вопросов, выбранных преподавателем."
+
+#: templates/site/atlas/
+msgid "Amaliyot · Instruktorlar"
+msgstr "Практика · Инструкторы"
+
+#: templates/site/atlas/
+msgid "Avtomobilni his qilish va boshqarish"
+msgstr "Чувство автомобиля и управление"
+
+#: templates/site/atlas/
+msgid "Avval tushunamiz. Keyin qo‘llaymiz."
+msgstr "Сначала понимаем. Затем применяем."
+
+#: templates/site/atlas/
+msgid "Bilim. Amaliyot. Ishonch."
+msgstr "Знания. Практика. Уверенность."
+
+#: templates/site/atlas/
+msgid "Birinchi darsdan"
+msgstr "От первого урока"
+
+#: templates/site/atlas/
+msgid "Birinchi marta rulga o‘tirish hayajonli. Instruktor bilan oddiy harakatlardan murakkab yo‘l vaziyatlarigacha bosqichma-bosqich o‘rganing."
+msgstr "Первый раз за рулём волнителен. С инструктором шаг за шагом переходите от простых действий к сложным дорожным ситуациям."
+
+#: templates/site/atlas/
+msgid "Birinchi qadamni qo‘yish"
+msgstr "Сделать первый шаг"
+
+#: templates/site/atlas/
+msgid "Bitiruvchilarimizning suratlari va sertifikat yutuqlari shu yerda e’lon qilinadi. O‘z yo‘lingizni bugun boshlang."
+msgstr "Здесь появятся фотографии и достижения наших выпускников. Начните свой путь сегодня."
+
+#: templates/site/atlas/
+msgid "Biz bilan o‘rganing"
+msgstr "Учитесь с нами"
+
+#: templates/site/atlas/
+msgid "Bizda o‘qiganmisiz? Darslar haqidagi fikringizni jamoamizga yuboring. Birinchi tavsiyangiz kimningdir birinchi qadamiga aylansin."
+msgstr "Учились у нас? Поделитесь впечатлениями с нашей командой. Ваш отзыв поможет кому-то сделать первый шаг."
+
+#: templates/site/atlas/
+msgid "Bu devorda sizning ham hikoyangiz bo‘lsin."
+msgstr "Пусть здесь появится и ваша история."
+
+#: templates/site/atlas/
+msgid "Bugun haydovchi."
+msgstr "Сегодня водитель."
+
+#: templates/site/atlas/
+msgid "Darslar, instruktorlar va ilk mustaqil haydash. O‘quvchilarimizning o‘z so‘zlari bilan."
+msgstr "Занятия, инструкторы и первое самостоятельное вождение. Словами наших учеников."
+
+#: templates/site/atlas/
+msgid "Eng yaxshi tavsiya —"
+msgstr "Лучшая рекомендация —"
+
+#: templates/site/atlas/
+msgid "Fikr bildirish"
+msgstr "Оставить отзыв"
+
+#: templates/site/atlas/
+msgid "Guvohnoma oling"
+msgstr "Получите права"
+
+#: templates/site/atlas/
+msgid "Har bir bitiruvchining ortida mehnat, mashq va o‘ziga bo‘lgan ishonch bor. Bu yer — ularning yutuqlari uchun."
+msgstr "За каждым выпускником — труд, практика и вера в себя. Это место для их достижений."
+
+#: templates/site/atlas/
+msgid "Hayotiy vaziyatlar bilan tushuntirish"
+msgstr "Объяснения на примерах из жизни"
+
+#: templates/site/atlas/
+msgid "Instruktor"
+msgstr "Инструктор"
+
+#: templates/site/atlas/
+msgid "Instruktor bilan boshqaruv, parkovka va yo‘ldagi vaziyatlarni mashq qiling."
+msgstr "Отрабатывайте управление, парковку и дорожные ситуации с инструктором."
+
+#: templates/site/atlas/
+msgid "Instruktorlar bilan tanishing"
+msgstr "Познакомьтесь с инструкторами"
+
+#: templates/site/atlas/
+msgid "Jamoa bilan tanishing"
+msgstr "Познакомьтесь с командой"
+
+#: templates/site/atlas/
+msgid "Kecha o‘quvchi."
+msgstr "Вчера ученик."
+
+#: templates/site/atlas/
+msgid "Keling, tanishamiz"
+msgstr "Давайте познакомимся"
+
+#: templates/site/atlas/
+msgid "Keyingi yutuq — sizniki"
+msgstr "Следующее достижение — ваше"
+
+#: templates/site/atlas/
+msgid "Kursni tugatish va haydovchilik guvohnomasini olish — alohida bosqichlar. Talablar tanlangan toifaga bog‘liq."
+msgstr "Окончание курса и получение прав — отдельные этапы. Требования зависят от категории."
+
+#: templates/site/atlas/
+msgid "Kursni yakunlang"
+msgstr "Завершите курс"
+
+#: templates/site/atlas/
+msgid "Maslahat oling. Sizga mos toifa va dars jadvalini birga tanlaymiz."
+msgstr "Получите консультацию. Вместе выберем подходящую категорию и расписание."
+
+#: templates/site/atlas/
+msgid "Maslahat olish"
+msgstr "Получить консультацию"
+
+#: templates/site/atlas/
+msgid "Nazariya · O‘qituvchilar"
+msgstr "Теория · Преподаватели"
+
+#: templates/site/atlas/
+msgid "Nazariyani o‘rganing"
+msgstr "Изучите теорию"
+
+#: templates/site/atlas/
+msgid "Onlayn testlar bilan mustahkamlash"
+msgstr "Закрепление знаний онлайн-тестами"
+
+#: templates/site/atlas/
+msgid "O‘quv dasturi va yakuniy baholashni tugating. Kurs hujjatlari bo‘yicha ma’lumot oling."
+msgstr "Пройдите программу и итоговую оценку. Узнайте об оформлении документов курса."
+
+#: templates/site/atlas/
+msgid "O‘quvchilar fikri"
+msgstr "Отзывы учеников"
+
+#: templates/site/atlas/
+msgid "Parkovka va manevrlar"
+msgstr "Парковка и манёвры"
+
+#: templates/site/atlas/
+msgid "Qayerdan boshlashni biling. Har bir bosqichda bilim, amaliyot va keyingi qadam aniq."
+msgstr "Знайте, с чего начать. На каждом этапе понятны знания, практика и следующий шаг."
+
+#: templates/site/atlas/
+msgid "Qoida ortidagi mantiqni anglang. Belgilar, chorrahalar va murakkab vaziyatlarni darsda birga tahlil qilamiz."
+msgstr "Поймите логику правил. Вместе разбираем знаки, перекрёстки и сложные ситуации на занятиях."
+
+#: templates/site/atlas/
+msgid "Rasmiy tartib"
+msgstr "Официальный порядок"
+
+#: templates/site/atlas/
+msgid "Rulga o‘tiring"
+msgstr "Садитесь за руль"
+
+#: templates/site/atlas/
+msgid "Savollar va xatolar ustida ishlash"
+msgstr "Разбор вопросов и ошибок"
+
+#: templates/site/atlas/
+msgid "Sertifikat — bosib o‘tilgan yo‘l belgisi. Haqiqiy yutuq — xavfsiz va ishonchli haydash."
+msgstr "Сертификат отмечает пройденный путь. Настоящее достижение — безопасное и уверенное вождение."
+
+#: templates/site/atlas/
+msgid "Shaharda xavfsiz harakatlanish"
+msgstr "Безопасное движение в городе"
+
+#: templates/site/atlas/
+msgid "Sizning hikoyangiz nimadan boshlanadi?"
+msgstr "С чего начнётся ваша история?"
+
+#: templates/site/atlas/
+msgid "Sizning tajribangiz biz uchun muhim."
+msgstr "Ваш опыт важен для нас."
+
+#: templates/site/atlas/
+msgid "Sizning yo‘lingiz"
+msgstr "Ваш путь"
+
+#: templates/site/atlas/
+msgid "Tanishing"
+msgstr "Познакомьтесь"
+
+#: templates/site/atlas/
+msgid "Vakolatli markazda nazariy va amaliy imtihonlardan o‘tib, guvohnomani rasmiylashtiring."
+msgstr "Сдайте теоретический и практический экзамены в уполномоченном центре и оформите права."
+
+#: templates/site/atlas/
+msgid "Yodlashdan"
+msgstr "От заучивания"
+
+#: templates/site/atlas/
+msgid "Yoningizda instruktor. Rulda esa siz."
+msgstr "Инструктор рядом. За рулём — вы."
+
+#: templates/site/atlas/
+msgid "Yo‘l qoidalarini tushuning, belgilarni o‘rganing va testlarda mashq qiling."
+msgstr "Разберитесь в правилах, изучите знаки и практикуйтесь в тестах."
+
+#: templates/site/atlas/
+msgid "Yutuqlar devori"
+msgstr "Стена достижений"
+
+#: templates/site/atlas/
+msgid "ochiq yo‘llargacha."
+msgstr "к открытым дорогам."
+
+#: templates/site/atlas/
+msgid "o‘z tajribasi."
+msgstr "личный опыт."
+
+#: templates/site/atlas/
+msgid "toifa"
+msgstr "категория"
+
+#: templates/site/atlas/
+msgid "tushunishga."
+msgstr "к пониманию."
+
+#: templates/site/atlas/courses.html
+msgid "Transport tasvirlari — illyustratsiya"
+msgstr "Транспорт показан для иллюстрации"
+
+#: templates/site/atlas/courses.html
+msgid "Sahna yuklanmoqda"
+msgstr "Сцена загружается"
+
+#: templates/site/atlas/courses.html
+msgid "Animatsiyani to‘xtatish"
+msgstr "Приостановить анимацию"
+
+#: templates/site/atlas/courses.html
+msgid "3D manbalar"
+msgstr "Источники 3D"

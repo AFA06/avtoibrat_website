@@ -28,7 +28,7 @@ from .leaderboard import PERIODS, build as build_leaderboard
 from .animation_scenarios import scenario_for
 from . import real_exam
 from .models import (
-    TeamMember, Testimonial, FAQ, SchoolProfile, Course,
+    TeamMember, Testimonial, GraduateAchievement, FAQ, SchoolProfile, Course,
     ContactMessage, PdfMaterial, RoadSignCategory, RoadSign,
     ContactPerson, TestSession, Question, TestCategory,
     Answer, UserAnswer, SavedQuestion, UserDevice, StatisticsReset, Topic, SimilarGroup, get_device_id, normalize_phone,
@@ -126,8 +126,10 @@ def index(request):
         "school": SchoolProfile.current(),
         "courses": courses,
         "taught": {course.category for course in courses},
-        "team_members": TeamMember.objects.all()[:4],
-        "testimonials": Testimonial.objects.all()[:3],
+        "teachers": TeamMember.objects.filter(role="teacher").order_by("pk")[:4],
+        "instructors": TeamMember.objects.filter(role="instructor").order_by("pk")[:4],
+        "testimonials": Testimonial.objects.order_by("-created_at", "-pk")[:6],
+        "graduates": GraduateAchievement.objects.filter(is_published=True)[:6],
         "faqs": FAQ.objects.filter(is_active=True)[:5],
         "form_errors": form_errors,
         "form_values": form_values,

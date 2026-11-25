@@ -1,15 +1,34 @@
-"""Supporting forms linked from Guruhlar and Savollar.
-
-The main admin sections use their own views. Keep only the branch/topic helpers
-those forms need; public-site content and exam records have no model-admin UI.
-Their models and stored data remain available to the public site and students.
-"""
+"""Supporting school forms and public homepage content management."""
 from django.contrib import admin
 from django.contrib.auth.models import Group
 from django.db.models import Count
 from django.utils.translation import gettext_lazy as _
 
-from .models import Branch, Topic, TopicGroup
+from .models import Branch, Topic, TopicGroup, TeamMember, Testimonial, GraduateAchievement
+
+
+@admin.register(TeamMember)
+class TeamMemberAdmin(admin.ModelAdmin):
+    change_list_template = "admin/homepage_content_list.html"
+    list_display = ("full_name", "role", "position")
+    list_filter = ("role",)
+    search_fields = ("full_name", "position")
+
+
+@admin.register(Testimonial)
+class TestimonialAdmin(admin.ModelAdmin):
+    change_list_template = "admin/homepage_content_list.html"
+    list_display = ("full_name", "title", "rating")
+    search_fields = ("full_name", "text")
+
+
+@admin.register(GraduateAchievement)
+class GraduateAchievementAdmin(admin.ModelAdmin):
+    change_list_template = "admin/homepage_content_list.html"
+    list_display = ("full_name", "category", "achievement", "graduated_on", "is_published", "order")
+    list_editable = ("is_published", "order")
+    list_filter = ("is_published", "category")
+    search_fields = ("full_name", "achievement")
 
 # Permission-group editing is outside the school panel's current workflow.
 admin.site.unregister(Group)

@@ -1,0 +1,13 @@
+{% load i18n %}
+<section class="voices-section" id="reviews" aria-labelledby="voices-title">
+  <div class="wrap">
+    <div class="chapter">{% trans "O‘quvchilar fikri" %}</div>
+    <div class="community-heading"><h2 id="voices-title">{% trans "Eng yaxshi tavsiya —" %}<br><em>{% trans "o‘z tajribasi." %}</em></h2><p>{% trans "Darslar, instruktorlar va ilk mustaqil haydash. O‘quvchilarimizning o‘z so‘zlari bilan." %}</p></div>
+    {% if testimonials %}
+    <div class="voices-grid">{% for review in testimonials %}<figure class="voice-card"><div class="voice-rating"><i class="ti ti-star-filled" aria-hidden="true"></i><span>{{ review.rating }} / 5</span></div>{% if review.title %}<h3>{{ review.title }}</h3>{% endif %}<blockquote>{{ review.text|linebreaksbr }}</blockquote><figcaption>{% if review.image %}<img src="{{ review.image.url }}" alt="" loading="lazy" width="52" height="52">{% else %}<span class="voice-initial" aria-hidden="true">{{ review.full_name|first }}</span>{% endif %}<span><b>{{ review.full_name }}</b><small>{{ review.location }}</small></span></figcaption></figure>{% endfor %}</div>
+    {% else %}
+    <div class="voices-invite"><i class="ti ti-messages" aria-hidden="true"></i><div><h3>{% trans "Sizning tajribangiz biz uchun muhim." %}</h3><p>{% trans "Bizda o‘qiganmisiz? Darslar haqidagi fikringizni jamoamizga yuboring. Birinchi tavsiyangiz kimningdir birinchi qadamiga aylansin." %}</p></div><a class="btn btn--line" href="{% url 'contact' %}#write">{% trans "Fikr bildirish" %}</a></div>
+    {% endif %}
+    <div class="community-close"><span>{% trans "Sizning hikoyangiz nimadan boshlanadi?" %}</span><a class="link" href="#apply">{% trans "Keling, tanishamiz" %}</a></div>
+  </div>
+</section>

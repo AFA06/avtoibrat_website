@@ -76,6 +76,14 @@
           </a>
         </li>
 
+        {% if request.user.is_superuser %}
+        <li class="nav-item">
+          <a href="{% url 'admin:avto_graduateachievement_changelist' %}" class="nav-link {% if '/avto/graduateachievement/' in request.path or '/avto/teammember/' in request.path or '/avto/testimonial/' in request.path %}active{% endif %}">
+            <i class="nav-icon fas fa-globe"></i><p>Sayt kontenti</p>
+          </a>
+        </li>
+        {% endif %}
+
       </ul>
     </nav>
   </div>

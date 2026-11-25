@@ -2836,3 +2836,239 @@ msgstr "Дарс конспектлари"
 
 msgid "O‘qituvchi tanlagan aralash savollar jamlanmasi."
 msgstr "Ўқитувчи танлаган аралаш саволлар жамланмаси."
+
+#: templates/site/atlas/
+msgid "Amaliyot · Instruktorlar"
+msgstr "Амалиёт · Инструкторлар"
+
+#: templates/site/atlas/
+msgid "Avtomobilni his qilish va boshqarish"
+msgstr "Автомобилни ҳис қилиш ва бошқариш"
+
+#: templates/site/atlas/
+msgid "Avval tushunamiz. Keyin qo‘llaymiz."
+msgstr "Аввал тушунамиз. Кейин қўллаймиз."
+
+#: templates/site/atlas/
+msgid "Bilim. Amaliyot. Ishonch."
+msgstr "Билим. Амалиёт. Ишонч."
+
+#: templates/site/atlas/
+msgid "Birinchi darsdan"
+msgstr "Биринчи дарсдан"
+
+#: templates/site/atlas/
+msgid "Birinchi marta rulga o‘tirish hayajonli. Instruktor bilan oddiy harakatlardan murakkab yo‘l vaziyatlarigacha bosqichma-bosqich o‘rganing."
+msgstr "Биринчи марта рулга ўтириш ҳаяжонли. Инструктор билан оддий ҳаракатлардан мураккаб ёъл вазиятларигача босқичма-босқич ўрганинг."
+
+#: templates/site/atlas/
+msgid "Birinchi qadamni qo‘yish"
+msgstr "Биринчи қадамни қўйиш"
+
+#: templates/site/atlas/
+msgid "Bitiruvchilarimizning suratlari va sertifikat yutuqlari shu yerda e’lon qilinadi. O‘z yo‘lingizni bugun boshlang."
+msgstr "Битирувчиларимизнинг суратлари ва сертификат ютуқлари шу ерда эълон қилинади. Ўз ёълингизни бугун бошланг."
+
+#: templates/site/atlas/
+msgid "Biz bilan o‘rganing"
+msgstr "Биз билан ўрганинг"
+
+#: templates/site/atlas/
+msgid "Bizda o‘qiganmisiz? Darslar haqidagi fikringizni jamoamizga yuboring. Birinchi tavsiyangiz kimningdir birinchi qadamiga aylansin."
+msgstr "Бизда ўқиганмисиз? Дарслар ҳақидаги фикрингизни жамоамизга юборинг. Биринчи тавсиянгиз кимнингдир биринчи қадамига айлансин."
+
+#: templates/site/atlas/
+msgid "Bu devorda sizning ham hikoyangiz bo‘lsin."
+msgstr "Бу деворда сизнинг ҳам ҳикоянгиз бўлсин."
+
+#: templates/site/atlas/
+msgid "Bugun haydovchi."
+msgstr "Бугун ҳайдовчи."
+
+#: templates/site/atlas/
+msgid "Darslar, instruktorlar va ilk mustaqil haydash. O‘quvchilarimizning o‘z so‘zlari bilan."
+msgstr "Дарслар, инструкторлар ва илк мустақил ҳайдаш. Ўқувчиларимизнинг ўз сўзлари билан."
+
+#: templates/site/atlas/
+msgid "Eng yaxshi tavsiya —"
+msgstr "Энг яхши тавсия —"
+
+#: templates/site/atlas/
+msgid "Fikr bildirish"
+msgstr "Фикр билдириш"
+
+#: templates/site/atlas/
+msgid "Guvohnoma oling"
+msgstr "Гувоҳнома олинг"
+
+#: templates/site/atlas/
+msgid "Har bir bitiruvchining ortida mehnat, mashq va o‘ziga bo‘lgan ishonch bor. Bu yer — ularning yutuqlari uchun."
+msgstr "Ҳар бир битирувчининг ортида меҳнат, машқ ва ўзига бўлган ишонч бор. Бу ер — уларнинг ютуқлари учун."
+
+#: templates/site/atlas/
+msgid "Hayotiy vaziyatlar bilan tushuntirish"
+msgstr "Ҳаётий вазиятлар билан тушунтириш"
+
+#: templates/site/atlas/
+msgid "Instruktor"
+msgstr "Инструктор"
+
+#: templates/site/atlas/
+msgid "Instruktor bilan boshqaruv, parkovka va yo‘ldagi vaziyatlarni mashq qiling."
+msgstr "Инструктор билан бошқарув, парковка ва ёълдаги вазиятларни машқ қилинг."
+
+#: templates/site/atlas/
+msgid "Instruktorlar bilan tanishing"
+msgstr "Инструкторлар билан танишинг"
+
+#: templates/site/atlas/
+msgid "Jamoa bilan tanishing"
+msgstr "Жамоа билан танишинг"
+
+#: templates/site/atlas/
+msgid "Kecha o‘quvchi."
+msgstr "Кеча ўқувчи."
+
+#: templates/site/atlas/
+msgid "Keling, tanishamiz"
+msgstr "Келинг, танишамиз"
+
+#: templates/site/atlas/
+msgid "Keyingi yutuq — sizniki"
+msgstr "Кейинги ютуқ — сизники"
+
+#: templates/site/atlas/
+msgid "Kursni tugatish va haydovchilik guvohnomasini olish — alohida bosqichlar. Talablar tanlangan toifaga bog‘liq."
+msgstr "Курсни тугатиш ва ҳайдовчилик гувоҳномасини олиш — алоҳида босқичлар. Талаблар танланган тоифага боғлиқ."
+
+#: templates/site/atlas/
+msgid "Kursni yakunlang"
+msgstr "Курсни якунланг"
+
+#: templates/site/atlas/
+msgid "Maslahat oling. Sizga mos toifa va dars jadvalini birga tanlaymiz."
+msgstr "Маслаҳат олинг. Сизга мос тоифа ва дарс жадвалини бирга танлаймиз."
+
+#: templates/site/atlas/
+msgid "Maslahat olish"
+msgstr "Маслаҳат олиш"
+
+#: templates/site/atlas/
+msgid "Nazariya · O‘qituvchilar"
+msgstr "Назария · Ўқитувчилар"
+
+#: templates/site/atlas/
+msgid "Nazariyani o‘rganing"
+msgstr "Назарияни ўрганинг"
+
+#: templates/site/atlas/
+msgid "Onlayn testlar bilan mustahkamlash"
+msgstr "Онлайн тестлар билан мустаҳкамлаш"
+
+#: templates/site/atlas/
+msgid "O‘quv dasturi va yakuniy baholashni tugating. Kurs hujjatlari bo‘yicha ma’lumot oling."
+msgstr "Ўқув дастури ва якуний баҳолашни тугатинг. Курс ҳужжатлари бўйича маълумот олинг."
+
+#: templates/site/atlas/
+msgid "O‘quvchilar fikri"
+msgstr "Ўқувчилар фикри"
+
+#: templates/site/atlas/
+msgid "Parkovka va manevrlar"
+msgstr "Парковка ва маневрлар"
+
+#: templates/site/atlas/
+msgid "Qayerdan boshlashni biling. Har bir bosqichda bilim, amaliyot va keyingi qadam aniq."
+msgstr "Қаердан бошлашни билинг. Ҳар бир босқичда билим, амалиёт ва кейинги қадам аниқ."
+
+#: templates/site/atlas/
+msgid "Qoida ortidagi mantiqni anglang. Belgilar, chorrahalar va murakkab vaziyatlarni darsda birga tahlil qilamiz."
+msgstr "Қоида ортидаги мантиқни англанг. Белгилар, чорраҳалар ва мураккаб вазиятларни дарсда бирга таҳлил қиламиз."
+
+#: templates/site/atlas/
+msgid "Rasmiy tartib"
+msgstr "Расмий тартиб"
+
+#: templates/site/atlas/
+msgid "Rulga o‘tiring"
+msgstr "Рулга ўтиринг"
+
+#: templates/site/atlas/
+msgid "Savollar va xatolar ustida ishlash"
+msgstr "Саволлар ва хатолар устида ишлаш"
+
+#: templates/site/atlas/
+msgid "Sertifikat — bosib o‘tilgan yo‘l belgisi. Haqiqiy yutuq — xavfsiz va ishonchli haydash."
+msgstr "Сертификат — босиб ўтилган ёъл белгиси. Ҳақиқий ютуқ — хавфсиз ва ишончли ҳайдаш."
+
+#: templates/site/atlas/
+msgid "Shaharda xavfsiz harakatlanish"
+msgstr "Шаҳарда хавфсиз ҳаракатланиш"
+
+#: templates/site/atlas/
+msgid "Sizning hikoyangiz nimadan boshlanadi?"
+msgstr "Сизнинг ҳикоянгиз нимадан бошланади?"
+
+#: templates/site/atlas/
+msgid "Sizning tajribangiz biz uchun muhim."
+msgstr "Сизнинг тажрибангиз биз учун муҳим."
+
+#: templates/site/atlas/
+msgid "Sizning yo‘lingiz"
+msgstr "Сизнинг ёълингиз"
+
+#: templates/site/atlas/
+msgid "Tanishing"
+msgstr "Танишинг"
+
+#: templates/site/atlas/
+msgid "Vakolatli markazda nazariy va amaliy imtihonlardan o‘tib, guvohnomani rasmiylashtiring."
+msgstr "Ваколатли марказда назарий ва амалий имтиҳонлардан ўтиб, гувоҳномани расмийлаштиринг."
+
+#: templates/site/atlas/
+msgid "Yodlashdan"
+msgstr "Ёдлашдан"
+
+#: templates/site/atlas/
+msgid "Yoningizda instruktor. Rulda esa siz."
+msgstr "Ёнингизда инструктор. Рулда эса сиз."
+
+#: templates/site/atlas/
+msgid "Yo‘l qoidalarini tushuning, belgilarni o‘rganing va testlarda mashq qiling."
+msgstr "Ёъл қоидаларини тушунинг, белгиларни ўрганинг ва тестларда машқ қилинг."
+
+#: templates/site/atlas/
+msgid "Yutuqlar devori"
+msgstr "Ютуқлар девори"
+
+#: templates/site/atlas/
+msgid "ochiq yo‘llargacha."
+msgstr "очиқ ёълларгача."
+
+#: templates/site/atlas/
+msgid "o‘z tajribasi."
+msgstr "ўз тажрибаси."
+
+#: templates/site/atlas/
+msgid "toifa"
+msgstr "тоифа"
+
+#: templates/site/atlas/
+msgid "tushunishga."
+msgstr "тушунишга."
+
+#: templates/site/atlas/courses.html
+msgid "Transport tasvirlari — illyustratsiya"
+msgstr "Транспорт тасвирлари — иллюстрация"
+
+#: templates/site/atlas/courses.html
+msgid "Sahna yuklanmoqda"
+msgstr "Саҳна юкланмоқда"
+
+#: templates/site/atlas/courses.html
+msgid "Animatsiyani to‘xtatish"
+msgstr "Анимацияни тўхтатиш"
+
+#: templates/site/atlas/courses.html
+msgid "3D manbalar"
+msgstr "3D манбалар"

@@ -11,45 +11,10 @@
 {% include "site/atlas/lessons.html" %}
 {% include "site/atlas/signs.html" %}
 {% include "site/atlas/quiz.html" %}
-{% include "site/atlas/results.html" %}
-{% if team_members %}
-<section class="sec" aria-labelledby="team-title">
-    <div class="wrap">
-        <div class="sec__head">
-            <h2 id="team-title">{% trans "Sizga kim o‘rgatadi" %}</h2>
-            <p><a class="link" href="{% url 'team' %}">{% trans "Barcha instruktorlar" %}</a></p>
-        </div>
-        <div class="team">
-            {% for member in team_members %}
-            <article class="person">
-                <img src="{{ member.image.url }}" alt="{{ member.full_name }}" loading="lazy" width="360" height="300">
-                <h3>{{ member.full_name }}</h3>
-                <p>{{ member.position }}</p>
-            </article>
-            {% endfor %}
-        </div>
-    </div>
-</section>
-{% endif %}
-
-{% if testimonials %}
-<section class="sec" aria-labelledby="reviews-title">
-    <div class="wrap">
-        <div class="sec__head"><h2 id="reviews-title">{% trans "Bitiruvchilarimiz nima deydi" %}</h2></div>
-        <div class="reviews">
-            {% for review in testimonials %}
-            <figure class="review">
-                <blockquote>{{ review.text }}</blockquote>
-                <figcaption>
-                    <img src="{{ review.image.url }}" alt="" loading="lazy" width="44" height="44">
-                    <span><b>{{ review.full_name }}</b><small>{{ review.location }}</small></span>
-                </figcaption>
-            </figure>
-            {% endfor %}
-        </div>
-    </div>
-</section>
-{% endif %}
+{% include "site/atlas/roadmap.html" %}
+{% include "site/atlas/faculty.html" %}
+{% include "site/atlas/achievements.html" %}
+{% include "site/atlas/reviews.html" %}
 
 {% if faqs %}
 <section class="sec" id="faq" aria-labelledby="faq-title">
