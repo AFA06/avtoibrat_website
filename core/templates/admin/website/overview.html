@@ -1,0 +1,7 @@
+{% extends "admin/website/base.html" %}
+{% block website_content %}
+<header class="sd-head"><div><h1>Veb-saytni boshqarish</h1><p>Kerakli bo‘limni oching, ma’lumotni o‘zgartiring va «Saqlash» tugmasini bosing.</p></div></header>
+<div class="wa-notice"><i class="fas fa-check-circle"></i><div><b>O‘zgarishlar darhol saytda ko‘rinadi.</b><p>Rasmlarni oddiy telefoningizdan yuklashingiz mumkin. O‘lchamini tizim moslaydi.</p></div></div>
+{% if school %}<div class="wa-school"><div><small>HOZIRGI MA’LUMOTLAR</small><h2>{{ school.brand_name }}</h2><p>{{ school.phone }} · {{ school.address }}</p></div><a class="sd-btn sd-btn--ghost" href="{% url 'website:edit' 'school' %}">Ma’lumotlarni tahrirlash</a></div>{% endif %}
+<div class="wa-cards">{% for card in cards %}<a class="wa-card" href="{{ card.url }}"><span class="wa-card__icon"><i class="fas fa-{{ card.icon }}"></i></span><span><h2>{{ card.title }}</h2><p>{{ card.description }}</p>{% if card.count != None %}<small>{{ card.count }} ta yozuv</small>{% else %}<small>Ochish va tahrirlash</small>{% endif %}</span><i class="fas fa-chevron-right"></i></a>{% endfor %}</div>
+{% endblock %}

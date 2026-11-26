@@ -15,7 +15,7 @@
 {% if school %}
 <section class="sec">
     <div class="wrap mentor">
-        <img src="{% static school.photo %}" alt="{{ school.instructor_name }}" width="900" height="866">
+        <img src="{% if school.mentor_image %}{{ school.mentor_image.url }}{% else %}{% static school.photo %}{% endif %}" alt="{{ school.instructor_name }}" width="900" height="866">
         <div>
             <h2>{{ school.instructor_name }}</h2>
             <p class="mentor__role">{% trans "Maktab asoschisi, haydovchilik instruktori" %}</p>
@@ -37,9 +37,9 @@
         <div class="team">
             {% for member in team_members %}
             <article class="person">
-                <img src="{{ member.image.url }}" alt="{{ member.full_name }}" loading="lazy" width="360" height="300">
+                {% if member.image %}<img src="{{ member.image.url }}" alt="{{ member.full_name }}" loading="lazy" width="360" height="300">{% endif %}
                 <h3>{{ member.full_name }}</h3>
-                <p>{{ member.position }}</p>
+                <p>{{ member.position }}</p>{% if member.location %}<p>{{ member.location }}</p>{% endif %}{% if member.phone %}<p><a href="tel:{{ member.phone|cut:' ' }}">{{ member.phone }}</a></p>{% endif %}
                 {% if member.telegram or member.instagram %}
                 <div class="person__links">
                     {% if member.telegram %}<a href="{{ member.telegram }}" target="_blank" rel="noopener" aria-label="Telegram"><i class="ti ti-brand-telegram"></i></a>{% endif %}

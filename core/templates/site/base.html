@@ -23,7 +23,7 @@
 <header class="top" id="top">
     <div class="wrap top__inner">
         <a class="top__brand" href="{% url 'home' %}" aria-label="AvtoIbrat — {% trans 'bosh sahifa' %}">
-            <span class="brand-path" aria-hidden="true"></span><span class="atlas-word">Avtoibrat<span>.</span></span>
+            <span class="brand-path" aria-hidden="true"></span><span class="atlas-word">{{ school.brand_name|default:"Avtoibrat" }}<span>.</span></span>
         </a>
 
         <nav class="top__nav" id="top-nav" aria-label="{% trans 'Asosiy menyu' %}">
@@ -64,6 +64,7 @@
 
 <footer class="foot">
     <div class="wrap">
+        <div class="foot__name">{{ school.brand_name|default:"Avtoibrat" }}.</div>
         <div class="foot__grid">
             <div class="foot__brand">
 
@@ -98,7 +99,7 @@
             {% endif %}
         </div>
         <div class="foot__base">
-            <span>&copy; {% now "Y" %} AvtoIbrat</span>
+            <span>&copy; {% now "Y" %} {{ school.brand_name|default:"AvtoIbrat" }}</span>
             {% if school %}<span>{{ school.l_address }}</span>{% endif %}
         </div>
     </div>

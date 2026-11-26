@@ -1,6 +1,6 @@
 {% load i18n static %}
 <section class="pass" aria-labelledby="pass-title">
-  <picture><source media="(max-width: 650px)" srcset="{% static 'site/atlas/summit-mobile.webp' %}"><img class="pass-photo" src="{% static 'site/atlas/summit.webp' %}" width="2000" height="1333" alt="" fetchpriority="high"></picture>
+  {% if school.hero_background %}<img class="pass-photo" src="{{ school.hero_background.url }}" width="2000" height="1333" alt="" fetchpriority="high">{% else %}<picture><source media="(max-width: 650px)" srcset="{% static 'site/atlas/summit-mobile.webp' %}"><img class="pass-photo" src="{% static 'site/atlas/summit.webp' %}" width="2000" height="1333" alt="" fetchpriority="high"></picture>{% endif %}
   <div class="drive-view" data-car="{% static 'site/drive/gentra.glb' %}" aria-hidden="true"></div>
   <div class="pass-shade"></div>
   <div class="wrap pass-layout">

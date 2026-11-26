@@ -1,0 +1,3 @@
+<div class="wa-picture"><img data-image-preview {% if widget.is_initial %}src="{{ widget.value.url }}"{% elif widget.fallback %}src="{{ widget.fallback }}"{% else %}hidden{% endif %} alt="Rasm ko‘rinishi">
+{% if widget.is_initial and not widget.required %}<label class="wa-clear"><input type="checkbox" name="{{ widget.checkbox_name }}" id="{{ widget.checkbox_id }}"> Hozirgi rasmni olib tashlash</label>{% endif %}
+<input type="file" name="{{ widget.name }}"{% include "django/forms/widgets/attrs.html" %}></div>

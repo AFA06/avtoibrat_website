@@ -25,8 +25,11 @@ from avto.views import admin_login, set_site_language
 
 
 from avto.lecture_views import lecture_asset
+from avto.website_views import asset as website_asset
 
 urlpatterns = [
+    path("website-assets/<str:name>/", website_asset, name="website_asset"),
+    path("admin/website/", include("avto.website_urls")),
     path("lecture-assets/<str:name>/", lecture_asset, name="lecture_asset"),
     path('i18n/setlang/', set_site_language, name='set_language'),
     path('admin/students/', include('avto.student_urls')),

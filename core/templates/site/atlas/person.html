@@ -1,6 +1,6 @@
 {% load i18n %}
 <article class="faculty-person">
   {% if member.image %}<img src="{{ member.image.url }}" alt="{{ member.full_name }}" width="360" height="300" loading="lazy">{% endif %}
-  <div><span class="faculty-label">{% if member.role == 'teacher' %}{% trans "O‘qituvchi" %}{% else %}{% trans "Instruktor" %}{% endif %}</span><h3>{{ member.full_name }}</h3><p>{{ member.position }}</p>
+  <div><span class="faculty-label">{% if member.role == 'teacher' %}{% trans "O‘qituvchi" %}{% else %}{% trans "Instruktor" %}{% endif %}</span><h3>{{ member.full_name }}</h3><p>{{ member.position }}</p>{% if member.location %}<p>{{ member.location }}</p>{% endif %}{% if member.phone %}<p><a href="tel:{{ member.phone|cut:' ' }}">{{ member.phone }}</a></p>{% endif %}
   {% if member.telegram or member.instagram %}<div class="faculty-social">{% if member.telegram %}<a href="{{ member.telegram }}" target="_blank" rel="noopener" aria-label="{{ member.full_name }} — Telegram">Telegram</a>{% endif %}{% if member.instagram %}<a href="{{ member.instagram }}" target="_blank" rel="noopener" aria-label="{{ member.full_name }} — Instagram">Instagram</a>{% endif %}</div>{% endif %}</div>
 </article>

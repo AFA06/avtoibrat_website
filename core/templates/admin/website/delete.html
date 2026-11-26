@@ -1,0 +1,2 @@
+{% extends "admin/website/base.html" %}
+{% block website_content %}<section class="sd-panel wa-confirm"><i class="fas fa-trash-alt"></i><h1>Yozuvni o‘chirasizmi?</h1><h2>{{ obj }}</h2><p>Bu yozuv saytdan olib tashlanadi. O‘chirishni istamasangiz, ortga qayting.</p><form method="post">{% csrf_token %}<a class="sd-btn sd-btn--ghost" href="{% url 'website:list' kind %}">Ortga qaytish</a><button class="sd-btn wa-danger" type="submit">Ha, o‘chirish</button></form></section>{% endblock %}

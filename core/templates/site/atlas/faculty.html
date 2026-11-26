@@ -4,7 +4,7 @@
     <div class="chapter">{% trans "Biz bilan o‘rganing" %}</div>
     <div class="faculty-feature">
       <div class="faculty-copy"><span class="faculty-label">{% trans "Nazariya · O‘qituvchilar" %}</span><h2 id="teachers-title">{% trans "Yodlashdan" %}<br><em>{% trans "tushunishga." %}</em></h2><p>{% trans "Qoida ortidagi mantiqni anglang. Belgilar, chorrahalar va murakkab vaziyatlarni darsda birga tahlil qilamiz." %}</p><ul class="faculty-skills"><li>{% trans "Hayotiy vaziyatlar bilan tushuntirish" %}</li><li>{% trans "Savollar va xatolar ustida ishlash" %}</li><li>{% trans "Onlayn testlar bilan mustahkamlash" %}</li></ul><a class="link" href="{% url 'team' %}">{% trans "Jamoa bilan tanishing" %}</a></div>
-      <figure class="faculty-photo"><img src="{% static 'assets/images/resource/image-21.jpg' %}" width="570" height="500" loading="lazy" alt="{% trans 'Yo‘l belgilarini o‘rganish' %}"><figcaption><i class="ti ti-book" aria-hidden="true"></i>{% trans "Avval tushunamiz. Keyin qo‘llaymiz." %}</figcaption></figure>
+      <figure class="faculty-photo"><img src="{% if school.teacher_image %}{{ school.teacher_image.url }}{% else %}{% static 'assets/images/resource/image-21.jpg' %}{% endif %}" width="570" height="500" loading="lazy" alt="{% trans 'Yo‘l belgilarini o‘rganish' %}"><figcaption><i class="ti ti-book" aria-hidden="true"></i>{% trans "Avval tushunamiz. Keyin qo‘llaymiz." %}</figcaption></figure>
     </div>
     {% if teachers %}<div class="faculty-roster">{% for member in teachers %}{% include "site/atlas/person.html" %}{% endfor %}</div>{% endif %}
   </div>
@@ -12,7 +12,7 @@
 <section class="faculty-section faculty-section--drive" id="instructors" aria-labelledby="instructors-title">
   <div class="wrap">
     <div class="faculty-feature">
-      <figure class="faculty-photo"><img src="{% static 'assets/images/resource/image-13.jpg' %}" width="570" height="500" loading="lazy" alt="{% trans 'Instruktor bilan avtomobilda amaliy haydash darsi' %}"><figcaption><i class="ti ti-steering-wheel" aria-hidden="true"></i>{% trans "Yoningizda instruktor. Rulda esa siz." %}</figcaption></figure>
+      <figure class="faculty-photo"><img src="{% if school.instructor_image %}{{ school.instructor_image.url }}{% else %}{% static 'assets/images/resource/image-13.jpg' %}{% endif %}" width="570" height="500" loading="lazy" alt="{% trans 'Instruktor bilan avtomobilda amaliy haydash darsi' %}"><figcaption><i class="ti ti-steering-wheel" aria-hidden="true"></i>{% trans "Yoningizda instruktor. Rulda esa siz." %}</figcaption></figure>
       <div class="faculty-copy"><span class="faculty-label">{% trans "Amaliyot · Instruktorlar" %}</span><h2 id="instructors-title">{% trans "Har bir burilishda" %}<br><em>{% trans "ko‘proq ishonch." %}</em></h2><p>{% trans "Birinchi marta rulga o‘tirish hayajonli. Instruktor bilan oddiy harakatlardan murakkab yo‘l vaziyatlarigacha bosqichma-bosqich o‘rganing." %}</p><ul class="faculty-skills"><li>{% trans "Avtomobilni his qilish va boshqarish" %}</li><li>{% trans "Parkovka va manevrlar" %}</li><li>{% trans "Shaharda xavfsiz harakatlanish" %}</li></ul><a class="link" href="{% url 'team' %}">{% trans "Instruktorlar bilan tanishing" %}</a></div>
     </div>
     {% if instructors %}<div class="faculty-roster">{% for member in instructors %}{% include "site/atlas/person.html" %}{% endfor %}</div>{% endif %}

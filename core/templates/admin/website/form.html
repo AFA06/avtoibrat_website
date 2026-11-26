@@ -1,0 +1,12 @@
+{% extends "admin/website/base.html" %}
+{% block website_content %}
+<a class="sd-back" href="{% if singleton %}{% url 'website:overview' %}{% else %}{% url 'website:list' kind %}{% endif %}"><i class="fas fa-chevron-left"></i> Ortga</a>
+<header class="sd-head"><div><h1>{{ spec.title }}{% if not singleton %} · {% if obj %}Tahrirlash{% else %}Qo‘shish{% endif %}{% endif %}</h1><p>{{ spec.description }}</p></div><a class="sd-btn sd-btn--ghost" href="{{ public_url }}" target="_blank" rel="noopener">Saytda ko‘rish</a></header>
+{% if form.errors %}<div class="wa-error" role="alert"><b>Hali saqlanmadi.</b> Quyida belgilangan maydonlarni to‘g‘rilang.{{ form.non_field_errors }}</div>{% endif %}
+<form method="post" enctype="multipart/form-data" novalidate class="wa-form">
+{% csrf_token %}
+<section class="sd-panel wa-form-fields">{% for f in basic_fields %}{% include "admin/website/field.html" %}{% endfor %}</section>
+{% if translation_fields %}<details class="sd-panel wa-translations"{% if form.errors %} open{% endif %}><summary>Qo‘shimcha tillar · kirill va ruscha <small>Ixtiyoriy</small></summary><p>Bo‘sh qoldirilgan tarjimalar o‘rniga asosiy o‘zbekcha matn ishlatiladi.</p><div class="wa-form-fields">{% for f in translation_fields %}{% include "admin/website/field.html" %}{% endfor %}</div></details>{% endif %}
+<div class="wa-save"><span>Saqlaganingizdan so‘ng o‘zgarish saytda ko‘rinadi.</span><div><a class="sd-btn sd-btn--ghost" href="{% if singleton %}{% url 'website:overview' %}{% else %}{% url 'website:list' kind %}{% endif %}">Bekor qilish</a><button class="sd-btn sd-btn--primary" type="submit"><i class="fas fa-check"></i> Saqlash</button></div></div>
+</form>
+{% endblock %}

@@ -10,6 +10,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator, RegexVa
 from django.conf import settings
 
 from .storage import private_storage
+from .website_storage import WebsiteStorage
 from PIL import Image
 
 
@@ -45,7 +46,16 @@ def validate_video_file(video):
         raise ValidationError("Video hajmi 50MB dan oshmasligi kerak")
 
 
+class WebsiteUpload(models.Model):
+    name = models.CharField(max_length=80, unique=True)
+    data = models.BinaryField()
+
+
 class TeamMember(models.Model):
+    phone = models.CharField("Telefon", max_length=30, blank=True)
+    location = models.CharField("Manzil / filial", max_length=150, blank=True)
+    is_active = models.BooleanField("Saytda ko‘rsatish", default=True)
+    order = models.PositiveIntegerField("Tartib", default=0)
     role = models.CharField(
         max_length=12, choices=(("teacher", "O‘qituvchi"), ("instructor", "Instruktor")),
         default="instructor",
@@ -53,8 +63,7 @@ class TeamMember(models.Model):
     full_name = models.CharField(max_length=150)
     position = models.CharField(max_length=255)
     image = models.ImageField(
-        upload_to="team/",
-        validators=[validate_image_size]
+        upload_to="team/", storage=WebsiteStorage(), blank=True
     )
     telegram = models.URLField(blank=True, null=True)
     instagram = models.URLField(blank=True, null=True)
@@ -103,7 +112,13 @@ def _localized(obj, field):
 
 
 class SchoolProfile(models.Model):
-    """Everything the public site says about the school; one row, edited in the admin."""
+    """Public school details and editable section pictures."""
+    brand_name = models.CharField("Maktab nomi", max_length=80, default="Avtoibrat")
+    hero_background = models.ImageField("Bosh sahifa foni", upload_to="website/", storage=WebsiteStorage(), blank=True)
+    about_image = models.ImageField("Maktab haqida — rasm", upload_to="website/", storage=WebsiteStorage(), blank=True)
+    teacher_image = models.ImageField("Nazariya bo‘limi — rasm", upload_to="website/", storage=WebsiteStorage(), blank=True)
+    instructor_image = models.ImageField("Amaliyot bo‘limi — rasm", upload_to="website/", storage=WebsiteStorage(), blank=True)
+    mentor_image = models.ImageField("Asoschi rasmi", upload_to="website/", storage=WebsiteStorage(), blank=True)
     instructor_name = models.CharField("Instruktor ismi", max_length=120)
     headline = models.CharField("Bosh sarlavha", max_length=160)
     headline_kr = models.CharField("Bosh sarlavha (кирил)", max_length=160, blank=True)
@@ -204,8 +219,8 @@ class Testimonial(models.Model):
     location = models.CharField(max_length=150)
     title = models.CharField(max_length=255)
     text = models.TextField()
-    image = models.ImageField(upload_to="testimonials/")
-    rating = models.PositiveSmallIntegerField(default=5)
+    image = models.ImageField(upload_to="testimonials/", storage=WebsiteStorage(), blank=True)
+    rating = models.PositiveSmallIntegerField(default=5, validators=[MinValueValidator(1), MaxValueValidator(5)])
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -215,7 +230,7 @@ class Testimonial(models.Model):
 class GraduateAchievement(models.Model):
     """Public, school-approved graduate stories; never expose student account data."""
     full_name = models.CharField("Ism va familiya", max_length=150)
-    image = models.ImageField("Bitiruvchi rasmi", upload_to="graduates/")
+    image = models.ImageField("Bitiruvchi rasmi", upload_to="graduates/", storage=WebsiteStorage(), blank=True)
     category = models.CharField("Toifa", max_length=10)
     achievement = models.CharField("Yutuq", max_length=180)
     graduated_on = models.DateField("Bitirgan sana")
@@ -280,7 +295,7 @@ class ContactPerson(models.Model):
         verbose_name="Telegram havola"
     )
     image = models.ImageField(
-        upload_to="contacts/",
+        upload_to="contacts/", storage=WebsiteStorage(),
         blank=True,
         null=True
     )

@@ -126,8 +126,8 @@ def index(request):
         "school": SchoolProfile.current(),
         "courses": courses,
         "taught": {course.category for course in courses},
-        "teachers": TeamMember.objects.filter(role="teacher").order_by("pk")[:4],
-        "instructors": TeamMember.objects.filter(role="instructor").order_by("pk")[:4],
+        "teachers": TeamMember.objects.filter(role="teacher", is_active=True).order_by("order", "pk"),
+        "instructors": TeamMember.objects.filter(role="instructor", is_active=True).order_by("order", "pk"),
         "testimonials": Testimonial.objects.order_by("-created_at", "-pk")[:6],
         "graduates": GraduateAchievement.objects.filter(is_published=True)[:6],
         "faqs": FAQ.objects.filter(is_active=True)[:5],
@@ -199,7 +199,7 @@ def faq(request):
 def team(request):
     return render(request, "team.html", {
         "school": SchoolProfile.current(),
-        "team_members": TeamMember.objects.all(),
+        "team_members": TeamMember.objects.filter(is_active=True).order_by("order", "pk"),
     })
 
 

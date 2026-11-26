@@ -1,7 +1,7 @@
 {% extends "site/base.html" %}
 {% load i18n static avto_extras %}
 
-{% block title %}AvtoIbrat — {% trans "haydovchilik maktabi" %}{% endblock %}
+{% block title %}{{ school.brand_name|default:"AvtoIbrat" }} — {% trans "haydovchilik maktabi" %}{% endblock %}
 
 {% block content %}
 
