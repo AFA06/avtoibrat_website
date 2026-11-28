@@ -2,7 +2,7 @@
 {% block extrastyle %}{{ block.super }}<link rel="stylesheet" href="{% static 'admin/students.css' %}"><link rel="stylesheet" href="{% static 'admin/website.css' %}">{% endblock %}
 {% block page_content %}<div class="container-fluid"><div class="sd wa">
 {% include "admin/students/_messages.html" %}
-<nav class="wa-nav"><a href="{% url 'website:overview' %}"><i class="fas fa-globe"></i> Sayt kontenti</a><a href="{% url 'home' %}" target="_blank" rel="noopener">Saytni ochish <i class="fas fa-external-link-alt"></i></a></nav>
+{% block website_nav %}<a class="sd-back" href="{% url 'website:overview' %}"><i class="fas fa-arrow-left"></i> Sayt kontenti</a>{% endblock %}
 {% block website_content %}{% endblock %}
 </div></div>{% endblock %}
 {% block extrajs %}{{ block.super }}<script src="{% static 'admin/website.js' %}" defer></script>{% endblock %}

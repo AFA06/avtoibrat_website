@@ -29,7 +29,7 @@
 .sd-field textarea:focus { border-color: var(--sd-brand); box-shadow: 0 0 0 3px rgba(15,157,115,.15); }
 
 /* Exact assignment editor. */
-.as-editor { max-width: 1160px; }
+.as-editor { max-width: none; }
 .as-eyebrow { display: block; margin-bottom: 8px; color: var(--sd-brand); font-size: 11px; font-weight: 700; letter-spacing: .12em; }
 .as-step { padding: 24px; }
 .as-step h2 { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; font-size: 18px; }
