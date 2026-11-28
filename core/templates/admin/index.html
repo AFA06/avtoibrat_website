@@ -15,14 +15,14 @@
   </header>
 
   <div class="sd-stats sd-stats--4">
-    <a class="sd-stat sd-stat--link" href="{% url 'students:list' %}"><span class="sd-ico sd-ico--green"><i class="fas fa-user-graduate"></i></span><div><span>Talabalar</span><b>{{ students.total }}</b></div></a>
-    <div class="sd-stat"><span class="sd-ico sd-ico--blue"><i class="fas fa-user-check"></i></span><div><span>Faol akkauntlar</span><b>{{ students.active }}</b></div></div>
-    <div class="sd-stat"><span class="sd-ico sd-ico--amber"><i class="fas fa-hourglass-half"></i></span><div><span>7 kunda tugaydi</span><b>{{ students.expiring_count }}</b></div></div>
-    <div class="sd-stat"><span class="sd-ico sd-ico--red"><i class="fas fa-user-clock"></i></span><div><span>Muddati tugagan</span><b>{{ students.expired }}</b></div></div>
-    <div class="sd-stat"><span class="sd-ico sd-ico--violet"><i class="fas fa-clipboard-check"></i></span><div><span>Yakunlangan testlar</span><b>{{ tests_total }}</b></div></div>
-    <div class="sd-stat"><span class="sd-ico sd-ico--green"><i class="fas fa-bolt"></i></span><div><span>Bugungi testlar</span><b>{{ tests_today }}</b></div></div>
-    <div class="sd-stat"><span class="sd-ico sd-ico--red"><i class="fas fa-flag-checkered"></i></span><div><span>Real imtihonlar</span><b>{{ real_exams }}</b></div></div>
-    <div class="sd-stat"><span class="sd-ico sd-ico--gold"><i class="fas fa-bullseye"></i></span><div><span>To‘g‘ri javoblar ulushi</span><b>{% if accuracy is None %}—{% else %}{{ accuracy }}%{% endif %}</b></div></div>
+    <a class="sd-stat sd-stat--link" href="{% url 'students:list' %}"><i class="fas fa-user-graduate sd-ico sd-ico--green"></i><div><span>Talabalar</span><b>{{ students.total }}</b></div></a>
+    <div class="sd-stat"><i class="fas fa-user-check sd-ico sd-ico--blue"></i><div><span>Faol akkauntlar</span><b>{{ students.active }}</b></div></div>
+    <div class="sd-stat"><i class="fas fa-hourglass-half sd-ico sd-ico--amber"></i><div><span>7 kunda tugaydi</span><b>{{ students.expiring_count }}</b></div></div>
+    <div class="sd-stat"><i class="fas fa-user-clock sd-ico sd-ico--red"></i><div><span>Muddati tugagan</span><b>{{ students.expired }}</b></div></div>
+    <div class="sd-stat"><i class="fas fa-clipboard-check sd-ico sd-ico--violet"></i><div><span>Yakunlangan testlar</span><b>{{ tests_total }}</b></div></div>
+    <div class="sd-stat"><i class="fas fa-bolt sd-ico sd-ico--green"></i><div><span>Bugungi testlar</span><b>{{ tests_today }}</b></div></div>
+    <div class="sd-stat"><i class="fas fa-flag-checkered sd-ico sd-ico--red"></i><div><span>Real imtihonlar</span><b>{{ real_exams }}</b></div></div>
+    <div class="sd-stat"><i class="fas fa-bullseye sd-ico sd-ico--gold"></i><div><span>To‘g‘ri javoblar ulushi</span><b>{% if accuracy is None %}—{% else %}{{ accuracy }}%{% endif %}</b></div></div>
   </div>
 
   <div class="dash-grid">
